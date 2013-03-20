@@ -59,6 +59,10 @@
 	
 	
     function getPieChartConfig(renderId, title, data) {
+        data = cleanData(data); //remove common start from the titles
+
+        console.log("GetPieChartConfig - data:");
+        console.log(data);
         var config = {};
         config.chart = {
             renderTo: renderId,
@@ -117,8 +121,40 @@
 	maxHeight: 160 };
 
         config.series = [ { type: 'pie',
-            name: 'Proporción',
+            name: 'ProporciÃ³n',
             data: data } ];
 
         return config;
     };
+
+// We can improve the look of the chart if we remove superflous data. 
+function cleanData(data) {
+    console.log(data);
+    var start = sharedStart(data);
+    for (var i = 0; i < data.length; i++) {
+        data[i][0] = data[i][0].replace(start, "");
+        console.log(data[i][0]);
+    }
+    return data;
+ }
+
+function sharedStart(A) {
+    var tem1, tem2, s, A = A.slice(0).sort(function(a, b){
+        var nameA=a[0].toLowerCase(), nameB=b[0].toLowerCase()
+        if (nameA < nameB) //sort string ascending
+            return -1 
+        if (nameA > nameB)
+            return 1
+        return 0 //default return value (no sorting)
+    })
+   // var tem1, tem2, s, A = A.slice(0).sort();
+    tem1 = A[0][0];
+    s = tem1.length;
+    tem2 = A.pop()[0];
+    while(s && tem2.indexOf(tem1) == -1) {
+        tem1 = tem1.substring(0, --s);
+    }
+    console.log("SHARED START:" + tem1 );
+    return tem1;
+}
+
