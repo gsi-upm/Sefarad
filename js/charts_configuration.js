@@ -1,4 +1,5 @@
     function getBarChartConfig(renderId, title, cat, data) {
+      //data = cleanData(data); 
       var config = {};
       config.chart = {
         renderTo: renderId,
@@ -61,8 +62,6 @@
 function getPieChartConfig(renderId, title, data) {
    // format data
    data = cleanData(data); 
-   console.log("GetPieChartConfig - data:");
-   console.log(data);
    // Configuration
    var config = {};
    // chart 
@@ -76,13 +75,13 @@ function getPieChartConfig(renderId, title, data) {
       animation: {
          duration: 1000,
          easing: 'swing'	
-      }
+      },
    };
    // title
    config.title = { 
       margin: 0, 
       align: 'left',
-      text: title,
+      text: '<span class="piechart-title">' + title + '</span>',
       x: 4
    };
    // tooltip hover
@@ -122,10 +121,10 @@ function getPieChartConfig(renderId, title, data) {
       enabled: true,
       layout: 'vertical',
       align: 'left',
-      y:40,
+      y: 40,
       itemWidth: 100,
       verticalAlign: 'center',
-      maxHeight: 160 
+      maxHeight: 250 
    };
    // data
    config.series = [{ 
@@ -135,6 +134,88 @@ function getPieChartConfig(renderId, title, data) {
    }];
    return config;
 };
+
+
+function getLineChartConfig(renderId, title, data) {
+   // format data
+   data = cleanData(data); 
+   console.log("GetPieChartConfig - data:");
+   console.log(data);
+   // Configuration
+   var config = {};
+   // chart 
+   config.chart = {
+      renderTo: renderId,
+      backgroundColor: '#fff',
+      plotBackgroundColor: '#fff',
+      plotBorderWidth: null,
+      plotShadow: false,
+      height: 300,
+      animation: {
+         duration: 1000,
+         easing: 'swing'  
+      }
+   };
+   // title
+   config.title = { 
+      margin: 0, 
+      align: 'left',
+      text: '<span class="piechart-title">' + title + '</span>',
+      x: 4
+   };
+   // tooltip hover
+   config.tooltip = {
+      pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+      percentageDecimals: 1
+   };       
+   // plot options
+   config.plotOptions = {
+      pie: {
+         allowPointSelect: true,
+         cursor: 'pointer',
+         dataLabels: {
+            enabled: true
+         },
+         point: {
+            events: {
+               legendItemClick: function() {
+                  if (this.visible) {
+                     this['y_old'] = this.y;
+                     this.update(0, true, true);
+                  }
+                   else {
+                     this.update(this.y_old, true, true);
+                  }
+               }
+            }
+         },
+         series: {
+         animation: false //Problem only occurs when plotOptions animation:false
+        },          
+         showInLegend: true
+      }
+   };
+   // legend
+   config.legend = { 
+      enabled: true,
+      layout: 'vertical',
+      align: 'left',
+      y: 40,
+      itemWidth: 100,
+      verticalAlign: 'center',
+      maxHeight: 250 
+   };
+   // data
+   config.series = [{ 
+      type: 'pie',
+      name: 'Proporción',
+      data: data 
+   }];
+   return config;
+};
+
+/// UTILS ///
+
 
 // We can improve the look of the chart if we remove superflous data. 
 function cleanData(data) {
