@@ -109,6 +109,8 @@ languages =
 		piechartexp: "Representa el campo deseado en un gráfico tipo tarta",
 		barchart: "Gráfico de barras",
 		barchartexp: "Representa el campo deseado en un gráfico de barras",
+		linechart: "Gráfico lineal",
+		barchartexp: "Representa el campo linealmente",
 		sgvizler: "Estadísticas",
 		sgvizlerexp: "Crea gráficos con consultas SPARQL",
 		alreadyAdded: "Ya añadido",

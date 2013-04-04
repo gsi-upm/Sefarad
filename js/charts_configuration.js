@@ -136,9 +136,66 @@ function getPieChartConfig(renderId, title, data) {
 };
 
 
-function getLineChartConfig(renderId, title, data) {
+function getLineChartConfig(renderId, title, cat, data) {
+        //data = cleanData(data); 
+      var config = {};
+      config.chart = {
+        renderTo: renderId,
+        backgroundColor: '#fff',
+        plotShadow: false,
+        type: 'line',
+      };
+      config.tooltip = {
+
+      };        
+      config.title = { margin: 10, 
+       align: 'left',
+       text: title,
+       x: 15
+     };
+     config.xAxis = {
+      categories: cat,
+      labels: {
+        rotation: -45,
+        align: 'right',
+        style: {
+          fontSize: '13px',
+          fontFamily: 'Verdana, sans-serif'
+        }
+      }
+    };
+    config.yAxis = {
+      min: 0,
+      title: {
+        text: 'Coincidencias'
+      }
+    };
+
+    config.legend = { enabled: false };
+
+    config.series = [ { 
+     name: 'Population',
+     data: data,
+     dataLabels: {
+      enabled: true,
+      rotation: -90,
+      color: '#FFFFFF',
+      align: 'right',
+      x: -3,
+      y: 10,
+      formatter: function() {
+        return this.y;
+      },
+      style: {
+        fontSize: '13px',
+        fontFamily: 'Verdana, sans-serif'
+      }
+    }     
+  } ];
+
+  return config;
    // format data
-   data = cleanData(data); 
+  /* data = cleanData(data); 
    console.log("GetPieChartConfig - data:");
    console.log(data);
    // Configuration
@@ -211,7 +268,7 @@ function getLineChartConfig(renderId, title, data) {
       name: 'Proporción',
       data: data 
    }];
-   return config;
+   return config;*/
 };
 
 /// UTILS ///

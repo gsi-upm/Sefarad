@@ -873,8 +873,8 @@ function InitViewModel() {
 	/** Draw chart widgets */
 	self.drawcharts = function(){
 		$.each(self.activeWidgets(), function(index, item) {
-			console.log(item.type());
-			if(item.type()=="piechart" || item.type()=="barchart" || item.type()=="linechart"){ // NEW_WIDGET
+			console.log("painting:" + item.type());
+			if(item.type()=="piechart" || item.type()=="barchart" || item.type()=="linechart" ){ // NEW_WIDGET 
 				paintHighChart(item.field(), item.id(), item.type());
 			}
 		});
@@ -948,6 +948,7 @@ function InitViewModel() {
 		var id = Math.floor(Math.random() * 10001);
 
 		self.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable("Resultados"), "type": ko.observable("resultswidget"), "collapsed": ko.observable(false), "layout": ko.observable("vertical"), "showWidgetConfiguration": ko.observable(true)});
+
 	};
 
 	self.addResultsGridWidget = function() {
@@ -1256,7 +1257,7 @@ function InitViewModel() {
 
 					/** Cargamos la configuración para el core dado */
 					loadCore();		
-					// TODO templateWidgetsLeft.push({"id": 2,"title": "Gráfico", "type": "linechart", "field": 'hasPolarity',"collapsed": ko.observable(false)});
+					//templateWidgetsLeft.push({"id":2,"title": "Gráfico", "type": "linechart", "field": 'hasPolarity',"collapsed": ko.observable(false)});
 	
 				});
 
@@ -1949,7 +1950,7 @@ function paintHighChart(field, id, typeofchart) {
 		var cat = [];
 		var temp = [];
 
-		if(typeofchart=="barchart"){
+		if (typeofchart == "linechart") { // NEW_WIDGET
 
 			for(var i=0, l = t.length; i<l; i++){
 				cat.push(t[i].facet);
@@ -1957,13 +1958,38 @@ function paintHighChart(field, id, typeofchart) {
 			}
 
 			var stringid = id.toString();
+			console.log("linechart id" + stringid);
+
+			var final_config = getLineChartConfig(stringid, field, cat, temp);
+			        console.log("JSON: " + JSON.stringify(final_config));
+        console.log("Render to element with ID : " + final_config.chart.renderTo);
+        console.log("Number of matching dom elements : " + $("#" + final_config.chart.renderTo).length);
+
+			new Highcharts.Chart(final_config);
+
+		}
+
+		if(typeofchart=="barchart" ){ 
+
+			for(var i=0, l = t.length; i<l; i++){
+				cat.push(t[i].facet);
+				temp.push(t[i].count);
+			}
+
+			var stringid = id.toString();
+			console.log("barchart id" + stringid);
 
 			var final_config = getBarChartConfig(stringid, field, cat, temp);
+			        console.log("JSON: " + JSON.stringify(final_config));
+        console.log("Render to element with ID : " + final_config.chart.renderTo);
+        console.log("Number of matching dom elements : " + $("#" + final_config.chart.renderTo).length);
+
 			new Highcharts.Chart(final_config);
 		}
 
-		if(typeofchart=="piechart" || typeofchart=="linechart"){// NEW_WIDGET
+		
 
+		if(typeofchart=="piechart" ){
 			for(var i=0, l = t.length; i<l; i++){
 				temp.push([t[i].facet,t[i].count]); 
 			}
@@ -2071,7 +2097,7 @@ ko.bindingHandlers.sortableList = {
 			if(tipo=="resultstats"){
 				vm.redraw();
 			}
-			if(tipo=="piechart" || tipo=="barchart"  || tipo=="linechart"){
+			if( tipo=="linechart" || tipo=="piechart" || tipo=="barchart"  ){
 				vm.drawcharts();					
 			}
 

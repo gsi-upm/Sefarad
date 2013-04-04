@@ -437,6 +437,25 @@ data-bind="text: lang().addWidget2"></span></button>
 					</div>
             </div>	
 
+
+             <div class="box cat3">
+				 <h1 data-bind="text: lang().linechart"></h1>
+				   <table id="wrapper">
+					<tr>
+					 <td><img src="img/line_widget.png" alt="Panelbar"/></td>
+				      </tr>
+				   </table>				 
+					<div class="mask">
+						<h2 data-bind="text: lang().linechart"></h2>
+						<p data-bind="text: lang().linechartexp"></p>
+						<select data-bind="options: $root.dataColumns, value: newLineChartValue, optionsCaption: 
+lang().fieldcaption"></select>
+						<button class="button" data-bind="click: $root.addLineChartWidget, enable: newLineChartValue()!=undefined"><span 
+data-bind="text: lang().addWidget2"></span></button>						
+
+					</div>
+            </div>	
+
              <div class="box cat3">
 				 <h1 data-bind="text: lang().sgvizler"></h1>
 				 
@@ -928,6 +947,8 @@ currentTweets }"></table>
 			{{else type()=="barchart"}}
 				<div data-bind="attr: {'id': id }"></div>
 			{{else type()=="sgvizler"}}
+				<div data-bind="attr: { 'id': id }"></div>
+			{{else type()=="linechart"}}
 				<div data-bind="attr: { 'id': id }"></div>
 			{{/if}}
 			</div></li>
