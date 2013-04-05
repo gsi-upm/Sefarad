@@ -1961,9 +1961,6 @@ function paintHighChart(field, id, typeofchart) {
 			console.log("linechart id" + stringid);
 
 			var final_config = getLineChartConfig(stringid, field, cat, temp);
-			        console.log("JSON: " + JSON.stringify(final_config));
-        console.log("Render to element with ID : " + final_config.chart.renderTo);
-        console.log("Number of matching dom elements : " + $("#" + final_config.chart.renderTo).length);
 
 			new Highcharts.Chart(final_config);
 
@@ -1980,10 +1977,6 @@ function paintHighChart(field, id, typeofchart) {
 			console.log("barchart id" + stringid);
 
 			var final_config = getBarChartConfig(stringid, field, cat, temp);
-			        console.log("JSON: " + JSON.stringify(final_config));
-        console.log("Render to element with ID : " + final_config.chart.renderTo);
-        console.log("Number of matching dom elements : " + $("#" + final_config.chart.renderTo).length);
-
 			new Highcharts.Chart(final_config);
 		}
 

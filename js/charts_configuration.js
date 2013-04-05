@@ -1,5 +1,5 @@
     function getBarChartConfig(renderId, title, cat, data) {
-      //data = cleanData(data); 
+      //cleanBarCat(cat);
       var config = {};
       config.chart = {
         renderTo: renderId,
@@ -61,7 +61,7 @@
 
 function getPieChartConfig(renderId, title, data) {
    // format data
-   data = cleanData(data); 
+   //data = cleanPieData(data); 
    // Configuration
    var config = {};
    // chart 
@@ -137,7 +137,10 @@ function getPieChartConfig(renderId, title, data) {
 
 
 function getLineChartConfig(renderId, title, cat, data) {
-        //data = cleanData(data); 
+        //data = cleanPieData(data); 
+     parseLinechartData(cat,data);
+     // data = x.d;
+      //cat = x.c;
       var config = {};
       config.chart = {
         renderTo: renderId,
@@ -195,7 +198,7 @@ function getLineChartConfig(renderId, title, cat, data) {
 
   return config;
    // format data
-  /* data = cleanData(data); 
+  /* data = cleanPieData(data); 
    console.log("GetPieChartConfig - data:");
    console.log(data);
    // Configuration
@@ -275,19 +278,32 @@ function getLineChartConfig(renderId, title, cat, data) {
 
 
 // We can improve the look of the chart if we remove superflous data. 
-function cleanData(data) {
-  console.log(data);
-  var start = sharedStart(data);
+function cleanPieData(data) {
+  var facets = [];
+  for (var i = 0; i < data.length; i++) {
+    facets.push(data[i][0]);
+  }
+  var start = sharedStart(facets);
   for (var i = 0; i < data.length; i++) {
     data[i][0] = data[i][0].replace(start, "");
-    console.log(data[i][0]);
   }
   return data;
 }
 
+function cleanBarCat(cat) {
+  console.log("clean bar cat");
+  console.log(cat);
+  var start = sharedStart(cat);
+  for (var i = 0; i < cat.length; i++) {
+    console.log(cat[i]);
+    cat[i] = cat[i].replace(start, "");
+    console.log(cat[i]);
+  }
+}
+
 function sharedStart(A) {
   var tem1, tem2, s, A = A.slice(0).sort(function(a, b){
-    var nameA=a[0].toLowerCase(), nameB=b[0].toLowerCase()
+    var nameA=a.toLowerCase(), nameB=b.toLowerCase()
         if (nameA < nameB) //sort string ascending
           return -1 
         if (nameA > nameB)
@@ -295,13 +311,34 @@ function sharedStart(A) {
         return 0 //default return value (no sorting)
       })
    // var tem1, tem2, s, A = A.slice(0).sort();
-   tem1 = A[0][0];
+   tem1 = A[0];
    s = tem1.length;
-   tem2 = A.pop()[0];
+   tem2 = A.pop();
    while(s && tem2.indexOf(tem1) == -1) {
     tem1 = tem1.substring(0, --s);
   }
-  console.log("SHARED START:" + tem1 );
+  console.log("SHARED START2:" + tem1 );
   return tem1;
 }
+
+function parseLinechartData(cat, data) {
+  console.log(cat);
+  console.log(data);
+
+   for (var i = 0; i < cat.length; i++) {
+      var d = new Date(cat[i]);
+      cat[i] = d.getDate() + "/" + d.getMonth()+1 + "/" + d.getFullYear();
+   }
+  for (var i = 0; i < data.length; i++) {
+    var index = cat.indexOf(cat[i]);
+    if (index >= 0 && index != i) {
+      data[index] += data[i];
+      data.splice(i, i+1);
+      cat.splice(i, i+1);
+      i--;
+    }
+  }
+}
+
+
 
