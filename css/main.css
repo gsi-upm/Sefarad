@@ -911,3 +911,21 @@ background-color: #F3F781;
   padding-top: 10px;
   margin-right: 5px;
 }
+
+svg {
+  font: 10px sans-serif;
+}
+
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}

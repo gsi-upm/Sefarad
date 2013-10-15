@@ -30,7 +30,10 @@ var widgetA = {
 			widgetA.paint(field, id, widgetA.type);
 		},
 
-		paint: function (field, id, type) {
+		// paint: function (field, id, type) {
+		paint: function (id) {
+			var field = "location";
+
 			var t = ko.utils.getDataColumns(field);
 	
 			if(t==undefined){

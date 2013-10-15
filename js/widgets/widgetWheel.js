@@ -15,15 +15,15 @@ var widgetWheel = {
 			var id = 'A' + Math.floor(Math.random() * 10001);
 			var field = widgetWheel.field || "";
 			vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetWheel.name), "type": ko.observable(widgetWheel.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
-			
+
 			widgetWheel.paint(field, id, widgetWheel.type);
 		},
 
 		paint: function (field, id, type) {
 
-			if (vm.filteredData().length > 5) {
+			if (vm.filteredData().length > 8) {
 				console.log("Demasiados resultados");
-				
+
 				d3.select('#'+id).select('svg').remove();
 				d3.select('#'+id).select('#tooltip').remove();
 
@@ -46,9 +46,9 @@ var widgetWheel = {
 
 					var one;
 					console.log(item.location()[0]);
-					var location = new String(item.location()[0].substring(1, item.location()[0].length - 1));
+					var location = new String(item.location()[0]);
 					var resultOne = $.grep(array, function(e) { return e["name"].valueOf() == location.valueOf(); });
-					
+
 					if (resultOne.length == 0) {
 						one = new Object();
 						one["name"] = location;
@@ -116,8 +116,8 @@ var widgetWheel = {
 					updateWheel(JSON.stringify(array));
 					// $("#vis").fadeIn();
 				},300);
-			
-		
+
+
 				// var arrayBarras = new Array();
 				// $.each(self.filteredData(), function(index, item) {
 				// 	var value = parseFloat(item. polarityValue());
@@ -125,8 +125,8 @@ var widgetWheel = {
 				// 		arrayBarras.push(value);
 				// 	}
 				// });
-		
-		
+
+
 
 				// Coffee Flavour Wheel by Jason Davies,
 				// http://www.jasondavies.com/coffee-wheel/
@@ -141,35 +141,35 @@ var widgetWheel = {
 						y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]),
 						padding = 5,
 						duration = 2000;
-				
+
 					d3.select('#'+id).select('svg').remove();
 					d3.select('#'+id).select('#tooltip').remove();
-					
+
 					var div = d3.select('#'+id);
 					div.attr("align", "center");
-				
-				
+
+
 					var vis = div.append("svg")
 						.attr("width", width + padding * 2)
 						.attr("height", height + padding * 2)
 						.append("g")
 						.attr("transform", "translate(" + [radius + padding, radius + padding] + ")");
-				
-				
+
+
 					var partition = d3.layout.partition()
 						.sort(null)
 						.value(function(d) { return 5.8 - d.depth; });
-				
+
 					var arc = d3.svg.arc()
 						.startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
 						.endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
 						.innerRadius(function(d) { return Math.max(0, d.y ? y(d.y) : d.y); })
 						.outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
-				
+
 					var json = JSON.parse(jsonString);
 					/// d3.json(jsonString, function(json) {
 					nodes = partition.nodes({children: json});
-				
+
 					var path = vis.selectAll("path").data(nodes);
 					path.enter().append("path")
 						.attr("id", function(d, i) { return "path-" + i; })
@@ -178,9 +178,9 @@ var widgetWheel = {
 						.style("fill", colour)
 						.style("stroke", "#000")
 						.on("click", click).on("mouseover",mouseover);
-				
+
 					var text = vis.selectAll("text").data(nodes);
-					  
+
 					var textEnter = text.enter().append("text")
 						.style("fill-opacity", 1)
 						.style("fill", function(d) {
@@ -197,7 +197,7 @@ var widgetWheel = {
 							return "rotate(" + rotate + ")translate(" + (y(d.y) + padding) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
 						})	
 						.on("click", click).on("mouseover",mouseover);
-		  
+
 					textEnter.append("tspan")
 						.attr("x", 0)
 						.text(function(d) { 
@@ -209,14 +209,14 @@ var widgetWheel = {
 						});
 
 					$('#'+id).append('<div id="tooltip">Seleccione un banco para ver su contenido.</div>');
-		
-		
-		
+
+
+
 					/*textEnter.append("tspan")
 					  .attr("x", 0)
 					  .attr("dy", "1em")
 					  .text(function(d) { return d.depth ? d.name.split(" ")[1] || "" : ""; });*/
-					  
+
 					function mouseover(d) {
 						console.log(d);
 						console.log('mousevoer depth: ' + d.depth);
@@ -229,7 +229,7 @@ var widgetWheel = {
 							$("#tooltip").append("<br>");
 						}
 					}
-				  
+
 					function click(d) {
 					  	if(d.depth < 3){			
 							path.transition()
@@ -261,12 +261,12 @@ var widgetWheel = {
 								});
 						}
 					  }
-					  
-					  
+
+
 					//});
-				
-				
-						
+
+
+
 					function isParentOf(p, c) {
 						if (p === c) return true;
 						if (p.children) {
@@ -276,9 +276,9 @@ var widgetWheel = {
 					  	}
 						return false;
 					}
-				
+
 					function colour(d) {
-						
+
 						switch (d.depth) {
 							case 0: 
 								return "#012DAC";
@@ -293,13 +293,13 @@ var widgetWheel = {
 						// 	var colours = d.children.map(colour),
 						// 		a = d3.hsl(colours[0]),
 						// 		b = d3.hsl(colours[1]);
-								
+
 						// 	// L*a*b* might be better here...
 						// 	return d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2);
 						// }
 						// return d.colour || "#fff";
 					}
-				
+
 					// Interpolate the scales!
 					function arcTween(d) {
 						var my = maxY(d),
@@ -310,11 +310,11 @@ var widgetWheel = {
 							return function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); return arc(d); };
 						};
 					}
-				
+
 					function maxY(d) {
 						return d.children ? Math.max.apply(Math, d.children.map(maxY)) : d.y + d.dy;
 					}
-				
+
 					// http://www.w3.org/WAI/ER/WD-AERT/#color-contrast
 					function brightness(rgb) {
 						return rgb.r * .299 + rgb.g * .587 + rgb.b * .114;

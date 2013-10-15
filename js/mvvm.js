@@ -18,6 +18,7 @@
 
 /** YOU MUST EDIT THIS LINE */
 var serverURL = "http://localhost:8080/LMF/";
+//var serverURL = "http://localhost:8080/LMF-3.0.0/"
 //var serverURL = "http://shannon.gsi.dit.upm.es/episteme/lmf/";
 //var serverURL = "http://minsky.gsi.dit.upm.es/episteme/tomcat/LMF/";
 
@@ -963,10 +964,10 @@ function InitViewModel() {
 
 			for (var i = 0; i < widgetX.length; i++) {
 				if (item.type() == widgetX[i].type) {
-					widgetX[i].paint(item.field(), item.id(), item.type());
+					// widgetX[i].paint(item.field(), item.id(), item.type());
+					widgetX[i].paint(item.id());
 				}
 			}
-
 
 		});
 
@@ -1494,14 +1495,14 @@ function InitViewModel() {
 			cache:false,
 			dataType:'json',
 			success: function(){
-			loadConfiguration();
-		},
-		error: function(){
-			console.log("ERROR");
-			self.page(2); 
-			errorinroute = true;
-			setupMethod();
-		}
+				loadConfiguration();
+			},
+			error: function(){
+				console.log("ERROR");
+				self.page(2); 
+				errorinroute = true;
+				setupMethod();
+			}
 		});
 
 	};
