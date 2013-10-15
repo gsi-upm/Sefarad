@@ -5,9 +5,12 @@
 	<head>
 		<script type="text/javascript" src="js/widgets/widgetA.js"></script>
 		<script type="text/javascript" src="js/widgets/widgetB.js"></script>
+		<script type="text/javascript" src="js/widgets/widgetBarras.js"></script>
 		<script type="text/javascript" src="js/widgets/widgetD3.js"></script>
+		<script type="text/javascript" src="js/widgets/widgetWheel.js"></script>
+		<script type="text/javascript" src="js/widgets/widgetWheelTwitter.js"></script>
 		<script type="text/javascript">
-			var widgetX = [widgetA, widgetB, widgetD3];
+			var widgetX = [widgetA, widgetB, widgetBarras, widgetD3, widgetWheel, widgetWheelTwitter];
 		</script>
 		<meta charset="utf-8" />
 		
@@ -141,7 +144,7 @@ $(document).ready(function() {
 
           		<!-- /ko -->
 
-				<div id="logotext"><span data-bind="text: pageTitle"></span></div>
+				<div id="logotext"><img src="img/ftt_header.png"><span data-bind="text: pageTitle"></span></div>
 				</div>
 
 				<!-- Search and help area -->
@@ -640,19 +643,26 @@ templateOptions: { parentList: activeWidgetsRightTab1} }, sortableList: activeWi
 </div>
 
 <!-- footer (only visible in main page) -->
-<div class="footer" data-bind="visible: page() == 0" >
+<div class="footer" data-bind="visible: page() == 0" style="text-align: center">
 
 	<hr>
 	</br>
 	<div style="display:inline">
-	<img height="100" width="552" src="img/Logo5.png" alt="SEFARAD"/>
-	
 	<!--<img src="img/logo2.png" style="float: right;"/>-->
 	<a href="http://gsi.dit.upm.es/" target="_blank">
+		<img height="100px" src="img/logo_gsi.png" alt="GSI-UPM"/>
 	<!--
 	<div class="gsiLogo" title="Grupo de Sistemas Inteligentes" ></div>
 	-->
 	</a>
+	
+	<img src="img/logoAvanza.png" alt="Plan Avanza 2">
+
+	<a href="http://www.paradigmatecnologico.com/">
+		<img src="img/paradigma.jpg" alt="Paradigma Tecnológico">
+	</a>
+
+
 	</div>
 
 </div>

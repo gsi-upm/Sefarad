@@ -882,6 +882,24 @@ body.editing #configuration_button:hover {
   box-shadow: -2px 0px 0 #FFF;
 }
 
+.bar {
+  fill: steelblue;
+}
+
+.bar.positive {
+  fill: #04B404;
+}
+
+.bar.negative {
+  fill: brown;
+}
+
+#tooltip {
+margin: 10px;
+padding: 10px;
+background-color: #F3F781;
+}
+
 .axis path,
 .axis line {
   fill: none;
@@ -889,10 +907,7 @@ body.editing #configuration_button:hover {
   shape-rendering: crispEdges;
 }
 
-.bar {
-  fill: steelblue;
-}
-
-.x.axis path {
-  display: none;
+#logotext img {
+  padding-top: 10px;
+  margin-right: 5px;
 }

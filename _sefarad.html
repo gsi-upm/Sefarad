@@ -135,7 +135,7 @@ $(document).ready(function() {
 
           		<!-- /ko -->
 
-				<div id="logotext"><span data-bind="text: pageTitle"></span></div>
+				<div id="logotext"><img src="img/ftt_header.png"><span data-bind="text: pageTitle"></span></div>
 				</div>
 
 				<!-- Search and help area -->
@@ -634,19 +634,26 @@ templateOptions: { parentList: activeWidgetsRightTab1} }, sortableList: activeWi
 </div>
 
 <!-- footer (only visible in main page) -->
-<div class="footer" data-bind="visible: page() == 0" >
+<div class="footer" data-bind="visible: page() == 0" style="text-align: center">
 
 	<hr>
 	</br>
 	<div style="display:inline">
-	<img height="100" width="552" src="img/Logo5.png" alt="SEFARAD"/>
-	
 	<!--<img src="img/logo2.png" style="float: right;"/>-->
 	<a href="http://gsi.dit.upm.es/" target="_blank">
+		<img height="100px" src="img/logo_gsi.png" alt="GSI-UPM"/>
 	<!--
 	<div class="gsiLogo" title="Grupo de Sistemas Inteligentes" ></div>
 	-->
 	</a>
+	
+	<img src="img/logoAvanza.png" alt="Plan Avanza 2">
+
+	<a href="http://www.paradigmatecnologico.com/">
+		<img src="img/paradigma.jpg" alt="Paradigma Tecnológico">
+	</a>
+
+
 	</div>
 
 </div>
