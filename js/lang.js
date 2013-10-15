@@ -117,10 +117,10 @@ languages =
 		resultsverticalexp: "",
 		resultsgrid: "Resultados (grid)",
 		resultsgridexp: "",
-		barchartd3: "Gráfico de barras con d3.js",
-		barchartd3exp: "Representa el campo seleccionado en un gráfico de barras.",
 		
 		addSgvizlerWidget: "Crea un gráfico",
+
+		widgetAAname: "widgetAA",
 		
         },
         {

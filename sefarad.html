@@ -76,6 +76,11 @@
 		<link rel="stylesheet" type="text/css" href="http://knockoutjs.com/examples/resources/twitterExample.css">
 		<script type='text/javascript' src="js/twitterApi.js"></script>
 
+		<!-- New Widgets -->
+		<script type="text/javascript" src="js/widgets/widgetA.js"></script>
+		<script type="text/javascript" src="js/widgets/widgetB.js"></script>
+		<script type="text/javascript" src="js/widgets/widgetD3.js"></script>
+
 <script type="text/javascript" charset="UTF-8">
 
 $(document).ready(function() {
@@ -96,7 +101,7 @@ $(document).ready(function() {
 	$('#dvLoading').fadeOut(500);
 	$("#configuration_button").animate({ right: "-120px" }, 200);
 
-	initIsotopeAndWizards();
+	//initIsotopeAndWizards();
 		
 });	
 
@@ -130,9 +135,7 @@ $(document).ready(function() {
 		
 				<!-- Top bar logos & title -->
 				<div id="logos" data-bind="visible: !showSparqlPanel()">
-          		<!-- ko if: logoPath != undefined -->
-          			<img id="logoimage" src="img/default.png" alt="Logo" data-bind="visible: logoPath, attr: {src: logoPath}"/>
-          		<!-- /ko -->
+          		
          		<!-- ko if: logoPath == undefined -->
 
           		<!-- /ko -->
@@ -433,26 +436,10 @@ data-bind="text: lang().addWidget2"></span></button>
 
 					</div>
             </div>
-
-            <div class="box cat3">
-				 <h1 data-bind="text: lang().barchartd3"></h1>
-				   <table id="wrapper">
-					<tr>
-					 <td><img src="img/barchartD3.png" alt="Panelbar"/></td>
-				      </tr>
-				   </table>				 
-					<div class="mask">
-						<h2 data-bind="text: lang().barchartd3"></h2>
-						<p data-bind="text: lang().barchartd3exp"></p>
-						<select data-bind="options: $root.dataColumns, value: newBarChartD3Value, optionsCaption: 
-						lang().fieldcaption"></select>
-						<button class="button" data-bind="click: $root.addBarChartD3Widget, enable: newBarChartD3Value()!=undefined"><span data-bind="text: lang().addWidget2"></span></button>						
-
-					</div>
-            </div>		
-
-
-
+            
+            <div data-bind="template: { name: 'new-widgets-template', foreach: newWidgets }"></div>
+			  
+			
 			</div>
 			</div>		
 			<!-- wizard end -->
@@ -661,7 +648,9 @@ templateOptions: { parentList: activeWidgetsRightTab1} }, sortableList: activeWi
 	
 	<!--<img src="img/logo2.png" style="float: right;"/>-->
 	<a href="http://gsi.dit.upm.es/" target="_blank">
+	<!--
 	<div class="gsiLogo" title="Grupo de Sistemas Inteligentes" ></div>
+	-->
 	</a>
 	</div>
 
@@ -924,6 +913,8 @@ id="contador"><p data-bind="text: $root.numberOfResults"></p></div></div>
 				<div data-bind="attr: {'id': id }"></div>
 			{{else type()=="sgvizler"}}
 				<div data-bind="attr: { 'id': id }"></div>
+			{{else}}
+				<div data-bind="attr: { 'id': id }"></div>
 			{{/if}}
 			</div></li>
 		{{/if}}
@@ -1018,6 +1009,23 @@ $parent.id(), id, name())"></a></div>
 				<p data-bind="text: $data[$root.resultsLayout()[2].Value()].value"></p>
 			{{/if}}
 			<hr>
+		</script>
+
+		<script type="text/html" id="new-widgets-template">
+			<div class="box cat4">
+				 <h1 data-bind="text: $data.name"></h1>
+				   <table id="wrapper">
+					<tr>
+					 <td><img data-bind="attr:{src: $data.img}" alt="Panelbar"/></td>
+				      </tr>
+				   </table>				 
+					<div class="mask">
+						<h2 data-bind="text: $data.name"></h2>
+						<p data-bind="text: $data.description"></p>
+						<a href="#" data-bind="click: $data.render"><button class="button">Añadir</button></a>
+
+					</div>
+            </div>	
 		</script>
 	
 	<!-- end templates -->

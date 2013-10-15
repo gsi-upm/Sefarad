@@ -124,6 +124,71 @@ function InitViewModel() {
 	self.newPieChartValue = ko.observable();
 	self.newBarChartValue = ko.observable();
 	self.newBarChartD3Value = ko.observable();
+	self.fieldSelected = ko.observable();
+
+	
+	/* NEW WIDGETS */
+
+	var widgetX = [widgetA, widgetB, widgetD3];
+	self.newWidgets = ko.observableArray([]);
+	for (var i = 0; i < widgetX.length; i++) {
+		self.newWidgets.push(widgetX[i])
+	}
+
+	self.newWidgetGetData = function (field, id) {
+		var params = {
+				facet: true,
+				'facet.field': field,
+				'facet.limit': limit_items_tagcloud,
+				'facet.sort': 'count',
+				'facet.mincount': 1,
+				'json.nl': 'map'
+			};
+
+		for (var name in params) {
+			Manager.store.addByValue(name, params[name]);
+		}	
+		
+		// If it is a new Widget, not results Widget.
+		if(field!=id){
+			drawCharts = true;
+		}
+
+		Manager.doRequest();
+	}
+
+	// self.newWidgetData = function(field) {
+		
+	// 	console.log(field);
+
+	// 	var t = ko.utils.getDataColumns(field);
+
+	// 	if(t != undefined) {
+
+	// 		console.log('t == undefined')
+	// 		var params = {
+	// 			facet: true,
+	// 			'facet.field': field,
+	// 			'facet.limit': limit_items_tagcloud,
+	// 			'facet.sort': 'count',
+	// 			'facet.mincount': 1,
+	// 			'json.nl': 'map'
+	// 		};
+
+	// 		for (var name in params) {
+	// 			////console.log(params[name]);
+	// 			Manager.store.addByValue(name, params[name]);
+	// 		}
+
+	// 		Manager.doRequest();
+
+	// 	} else {
+
+	// 		return t;
+
+	// 	}
+	// };
+
 
 	/** TagCloudWidgets related */
 	self.widgetContent = ko.observableArray();
@@ -884,9 +949,13 @@ function InitViewModel() {
 				paintHighChart(item.field(), item.id(), item.type());
 			}
 
-			if(item.type() == "barchartD3") {
-				paintD3Chart(item.field(), item.id(), item.type());
-			} 
+			for (var i = 0; i < widgetX.length; i++) {
+				if (item.type() == widgetX[i].type) {
+					widgetX[i].paint(item.field(), item.id(), item.type());
+				}
+			}
+
+
 		});
 
 	};
@@ -937,6 +1006,8 @@ function InitViewModel() {
 
 	/** Openning wizards related */
 	self.openNewWidgetManagerMethod = function() {
+
+		initIsotopeAndWizards();
 		self.openNewWidgetManager(true);
 	};
 
@@ -1160,19 +1231,7 @@ function InitViewModel() {
 		self.activeWidgetsLeft.push({"id":ko.observable(id),"title": ko.observable("Nuevo gráfico"), "type": ko.observable("barchart"), "field": ko.observable(self.newBarChartValue()),"collapsed": ko.observable(false)});
 
 		paintHighChart(field, id, "barchart");
-	};
-
-	// >>>
-	self.addBarChartD3Widget = function () { // NEW_WIDGET
-		var id = 'd3' + Math.floor(Math.random() * 10001);
-		var field = self.newBarChartD3Value();
-
-		self.activeWidgetsLeft.push({"id":ko.observable(id),"title": ko.observable("Nuevo gráfico"), "type": ko.observable("barchartD3"), "field": ko.observable(self.newBarChartD3Value()),"collapsed": ko.observable(false)});
-		//paintHighChart(field, id, 'linechart');
-		paintD3Chart(field, id, 'barchartD3');
-	};
-
-	
+	};	
 
 	/** Load static graph widgets (sgvizler) */
 	self.loadSgvizler = function(){
@@ -1190,13 +1249,11 @@ function InitViewModel() {
 		$.each(self.activeWidgetsRightTab1(), function(index, item) {
 			if(item.type()=="sgvizler"){
 				var id = item.id();
-				var stringid = id.toString();			
-
+				var stringid = id.toString();
 
 				mySgvizlerQuery(item.query(), stringid, item.value());
 			}
-		});
-		
+		});	
 
 	};
 
@@ -1448,7 +1505,6 @@ function InitViewModel() {
 			loaded_configuration = JSON.parse(data['search.config.'+coreSelected]);
 			//var configuration = $.extend({}, loaded_configuration, configuration); 
 			configuration = loaded_configuration;
-			console.log(configuration);
 			for (var i = 0; configuration.widgetsLeft.length > i; i++) {	
 
 				templateWidgetsLeft.push({ id: configuration.widgetsLeft[i].id, title: configuration.widgetsLeft[i].title, type: configuration.widgetsLeft[i].type,field: configuration.widgetsLeft[i].field , collapsed: configuration.widgetsLeft[i].collapsed, query: configuration.widgetsLeft[i].query, value: configuration.widgetsLeft[i].value, values: configuration.widgetsLeft[i].values, limits: configuration.widgetsLeft[i].limits, layout: configuration.widgetsLeft[i].layout, currentTweets: configuration.widgetsLeft[i].currentTweets, showWidgetConfiguration: configuration.widgetsLeft[i].showWidgetConfiguration});
@@ -1610,9 +1666,9 @@ function InitViewModel() {
 
 		/** Update Twitter widgets dinamically */	
 		/*
-	setInterval(function (){
-		twitterApi.getTweetsForUsers(self.twitterList(), self.currentTweets);
-	}, 10000);			
+		setInterval(function (){
+			twitterApi.getTweetsForUsers(self.twitterList(), self.currentTweets);
+		}, 10000);			
 		 */
 
 
@@ -1739,7 +1795,7 @@ function InitViewModel() {
 		// Load static graphs
 		self.loadSgvizler();
 
-	};
+	};	
 
 
 	// Ends vm
@@ -2030,312 +2086,6 @@ function paintHighChart(field, id, typeofchart) {
 	}		
 }
 
-function paintD3Chart (field, id, type) {
-		var t = ko.utils.getDataColumns(field);
-		console.log("paintD3Chart");
-		console.log(t);
-		console.log('field: ' + field);
-
-		if(t == undefined) {
-			var params = {
-				facet: true,
-				'facet.field': field,
-				'facet.limit': limit_items_tagcloud,
-				'facet.sort': 'count',
-				'facet.mincount': 1,
-				'json.nl': 'map'
-			};
-
-			for (var name in params) {
-				////console.log(params[name]);
-				Manager.store.addByValue(name, params[name]);
-			}	
-
-			// If it is a new Widget, not results Widget.
-			if(field!=id){
-				drawCharts = true;
-			}
-
-			Manager.doRequest();
-
-		} else {
-			console.log("paintD3Chart 2");
-			console.log(t);
-
-			d3.select('#'+id).select('svg').remove();
-
-			if(field == "created") {
-
-				console.log('field: created')
-
-				var hora = [];
-				for (var i = 0; i < 24; i++) {
-					hora[i] = 0;
-				}
-
-				for (var i = 0; i < t.length; i++) {
-					var creado = parseInt(t[i].facet.substring(11, 13));
-					hora[creado] += t[i].count;
-					console.log('creado a las: ' + creado);
-				}
-
-				hora = [0, 0, 0, 0, 3, 5, 7, 12, 45, 76, 8, 1, 0, 2, 3, 4, 32, 15, 0];
-					console.log(hora);
-
-				var width = 470,
-				    height = 400,
-				    radius = Math.min(width, height) / 2 - 10;
-
-				//var data = d3.range(10).map(Math.random).sort(d3.descending);
-
-				var color = d3.scale.category20();
-
-				var arc = d3.svg.arc()
-				    .outerRadius(radius);
-
-				var pie = d3.layout.pie();
-
-				var svg = d3.select("#"+id).append("svg")
-				    .datum(hora)
-				    .attr("width", width)
-				    .attr("height", height)
-				  .append("g")
-				    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-				var arcs = svg.selectAll("g.arc")
-				    .data(pie)
-				  .enter().append("g")
-				    .attr("class", "arc");
-
-				arcs.append("path")
-				    .attr("fill", function (d, i) { return color(i); })
-				  .transition()
-				    .ease("bounce")
-				    .duration(2000)
-				    .attrTween("d", tweenPie)
-				  .transition()
-				    .ease("elastic")
-				    .delay(function(d, i) { return 2000 + i * 50; })
-				    .duration(750)
-				   .attrTween("d", tweenDonut);
-
-				/*
-				var g = svg.selectAll("g")
-    				.data(hora)
-				    .enter().append("text");
-
-				g.filter(function(d) { return d.endAngle - d.startAngle > .2; }).append("svg:text")
-        			.attr("dy", ".35em")
-    				.attr("text-anchor", "middle")
-      				.attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")rotate(" + angle(d) + ")"; })
-    				.text(function(d) { return d; });
-
-    			function angle(d) {
-    				var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
-    				return a > 90 ? a - 180 : a;
-				}
-				*/
-				
-				function tweenPie(b) {
-				  b.innerRadius = 0;
-				  var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
-				  return function(t) { return arc(i(t)); };
-				}
-
-				function tweenDonut(b) {
-				  b.innerRadius = radius * .6;
-				  var i = d3.interpolate({innerRadius: 0}, b);
-				  return function(t) { return arc(i(t)); };
-				}
-
-				return;
-			}
-
-			/*
-			var count = [];
-			for (var i = 0; i < t.length; i++) {
-				count[i] = t[i].count;
-			}
-			console.log(count);
-			*/
-
-			
-			if ((field == "hasPolarity") || (field == "has_creator")) {
-  				for (var i = 0; i < t.length; i++) {
-					t[i].facet = t[i].facet.substring(24);			//t[i].facet.indexOf('#') + 1);
-				}
-  			} else {
-  				for (var i = 0; i < t.length; i++) {
-  					t[i].facet = d3.format('.2f')(t[i].facet);
-  				}
-  			}
-			console.log(t);
-
-
-			//var dataScale  = d3.scale.linear().domain([0, d3.max(count)]).range([0, 1]);
-			
-			//for (var i = 0; i < t.length; i++) {
-			//	 t[i].count = dataScale(t[i].count);
-			//}
-
-			var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    			width  = 470 - margin.left - margin.right,
-   				height = 400 - margin.top - margin.bottom;
-
-			var formatPercent = d3.format(".0%");
-
-			var x = d3.scale.ordinal()
-   					.rangeRoundBands([0, width], .1);
-
-			var y = d3.scale.linear()
-    				.range([height, 0]);
-
-			var xAxis = d3.svg.axis()
-    			.scale(x)
-    			.orient("bottom");
-
-			var yAxis = d3.svg.axis()
-    			.scale(y)
-    			.orient("left");
-
-			var svg = d3.select('#'+id).append("svg")
-    			.attr("width", width + margin.left + margin.right)
-    			.attr("height", height + margin.top + margin.bottom)
-  				.append("g")
-    			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-   			var data = t;
-  			
-  			
-  			if ((field == "hasPolarity") || (field == "has_creator") ) {
-  				x.domain(data.map(function(d) { return (d.facet) }));
-  			} else {
-  				x.domain(data.map(function(d) { return d3.format('.2f')(d.facet) }));
-  			}
-  			
-  			//x.domain(data.map(function(d) { return (d.facet) }));
- 			y.domain([0, Math.ceil(d3.max(data, function(d) { return d.count; })/10)*10]);
-  			
-  			svg.append("g")
-     			.attr("class", "x axis")
-     			.attr("transform", "translate(0," + height + ")")
-     			.call(xAxis)
-			
-			svg.append("g")
-     			.attr("class", "y axis")
-     			.call(yAxis)
-   				.append("text")
-     			.attr("transform", "rotate(-90)")
-     			.attr("y", 6)
-     			.attr("dy", ".71em")
-     			.style("text-anchor", "end");
-  			
-  			svg.selectAll(".bar")
-   				.data(data)
-    			.enter().append("rect")
-      			.attr("class", "bar")
-      			.attr("x", function(d) { return x(d.facet); })
-      			.attr("width", x.rangeBand())
-      			.attr("y", function(d) { return y(d.count); })
-      			.attr("height", function(d) { return height - y(d.count); });
-
-			
-
-			/*
-			d3.select('#'+id).select('svg').remove();
-
-			var width  = 470;
-			var height = 400;
-
-			var svgSelection = d3.select('#'+id).append('svg')
-												.attr('width', width)
-												.attr('height', height);
-
-			var count = [];
-			for (var i = 0; i < t.length; i++) {
-				count[i] = t[i].count;
-			}
-			console.log(count);
-
-			var dataScale  = d3.scale.linear().domain([0, Math.ceil(d3.max(count)/10)*10]).range([0, (height - 80)]);
-			
-			for (var i = 0; i < t.length; i++) {
-				t[i].count = dataScale(t[i].count);
-			}
-
-			var dataChart = svgSelection.append('g')
-										.selectAll('rect')
-										.data(t)
-										.enter()
-										.append('rect');
-
-			var separacion = 15;
-			var anchura = (width - 80 - separacion*(t.length-1))/t.length;
-
-			var dataAttr = dataChart.attr('x', function (d, i) { return 60 + (anchura + separacion)*i; })
-									.attr('y', function (d, i) { return height - 40 - d.count; })
-									.attr('width',  anchura)
-									.attr('height', function (d, i) { return d.count; })
-									.style('fill', '#5C9CCC');
-
-
-
-
-
-			var xAxisSelection = svgSelection.append('g');
-
-			var xAxisScale = d3.scale.linear().domain([0, 9]).range([0, width - 50]);
-
-			var xAxis = d3.svg.axis()
-							  .scale(xAxisScale)
-							  .orient('bottom');
-
-			xAxisSelection.attr('class', 'axis')
-						  .attr('transform', 'translate(40, ' + (height - 40) + ')')
-						  .call(xAxis)
-						  .selectAll('g')
-						  .remove();
-
-			var xAxisSelectionText = svgSelection.append('g');
-
-			var xAxisText = xAxisSelectionText.selectAll('text')
-										  .data(t)
-										  .enter()
-										  .append('text');
-
-			var xAxisTextAttr = xAxisText.attr('x', function (d, i) { return 60 + (separacion + anchura)*i })
-										 .attr('y', function (d, i) { return height - 25 })
-										 .text(function (d) { return d3.format('.2f')(d.facet) })
-										 .attr('font-family', 'sans-serif')
-										 .attr('font-size', '1.1em')
-										 */
-			/*
-											 .attr('class', 'axis').append('line')
-											 .attr('x1', 40)
-											 .attr('y1', height - 40)
-											 .attr('x2', width - 40)
-											 .attr('y2', height - 20)
-											 .attr('stroke-width', 1)
-											 .attr('stroke', 'black');
-			*/
-			/*
-			var yAxisSelection = svgSelection.append('g');
-
-			var yAxisScale = d3.scale.linear().domain([0, Math.ceil(d3.max(count)/10)*10]).range([(height - 80), 0]);
-
-			var yAxis = d3.svg.axis()
-							  .scale(yAxisScale)
-							  .orient('left')
-							  .ticks(5);
-
-			yAxisSelection.attr('class', 'axis')
-						  .attr('transform', 'translate(40, 40)')
-						  .call(yAxis);
-
-			*/
-		}
-	}
-
 function createMap(){    
 
 	var elevator;
@@ -2441,6 +2191,12 @@ ko.bindingHandlers.sortableList = {
 
 			if(tipo=="sgvizler"){
 				mySgvizlerQuery(query, id, typeOfGraph);
+			}
+
+			for (var i = 0; i < widgetX.length; i++) {
+				if (tipo == widgetX[i].type) {
+					vm.drawCharts();
+				}
 			}
 
 		}
