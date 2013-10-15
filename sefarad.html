@@ -69,6 +69,7 @@
 		<script type="text/javascript" charset="UTF-8" src="js/ext/sammy-latest.min.js"></script>
 		<script src="js/ext/jquery.isotope.min.js"></script>
 		<script src="js/ext/jquery.joyride-2.0.2.js"></script>
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		
 		<!-- external -->
 		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
@@ -431,7 +432,24 @@ lang().fieldcaption"></select>
 data-bind="text: lang().addWidget2"></span></button>						
 
 					</div>
-            </div>	
+            </div>
+
+            <div class="box cat3">
+				 <h1 data-bind="text: lang().barchartd3"></h1>
+				   <table id="wrapper">
+					<tr>
+					 <td><img src="img/barchartD3.png" alt="Panelbar"/></td>
+				      </tr>
+				   </table>				 
+					<div class="mask">
+						<h2 data-bind="text: lang().barchartd3"></h2>
+						<p data-bind="text: lang().barchartd3exp"></p>
+						<select data-bind="options: $root.dataColumns, value: newBarChartD3Value, optionsCaption: 
+						lang().fieldcaption"></select>
+						<button class="button" data-bind="click: $root.addBarChartD3Widget, enable: newBarChartD3Value()!=undefined"><span data-bind="text: lang().addWidget2"></span></button>						
+
+					</div>
+            </div>		
 
 
 
@@ -901,6 +919,8 @@ id="contador"><p data-bind="text: $root.numberOfResults"></p></div></div>
 			{{else type()=="piechart"}}
 				<div data-bind="attr: {'id': id }"></div>
 			{{else type()=="barchart"}}
+				<div data-bind="attr: {'id': id }"></div>
+			{{else type()=="barchartD3"}}
 				<div data-bind="attr: {'id': id }"></div>
 			{{else type()=="sgvizler"}}
 				<div data-bind="attr: { 'id': id }"></div>

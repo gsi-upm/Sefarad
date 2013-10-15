@@ -881,3 +881,18 @@ body.editing #configuration_button:hover {
 .tabrow li.selected:after {
   box-shadow: -2px 0px 0 #FFF;
 }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.x.axis path {
+  display: none;
+}
