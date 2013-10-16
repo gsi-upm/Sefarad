@@ -25,10 +25,12 @@ var widgetB = {
 			var field = widgetB.field || "";
 			vm.activeWidgetsLeft.push({"id":ko.observable(id),"title": ko.observable(widgetB.name), "type": ko.observable(widgetB.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
 			
-			widgetB.paint(field, id, widgetB.type);
+			// widgetB.paint(field, id, widgetB.type);
+			widgetB.paint(id);
 		},
 
-		paint: function (field, id, type) {
+		// paint: function (field, id, type) {
+		paint: function (id) {
 			$('#' + id + 'container').remove();
 			$('#' + id).append('<div id="' + id + 'container"><p>Data from widget B</p></div>');
 		}

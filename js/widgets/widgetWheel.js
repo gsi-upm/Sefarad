@@ -16,11 +16,13 @@ var widgetWheel = {
 			var field = widgetWheel.field || "";
 			vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetWheel.name), "type": ko.observable(widgetWheel.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
 
-			widgetWheel.paint(field, id, widgetWheel.type);
+			// widgetWheel.paint(field, id, widgetWheel.type);
+			widgetWheel.paint(id);
 		},
 
-		paint: function (field, id, type) {
-
+		// paint: function (field, id, type) {	
+		paint: function (id) {
+			
 			if (vm.filteredData().length > 8) {
 				console.log("Demasiados resultados");
 

@@ -18,7 +18,6 @@
 
 /** YOU MUST EDIT THIS LINE */
 var serverURL = "http://localhost:8080/LMF/";
-//var serverURL = "http://localhost:8080/LMF-3.0.0/"
 //var serverURL = "http://shannon.gsi.dit.upm.es/episteme/lmf/";
 //var serverURL = "http://minsky.gsi.dit.upm.es/episteme/tomcat/LMF/";
 

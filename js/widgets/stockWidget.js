@@ -16,7 +16,8 @@ var stockWidget = {
 			var field = stockWidget.field || "";
 			vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(stockWidget.name), "type": ko.observable(stockWidget.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
 
-			stockWidget.paint(field, id, stockWidget.type);
+			// stockWidget.paint(field, id, stockWidget.type);
+			stockWidget.paint(id);
 		},
 
 

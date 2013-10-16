@@ -27,10 +27,13 @@ var widgetD3 = {
 			var field = widgetD3.field || "";
 			vm.activeWidgetsLeft.push({"id":ko.observable(id),"title": ko.observable(widgetD3.name), "type": ko.observable(widgetD3.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
 			
-			widgetD3.paint(field, id, widgetD3.type);
+			// widgetD3.paint(field, id, widgetD3.type);
+			widgetD3.paint(id);
 		},
 
-		paint: function (field, id, type) {
+		// paint: function (field, id, type) {	
+		paint: function (id) {	
+
 			var t = ko.utils.getDataColumns(field);
 	
 			if(t==undefined){

@@ -27,7 +27,8 @@ var widgetA = {
 			var field = widgetA.field || "";
 			vm.activeWidgetsLeft.push({"id":ko.observable(id),"title": ko.observable(widgetA.name), "type": ko.observable(widgetA.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
 			
-			widgetA.paint(field, id, widgetA.type);
+			// widgetA.paint(field, id, widgetA.type);
+			widgetA.paint(id);
 		},
 
 		// paint: function (field, id, type) {

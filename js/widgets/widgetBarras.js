@@ -16,10 +16,12 @@ var widgetBarras = {
 			var field = widgetBarras.field || "";
 			vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetBarras.name), "type": ko.observable(widgetBarras.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
 			
-			widgetBarras.paint(field, id, widgetA.type);
+			// widgetB.paint(field, id, widgetBarras.type);
+			widgetBarras.paint(id);
 		},
 
-		paint: function (field, id, type) {
+		// paint: function (field, id, type) {
+		paint: function (id) {
 
 			var arrayBarras = new Array();
 			$.each(vm.filteredData(), function(index, item) {

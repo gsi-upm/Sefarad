@@ -16,12 +16,14 @@ var widgetWheelTwitter = {
 			var field = widgetWheelTwitter.field || "";
 			vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetWheelTwitter.name), "type": ko.observable(widgetWheelTwitter.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
 			
-			widgetWheelTwitter.paint(field, id, widgetWheelTwitter.type);
+			// widgetWheelTwitter.paint(field, id, widgetWheelTwitter.type);
+			widgetWheelTwitter.paint(id);
 		},
 
-		paint: function (field, id, type) {
-			// var t = ko.utils.getDataColumns(field);
+		// paint: function (field, id, type) {	
+		paint: function (id) {	
 
+			// var t = ko.utils.getDataColumns(field);
 			// if(t==undefined){
 			// 	vm.newWidgetGetData(field, id);
 			// } else {
