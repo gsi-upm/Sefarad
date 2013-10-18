@@ -39,8 +39,6 @@ var widgetSortBarR = {
 					
 			});
 
-			console.log(data);
-
 			var margin = {top: 20, right: 20, bottom: 30, left: 40},
 			    width = 700 - margin.left - margin.right,
 			    height = 365 - margin.top - margin.bottom;

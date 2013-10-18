@@ -1,9 +1,9 @@
 // New widget
 var widgetDonutsR = {
 		// Widget name.
-		name: "widgetDonutsR",
+		name: "Widget Donuts Ruben",
 		// Widget description.
-		description: "Widget Barras Ruben",
+		description: "Widget Donuts Ruben",
 		// Path to the image of the widget.
 		img: "img/widgetDonutsR.png",
 		// Type of the widget.
@@ -92,7 +92,7 @@ var widgetDonutsR = {
 			      .attr("transform", "translate(" + [radius + padding, radius + padding] + ")");
 
 			svg.selectAll(".arc")
-			      .data(function(d) { console.log(pie(d.ranges)); return pie(d.ranges); })
+			      .data(function(d) { return pie(d.ranges); })
 			    .enter().append("path")
 			      .attr("class", "arc")
 			      .attr("d", arc)	

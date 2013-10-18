@@ -2,7 +2,7 @@
         var config = {};
         config.chart = {
             renderTo: renderId,
-	    backgroundColor: '#fff',
+	        backgroundColor: '#fff',
             plotShadow: false,
         	type: 'column',
         };

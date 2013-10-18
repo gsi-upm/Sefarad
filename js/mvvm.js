@@ -8,14 +8,11 @@
 //  http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 //
 //  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and  limitations under the License.
- 
-
 // TO DO LIST
 // NO REPETIR CODIGO!!
 // BUG EN BUSQUEDA SOLR
 // AUTOCOMPLETAR
 // PESTAÑA DE PANEL DE CONTROL!
-
 /** YOU MUST EDIT THIS LINE */
 var serverURL = "http://localhost:8080/LMF/";
 //var serverURL = "http://shannon.gsi.dit.upm.es/episteme/lmf/";
@@ -37,14 +34,13 @@ var autocompleteSOLR = [];
 var minSliderValue = "";
 var maxSliderValue = "";
 
-var templateWidgetsLeft = [];	
-var templateWidgetsRight = [];	
+var templateWidgetsLeft = [];
+var templateWidgetsRight = [];
 var templateWidgetsLeftTab1 = [];
 var templateWidgetsRightTab1 = [];
 
 var errorinroute = false;
 var sparqlmode = false;
-
 
 function InitViewModel() {
 
@@ -58,7 +54,6 @@ function InitViewModel() {
 	self.core = ko.observable();
 	self.listCores = ko.observableArray();
 
-	
 	/** Template variables */
 	self.pageTitle = ko.observable(configuration.template.pageTitle);
 	self.logoPath = ko.observable();
@@ -83,7 +78,7 @@ function InitViewModel() {
 
 	/** Language */
 	self.lang = ko.observable(languages[0]);
-	self.selectedLanguage = ko.observable(configuration.template.language);	
+	self.selectedLanguage = ko.observable(configuration.template.language);
 
 	/** Active route */
 	self.page = ko.observable();
@@ -107,7 +102,6 @@ function InitViewModel() {
 	self.activedAutocomplete = ko.observable(configuration.autocomplete.actived);
 
 	self.default_autocomplete_fieldname = ko.observable(configuration.autocomplete.field);
-
 
 	/** Text in search field */
 	self.filter = ko.observable();
@@ -138,7 +132,6 @@ function InitViewModel() {
 	self.newBarChartD3Value = ko.observable();
 	self.fieldSelected = ko.observable();
 
-	
 	/* NEW WIDGETS */
 
 	self.newWidgets = ko.observableArray([]);
@@ -149,20 +142,20 @@ function InitViewModel() {
 
 	self.newWidgetGetData = function (field, id) {
 		var params = {
-				facet: true,
-				'facet.field': field,
-				'facet.limit': limit_items_tagcloud,
-				'facet.sort': 'count',
-				'facet.mincount': 1,
-				'json.nl': 'map'
-			};
+			facet: true,
+			'facet.field': field,
+			'facet.limit': limit_items_tagcloud,
+			'facet.sort': 'count',
+			'facet.mincount': 1,
+			'json.nl': 'map'
+		};
 
 		for (var name in params) {
 			Manager.store.addByValue(name, params[name]);
-		}	
-		
+		}
+
 		// If it is a new Widget, not results Widget.
-		if(field!=id){
+		if (field != id) {
 			drawCharts = true;
 		}
 
@@ -170,7 +163,7 @@ function InitViewModel() {
 	}
 
 	// self.newWidgetData = function(field) {
-		
+
 	// 	console.log(field);
 
 	// 	var t = ko.utils.getDataColumns(field);
@@ -201,7 +194,6 @@ function InitViewModel() {
 	// 	}
 	// };
 
-
 	/** TagCloudWidgets related */
 	self.widgetContent = ko.observableArray();
 
@@ -210,7 +202,7 @@ function InitViewModel() {
 	self.numberOfResults = ko.observable();
 	self.maxNumberOfResults = ko.observable();
 
-	self.resultsGraphs = ko.mapping.fromJS(self.testData);   
+	self.resultsGraphs = ko.mapping.fromJS(self.testData);
 
 	/** Administrator */
 	self.securityEnabled = ko.observable(false);
@@ -225,41 +217,47 @@ function InitViewModel() {
 
 	/** Layout functions */
 	self.isotope = ko.observable();
-	self.sortByName = function() {
+	self.sortByName = function () {
 		self.isotope({
 			sortBy: 'name'
 		});
-	};	
+	};
 
-	self.serviceAdded = function(el) {
+	self.serviceAdded = function (el) {
 		if (el && el.nodeType === 1) {
 			$('#contenedorr').isotope('appended', $(el), function () {
 				$('#contenedorr').isotope('reLayout');
-				self.isotope({ sortBy: 'name' });                
+				self.isotope({
+					sortBy: 'name'
+				});
 			});
 		}
-	};		
+	};
 
-	self.animateResultsChange = function() { $('.resultado').hide(); $('.resultado').fadeIn(850); };
-	self.animateTagsChange = function() { $('.activetag').hide(); $('.activetag').fadeIn(300); };		
+	self.animateResultsChange = function () {
+		$('.resultado').hide();
+		$('.resultado').fadeIn(850);
+	};
+	self.animateTagsChange = function () {
+		$('.activetag').hide();
+		$('.activetag').fadeIn(300);
+	};
 
-	self.getTagcloudItem = function(name, count) {
+	self.getTagcloudItem = function (name, count) {
 		return name + " (" + count + ")";
-	};	
-
-
+	};
 
 	/** Returns all data given a field (i.e type: province returns [facet: "Madrid", count: "5"]...)  */
-	ko.utils.getDataColumns = function(type) {    
+	ko.utils.getDataColumns = function (type) {
 		/** Local mode */
-		if(self.sparql()){
+		if (self.sparql()) {
 			var response = [];
-			var results = ko.utils.arrayMap(self.filteredData(), function(item) {
+			var results = ko.utils.arrayMap(self.filteredData(), function (item) {
 
-				if(item[type]!=undefined) {
-					if(self.sparql()){
+				if (item[type] != undefined) {
+					if (self.sparql()) {
 						return item[type].value();
-					}else{
+					} else {
 						return item[type]()[0];
 					}
 				}
@@ -267,15 +265,17 @@ function InitViewModel() {
 
 			var different = ko.utils.arrayGetDistinctValues(results).sort();
 
-			for(var i in different){
+			for (var i in different) {
 				var count = countElement(different[i], results);
-				response.push({ facet: different[i], count: count});
+				response.push({
+					facet: different[i],
+					count: count
+				});
 			}
 
 			return response;
 
-		}else{
-
+		} else {
 
 			if (Manager.response.facet_counts.facet_fields[type] === undefined) {
 				return undefined;
@@ -289,10 +289,12 @@ function InitViewModel() {
 				var count = parseInt(Manager.response.facet_counts.facet_fields[type][facet]);
 				if (count > maxCount) {
 					maxCount = count;
-				}	
+				}
 
-
-				objectedItems.push({ facet: facet, count: count });
+				objectedItems.push({
+					facet: facet,
+					count: count
+				});
 			}
 
 			return objectedItems;
@@ -300,64 +302,60 @@ function InitViewModel() {
 	};
 
 	/** This function populate all tagcloud widgets content */
-	function updateWidgets(updateAll){
+	function updateWidgets(updateAll) {
 
-		if(updateAll){
+		if (updateAll) {
 
-			$.each(self.activeWidgets(), function(index, item) {
-				if(item.type()=="tagcloud"){
+			$.each(self.activeWidgets(), function (index, item) {
+				if (item.type() == "tagcloud") {
 					self.widgetContent(ko.utils.getDataColumns(item.field()));
 					populateWidgets(index);
 				}
 			});
 
-		}else{
+		} else {
 
-			$.each(self.activeWidgetsLeft(), function(index, item) {
+			$.each(self.activeWidgetsLeft(), function (index, item) {
 
-				if(item.type()=="tagcloud" && ko.utils.getDataColumns(item.field())!=undefined){
+				if (item.type() == "tagcloud" && ko.utils.getDataColumns(item.field()) != undefined) {
 					self.widgetContent(ko.utils.getDataColumns(item.field()));
 
-					$.each(item.values(), function(id, it) {
+					$.each(item.values(), function (id, it) {
 						it.count('0');
 					});
 
-					$.each(self.widgetContent(), function(index2, item2) {
-						$.each(item.values(), function(id,it) {
-							if(it.name()==item2.facet){
+					$.each(self.widgetContent(), function (index2, item2) {
+						$.each(item.values(), function (id, it) {
+							if (it.name() == item2.facet) {
 								self.activeWidgetsLeft()[index].values()[id].count(self.widgetContent()[index2].count);
 							}
 						});
-
 
 					});
 				}
 
 			});
 
-			$.each(self.activeWidgetsRight(), function(index, item) {
+			$.each(self.activeWidgetsRight(), function (index, item) {
 
-				if(item.type()=="tagcloud" && ko.utils.getDataColumns(item.field())!=undefined){
+				if (item.type() == "tagcloud" && ko.utils.getDataColumns(item.field()) != undefined) {
 					self.widgetContent(ko.utils.getDataColumns(item.field()));
 
-
-					$.each(item.values(), function(id, it) {
+					$.each(item.values(), function (id, it) {
 						it.count('0');
 					});
 
-					$.each(self.widgetContent(), function(index2, item2) {
-						$.each(item.values(), function(id,it) {
-							if(it.name()==item2.facet){
+					$.each(self.widgetContent(), function (index2, item2) {
+						$.each(item.values(), function (id, it) {
+							if (it.name() == item2.facet) {
 								self.activeWidgetsRight()[index].values()[id].count(self.widgetContent()[index2].count);
 							}
 						});
 
-
 					});
 				}
 
-			});			
-
+			});
 
 		}
 	};
@@ -367,36 +365,35 @@ function InitViewModel() {
 		name: Madrid
 		state: false/true (depending on if we clicked on it or not)
 	 */
-	function populateWidgets(pIndex){
+	function populateWidgets(pIndex) {
 		var parent = self.activeWidgets()[pIndex];
-		var countIndex = 0;      
+		var countIndex = 0;
 
 		self.updating(true);
 
 		console.log("POPULATE WIDGETS");
-		
-		parent.values.removeAll();		
 
-		$.each(self.widgetContent(), function(index, item) {
-			parent.values.push({"id": ko.observable(countIndex++),
+		parent.values.removeAll();
+
+		$.each(self.widgetContent(), function (index, item) {
+			parent.values.push({
+				"id": ko.observable(countIndex++),
 				"name": ko.observable(self.widgetContent()[index].facet),
 				"state": ko.observable(false),
 				"count": ko.observable(self.widgetContent()[index].count)
-			}
-					);
-		});  
-
+			});
+		});
 
 		parent.values.sortByPropertyCat('id');
 		self.updating(false);
 	}
 
-	self.findMatchWidget = function(idwidget,type,item) {
-		if(item!=undefined){
-			if(item.id() == idwidget) {
-				if(item.type()=="tagcloud"){
-					$.each(item.values(), function(index, value) {
-						if(value.state()){
+	self.findMatchWidget = function (idwidget, type, item) {
+		if (item != undefined) {
+			if (item.id() == idwidget) {
+				if (item.type() == "tagcloud") {
+					$.each(item.values(), function (index, value) {
+						if (value.state()) {
 							hasFilters = true;
 						}
 					});
@@ -406,66 +403,64 @@ function InitViewModel() {
 		}
 		return false;
 	}
-	
-	
+
 	/** This function deletes a widget */
-	self.deleteWidget = function(idwidget, type) {
+	self.deleteWidget = function (idwidget, type) {
 		var hasFilters = false;
 
-		ko.utils.arrayFilter(self.activeWidgetsLeft(), function(item) {
-			if(self.findMatchWidget(idwidget,type,item)){
+		ko.utils.arrayFilter(self.activeWidgetsLeft(), function (item) {
+			if (self.findMatchWidget(idwidget, type, item)) {
 				self.activeWidgetsLeft.remove(item);
 			}
 		});
 
-		ko.utils.arrayFilter(self.activeWidgetsRight(), function(item) {
-			if(self.findMatchWidget(idwidget,type,item)){
+		ko.utils.arrayFilter(self.activeWidgetsRight(), function (item) {
+			if (self.findMatchWidget(idwidget, type, item)) {
 				self.activeWidgetsRight.remove(item);
 			}
 		});
 
-		ko.utils.arrayFilter(self.activeWidgetsLeftTab1(), function(item) {
-			if(self.findMatchWidget(idwidget,type,item)){
+		ko.utils.arrayFilter(self.activeWidgetsLeftTab1(), function (item) {
+			if (self.findMatchWidget(idwidget, type, item)) {
 				self.activeWidgetsLeftTab1.remove(item);
 			}
 		});
-		
-		ko.utils.arrayFilter(self.activeWidgetsRightTab1(), function(item) {
-			if(self.findMatchWidget(idwidget,type,item)){
+
+		ko.utils.arrayFilter(self.activeWidgetsRightTab1(), function (item) {
+			if (self.findMatchWidget(idwidget, type, item)) {
 				self.activeWidgetsRightTab1.remove(item);
 			}
 		});
-		
-		if(type=="resultswidget"){
+
+		if (type == "resultswidget") {
 			self.showResultsGraphsWidget(false);
-			$.each(self.resultsGraphs(), function(index, item) {
-				if(item.state()){
+			$.each(self.resultsGraphs(), function (index, item) {
+				if (item.state()) {
 					item.state(!item.state());
 				}
 			});
 		}
 
-		if(hasFilters || type=="slider"){
+		if (hasFilters || type == "slider") {
 			updateSolrFilter();
 		}
 	};
 
-
 	/** Switch Tagcloud layout */
-	self.switchLayout = function(item) {
+	self.switchLayout = function (item) {
 		var id = item.id();
 		var changeTo = "";
 		var found = false;
 
-		if(item.layout()=="vertical"){
+		if (item.layout() == "vertical") {
 			changeTo = "horizontal";
-		}else{
+		} else {
 			changeTo = "vertical";
 		}
 
-		$.each(self.activeWidgetsLeft(), function(index, i) {
-			if(id==i.id()) {
-				found=true;
+		$.each(self.activeWidgetsLeft(), function (index, i) {
+			if (id == i.id()) {
+				found = true;
 				self.activeWidgetsLeft.replace(self.activeWidgetsLeft()[index], {
 					title: ko.observable(item.title()),
 					collapsed: ko.observable(item.collapsed()),
@@ -479,10 +474,10 @@ function InitViewModel() {
 			}
 		});
 
-		if(!found){
-			$.each(self.activeWidgetsRight(), function(index, i) {
-				if(id==i.id()) {
-					found=true;
+		if (!found) {
+			$.each(self.activeWidgetsRight(), function (index, i) {
+				if (id == i.id()) {
+					found = true;
 					self.activeWidgetsRight.replace(self.activeWidgetsRight()[index], {
 						title: ko.observable(item.title()),
 						collapsed: ko.observable(item.collapsed()),
@@ -500,41 +495,41 @@ function InitViewModel() {
 	};
 
 	/** Collapse a given widget */
-	self.collapseWidget = function() {
+	self.collapseWidget = function () {
 		var val = this.collapsed();
 		this.collapsed(!val);
-	};	
+	};
 
 	/** When a tag in TagCloud widget is clicked we switch its state */
-	self.tagCloudSelection = function(pIndex, index, field) {
+	self.tagCloudSelection = function (pIndex, index, field) {
 
-		var parent_match = ko.utils.arrayFilter(self.activeWidgets(), function(item) {
-			if(item.id()==pIndex) {
+		var parent_match = ko.utils.arrayFilter(self.activeWidgets(), function (item) {
+			if (item.id() == pIndex) {
 				return item;
 			}
 		});
 
 		var parent = parent_match[0];
 
-		var temp = !parent.values()[index()].state();  
-		var count = parent.values()[index()].count();  
+		var temp = !parent.values()[index()].state();
+		var count = parent.values()[index()].count();
 
-		parent.values.remove(function(item) {
+		parent.values.remove(function (item) {
 			return item.name() == field;
-		});   
+		});
 
-		parent.values.push(
-				{"id": index,
-					"name": ko.observable(field),
-					"state": ko.observable(temp),
-					"count": ko.observable(count)
-				});
+		parent.values.push({
+			"id": index,
+			"name": ko.observable(field),
+			"state": ko.observable(temp),
+			"count": ko.observable(count)
+		});
 
-		parent.values.sortByPropertyCat('id');		
+		parent.values.sortByPropertyCat('id');
 
-		if(!self.sparql()){
+		if (!self.sparql()) {
 			updateSolrFilter();
-		}else{
+		} else {
 			//updateWidgets(false);
 		}
 	};
@@ -542,13 +537,13 @@ function InitViewModel() {
 	/** Language related functions */
 	self.languages = ko.computed(function () {
 		var response = new Array();
-		for(var i=0, l = languages.length; i<l; i++){
-			response.push(languages[i].lang);	
-		}	
+		for (var i = 0, l = languages.length; i < l; i++) {
+			response.push(languages[i].lang);
+		}
 		return response;
 	});
 
-	self.selectedLanguageIndex = ko.dependentObservable(function() {
+	self.selectedLanguageIndex = ko.dependentObservable(function () {
 		return self.languages().indexOf(self.selectedLanguage());
 	}, self);
 
@@ -556,65 +551,71 @@ function InitViewModel() {
 	self.selectedLanguage.subscribe(function (newValue) {
 		var idx = self.selectedLanguageIndex();
 
-		if(idx>-1){
+		if (idx > -1) {
 			self.lang(languages[parseInt(idx)]);
-		}else{
-		}
+		} else {}
 
 	});
 
-	
 	/** Reindex SOLR button */
-	self.reindexSOLR = function (){
+	self.reindexSOLR = function () {
 		$.ajax({
-			type:"POST",
+			type: "POST",
 			url: self.serverURL() + "solr/cores/reinit",
-			success: function(data){
+			success: function (data) {
 
-			$.blockUI.defaults.growlCSS.top = '30px'; 
-			$.growlUI('Reindexación realizada con éxito', ''); 	
+				$.blockUI.defaults.growlCSS.top = '30px';
+				$.growlUI('Reindexación realizada con éxito', '');
 
-		},
-		error: function() {
-			alert("Error al reindexar");
-		}
-		});		
+			},
+			error: function () {
+				alert("Error al reindexar");
+			}
+		});
 	};
 
 	/** Add a custom graph given a sparql query */
-	self.addSgvizlerWidget = function() {
+	self.addSgvizlerWidget = function () {
 		var id = Math.floor(Math.random() * 10001);
 		var query = self.sgvizlerQuery();
 		var typeOfGraph = self.sgvizlerGraphType();
 
-		self.activeWidgetsLeftTab1.push({"id":ko.observable(id),"title": ko.observable("Nuevo Gráfico"), "type": ko.observable("sgvizler"), "query":self.sgvizlerQuery(),"collapsed": ko.observable(false),"value": self.sgvizlerGraphType()});
+		self.activeWidgetsLeftTab1.push({
+			"id": ko.observable(id),
+			"title": ko.observable("Nuevo Gráfico"),
+			"type": ko.observable("sgvizler"),
+			"query": self.sgvizlerQuery(),
+			"collapsed": ko.observable(false),
+			"value": self.sgvizlerGraphType()
+		});
 
 		var stringid = id.toString();
 
 		mySgvizlerQuery(query, stringid, typeOfGraph);
 
-	};		
+	};
 
 	/** This computed function gets fields contained in a certain response from any sparql/solr query (i.e: province, name, type...) */
-	self.dataColumns = ko.computed(function() {
-		var mapping = _.map(self.viewData(), function(element){ 
-			return Object.keys(element); });
-		var flat = _.reduce(mapping, function(a,b){return a.concat(b); }, [] );
+	self.dataColumns = ko.computed(function () {
+		var mapping = _.map(self.viewData(), function (element) {
+			return Object.keys(element);
+		});
+		var flat = _.reduce(mapping, function (a, b) {
+			return a.concat(b);
+		}, []);
 		var unique = _.uniq(flat);
-
 
 		return unique;
 	});
 
-
 	/** When "sort by" select option changes, sort viewData (only supported in sparql mode) */
 	self.sortBy.subscribe(function (newValue) {
 
-		if(newValue!=undefined){
-			if(self.sparql()){
+		if (newValue != undefined) {
+			if (self.sparql()) {
 				self.viewData.sortByPropertyAsc(newValue);
 
-			}else{
+			} else {
 				//Manager.store.addByValue('sort', newValue + ' asc');
 				//Manager.doRequest();
 			}
@@ -622,149 +623,168 @@ function InitViewModel() {
 	});
 
 	/** This function does a mapping from json (response) to self.viewData and updateWidgets */
-	self.getResultsSPARQL = function (sparql_query,endpoint){
+	self.getResultsSPARQL = function (sparql_query, endpoint) {
 
-		if(isBlank(sparql_query)){
+		if (isBlank(sparql_query)) {
 			var queryText = self.sparqlQuery();
-		}else{
-			var queryText = sparql_query;	
+		} else {
+			var queryText = sparql_query;
 		}
 
-		if(isBlank(endpoint)){
+		if (isBlank(endpoint)) {
 			//var endpoint = serverURL + 'sparql/select';
 			var endpoint = self.sparql_baseURL();
 		}
 
 		var finalQuery = queryText;
 
-		if(self.dbpedia()){
+		if (self.dbpedia()) {
 			queryText = queryText.replace(/\s/g, "_");
 			var queryResource = "<http://dbpedia.org/resource/" + queryText + ">";
-			finalQuery="PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX dbo: <http://dbpedia.org/ontology/>PREFIX dbpprop: <http://dbpedia.org/property/>PREFIX foaf: <http://xmlns.com/foaf/0.1/> SELECT DISTINCT ?label ?abstract ?nationality ?birthDate ?photo WHERE {" + queryResource + " rdfs:label ?label .OPTIONAL {" + queryResource + " dbo:abstract ?abstract .}OPTIONAL {" + queryResource + " foaf:page ?page .}OPTIONAL {" + queryResource + " dbpprop:nationality ?nationality .}OPTIONAL {" + queryResource + " dbpprop:birthPlace ?birthPlace .}OPTIONAL {" + queryResource + " dbpprop:birthDate ?birthDate .}OPTIONAL {" + queryResource + " dbo:thumbnail ?photo .}FILTER (LANG(?label) = 'es')FILTER (LANG(?abstract) = 'es')}";
+			finalQuery = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX dbo: <http://dbpedia.org/ontology/>PREFIX dbpprop: <http://dbpedia.org/property/>PREFIX foaf: <http://xmlns.com/foaf/0.1/> SELECT DISTINCT ?label ?abstract ?nationality ?birthDate ?photo WHERE {" + queryResource + " rdfs:label ?label .OPTIONAL {" + queryResource + " dbo:abstract ?abstract .}OPTIONAL {" + queryResource + " foaf:page ?page .}OPTIONAL {" + queryResource + " dbpprop:nationality ?nationality .}OPTIONAL {" + queryResource + " dbpprop:birthPlace ?birthPlace .}OPTIONAL {" + queryResource + " dbpprop:birthDate ?birthDate .}OPTIONAL {" + queryResource + " dbo:thumbnail ?photo .}FILTER (LANG(?label) = 'es')FILTER (LANG(?abstract) = 'es')}";
 			endpoint = "http://dbpedia.org/sparql";
 		}
 
 		finalQuery = encodeURIComponent(finalQuery);
 		finalQuery = decodeURIComponent(finalQuery);
 
-
 		var lmf_sparql_baseURL = self.serverURL() + 'sparql/select';
 
-		if(endpoint==lmf_sparql_baseURL && finalQuery!='undefined'){
+		if (endpoint == lmf_sparql_baseURL && finalQuery != 'undefined') {
 
-			$.ajax({	
+			$.ajax({
 				type: 'GET',
 				url: endpoint,
-				data: { query: finalQuery, output: 'json' },
-				beforeSend: function(){				
+				data: {
+					query: finalQuery,
+					output: 'json'
+				},
+				beforeSend: function () {
 					//$('#loading').show();
 				},
-				complete: function(){
+				complete: function () {
 					//$('#loading').hide();
 				},
-				success: function(allData) {
+				success: function (allData) {
 					//console.log(allData);
 					var data = JSON.stringify(allData.results.bindings);
 					//////console.log(data);
 					ko.mapping.fromJSON(data, self.viewData);
 					updateWidgets(true);
 				},
-				error: function() {
+				error: function () {
 					//$('#docs').append("Consulta fallida");  
 				}
-			});		
+			});
 
-		}else if(finalQuery!='undefined'){
+		} else if (finalQuery != 'undefined') {
 			//console.log("OTHER ENDPOINT");
 			//var finalQuery="select * where {<http://dbpedia.org/resource/"+ queryText +"> <http://xmlns.com/foaf/0.1/name> ?name ; <http://dbpedia.org/property/birthDate> ?birth ; <http://dbpedia.org/property/nationality> ?nationality ; <http://dbpedia.org/ontology/thumbnail> ?photo }";
-			$.ajax({	
+			$.ajax({
 				type: 'GET',
 				url: endpoint,
-				data: { query: finalQuery, output: 'json', format: 'json', debug: 'on', timeout: '0' },
+				data: {
+					query: finalQuery,
+					output: 'json',
+					format: 'json',
+					debug: 'on',
+					timeout: '0'
+				},
 				crossDomain: true,
-				dataType: 'jsonp',			
-				beforeSend: function(){				
+				dataType: 'jsonp',
+				beforeSend: function () {
 					//$('#loading').show();
 				},
-				complete: function(){
+				complete: function () {
 					//$('#loading').hide();
 				},
-				success: function(allData) {
+				success: function (allData) {
 					//console.log(allData);
 					var data = JSON.stringify(allData.results.bindings);
 					//////console.log(data);
 					ko.mapping.fromJSON(data, self.viewData);
 					updateWidgets(true);
 				},
-				error: function() {
+				error: function () {
 					//$('#docs').append("Consulta fallida");  
 				}
 			});
 
 		}
 
-	};	
+	};
 
-
-	self.doDeleteAllFilters = function (){
-		if(self.sparql()){
+	self.doDeleteAllFilters = function () {
+		if (self.sparql()) {
 			updateWidgets(true);
-		}else{
+		} else {
 			Manager.store.remove('fq');
 			Manager.doRequest();
-			firstTime=true;
+			firstTime = true;
 		}
 	};
 
 	/** Authentication methods */
-	function promptLogin(){
-		if(self.securityEnabled()){
-			var pw = prompt("Contraseña de administrador","");
-			if (pw!=null){
-				loadCore();	
+
+	self.login = function () {
+		promptLogin();
+	}
+
+	function promptLogin() {
+		if (self.securityEnabled()) {
+			var pw = prompt("Contraseña de administrador", "");
+			if (pw != null) {
+				loadCore();
 				checkLogin(pw);
 			}
-		}else{
+		} else {
 			self.adminMode(true);
 			loadCore();
 		}
 	};
 
-	function checkLogin(pw){
+	function checkLogin(pw) {
 		$.ajax({
-			type:"GET",
+			type: "GET",
 			url: self.serverURL() + "user/login",
 			//url: "http://shannon.gsi.dit.upm.es/episteme/lmf/user/login",
-			data: { logout: 'false', user: 'admin' },
-			beforeSend: function(xhr){		
+			data: {
+				logout: 'false',
+				user: 'admin'
+			},
+			beforeSend: function (xhr) {
 				xhr.setRequestHeader('Authorization', make_base_auth("admin", pw));
 			},
-			success: function(data){
+			success: function (data) {
+				console.log("BIEEN");
+
 			},
-			error: function(data) {
-				////console.log(data);
-				if(data.status=='401'){
+			error: function (data) {
+
+				if (data.status == '401') {
 					alert("Contraseña incorrecta");
 					window.location.reload();
-				}else{
+				} else {
+					console.log("ERROR");
 					self.adminMode(true);
 				}
 			}
-		});			
+		});
 
 	};
 
-	
-	
 	/** Filter results and get only different ones (ideal for sparql mode where there could be repeated results with a multivalued field) */
-	self.uniqueItems = ko.computed(function (){
-		if(self.sparql()){
+	self.uniqueItems = ko.computed(function () {
+		console.log("UNIQUEITEMS");
+		if (self.sparql()) {
+
 			var filteredArray = [];
 			var i;
 			$.each(self.viewData(), function (index, item) {
+
 				var alreadyAdded = false;
 				for (i in filteredArray) {
-					if(item[self.resultsLayout()[0].Value()] != undefined && filteredArray[i][self.resultsLayout()[0].Value()] != undefined){
+					if (item[self.resultsLayout()[0].Value()] != undefined && filteredArray[i][self.resultsLayout()[0].Value()] != undefined) {
 						if (filteredArray[i][self.resultsLayout()[0].Value()].value() == item[self.resultsLayout()[0].Value()].value()) {
 							alreadyAdded = true;
 						}
@@ -775,45 +795,46 @@ function InitViewModel() {
 					filteredArray.push(item);
 				}
 			});
-			return  filteredArray;
-		}else{
+			return filteredArray;
+		} else {
 			return self.viewData();
 		}
-	},self);	
+	}, self);
 
 	var dummyObservable = ko.observable();
-	
-	
+
 	/** Filters the results widget using tags which state is true */
-	self.filteredCategory = ko.computed(function() {  
+	self.filteredCategory = ko.computed(function () {
+
 		var data = self.viewData();
 		var filtro = self.activeWidgets();
 		var active_filters = [];
 
 		dummyObservable();
-		
-		if(!filtro){
-			return self.uniqueItems();  
-		}else{
+
+		if (!filtro) {
+
+			return self.uniqueItems();
+		} else {
+
 			tempFilter = self.uniqueItems();
 
-			$.each(self.activeWidgets(), function(index1, item1) {
-				if(item1.type()=="tagcloud" && self.sparql()){
+			$.each(self.activeWidgets(), function (index1, item1) {
+				if (item1.type() == "tagcloud" && self.sparql()) {
 					tempString = "";
 					catParent = item1.field();
 
-					$.each(item1.values(), function(index2, item2) {
-						if(item2.state() == true){
+					$.each(item1.values(), function (index2, item2) {
+						if (item2.state() == true) {
 							tempString += " " + item2.name();
 						}
 					});
 
-
-					tempFilter = ko.utils.arrayFilter(tempFilter, function(item) {
-						if(item[catParent]!=undefined){			
-							if(tempString!=""){
+					tempFilter = ko.utils.arrayFilter(tempFilter, function (item) {
+						if (item[catParent] != undefined) {
+							if (tempString != "") {
 								return ko.utils.stringContains(item[catParent].value().toString(), tempString);
-							}else{
+							} else {
 								return tempFilter;
 							}
 
@@ -821,66 +842,63 @@ function InitViewModel() {
 					});
 
 				}
-				
-				if(item1.type()=="slider" && self.sparql()) {
-					catParent = item1.field();
-					
-					tempFilter = ko.utils.arrayFilter(tempFilter, function(item) {
-						if(item[catParent]!=undefined){			
 
-							if(item[catParent].value() > item1.values()[0] && item[catParent].value() < item1.values()[1]){
+				if (item1.type() == "slider" && self.sparql()) {
+					catParent = item1.field();
+
+					tempFilter = ko.utils.arrayFilter(tempFilter, function (item) {
+						if (item[catParent] != undefined) {
+
+							if (item[catParent].value() > item1.values()[0] && item[catParent].value() < item1.values()[1]) {
 								return item;
 							}
 
 						}
 					});
-					
+
 				}
-				
+
 			});
 			// disposeWhen = function(){ return !self.updating(); }
 			return tempFilter;
 		}
-	},self);	
-
+	}, self);
 
 	/** Final data visualized in results widget (after text filter through input if exists) */
-	self.filteredData = ko.computed(function() {  
+	self.filteredData = ko.computed(function () {
 		var data = self.filteredCategory();
 		var array = [];
 
 		/** Search box filter */
 		var filter = self.filter();
-		
-		if(!filter){
-			return data;  
 
-		}else if(self.sparql()){
-			$.each(self.dataColumns(),function (id,field) {
-				ko.utils.arrayFilter(data, function(item2) {
+		if (!filter) {
+			return data;
 
-					if(item2[field]!=undefined) {
-						if(ko.utils.stringContains(item2[field].value(), filter)){
+		} else if (self.sparql()) {
+			$.each(self.dataColumns(), function (id, field) {
+				ko.utils.arrayFilter(data, function (item2) {
+
+					if (item2[field] != undefined) {
+						if (ko.utils.stringContains(item2[field].value(), filter)) {
 							array.push(item2);
 						}
-					}					
+					}
 				});
 
 			});
 
 			return array;
 
-
-		}else{
+		} else {
 			return data;
 		}
 
-	},self);
+	}, self);
 
-	
-	self.invalidateIsNameValid = function() {
-        dummyObservable.notifySubscribers(); //fake a change notification
-    };	
+	self.invalidateIsNameValid = function () {
+		dummyObservable.notifySubscribers(); //fake a change notification
+	};
 
 	/** If data shown in results widget changes, some graphic updates are needed */
 	self.filteredData.subscribe(function (newValue) {
@@ -903,61 +921,60 @@ function InitViewModel() {
 			}
 		}
 
-
-		if(hasChanged){
+		if (hasChanged) {
 
 			removeMapMarkers();
 
 			updateWidgets(false);
 
-			if(self.sparql()){
+			if (self.sparql()) {
 				self.numberOfResults(self.filteredData().length);
 			}
 
-			if(self.sparql() && firstTime) {
+			if (self.sparql() && firstTime) {
 				self.maxNumberOfResults(self.filteredData().length);
 			}
-
+			console.log("YEAH");
 			updateTwitterWidgets();
 			self.redraw();
 			self.drawcharts();
-
 
 		}
 
 	});
 
-
 	/** After every Manager.doRequest method we map the new results into viewData observable (SOLR ONLY) */
-	self.update = function() {
-
+	self.update = function () {
+		console.log("00000000");
 		ko.mapping.fromJS(Manager.response.response.docs, self.viewData);
-
-		self.numberOfResults(Manager.response.response.numFound);					
-
-		if(drawCharts){
+		console.log("00000001");
+		self.numberOfResults(Manager.response.response.numFound);
+		console.log("00000002");
+		if (drawCharts) {
+			console.log("111111111111");
 			vm.drawcharts();
-			drawCharts = false;		
+			drawCharts = false;
 		}
 
-
-		if(firstTime){	
+		if (firstTime) {
+			console.log("222222222");
 			self.maxNumberOfResults(Manager.response.response.numFound);
 
 			updateWidgets(true);
-			firstTime=false;
-		}else{
-
+			firstTime = false;
+		} else {
+			console.log("3333333");
 			//updateWidgets(false);
 		}
 
-	};	
+	};
 
 	/** Draw chart widgets */
-	self.drawcharts = function(){
-		$.each(self.activeWidgets(), function(index, item) {
+	self.drawcharts = function () {
+		console.log("DRAWWWWWW");
+		$.each(self.activeWidgets(), function (index, item) {
 			console.log(item.type());
-			if(item.type()=="piechart" || item.type()=="barchart"){
+			if (item.type() == "piechart" || item.type() == "barchart") {
 				paintHighChart(item.field(), item.id(), item.type());
 			}
 
@@ -973,181 +990,196 @@ function InitViewModel() {
 	};
 
 	/** Draw charts in ResultsGraph widget */
-	self.redraw = function(){
+	self.redraw = function () {
 		$(".graphics").empty();
-		$.each(self.resultsGraphs(), function(index, item) {
+		$.each(self.resultsGraphs(), function (index, item) {
 
-			if(item.state()){
-				$(".graphics").append("<div style='display: inline-block; width: 325px;' id='" + item.type()+ "'></div>");
+			if (item.state()) {
+				$(".graphics").append("<div style='display: inline-block; width: 325px;' id='" + item.type() + "'></div>");
 				paintHighChart(item.type(), item.type(), "barchart");
 			}
-		});		
+		});
 	};
 
 	/** Map widget related methods */
 	self.mapLat.subscribe(function (newValue) {
 		removeMapMarkers();
-	});	
+	});
 
 	self.mapLong.subscribe(function (newValue) {
 		removeMapMarkers();
-	});	
-
+	});
 
 	/** Show/hide configuration */
-	self.showConfiguration = function() {
+	self.showConfiguration = function () {
 		var value = self.showConfigurationPanel();
 		self.showConfigurationPanel(!value);
 	};
 
 	/** Tutorial */
-	self.showHelp = function() {
+	self.showHelp = function () {
 		$('#TipContent').joyride({
-			'scrollSpeed': 300,              // Page scrolling speed in ms
-			'timer': 0,                   // 0 = off, all other numbers = time(ms) 
-			'startTimerOnClick': false,       // true/false to start timer on first click
-			'nextButton': true,              // true/false for next button visibility
-			'tipAnimation': 'fade',           // 'pop' or 'fade' in each tip
-			'pauseAfter': [],                // array of indexes where to pause the tour after
-			'tipAnimationFadeSpeed': 800,    // if 'fade'- speed in ms of transition
-			'cookieMonster': false,           // true/false for whether cookies are used
-			'cookieName': 'JoyRide',         // choose your own cookie name
-			'cookieDomain': false,           // set to false or yoursite.com
+			'scrollSpeed': 300, // Page scrolling speed in ms
+			'timer': 0, // 0 = off, all other numbers = time(ms) 
+			'startTimerOnClick': false, // true/false to start timer on first click
+			'nextButton': true, // true/false for next button visibility
+			'tipAnimation': 'fade', // 'pop' or 'fade' in each tip
+			'pauseAfter': [], // array of indexes where to pause the tour after
+			'tipAnimationFadeSpeed': 800, // if 'fade'- speed in ms of transition
+			'cookieMonster': false, // true/false for whether cookies are used
+			'cookieName': 'JoyRide', // choose your own cookie name
+			'cookieDomain': false, // set to false or yoursite.com
 		});
 	};
 
 	/** Openning wizards related */
-	self.openNewWidgetManagerMethod = function() {
+	self.openNewWidgetManagerMethod = function () {
 
 		initIsotopeAndWizards();
 		self.openNewWidgetManager(true);
 	};
 
-	self.openSgvizlerManagerMethod = function() {
+	self.openSgvizlerManagerMethod = function () {
 		self.openNewWidgetManager(false);
 		self.openSgvizlerManager(true);
 	};
 
 	/** Widget's editing title function */
-	self.editTitle = function(title) {
+	self.editTitle = function (title) {
 		self.editingTitle(title);
 	};
-
 
 	/** ADD WIDGETS METHODS */
 
 	/** Results Widgets */
-	self.addResultsVerticalWidget = function() {
+	self.addResultsVerticalWidget = function () {
 		var id = Math.floor(Math.random() * 10001);
 
-		self.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable("Resultados"), "type": ko.observable("resultswidget"), "collapsed": ko.observable(false), "layout": ko.observable("vertical"), "showWidgetConfiguration": ko.observable(true)});
+		self.activeWidgetsRight.push({
+			"id": ko.observable(id),
+			"title": ko.observable("Resultados"),
+			"type": ko.observable("resultswidget"),
+			"collapsed": ko.observable(false),
+			"layout": ko.observable("vertical"),
+			"showWidgetConfiguration": ko.observable(true)
+		});
 	};
 
-	self.addResultsGridWidget = function() {
+	self.addResultsGridWidget = function () {
 		var id = Math.floor(Math.random() * 10001);
 
-		self.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable("Resultados"), "type": ko.observable("resultswidget"), "collapsed": ko.observable(false), "layout": ko.observable("grid"), "showWidgetConfiguration": ko.observable(true)});
+		self.activeWidgetsRight.push({
+			"id": ko.observable(id),
+			"title": ko.observable("Resultados"),
+			"type": ko.observable("resultswidget"),
+			"collapsed": ko.observable(false),
+			"layout": ko.observable("grid"),
+			"showWidgetConfiguration": ko.observable(true)
+		});
 	};
-
 
 	/** Adding a new TagCloudWidget */
-	self.addTagCloudWidget = function() {
+	self.addTagCloudWidget = function () {
 
 		var id = Math.floor(Math.random() * 10001);
 		var field = self.newTagCloudValue();
 
-		if(self.activeTab()==0){
-			self.activeWidgetsLeft.push({"id":ko.observable(id),"title": ko.observable("Nuevo Widget"), "type": ko.observable("tagcloud"), "field": ko.observable(self.newTagCloudValue()), "collapsed": ko.observable(false),"values":ko.observableArray(), "layout":ko.observable("horizontal"), "showWidgetConfiguration": ko.observable(false)});
-		}else{
+		if (self.activeTab() == 0) {
+			self.activeWidgetsLeft.push({
+				"id": ko.observable(id),
+				"title": ko.observable("Nuevo Widget"),
+				"type": ko.observable("tagcloud"),
+				"field": ko.observable(self.newTagCloudValue()),
+				"collapsed": ko.observable(false),
+				"values": ko.observableArray(),
+				"layout": ko.observable("horizontal"),
+				"showWidgetConfiguration": ko.observable(false)
+			});
+		} else {
 			/** This tab is not being shown at the moment */
 			//self.activeWidgetsLeftTab1.push({"id":ko.observable(id),"title": ko.observable("Nuevo Widget"), "type": ko.observable("tagcloud"), "field": ko.observable(self.newTagCloudValue()), "collapsed": ko.observable(false),"values":ko.observableArray(), "layout":ko.observable("horizontal"), "showWidgetConfiguration": ko.observable(false)});
 		}
 
-		if(self.sparql()){
+		if (self.sparql()) {
 			updateWidgets(true);
-		}else{
+		} else {
 			var params = {
-					facet: true,
-					'facet.field': field,
-					'facet.limit': limit_items_tagcloud,
-					'facet.sort': 'count',
-					'facet.mincount': 1,
-					'json.nl': 'map'
+				facet: true,
+				'facet.field': field,
+				'facet.limit': limit_items_tagcloud,
+				'facet.sort': 'count',
+				'facet.mincount': 1,
+				'json.nl': 'map'
 			};
 
 			for (var name in params) {
 				Manager.store.addByValue(name, params[name]);
 			}
 
-
 			Manager.store.remove('fq');
 			Manager.doRequest();
-			firstTime=true;
+			firstTime = true;
 		}
 	};
 
 	/** Unused method but could be useful */
-	function filterArrayByField(field){
+	function filterArrayByField(field) {
 
-		var provinces = ko.utils.arrayMap(self.filteredData(), function(item) {
-			if(item[field]!=undefined) {
+		var provinces = ko.utils.arrayMap(self.filteredData(), function (item) {
+			if (item[field] != undefined) {
 				return item[field].value();
 			}
 		});
 
-		return ko.utils.arrayGetDistinctValues(provinces).sort();			
+		return ko.utils.arrayGetDistinctValues(provinces).sort();
 	};
-
 
 	self.newNumericFilterValue.subscribe(function (newValue) {
 		// TO-DO: validación previa
-		
-		// Validación
-		var regex = new RegExp("^[-+]?[0-9]*\.?[0-9]+$");				
 
-		if(!self.sparql()){
-		
-			$.ajax({	
+		// Validación
+		var regex = new RegExp("^[-+]?[0-9]*\.?[0-9]+$");
+
+		if (!self.sparql()) {
+
+			$.ajax({
 				type: 'GET',
 				url: self.solr_baseURL() + 'select?q=*%3A*&rows=0&stats=true&stats.field=' + newValue + '&indent=true&rows=0&wt=json',
-				beforeSend: function(){		
-				self.newNumericFilterValidation(false);
-			},
-			complete: function(){
-			},
-			success: function(allData) {    
+				beforeSend: function () {
+					self.newNumericFilterValidation(false);
+				},
+				complete: function () {},
+				success: function (allData) {
 
-				var data = JSON.parse(allData);
-				var stats = data.stats.stats_fields[newValue];
-				if(regex.exec(stats.min)!=null){
-					minSliderValue = stats.min;
-					maxSliderValue = stats.max;
-					self.newNumericFilterValidation(true);					
-				}else{
-					alert("Campo no válido");
-				}
+					var data = JSON.parse(allData);
+					var stats = data.stats.stats_fields[newValue];
+					if (regex.exec(stats.min) != null) {
+						minSliderValue = stats.min;
+						maxSliderValue = stats.max;
+						self.newNumericFilterValidation(true);
+					} else {
+						alert("Campo no válido");
+					}
 
+				},
+				error: function () {}
+			});
 
-			},
-			error: function() {
-			}
-			}); 
-			
-		}else{
+		} else {
 
 			var test = filterArrayByField(newValue);
 
 			// get min and max values in local
-			minSliderValue = Math.min.apply(Math,test);
-			maxSliderValue = Math.max.apply(Math,test);
-	
-			self.newNumericFilterValidation(true);	
+			minSliderValue = Math.min.apply(Math, test);
+			maxSliderValue = Math.max.apply(Math, test);
+
+			self.newNumericFilterValidation(true);
 
 		}
 	});
 
 	/** Adding a new SliderWidget */
-	self.addSliderWidget = function() {
+	self.addSliderWidget = function () {
 
 		var id = Math.floor(Math.random() * 10001);
 		var field = self.newNumericFilterValue();
@@ -1157,50 +1189,84 @@ function InitViewModel() {
 
 		self.slider = ko.observable([]);
 
-		self.slider().push(minSliderValue,maxSliderValue);
+		self.slider().push(minSliderValue, maxSliderValue);
 
-		var step = (maxSliderValue-minSliderValue)/100;
+		var step = (maxSliderValue - minSliderValue) / 100;
 
-		self.activeWidgetsLeft.push({ "id":ko.observable(id), "title": ko.observable("Nuevo Slider"), "type": ko.observable("slider"), "field": ko.observable(self.newNumericFilterValue()), "collapsed": ko.observable(false), "value": ko.observable(step), "values":self.slider, "limits": ko.observable([minSliderValue, maxSliderValue])});
+		self.activeWidgetsLeft.push({
+			"id": ko.observable(id),
+			"title": ko.observable("Nuevo Slider"),
+			"type": ko.observable("slider"),
+			"field": ko.observable(self.newNumericFilterValue()),
+			"collapsed": ko.observable(false),
+			"value": ko.observable(step),
+			"values": self.slider,
+			"limits": ko.observable([minSliderValue, maxSliderValue])
+		});
 	};
 
 	/** Adding a new GaugeWidget */
-	self.addGaugeWidget = function() {
+	self.addGaugeWidget = function () {
 		var id = Math.floor(Math.random() * 10001);
 
-		self.activeWidgetsLeft.push({ "id":ko.observable(id), "title": ko.observable("Nuevo Gauge"), "type": ko.observable("radialgauge"), "collapsed": ko.observable(false)});
-		self.numberOfResults.valueHasMutated();	
+		self.activeWidgetsLeft.push({
+			"id": ko.observable(id),
+			"title": ko.observable("Nuevo Gauge"),
+			"type": ko.observable("radialgauge"),
+			"collapsed": ko.observable(false)
+		});
+		self.numberOfResults.valueHasMutated();
 	};
 
 	/** Adds a results stats widget */
-	self.addResultStatsWidget = function() {
+	self.addResultStatsWidget = function () {
 		var id = Math.floor(Math.random() * 10001);
 		self.showResultsGraphsWidget(true);
-		self.activeWidgetsLeft.push({ "id":ko.observable(id), "title": ko.observable("Estadísticas de los Resultados"), "type": ko.observable("resultstats"), "collapsed": ko.observable(false), "showWidgetConfiguration": ko.observable(true)});
+		self.activeWidgetsLeft.push({
+			"id": ko.observable(id),
+			"title": ko.observable("Estadísticas de los Resultados"),
+			"type": ko.observable("resultstats"),
+			"collapsed": ko.observable(false),
+			"showWidgetConfiguration": ko.observable(true)
+		});
 	};
 
 	/** Adds a map */
-	self.addMapWidget = function() {
+	self.addMapWidget = function () {
 		var id = Math.floor(Math.random() * 10001);
 
-		self.activeWidgetsLeft.push({ "id":ko.observable(id), "title": ko.observable("Nuevo Mapa"), "type": ko.observable("map"), "collapsed": ko.observable(false)});
+		self.activeWidgetsLeft.push({
+			"id": ko.observable(id),
+			"title": ko.observable("Nuevo Mapa"),
+			"type": ko.observable("map"),
+			"collapsed": ko.observable(false)
+		});
 		createMap();
 	};
 
 	/** Adding a new PanelBar Widget */
-	self.addPanelBarWidget = function() {
+	self.addPanelBarWidget = function () {
 		var id = Math.floor(Math.random() * 10001);
 		var field = self.newPanelBarValue();
 
-		self.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable("Nuevo Panel Bar"), "type": ko.observable("tagcloud"), "field": ko.observable(self.newPanelBarValue()),"collapsed": ko.observable(false),"values":ko.observableArray(), "layout": ko.observable("vertical"), "showWidgetConfiguration": ko.observable(false)});
+		self.activeWidgetsRight.push({
+			"id": ko.observable(id),
+			"title": ko.observable("Nuevo Panel Bar"),
+			"type": ko.observable("tagcloud"),
+			"field": ko.observable(self.newPanelBarValue()),
+			"collapsed": ko.observable(false),
+			"values": ko.observableArray(),
+			"layout": ko.observable("vertical"),
+			"showWidgetConfiguration": ko.observable(false)
+		});
 
 		var params = {
-				facet: true,
-				'facet.field': field,
-				'facet.limit': limit_items_tagcloud,
-				'facet.sort': 'count',
-				'facet.mincount': 1,
-				'json.nl': 'map'
+			facet: true,
+			'facet.field': field,
+			'facet.limit': limit_items_tagcloud,
+			'facet.sort': 'count',
+			'facet.mincount': 1,
+			'json.nl': 'map'
 		};
 
 		for (var name in params) {
@@ -1208,30 +1274,43 @@ function InitViewModel() {
 			Manager.store.addByValue(name, params[name]);
 		}
 
-		if(self.sparql()){
+		if (self.sparql()) {
 			updateWidgets(true);
-		}else{
+		} else {
 			Manager.store.remove('fq');
 			Manager.doRequest();
-			firstTime=true;
+			firstTime = true;
 		}
 	};
 
-	self.addTwitterWidget = function() {
+	self.addTwitterWidget = function () {
 		var id = Math.floor(Math.random() * 10001);
 		var field = self.newTwitterValue();
 
-		self.activeWidgetsLeft.push({"id":ko.observable(id),"title": ko.observable("Twitter"), "type": ko.observable("twitter"), "field": ko.observable(self.newTwitterValue()),"collapsed": ko.observable(false),"currentTweets":ko.observableArray([])});
+		self.activeWidgetsLeft.push({
+			"id": ko.observable(id),
+			"title": ko.observable("Twitter"),
+			"type": ko.observable("twitter"),
+			"field": ko.observable(self.newTwitterValue()),
+			"collapsed": ko.observable(false),
+			"currentTweets": ko.observableArray([])
+		});
 
 		updateTwitterWidget(field, id);
 
 	};
 
-	self.addPieChartWidget = function() {
+	self.addPieChartWidget = function () {
 		var id = Math.floor(Math.random() * 10001);
 		var field = self.newPieChartValue();
 
-		self.activeWidgetsLeft.push({"id":ko.observable(id),"title": ko.observable("Nuevo gráfico"), "type": ko.observable("piechart"), "field": ko.observable(self.newPieChartValue()),"collapsed": ko.observable(false)});
+		self.activeWidgetsLeft.push({
+			"id": ko.observable(id),
+			"title": ko.observable("Nuevo gráfico"),
+			"type": ko.observable("piechart"),
+			"field": ko.observable(self.newPieChartValue()),
+			"collapsed": ko.observable(false)
+		});
 
 		paintHighChart(field, id, "piechart");
 	};
@@ -1240,32 +1319,37 @@ function InitViewModel() {
 		var id = Math.floor(Math.random() * 10001);
 		var field = self.newBarChartValue();
 
-		self.activeWidgetsLeft.push({"id":ko.observable(id),"title": ko.observable("Nuevo gráfico"), "type": ko.observable("barchart"), "field": ko.observable(self.newBarChartValue()),"collapsed": ko.observable(false)});
+		self.activeWidgetsLeft.push({
+			"id": ko.observable(id),
+			"title": ko.observable("Nuevo gráfico"),
+			"type": ko.observable("barchart"),
+			"field": ko.observable(self.newBarChartValue()),
+			"collapsed": ko.observable(false)
+		});
 
 		paintHighChart(field, id, "barchart");
-	};	
+	};
 
 	/** Load static graph widgets (sgvizler) */
-	self.loadSgvizler = function(){
+	self.loadSgvizler = function () {
 
-		$.each(self.activeWidgetsLeftTab1(), function(index, item) {
-			if(item.type()=="sgvizler"){
-				var id = item.id();
-				var stringid = id.toString();			
-
-
-				mySgvizlerQuery(item.query(), stringid, item.value());
-			}
-		});
-		
-		$.each(self.activeWidgetsRightTab1(), function(index, item) {
-			if(item.type()=="sgvizler"){
+		$.each(self.activeWidgetsLeftTab1(), function (index, item) {
+			if (item.type() == "sgvizler") {
 				var id = item.id();
 				var stringid = id.toString();
 
 				mySgvizlerQuery(item.query(), stringid, item.value());
 			}
-		});	
+		});
+
+		$.each(self.activeWidgetsRightTab1(), function (index, item) {
+			if (item.type() == "sgvizler") {
+				var id = item.id();
+				var stringid = id.toString();
+
+				mySgvizlerQuery(item.query(), stringid, item.value());
+			}
+		});
 
 	};
 
@@ -1273,213 +1357,262 @@ function InitViewModel() {
 		var data = self.filteredData();
 		var array = [];
 
-
-		ko.utils.arrayFilter(self.filteredData(), function(item) {		
-			if(item[field]!=undefined) {
+		ko.utils.arrayFilter(self.filteredData(), function (item) {
+			if (item[field] != undefined) {
 				array.push(item[field]());
 			}
 		});
 
-		ko.utils.arrayFilter(self.activeWidgets(), function(item) {
-			if(item.id()==id) {
+		ko.utils.arrayFilter(self.activeWidgets(), function (item) {
+			if (item.id() == id) {
 				twitterApi.getTweetsForUsers(array, item.currentTweets);
 			}
-		});	
+		});
 
 	};
 
-	function updateTwitterWidgets(){
-		$.each(self.activeWidgets(), function(index, item) {
-			if(item.type()=="twitter"){
+	function updateTwitterWidgets() {
+		$.each(self.activeWidgets(), function (index, item) {
+			if (item.type() == "twitter") {
 				updateTwitterWidget(item.field(), item.id());
 			}
-		});	
+		});
 
 	}
 
 	/** Save button */
-	self.doSave = function() {
+	self.doSave = function () {
 		saveConfiguration();
 		self.showConfiguration();
 	};
 
 	/** Reset Configuration */
-	self.deleteConfiguration = function() {
+	self.deleteConfiguration = function () {
 		$.ajax({
-			type:"DELETE",
+			type: "DELETE",
 			url: vm.serverURL() + "config/data/search.config." + coreSelected,
-			success: function(data){
-			window.location.reload();
-		},
-		error: function() {
-			alert("Error al eliminar la configuración");
-		}
-		});		
+			success: function (data) {
+				window.location.reload();
+			},
+			error: function () {
+				alert("Error al eliminar la configuración");
+			}
+		});
 	};
 
 	/** Depending on the html route, redirect to a setup screen or directly to visualization screen */
-	self.routes = function(){
-		if(self.serverURL() == ""){
+	self.routes = function () {
+		if (self.serverURL() == "") {
 			self.page(4);
-			errorinroute=true;
+			errorinroute = true;
 
-		}else{
+		} else {
 
 			// Client-side routes    
-			sammyPlugin = $.sammy(function() {
-				this.bind('redirectEvent', function(e, data) {
+			sammyPlugin = $.sammy(function () {
+				this.bind('redirectEvent', function (e, data) {
 					this.redirect(data['url_data']);
 				});
 
-				this.get('#/main', function(context) {
+				this.get('#/main', function (context) {
 					console.log("ERROR EN RUTA");
 
 					setupMethod();
 					self.page(3);
-					errorinroute=true;
+					errorinroute = true;
 				});
 
-				this.get('#/main/:coreId/admin', function() {
+				this.get('#/main/:coreId/admin', function () {
 
 					self.core(this.params.coreId);
 					coreSelected = this.params.coreId;
-
 
 					var solr_baseURL = serverURL + 'solr/' + coreSelected + '/';
 					self.solr_baseURL(solr_baseURL);
 
 					promptLogin();
 
-				});				
+				});
 
-
-				this.get('#/main/:coreId', function() {
-
+				this.get('#/main/:coreId', function () {
 
 					self.core(this.params.coreId);
 					coreSelected = this.params.coreId;
 
-
 					var solr_baseURL = serverURL + 'solr/' + coreSelected + '/';
 					self.solr_baseURL(solr_baseURL);
 
-					if(!self.securityEnabled()){
+					if (!self.securityEnabled()) {
 						self.adminMode(true);
-					}else{
+					} else {
 						self.adminMode(false);
 						self.showConfigurationPanel(false);
 					}
 
 					/** Cargamos la configuración para el core dado */
-					loadCore();			
+					loadCore();
 				});
 
-
-
-				this.get('#/sparql', function() {
-					sparqlmode=true;
+				this.get('#/sparql', function () {
+					sparqlmode = true;
 					self.sparql = ko.observable(true);
-					self.sparql = ko.observable(true);		
+					self.sparql = ko.observable(true);
 					self.showSparqlPanel = ko.observable(true);
 
-					if(!self.securityEnabled()){
+					if (!self.securityEnabled()) {
 						self.adminMode(true);
-					}else{
+					} else {
 						self.adminMode(false);
 						self.showConfigurationPanel(false);
-					}				
+					}
 					init();
 
 				});
 
-				this.get('#/sparql/kukinet', function() {
-					sparqlmode=true;
+				this.get('#/sparql/kukinet', function () {
+					sparqlmode = true;
 
 					self.sparql = ko.observable(true);
-					self.sparql = ko.observable(true);		
+					self.sparql = ko.observable(true);
 					configuration.template.pageTitle = "KukiNet";
 					configuration.template.logoPath = "https://lh4.ggpht.com/u5vxDMD5XpZQdnN8ZPVdU9rw1QCcD4VL1dgZ6OLw5jh8i9Bdz4aCDSCROMwTuk9YwOEM=w124";
 					self.getResultsSPARQL("SELECT ?text ?score ?category ?delivered ?latitude ?longitude ?username ?userdescription ?usercountry ?uservoted ?userreceived ?userscore WHERE { ?s <http://www.kukinet.com/text> ?text ; <http://www.kukinet.com/score> ?score ; <http://www.kukinet.com/category> ?category ; <http://www.kukinet.com/delivered> ?delivered ; <http://www.kukinet.com/latitude> ?latitude ; <http://www.kukinet.com/longitude> ?longitude ; <http://www.kukinet.com/username> ?username ; <http://www.kukinet.com/userdescription> ?userdescription ; <http://www.kukinet.com/usercountry> ?usercountry ; <http://www.kukinet.com/uservoted> ?uservoted ; <http://www.kukinet.com/userreceived> ?userreceived ; <http://www.kukinet.com/userscore> ?userscore ; } LIMIT 100");
-					configuration.results.resultsLayout = [
-					                                       {
-					                                    	   Name: "Títulos",
-					                                    	   Value: "text"},
-					                                    	   {
-					                                    		   Name: "Subtítulo",
-					                                    		   Value: "username"},
-					                                    		   {
-					                                    			   Name: "Descripción",
-					                                    			   Value: "score"},
-					                                    			   {
-					                                    				   Name: "Logo",
-					                                    				   Value: ""},
-					                                    				   ];
+					configuration.results.resultsLayout = [{
+						Name: "Títulos",
+						Value: "text"
+					}, {
+						Name: "Subtítulo",
+						Value: "username"
+					}, {
+						Name: "Descripción",
+						Value: "score"
+					}, {
+						Name: "Logo",
+						Value: ""
+					}, ];
 					configuration.template.language = "Español";
-					templateWidgetsRight.push({ id: 0, title: 'Categoría', type: 'tagcloud', field: 'category' , collapsed: false, query: '', value: [], values: [], limits: '', layout: 'horizontal', showWidgetConfiguration: false});
-					templateWidgetsLeft.push({ id: 1, title: 'País', type: 'tagcloud', field: 'usercountry' , collapsed: false, query: '', value: [], values: [], limits: '', layout: 'vertical', showWidgetConfiguration: false});
-					templateWidgetsLeft.push({"id": 2,"title": "Gráfico", "type": "barchart", "field": 'category',"collapsed": ko.observable(false)});
+					templateWidgetsRight.push({
+						id: 0,
+						title: 'Categoría',
+						type: 'tagcloud',
+						field: 'category',
+						collapsed: false,
+						query: '',
+						value: [],
+						values: [],
+						limits: '',
+						layout: 'horizontal',
+						showWidgetConfiguration: false
+					});
+					templateWidgetsLeft.push({
+						id: 1,
+						title: 'País',
+						type: 'tagcloud',
+						field: 'usercountry',
+						collapsed: false,
+						query: '',
+						value: [],
+						values: [],
+						limits: '',
+						layout: 'vertical',
+						showWidgetConfiguration: false
+					});
+					templateWidgetsLeft.push({
+						"id": 2,
+						"title": "Gráfico",
+						"type": "barchart",
+						"field": 'category',
+						"collapsed": ko.observable(false)
+					});
 					//templateWidgetsLeft.push({"id": 3,"title": "Mapa", "type": "map","collapsed": ko.observable(false)});
-					templateWidgetsLeft.push({"id": 4,"title": "Gauge", "type": "radialgauge","collapsed": ko.observable(false)});
+					templateWidgetsLeft.push({
+						"id": 4,
+						"title": "Gauge",
+						"type": "radialgauge",
+						"collapsed": ko.observable(false)
+					});
 
-					self.adminMode(true);		
+					self.adminMode(true);
 
 					//createMap();
-					init();							
+					init();
 				});
 
-				this.get('#/sparql/demo1', function() {
+				this.get('#/sparql/demo1', function () {
 
 					self.sparql = ko.observable(true);
-					self.sparql = ko.observable(true);		
+					self.sparql = ko.observable(true);
 					configuration.template.pageTitle = "Capitales europeas";
 					self.getResultsSPARQL("select ?name ?desc ?resumen ?country where {?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/CapitalsInEurope> ; <http://xmlns.com/foaf/0.1/name> ?name ; <http://dbpedia.org/ontology/abstract> ?desc ; <http://www.w3.org/2000/01/rdf-schema#comment> ?resumen ; <http://dbpedia.org/ontology/country> ?countrynode . ?countrynode <http://www.w3.org/2000/01/rdf-schema#label> ?country .  FILTER ( lang(?resumen) = 'es' && lang(?country) = 'es' && lang(?desc) = 'es')} LIMIT 10", "http://dbpedia.org/sparql");
-					configuration.results.resultsLayout = [
-					                                       {
-					                                    	   Name: "Títulos",
-					                                    	   Value: "name"},
-					                                    	   {
-					                                    		   Name: "Subtítulo",
-					                                    		   Value: "country"},
-					                                    		   {
-					                                    			   Name: "Descripción",
-					                                    			   Value: "resumen"},
-					                                    			   {
-					                                    				   Name: "Logo",
-					                                    				   Value: ""},
-					                                    				   ];
+					configuration.results.resultsLayout = [{
+						Name: "Títulos",
+						Value: "name"
+					}, {
+						Name: "Subtítulo",
+						Value: "country"
+					}, {
+						Name: "Descripción",
+						Value: "resumen"
+					}, {
+						Name: "Logo",
+						Value: ""
+					}, ];
 					configuration.template.language = "English";
-					templateWidgetsLeft.push({ id: 0, title: 'Países', type: 'tagcloud', field: 'country' , collapsed: false, query: '', value: [], values: [], limits: '', layout: 'horizontal', showWidgetConfiguration: false});
-					templateWidgetsLeft.push({ id: 1, title: 'Nombres', type: 'tagcloud', field: 'name' , collapsed: false, query: '', value: [], values: [], limits: '', layout: 'horizontal', showWidgetConfiguration: false});
+					templateWidgetsLeft.push({
+						id: 0,
+						title: 'Países',
+						type: 'tagcloud',
+						field: 'country',
+						collapsed: false,
+						query: '',
+						value: [],
+						values: [],
+						limits: '',
+						layout: 'horizontal',
+						showWidgetConfiguration: false
+					});
+					templateWidgetsLeft.push({
+						id: 1,
+						title: 'Nombres',
+						type: 'tagcloud',
+						field: 'name',
+						collapsed: false,
+						query: '',
+						value: [],
+						values: [],
+						limits: '',
+						layout: 'horizontal',
+						showWidgetConfiguration: false
+					});
 					configuration.autocomplete.field = "name";
 
-					sparqlmode=true;
+					sparqlmode = true;
 
 					init();
 
-				});	
+				});
 
-
-				this.get('#/graph/:coreId', function(context) {
+				this.get('#/graph/:coreId', function (context) {
 
 				});
 
-				this.notFound = function(){
+				this.notFound = function () {
 
 					self.page(1);
-					errorinroute=true;
-				}			
-			}).run('#/main'); 
+					errorinroute = true;
+				}
+			}).run('#/main');
 		}
 	}
 
 	/** Error window asking user to select a core */
 	function setupMethod() {
 
-		$.getJSON(self.serverURL() + 'solr/cores', function(data) { 
+		$.getJSON(self.serverURL() + 'solr/cores', function (data) {
 			self.listCores(data);
 		});
 
-		self.start = function (){
+		self.start = function () {
 			location.hash = '#/main/' + self.core();
 			window.location.reload();
 		}
@@ -1491,14 +1624,14 @@ function InitViewModel() {
 		$.ajax({
 			type: "get",
 			url: self.solr_baseURL() + "admin/luke?show=schema&wt=json",
-			cache:false,
-			dataType:'json',
-			success: function(){
+			cache: false,
+			dataType: 'json',
+			success: function () {
 				loadConfiguration();
 			},
-			error: function(){
+			error: function () {
 				console.log("ERROR");
-				self.page(2); 
+				self.page(2);
 				errorinroute = true;
 				setupMethod();
 			}
@@ -1507,49 +1640,111 @@ function InitViewModel() {
 	};
 
 	/** Load configuration for a given core */
-	function loadConfiguration(){
-
+	function loadConfiguration() {
+		console.info("Estoy en loadConfiguration");
 		var loaded_configuration = "";
 		var default_configuration = configuration;
 
-		$.getJSON(self.serverURL() + "config/data/search.config." + coreSelected,function(data){    
+		$.getJSON(self.serverURL() + "config/data/search.config." + coreSelected, function (data) {
 
-			loaded_configuration = JSON.parse(data['search.config.'+coreSelected]);
+			loaded_configuration = JSON.parse(data['search.config.' + coreSelected]);
 			//var configuration = $.extend({}, loaded_configuration, configuration); 
 			configuration = loaded_configuration;
-			for (var i = 0; configuration.widgetsLeft.length > i; i++) {	
 
-				templateWidgetsLeft.push({ id: configuration.widgetsLeft[i].id, title: configuration.widgetsLeft[i].title, type: configuration.widgetsLeft[i].type,field: configuration.widgetsLeft[i].field , collapsed: configuration.widgetsLeft[i].collapsed, query: configuration.widgetsLeft[i].query, value: configuration.widgetsLeft[i].value, values: configuration.widgetsLeft[i].values, limits: configuration.widgetsLeft[i].limits, layout: configuration.widgetsLeft[i].layout, currentTweets: configuration.widgetsLeft[i].currentTweets, showWidgetConfiguration: configuration.widgetsLeft[i].showWidgetConfiguration});
+			templateWidgetsLeft = [];
+			templateWidgetsRight = [];
+			templateWidgetsLeftTab1 = [];
+			templateWidgetsRightTab1 = [];
+
+			for (var i = 0; configuration.widgetsLeft.length > i; i++) {
+
+				templateWidgetsLeft.push({
+					id: configuration.widgetsLeft[i].id,
+					title: configuration.widgetsLeft[i].title,
+					type: configuration.widgetsLeft[i].type,
+					field: configuration.widgetsLeft[i].field,
+					collapsed: configuration.widgetsLeft[i].collapsed,
+					query: configuration.widgetsLeft[i].query,
+					value: configuration.widgetsLeft[i].value,
+					values: configuration.widgetsLeft[i].values,
+					limits: configuration.widgetsLeft[i].limits,
+					layout: configuration.widgetsLeft[i].layout,
+					currentTweets: configuration.widgetsLeft[i].currentTweets,
+					showWidgetConfiguration: configuration.widgetsLeft[i].showWidgetConfiguration
+				});
 			}
 
-			for (var i = 0; configuration.widgetsRight.length > i; i++) {	
+			for (var i = 0; configuration.widgetsRight.length > i; i++) {
 
-				templateWidgetsRight.push({ id: configuration.widgetsRight[i].id, title: configuration.widgetsRight[i].title, type: configuration.widgetsRight[i].type,field: configuration.widgetsRight[i].field , collapsed: configuration.widgetsRight[i].collapsed, query: configuration.widgetsRight[i].query, value: configuration.widgetsRight[i].value, values: configuration.widgetsRight[i].values, limits: configuration.widgetsRight[i].limits, layout: configuration.widgetsRight[i].layout, currentTweets: configuration.widgetsRight[i].currentTweets, showWidgetConfiguration: configuration.widgetsRight[i].showWidgetConfiguration});
-			}
-			
-			for (var i = 0; configuration.widgetsLeftTab1.length > i; i++) {	
-				templateWidgetsLeftTab1.push({ id: configuration.widgetsLeftTab1[i].id, title: configuration.widgetsLeftTab1[i].title, type: configuration.widgetsLeftTab1[i].type,field: configuration.widgetsLeftTab1[i].field , collapsed: configuration.widgetsLeftTab1[i].collapsed, query: configuration.widgetsLeftTab1[i].query, value: configuration.widgetsLeftTab1[i].value, values: configuration.widgetsLeftTab1[i].values, limits: configuration.widgetsLeftTab1[i].limits, layout: configuration.widgetsLeftTab1[i].layout, currentTweets: configuration.widgetsLeftTab1[i].currentTweets, showWidgetConfiguration: configuration.widgetsLeftTab1[i].showWidgetConfiguration});			
+				templateWidgetsRight.push({
+					id: configuration.widgetsRight[i].id,
+					title: configuration.widgetsRight[i].title,
+					type: configuration.widgetsRight[i].type,
+					field: configuration.widgetsRight[i].field,
+					collapsed: configuration.widgetsRight[i].collapsed,
+					query: configuration.widgetsRight[i].query,
+					value: configuration.widgetsRight[i].value,
+					values: configuration.widgetsRight[i].values,
+					limits: configuration.widgetsRight[i].limits,
+					layout: configuration.widgetsRight[i].layout,
+					currentTweets: configuration.widgetsRight[i].currentTweets,
+					showWidgetConfiguration: configuration.widgetsRight[i].showWidgetConfiguration
+				});
 			}
 
-			for (var i = 0; configuration.widgetsRightTab1.length > i; i++) {	
-				templateWidgetsRightTab1.push({ id: configuration.widgetsRightTab1[i].id, title: configuration.widgetsRightTab1[i].title, type: configuration.widgetsRightTab1[i].type,field: configuration.widgetsRightTab1[i].field , collapsed: configuration.widgetsRightTab1[i].collapsed, query: configuration.widgetsRightTab1[i].query, value: configuration.widgetsRightTab1[i].value, values: configuration.widgetsRightTab1[i].values, limits: configuration.widgetsRightTab1[i].limits, layout: configuration.widgetsRightTab1[i].layout, currentTweets: configuration.widgetsRightTab1[i].currentTweets, showWidgetConfiguration: configuration.widgetsRightTab1[i].showWidgetConfiguration});			
+			for (var i = 0; configuration.widgetsLeftTab1.length > i; i++) {
+				templateWidgetsLeftTab1.push({
+					id: configuration.widgetsLeftTab1[i].id,
+					title: configuration.widgetsLeftTab1[i].title,
+					type: configuration.widgetsLeftTab1[i].type,
+					field: configuration.widgetsLeftTab1[i].field,
+					collapsed: configuration.widgetsLeftTab1[i].collapsed,
+					query: configuration.widgetsLeftTab1[i].query,
+					value: configuration.widgetsLeftTab1[i].value,
+					values: configuration.widgetsLeftTab1[i].values,
+					limits: configuration.widgetsLeftTab1[i].limits,
+					layout: configuration.widgetsLeftTab1[i].layout,
+					currentTweets: configuration.widgetsLeftTab1[i].currentTweets,
+					showWidgetConfiguration: configuration.widgetsLeftTab1[i].showWidgetConfiguration
+				});
 			}
-			
+
+			for (var i = 0; configuration.widgetsRightTab1.length > i; i++) {
+				templateWidgetsRightTab1.push({
+					id: configuration.widgetsRightTab1[i].id,
+					title: configuration.widgetsRightTab1[i].title,
+					type: configuration.widgetsRightTab1[i].type,
+					field: configuration.widgetsRightTab1[i].field,
+					collapsed: configuration.widgetsRightTab1[i].collapsed,
+					query: configuration.widgetsRightTab1[i].query,
+					value: configuration.widgetsRightTab1[i].value,
+					values: configuration.widgetsRightTab1[i].values,
+					limits: configuration.widgetsRightTab1[i].limits,
+					layout: configuration.widgetsRightTab1[i].layout,
+					currentTweets: configuration.widgetsRightTab1[i].currentTweets,
+					showWidgetConfiguration: configuration.widgetsRightTab1[i].showWidgetConfiguration
+				});
+			}
+
 			init();
 
-		}).error(function() { 
-			templateWidgetsRight.push({"id":ko.observable(0),"title": ko.observable("Resultados"), "type": ko.observable("resultswidget"), "collapsed": ko.observable(false), "layout": ko.observable("vertical"), "showWidgetConfiguration": ko.observable(false)});
+		}).error(function () {
+			templateWidgetsRight.push({
+				"id": ko.observable(0),
+				"title": ko.observable("Resultados"),
+				"type": ko.observable("resultswidget"),
+				"collapsed": ko.observable(false),
+				"layout": ko.observable("vertical"),
+				"showWidgetConfiguration": ko.observable(false)
+			});
 
 			init();
 
-		}).complete(function() {
-
+		}).complete(function () {
 
 		});
 
 	};
-
-
 
 	function init() {
 
@@ -1568,7 +1763,7 @@ function InitViewModel() {
 		self.showResultsWidget = ko.observable(configuration.template.showResultsWidget);
 		self.resultsWidget = ko.mapping.fromJS(configuration.results);
 		//self.resultsLayout = ko.mapping.fromJS(configuration.results.resultsLayout);
-		self.selectedLanguage(configuration.template.language);	
+		self.selectedLanguage(configuration.template.language);
 
 		self.maxNumberOfResults(configuration.other.maxNumberOfResults);
 
@@ -1576,7 +1771,7 @@ function InitViewModel() {
 		self.mapLong(configuration.mapWidget.latitude);
 
 		self.autocomplete_fieldname(configuration.autocomplete.field);
-		self.default_autocomplete_fieldname(configuration.autocomplete.field);	
+		self.default_autocomplete_fieldname(configuration.autocomplete.field);
 		self.activedAutocomplete = ko.observable(configuration.autocomplete.actived);
 		//self.autocomplete_fieldname.valueHasMutated();
 		//self.autocomplete_fieldname = ko.observable("name");
@@ -1587,15 +1782,18 @@ function InitViewModel() {
 		self.activeWidgetsRight = ko.mapping.fromJS(templateWidgetsRight);
 		self.activeWidgetsLeftTab1 = ko.mapping.fromJS(templateWidgetsLeftTab1);
 		self.activeWidgetsRightTab1 = ko.mapping.fromJS(templateWidgetsRightTab1);
-		
+
 		self.filter('');
 		//self.resultsGraphsTemp = ko.mapping.fromJS(self.testData);
 
-		self.dataColumnsWithId = ko.computed(function() {
+		self.dataColumnsWithId = ko.computed(function () {
 			var result = new Array;
 			var i = 1;
-			ko.utils.arrayFilter(self.dataColumns(), function(itm) {
-				result.push({Id: i, Name: itm });
+			ko.utils.arrayFilter(self.dataColumns(), function (itm) {
+				result.push({
+					Id: i,
+					Name: itm
+				});
 				i++;
 			});
 
@@ -1610,87 +1808,86 @@ function InitViewModel() {
 
 		self.getGaugeMajorUnits = ko.computed(function () {
 			var max = self.maxNumberOfResults();
-			var fmajorunits = max/10;
+			var fmajorunits = max / 10;
 			var majorunits = Math.floor(fmajorunits);
 
 			return majorunits;
-		});		
+		});
 
-
-		self.activeWidgets = ko.computed(function() {
+		self.activeWidgets = ko.computed(function () {
 			return self.activeWidgetsLeft().concat(self.activeWidgetsRight()).concat(self.activeWidgetsLeftTab1());
-		}, self);	
+		}, self);
 
 		self.numberOfActiveFilters = ko.computed(function (numbers) {
 			var activeFiltersCount = 0;
 
-			ko.utils.arrayFilter(self.activeWidgets(), function(item1) {
-				if(item1.type()=="tagcloud"){
-					ko.utils.arrayFilter(item1.values(), function(item2) {
-						if(item2.state() == true){
+			ko.utils.arrayFilter(self.activeWidgets(), function (item1) {
+				if (item1.type() == "tagcloud") {
+					ko.utils.arrayFilter(item1.values(), function (item2) {
+						if (item2.state() == true) {
 							activeFiltersCount++;
 						}
 					});
 				}
 			});
 
-			if(activeFiltersCount>1){
+			if (activeFiltersCount > 1) {
 				return true;
-			}else{
+			} else {
 				return false;
-			}		
+			}
 		});
 
 		self.anyActiveFilter = ko.computed(function (numbers) {
 			var activeFiltersCount = 0;
 
-			ko.utils.arrayFilter(self.activeWidgets(), function(item1) {
-				if(item1.type()=="tagcloud"){
-					ko.utils.arrayFilter(item1.values(), function(item2) {
-						if(item2.state() == true){
+			ko.utils.arrayFilter(self.activeWidgets(), function (item1) {
+				if (item1.type() == "tagcloud") {
+					ko.utils.arrayFilter(item1.values(), function (item2) {
+						if (item2.state() == true) {
 							activeFiltersCount++;
 						}
 					});
 				}
 			});
 
-			if(activeFiltersCount>0){
+			if (activeFiltersCount > 0) {
 				return true;
-			}else{
+			} else {
 				return false;
-			}		
-		});	
+			}
+		});
 
 		self.resultsLayout = ko.mapping.fromJS(configuration.results.resultsLayout);
-
 
 		self.isotope({
 			layoutMode: 'fitRows',
 			itemSelector: '.result_box',
 			animationEngine: 'best-available',
 			getSortData: {
-			name: function($elem) {
-			return $elem.find('.name').text();
-		}
-		}
-		});	
+				name: function ($elem) {
+					return $elem.find('.name').text();
+				}
+			}
+		});
 
-
-		/** Update Twitter widgets dinamically */	
+		/** Update Twitter widgets dinamically */
 		/*
 		setInterval(function (){
 			twitterApi.getTweetsForUsers(self.twitterList(), self.currentTweets);
 		}, 10000);			
 		 */
 
-
-		self.resultsGraphs = ko.computed(function() {
-			var array = ko.utils.arrayMap(self.dataColumns(), function(item) {
-				return { type: ko.observable(item), state: ko.observable(false) };
+		self.resultsGraphs = ko.computed(function () {
+			var array = ko.utils.arrayMap(self.dataColumns(), function (item) {
+				return {
+					type: ko.observable(item),
+					state: ko.observable(false)
+				};
 			});
 
 			return array;
-		});	
+		});
 
 		self.resultsGraphs.subscribe(function (newValue) {
 
@@ -1704,21 +1901,20 @@ function InitViewModel() {
 			self.resultsGraphs.dispose();
 		}, self);
 
-
 		var widgets = self.activeWidgets();
 
-		for(var i=0;i<widgets.length;i++) {		
-			if(widgets[i].type()=="resultstats"){
+		for (var i = 0; i < widgets.length; i++) {
+			if (widgets[i].type() == "resultstats") {
 				self.showResultsGraphsWidget(true);
 			}
-			if(widgets[i].type()=="map"){
+			if (widgets[i].type() == "map") {
 
 			}
 		}
 
-		if(!sparqlmode){
+		if (!sparqlmode) {
 			// SOLR MODE
-			
+
 			var currenturl = self.solr_baseURL();
 
 			// Inicializamos el manager
@@ -1729,11 +1925,11 @@ function InitViewModel() {
 			/** If autocomplete field changes, do a new Request so we have data for autocomplete purposes */
 			self.autocomplete_fieldname.subscribe(function (newValue) {
 				var isActive = self.activedAutocomplete();
-				
-				if(isActive){
+
+				if (isActive) {
 					Manager.doRequest();
 				}
-			});	
+			});
 
 			Manager.addWidget(new AjaxSolr.ResultWidget({
 				id: 'result',
@@ -1747,12 +1943,12 @@ function InitViewModel() {
 				nextLabel: '&gt;',
 				innerWindow: 1,
 				renderHeader: function (perPage, offset, total) {
-				if(total!=0){
-					$('#pager-header').html($('<span/>').text('Viendo resultados del ' + Math.min(total, offset + 1) + ' al ' + Math.min(total, offset + perPage) + ' (' + total + ' en total)'));
-				}else{
-					$('#pager-header').html($('<span/>').text(''));
+					if (total != 0) {
+						$('#pager-header').html($('<span/>').text('Viendo resultados del ' + Math.min(total, offset + 1) + ' al ' + Math.min(total, offset + perPage) + ' (' + total + ' en total)'));
+					} else {
+						$('#pager-header').html($('<span/>').text(''));
+					}
 				}
-			}
 			}));
 
 			Manager.addWidget(new AjaxSolr.AutocompleteWidget({
@@ -1760,39 +1956,44 @@ function InitViewModel() {
 				target: '.search'
 			}));
 
-
 			Manager.init();
 			Manager.store.addByValue('q', '*:*');
 
-			showWidgets();	
+			showWidgets();
 			ko.applyBindings(vm);
 
 			var widgets = self.activeWidgets();
 
+			for (var i = 0; i < widgets.length; i++) {
 
-			for(var i=0;i<widgets.length;i++) {
-
-				if(widgets[i].type()=="map"){
+				if (widgets[i].type() == "map") {
 					createMap();
 				}
-			}	
+			}
 
-		}else{
+		} else {
 			/** Local MODE */
 
-			self.activeWidgetsRight.push({"id":ko.observable(0),"title": ko.observable("Resultados"), "type": ko.observable("resultswidget"), "collapsed": ko.observable(false), "layout": ko.observable("vertical"), "showWidgetConfiguration": ko.observable(false)});	
+			self.activeWidgetsRight.push({
+				"id": ko.observable(0),
+				"title": ko.observable("Resultados"),
+				"type": ko.observable("resultswidget"),
+				"collapsed": ko.observable(false),
+				"layout": ko.observable("vertical"),
+				"showWidgetConfiguration": ko.observable(false)
+			});
 
-			self.autoCompleteFields = ko.computed(function() {
+			self.autoCompleteFields = ko.computed(function () {
 				var isActive = self.activedAutocomplete();
 				var array = [];
 
-				if(self.filteredData().length!=0 && isActive){
+				if (self.filteredData().length != 0 && isActive) {
 
-					ko.utils.arrayFilter(self.filteredData(), function(data) {
+					ko.utils.arrayFilter(self.filteredData(), function (data) {
 
-						if(data[self.autocomplete_fieldname()]!=undefined){
+						if (data[self.autocomplete_fieldname()] != undefined) {
 							array.push(data[self.autocomplete_fieldname()].value().toString());
-						}else if(data[self.default_autocomplete_fieldname()]!=undefined){
+						} else if (data[self.default_autocomplete_fieldname()] != undefined) {
 							array.push(data[self.default_autocomplete_fieldname()].value().toString());
 						}
 					});
@@ -1800,39 +2001,37 @@ function InitViewModel() {
 				}
 
 				return array;
-			}, self);	
+			}, self);
 
 		}
 
 		// Load static graphs
 		self.loadSgvizler();
 
-	};	
-
+	};
 
 	// Ends vm
 }
 
-
 /** Add params to solr query so we can fill tagcloud widgets */
-function showWidgets(){
+function showWidgets() {
 	var widgets = vm.activeWidgets();
 	var fields = [];
 
-	for(var i=0;i<widgets.length;i++) {
+	for (var i = 0; i < widgets.length; i++) {
 
-		if(widgets[i].type()=="tagcloud"){
+		if (widgets[i].type() == "tagcloud") {
 			fields.push(widgets[i].field());
 		}
 	}
 
 	var params = {
-			facet: true,
-			'facet.field': fields,
-			'facet.limit': limit_items_tagcloud,
-			'facet.sort': 'count',
-			'facet.mincount': 1,
-			'json.nl': 'map'
+		facet: true,
+		'facet.field': fields,
+		'facet.limit': limit_items_tagcloud,
+		'facet.sort': 'count',
+		'facet.mincount': 1,
+		'json.nl': 'map'
 	};
 
 	for (var name in params) {
@@ -1843,9 +2042,8 @@ function showWidgets(){
 
 }
 
-
 /** Save configuration method */
-function saveConfiguration(refreshpage){
+function saveConfiguration(refreshpage) {
 
 	configuration.endpoints.serverURL = serverURL;
 	configuration.template.pageTitle = vm.pageTitle();
@@ -1857,9 +2055,9 @@ function saveConfiguration(refreshpage){
 	configuration.results.resultsLayout = ko.mapping.toJS(vm.resultsLayout());
 
 	configuration.autocomplete.actived = vm.activedAutocomplete();
-	if(!isBlank(vm.autocomplete_fieldname())){
+	if (!isBlank(vm.autocomplete_fieldname())) {
 		configuration.autocomplete.field = vm.autocomplete_fieldname();
-	}else{
+	} else {
 		configuration.autocomplete.field = vm.default_autocomplete_fieldname();
 	}
 
@@ -1871,30 +2069,30 @@ function saveConfiguration(refreshpage){
 
 	configuration.widgetsLeftTab1 = ko.toJS(vm.activeWidgetsLeftTab1);
 	configuration.widgetsRightTab1 = ko.toJS(vm.activeWidgetsRightTab1);
-	
-	var data = JSON.stringify(configuration).replace(/"/g,"\"").replace(/,/g,"\\,");
+
+	var data = JSON.stringify(configuration).replace(/"/g, "\"").replace(/,/g, "\\,");
 	//alert(JSON.stringify([data]));
 
 	$.ajax({
-		type:"POST",
+		type: "POST",
 		url: vm.serverURL() + "config/data/search.config." + coreSelected,
-		data:JSON.stringify([data]),
-		contentType:"application/json; charset=utf-8",
-		dataType:"json",
-		success: function(data){
+		data: JSON.stringify([data]),
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		success: function (data) {
 
-		if(refreshpage){
-			window.location.reload();
-		}else{
-			$.blockUI.defaults.growlCSS.top = '20px'; 
-			$.growlUI('¡Configuración guardada!', ''); 	
+			if (refreshpage) {
+				window.location.reload();
+			} else {
+				$.blockUI.defaults.growlCSS.top = '20px';
+				$.growlUI('¡Configuración guardada!', '');
+			}
+
+			// http://jquery.malsup.com/block/#options
+		},
+		error: function () {
+			alert("Error al guardar la configuración");
 		}
-
-		// http://jquery.malsup.com/block/#options
-	},
-	error: function() {
-		alert("Error al guardar la configuración");
-	}
 	});
 }
 
@@ -1909,21 +2107,20 @@ function updateSolrFilter() {
 	var i = 0;
 	// Hacemos AND para diferentes propiedades y OR para los que estén activos dentro de una misma propiedad
 	// Por ejemplo: province:Madrid OR province:Barcelona AND type:Universidad
-	$.each(vm.activeWidgets(), function(index1, item1) {
+	$.each(vm.activeWidgets(), function (index1, item1) {
 		i = 0;
 		tempString = "";
 
-		if(item1.field!=undefined){
+		if (item1.field != undefined) {
 			var catParent = item1.field();
-		}else{
-		}
-		if(item1.type()=="tagcloud"){
-			$.each(item1.values(), function(index2, item2) {
-				if(item2.state() == true){
-					if(i==0){
+		} else {}
+		if (item1.type() == "tagcloud") {
+			$.each(item1.values(), function (index2, item2) {
+				if (item2.state() == true) {
+					if (i == 0) {
 						tempString += catParent + ':"' + item2.name() + '"';
 						i++;
-					}else{
+					} else {
 						tempString += ' OR ' + catParent + ':"' + item2.name() + '"';
 					}
 				}
@@ -1933,37 +2130,39 @@ function updateSolrFilter() {
 		}
 
 		// Preparación de los filtros tipo slider
-		if(item1.type()=="slider"){
+		if (item1.type() == "slider") {
 			var catParent = item1.field();
 
 			var str = item1.values().toString();
-			var n=str.replace(","," TO ");
+			var n = str.replace(",", " TO ");
 
-			sliderArray.push({'type': catParent, 'filter': ':[' + n + ']'});
+			sliderArray.push({
+				'type': catParent,
+				'filter': ':[' + n + ']'
+			});
 
 		}
 	});
 
-
 	var string = "";
-	var usedType = [];	
+	var usedType = [];
 
 	// Para los filtros de tipo slider, si el tipo es el mismo aplicamos OR y si son distintos, AND
-	for(var i=0;i<sliderArray.length;i++) {
-		if(i==0){
+	for (var i = 0; i < sliderArray.length; i++) {
+		if (i == 0) {
 			usedType.push(sliderArray[i].type);
 			string += sliderArray[i].type + sliderArray[i].filter;
-		}else{
-			var exists=false;
-			for(var j=0;j<usedType.length;j++){
-				if(sliderArray[i].type == usedType[j]){
+		} else {
+			var exists = false;
+			for (var j = 0; j < usedType.length; j++) {
+				if (sliderArray[i].type == usedType[j]) {
 					string += ' OR ' + sliderArray[i].type + sliderArray[i].filter;
 					exists = true;
-				}else{
+				} else {
 					exists = false;
 				}
 			}
-			if(!exists){
+			if (!exists) {
 				string += ' AND ' + sliderArray[i].type + sliderArray[i].filter;
 				usedType.push(sliderArray[i].type);
 			}
@@ -1976,7 +2175,7 @@ function updateSolrFilter() {
 	Manager.doRequest();
 }
 
-function HtmlEncode(s){
+function HtmlEncode(s) {
 	var el = document.createElement("div");
 	el.innerText = el.textContent = s;
 	s = el.innerHTML;
@@ -1987,13 +2186,15 @@ function isBlank(str) {
 	return (!str || /^\s*$/.test(str));
 }
 
-function countElement(item,array) {
+function countElement(item, array) {
 	var count = 0;
-	$.each(array, function(i,v) { if (v === item) count++; });
+	$.each(array, function (i, v) {
+		if (v === item) count++;
+	});
 	return count;
 }
 
-ko.utils.stringStartsWith = function(string, startsWith) {
+ko.utils.stringStartsWith = function (string, startsWith) {
 	string = string || "";
 
 	if (startsWith.length > string.length) return false;
@@ -2002,34 +2203,34 @@ ko.utils.stringStartsWith = function(string, startsWith) {
 
 //extend the observableArray object
 
-ko.observableArray.fn.sortByPropertyAsc = function(prop) {
+ko.observableArray.fn.sortByPropertyAsc = function (prop) {
 
-	this.sort(function(obj1, obj2) {
-		if(obj1[prop]!=undefined && obj2[prop]!=undefined){
+	this.sort(function (obj1, obj2) {
+		if (obj1[prop] != undefined && obj2[prop] != undefined) {
 			if (obj1[prop].value().toString().toLowerCase() == obj2[prop].value().toString().toLowerCase())
 				return 0;
 			else if (obj1[prop].value().toString().toLowerCase() < obj2[prop].value().toString().toLowerCase())
 				return -1;
 			else
 				return 1;
-		}else{
-			return 1;	
+		} else {
+			return 1;
 		}
 	});
 }
 
-ko.utils.stringContains = function(string, contain) {
+ko.utils.stringContains = function (string, contain) {
 	string = string.toLowerCase();
 
 	contain = contain.toLowerCase().replace(/^\s\s*/, '').replace(/\s\s*$/, '').split(" ").join("|");
 	string = string || "";
 
-	var regex = new RegExp(""+contain+"");
+	var regex = new RegExp("" + contain + "");
 	return string.search(regex) !== -1
-};   
+};
 
-ko.observableArray.fn.sortByPropertyCat = function(prop) {
-	this.sort(function(obj1, obj2) {
+ko.observableArray.fn.sortByPropertyCat = function (prop) {
+	this.sort(function (obj1, obj2) {
 		if (obj1[prop]() == obj2[prop]())
 			return 0;
 		else if (obj1[prop]() < obj2[prop]())
@@ -2042,37 +2243,37 @@ ko.observableArray.fn.sortByPropertyCat = function(prop) {
 function paintHighChart(field, id, typeofchart) {
 
 	var t = ko.utils.getDataColumns(field);
-	
-	if(t==undefined){
+
+	if (t == undefined) {
 		var params = {
-				facet: true,
-				'facet.field': field,
-				'facet.limit': limit_items_tagcloud,
-				'facet.sort': 'count',
-				'facet.mincount': 1,
-				'json.nl': 'map'
+			facet: true,
+			'facet.field': field,
+			'facet.limit': limit_items_tagcloud,
+			'facet.sort': 'count',
+			'facet.mincount': 1,
+			'json.nl': 'map'
 		};
 
 		for (var name in params) {
 			Manager.store.addByValue(name, params[name]);
-		}	
+		}
 
 		// If it is a new Widget, not results Widget.
-		if(field!=id){
+		if (field != id) {
 			drawCharts = true;
 		}
 
 		Manager.doRequest();
 
-	}else{
+	} else {
 
 		//var temp = [];
 		var cat = [];
 		var temp = [];
 
-		if(typeofchart=="barchart"){
+		if (typeofchart == "barchart") {
 
-			for(var i=0, l = t.length; i<l; i++){
+			for (var i = 0, l = t.length; i < l; i++) {
 				cat.push(t[i].facet);
 				temp.push(t[i].count);
 			}
@@ -2083,39 +2284,39 @@ function paintHighChart(field, id, typeofchart) {
 			new Highcharts.Chart(final_config);
 		}
 
-		if(typeofchart=="piechart"){
+		if (typeofchart == "piechart") {
 
-			for(var i=0, l = t.length; i<l; i++){
-				temp.push([t[i].facet,t[i].count]); 
+			for (var i = 0, l = t.length; i < l; i++) {
+				temp.push([t[i].facet, t[i].count]);
 			}
 
 			var stringid = id.toString();
 
 			var final_config = getPieChartConfig(stringid, field, temp);
-			new Highcharts.Chart(final_config);	
+			new Highcharts.Chart(final_config);
 		}
 
-	}		
+	}
 }
 
-function createMap(){    
+function createMap() {
 
 	var elevator;
 	var myOptions = {
-			zoom: 3,
-			center: new google.maps.LatLng(40.24, -3.41),
-			mapTypeId: 'terrain'
+		zoom: 3,
+		center: new google.maps.LatLng(40.24, -3.41),
+		mapTypeId: 'terrain'
 	};
 	map = new google.maps.Map($('#map')[0], myOptions);
 }
 
-function removeMapMarkers(){
+function removeMapMarkers() {
 	for (var i = 0; i < markers.length; i++) {
 		var marker = markers[i];
 		marker.setMap(null);
 	}
 
-	markers = [];  
+	markers = [];
 }
 
 function make_base_auth(user, password) {
@@ -2125,231 +2326,228 @@ function make_base_auth(user, password) {
 }
 
 ko.bindingHandlers.map = {
-		init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+	init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
 
-	var position = new google.maps.LatLng(allBindingsAccessor().latitude, allBindingsAccessor().longitude);
+		var position = new google.maps.LatLng(allBindingsAccessor().latitude, allBindingsAccessor().longitude);
 
-	////(position);
+		////(position);
 
-	var marker = new google.maps.Marker({ 
-		map: allBindingsAccessor().map,
-		position: position,
-		title: allBindingsAccessor().title.toString()
-	});
+		var marker = new google.maps.Marker({
+			map: allBindingsAccessor().map,
+			position: position,
+			title: allBindingsAccessor().title.toString()
+		});
 
-	markers.push(marker);
-	viewModel._mapMarker = marker;
-},
-update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-	var latlng = new google.maps.LatLng(allBindingsAccessor().latitude, allBindingsAccessor().longitude);
-	//////("UPDATE EN: " + allBindingsAccessor().latitude);
-	viewModel._mapMarker.setPosition(latlng);
+		markers.push(marker);
+		viewModel._mapMarker = marker;
+	},
+	update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+		var latlng = new google.maps.LatLng(allBindingsAccessor().latitude, allBindingsAccessor().longitude);
+		//////("UPDATE EN: " + allBindingsAccessor().latitude);
+		viewModel._mapMarker.setPosition(latlng);
 
-}
+	}
 };
 
 //connect items with observableArrays
 ko.bindingHandlers.sortableList = {
-		init: function(element, valueAccessor, allBindingsAccessor, context) {
-	$(element).data("sortList", valueAccessor()); //attach meta-data
-	$(element).sortable({
-		update: function(event, ui) {
-		var item = ui.item.data("sortItem");
-		////("ITEM ES:");
-		////(item);
-		if (item) {
-			//identify parents
-			var originalParent = ui.item.data("parentList");
-			var tipo = ui.item.data("sortItem").type();
+	init: function (element, valueAccessor, allBindingsAccessor, context) {
+		$(element).data("sortList", valueAccessor()); //attach meta-data
+		$(element).sortable({
+			update: function (event, ui) {
+				var item = ui.item.data("sortItem");
+				////("ITEM ES:");
+				////(item);
+				if (item) {
+					//identify parents
+					var originalParent = ui.item.data("parentList");
+					var tipo = ui.item.data("sortItem").type();
 
-			if(ui.item.data("sortItem").query!=undefined){
-				var query = ui.item.data("sortItem").query;
-				var typeOfGraph = ui.item.data("sortItem").value;
-			}
+					if (ui.item.data("sortItem").query != undefined) {
+						var query = ui.item.data("sortItem").query;
+						var typeOfGraph = ui.item.data("sortItem").value;
+					}
 
-			var id = ui.item.data("sortItem").id();
+					var id = ui.item.data("sortItem").id();
 
-			var newParent = ui.item.parent().data("sortList");
-			////("Original parent es:");
-			////(tipo);
-			////(originalParent());
-			////("New parent es:");
-			////(newParent());
+					var newParent = ui.item.parent().data("sortList");
+					////("Original parent es:");
+					////(tipo);
+					////(originalParent());
+					////("New parent es:");
+					////(newParent());
 
-			//figure out its new position
-			var position = ko.utils.arrayIndexOf(ui.item.parent().children(), ui.item[0]);
-			////("posicion " + position);
-			if (position >= 0) {
-				originalParent.remove(item);
-				newParent.splice(position, 0, item);
-			}
+					//figure out its new position
+					var position = ko.utils.arrayIndexOf(ui.item.parent().children(), ui.item[0]);
+					////("posicion " + position);
+					if (position >= 0) {
+						originalParent.remove(item);
+						newParent.splice(position, 0, item);
+					}
 
-			ui.item.remove();
+					ui.item.remove();
 
-			if(tipo=="map"){
+					if (tipo == "map") {
 
-				createMap();
-			}
-			if(tipo=="resultstats"){
-				vm.redraw();
-			}
-			if(tipo=="piechart" || tipo=="barchart"){
-				vm.drawcharts();					
-			}
+						createMap();
+					}
+					if (tipo == "resultstats") {
+						vm.redraw();
+					}
+					if (tipo == "piechart" || tipo == "barchart") {
+						vm.drawcharts();
+					}
 
-			if(tipo=="radialgauge"){
-				vm.numberOfResults.valueHasMutated();
-			}
+					if (tipo == "radialgauge") {
+						vm.numberOfResults.valueHasMutated();
+					}
 
-			if(tipo=="sgvizler"){
-				mySgvizlerQuery(query, id, typeOfGraph);
-			}
+					if (tipo == "sgvizler") {
+						mySgvizlerQuery(query, id, typeOfGraph);
+					}
 
-			for (var i = 0; i < widgetX.length; i++) {
-				vm.drawcharts();
-			}
+					for (var i = 0; i < widgetX.length; i++) {
+						vm.drawcharts();
+					}
 
-		}
-	},
-	connectWith: '.container',			
-	placeholder: 'widget-placeholder',
-	forcePlaceholderSize: true,
-	dropOnEmpty: true,
-	revert: true,
-	revertDuration: 150,
-	delay: 150,
-	distance: 30,
-	opacity: 0.8
-	});
-}
+				}
+			},
+			connectWith: '.container',
+			placeholder: 'widget-placeholder',
+			forcePlaceholderSize: true,
+			dropOnEmpty: true,
+			revert: true,
+			revertDuration: 150,
+			delay: 150,
+			distance: 30,
+			opacity: 0.8
+		});
+	}
 };
 
 //attach meta-data
 ko.bindingHandlers.sortableItem = {
-		init: function(element, valueAccessor) {
-	var options = valueAccessor();
-	////("sortItem es:");
-	////(options.item);
-	////("parentList es:");
-	////(options.parentList);
-	$(element).data("sortItem", options.item);
-	$(element).data("parentList", options.parentList);
-}
+	init: function (element, valueAccessor) {
+		var options = valueAccessor();
+		////("sortItem es:");
+		////(options.item);
+		////("parentList es:");
+		////(options.parentList);
+		$(element).data("sortItem", options.item);
+		$(element).data("parentList", options.parentList);
+	}
 };
 
 ko.bindingHandlers.ko_autocomplete = {
-		init: function (element, params) {
-	$(element).autocomplete(params());
-},
-update: function (element, params) {
-	$(element).autocomplete("option", "source", params().source);
-}
+	init: function (element, params) {
+		$(element).autocomplete(params());
+	},
+	update: function (element, params) {
+		$(element).autocomplete("option", "source", params().source);
+	}
 };
 
 function slide(element) {
-	$(element).hide().slideDown("slow","easeInBounce");
-
-}	
-
-ko.bindingHandlers.slider = {
-		init: function (element, valueAccessor, allBindingsAccessor) {
-	var options = allBindingsAccessor().sliderOptions || {};
-	var observable = valueAccessor().values;
-
-	if(observable().splice) {
-		options.range = true; 
-	}        
-
-	options.slide = function(e, ui) {
-		observable(ui.values);
-	};
-
-	ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-		$(element).slider("destroy");
-	});
-
-	options.stop = function(event, ui) {
-		$(element).slider("values", ui.values);			
-		
-		vm.invalidateIsNameValid();
-		
-		if(!vm.sparql()){
-			updateSolrFilter();
-		}
-	};
-	$(element).slider(options);
-},
-update: function (element, valueAccessor) {
-	var value = ko.utils.unwrapObservable(valueAccessor().values);
-	$(element).slider("values", value);
+	$(element).hide().slideDown("slow", "easeInBounce");
 
 }
+
+ko.bindingHandlers.slider = {
+	init: function (element, valueAccessor, allBindingsAccessor) {
+		var options = allBindingsAccessor().sliderOptions || {};
+		var observable = valueAccessor().values;
+
+		if (observable().splice) {
+			options.range = true;
+		}
+
+		options.slide = function (e, ui) {
+			observable(ui.values);
+		};
+
+		ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+			$(element).slider("destroy");
+		});
+
+		options.stop = function (event, ui) {
+			$(element).slider("values", ui.values);
+
+			vm.invalidateIsNameValid();
+
+			if (!vm.sparql()) {
+				updateSolrFilter();
+			}
+		};
+		$(element).slider(options);
+	},
+	update: function (element, valueAccessor) {
+		var value = ko.utils.unwrapObservable(valueAccessor().values);
+		$(element).slider("values", value);
+
+	}
 };
 
 ko.bindingHandlers.fadeVisible = {
-		init: function(element, valueAccessor) {
-	// Initially set the element to be instantly visible/hidden depending on the value
-	var value = valueAccessor();
-	$(element).toggle(ko.utils.unwrapObservable(value)); // Use "unwrapObservable" so we can handle values that may or may not be observable
-},
-update: function(element, valueAccessor) {
-	// Whenever the value subsequently changes, slowly fade the element in or out
-	var value = valueAccessor();
-	ko.utils.unwrapObservable(value) ? $(element).slideDown() : $(element).slideUp();
-}
+	init: function (element, valueAccessor) {
+		// Initially set the element to be instantly visible/hidden depending on the value
+		var value = valueAccessor();
+		$(element).toggle(ko.utils.unwrapObservable(value)); // Use "unwrapObservable" so we can handle values that may or may not be observable
+	},
+	update: function (element, valueAccessor) {
+		// Whenever the value subsequently changes, slowly fade the element in or out
+		var value = valueAccessor();
+		ko.utils.unwrapObservable(value) ? $(element).slideDown() : $(element).slideUp();
+	}
 };
 
 ko.bindingHandlers['jqIsotope'] = {
-		'update': function (element, valueAccessor, allBindingsAccessor, viewModel) {
-	var options = ko.utils.unwrapObservable(valueAccessor());
-	if (options) {
-		if (Object.prototype.toString.call(options) === '[object Array]') {
-			$.fn.isotope.apply($(element), options);
-		} else {
-			$(element).isotope(options);
+	'update': function (element, valueAccessor, allBindingsAccessor, viewModel) {
+		var options = ko.utils.unwrapObservable(valueAccessor());
+		if (options) {
+			if (Object.prototype.toString.call(options) === '[object Array]') {
+				$.fn.isotope.apply($(element), options);
+			} else {
+				$(element).isotope(options);
+			}
 		}
 	}
-}
 };
-
 
 //control visibility, give element focus, and select the contents (in order)
 ko.bindingHandlers.visibleAndSelect = {
-		update: function(element, valueAccessor) {
-	ko.bindingHandlers.visible.update(element, valueAccessor);
-	if (valueAccessor()) {
-		setTimeout(function() {
-			$(element).focus().select();
-		}, 0); 
+	update: function (element, valueAccessor) {
+		ko.bindingHandlers.visible.update(element, valueAccessor);
+		if (valueAccessor()) {
+			setTimeout(function () {
+				$(element).focus().select();
+			}, 0);
+		}
 	}
 }
-}
-
 
 function mySgvizlerQuery(query, id, type) {
 	sgvizler
-	.defaultEndpointURL(vm.sparql_baseURL())
-	.prefix('npdv', 'http://sws.ifi.uio.no/vocab/npd#')
-	.defaultQuery(query)
-	.defaultChartFunction(type);
+		.defaultEndpointURL(vm.sparql_baseURL())
+		.prefix('npdv', 'http://sws.ifi.uio.no/vocab/npd#')
+		.defaultQuery(query)
+		.defaultChartFunction(type);
 
-	$("#"+id).append('<div id="' + id + '" data-sgvizler-query="' + query + '" data-sgvizler-log="0"></div>');
+	$("#" + id).append('<div id="' + id + '" data-sgvizler-query="' + query + '" data-sgvizler-log="0"></div>');
 
 	sgvizler.containerDraw(id);
 }
 
 function sparqlPanel() {
-	if ($("#sparqlQueryPanel").is(":hidden")){
+	if ($("#sparqlQueryPanel").is(":hidden")) {
 		$("#sparqlQueryPanel").slideDown("slow");
-		$("#backgroundPopup").css({"opacity": "0.7"});
-		$("#backgroundPopup").fadeIn("slow"); 
-	}
-	else{
+		$("#backgroundPopup").css({
+			"opacity": "0.7"
+		});
+		$("#backgroundPopup").fadeIn("slow");
+	} else {
 		$("#sparqlQueryPanel").slideUp("slow");
-		$("#backgroundPopup").fadeOut("slow");  
+		$("#backgroundPopup").fadeOut("slow");
 	}
-};	
-
-
+};
 
 var vm = new InitViewModel();

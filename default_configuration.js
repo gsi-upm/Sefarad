@@ -11,7 +11,7 @@ var configuration = {
 		"sparql_baseURL" : []
 	},
 	"template" : {
-		"pageTitle" : "Episteme",
+		"pageTitle" : "Sefarad",
 		"logoPath": "",
 		"showMapWidget": false,
 		"showResultsWidget": true,
