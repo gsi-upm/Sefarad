@@ -126,7 +126,16 @@ box-shadow: 0 1px 40px rgba(0, 0, 0, 0.75),inset 0 -1px 0 rgba(0, 0, 0, 0.7);
 }
 
 .topbar .right_area{
-	margin-right: 10em;
+  color: white;
+  float: right;
+  width:50%;
+  height: 70px; 
+}
+
+.topbar .right_area .login_area{
+  float: left;
+  width:50%;
+  height: 70px; 
 }
 
 .topbar .icon{

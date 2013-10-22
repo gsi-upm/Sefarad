@@ -1,9 +1,9 @@
 // New widget
 var widgetSortBarR = {
 		// Widget name.
-		name: "widgetSortBarR",
+		name: "Barras ordenadas",
 		// Widget description.
-		description: "Widget Barras Ruben",
+		description: "Widget de barras ordenadas de mayor a menor",
 		// Path to the image of the widget.
 		img: "img/widgetSortBarR.png",
 		// Type of the widget.

@@ -39,7 +39,7 @@ AjaxSolr.ResultWidget = AjaxSolr.AbstractWidget.extend({
 	 
 
     vm.update();
-	console.log(autocompleteSOLR);
+	// console.log(autocompleteSOLR);
 	//vm.autoCompleteFields = ko.observableArray(autocompleteSOLR);
 
   },

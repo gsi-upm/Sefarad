@@ -205,7 +205,9 @@ function InitViewModel() {
 	self.resultsGraphs = ko.mapping.fromJS(self.testData);
 
 	/** Administrator */
-	self.securityEnabled = ko.observable(false);
+	self.userName = ko.observable("");
+	self.userPassword = ko.observable("");
+	self.securityEnabled = ko.observable(true);
 	self.adminMode = ko.observable(false);
 
 	self.activeWidgetsLeft = ko.observableArray([]);
@@ -726,52 +728,102 @@ function InitViewModel() {
 
 	/** Authentication methods */
 
-	self.login = function () {
-		promptLogin();
-	}
+	self.doLogin = function () {
 
-	function promptLogin() {
-		if (self.securityEnabled()) {
-			var pw = prompt("Contraseña de administrador", "");
-			if (pw != null) {
-				loadCore();
-				checkLogin(pw);
-			}
-		} else {
-			self.adminMode(true);
-			loadCore();
-		}
-	};
-
-	function checkLogin(pw) {
 		$.ajax({
 			type: "GET",
 			url: self.serverURL() + "user/login",
-			//url: "http://shannon.gsi.dit.upm.es/episteme/lmf/user/login",
 			data: {
 				logout: 'false',
-				user: 'admin'
+				user: self.userName()
 			},
 			beforeSend: function (xhr) {
-				xhr.setRequestHeader('Authorization', make_base_auth("admin", pw));
+				xhr.setRequestHeader('Authorization', make_base_auth(self.userName(), self.userPassword()));
 			},
 			success: function (data) {
-				console.log("BIEEN");
 
 			},
 			error: function (data) {
 
 				if (data.status == '401') {
 					alert("Contraseña incorrecta");
-					window.location.reload();
+					// window.location.reload();
 				} else {
-					console.log("ERROR");
+					setCookie("user",make_base_auth(self.userName(), self.userPassword()),1);
 					self.adminMode(true);
+					self.userName("");
+					self.userPassword("");	
+					// loadCore();			
 				}
 			}
 		});
 
 	};
+
+	self.checkLogin = function () {
+
+		$.ajax({
+			type: "GET",
+			url: self.serverURL() + "user/login",
+
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader('Authorization', self.getCookie("user"));
+			},
+			success: function (data) {
+
+			},
+			error: function (data) {
+
+				if (data.status == '401') {
+					alert("Contraseña incorrecta");
+					// window.location.reload();
+				} else {
+					self.adminMode(true);
+					console.log("CheckLogin OK");
+					// loadCore();			
+				}
+			}
+		});
+
+	};
+
+
+	function whois() {
+			$.ajax({
+				type: "GET",
+				url: "http://localhost:8080/LMF/user/me",
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader('Authorization', make_base_auth('admin2', 'pass2'));
+				},
+				success: function (data) {
+					console.log(data);
+					alert("Eres " + data.login);
+				},
+				error: function (data) {
+					console.log(data);
+				}
+			});
+		}
+
+	function setCookie(c_name, value, exdays) {
+		var exdate = new Date();
+		exdate.setDate(exdate.getDate() + exdays);
+		var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+		document.cookie = c_name + "=" + c_value;
+		console.log(c_value);
+	}
+
+	self.getCookie = function (c_name) {
+		var i, x, y, ARRcookies = document.cookie.split(";");
+		for (i = 0; i < ARRcookies.length; i++) {
+			x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+			y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+			x = x.replace(/^\s+|\s+$/g, "");
+			if (x == c_name) {
+				return unescape(y);
+			}
+		}
+	}
 
 	/** Filter results and get only different ones (ideal for sparql mode where there could be repeated results with a multivalued field) */
 	self.uniqueItems = ko.computed(function () {
@@ -934,7 +986,7 @@ function InitViewModel() {
 			if (self.sparql() && firstTime) {
 				self.maxNumberOfResults(self.filteredData().length);
 			}
-			console.log("YEAH");
+
 			updateTwitterWidgets();
 			self.redraw();
 			self.drawcharts();
@@ -945,25 +997,22 @@ function InitViewModel() {
 
 	/** After every Manager.doRequest method we map the new results into viewData observable (SOLR ONLY) */
 	self.update = function () {
-		console.log("00000000");
+
 		ko.mapping.fromJS(Manager.response.response.docs, self.viewData);
-		console.log("00000001");
+
 		self.numberOfResults(Manager.response.response.numFound);
-		console.log("00000002");
+
 		if (drawCharts) {
-			console.log("111111111111");
 			vm.drawcharts();
 			drawCharts = false;
 		}
 
 		if (firstTime) {
-			console.log("222222222");
 			self.maxNumberOfResults(Manager.response.response.numFound);
 
 			updateWidgets(true);
 			firstTime = false;
 		} else {
-			console.log("3333333");
 			//updateWidgets(false);
 		}
 
@@ -971,7 +1020,6 @@ function InitViewModel() {
 
 	/** Draw chart widgets */
 	self.drawcharts = function () {
-		console.log("DRAWWWWWW");
 		$.each(self.activeWidgets(), function (index, item) {
 			console.log(item.type());
 			if (item.type() == "piechart" || item.type() == "barchart") {
@@ -1414,6 +1462,13 @@ function InitViewModel() {
 					this.redirect(data['url_data']);
 				});
 
+				this.get('#/login', function (context) {
+
+					console.log("LOGIN");
+					self.page(10);					
+					load('login.html');
+				});
+
 				this.get('#/main', function (context) {
 					console.log("ERROR EN RUTA");
 
@@ -1430,7 +1485,7 @@ function InitViewModel() {
 					var solr_baseURL = serverURL + 'solr/' + coreSelected + '/';
 					self.solr_baseURL(solr_baseURL);
 
-					promptLogin();
+					this.promptLogin();
 
 				});
 
