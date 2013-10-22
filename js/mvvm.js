@@ -775,12 +775,14 @@ function InitViewModel() {
 			error: function (data) {
 
 				if (data.status == '401') {
-					alert("Contraseña incorrecta");
+					console.log("CheckLogin Fail");
+					// alert("Contraseña incorrecta");
 					// window.location.reload();
+					return false;
 				} else {
 					self.adminMode(true);
 					console.log("CheckLogin OK");
-					// loadCore();			
+					return true;
 				}
 			}
 		});
@@ -1430,7 +1432,9 @@ function InitViewModel() {
 
 	/** Save button */
 	self.doSave = function () {
-		saveConfiguration();
+		if(self.checkLogin()){
+			saveConfiguration();
+		}
 		self.showConfiguration();
 	};
 
