@@ -1431,8 +1431,8 @@ function InitViewModel() {
 	}
 
 	/** Save button */
-	self.doSave = function () {
-		saveConfiguration();		
+	self.doSave = function (user, pass) {
+		saveConfiguration(false, user, pass);		
 		self.showConfiguration();
 	};
 
@@ -2099,13 +2099,6 @@ function showWidgets() {
 
 	Manager.doRequest();
 
-}
-
-function promptSave (){
-	var username = prompt("Usuario","");
-	var password = prompt("Contraseña","");
-
-	saveConfiguration(false, username, password);
 }
 
 /** Save configuration method */

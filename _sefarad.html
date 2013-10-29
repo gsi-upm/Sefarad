@@ -81,6 +81,25 @@
 							
 				$('#dvLoading').fadeOut(500);
 				$("#configuration_button").animate({ right: "-120px" }, 200);
+
+				$("#dialog").dialog({
+				    autoOpen: false,
+				    buttons: { 
+				        Ok: function() {
+				            vm.doSave($("#user").val(),$("#pass").val());
+				            $(this).dialog("close");
+				            $("#user").val("");
+				            $("#pass").val("");
+				        },
+				        Cancel: function () {
+				            $(this).dialog("close");
+				        }
+				    }
+				});
+
+				$("#save_changes").click(function () {
+				    $("#dialog").dialog("open");
+				});
 			
 				//initIsotopeAndWizards();
 					
@@ -132,16 +151,13 @@
 							<!-- /ko -->
 						</div>
 					</div>
-					<!-- Login form -->
-					<!-- <div class="login_area">
-						<form>
-							<p>Username <input name="Usuario" data-bind="value: $root.userName" style="float:right" /></p>
-							<p>Password <input type="password" data-bind="value: $root.userPassword" style="float:right" /></p>
-							<div >
-								<p><input type="button" value="Login" data-bind="click: $root.doLogin" /></p>
-							</div>
-						</form>
-					</div> -->
+				</div>
+				<!-- User-Pass Dialog -->
+				<div id="dialog">
+				    <p>
+				    	<p>Username <input id="user" type="text" /></p>
+						<p>Password <input id="pass" type="password" /></p>
+				    </p> 
 				</div>
 				<!-- Configuration section (hidden by default) -->
 				<div id="configuration" data-bind="fadeVisible: showConfigurationPanel">
@@ -181,7 +197,7 @@
 						</div>
 					</div>
 					<div style="clear:both">					
-						<button class="button" id="save_changes" onclick="promptSave()" data-bind="visible: !sparql()"><span data-bind="text: 
+						<button class="button" id="save_changes" data-bind="visible: !sparql()"><span data-bind="text: 
 							lang().savechanges"></span> </button>
 					</div>
 					<br/>
