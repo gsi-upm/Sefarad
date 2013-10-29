@@ -82,7 +82,6 @@
 				$(".button" ).button();
 			
 				vm.routes();
-				vm.checkLogin();
 				
 				if(errorinroute || sparqlmode){
 					console.log("Aplicamos bindings");
@@ -129,7 +128,6 @@
 				<!-- Search and help area -->
 				<div class="right_area" >
 					
-					<!-- <div class="icon"><img src="img/login.png" alt="Login" data-bind="click: $root.promptLogin, visible: $root.securityEnabled"/></div> -->
 					<div class="icon"><img src="img/help.png" alt="Help" data-bind="click: $root.showHelp"/></div>
 					<div class="search" id="search-container">
 						<div class="search-inner">
@@ -148,7 +146,7 @@
 						</div>
 					</div>
 					<!-- Login form -->
-					<div class="login_area">
+					<!-- <div class="login_area">
 						<form>
 							<p>Username <input name="Usuario" data-bind="value: $root.userName" style="float:right" /></p>
 							<p>Password <input type="password" data-bind="value: $root.userPassword" style="float:right" /></p>
@@ -156,7 +154,7 @@
 								<p><input type="button" value="Login" data-bind="click: $root.doLogin" /></p>
 							</div>
 						</form>
-				</div>
+					</div> -->
 				</div>
 				<!-- Configuration section (hidden by default) -->
 				<div id="configuration" data-bind="fadeVisible: showConfigurationPanel">
@@ -196,7 +194,7 @@
 						</div>
 					</div>
 					<div style="clear:both">					
-						<button class="button" id="save_changes" data-bind="click: $root.doSave, visible: !sparql()"><span data-bind="text: 
+						<button class="button" id="save_changes" onclick="promptSave()" data-bind="visible: !sparql()"><span data-bind="text: 
 							lang().savechanges"></span> </button>
 					</div>
 					<br/>

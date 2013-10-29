@@ -749,7 +749,7 @@ function InitViewModel() {
 					alert("Contraseña incorrecta");
 					// window.location.reload();
 				} else {
-					setCookie("user",make_base_auth(self.userName(), self.userPassword()),1);
+					// setCookie("user",make_base_auth(self.userName(), self.userPassword()),1);
 					self.adminMode(true);
 					self.userName("");
 					self.userPassword("");	
@@ -1432,9 +1432,7 @@ function InitViewModel() {
 
 	/** Save button */
 	self.doSave = function () {
-		if(self.checkLogin()){
-			saveConfiguration();
-		}
+		saveConfiguration();		
 		self.showConfiguration();
 	};
 
@@ -1470,7 +1468,7 @@ function InitViewModel() {
 
 					console.log("LOGIN");
 					self.page(10);					
-					load('login.html');
+					load('/login.html');
 				});
 
 				this.get('#/main', function (context) {
@@ -1489,8 +1487,10 @@ function InitViewModel() {
 					var solr_baseURL = serverURL + 'solr/' + coreSelected + '/';
 					self.solr_baseURL(solr_baseURL);
 
-					this.promptLogin();
+					self.adminMode(true);
 
+					/** Cargamos la configuración para el core dado */
+					loadCore();
 				});
 
 				this.get('#/main/:coreId', function () {
@@ -2101,9 +2101,15 @@ function showWidgets() {
 
 }
 
-/** Save configuration method */
-function saveConfiguration(refreshpage) {
+function promptSave (){
+	var username = prompt("Usuario","");
+	var password = prompt("Contraseña","");
 
+	saveConfiguration(false, username, password);
+}
+
+/** Save configuration method */
+function saveConfiguration(refreshpage, user, pass) {
 	configuration.endpoints.serverURL = serverURL;
 	configuration.template.pageTitle = vm.pageTitle();
 	configuration.template.logoPath = vm.logoPath();
@@ -2138,6 +2144,10 @@ function saveConfiguration(refreshpage) {
 		data: JSON.stringify([data]),
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
+
+		beforeSend: function (xhr) {
+				xhr.setRequestHeader('Authorization', make_base_auth(user, pass));
+		},
 		success: function (data) {
 
 			if (refreshpage) {
@@ -2150,7 +2160,7 @@ function saveConfiguration(refreshpage) {
 			// http://jquery.malsup.com/block/#options
 		},
 		error: function () {
-			alert("Error al guardar la configuración");
+			alert("Error al guardar la configuración");	
 		}
 	});
 }
