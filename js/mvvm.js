@@ -1022,6 +1022,7 @@ function InitViewModel() {
 
 	/** Draw chart widgets */
 	self.drawcharts = function () {
+		console.log("Drawcharts");
 		$.each(self.activeWidgets(), function (index, item) {
 			console.log(item.type());
 			if (item.type() == "piechart" || item.type() == "barchart") {
@@ -1835,7 +1836,7 @@ function InitViewModel() {
 		//self.autocomplete_fieldname.valueHasMutated();
 		//self.autocomplete_fieldname = ko.observable("name");
 
-		autocompleteSOLR = ["Madrid", "Barcelona"];
+		// autocompleteSOLR = ["Madrid", "Barcelona"];
 
 		self.activeWidgetsLeft = ko.mapping.fromJS(templateWidgetsLeft);
 		self.activeWidgetsRight = ko.mapping.fromJS(templateWidgetsRight);
