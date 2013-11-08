@@ -207,7 +207,7 @@ function InitViewModel() {
 	/** Administrator */
 	self.userName = ko.observable("");
 	self.userPassword = ko.observable("");
-	self.securityEnabled = ko.observable(true);
+	self.securityEnabled = ko.observable(false);
 	self.adminMode = ko.observable(false);
 
 	self.activeWidgetsLeft = ko.observableArray([]);
@@ -2071,6 +2071,9 @@ function InitViewModel() {
 	};
 
 	// Ends vm
+
+	//PRUEBAS RUBEN
+	
 }
 
 /** Add params to solr query so we can fill tagcloud widgets */

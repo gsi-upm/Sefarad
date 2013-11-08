@@ -63,6 +63,8 @@
 		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 		<link rel="stylesheet" type="text/css" href="http://knockoutjs.com/examples/resources/twitterExample.css">
 		<script type='text/javascript' src="js/twitterApi.js"></script>
+		<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+
 		<script type="text/javascript" charset="UTF-8">
 			$(document).ready(function() {
 									
@@ -98,7 +100,11 @@
 				});
 
 				$("#save_changes").click(function () {
-				    $("#dialog").dialog("open");
+					if(vm.securityEnabled()){
+						$("#dialog").dialog("open");
+					}else{
+						vm.doSave('','');						
+					}				    
 				});
 			
 				//initIsotopeAndWizards();
@@ -503,6 +509,8 @@
 						<div class="addNewWidget" data-bind="visible: $root.adminMode">
 							<h1 data-bind="click: $root.openNewWidgetManagerMethod, text: lang().addWidget"></h1>
 						</div>
+<!-- GoogleMaps -->
+<!-- <div class="google-Map" id="googleMap" style="width:500px;height:380px;"></div> -->
 						<!-- all widgets at left column -->
 						<!-- more effects: http://jqueryui.com/effect/#easing -->
 						<div class="container" data-bind="template: { name: 'widgets-template', foreach: activeWidgetsLeft, 
@@ -713,19 +721,19 @@
 				<div id="alertmsg" class="alertmsg-yellow" data-bind="visible: $root.filteredData().length == 0"><span 
 				data-bind="text: $root.lang().nodata"></span></div>	
 			
-				{{if layout()=="grid"}}
+			{{if layout()=="grid"}}
 				<ul id="contenedorr" data-bind="template: { name: 'cards', foreach: $root.filteredData, afterAdd: 
 				$root.serviceAdded }, jqIsotope: $root.isotope">
 				</ul>
-				{{/if}}
+			{{/if}}
 				
-				{{if layout()=="vertical"}}
+			{{if layout()=="vertical"}}
 				<div id="resultados">
 					<div class="resultado" data-bind="visible: $root.filteredData().length > 0, template: { name: 
 				'simple', foreach: $root.filteredData, afterRender: $root.animateResultsChange }">
 					</div>
 				</div>
-				{{/if}}	
+			{{/if}}	
 			{{/if}}						
 			
 			<!--se cierra widget-content-->
@@ -890,7 +898,7 @@
 			map"></div>
 		</script>
 		<script id="widget-template-maps" type="text/html">
-			<div data-bind="latitude: $data.latitude.value(), longitude: $data.longitude.value(), title: 'test', map: map"></div>
+			<div data-bind="latitude: $data.latitud.value(), longitude: $data.longitud.value(), title: 'test', map: map"></div>
 		</script>	
 		<script id="widget-template-twitter" type="text/html">
 			<tr><td><img data-bind='attr: { src: profile_image_url }' /></td><td><a class='twitterUser' data-bind='attr: { href: 
