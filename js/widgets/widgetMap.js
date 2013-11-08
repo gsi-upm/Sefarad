@@ -44,14 +44,25 @@ var widgetMap = {
 
 		//Añadimos markers con las ciudades filtradas
 		$.each(vm.filteredData(), function(index, item) {
-			var pos=new google.maps.LatLng(item.latitude(),item.longitude());
 
 			var marker = new google.maps.Marker({
-				position: pos,
-			    title: "HOLA"
+				position: new google.maps.LatLng(item.latitude(),item.longitude()),
+			    title: item.nombre().toString(),
+			    map: map,
 			});
 
-			marker.setMap(map);
+			//Ventana de info cuando clicamos el marker
+			var contentString = '<div id="content">'+item.pais().toString()+'</div>';
+
+			var infowindow = new google.maps.InfoWindow({
+			    content: contentString
+			});
+
+			google.maps.event.addListener(marker, "click", function(){
+				infowindow.open(map,marker);
+			});
+
+			//Añadimos a bound para re-centrar todos los marcadores
 			bounds.extend(marker.position);
 		});
 
