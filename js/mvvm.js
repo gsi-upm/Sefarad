@@ -207,7 +207,7 @@ function InitViewModel() {
 	/** Administrator */
 	self.userName = ko.observable("");
 	self.userPassword = ko.observable("");
-	self.securityEnabled = ko.observable(false);
+	self.securityEnabled = ko.observable(true);
 	self.adminMode = ko.observable(false);
 
 	self.activeWidgetsLeft = ko.observableArray([]);
@@ -2418,76 +2418,67 @@ ko.bindingHandlers.map = {
 //connect items with observableArrays
 ko.bindingHandlers.sortableList = {
 	init: function (element, valueAccessor, allBindingsAccessor, context) {
-		$(element).data("sortList", valueAccessor()); //attach meta-data
-		$(element).sortable({
-			update: function (event, ui) {
-				var item = ui.item.data("sortItem");
-				////("ITEM ES:");
-				////(item);
-				if (item) {
-					//identify parents
-					var originalParent = ui.item.data("parentList");
-					var tipo = ui.item.data("sortItem").type();
-
-					if (ui.item.data("sortItem").query != undefined) {
-						var query = ui.item.data("sortItem").query;
-						var typeOfGraph = ui.item.data("sortItem").value;
+		if (vm.adminMode()) {
+			$(element).data("sortList", valueAccessor()); //attach meta-data
+			$(element).sortable({
+				update: function (event, ui) {
+					var item = ui.item.data("sortItem");
+					////("ITEM ES:");
+					////(item);
+					if (item) {
+						//identify parents
+						var originalParent = ui.item.data("parentList");
+						var tipo = ui.item.data("sortItem").type();
+						if (ui.item.data("sortItem").query != undefined) {
+							var query = ui.item.data("sortItem").query;
+							var typeOfGraph = ui.item.data("sortItem").value;
+						}
+						var id = ui.item.data("sortItem").id();
+						var newParent = ui.item.parent().data("sortList");
+						////("Original parent es:");
+						////(tipo);
+						////(originalParent());
+						////("New parent es:");
+						////(newParent());
+						//figure out its new position
+						var position = ko.utils.arrayIndexOf(ui.item.parent().children(), ui.item[0]);
+						////("posicion " + position);
+						if (position >= 0) {
+							originalParent.remove(item);
+							newParent.splice(position, 0, item);
+						}
+						ui.item.remove();
+						if (tipo == "map") {
+							createMap();
+						}
+						if (tipo == "resultstats") {
+							vm.redraw();
+						}
+						if (tipo == "piechart" || tipo == "barchart") {
+							vm.drawcharts();
+						}
+						if (tipo == "radialgauge") {
+							vm.numberOfResults.valueHasMutated();
+						}
+						if (tipo == "sgvizler") {
+							mySgvizlerQuery(query, id, typeOfGraph);
+						}
+						for (var i = 0; i < widgetX.length; i++) {
+							vm.drawcharts();
+						}
 					}
-
-					var id = ui.item.data("sortItem").id();
-
-					var newParent = ui.item.parent().data("sortList");
-					////("Original parent es:");
-					////(tipo);
-					////(originalParent());
-					////("New parent es:");
-					////(newParent());
-
-					//figure out its new position
-					var position = ko.utils.arrayIndexOf(ui.item.parent().children(), ui.item[0]);
-					////("posicion " + position);
-					if (position >= 0) {
-						originalParent.remove(item);
-						newParent.splice(position, 0, item);
-					}
-
-					ui.item.remove();
-
-					if (tipo == "map") {
-
-						createMap();
-					}
-					if (tipo == "resultstats") {
-						vm.redraw();
-					}
-					if (tipo == "piechart" || tipo == "barchart") {
-						vm.drawcharts();
-					}
-
-					if (tipo == "radialgauge") {
-						vm.numberOfResults.valueHasMutated();
-					}
-
-					if (tipo == "sgvizler") {
-						mySgvizlerQuery(query, id, typeOfGraph);
-					}
-
-					for (var i = 0; i < widgetX.length; i++) {
-						vm.drawcharts();
-					}
-
-				}
-			},
-			connectWith: '.container',
-			placeholder: 'widget-placeholder',
-			forcePlaceholderSize: true,
-			dropOnEmpty: true,
-			revert: true,
-			revertDuration: 150,
-			delay: 150,
-			distance: 30,
-			opacity: 0.8
-		});
+				},
+				connectWith: '.container',
+				placeholder: 'widget-placeholder',
+				forcePlaceholderSize: true,
+				dropOnEmpty: true,
+				revert: true,
+				revertDuration: 150,
+				delay: 150,
+				distance: 30,
+				opacity: 0.8
+			});
+		}
 	}
 };
 
