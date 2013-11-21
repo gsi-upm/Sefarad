@@ -60,7 +60,7 @@ function InitViewModel() {
 	self.showMapWidget = ko.observable();
 	self.showTwitterWidget = ko.observable(true);
 	self.showConfigurationPanel = ko.observable(false);
-	self.showResultsWidget = ko.observable(true);
+	self.showResultsWidget = ko.observable(false);
 	self.showResultsGraphsWidget = ko.observable(false);
 	self.showResultsGraphsWidgetConfiguration = ko.observable(false);
 	self.openNewWidgetManager = ko.observable(false);
@@ -133,12 +133,14 @@ function InitViewModel() {
 	self.fieldSelected = ko.observable();
 
 	/* NEW WIDGETS */
-
 	self.newWidgets = ko.observableArray([]);
 	// widgetX defined in sefarad.html through the widget's update
 	for (var i = 0; i < widgetX.length; i++) {
 		self.newWidgets.push(widgetX[i])
 	}
+
+	/** Sortable widgets */
+	self.sortableWidgets = ko.observable(true);
 
 	self.newWidgetGetData = function (field, id) {
 		var params = {
@@ -207,7 +209,7 @@ function InitViewModel() {
 	/** Administrator */
 	self.userName = ko.observable("");
 	self.userPassword = ko.observable("");
-	self.securityEnabled = ko.observable(true);
+	self.securityEnabled = ko.observable(false);
 	self.adminMode = ko.observable(false);
 
 	self.activeWidgetsLeft = ko.observableArray([]);
@@ -305,7 +307,6 @@ function InitViewModel() {
 
 	/** This function populate all tagcloud widgets content */
 	function updateWidgets(updateAll) {
-
 		if (updateAll) {
 
 			$.each(self.activeWidgets(), function (index, item) {
@@ -1652,6 +1653,72 @@ function InitViewModel() {
 
 				});
 
+				this.get('#/sparql/universitiesDemo', function () {
+
+					console.log("UNIVERSITIES DEMO");
+					self.sparql = ko.observable(true);
+					configuration.template.pageTitle = "Universities Demo";
+					configuration.results.resultsLayout = [{
+						Name: "Títulos",
+						Value: "university"
+					}, {
+						Name: "Subtítulo",
+						Value: "country"
+					}, {
+						Name: "Descripción",
+						Value: "city"
+					}, {
+						Name: "Logo",
+						Value: ""
+					}, ];
+									
+					vm.getResultsSPARQL("select distinct ?university ?city ?country ?latitude ?longitude where {?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://dbpedia.org/ontology/city> ?cityresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university ; <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ; <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . ?countryresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/EuropeanCountries> ; <http://www.w3.org/2000/01/rdf-schema#label> ?country . ?cityresource <http://www.w3.org/2000/01/rdf-schema#label> ?city FILTER ( lang(?university) = 'en' && lang(?country) = 'en' && lang(?city) = 'en')} LIMIT 50", "http://dbpedia.org/sparql");
+					configuration.template.language = "English";
+					templateWidgetsLeft.push({
+						id: 0,
+						title: 'Countries',
+						type: 'tagcloud',
+						field: 'country',
+						collapsed: false,
+						query: '',
+						value: [],
+						values: [],
+						limits: '',
+						layout: 'horizontal',
+						showWidgetConfiguration: false
+					});
+
+					templateWidgetsLeft.push({
+						id: 1,
+						title: 'Cities',
+						type: 'tagcloud',
+						field: 'city',
+						collapsed: false,
+						query: '',
+						value: [],
+						values: [],
+						limits: '',
+						layout: 'horizontal',
+						showWidgetConfiguration: false
+					});
+
+					configuration.autocomplete.field = "university";
+
+					if (!self.securityEnabled()) {
+						self.adminMode(true);
+					} else {
+						self.adminMode(false);
+						self.showConfigurationPanel(false);
+					}
+
+					sparqlmode = true;
+
+					init();
+
+					widgetMap.render();
+
+				});
+
 				this.get('#/graph/:coreId', function (context) {
 
 				});
@@ -2417,8 +2484,8 @@ ko.bindingHandlers.map = {
 
 //connect items with observableArrays
 ko.bindingHandlers.sortableList = {
-	init: function (element, valueAccessor, allBindingsAccessor, context) {
-		if (vm.adminMode()) {
+	update: function (element, valueAccessor, allBindingsAccessor, context) {
+		if (vm.sortableWidgets()) {
 			$(element).data("sortList", valueAccessor()); //attach meta-data
 			$(element).sortable({
 				update: function (event, ui) {
@@ -2478,6 +2545,9 @@ ko.bindingHandlers.sortableList = {
 				distance: 30,
 				opacity: 0.8
 			});
+		}else{
+			$(element).data("sortList", valueAccessor()); //attach meta-data
+			$(element).sortable("disable");
 		}
 	}
 };
@@ -2486,10 +2556,6 @@ ko.bindingHandlers.sortableList = {
 ko.bindingHandlers.sortableItem = {
 	init: function (element, valueAccessor) {
 		var options = valueAccessor();
-		////("sortItem es:");
-		////(options.item);
-		////("parentList es:");
-		////(options.parentList);
 		$(element).data("sortItem", options.item);
 		$(element).data("parentList", options.parentList);
 	}

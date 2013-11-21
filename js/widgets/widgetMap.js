@@ -12,6 +12,7 @@ var widgetMap = {
 	// field: "polarityValue",
 
 	render: function () {
+		console.log("Rendering map");
 		var id = 'A' + Math.floor(Math.random() * 10001);
 		var field = widgetMap.field || "";
 		vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetMap.name), "type": ko.observable(widgetMap	.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
@@ -44,15 +45,28 @@ var widgetMap = {
 
 		//Añadimos markers con las ciudades filtradas
 		$.each(vm.filteredData(), function(index, item) {
+			if (!vm.sparql()){
 
-			var marker = new google.maps.Marker({
-				position: new google.maps.LatLng(item.latitude(),item.longitude()),
-			    title: item.nombre().toString(),
-			    map: map,
-			});
+				var marker = new google.maps.Marker({
+					position: new google.maps.LatLng(item.latitude(),item.longitude()),
+				    title: item.nombre().toString(),
+				    map: map,
+				});
 
-			//Ventana de info cuando clicamos el marker
-			var contentString = '<div id="content">'+item.pais().toString()+'</div>';
+				//Ventana de info cuando clicamos el marker
+				var contentString = '<div id="content">'+item.pais().toString()+'</div>';
+
+			}else{
+
+				var marker = new google.maps.Marker({
+					position: new google.maps.LatLng(item.latitude.value(),item.longitude.value()),
+				    title: item.university.value().toString(),
+				    map: map,
+				});
+
+				//Ventana de info cuando clicamos el marker
+				var contentString = '<div id="content">'+item.country.value().toString()+'</div>';
+			}
 
 			var infowindow = new google.maps.InfoWindow({
 			    content: contentString

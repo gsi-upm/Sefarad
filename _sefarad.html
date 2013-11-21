@@ -135,7 +135,7 @@
 				<div id="logos" data-bind="visible: !showSparqlPanel()">
 					<!-- ko if: logoPath == undefined -->
 					<!-- /ko -->
-					<div id="logotext"><img src="img/ftt_header.png"><span data-bind="text: pageTitle"></span></div>
+					<div id="logotext"><img src="img/sefarad_header.png"><span data-bind="text: pageTitle"></span></div>
 				</div>
 				<!-- Search and help area -->
 				<div class="right_area" >
@@ -182,6 +182,7 @@
 								lang().langcaption"></select></li>
 							<li><input type="checkbox" style="width:13px;" data-bind="checked: activedAutocomplete"/><label data-bind="text: lang().autocomplete"></label></li>
 							<li><select data-bind="options: dataColumns, value: autocomplete_fieldname, optionsCaption: lang().fieldcaption, enable: activedAutocomplete"></select></li>
+							<li><input type="checkbox" style="width:13px;" data-bind="checked: sortableWidgets"/><label>Sortable widgets</label></li>	
 						</ul>
 					</div>
 					<div class="col2">

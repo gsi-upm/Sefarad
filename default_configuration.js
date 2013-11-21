@@ -1,64 +1,64 @@
-//default configuration (overloaded by webservice)
-		//"serverURL": "http://shannon.gsi.dit.upm.es/episteme/lmf/",
 var configuration = {
-	"widgetsLeft" : [],
-	"widgetsRight" : [],
-	"widgetsLeftTab1" : [],
-	"widgetsRightTab1" : [],
-	"endpoints" : {
+	"widgetsLeft": [],
+	"widgetsRight": [],
+	"widgetsLeftTab1": [],
+	"widgetsRightTab1": [],
+	"endpoints": {
 		"serverURL": "http://localhost:8080/LMF/",
-		"baseURL" : [""],
-		"sparql_baseURL" : []
+		"baseURL": [""],
+		"sparql_baseURL": []
 	},
-	"template" : {
-		"pageTitle" : "Sefarad",
+	"template": {
+		"pageTitle": "Sefarad",
 		"logoPath": "",
 		"showMapWidget": false,
-		"showResultsWidget": true,
+		"showResultsWidget": false,
 		"language": "Español"
 	},
-    "results" : {
+	"results": {
 		"wcolor": "color-red",
 		"wtitle": "Resultados",
 		"wtype": "results",
-		"wcollapsed" : false,
-		"wgraphscollapsed" : false,
+		"wcollapsed": false,
+		"wgraphscollapsed": false,
 		"wshowConfig": false,
-		"extra" : [],
-		"resultsGraphs" : [],
-		"resultsLayout" : [
-		{
+		"extra": [],
+		"resultsGraphs": [],
+		"resultsLayout": [{
 			Name: "Títulos",
-			Value: "s"},
-		{
+			Value: "s"
+		}, {
 			Name: "Subtítulo",
-			Value: "p"},
-		{
+			Value: "p"
+		}, {
 			Name: "Descripción",
-			Value: "o"},
-		{
+			Value: "o"
+		}, {
 			Name: "Logo",
-			Value: "photo"},
-	]},
-	"autocomplete" : {
-		"field": "",
-		"actived": true},
-	"searchengine" : {
-	     	
+			Value: "photo"
+		}, ]
 	},
-	"mapWidget" : {
+	"autocomplete": {
+		"field": "",
+		"actived": true
+	},
+	"searchengine": {},
+	"sortable_widgets": {
+		"actived": true
+	},
+	"mapWidget": {
 		"latitude": "latitude",
 		"longitude": "longitude"
 	},
-    "other" : {
-        "sort":{
-            "field":"name",
-            "order":"asc"
-        },
+	"other": {
+		"sort": {
+			"field": "name",
+			"order": "asc"
+		},
 		"available_languages": ["Español"],
 		"lightmode": false,
 		"maxNumberOfResults": "100",
 		"default_language": "Español",
 		"showMap": true
-    }
+	}
 }
