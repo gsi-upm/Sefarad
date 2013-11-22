@@ -42,6 +42,9 @@ var templateWidgetsRightTab1 = [];
 var errorinroute = false;
 var sparqlmode = false;
 
+//Numero de datos solicitados en cada peticion (LOCAL ONLY)
+var num_rows = 40;
+
 function InitViewModel() {
 
 	var self = this;
@@ -150,7 +153,7 @@ function InitViewModel() {
 			'facet.sort': 'count',
 			'facet.mincount': 1,
 			'json.nl': 'map',
-			'rows': 20
+			'rows': num_rows
 		};
 
 		for (var name in params) {
@@ -1163,7 +1166,7 @@ function InitViewModel() {
 				'facet.sort': 'count',
 				'facet.mincount': 1,
 				'json.nl': 'map',
-				'rows': 20
+				'rows': num_rows
 			};
 
 			for (var name in params) {
@@ -1321,7 +1324,7 @@ function InitViewModel() {
 			'facet.sort': 'count',
 			'facet.mincount': 1,
 			'json.nl': 'map',
-			'rows': 20
+			'rows': num_rows
 		};
 
 		for (var name in params) {
@@ -2165,7 +2168,7 @@ function showWidgets() {
 		'facet.sort': 'count',
 		'facet.mincount': 1,
 		'json.nl': 'map',
-		'rows': 20
+		'rows': num_rows
 	};
 
 	for (var name in params) {
@@ -2389,7 +2392,7 @@ function paintHighChart(field, id, typeofchart) {
 			'facet.sort': 'count',
 			'facet.mincount': 1,
 			'json.nl': 'map',
-			'rows': 20
+			'rows': num_rows
 		};
 
 		for (var name in params) {
