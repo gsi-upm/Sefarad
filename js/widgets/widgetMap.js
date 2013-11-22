@@ -12,7 +12,6 @@ var widgetMap = {
 	// field: "polarityValue",
 
 	render: function () {
-		console.log("Rendering map");
 		var id = 'A' + Math.floor(Math.random() * 10001);
 		var field = widgetMap.field || "";
 		vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetMap.name), "type": ko.observable(widgetMap	.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
@@ -42,7 +41,7 @@ var widgetMap = {
 			mapTypeId:google.maps.MapTypeId.ROADMAP
 		};
 
-		var map=new google.maps.Map(map_div.node(),mapProperties);
+		var map=new google.maps.Map(document.getElementById("map"),mapProperties);
 		var bounds = new google.maps.LatLngBounds();
 
 		//Añadimos markers con las ciudades filtradas

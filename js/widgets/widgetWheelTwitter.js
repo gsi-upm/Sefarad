@@ -33,7 +33,7 @@ var widgetWheelTwitter = {
 				$.each(vm.filteredData(), function(index, item) {
 					console.log(item);
 					var one;
-					var name = new String(item.title());
+					var name = new String(item.entity());
 					var resultOne = $.grep(array, function(e){ return e["name"].valueOf() == name.valueOf(); });
 					if (resultOne.length == 0) {
 						one = new Object();

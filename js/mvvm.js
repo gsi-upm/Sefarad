@@ -17,7 +17,7 @@
 var serverURL = "http://localhost:8080/LMF/";
 //var serverURL = "http://shannon.gsi.dit.upm.es/episteme/lmf/";
 //var serverURL = "http://minsky.gsi.dit.upm.es/episteme/tomcat/LMF/";
-
+	
 var map;
 var i_layoutresultsextra = 0;
 var limit_items_tagcloud = 40;
@@ -1460,12 +1460,12 @@ function InitViewModel() {
 
 	/** Depending on the html route, redirect to a setup screen or directly to visualization screen */
 	self.routes = function () {
+		console.log('ROUTES')
 		if (self.serverURL() == "") {
 			self.page(4);
 			errorinroute = true;
 
 		} else {
-
 			// Client-side routes    
 			sammyPlugin = $.sammy(function () {
 				this.bind('redirectEvent', function (e, data) {
@@ -1662,6 +1662,7 @@ function InitViewModel() {
 				this.get('#/sparql/universitiesDemo', function () {
 					console.log("UNIVERSITIES DEMO");
 					self.sparql = ko.observable(true);
+					vm.getResultsSPARQL("select distinct ?university ?city ?country ?latitude ?longitude where {?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://dbpedia.org/ontology/city> ?cityresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university ; <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ; <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . ?countryresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/EuropeanCountries> ; <http://www.w3.org/2000/01/rdf-schema#label> ?country . ?cityresource <http://www.w3.org/2000/01/rdf-schema#label> ?city FILTER ( lang(?university) = 'en' && lang(?country) = 'en' && lang(?city) = 'en')} LIMIT 100", "http://dbpedia.org/sparql");
 					configuration.template.language = "English";
 					configuration.template.pageTitle = "Universities Demo";
 					configuration.results.resultsLayout = [{
@@ -1677,7 +1678,6 @@ function InitViewModel() {
 						Name: "Logo",
 						Value: ""
 					}, ];
-					vm.getResultsSPARQL("select distinct ?university ?city ?country ?latitude ?longitude where {?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://dbpedia.org/ontology/city> ?cityresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university ; <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ; <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . ?countryresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/EuropeanCountries> ; <http://www.w3.org/2000/01/rdf-schema#label> ?country . ?cityresource <http://www.w3.org/2000/01/rdf-schema#label> ?city FILTER ( lang(?university) = 'en' && lang(?country) = 'en' && lang(?city) = 'en')} LIMIT 50", "http://dbpedia.org/sparql");
 					templateWidgetsLeft.push({
 						id: 0,
 						title: 'Countries',
@@ -1708,9 +1708,12 @@ function InitViewModel() {
 					self.securityEnabled(false);
 					self.adminMode(true);
 					sparqlmode = true;
-					init();					
-					widgetMap.render();
-					console.log('***************');
+					init();
+					// Add div_map
+					var id = 'A' + Math.floor(Math.random() * 10001);
+					var field = widgetMap.field || "";
+					vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetMap.name), "type": ko.observable(widgetMap	.type), "field": ko.observable(field),"collapsed": ko.observable(false)});				
+					// Add results widget
 					self.activeWidgetsRight.push({
 						"id": ko.observable(0),
 						"title": ko.observable(self.lang().results),
@@ -1719,7 +1722,6 @@ function InitViewModel() {
 						"layout": ko.observable("vertical"),
 						"showWidgetConfiguration": ko.observable(false)
 					});
-					console.log('++++++++++++++')
 				});
 
 				this.get('#/graph/:coreId', function (context) {
