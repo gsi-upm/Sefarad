@@ -43,7 +43,7 @@ var errorinroute = false;
 var sparqlmode = false;
 
 //Numero de datos solicitados en cada peticion (LOCAL ONLY)
-var num_rows = 40;
+var num_rows = 20;
 
 function InitViewModel() {
 
@@ -62,7 +62,7 @@ function InitViewModel() {
 	self.logoPath = ko.observable();
 	self.showMapWidget = ko.observable();
 	self.showTwitterWidget = ko.observable(true);
-	self.showConfigurationPanel = ko.observable(false);
+	self.showConfigurationPanel = ko.observable(configuration.template.showResultsWidget);
 	self.showResultsWidget = ko.observable(false);
 	self.showResultsGraphsWidget = ko.observable(false);
 	self.showResultsGraphsWidgetConfiguration = ko.observable(false);
@@ -143,7 +143,7 @@ function InitViewModel() {
 	}
 
 	/** Sortable widgets */
-	self.sortableWidgets = ko.observable(true);
+	self.sortableWidgets = ko.observable(configuration.sortable_widgets.actived);
 
 	self.newWidgetGetData = function (field, id) {
 		var params = {
@@ -1660,9 +1660,9 @@ function InitViewModel() {
 				});
 
 				this.get('#/sparql/universitiesDemo', function () {
-
 					console.log("UNIVERSITIES DEMO");
 					self.sparql = ko.observable(true);
+					configuration.template.language = "English";
 					configuration.template.pageTitle = "Universities Demo";
 					configuration.results.resultsLayout = [{
 						Name: "Títulos",
@@ -1677,9 +1677,7 @@ function InitViewModel() {
 						Name: "Logo",
 						Value: ""
 					}, ];
-									
 					vm.getResultsSPARQL("select distinct ?university ?city ?country ?latitude ?longitude where {?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://dbpedia.org/ontology/city> ?cityresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university ; <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ; <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . ?countryresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/EuropeanCountries> ; <http://www.w3.org/2000/01/rdf-schema#label> ?country . ?cityresource <http://www.w3.org/2000/01/rdf-schema#label> ?city FILTER ( lang(?university) = 'en' && lang(?country) = 'en' && lang(?city) = 'en')} LIMIT 50", "http://dbpedia.org/sparql");
-					configuration.template.language = "English";
 					templateWidgetsLeft.push({
 						id: 0,
 						title: 'Countries',
@@ -1693,7 +1691,6 @@ function InitViewModel() {
 						layout: 'horizontal',
 						showWidgetConfiguration: false
 					});
-
 					templateWidgetsLeft.push({
 						id: 1,
 						title: 'Cities',
@@ -1707,22 +1704,22 @@ function InitViewModel() {
 						layout: 'horizontal',
 						showWidgetConfiguration: false
 					});
-
 					configuration.autocomplete.field = "university";
-
-					if (!self.securityEnabled()) {
-						self.adminMode(true);
-					} else {
-						self.adminMode(false);
-						self.showConfigurationPanel(false);
-					}
-
+					self.securityEnabled(false);
+					self.adminMode(true);
 					sparqlmode = true;
-
-					init();
-
+					init();					
 					widgetMap.render();
-
+					console.log('***************');
+					self.activeWidgetsRight.push({
+						"id": ko.observable(0),
+						"title": ko.observable(self.lang().results),
+						"type": ko.observable("resultswidget"),
+						"collapsed": ko.observable(false),
+						"layout": ko.observable("vertical"),
+						"showWidgetConfiguration": ko.observable(false)
+					});
+					console.log('++++++++++++++')
 				});
 
 				this.get('#/graph/:coreId', function (context) {
@@ -1895,27 +1892,20 @@ function InitViewModel() {
 		self.showMapWidget = ko.observable(configuration.template.showMapWidget);
 		self.showResultsWidget = ko.observable(configuration.template.showResultsWidget);
 		self.resultsWidget = ko.mapping.fromJS(configuration.results);
-		//self.resultsLayout = ko.mapping.fromJS(configuration.results.resultsLayout);
 		self.selectedLanguage(configuration.template.language);
-
 		self.maxNumberOfResults(configuration.other.maxNumberOfResults);
-
+		self.sortableWidgets(configuration.sortable_widgets.actived);
 		self.mapLat(configuration.mapWidget.latitude);
 		self.mapLong(configuration.mapWidget.latitude);
-
 		self.autocomplete_fieldname(configuration.autocomplete.field);
 		self.default_autocomplete_fieldname(configuration.autocomplete.field);
 		self.activedAutocomplete = ko.observable(configuration.autocomplete.actived);
 		//self.autocomplete_fieldname.valueHasMutated();
 		//self.autocomplete_fieldname = ko.observable("name");
-
-		// autocompleteSOLR = ["Madrid", "Barcelona"];
-
 		self.activeWidgetsLeft = ko.mapping.fromJS(templateWidgetsLeft);
 		self.activeWidgetsRight = ko.mapping.fromJS(templateWidgetsRight);
 		self.activeWidgetsLeftTab1 = ko.mapping.fromJS(templateWidgetsLeftTab1);
 		self.activeWidgetsRightTab1 = ko.mapping.fromJS(templateWidgetsRightTab1);
-
 		self.filter('');
 		//self.resultsGraphsTemp = ko.mapping.fromJS(self.testData);
 
@@ -2105,16 +2095,18 @@ function InitViewModel() {
 			}
 
 		} else {
-			/** Local MODE */
 
-			self.activeWidgetsRight.push({
+			/** Local MODE */
+			if (self.showResultsWidget()){
+				self.activeWidgetsRight.push({
 				"id": ko.observable(0),
-				"title": ko.observable("Resultados"),
+				"title": ko.observable(self.lang().results),
 				"type": ko.observable("resultswidget"),
 				"collapsed": ko.observable(false),
 				"layout": ko.observable("vertical"),
 				"showWidgetConfiguration": ko.observable(false)
-			});
+				});
+			}
 
 			self.autoCompleteFields = ko.computed(function () {
 				var isActive = self.activedAutocomplete();
@@ -2143,10 +2135,7 @@ function InitViewModel() {
 
 	};
 
-	// Ends vm
-
-	//PRUEBAS RUBEN
-	
+	// Ends vm	
 }
 
 /** Add params to solr query so we can fill tagcloud widgets */
@@ -2196,6 +2185,8 @@ function saveConfiguration(refreshpage, user, pass) {
 	} else {
 		configuration.autocomplete.field = vm.default_autocomplete_fieldname();
 	}
+
+	configuration.sortable_widgets.actived = vm.sortableWidgets();
 
 	configuration.mapWidget.latitude = vm.mapLat();
 	configuration.mapWidget.longitude = vm.mapLong();
@@ -2492,9 +2483,15 @@ ko.bindingHandlers.map = {
 
 //connect items with observableArrays
 ko.bindingHandlers.sortableList = {
+	init: function (element, valueAccessor, allBindingsAccessor, context) {
+			$(element).data("sortList", valueAccessor()); //attach meta-data
+			$(element).sortable();		
+	},
+
 	update: function (element, valueAccessor, allBindingsAccessor, context) {
 		if (vm.sortableWidgets()) {
 			$(element).data("sortList", valueAccessor()); //attach meta-data
+			$(element).sortable("enable");	
 			$(element).sortable({
 				update: function (event, ui) {
 					var item = ui.item.data("sortItem");

@@ -18,7 +18,9 @@ var widgetMap = {
 		vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetMap.name), "type": ko.observable(widgetMap	.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
 		
 		// widgetMap.paint(field, id, widgetMap.type);
-		widgetMap.paint(id);		},
+		widgetMap.paint(id);
+
+	},
 
 	// paint: function (field, id, type) {	
 	paint: function (id) {			

@@ -1,19 +1,27 @@
 var configuration = {
-	"widgetsLeft": [],
-	"widgetsRight": [],
-	"widgetsLeftTab1": [],
-	"widgetsRightTab1": [],
+	"autocomplete": {
+		"field": "",
+		"actived": true
+	},
 	"endpoints": {
 		"serverURL": "http://localhost:8080/LMF/",
 		"baseURL": [""],
 		"sparql_baseURL": []
 	},
-	"template": {
-		"pageTitle": "Sefarad",
-		"logoPath": "",
-		"showMapWidget": false,
-		"showResultsWidget": false,
-		"language": "Español"
+	"mapWidget": {
+		"latitude": "latitude",
+		"longitude": "longitude"
+	},
+	"other": {
+		"sort": {
+			"field": "name",
+			"order": "asc"
+		},
+		"available_languages": ["Español"],
+		"lightmode": false,
+		"maxNumberOfResults": "100",
+		"default_language": "Español",
+		"showMap": true
 	},
 	"results": {
 		"wcolor": "color-red",
@@ -38,27 +46,19 @@ var configuration = {
 			Value: "photo"
 		}, ]
 	},
-	"autocomplete": {
-		"field": "",
-		"actived": true
-	},
 	"searchengine": {},
 	"sortable_widgets": {
-		"actived": true
+		"actived": false
 	},
-	"mapWidget": {
-		"latitude": "latitude",
-		"longitude": "longitude"
+	"template": {
+		"pageTitle": "Sefarad",
+		"logoPath": "",
+		"showMapWidget": false,
+		"showResultsWidget": false,
+		"language": "Español"
 	},
-	"other": {
-		"sort": {
-			"field": "name",
-			"order": "asc"
-		},
-		"available_languages": ["Español"],
-		"lightmode": false,
-		"maxNumberOfResults": "100",
-		"default_language": "Español",
-		"showMap": true
-	}
+	"widgetsLeft": [],
+	"widgetsRight": [],
+	"widgetsLeftTab1": [],
+	"widgetsRightTab1": []
 }
