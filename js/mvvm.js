@@ -149,7 +149,8 @@ function InitViewModel() {
 			'facet.limit': limit_items_tagcloud,
 			'facet.sort': 'count',
 			'facet.mincount': 1,
-			'json.nl': 'map'
+			'json.nl': 'map',
+			'rows': 20
 		};
 
 		for (var name in params) {
@@ -1161,7 +1162,8 @@ function InitViewModel() {
 				'facet.limit': limit_items_tagcloud,
 				'facet.sort': 'count',
 				'facet.mincount': 1,
-				'json.nl': 'map'
+				'json.nl': 'map',
+				'rows': 20
 			};
 
 			for (var name in params) {
@@ -1318,7 +1320,8 @@ function InitViewModel() {
 			'facet.limit': limit_items_tagcloud,
 			'facet.sort': 'count',
 			'facet.mincount': 1,
-			'json.nl': 'map'
+			'json.nl': 'map',
+			'rows': 20
 		};
 
 		for (var name in params) {
@@ -2161,7 +2164,8 @@ function showWidgets() {
 		'facet.limit': limit_items_tagcloud,
 		'facet.sort': 'count',
 		'facet.mincount': 1,
-		'json.nl': 'map'
+		'json.nl': 'map',
+		'rows': 20
 	};
 
 	for (var name in params) {
@@ -2384,7 +2388,8 @@ function paintHighChart(field, id, typeofchart) {
 			'facet.limit': limit_items_tagcloud,
 			'facet.sort': 'count',
 			'facet.mincount': 1,
-			'json.nl': 'map'
+			'json.nl': 'map',
+			'rows': 20
 		};
 
 		for (var name in params) {
