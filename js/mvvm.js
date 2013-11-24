@@ -583,6 +583,7 @@ function InitViewModel() {
 
 	/** Add a custom graph given a sparql query */
 	self.addSgvizlerWidget = function () {
+		console.log("adding sgvizler");
 		var id = Math.floor(Math.random() * 10001);
 		var query = self.sgvizlerQuery();
 		var typeOfGraph = self.sgvizlerGraphType();
@@ -1712,7 +1713,7 @@ function InitViewModel() {
 					// Add div_map
 					var id = 'A' + Math.floor(Math.random() * 10001);
 					var field = widgetMap.field || "";
-					vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetMap.name), "type": ko.observable(widgetMap	.type), "field": ko.observable(field),"collapsed": ko.observable(false)});				
+					self.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetMap.name), "type": ko.observable(widgetMap	.type), "field": ko.observable(field),"collapsed": ko.observable(false)});				
 					// Add results widget
 					self.activeWidgetsRight.push({
 						"id": ko.observable(0),
@@ -1722,6 +1723,11 @@ function InitViewModel() {
 						"layout": ko.observable("vertical"),
 						"showWidgetConfiguration": ko.observable(false)
 					});
+					// Add PieChart sgvizler wigdet
+					self.sgvizlerQuery("SELECT ?university ?students WHERE{ ?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university . ?countryresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/EuropeanCountries> . ?universityresource <http://dbpedia.org/ontology/numberOfStudents> ?students FILTER ( lang(?university) = 'en') } GROUP BY ?university LIMIT 50");
+					self.sgvizlerGraphType('google.visualization.PieChart');
+					self.sparql_baseURL("http://dbpedia.org/sparql");
+					self.addSgvizlerWidget();
 				});
 
 				this.get('#/graph/:coreId', function (context) {
