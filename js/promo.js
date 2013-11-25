@@ -2,8 +2,8 @@ function InitModel() {
 
 	var self = this;
 	
-	self.lang = ko.observable(languages[0]);
-	self.selectedLanguage = ko.observable(configuration.template.language);
+	self.lang = ko.observable(languages[1]);
+	self.selectedLanguage = ko.observable(languages[1].lang);
 
 	/** Language related functions */
 	self.languages = ko.computed(function () {
@@ -25,10 +25,8 @@ function InitModel() {
 		if(idx>-1){
 			self.lang(languages[parseInt(idx)]);
 			}else{
-		}
-		
+		}		
 	});
-
 }
 
 var m = new InitModel();

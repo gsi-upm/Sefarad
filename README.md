@@ -12,4 +12,4 @@ Installation instructions
 Every time you create a new widget you have to update Sefarad. Once you have created the widget and have placed it in your widget's directory ('.js/widgets/' by default), execute 'node app' and the file 'sefarad.html' will be uplaoded with all the widgets.
 
 
-For more information, contact us through: http://gsi.dit.upm.es
+For more information, visit the [Project Wiki](https://github.com/gsi-upm/Sefarad/wiki) or contact us through: http://gsi.dit.upm.es

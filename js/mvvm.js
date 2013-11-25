@@ -42,9 +42,6 @@ var templateWidgetsRightTab1 = [];
 var errorinroute = false;
 var sparqlmode = false;
 
-//Numero de datos solicitados en cada peticion (LOCAL ONLY)
-var num_rows = 20;
-
 function InitViewModel() {
 
 	var self = this;
@@ -52,7 +49,6 @@ function InitViewModel() {
 	/** Endpoint variables */
 	self.serverURL = ko.observable(serverURL);
 	self.solr_baseURL = ko.observable();
-	//self.sparql_baseURL = ko.observable("http://localhost:8080/LMF/sparql/select");
 	self.sparql_baseURL = ko.observable();
 	self.core = ko.observable();
 	self.listCores = ko.observableArray();
@@ -80,7 +76,7 @@ function InitViewModel() {
 	self.activeTab = ko.observable(0);
 
 	/** Language */
-	self.lang = ko.observable(languages[0]);
+	self.lang = ko.observable(languages[1]);
 	self.selectedLanguage = ko.observable(configuration.template.language);
 
 	/** Active route */
@@ -145,6 +141,9 @@ function InitViewModel() {
 	/** Sortable widgets */
 	self.sortableWidgets = ko.observable(configuration.sortable_widgets.actived);
 
+	/**Number of data requested in each request  (LOCAL ONLY) */
+	self.num_rows = ko.observable(20);
+
 	self.newWidgetGetData = function (field, id) {
 		var params = {
 			facet: true,
@@ -153,7 +152,7 @@ function InitViewModel() {
 			'facet.sort': 'count',
 			'facet.mincount': 1,
 			'json.nl': 'map',
-			'rows': num_rows
+			'rows': self.num_rows
 		};
 
 		for (var name in params) {
@@ -640,7 +639,6 @@ function InitViewModel() {
 		}
 
 		if (isBlank(endpoint)) {
-			//var endpoint = serverURL + 'sparql/select';
 			var endpoint = self.sparql_baseURL();
 		}
 
@@ -686,8 +684,7 @@ function InitViewModel() {
 			});
 
 		} else if (finalQuery != 'undefined') {
-			//console.log("OTHER ENDPOINT");
-			//var finalQuery="select * where {<http://dbpedia.org/resource/"+ queryText +"> <http://xmlns.com/foaf/0.1/name> ?name ; <http://dbpedia.org/property/birthDate> ?birth ; <http://dbpedia.org/property/nationality> ?nationality ; <http://dbpedia.org/ontology/thumbnail> ?photo }";
+			
 			$.ajax({
 				type: 'GET',
 				url: endpoint,
@@ -709,7 +706,7 @@ function InitViewModel() {
 				success: function (allData) {
 					//console.log(allData);
 					var data = JSON.stringify(allData.results.bindings);
-					//////console.log(data);
+					//console.log(data);
 					ko.mapping.fromJSON(data, self.viewData);
 					updateWidgets(true);
 				},
@@ -1167,7 +1164,7 @@ function InitViewModel() {
 				'facet.sort': 'count',
 				'facet.mincount': 1,
 				'json.nl': 'map',
-				'rows': num_rows
+				'rows': self.num_rows
 			};
 
 			for (var name in params) {
@@ -1325,7 +1322,7 @@ function InitViewModel() {
 			'facet.sort': 'count',
 			'facet.mincount': 1,
 			'json.nl': 'map',
-			'rows': num_rows
+			'rows': self.num_rows
 		};
 
 		for (var name in params) {
@@ -1606,60 +1603,6 @@ function InitViewModel() {
 					init();
 				});
 
-				this.get('#/sparql/demo1', function () {
-
-					self.sparql = ko.observable(true);
-					self.sparql = ko.observable(true);
-					configuration.template.pageTitle = "Capitales europeas";
-					self.getResultsSPARQL("select ?name ?desc ?resumen ?country where {?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/CapitalsInEurope> ; <http://xmlns.com/foaf/0.1/name> ?name ; <http://dbpedia.org/ontology/abstract> ?desc ; <http://www.w3.org/2000/01/rdf-schema#comment> ?resumen ; <http://dbpedia.org/ontology/country> ?countrynode . ?countrynode <http://www.w3.org/2000/01/rdf-schema#label> ?country .  FILTER ( lang(?resumen) = 'es' && lang(?country) = 'es' && lang(?desc) = 'es')} LIMIT 10", "http://dbpedia.org/sparql");
-					configuration.results.resultsLayout = [{
-						Name: "Títulos",
-						Value: "name"
-					}, {
-						Name: "Subtítulo",
-						Value: "country"
-					}, {
-						Name: "Descripción",
-						Value: "resumen"
-					}, {
-						Name: "Logo",
-						Value: ""
-					}, ];
-					configuration.template.language = "English";
-					templateWidgetsLeft.push({
-						id: 0,
-						title: 'Países',
-						type: 'tagcloud',
-						field: 'country',
-						collapsed: false,
-						query: '',
-						value: [],
-						values: [],
-						limits: '',
-						layout: 'horizontal',
-						showWidgetConfiguration: false
-					});
-					templateWidgetsLeft.push({
-						id: 1,
-						title: 'Nombres',
-						type: 'tagcloud',
-						field: 'name',
-						collapsed: false,
-						query: '',
-						value: [],
-						values: [],
-						limits: '',
-						layout: 'horizontal',
-						showWidgetConfiguration: false
-					});
-					configuration.autocomplete.field = "name";
-
-					sparqlmode = true;
-
-					init();
-
-				});
-
 				this.get('#/sparql/universitiesDemo', function () {
 					console.log("UNIVERSITIES DEMO");
 					self.sparql = ko.observable(true);
@@ -1723,6 +1666,8 @@ function InitViewModel() {
 						"layout": ko.observable("vertical"),
 						"showWidgetConfiguration": ko.observable(false)
 					});
+					// Add resultstats widget
+					self.addResultStatsWidget();
 					// Add PieChart sgvizler wigdet
 					self.sgvizlerQuery("SELECT ?university ?students WHERE{ ?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university . ?countryresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/EuropeanCountries> . ?universityresource <http://dbpedia.org/ontology/numberOfStudents> ?students FILTER ( lang(?university) = 'en') } GROUP BY ?university LIMIT 50");
 					self.sgvizlerGraphType('google.visualization.PieChart');
@@ -2165,7 +2110,7 @@ function showWidgets() {
 		'facet.sort': 'count',
 		'facet.mincount': 1,
 		'json.nl': 'map',
-		'rows': num_rows
+		'rows': self.num_rows
 	};
 
 	for (var name in params) {
@@ -2391,7 +2336,7 @@ function paintHighChart(field, id, typeofchart) {
 			'facet.sort': 'count',
 			'facet.mincount': 1,
 			'json.nl': 'map',
-			'rows': num_rows
+			'rows': self.num_rows
 		};
 
 		for (var name in params) {
