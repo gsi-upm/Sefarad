@@ -142,7 +142,14 @@ function InitViewModel() {
 	self.sortableWidgets = ko.observable(configuration.sortable_widgets.actived);
 
 	/**Number of data requested in each request  (LOCAL ONLY) */
-	self.num_rows = ko.observable(20);
+	self.num_rows = ko.observable(10);
+
+	/**Subscribe to changes in num_rows*/	
+	self.num_rows.subscribe(function (newValue) {
+		showWidgets();
+		self.newWidgetGetData();
+
+	});
 
 	self.newWidgetGetData = function (field, id) {
 		var params = {
@@ -152,7 +159,7 @@ function InitViewModel() {
 			'facet.sort': 'count',
 			'facet.mincount': 1,
 			'json.nl': 'map',
-			'rows': self.num_rows
+			'rows': self.num_rows()
 		};
 
 		for (var name in params) {
@@ -166,38 +173,6 @@ function InitViewModel() {
 
 		Manager.doRequest();
 	}
-
-	// self.newWidgetData = function(field) {
-
-	// 	console.log(field);
-
-	// 	var t = ko.utils.getDataColumns(field);
-
-	// 	if(t != undefined) {
-
-	// 		console.log('t == undefined')
-	// 		var params = {
-	// 			facet: true,
-	// 			'facet.field': field,
-	// 			'facet.limit': limit_items_tagcloud,
-	// 			'facet.sort': 'count',
-	// 			'facet.mincount': 1,
-	// 			'json.nl': 'map'
-	// 		};
-
-	// 		for (var name in params) {
-	// 			////console.log(params[name]);
-	// 			Manager.store.addByValue(name, params[name]);
-	// 		}
-
-	// 		Manager.doRequest();
-
-	// 	} else {
-
-	// 		return t;
-
-	// 	}
-	// };
 
 	/** TagCloudWidgets related */
 	self.widgetContent = ko.observableArray();
@@ -1164,7 +1139,7 @@ function InitViewModel() {
 				'facet.sort': 'count',
 				'facet.mincount': 1,
 				'json.nl': 'map',
-				'rows': self.num_rows
+				'rows': self.num_rows()
 			};
 
 			for (var name in params) {
@@ -1322,7 +1297,7 @@ function InitViewModel() {
 			'facet.sort': 'count',
 			'facet.mincount': 1,
 			'json.nl': 'map',
-			'rows': self.num_rows
+			'rows': self.num_rows()
 		};
 
 		for (var name in params) {
@@ -2110,7 +2085,7 @@ function showWidgets() {
 		'facet.sort': 'count',
 		'facet.mincount': 1,
 		'json.nl': 'map',
-		'rows': self.num_rows
+		'rows': vm.num_rows()
 	};
 
 	for (var name in params) {
@@ -2336,7 +2311,7 @@ function paintHighChart(field, id, typeofchart) {
 			'facet.sort': 'count',
 			'facet.mincount': 1,
 			'json.nl': 'map',
-			'rows': self.num_rows
+			'rows': vm.num_rows()
 		};
 
 		for (var name in params) {
