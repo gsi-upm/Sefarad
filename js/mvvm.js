@@ -146,9 +146,10 @@ function InitViewModel() {
 
 	/**Subscribe to changes in num_rows*/	
 	self.num_rows.subscribe(function (newValue) {
-		showWidgets();
-		self.newWidgetGetData();
-
+		if(!sparqlmode){
+			showWidgets();
+			self.newWidgetGetData();
+		}
 	});
 
 	self.newWidgetGetData = function (field, id) {
