@@ -557,13 +557,12 @@ function InitViewModel() {
 	};
 
 	/** Add a custom graph given a sparql query */
-	self.addSgvizlerWidget = function () {
-		console.log("adding sgvizler");
+	self.addSgvizlerWidget = function (r) {
 		var id = Math.floor(Math.random() * 10001);
 		var query = self.sgvizlerQuery();
 		var typeOfGraph = self.sgvizlerGraphType();
 
-		self.activeWidgetsLeftTab1.push({
+		self.activeWidgetsRightTab1.push({
 			"id": ko.observable(id),
 			"title": ko.observable("Nuevo Gráfico"),
 			"type": ko.observable("sgvizler"),
@@ -573,7 +572,6 @@ function InitViewModel() {
 		});
 
 		var stringid = id.toString();
-
 		mySgvizlerQuery(query, stringid, typeOfGraph);
 
 	};
@@ -1630,10 +1628,8 @@ function InitViewModel() {
 					sparqlmode = true;
 					init();
 					// Add div_map
-					var id = 'A' + Math.floor(Math.random() * 10001);
-					var field = widgetMap.field || "";
-					self.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetMap.name), "type": ko.observable(widgetMap	.type), "field": ko.observable(field),"collapsed": ko.observable(false)});				
-					// Add results widget
+					widgetMap.render();
+					// // Add results widget
 					self.activeWidgetsRight.push({
 						"id": ko.observable(0),
 						"title": ko.observable(self.lang().results),
@@ -2590,8 +2586,9 @@ function mySgvizlerQuery(query, id, type) {
 		.defaultChartFunction(type);
 
 	$("#" + id).append('<div id="' + id + '" data-sgvizler-query="' + query + '" data-sgvizler-log="0"></div>');
-
-	sgvizler.containerDraw(id);
+	$(window).load(function(){
+		sgvizler.containerDraw(id);
+	});
 }
 
 function sparqlPanel() {

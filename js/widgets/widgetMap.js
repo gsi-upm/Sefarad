@@ -41,46 +41,49 @@ var widgetMap = {
 			mapTypeId:google.maps.MapTypeId.ROADMAP
 		};
 
-		var map=new google.maps.Map(document.getElementById("map"),mapProperties);
-		var bounds = new google.maps.LatLngBounds();
+		$(window).load(function(){
 
-		//Añadimos markers con las ciudades filtradas
-		$.each(vm.filteredData(), function(index, item) {
-			if (!vm.sparql()){
+			var map = new google.maps.Map(document.getElementById("map"),mapProperties);
+			var bounds = new google.maps.LatLngBounds();
 
-				var marker = new google.maps.Marker({
-					position: new google.maps.LatLng(item.latitude(),item.longitude()),
-				    title: item.nombre().toString(),
-				    map: map,
+			//Añadimos markers con las ciudades filtradas
+			$.each(vm.filteredData(), function(index, item) {
+				if (!vm.sparql()){
+
+					var marker = new google.maps.Marker({
+						position: new google.maps.LatLng(item.latitude(),item.longitude()),
+					    title: item.nombre().toString(),
+					    map: map,
+					});
+
+					//Ventana de info cuando clicamos el marker
+					var contentString = '<div id="content">'+item.pais().toString()+'</div>';
+
+				}else{
+
+					var marker = new google.maps.Marker({
+						position: new google.maps.LatLng(item.latitude.value(),item.longitude.value()),
+					    title: item.university.value().toString(),
+					    map: map,
+					});
+
+					//Ventana de info cuando clicamos el marker
+					var contentString = '<div id="content">'+item.country.value().toString()+'</div>';
+				}
+
+				var infowindow = new google.maps.InfoWindow({
+				    content: contentString
 				});
 
-				//Ventana de info cuando clicamos el marker
-				var contentString = '<div id="content">'+item.pais().toString()+'</div>';
-
-			}else{
-
-				var marker = new google.maps.Marker({
-					position: new google.maps.LatLng(item.latitude.value(),item.longitude.value()),
-				    title: item.university.value().toString(),
-				    map: map,
+				google.maps.event.addListener(marker, "click", function(){
+					infowindow.open(map,marker);
 				});
 
-				//Ventana de info cuando clicamos el marker
-				var contentString = '<div id="content">'+item.country.value().toString()+'</div>';
-			}
-
-			var infowindow = new google.maps.InfoWindow({
-			    content: contentString
+				//Añadimos a bound para re-centrar todos los marcadores
+				bounds.extend(marker.position);
 			});
 
-			google.maps.event.addListener(marker, "click", function(){
-				infowindow.open(map,marker);
-			});
-
-			//Añadimos a bound para re-centrar todos los marcadores
-			bounds.extend(marker.position);
+			map.fitBounds(bounds);
 		});
-
-		map.fitBounds(bounds);
 	}
 };
