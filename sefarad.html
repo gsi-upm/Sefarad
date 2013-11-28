@@ -81,15 +81,14 @@
 
 		<script type="text/javascript" charset="UTF-8">
 			$(document).ready(function() {
-									
+							
 				$(".button" ).button();
-			
+
 				vm.routes();
 				
 				if(errorinroute || sparqlmode){
 					console.log("Aplicamos bindings");
 					ko.applyBindings(vm);
-					//createMap();
 				}
 				
 				$(".sparqlquery").click(function(){sparqlPanel()});
@@ -120,7 +119,7 @@
 						vm.doSave('','');						
 					}				    
 				});
-			
+
 				//initIsotopeAndWizards();
 					
 			});	
@@ -711,7 +710,7 @@
 			</div>
 			<div class="resultswidget-header">
 				<div data-bind="visible: !$root.sparql()">
-					<select id="pager-perPage" data-bind="value: $root.num_rows">
+					<select id="pager-perPage" data-bind="value: $root.num_shown">
 					    <option value=10>10</option>
       					<option value=20>20</option>
         				<option value=30>30</option>
@@ -734,7 +733,7 @@
 			{{if $root.sparql()}}
 				<div id="resultados">
 					<div class="resultado" data-bind="visible: $root.filteredData().length > 0, template: { name: 
-					'results-sparql', foreach: $root.filteredData, afterRender: $root.animateResultsChange }">
+					'results-sparql', foreach: $root.shownData, afterRender: $root.animateResultsChange }">
 					</div>
 				</div>									
 				
@@ -752,7 +751,7 @@
 			{{if layout()=="vertical"}}
 				<div id="resultados">
 					<div class="resultado" data-bind="visible: $root.filteredData().length > 0, template: { name: 
-				'simple', foreach: $root.filteredData, afterRender: $root.animateResultsChange }">
+				'simple', foreach: $root.shownData, afterRender: $root.animateResultsChange }">
 					</div>
 				</div>
 			{{/if}}	

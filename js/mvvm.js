@@ -93,6 +93,7 @@ function InitViewModel() {
 
 	/** All data */
 	self.testData = [];
+	self.shownData = ko.mapping.fromJS(self.testData);
 	self.viewData = ko.mapping.fromJS(self.testData);
 	self.resultsLayout = ko.mapping.fromJS(self.testData);
 	self.autoCompleteFields = ko.mapping.fromJS(self.testData);
@@ -150,6 +151,14 @@ function InitViewModel() {
 			showWidgets();
 			self.newWidgetGetData();
 		}
+	});
+
+	/**Number of data shown (LOCAL ONLY) */
+	self.num_shown = ko.observable(10);
+
+	self.num_shown.subscribe(function (newValue) {
+		self.newWidgetGetData();
+		
 	});
 
 	self.newWidgetGetData = function (field, id) {
@@ -976,6 +985,10 @@ function InitViewModel() {
 
 	/** After every Manager.doRequest method we map the new results into viewData observable (SOLR ONLY) */
 	self.update = function () {
+
+		if(self.num_rows() != Manager.response.response.numFound){
+			self.num_rows(Manager.response.response.numFound)
+		}
 
 		ko.mapping.fromJS(Manager.response.response.docs, self.viewData);
 
@@ -2032,6 +2045,7 @@ function InitViewModel() {
 				"showWidgetConfiguration": ko.observable(false)
 				});
 			}
+
 
 			self.autoCompleteFields = ko.computed(function () {
 				var isActive = self.activedAutocomplete();

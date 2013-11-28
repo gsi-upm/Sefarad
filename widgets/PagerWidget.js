@@ -246,7 +246,8 @@ AjaxSolr.PagerWidget = AjaxSolr.AbstractWidget.extend(
    * @returns {Number} The number of results to display per page.
    */
   perPage: function () {
-    return parseInt(this.manager.response.responseHeader && this.manager.response.responseHeader.params && this.manager.response.responseHeader.params.rows || this.manager.store.get('rows').val() || 10);
+    // return parseInt(this.manager.response.responseHeader && this.manager.response.responseHeader.params && this.manager.response.responseHeader.params.rows || this.manager.store.get('rows').val() || 10);
+    return vm.num_shown();
   },
 
   /**
@@ -269,8 +270,15 @@ AjaxSolr.PagerWidget = AjaxSolr.AbstractWidget.extend(
 
     $(this.target).empty();
 
+    console.log('offest: ' + offset);
+    console.log('perPage: ' + perPage);
+    console.log(vm.filteredData().length);
+    shownArray = vm.filteredData().splice(offset, perPage);
+    vm.shownData(shownArray);
+
     this.renderLinks(this.windowedLinks());
     this.renderHeader(perPage, offset, total);
+
   }
 });
 
