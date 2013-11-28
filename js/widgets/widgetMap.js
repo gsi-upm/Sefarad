@@ -16,74 +16,67 @@ var widgetMap = {
 		var field = widgetMap.field || "";
 		vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetMap.name), "type": ko.observable(widgetMap	.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
 		
-		// widgetMap.paint(field, id, widgetMap.type);
-		widgetMap.paint(id);
-
+		widgetMap.paint(id);	
 	},
 
 	// paint: function (field, id, type) {	
-	paint: function (id) {			
-		
-		d3.select('#'+id).selectAll('div').remove();
-		var div = d3.select('#'+id);
+	paint: function (id) {
+		d3.select('#' + id).selectAll('div').remove();
+		var div = d3.select('#' + id);
 		div.attr("align", "center");
 
 		//Creamos mapa
 		var map_div = div.append("div")
-						.attr("id", "map")
-					    .attr("class", "map");
+			.attr("id", "map")
+			.attr("class", "map");
 
-		var myCenter=new google.maps.LatLng(40.42761,-3.703187);
+		var myCenter = new google.maps.LatLng(40.42761, -3.703187);
 
 		var mapProperties = {
-			center:myCenter,
-			zoom:5,
-			mapTypeId:google.maps.MapTypeId.ROADMAP
+			center: myCenter,
+			zoom: 5,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 
-		$(window).load(function(){
+		var map = new google.maps.Map(map_div.node(), mapProperties);
 
-			var map = new google.maps.Map(document.getElementById("map"),mapProperties);
-			var bounds = new google.maps.LatLngBounds();
+		var bounds = new google.maps.LatLngBounds();
 
-			//Añadimos markers con las ciudades filtradas
-			$.each(vm.filteredData(), function(index, item) {
-				if (!vm.sparql()){
-
-					var marker = new google.maps.Marker({
-						position: new google.maps.LatLng(item.latitude(),item.longitude()),
-					    title: item.nombre().toString(),
-					    map: map,
-					});
-
-					//Ventana de info cuando clicamos el marker
-					var contentString = '<div id="content">'+item.pais().toString()+'</div>';
-
-				}else{
-
-					var marker = new google.maps.Marker({
-						position: new google.maps.LatLng(item.latitude.value(),item.longitude.value()),
-					    title: item.university.value().toString(),
-					    map: map,
-					});
-
-					//Ventana de info cuando clicamos el marker
-					var contentString = '<div id="content">'+item.country.value().toString()+'</div>';
-				}
-
-				var infowindow = new google.maps.InfoWindow({
-				    content: contentString
+		//Añadimos markers con las ciudades filtradas
+		$.each(vm.filteredData(), function (index, item) {
+			if (!vm.sparql()) {
+				var marker = new google.maps.Marker({
+					position: new google.maps.LatLng(item.latitude(), item.longitude()),
+					title: item.nombre().toString(),
+					map: map,
 				});
 
-				google.maps.event.addListener(marker, "click", function(){
-					infowindow.open(map,marker);
+				//Ventana de info cuando clicamos el marker
+				var contentString = '<div id="content">' + item.pais().toString() + '</div>';
+			} else {
+					var marker = new google.maps.Marker({
+					position: new google.maps.LatLng(item.latitude.value(), item.longitude.value()),
+					title: item.university.value().toString(),
+					map: map,
 				});
 
-				//Añadimos a bound para re-centrar todos los marcadores
-				bounds.extend(marker.position);
+				//Ventana de info cuando clicamos el marker
+				var contentString = '<div id="content">' + item.country.value().toString() + '</div>';
+			}
+
+			var infowindow = new google.maps.InfoWindow({
+				content: contentString
 			});
 
-			map.fitBounds(bounds);
+			google.maps.event.addListener(marker, "click", function () {
+				infowindow.open(map, marker);
+			});
+
+			//Añadimos a bound para re-centrar todos los marcadores
+			bounds.extend(marker.position);
+
 		});
+
+		map.fitBounds(bounds);
 	}
 };

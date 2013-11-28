@@ -51,6 +51,7 @@
 		<script type="text/javascript" charset="UTF-8" src="ajax-solr/core/AbstractTextWidget.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="ajax-solr/core/AbstractFacetWidget.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="ajax-solr/core/AbstractParamWidget.js"></script>
+		<!-- widgets -->
 		<script type="text/javascript" charset="UTF-8" src="widgets/AutocompleteWidget.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="widgets/PagerWidget.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="widgets/ResultWidget.2.0.js"></script>
@@ -66,50 +67,43 @@
 		<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
 
 		<script type="text/javascript" charset="UTF-8">
-			$(document).ready(function() {
-							
-				$(".button" ).button();
-			
+			$(document).ready(function () {
+				$(".button").button();
 				vm.routes();
-				
-				if(errorinroute || sparqlmode){
+				if (errorinroute || sparqlmode) {
 					console.log("Aplicamos bindings");
 					ko.applyBindings(vm);
-					//createMap();
 				}
-				
-				$(".sparqlquery").click(function(){sparqlPanel()});
-				$("#backgroundPopup").click(function(){sparqlPanel()});
-							
+				$(".sparqlquery").click(function () {
+					sparqlPanel()
+				});
+				$("#backgroundPopup").click(function () {
+					sparqlPanel()
+				});
 				$('#dvLoading').fadeOut(500);
-				$("#configuration_button").animate({ right: "-120px" }, 200);
-
 				$("#dialog").dialog({
-				    autoOpen: false,
-				    buttons: { 
-				        Ok: function() {
-				            vm.doSave($("#user").val(),$("#pass").val());
-				            $(this).dialog("close");
-				            $("#user").val("");
-				            $("#pass").val("");
-				        },
-				        Cancel: function () {
-				            $(this).dialog("close");
-				        }
-				    }
+					autoOpen: false,
+					buttons: {
+						Ok: function () {
+							vm.doSave($("#user").val(), $("#pass").val());
+							$(this).dialog("close");
+							$("#user").val("");
+							$("#pass").val("");
+						},
+						Cancel: function () {
+							$(this).dialog("close");
+						}
+					}
 				});
-
 				$("#save_changes").click(function () {
-					if(vm.securityEnabled()){
+					if (vm.securityEnabled()) {
 						$("#dialog").dialog("open");
-					}else{
-						vm.doSave('','');						
-					}				    
+					} else {
+						vm.doSave('', '');
+					}
 				});
-			
 				//initIsotopeAndWizards();
-					
-			});	
+			});
 			
 		</script>		
 	</head>
@@ -211,13 +205,6 @@
 					<br/>
 				</div>
 			</header>
-			<!-- floating configuration button to open/close -->
-			<!-- <div id="configuration_button" data-bind="click: $root.showConfiguration, visible: $root.adminMode">
-				<div>
-					<span id="editmode" data-bind="visible: !$root.showConfigurationPanel(), text: lang().openconf"></span>
-					<span id="editmode" data-bind="visible: $root.showConfigurationPanel(), text: lang().closeconf"></span>
-				</div>
-			</div> -->			
 			<!-- new widget wizard -->
 			<div data-bind="kendoWindow: { isOpen: openNewWidgetManager, title: lang().addWidget, visible: false }">
 				<div class="widgetWizard">
@@ -310,26 +297,6 @@
 								<button class="button" data-bind="click: $root.addResultStatsWidget, enable: !showResultsGraphsWidget()"><span 
 									data-bind="text: lang().addWidget2, visible: !showResultsGraphsWidget()"></span><span data-bind="text: 
 									lang().alreadyAdded, visible: showResultsGraphsWidget()"></span></button>
-							</div>
-						</div>
-						<div class="box cat4">
-							<h1 data-bind="text: lang().map"></h1>
-							<table id="wrapper">
-								<tr>
-									<td><img src="img/map_widget.png" alt="Map"/></td>
-								</tr>
-							</table>
-							<div class="mask">
-								<h2 data-bind="text: lang().map"></h2>
-								<p data-bind="text: lang().mapexp"></p>
-								<div id="coords">
-									<span data-bind="text: lang().latitude"></span> <select data-bind="options: $root.dataColumns, value: mapLat, 
-										optionsCaption: lang().fieldcaption"></select></br>
-									<span data-bind="text: lang().longitude"></span>  <select data-bind="options: $root.dataColumns, value: mapLong, 
-										optionsCaption: lang().fieldcaption"></select>
-								</div>
-								<button class="button" data-bind="click: $root.addMapWidget"><span data-bind="text: 
-									lang().addWidget2"></span></button>
 							</div>
 						</div>
 						<div class="box cat1">
@@ -640,10 +607,6 @@
 					<h2 data-bind="text: lang().tutoh1"></h2>
 					<p data-bind="text: lang().tuto1"></p>
 				</li>
-				<li data-id="configuration_button" data-options="tipLocation:left;" data-button="Siguiente">
-					<h2 data-bind="text: lang().tutoh2"></h2>
-					<p data-bind="text: lang().tuto2"></p>
-				</li>
 				<li data-id="resultsConfig" data-button="Siguiente">
 					<h2 data-bind="text: lang().tutoh3"></h2>
 					<p data-bind="text: lang().tuto3"></p>
@@ -854,15 +817,6 @@
 			<div id="gauge-container"><div id="gauge" data-bind="kendoRadialGauge: {value: $root.numberOfResults, scale: { max: 
 				$root.getMaxNumberOfResults(), labels: { visible: true }, majorUnit: $root.getGaugeMajorUnits() } } "></div><div 
 				id="contador"><p data-bind="text: $root.numberOfResults"></p></div></div>	
-			{{else type()=="map"}}
-			<div id="map"></div>
-			{{if $root.sparql}}
-			<p>NO SOLR</p>
-			<div data-bind="template: { name: 'widget-template-maps', foreach: $root.filteredData }"></div>
-			{{else}}
-			<p> SOLR</p>
-			<div data-bind="template: { name: 'widget-template-maps-solr', foreach: $root.filteredData }"></div>
-			{{/if}}
 			{{else type()=="twitter"}}
 			{{if currentTweets().length > 0 }}
 			<table width='100%' data-bind="template: { name: 'widget-template-twitter', foreach: currentTweets }"></table>
@@ -901,13 +855,6 @@
 			<input type="checkbox" data-bind="checked: state" />
 			<label data-bind="text: type"></label>	
 		</script>		
-		<script id="widget-template-maps-solr" type="text/html">
-			<div data-bind="latitude: $data.latitude(), longitude: $data.longitude(), title: $data[$root.resultsLayout()[0].Value()](), map: 
-			map"></div>
-		</script>
-		<script id="widget-template-maps" type="text/html">
-			<div data-bind="latitude: $data.latitud.value(), longitude: $data.longitud.value(), title: 'test', map: map"></div>
-		</script>	
 		<script id="widget-template-twitter" type="text/html">
 			<tr><td><img data-bind='attr: { src: profile_image_url }' /></td><td><a class='twitterUser' data-bind='attr: { href: 
 			"http://twitter.com/" + from_user }, text: from_user' href='http://twitter.com/${ from_user }' > </a><p data-bind="text: text"> 

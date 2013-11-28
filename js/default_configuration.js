@@ -8,10 +8,6 @@ var configuration = {
 		"baseURL": [""],
 		"sparql_baseURL": []
 	},
-	"mapWidget": {
-		"latitude": "latitude",
-		"longitude": "longitude"
-	},
 	"other": {
 		"sort": {
 			"field": "name",
@@ -53,7 +49,6 @@ var configuration = {
 	"template": {
 		"pageTitle": "Sefarad",
 		"logoPath": "",
-		"showMapWidget": false,
 		"showResultsWidget": false,
 		"language": "Español"
 	},

@@ -56,7 +56,6 @@ function InitViewModel() {
 	/** Template variables */
 	self.pageTitle = ko.observable(configuration.template.pageTitle);
 	self.logoPath = ko.observable();
-	self.showMapWidget = ko.observable();
 	self.showTwitterWidget = ko.observable(true);
 	self.showConfigurationPanel = ko.observable(configuration.template.showResultsWidget);
 	self.showResultsWidget = ko.observable(false);
@@ -115,8 +114,6 @@ function InitViewModel() {
 
 	/** Extra plugins */
 	//self.currentTweets = ko.observableArray([]);
-	self.mapLat = ko.observable(configuration.mapWidget.latitude);
-	self.mapLong = ko.observable(configuration.mapWidget.longitude);
 	self.sgvizlerQuery = ko.observable("SELECT ?o WHERE { ?s <http://www.w3.org/2006/vcard/ns#locality> ?o}");
 	self.sgvizlerGraphType = ko.observable();
 
@@ -557,7 +554,7 @@ function InitViewModel() {
 	};
 
 	/** Add a custom graph given a sparql query */
-	self.addSgvizlerWidget = function (r) {
+	self.addSgvizlerWidget = function () {
 		var id = Math.floor(Math.random() * 10001);
 		var query = self.sgvizlerQuery();
 		var typeOfGraph = self.sgvizlerGraphType();
@@ -1029,15 +1026,6 @@ function InitViewModel() {
 		});
 	};
 
-	/** Map widget related methods */
-	self.mapLat.subscribe(function (newValue) {
-		removeMapMarkers();
-	});
-
-	self.mapLong.subscribe(function (newValue) {
-		removeMapMarkers();
-	});
-
 	/** Show/hide configuration */
 	self.showConfiguration = function () {
 		var value = self.showConfigurationPanel();
@@ -1258,19 +1246,6 @@ function InitViewModel() {
 			"collapsed": ko.observable(false),
 			"showWidgetConfiguration": ko.observable(true)
 		});
-	};
-
-	/** Adds a map */
-	self.addMapWidget = function () {
-		var id = Math.floor(Math.random() * 10001);
-
-		self.activeWidgetsLeft.push({
-			"id": ko.observable(id),
-			"title": ko.observable("Nuevo Mapa"),
-			"type": ko.observable("map"),
-			"collapsed": ko.observable(false)
-		});
-		createMap();
 	};
 
 	/** Adding a new PanelBar Widget */
@@ -1573,14 +1548,13 @@ function InitViewModel() {
 
 					self.adminMode(true);
 
-					//createMap();
 					init();
 				});
 
 				this.get('#/sparql/universitiesDemo', function () {
 					console.log("UNIVERSITIES DEMO");
 					self.sparql = ko.observable(true);
-					vm.getResultsSPARQL("select distinct ?university ?city ?country ?latitude ?longitude where {?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://dbpedia.org/ontology/city> ?cityresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university ; <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ; <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . ?countryresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/EuropeanCountries> ; <http://www.w3.org/2000/01/rdf-schema#label> ?country . ?cityresource <http://www.w3.org/2000/01/rdf-schema#label> ?city FILTER ( lang(?university) = 'en' && lang(?country) = 'en' && lang(?city) = 'en')} LIMIT 100", "http://dbpedia.org/sparql");
+					vm.getResultsSPARQL("select distinct ?university ?city ?country ?latitude ?longitude where {?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://dbpedia.org/ontology/city> ?cityresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university ; <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ; <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . ?countryresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/EuropeanCountries> ; <http://www.w3.org/2000/01/rdf-schema#label> ?country . ?cityresource <http://www.w3.org/2000/01/rdf-schema#label> ?city FILTER ( lang(?university) = 'en' && lang(?country) = 'en' && lang(?city) = 'en')} LIMIT 50", "http://dbpedia.org/sparql");
 					configuration.template.language = "English";
 					configuration.template.pageTitle = "Universities Demo";
 					configuration.results.resultsLayout = [{
@@ -1627,24 +1601,31 @@ function InitViewModel() {
 					self.adminMode(true);
 					sparqlmode = true;
 					init();
-					// Add div_map
-					widgetMap.render();
-					// // Add results widget
-					self.activeWidgetsRight.push({
-						"id": ko.observable(0),
-						"title": ko.observable(self.lang().results),
-						"type": ko.observable("resultswidget"),
-						"collapsed": ko.observable(false),
-						"layout": ko.observable("vertical"),
-						"showWidgetConfiguration": ko.observable(false)
+
+					//Adding widgets
+					$(window).load(function(){
+						//Add map widget
+						widgetMap.render();		
+
+						// // Add results widget
+						self.activeWidgetsRight.push({
+							"id": ko.observable(0),
+							"title": ko.observable(self.lang().results),
+							"type": ko.observable("resultswidget"),
+							"collapsed": ko.observable(false),
+							"layout": ko.observable("vertical"),
+							"showWidgetConfiguration": ko.observable(false)
+						});
+
+						// Add resultstats widget
+						self.addResultStatsWidget();
+
+						// Add PieChart sgvizler wigdet
+						self.sgvizlerQuery("SELECT ?university ?students WHERE{ ?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university . ?countryresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/EuropeanCountries> . ?universityresource <http://dbpedia.org/ontology/numberOfStudents> ?students FILTER ( lang(?university) = 'en') } GROUP BY ?university LIMIT 50");
+						self.sgvizlerGraphType('google.visualization.PieChart');
+						self.sparql_baseURL("http://dbpedia.org/sparql");
+						self.addSgvizlerWidget();
 					});
-					// Add resultstats widget
-					self.addResultStatsWidget();
-					// Add PieChart sgvizler wigdet
-					self.sgvizlerQuery("SELECT ?university ?students WHERE{ ?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university . ?countryresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/EuropeanCountries> . ?universityresource <http://dbpedia.org/ontology/numberOfStudents> ?students FILTER ( lang(?university) = 'en') } GROUP BY ?university LIMIT 50");
-					self.sgvizlerGraphType('google.visualization.PieChart');
-					self.sparql_baseURL("http://dbpedia.org/sparql");
-					self.addSgvizlerWidget();
 				});
 
 				this.get('#/graph/:coreId', function (context) {
@@ -1814,14 +1795,11 @@ function InitViewModel() {
 		/** Overriding some template variables */
 		self.pageTitle(configuration.template.pageTitle);
 		self.logoPath(configuration.template.logoPath);
-		self.showMapWidget = ko.observable(configuration.template.showMapWidget);
 		self.showResultsWidget = ko.observable(configuration.template.showResultsWidget);
 		self.resultsWidget = ko.mapping.fromJS(configuration.results);
 		self.selectedLanguage(configuration.template.language);
 		self.maxNumberOfResults(configuration.other.maxNumberOfResults);
 		self.sortableWidgets(configuration.sortable_widgets.actived);
-		self.mapLat(configuration.mapWidget.latitude);
-		self.mapLong(configuration.mapWidget.latitude);
 		self.autocomplete_fieldname(configuration.autocomplete.field);
 		self.default_autocomplete_fieldname(configuration.autocomplete.field);
 		self.activedAutocomplete = ko.observable(configuration.autocomplete.actived);
@@ -2012,13 +1990,6 @@ function InitViewModel() {
 
 			var widgets = self.activeWidgets();
 
-			for (var i = 0; i < widgets.length; i++) {
-
-				if (widgets[i].type() == "map") {
-					createMap();
-				}
-			}
-
 		} else {
 
 			/** Local MODE */
@@ -2112,9 +2083,6 @@ function saveConfiguration(refreshpage, user, pass) {
 	}
 
 	configuration.sortable_widgets.actived = vm.sortableWidgets();
-
-	configuration.mapWidget.latitude = vm.mapLat();
-	configuration.mapWidget.longitude = vm.mapLong();
 
 	configuration.widgetsLeft = ko.toJS(vm.activeWidgetsLeft);
 	configuration.widgetsRight = ko.toJS(vm.activeWidgetsRight);
@@ -2356,17 +2324,6 @@ function paintHighChart(field, id, typeofchart) {
 	}
 }
 
-function createMap() {
-
-	var elevator;
-	var myOptions = {
-		zoom: 3,
-		center: new google.maps.LatLng(40.24, -3.41),
-		mapTypeId: 'terrain'
-	};
-	map = new google.maps.Map($('#map')[0], myOptions);
-}
-
 function removeMapMarkers() {
 	for (var i = 0; i < markers.length; i++) {
 		var marker = markers[i];
@@ -2445,9 +2402,6 @@ ko.bindingHandlers.sortableList = {
 							newParent.splice(position, 0, item);
 						}
 						ui.item.remove();
-						if (tipo == "map") {
-							createMap();
-						}
 						if (tipo == "resultstats") {
 							vm.redraw();
 						}
@@ -2586,9 +2540,7 @@ function mySgvizlerQuery(query, id, type) {
 		.defaultChartFunction(type);
 
 	$("#" + id).append('<div id="' + id + '" data-sgvizler-query="' + query + '" data-sgvizler-log="0"></div>');
-	$(window).load(function(){
-		sgvizler.containerDraw(id);
-	});
+	sgvizler.containerDraw(id);
 }
 
 function sparqlPanel() {
