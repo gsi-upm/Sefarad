@@ -1,5 +1,5 @@
 ![GSI Logo](http://www.gsi.dit.upm.es/templates/jgsi/images/logo.png)
- ![Sefarad Logo](https://github.com/gsi-upm/Sefarad/blob/master/img/Logo4.png) [Sefarad](http://www.gsi.dit.upm.es)
+ ![Sefarad Logo](./img/Logo3.png) [Sefarad](http://www.gsi.dit.upm.es)
 ==================================
 
 Introduction
