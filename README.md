@@ -1,5 +1,5 @@
 ![GSI Logo](http://gsi.dit.upm.es/templates/jgsi/images/logo.png)
-[Sefarad](http://gsi.dit.upm.es) 
+[Sefarad](http://www.gsi.dit.upm.es) 
 ==================================
 
 Introduction
