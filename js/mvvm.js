@@ -18,7 +18,7 @@ var serverURL = "http://localhost:8080/LMF/";
 //var serverURL = "http://shannon.gsi.dit.upm.es/episteme/lmf/";
 //var serverURL = "http://minsky.gsi.dit.upm.es/episteme/tomcat/LMF/";
 	
-var map;
+
 var i_layoutresultsextra = 0;
 var limit_items_tagcloud = 40;
 
@@ -181,6 +181,41 @@ function InitViewModel() {
 	self.activeWidgetsRightTab1 = ko.observableArray([]);
 	self.activeWidgets = ko.mapping.fromJS(self.testData);
 	self.deleteAllFilters = ko.observable(false);
+
+	/** Category of each widget */
+	self.widgetCategory = function (type){
+		// text-filter
+		if(type == 'textFilter'){
+			return "box cat1";
+		}
+
+		// numeric-filter
+		if(type == 'numericFilter'){
+			return "box cat2";
+		}
+
+		// graph
+		if(type == 'barrasChart' || 
+			type == 'barchartD3' || 
+			type == 'stockWidget' || 
+			type == 'widgetDonuts' || 
+			type == 'widgetSortBar' || 
+			type == 'wheelChart' || 
+			type == 'wheelChartTwitter'){
+				return "box cat3";
+		}
+
+		// results
+		if(type == 'results'){
+			return "box cat5";
+		}
+
+		// other
+		else{
+			return "box cat4";
+		}
+
+	}
 
 	/** Layout functions */
 	self.isotope = ko.observable();
@@ -910,6 +945,14 @@ function InitViewModel() {
 
 	}, self);
 
+	/** Final data visualized in results widget*/
+	self.shownData = ko.computed(function () {
+		var data = self.filteredData();
+		if (self.sparql()) {
+			return data;
+		}
+	}, self);
+
 	self.invalidateIsNameValid = function () {
 		dummyObservable.notifySubscribers(); //fake a change notification
 	};
@@ -1084,6 +1127,49 @@ function InitViewModel() {
 		});
 	};
 
+
+	/** Adding a new PanelBar Widget */
+	self.addPanelBarWidget = function () {
+
+		var id = Math.floor(Math.random() * 10001);
+		var field = self.newPanelBarValue();
+
+		self.activeWidgetsLeft.push({
+			"id": ko.observable(id),
+			"title": ko.observable("Nuevo Panel Bar"),
+			"type": ko.observable("tagcloud"),
+			"field": ko.observable(self.newPanelBarValue()),
+			"collapsed": ko.observable(false),
+			"values": ko.observableArray(),
+			"layout": ko.observable("vertical"),
+			"showWidgetConfiguration": ko.observable(false)
+		});
+
+		if (self.sparql()) {
+			updateWidgets(true);
+		} else {
+
+			var params = {
+				facet: true,
+				'facet.field': field,
+				'facet.limit': limit_items_tagcloud,
+				'facet.sort': 'count',
+				'facet.mincount': 1,
+				'json.nl': 'map',
+				'rows': self.num_rows()
+			};
+
+			for (var name in params) {
+
+				Manager.store.addByValue(name, params[name]);
+			}
+			
+			Manager.store.remove('fq');
+			Manager.doRequest();
+			firstTime = true;
+		}
+	};
+
 	/** Adding a new TagCloudWidget */
 	self.addTagCloudWidget = function () {
 
@@ -1093,7 +1179,7 @@ function InitViewModel() {
 		if (self.activeTab() == 0) {
 			self.activeWidgetsLeft.push({
 				"id": ko.observable(id),
-				"title": ko.observable("Nuevo Widget"),
+				"title": ko.observable("Nuevo TagCloud Widget"),
 				"type": ko.observable("tagcloud"),
 				"field": ko.observable(self.newTagCloudValue()),
 				"collapsed": ko.observable(false),
@@ -1101,6 +1187,7 @@ function InitViewModel() {
 				"layout": ko.observable("horizontal"),
 				"showWidgetConfiguration": ko.observable(false)
 			});
+
 		} else {
 			/** This tab is not being shown at the moment */
 			//self.activeWidgetsLeftTab1.push({"id":ko.observable(id),"title": ko.observable("Nuevo Widget"), "type": ko.observable("tagcloud"), "field": ko.observable(self.newTagCloudValue()), "collapsed": ko.observable(false),"values":ko.observableArray(), "layout":ko.observable("horizontal"), "showWidgetConfiguration": ko.observable(false)});
@@ -1231,51 +1318,11 @@ function InitViewModel() {
 		self.showResultsGraphsWidget(true);
 		self.activeWidgetsLeft.push({
 			"id": ko.observable(id),
-			"title": ko.observable("Estadísticas de los Resultados"),
+			"title": ko.observable(self.lang().resultstats),
 			"type": ko.observable("resultstats"),
 			"collapsed": ko.observable(false),
 			"showWidgetConfiguration": ko.observable(true)
 		});
-	};
-
-	/** Adding a new PanelBar Widget */
-	self.addPanelBarWidget = function () {
-		var id = Math.floor(Math.random() * 10001);
-		var field = self.newPanelBarValue();
-
-		self.activeWidgetsRight.push({
-			"id": ko.observable(id),
-			"title": ko.observable("Nuevo Panel Bar"),
-			"type": ko.observable("tagcloud"),
-			"field": ko.observable(self.newPanelBarValue()),
-			"collapsed": ko.observable(false),
-			"values": ko.observableArray(),
-			"layout": ko.observable("vertical"),
-			"showWidgetConfiguration": ko.observable(false)
-		});
-
-		var params = {
-			facet: true,
-			'facet.field': field,
-			'facet.limit': limit_items_tagcloud,
-			'facet.sort': 'count',
-			'facet.mincount': 1,
-			'json.nl': 'map',
-			'rows': self.num_rows()
-		};
-
-		for (var name in params) {
-
-			Manager.store.addByValue(name, params[name]);
-		}
-
-		if (self.sparql()) {
-			updateWidgets(true);
-		} else {
-			Manager.store.remove('fq');
-			Manager.doRequest();
-			firstTime = true;
-		}
 	};
 
 	self.addTwitterWidget = function () {
@@ -1615,6 +1662,16 @@ function InitViewModel() {
 						self.sgvizlerGraphType('google.visualization.PieChart');
 						self.sparql_baseURL("http://dbpedia.org/sparql");
 						self.addSgvizlerWidget();
+
+						// Add Gauge Widget
+						var id = Math.floor(Math.random() * 10001);
+						self.activeWidgetsLeft.push({
+							"id": ko.observable(id),
+							"title": ko.observable("Total Universities"),
+							"type": ko.observable("radialgauge"),
+							"collapsed": ko.observable(false)
+						});
+						self.numberOfResults.valueHasMutated();
 					});
 				});
 
@@ -2329,30 +2386,6 @@ function make_base_auth(user, password) {
 	var hash = btoa(tok);
 	return "Basic " + hash;
 }
-
-ko.bindingHandlers.map = {
-	init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-
-		var position = new google.maps.LatLng(allBindingsAccessor().latitude, allBindingsAccessor().longitude);
-
-		////(position);
-
-		var marker = new google.maps.Marker({
-			map: allBindingsAccessor().map,
-			position: position,
-			title: allBindingsAccessor().title.toString()
-		});
-
-		markers.push(marker);
-		viewModel._mapMarker = marker;
-	},
-	update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-		var latlng = new google.maps.LatLng(allBindingsAccessor().latitude, allBindingsAccessor().longitude);
-		//////("UPDATE EN: " + allBindingsAccessor().latitude);
-		viewModel._mapMarker.setPosition(latlng);
-
-	}
-};
 
 //connect items with observableArrays
 ko.bindingHandlers.sortableList = {

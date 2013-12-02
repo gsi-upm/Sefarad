@@ -12,11 +12,11 @@
 // New widget
 var widgetD3 = {
 		// Widget name.
-		name: "Gráfico de barras con d3.js",
+		name: "Gráfico de barras",
 		// Widget description.
 		description: "Representa el campo seleccionado en un gráfico de barras.",
 		// Path to the image of the widget.
-		img: "img/barchartD3.png",
+		img: "img/widgetBarrasD3.png",
 		// Type of the widget.
 		type: "barchartD3",
 		// [OPTIONAL] data taken from this field.

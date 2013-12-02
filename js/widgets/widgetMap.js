@@ -3,7 +3,7 @@ var widgetMap = {
 	// Widget name.
 	name: "Mapa",
 	// Widget description.
-	description: "Widget Mapa",
+	description: "Mapa. Muestra los valores 'latitude' y 'longitude'",
 	// Path to the image of the widget.
 	img: "img/map_widget.png",
 	// Type of the widget.
@@ -43,7 +43,7 @@ var widgetMap = {
 		var bounds = new google.maps.LatLngBounds();
 
 		//Añadimos markers con las ciudades filtradas
-		$.each(vm.filteredData(), function (index, item) {
+		$.each(vm.shownData(), function (index, item) {
 			if (!vm.sparql()) {
 				var marker = new google.maps.Marker({
 					position: new google.maps.LatLng(item.latitude(), item.longitude()),

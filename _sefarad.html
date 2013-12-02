@@ -135,7 +135,7 @@
 				<div class="right_area" >
 					
 					<div class="icon"><img src="img/help.png" alt="Help" data-bind="click: $root.showHelp"/></div>
-					<div class ="icon" data-bind="click: $root.showConfiguration, visible: $root.adminMode"><img src="img/settings.png" alt="Configuration" /></div>
+					<div id ="configuration-button" class ="icon" data-bind="click: $root.showConfiguration, visible: $root.adminMode"><img src="img/settings.png" alt="Configuration" /></div>
 					<div class="search" id="search-container">
 						<div class="search-inner">
 							<div id="search-btn"></div>
@@ -210,12 +210,12 @@
 				<div class="widgetWizard">
 					<div id="cssmenu">
 						<ul id="filters" class="option-set">
-							<li><a href="" data-filter="*" class="selected">Mostrar todos</a></li>
-							<li><a href="" data-filter=".cat5">Resultados</a></li>
-							<li><a href="" data-filter=".cat1">Filtros textuales</a></li>
-							<li><a href="" data-filter=".cat2">Filtros numéricos</a></li>
-							<li><a href="" data-filter=".cat3">Gráficos</a></li>
-							<li><a href="" data-filter=".cat4">Otros</a></li>
+							<li><a href="" data-filter="*" class="selected"><label data-bind="text:lang().showAll"></label></a></li>
+							<li><a href="" data-filter=".cat5"><label data-bind="text:lang().results"></a></li>
+							<li><a href="" data-filter=".cat1"><label data-bind="text:lang().textFilter"></a></li>
+							<li><a href="" data-filter=".cat2"><label data-bind="text:lang().numericFilter"></a></li>
+							<li><a href="" data-filter=".cat3"><label data-bind="text:lang().graph"></a></li>
+							<li><a href="" data-filter=".cat4"><label data-bind="text:lang().other"></a></li>
 						</ul>
 					</div>
 					<div id="wizard-content">
@@ -236,24 +236,7 @@
 								<button class="button" data-bind="click: $root.addResultsGridWidget"><span data-bind="text: 
 									lang().addWidget2"></span></button>
 							</div>
-						</div>
-						<div class="box cat1">
-							<h1 data-bind="text: lang().tagcloud"></h1>
-							<table id="wrapper">
-								<tr>
-									<td><img src="img/tagcloud_widget.png" alt="Tagcloud"/></td>
-								</tr>
-							</table>
-							<div class="mask">
-								<h2 data-bind="text: lang().tagcloud"></h2>
-								<p data-bind="text: lang().tagcloudexp"></p>
-								<p data-bind="text: lang().tagcloudexp2"></p>
-								<select data-bind="options: $root.dataColumns, value: newTagCloudValue, optionsCaption: 
-									lang().fieldcaption"></select>
-								<button class="button" data-bind="click: $root.addTagCloudWidget, enable: newTagCloudValue()!=undefined"><span 
-									data-bind="text: lang().addWidget2"></span></button>
-							</div>
-						</div>
+						</div>						
 						<div class="box cat2">
 							<h1 data-bind="text: lang().numericwidget"></h1>
 							<table id="wrapper">
@@ -297,6 +280,22 @@
 								<button class="button" data-bind="click: $root.addResultStatsWidget, enable: !showResultsGraphsWidget()"><span 
 									data-bind="text: lang().addWidget2, visible: !showResultsGraphsWidget()"></span><span data-bind="text: 
 									lang().alreadyAdded, visible: showResultsGraphsWidget()"></span></button>
+							</div>
+						</div>
+						<div class="box cat1">
+							<h1 data-bind="text: lang().tagcloud"></h1>
+							<table id="wrapper">
+								<tr>
+									<td><img src="img/tagcloud_widget.png" alt="Tagcloud"/></td>
+								</tr>
+							</table>
+							<div class="mask">
+								<h2 data-bind="text: lang().tagcloud"></h2>
+								<p data-bind="text: lang().tagcloudexp"></p>
+								<select data-bind="options: $root.dataColumns, value: newTagCloudValue, optionsCaption: 
+									lang().fieldcaption"></select>
+								<button class="button" data-bind="click: $root.addTagCloudWidget, enable: newTagCloudValue()!=undefined"><span 
+									data-bind="text: lang().addWidget2"></span></button>
 							</div>
 						</div>
 						<div class="box cat1">
@@ -603,27 +602,31 @@
 			-->
 			<!-- Help section -->
 			<ol id="TipContent">
-				<li data-id="logotext" data-text="Siguiente">
+				<li data-id="logotext" data-text="Next">
 					<h2 data-bind="text: lang().tutoh1"></h2>
 					<p data-bind="text: lang().tuto1"></p>
 				</li>
-				<li data-id="resultsConfig" data-button="Siguiente">
+				<li data-id="configuration-button" data-button="Next">
+					<h2 data-bind="text: lang().tutoh2"></h2>
+					<p data-bind="text: lang().tuto2"></p>
+				</li>
+				<li data-class="resultswidget-header" data-button="Next">
 					<h2 data-bind="text: lang().tutoh3"></h2>
 					<p data-bind="text: lang().tuto3"></p>
 				</li>
-				<li data-class="addNewWidget" data-button="Siguiente">
+				<li data-class="addNewWidget" data-button="Next">
 					<h2 data-bind="text: lang().tutoh4"></h2>
 					<p data-bind="text: lang().tuto4"></p>
 				</li>
-				<li data-id="query" data-button="Siguiente" data-options="tipLocation:top;">
+				<li data-id="query" data-button="Next" data-options="tipLocation:top;">
 					<h2 data-bind="text: lang().tutoh5"></h2>
 					<p data-bind="text: lang().tuto5"></p>
 				</li>
-				<li data-id="save_changes" data-button="Siguiente">
+				<li data-id="save_changes" data-button="Next">
 					<h2 data-bind="text: lang().tutoh6"></h2>
 					<p data-bind="text: lang().tuto6"></p>
 				</li>
-				<li data-class="gsiLogo" data-options="tipLocation:top;" data-button="Cerrar" >
+				<li data-class="gsiLogo" data-options="tipLocation:top;" data-button="Close" >
 					<h2 data-bind="text: lang().tutoh7"></h2>
 					<p data-bind="text: lang().tuto7"></p>
 				</li>
@@ -910,11 +913,11 @@
 			<hr>
 		</script>
 		<script type="text/html" id="new-widgets-template">
-			<div class="box cat4">
+			<div data-bind="attr: { 'class': $root.widgetCategory($data.type) }">
 				<h1 data-bind="text: $data.name"></h1>
 				<table id="wrapper">
 					<tr>
-						<td><img data-bind="attr:{src: $data.img}" alt="Panelbar"/></td>
+						<td><img data-bind="attr:{src: $data.img}" alt="Widget"/></td>
 					</tr>
 				</table>
 				<div class="mask">

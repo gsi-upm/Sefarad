@@ -1,25 +1,23 @@
 // New widget
-var widgetDonutsR = {
+var widgetDonuts = {
 		// Widget name.
-		name: "Widget Donuts Ruben",
+		name: "Widget Donuts",
 		// Widget description.
-		description: "Widget Donuts Ruben",
+		description: "Widget Donuts",
 		// Path to the image of the widget.
-		img: "img/widgetDonutsR.png",
+		img: "img/widgetDonuts.png",
 		// Type of the widget.
-		type: "widgetDonutsR",
+		type: "widgetDonuts",
 		// [OPTIONAL] data taken from this field.
 		// field: "polarityValue",
 
 		render: function () {
 			var id = 'A' + Math.floor(Math.random() * 10001);
-			var field = widgetDonutsR.field || "";
-			vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetDonutsR.name), "type": ko.observable(widgetDonutsR	.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
+			var field = widgetDonuts.field || "";
+			vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetDonuts.name), "type": ko.observable(widgetDonuts.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
 			
-			// widgetDonutsR.paint(field, id, widgetDonutsR.type);
-			widgetDonutsR.paint(id);		},
+			widgetDonuts.paint(id);		},
 
-		// paint: function (field, id, type) {	
 		paint: function (id) {			
 			
 			d3.select('#'+id).selectAll('svg').remove();

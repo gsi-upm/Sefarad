@@ -1,28 +1,27 @@
 // New widget
-var widgetBarrasR = {
+var widgetSortBar = {
 		// Widget name.
-		name: "widgetBarrasR",
+		name: "Barras ordenadas",
 		// Widget description.
-		description: "Widget Barras Ruben",
+		description: "Widget de barras ordenadas de mayor a menor",
 		// Path to the image of the widget.
-		img: "img/widgetBarrasR.png",
+		img: "img/widgetSortBar.png",
 		// Type of the widget.
-		type: "widgetBarrasR",
+		type: "widgetSortBar",
 		// [OPTIONAL] data taken from this field.
 		// field: "polarityValue",
 
 		render: function () {
 			var id = 'A' + Math.floor(Math.random() * 10001);
-			var field = widgetBarrasR.field || "";
-			vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetBarrasR.name), "type": ko.observable(widgetBarrasR.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
+			var field = widgetSortBar.field || "";
+			vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetSortBar.name), "type": ko.observable(widgetSortBar.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
 			
-			// widgetBarrasR.paint(field, id, widgetBarrasR.type);
-			widgetBarrasR.paint(id);
+			widgetSortBar	.paint(id);
 		},
 
 		// paint: function (field, id, type) {	
-		paint: function (id) {			
-				
+		paint: function (id) {	
+
 			d3.select('#'+id).selectAll('svg').remove();
 			var div = d3.select('#'+id);
 			div.attr("align", "center");
@@ -39,8 +38,6 @@ var widgetBarrasR = {
 					
 			});
 
-			console.log(data);
-
 			var margin = {top: 20, right: 20, bottom: 30, left: 40},
 			    width = 700 - margin.left - margin.right,
 			    height = 365 - margin.top - margin.bottom;
@@ -52,7 +49,7 @@ var widgetBarrasR = {
 			var y = d3.scale.linear()
 			    .range([height, 0])			    
 			    .domain([0, d3.max($.map(data, function(d) { return d.employees; }))]); 
-
+			    
 			var xAxis = d3.svg.axis()
 			    .scale(x)
 			    .orient("bottom");
@@ -76,12 +73,11 @@ var widgetBarrasR = {
 			      .attr("class", "y axis")
 			      .call(yAxis)
 			    .append("text")
-			      .attr("transform", "rotate(-90)")
-			      .attr("y", 6)
+			      .attr("x", 70)
+			      .attr("y", -20)
 			      .attr("dy", ".71em")
 			      .style("text-anchor", "end")
 			      .text("Empleados");
-
 			svg.selectAll(".bar")
 			      .data(data)
 			    .enter().append("rect")
@@ -90,7 +86,33 @@ var widgetBarrasR = {
 			      .attr("width", x.rangeBand())
 			      .attr("y", function(d) { return y(d.employees); })
 			      .attr("height", function(d) { return height - y(d.employees); });
-		
-		}	
-			
-};
+
+
+				var sortTimeout = setTimeout(function() {
+			  d3.select("input").property("checked", true).each(change);
+			}, 100);
+
+			function change() {
+			  clearTimeout(sortTimeout);
+
+		    // Copy-on-write since tweens are evaluated after a delay.
+			    var x0 = x.domain(data.sort(this.checked
+			        ? function(a, b) { return b.employees - a.employees; }
+			        : function(a, b) { return d3.ascending(a.organization, b.organization); })
+			        .map(function(d) { return d.organization; }))
+			        .copy();
+
+			    var transition = svg.transition().duration(500),
+			        delay = function(d, i) { return i * 50; };
+
+			    transition.selectAll(".bar")
+			        .delay(delay)
+			        .attr("x", function(d) { return x0(d.organization); });
+
+			    transition.select(".x.axis")
+			        .call(xAxis)
+			      .selectAll("g")
+			        .delay(delay);
+			}			
+		}
+};	
