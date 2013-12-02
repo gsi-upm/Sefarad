@@ -683,7 +683,7 @@
 			{{if $root.sparql()}}
 				<div id="resultados">
 					<div class="resultado" data-bind="visible: $root.filteredData().length > 0, template: { name: 
-					'results-sparql', foreach: $root.shownData, afterRender: $root.animateResultsChange }">
+					'results-sparql', foreach: $root.filteredData, afterRender: $root.animateResultsChange }">
 					</div>
 				</div>									
 				

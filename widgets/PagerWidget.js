@@ -183,7 +183,9 @@ AjaxSolr.PagerWidget = AjaxSolr.AbstractWidget.extend(
   clickHandler: function (page) {
     var self = this;
     return function () {
-      self.manager.store.get('start').val((page - 1) * self.perPage());
+      console.log('********************')
+      //self.manager.store.get('start').val((page - 1) * self.perPage());
+      self.manager.store.get('start').val(0);
       self.doRequest();
       return false;
     }
@@ -247,7 +249,7 @@ AjaxSolr.PagerWidget = AjaxSolr.AbstractWidget.extend(
    */
   perPage: function () {
     // return parseInt(this.manager.response.responseHeader && this.manager.response.responseHeader.params && this.manager.response.responseHeader.params.rows || this.manager.store.get('rows').val() || 10);
-    return vm.num_shown();
+    return parseInt(vm.num_shown());
   },
 
   /**
@@ -270,10 +272,11 @@ AjaxSolr.PagerWidget = AjaxSolr.AbstractWidget.extend(
 
     $(this.target).empty();
 
-    console.log('offest: ' + offset);
-    console.log('perPage: ' + perPage);
-    console.log(vm.filteredData().length);
-    shownArray = vm.filteredData().splice(offset, perPage);
+    shownArray = new Array();
+    for (var i = offset; i < Math.min(total, (offset + perPage)); i++) {
+      shownArray.push(vm.filteredData()[i]);
+    }
+
     vm.shownData(shownArray);
 
     this.renderLinks(this.windowedLinks());

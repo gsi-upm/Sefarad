@@ -34,10 +34,31 @@ var widgetD3 = {
 		// paint: function (field, id, type) {	
 		paint: function (id) {	
 
-			var t = ko.utils.getDataColumns(field);
+			var t = ko.utils.getDataColumns(widgetD3.field);
 	
 			if(t==undefined){
-				vm.newWidgetGetData(field, id);
+				var params = {
+				facet: true,
+				'facet.field': widgetD3.field,
+				'facet.limit': limit_items_tagcloud,
+				'facet.sort': 'count',
+				'facet.mincount': 1,
+				'json.nl': 'map',
+				'rows': vm.num_rows()
+			};
+
+			for (var name in params) {
+				Manager.store.addByValue(name, params[name]);
+			}
+
+			// If it is a new Widget, not results Widget.
+			if (fieldSeleccionado != id) {
+				drawCharts = true;
+			}
+
+			Manager.doRequest();
+			// vm.newWidgetGetData(field, id);
+			return;
 			}else{
 
 				d3.select('#'+id).select('svg').remove();
@@ -77,7 +98,7 @@ var widgetD3 = {
    				var data = t;
 	  			
   				
-  				if ((field == "hasPolarity") || (field == "has_creator") ) {
+  				if ((widgetD3.field == "hasPolarity") || (widgetD3.field == "has_creator") ) {
 	  				x.domain(data.map(function(d) { return (d.facet) }));
   				} else {
 	  				x.domain(data.map(function(d) { return d3.format('.2f')(d.facet) }));

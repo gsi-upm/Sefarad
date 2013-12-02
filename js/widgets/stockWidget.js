@@ -27,7 +27,7 @@ var stockWidget = {
 
 		paint: function (id) {
 
-			$('#' + id).empty()			
+			$('#' + id).empty();	
 
 			// d3.select('#'+id).select('svg').remove();
 			// d3.select('#'+id).select('#tooltip').remove();

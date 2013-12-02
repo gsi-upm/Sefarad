@@ -130,6 +130,7 @@ AjaxSolr.AbstractManager = AjaxSolr.Class.extend(
    * @param {String} [servlet] The Solr servlet to send the request to.
    */
   doRequest: function (start, servlet) {
+    console.log('>>>> DOING REQUEST');
     if (this.initialized === false) {
       this.init();
     }

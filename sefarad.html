@@ -2,9 +2,8 @@
 <html lang="es">
 	<!-- head starts -->
 	<head>
+		<script type="text/javascript" src="js/widgets/exampleWidget.js"></script>
 		<script type="text/javascript" src="js/widgets/stockWidget.js"></script>
-		<script type="text/javascript" src="js/widgets/widgetA.js"></script>
-		<script type="text/javascript" src="js/widgets/widgetB.js"></script>
 		<script type="text/javascript" src="js/widgets/widgetBarras.js"></script>
 		<script type="text/javascript" src="js/widgets/widgetBarrasR.js"></script>
 		<script type="text/javascript" src="js/widgets/widgetD3.js"></script>
@@ -14,7 +13,7 @@
 		<script type="text/javascript" src="js/widgets/widgetWheel.js"></script>
 		<script type="text/javascript" src="js/widgets/widgetWheelTwitter.js"></script>
 		<script type="text/javascript">
-			var widgetX = [stockWidget, widgetA, widgetB, widgetBarras, widgetBarrasR, widgetD3, widgetDonutsR, widgetMap, widgetSortBarR, widgetWheel, widgetWheelTwitter];
+			var widgetX = [exampleWidget, stockWidget, widgetBarras, widgetBarrasR, widgetD3, widgetDonutsR, widgetMap, widgetSortBarR, widgetWheel, widgetWheelTwitter];
 		</script>
 		<meta charset="utf-8" />
 		<title>SEFARAD</title>
@@ -697,7 +696,7 @@
 			{{if $root.sparql()}}
 				<div id="resultados">
 					<div class="resultado" data-bind="visible: $root.filteredData().length > 0, template: { name: 
-					'results-sparql', foreach: $root.shownData, afterRender: $root.animateResultsChange }">
+					'results-sparql', foreach: $root.filteredData, afterRender: $root.animateResultsChange }">
 					</div>
 				</div>									
 				

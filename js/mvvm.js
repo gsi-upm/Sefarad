@@ -142,44 +142,22 @@ function InitViewModel() {
 	/**Number of data requested in each request  (LOCAL ONLY) */
 	self.num_rows = ko.observable(10);
 
-	/**Subscribe to changes in num_rows*/	
-	self.num_rows.subscribe(function (newValue) {
-		if(!sparqlmode){
-			showWidgets();
-			self.newWidgetGetData();
-		}
-	});
+	/**Subscribe to changes in num_rows*/        
+    self.num_rows.subscribe(function (newValue) {
+        if(!sparqlmode){
+            showWidgets();
+        }
+    });
 
 	/**Number of data shown (LOCAL ONLY) */
 	self.num_shown = ko.observable(10);
 
 	self.num_shown.subscribe(function (newValue) {
-		self.newWidgetGetData();
+		if(!sparqlmode){
+			showWidgets();
+		}
 		
 	});
-
-	self.newWidgetGetData = function (field, id) {
-		var params = {
-			facet: true,
-			'facet.field': field,
-			'facet.limit': limit_items_tagcloud,
-			'facet.sort': 'count',
-			'facet.mincount': 1,
-			'json.nl': 'map',
-			'rows': self.num_rows()
-		};
-
-		for (var name in params) {
-			Manager.store.addByValue(name, params[name]);
-		}
-
-		// If it is a new Widget, not results Widget.
-		if (field != id) {
-			drawCharts = true;
-		}
-
-		Manager.doRequest();
-	}
 
 	/** TagCloudWidgets related */
 	self.widgetContent = ko.observableArray();
@@ -924,7 +902,6 @@ function InitViewModel() {
 				});
 
 			});
-
 			return array;
 
 		} else {
@@ -1983,7 +1960,7 @@ function InitViewModel() {
 				innerWindow: 1,
 				renderHeader: function (perPage, offset, total) {
 					if (total != 0) {
-						$('#pager-header').html($('<span/>').text('Viendo resultados del ' + Math.min(total, offset + 1) + ' al ' + Math.min(total, offset + perPage) + ' (' + total + ' en total)'));
+						$('#pager-header').html($('<span/>').text('Viendo resultados del ' + Math.min(total, offset + 1) + ' al ' + Math.min(total, (parseInt(offset) + parseInt(perPage))) + ' (' + total + ' en total)'));
 					} else {
 						$('#pager-header').html($('<span/>').text(''));
 					}
