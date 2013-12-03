@@ -10,9 +10,8 @@
 		<script type="text/javascript" src="js/widgets/widgetMap.js"></script>
 		<script type="text/javascript" src="js/widgets/widgetSortBar.js"></script>
 		<script type="text/javascript" src="js/widgets/widgetWheel.js"></script>
-		<script type="text/javascript" src="js/widgets/widgetWheelTwitter.js"></script>
 		<script type="text/javascript">
-			var widgetX = [exampleWidget, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel, widgetWheelTwitter];
+			var widgetX = [exampleWidget, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
 		</script>
 		<meta charset="utf-8" />
 		<title>SEFARAD</title>
@@ -674,7 +673,7 @@
 				<div data-bind="template: { name: 'results-layout', foreach: $root.resultsLayout }"></div>
 			</div>
 			<div class="resultswidget-header">
-				<div data-bind="visible: !$root.sparql()">
+				<div>
 					<select id="pager-perPage" data-bind="value: $root.num_shown">
 					    <option value=10>10</option>
       					<option value=20>20</option>

@@ -159,6 +159,29 @@ function InitViewModel() {
 		
 	});
 
+	/** SPARQL Pager */
+
+	self.offsetSPARQL = ko.observable(0);
+	self.moreSPARQL = ko.observable(true);
+	self.lessSPARQL = ko.observable(false);
+	self.showMoreSPAQRL = function () {
+		sele.offsetSPARQL(self.offsetSPARQL() + self.num_shown());
+		self.sparqlPager();
+	}
+	self.showLessSPARQL = function() {
+		self.offsetSPARQL(self.offsetSPARQL() - self.num_shown());
+		self.sparqlPager();
+	}
+	self.sparqlPager = function() {
+		var offset = self.offsetSPARQL();
+		var shownArray = []
+		for (var i = offset; i < offset + self.num_shown(); i++) {
+			shownArray.push(self.filteredData()[i]);
+		}
+		self.shownData(shownArray);
+		return self.num_shown();
+	}
+
 	/** TagCloudWidgets related */
 	self.widgetContent = ko.observableArray();
 
@@ -200,8 +223,7 @@ function InitViewModel() {
 			type == 'stockWidget' || 
 			type == 'widgetDonuts' || 
 			type == 'widgetSortBar' || 
-			type == 'wheelChart' || 
-			type == 'wheelChartTwitter'){
+			type == 'wheelChart' ){
 				return "box cat3";
 		}
 
@@ -946,12 +968,12 @@ function InitViewModel() {
 	}, self);
 
 	/** Final data visualized in results widget*/
-	self.shownData = ko.computed(function () {
-		var data = self.filteredData();
-		if (self.sparql()) {
-			return data;
-		}
-	}, self);
+	// self.shownData = ko.computed(function () {
+	// 	var data = self.filteredData();
+	// 	if (self.sparql()) {
+	// 		return data;
+	// 	}
+	// }, self);
 
 	self.invalidateIsNameValid = function () {
 		dummyObservable.notifySubscribers(); //fake a change notification
@@ -2038,6 +2060,8 @@ function InitViewModel() {
 			var widgets = self.activeWidgets();
 
 		} else {
+
+			// console.log(filteredData());
 
 			/** Local MODE */
 			if (self.showResultsWidget()){
