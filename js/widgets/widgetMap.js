@@ -1,15 +1,15 @@
 // New widget
 var widgetMap = {
 	// Widget name.
-	name: "Mapa",
+	name: "Map",
 	// Widget description.
 	description: "Mapa. Muestra los valores 'latitude' y 'longitude'",
 	// Path to the image of the widget.
 	img: "img/map_widget.png",
 	// Type of the widget.
 	type: "widgetMap",
-	// [OPTIONAL] data taken from this field.
-	// field: "polarityValue",
+	// Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
+	cat: 6,
 
 	render: function () {
 		var id = 'A' + Math.floor(Math.random() * 10001);
@@ -24,6 +24,13 @@ var widgetMap = {
 		d3.select('#' + id).selectAll('div').remove();
 		var div = d3.select('#' + id);
 		div.attr("align", "center");
+
+		//Elementos a mostrar en el mapa
+		if(vm.sparql){
+			data = vm.shownSparqlData();
+		}else{
+			data = vm.shownData();
+		}
 
 		//Creamos mapa
 		var map_div = div.append("div")
@@ -43,7 +50,7 @@ var widgetMap = {
 		var bounds = new google.maps.LatLngBounds();
 
 		//Añadimos markers con las ciudades filtradas
-		$.each(vm.shownData(), function (index, item) {
+		$.each(data, function (index, item) {
 			if (!vm.sparql()) {
 				var marker = new google.maps.Marker({
 					position: new google.maps.LatLng(item.latitude(), item.longitude()),

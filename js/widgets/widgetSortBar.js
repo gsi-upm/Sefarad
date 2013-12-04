@@ -10,6 +10,9 @@ var widgetSortBar = {
 		type: "widgetSortBar",
 		// [OPTIONAL] data taken from this field.
 		// field: "polarityValue",
+		// Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results)
+		cat: 3,
+
 
 		render: function () {
 			var id = 'A' + Math.floor(Math.random() * 10001);

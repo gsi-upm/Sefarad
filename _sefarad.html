@@ -215,12 +215,18 @@
 							<li><a href="" data-filter=".cat1"><label data-bind="text:lang().textFilter"></a></li>
 							<li><a href="" data-filter=".cat2"><label data-bind="text:lang().numericFilter"></a></li>
 							<li><a href="" data-filter=".cat3"><label data-bind="text:lang().graph"></a></li>
+							<li><a href="" data-filter=".cat6"><label data-bind="text:lang().map"></a></li>
 							<li><a href="" data-filter=".cat4"><label data-bind="text:lang().other"></a></li>
 						</ul>
 					</div>
 					<div id="wizard-content">
 						<div class="box cat5">
 							<h1 data-bind="text: lang().resultsvertical"></h1>
+							<table id="wrapper">
+								<tr>
+									<td><img src="img/results_vertical.png" alt="Results Vertical"/></td>
+								</tr>
+							</table>
 							<div class="mask">
 								<h2 data-bind="text: lang().resultsvertical"></h2>
 								<p data-bind="text: lang().resultsverticalexp"></p>
@@ -230,6 +236,11 @@
 						</div>
 						<div class="box cat5">
 							<h1 data-bind="text: lang().resultsgrid"></h1>
+							<table id="wrapper">
+								<tr>
+									<td><img src="img/results_grid.png" alt="Results Grid"/></td>
+								</tr>
+							</table>
 							<div class="mask">
 								<h2 data-bind="text: lang().resultsgrid"></h2>
 								<p data-bind="text: lang().resultsgridexp"></p>
@@ -639,77 +650,90 @@
 			<!-- Results Widget -->
 			{{if type()=="resultswidget"}}
 			<div class="ui-widget">
-			<div class="ui-widget-header">
-				<div style="float:left">
-					<div class="ui-icon" data-bind="css: 
-						{'ui-icon-arrow-1-s': collapsed(), 'ui-icon-arrow-1-n': !collapsed()}, click: $root.collapseWidget"></div>
-				</div>
-				<h3><a href="#" data-bind="text: title, click: function() { $root.editTitle($data); }, visible: $data !== 
-					$root.editingTitle()"></a></h3>
-				<input data-bind="value: title, visibleAndSelect: $data === $root.editingTitle(), event: { 
-					blur: function() { $root.editTitle(''); } }"/>
-				<div style="display:inline-block; float: right;">
-					<div style="float: right;" 
-						class="ui-icon ui-icon-trash" data-bind="click: $root.deleteWidget.bind($data, id(), type()), visible: 
-						$root.adminMode"></div>
-					<div class="ui-icon ui-icon-gear" style="float: right;" data-bind="visible: $root.adminMode, click: 
-						function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
-				</div>
-			</div>
-			<div class="ui-widget-content" 
-				data-bind="visible: !collapsed()">
-			<div class="widget-configuration" data-bind="fadeVisible: showWidgetConfiguration">
-				<div data-bind="template: { name: 'results-layout', foreach: $root.resultsLayout }"></div>
-			</div>
-			<div class="resultswidget-header">
-				<div>
-					<select id="pager-perPage" data-bind="value: $root.num_shown">
-					    <option value=10>10</option>
-      					<option value=20>20</option>
-        				<option value=30>30</option>
-        				<option value=40>40</option>
-      					<option value=50>50</option>      					
-					</select>
-					<label>Resultados por pagina</label>
-					<div id="pager-header" ></div>
-					<ul id="pager"></ul>
-				</div>
-				<br>
-				<h2 data-bind="visible: $root.anyActiveFilter(), text: $root.lang().activefilters"></h2>
-				<h2 data-bind="visible: !$root.anyActiveFilter(), text: $root.lang().notActiveFilters"></h2>
-				<div data-bind="template: { name: 'list-active-filter', foreach: $root.activeWidgets } " ></div>
-				<a href="#" class="tag" data-bind="text: $root.filter, click: function() { $root.filter(''); }, visible: 
-					$root.filter()!=''"></a>
-				<br>
-			</div>
-			
-			{{if $root.sparql()}}
-				<div id="resultados">
-					<div class="resultado" data-bind="visible: $root.filteredData().length > 0, template: { name: 
-					'results-sparql', foreach: $root.filteredData, afterRender: $root.animateResultsChange }">
+				<div class="ui-widget-header">
+					<div style="float:left">
+						<div class="ui-icon" data-bind="css: 
+							{'ui-icon-arrow-1-s': collapsed(), 'ui-icon-arrow-1-n': !collapsed()}, click: $root.collapseWidget"></div>
 					</div>
-				</div>									
-				
-			{{else}}
-			
-				<div id="alertmsg" class="alertmsg-yellow" data-bind="visible: $root.filteredData().length == 0"><span 
-				data-bind="text: $root.lang().nodata"></span></div>	
-			
-			{{if layout()=="grid"}}
-				<ul id="contenedorr" data-bind="template: { name: 'cards', foreach: $root.filteredData, afterAdd: 
-				$root.serviceAdded }, jqIsotope: $root.isotope">
-				</ul>
-			{{/if}}
-				
-			{{if layout()=="vertical"}}
-				<div id="resultados">
-					<div class="resultado" data-bind="visible: $root.filteredData().length > 0, template: { name: 
-				'simple', foreach: $root.shownData, afterRender: $root.animateResultsChange }">
+					<h3><a href="#" data-bind="text: title, click: function() { $root.editTitle($data); }, visible: $data !== 
+						$root.editingTitle()"></a></h3>
+					<input data-bind="value: title, visibleAndSelect: $data === $root.editingTitle(), event: { 
+						blur: function() { $root.editTitle(''); } }"/>
+					<div style="display:inline-block; float: right;">
+						<div style="float: right;" 
+							class="ui-icon ui-icon-trash" data-bind="click: $root.deleteWidget.bind($data, id(), type()), visible: 
+							$root.adminMode"></div>
+						<div class="ui-icon ui-icon-gear" style="float: right;" data-bind="visible: $root.adminMode, click: 
+							function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
 					</div>
 				</div>
-			{{/if}}	
-			{{/if}}						
-			
+				<div class="ui-widget-content" data-bind="visible: !collapsed()">
+				<div class="widget-configuration" data-bind="fadeVisible: showWidgetConfiguration">
+					<div data-bind="template: { name: 'results-layout', foreach: $root.resultsLayout }"></div>
+				</div>
+				<div class="resultswidget-header">
+					<div>
+						<select id="pager-perPage" data-bind="value: $root.num_shown">
+						    <option value=10>10</option>
+	      					<option value=20>20</option>
+	        				<option value=30>30</option>
+	        				<option value=40>40</option>
+	      					<option value=50>50</option>      					
+						</select>
+						<label alt="Per page" data-bind="text:$root.lang().perPage"></label>
+
+						{{if $root.sparql()}}
+						<div id="pager-header">
+							<span data-bind="text: $root.resultsSparqlText" alt=""></span>
+						</div>
+						<div>
+							<ul id="pager">
+								<a href="#" data-bind="click: $root.showLessSPARQL ">← Prev</a>
+								<a href="#" data-bind="click: $root.showMoreSPARQL ">Next →</a>
+							</ul>
+						</div>
+
+						{{else}}
+						<div id="pager-header"></div>
+						<ul id="pager"></ul>
+
+						{{/if}}
+					</div>
+					<br>
+					<h2 data-bind="visible: $root.anyActiveFilter(), text: $root.lang().activefilters"></h2>
+					<h2 data-bind="visible: !$root.anyActiveFilter(), text: $root.lang().notActiveFilters"></h2>
+					<div data-bind="template: { name: 'list-active-filter', foreach: $root.activeWidgets } " ></div>
+					<a href="#" class="tag" data-bind="text: $root.filter, click: function() { $root.filter(''); }, visible: $root.filter()!=''"></a>
+					<br>
+				</div>
+				
+				{{if $root.sparql()}}
+
+					<div id="alertmsg" class="alertmsg-yellow" data-bind="visible: $root.filteredData().length == 0"><span data-bind="text: $root.lang().nodata"></span></div>
+					<div id="resultados">
+						<div class="resultado" data-bind="visible: $root.filteredData().length > 0, template: { name: 
+						'results-sparql', foreach: $root.shownSparqlData, afterRender: $root.animateResultsChange }">
+						</div>
+					</div>									
+					
+				{{else}}
+				
+					<div id="alertmsg" class="alertmsg-yellow" data-bind="visible: $root.filteredData().length == 0"><span data-bind="text: $root.lang().nodata"></span></div>	
+				
+					{{if layout()=="grid"}}
+						<ul id="contenedorr" data-bind="template: { name: 'cards', foreach: $root.filteredData, afterAdd: 
+						$root.serviceAdded }, jqIsotope: $root.isotope">
+						</ul>
+					{{/if}}
+						
+					{{if layout()=="vertical"}}
+						<div id="resultados">
+							<div class="resultado" data-bind="visible: $root.filteredData().length > 0, template: { name: 
+						'simple', foreach: $root.shownData, afterRender: $root.animateResultsChange }">
+							</div>
+						</div>
+					{{/if}}	
+				{{/if}}		
 			<!--se cierra widget-content-->
 			</div>
 			
@@ -727,8 +751,7 @@
 					<h3><a href="#" 
 						data-bind="text: title, click: function() { $root.editTitle($data); }, visible: $data !== $root.editingTitle()"></a></h3>
 					<input 
-						data-bind="value: title, visibleAndSelect: $data === $root.editingTitle(), event: { blur: function() { $root.editTitle(''); } 
-						}"/>
+						data-bind="value: title, visibleAndSelect: $data === $root.editingTitle(), event: { blur: function() { $root.editTitle(''); } }"/>
 					<div style="display:inline-block; float: right;">
 						<div style="float: right;" class="ui-icon ui-icon-trash" data-bind="click: 
 							$root.deleteWidget.bind($data, id(), type()), visible: $root.adminMode"></div>
@@ -913,7 +936,7 @@
 			<hr>
 		</script>
 		<script type="text/html" id="new-widgets-template">
-			<div data-bind="attr: { 'class': $root.widgetCategory($data.type) }">
+			<div data-bind="attr: { 'class': $root.widgetCategory($data.cat) }">
 				<h1 data-bind="text: $data.name"></h1>
 				<table id="wrapper">
 					<tr>

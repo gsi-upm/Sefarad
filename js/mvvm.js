@@ -23,7 +23,6 @@ var i_layoutresultsextra = 0;
 var limit_items_tagcloud = 40;
 
 var Manager;
-var markers = [];
 
 var coreSelected;
 
@@ -157,30 +156,7 @@ function InitViewModel() {
 			showWidgets();
 		}
 		
-	});
-
-	/** SPARQL Pager */
-
-	self.offsetSPARQL = ko.observable(0);
-	self.moreSPARQL = ko.observable(true);
-	self.lessSPARQL = ko.observable(false);
-	self.showMoreSPAQRL = function () {
-		sele.offsetSPARQL(self.offsetSPARQL() + self.num_shown());
-		self.sparqlPager();
-	}
-	self.showLessSPARQL = function() {
-		self.offsetSPARQL(self.offsetSPARQL() - self.num_shown());
-		self.sparqlPager();
-	}
-	self.sparqlPager = function() {
-		var offset = self.offsetSPARQL();
-		var shownArray = []
-		for (var i = offset; i < offset + self.num_shown(); i++) {
-			shownArray.push(self.filteredData()[i]);
-		}
-		self.shownData(shownArray);
-		return self.num_shown();
-	}
+	});	
 
 	/** TagCloudWidgets related */
 	self.widgetContent = ko.observableArray();
@@ -206,30 +182,30 @@ function InitViewModel() {
 	self.deleteAllFilters = ko.observable(false);
 
 	/** Category of each widget */
-	self.widgetCategory = function (type){
+	self.widgetCategory = function (cat){
 		// text-filter
-		if(type == 'textFilter'){
+		if(cat == 1){
 			return "box cat1";
 		}
 
 		// numeric-filter
-		if(type == 'numericFilter'){
+		else if(cat == 2){
 			return "box cat2";
 		}
 
 		// graph
-		if(type == 'barrasChart' || 
-			type == 'barchartD3' || 
-			type == 'stockWidget' || 
-			type == 'widgetDonuts' || 
-			type == 'widgetSortBar' || 
-			type == 'wheelChart' ){
+		else if(cat == 3){
 				return "box cat3";
 		}
 
 		// results
-		if(type == 'results'){
+		else if(cat == 5){
 			return "box cat5";
+		}
+
+		// map
+		else if(cat == 6){
+			return "box cat6";
 		}
 
 		// other
@@ -598,14 +574,14 @@ function InitViewModel() {
 	};
 
 	/** Add a custom graph given a sparql query */
-	self.addSgvizlerWidget = function () {
+	self.addSgvizlerWidget = function (title) {
 		var id = Math.floor(Math.random() * 10001);
 		var query = self.sgvizlerQuery();
 		var typeOfGraph = self.sgvizlerGraphType();
 
 		self.activeWidgetsRightTab1.push({
 			"id": ko.observable(id),
-			"title": ko.observable("Nuevo Gráfico"),
+			"title": ko.observable(title),
 			"type": ko.observable("sgvizler"),
 			"query": self.sgvizlerQuery(),
 			"collapsed": ko.observable(false),
@@ -965,16 +941,108 @@ function InitViewModel() {
 			return data;
 		}
 
+	}, self);	
+
+	/** SPARQL Pager */
+	self.offsetSPARQL = ko.observable(0);
+
+	self.resultsSparqlText = ko.computed(function () {
+
+		var total = self.filteredData().length;
+		var offset = parseInt(self.offsetSPARQL());
+		var perPage = parseInt(self.num_shown());
+
+		return ('Viendo resultados del ' + Math.min(total, self.offsetSPARQL() + 1) + ' al ' + Math.min(total, (offset + perPage)) + ' (' + total + ' en total)');
+	
+	});
+
+	self.showMoreSPARQL = function () {
+		var total = self.filteredData().length;
+		var offset = parseInt(self.offsetSPARQL());
+		var perPage = parseInt(self.num_shown());
+
+		if ((offset+perPage) < total){
+			self.offsetSPARQL((offset+perPage));
+		}
+	}
+
+	self.showLessSPARQL = function() {
+		var total = self.filteredData().length;
+		var offset = parseInt(self.offsetSPARQL());
+		var perPage = parseInt(self.num_shown());
+
+		if ((offset-perPage) >0){
+			self.offsetSPARQL((offset-perPage));
+		}else{
+			self.offsetSPARQL(0);
+		}
+	}
+
+	self.sparqlPager = function() {
+		var offset = self.offsetSPARQL();
+		var shownArray = []
+		for (var i = offset; i < offset + self.num_shown(); i++) {
+			shownArray.push(self.filteredData()[i]);
+		}
+		self.shownData(shownArray);
+		return self.num_shown();
+	}
+
+	/** Final data visualized in results widget (SPARQL MODE) */
+	self.shownSparqlData = ko.computed(function () {
+		
+		var total = self.filteredData().length;
+		var offset = parseInt(self.offsetSPARQL());
+		var perPage = parseInt(self.num_shown());
+		shownArray = new Array();
+
+	    for (var i = offset; i < Math.min(total, (offset + perPage)); i++) {
+	      shownArray.push(self.filteredData()[i]);
+	    }
+		
+		return shownArray;
+		
 	}, self);
 
-	/** Final data visualized in results widget*/
-	// self.shownData = ko.computed(function () {
-	// 	var data = self.filteredData();
-	// 	if (self.sparql()) {
-	// 		return data;
-	// 	}
-	// }, self);
+	self.shownSparqlDataClone = ko.observable();
 
+	self.shownSparqlData.subscribe(function (newValue) {
+		
+		var editScript = ko.utils.compareArrays(self.shownSparqlData(), self.shownSparqlDataClone());
+
+		self.shownSparqlDataClone(self.shownSparqlData());
+		var hasChanged = false;
+
+		for (var i = 0, j = editScript.length; i < j; i++) {
+			switch (editScript[i].status) {
+			case "retained":
+				break;
+			case "deleted":
+				hasChanged = true;
+				break;
+			case "added":
+				hasChanged = true;
+				break;
+			}
+		}
+
+		if (hasChanged) {
+
+			updateWidgets(false);
+
+			self.numberOfResults(self.filteredData().length);
+
+			if (firstTime) {
+				self.maxNumberOfResults(self.filteredData().length);
+			}
+
+			updateTwitterWidgets();
+			self.redraw();
+			self.drawcharts();
+
+		}
+	});
+	
 	self.invalidateIsNameValid = function () {
 		dummyObservable.notifySubscribers(); //fake a change notification
 	};
@@ -1002,8 +1070,6 @@ function InitViewModel() {
 
 		if (hasChanged) {
 
-			removeMapMarkers();
-
 			updateWidgets(false);
 
 			if (self.sparql()) {
@@ -1021,7 +1087,7 @@ function InitViewModel() {
 		}
 
 	});
-
+	
 	/** After every Manager.doRequest method we map the new results into viewData observable (SOLR ONLY) */
 	self.update = function () {
 
@@ -1683,7 +1749,7 @@ function InitViewModel() {
 						self.sgvizlerQuery("SELECT ?university ?students WHERE{ ?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university . ?countryresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/EuropeanCountries> . ?universityresource <http://dbpedia.org/ontology/numberOfStudents> ?students FILTER ( lang(?university) = 'en') } GROUP BY ?university LIMIT 50");
 						self.sgvizlerGraphType('google.visualization.PieChart');
 						self.sparql_baseURL("http://dbpedia.org/sparql");
-						self.addSgvizlerWidget();
+						self.addSgvizlerWidget("Total students by University");
 
 						// Add Gauge Widget
 						var id = Math.floor(Math.random() * 10001);
@@ -1910,7 +1976,7 @@ function InitViewModel() {
 		});
 
 		self.activeWidgets = ko.computed(function () {
-			return self.activeWidgetsLeft().concat(self.activeWidgetsRight()).concat(self.activeWidgetsLeftTab1());
+			return self.activeWidgetsLeft().concat(self.activeWidgetsRight()).concat(self.activeWidgetsLeftTab1()).concat(self.activeWidgetsRightTab1());
 		}, self);
 
 		self.numberOfActiveFilters = ko.computed(function (numbers) {
@@ -2001,9 +2067,6 @@ function InitViewModel() {
 		for (var i = 0; i < widgets.length; i++) {
 			if (widgets[i].type() == "resultstats") {
 				self.showResultsGraphsWidget(true);
-			}
-			if (widgets[i].type() == "map") {
-
 			}
 		}
 
@@ -2394,15 +2457,6 @@ function paintHighChart(field, id, typeofchart) {
 		}
 
 	}
-}
-
-function removeMapMarkers() {
-	for (var i = 0; i < markers.length; i++) {
-		var marker = markers[i];
-		marker.setMap(null);
-	}
-
-	markers = [];
 }
 
 function make_base_auth(user, password) {

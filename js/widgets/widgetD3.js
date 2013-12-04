@@ -21,6 +21,9 @@ var widgetD3 = {
 		type: "barchartD3",
 		// [OPTIONAL] data taken from this field.
 		field: "hasPolarity",
+		// Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results)
+		cat: 3,
+
 
 		render: function () {
 			var id = 'D3' + Math.floor(Math.random() * 10001);
