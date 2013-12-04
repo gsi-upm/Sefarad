@@ -823,7 +823,6 @@ function InitViewModel() {
 
 	/** Filter results and get only different ones (ideal for sparql mode where there could be repeated results with a multivalued field) */
 	self.uniqueItems = ko.computed(function () {
-		console.log("UNIQUEITEMS");
 		if (self.sparql()) {
 
 			var filteredArray = [];
@@ -1117,7 +1116,6 @@ function InitViewModel() {
 
 	/** Draw chart widgets */
 	self.drawcharts = function () {
-		console.log("Drawcharts");
 		$.each(self.activeWidgets(), function (index, item) {
 			console.log(item.type());
 			if (item.type() == "piechart" || item.type() == "barchart") {
