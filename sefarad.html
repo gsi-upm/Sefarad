@@ -153,13 +153,13 @@
 							<!-- es el form el que da estilo al input -->
 							<!-- ko if: $root.sparql -->
 							<input style="background-color:#000;border:none;color:#fff;font-size:.95em;height:24px;;padding:0 0 0 
-								0px;position:relative;width:178px;" id="query" size="80" placeholder="Introduce tu búsqueda aquí" 
-								data-bind="kendoAutoComplete: { data: autoCompleteFields, value: filter }"/>
+								0px;position:relative;width:178px;" id="query" size="80" 
+								data-bind="attr: { placeholder: lang().searchplaceholder }, kendoAutoComplete: { data: autoCompleteFields, value: filter }"/>
 							<!-- /ko -->
 							<!-- ko ifnot: $root.sparql -->
 							<input style="background-color:#000;border:none;color:#fff;font-size:.95em;height:24px;;padding:0 0 0 
-								0px;position:relative;width:178px;" id="query" size="80" placeholder="Introduce tu búsqueda aquí" 
-								data-bind="kendoAutoComplete: { data: autoCompleteFieldsSOLR, value: filter }"/>
+								0px;position:relative;width:178px;" id="query" size="80"  
+								data-bind="attr: { placeholder: lang().searchplaceholder }, kendoAutoComplete: { data: autoCompleteFieldsSOLR, value: filter }"/>
 							<!-- /ko -->
 						</div>
 					</div>					
@@ -483,8 +483,8 @@
 			<!-- below top bar -->
 			<div class="page-header" style="padding-top: 0px;"></div>
 			<ul class="tabrow">
-				<li data-bind="css: {'selected': activeTab() == 0}, click: function() { $root.activeTab(0); }"><a>Buscador</a></li>
-				<li data-bind="css: {'selected': activeTab() == 1}, click: function() { $root.activeTab(1); }"><a>Panel de control</a></li>
+				<li data-bind="css: {'selected': activeTab() == 0}, click: function() { $root.activeTab(0); }"><a data-bind="text: lang().search"></a></li>
+				<li data-bind="css: {'selected': activeTab() == 1}, click: function() { $root.activeTab(1); }"><a data-bind="text: lang().dashboard"></a></li>
 			</ul>
 			<!-- Starts main content -->
 			<div class="maincontent" data-bind="visible: page() == 0">
