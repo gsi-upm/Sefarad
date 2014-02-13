@@ -951,7 +951,7 @@ function InitViewModel() {
 		var offset = parseInt(self.offsetSPARQL());
 		var perPage = parseInt(self.num_shown());
 
-		return ('Viendo resultados del ' + Math.min(total, self.offsetSPARQL() + 1) + ' al ' + Math.min(total, (offset + perPage)) + ' (' + total + ' en total)');
+		return (self.lang().showingresults + Math.min(total, self.offsetSPARQL() + 1) + ' - ' + Math.min(total, (offset + perPage)) + ' (' + total + ' total)');
 	
 	});
 
@@ -2100,7 +2100,7 @@ function InitViewModel() {
 				innerWindow: 1,
 				renderHeader: function (perPage, offset, total) {
 					if (total != 0) {
-						$('#pager-header').html($('<span/>').text('Viendo resultados del ' + Math.min(total, offset + 1) + ' al ' + Math.min(total, (parseInt(offset) + parseInt(perPage))) + ' (' + total + ' en total)'));
+						$('#pager-header').html($('<span/>').text(self.lang().showingresults + Math.min(total, offset + 1) + ' - ' + Math.min(total, (parseInt(offset) + parseInt(perPage))) + ' (' + total + ' total)'));
 					} else {
 						$('#pager-header').html($('<span/>').text(''));
 					}
