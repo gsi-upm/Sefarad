@@ -16,7 +16,11 @@ var widgetWheel = {
 	render: function () {
 		var id = 'A' + Math.floor(Math.random() * 10001);
 		var field = widgetWheel.field || "";
-		vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetWheel.name), "type": ko.observable(widgetWheel.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
+		vm.activeWidgetsRight.push({"id":ko.observable(id),
+								 "title": ko.observable(widgetWheel.name), 
+								  "type": ko.observable(widgetWheel.type), 
+								 "field": ko.observable(field),
+							 "collapsed": ko.observable(false)});
 
 		// widgetWheel.paint(field, id, widgetWheel.type);
 		widgetWheel.paint(id);
@@ -66,7 +70,6 @@ var widgetWheel = {
 			$('input[name="' + group0 + '"][value="' + widgetWheel.options[group0] + '"]').prop('checked', true);
 		}  
 		if (valorSeleccionado1 != undefined){
-			console.log('heeeeeeey')
 			//$('#'+id).append('<div id="tooltip">' + widgetWheel.options[group1].toUpperCase() + '</div>');
 			$('input[name="' + group1 + '"][value="' + widgetWheel.options[group1] + '"]').prop('checked', true);
 		} 
@@ -78,20 +81,23 @@ var widgetWheel = {
 			// $('#'+id + ' > .widget-configuration').hide();
 			// return;
 		}
+
+		console.log(vm.filteredData().length);
 		
 		if (vm.filteredData().length > 150) {
+
+			console.log('entro');
+			$('#' + id + ' > svg').remove();
 
 			d3.select('#'+id).select('svg').remove();
 			d3.select('#'+id).select('#tooltip').remove();
 
 			$('#'+id).append('<div id="tooltip"></div>');
-			$("#tooltip").append("Demasiados resultados, aumente el número de filtros.");
+			$("#" + id + " > #tooltip").append("Demasiados resultados, aumente el número de filtros.");
 
 			return;
 
 		}
-		
-
 
 		// Wheel
 		var array = new Array();
@@ -142,12 +148,13 @@ var widgetWheel = {
 			two["children"].push(three);
 
 		});
+
 		console.log(array);
-		//$("#vis").fadeOut();
-		setTimeout(function() {
+
+		//setTimeout(function() {
+			console.log('pinto');
 			updateWheel(JSON.stringify(array));
-			// $("#vis").fadeIn();
-		},300);
+		//},300);
 
 		return;
 

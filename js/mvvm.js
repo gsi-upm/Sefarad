@@ -2223,6 +2223,15 @@ function saveConfiguration(refreshpage, user, pass) {
 	configuration.widgetsLeftTab1 = ko.toJS(vm.activeWidgetsLeftTab1);
 	configuration.widgetsRightTab1 = ko.toJS(vm.activeWidgetsRightTab1);
 
+	////////////
+	for (var i = 0; i < configuration.widgetsRightTab1.length; i++) {
+		configuration.widgetsRightTab1[i].title = null;
+	}
+	for (var i = 0; i < configuration.widgetsLeftTab1.length; i++) {
+		configuration.widgetsLeftTab1[i].title = null;
+	}
+	////////////
+
 	var data = JSON.stringify(configuration).replace(/"/g, "\"").replace(/,/g, "\\,");
 	//alert(JSON.stringify([data]));
 
