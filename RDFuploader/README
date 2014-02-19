@@ -1,8 +1,8 @@
-PARA EL IMPORTER:
+FOR IMPORTING:
 
 java -jar importercustom.jar http://minsky.gsi.dit.upm.es/episteme/tomcat/LMF/ http://ines
 
-PARA EL FORM DELETE
+FORM DELETE
 
 DELETE WHERE { GRAPH <http://ines> { ?s ?p ?o } }
 

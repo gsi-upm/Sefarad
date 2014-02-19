@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marcos Torres, Grupo de Sistemas Inteligentes - Universidad Politécnica de Madrid. (GSI-UPM)
+//  Copyright (c) 2013 Marcos Torres, Grupo de Sistemas Inteligentes - Universidad Politécnica de Madrid. (GSI-UPM)
 //  http://www.gsi.dit.upm.es/
 //
 //  All rights reserved. This program and the accompanying materials
@@ -11,9 +11,9 @@
  
 var fs = require('fs');
 
-var widgetsPath = './js/widgets';
-var sourceFile = './_sefarad.html';
-var destinationFile = './sefarad.html';
+var widgetsPath = './src/js/widgets';
+var sourceFile = './src/_sefarad.html';
+var destinationFile = './src/sefarad.html';
 
 // Update widgets to the html file.
 var string1 = '';

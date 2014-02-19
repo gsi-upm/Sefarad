@@ -4,27 +4,26 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+    concat: {
+      options: {        
       },
-      build: {
-        src: 'src/<%= pkg.name %>.js',
-        dest: 'build/<%= pkg.name %>.min.js'
-      }
-    }
+      dist: {
+        src: ['src/sefarad.html', 'src/knockout_templates/templates.html'],
+        dest: 'bin/index.html',
+      },
+    },
   });
 
   // Load plugins and tasks.
   //grunt.task.loadTasks('tasksPath');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-concat');
 
   // Default task(s).
-  grunt.registerTask('default', ['uglify']);
+  grunt.registerTask('default', ['concat']);
 
   // Custom tasks.
-  grunt.registerTask('default', 'Custom task.', function() {
-    grunt.log.write('Example custom task...').ok();
-  });
+  // grunt.registerTask('default', 'Custom task.', function() {
+  //   grunt.log.write('Example custom task...').ok();
+  // });
 
-};
+};  
