@@ -11,9 +11,9 @@
  
 var fs = require('fs');
 
-var widgetsPath = './src/js/widgets';
-var sourceFile = './src/_sefarad.html';
-var destinationFile = './src/sefarad.html';
+var widgetsPath = 'src/js/widgets';
+var sourceFile = 'src/_sefarad.html';
+var destinationFile = 'src/sefarad.html';
 
 // Update widgets to the html file.
 var string1 = '';
@@ -28,10 +28,10 @@ fs.readdir(widgetsPath, function (err, files) {
 		 	string1 += '\t\t<script type="text/javascript" src="js/widgets/' + files[i] + '"></script>\n';
 		 	string2 += files[i].substring(0, files[i].length - 3) + ', ';
 		}
+		
 		string2 = string2.substring(0, string2.length - 2);
 		string2 += '];\n\t\t</script>\n\t';
-		//console.log(string1);
-		//console.log(string2);
+
 		updateHTML();
 	}
 });
