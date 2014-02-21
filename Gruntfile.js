@@ -12,18 +12,27 @@ module.exports = function(grunt) {
           'build/index.html': ['src/sefarad.html']
         }
       }
-    },  
+    },
+    copy: {
+      main: {
+        expand: true,
+        cwd: 'src/',
+        src: '**',
+        dest: 'build/',
+      },
+    }, 
   });
 
   // Load plugins and tasks.
   grunt.loadTasks('grunt_tasks');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-processhtml');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   // Tasks.
   
 
   // Default tasks. 
-  grunt.registerTask('default', ['include-widgets','processhtml']);
+  grunt.registerTask('default', ['include-widgets','processhtml','copy']);
 
 };  
