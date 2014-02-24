@@ -37,56 +37,55 @@ var widgetWheel = {
 		$('#' + id).empty();
 
 		$('#'+id).append("<div></div>")
-		$('#' + id + ' > div').addClass('widget-configuration');
+		// $('#' + id + ' > div').addClass('widget-configuration');
 
-		group0 = 'group' + id + '0';
-		group1 = 'group' + id + '1';
+		// group0 = 'group' + id + '0';
+		// group1 = 'group' + id + '1';
 
-		for (var i = 0; i < vm.resultsGraphs().length; i++) {
-			$('#' + id + ' > div').append('<input type="radio" name="' + group0 + '" value="' + vm.resultsGraphs()[i].type() + '">' + vm.resultsGraphs()[i].type() + '</input>')
-		}
-		$('#' + id + ' > div').append('<hr>')
-		for (var i = 0; i < vm.resultsGraphs().length; i++) {
-			$('#' + id + ' > div').append('<input type="radio" name="' + group1 + '" value="' + vm.resultsGraphs()[i].type() + '">' + vm.resultsGraphs()[i].type() + '</input>')
-		}
+		// for (var i = 0; i < vm.resultsGraphs().length; i++) {
+		// 	$('#' + id + ' > div').append('<input type="radio" name="' + group0 + '" value="' + vm.resultsGraphs()[i].type() + '">' + vm.resultsGraphs()[i].type() + '</input>')
+		// }
+		// $('#' + id + ' > div').append('<hr>')
+		// for (var i = 0; i < vm.resultsGraphs().length; i++) {
+		// 	$('#' + id + ' > div').append('<input type="radio" name="' + group1 + '" value="' + vm.resultsGraphs()[i].type() + '">' + vm.resultsGraphs()[i].type() + '</input>')
+		// }
 		
 		// for (var i = 0; i < vm.resultsGraphs().length; i++) {
 		// 	$('#' + id + ' > div').append('<input type="radio" name="group' + id + '1" value="' + vm.resultsGraphs()[i].type() + '">' + vm.resultsGraphs()[i].type() + '</input>')
 		// }
 
-		valorSeleccionado0 = widgetWheel.options[group0];
-		valorSeleccionado1 = widgetWheel.options[group1];
+		// valorSeleccionado0 = widgetWheel.options[group0];
+		// valorSeleccionado1 = widgetWheel.options[group1];
 
-		$('input:radio').on('change', function(){
-			valorSeleccionado0 = $('input:radio[name=' + group0 + ']:checked').val();
-			widgetWheel.options[group0] = valorSeleccionado0;
-			valorSeleccionado1 = $('input:radio[name=' + group1 + ']:checked').val();
-			widgetWheel.options[group1] = valorSeleccionado1;
-			widgetWheel.paint(id)
-		});
+		// $('input:radio').on('change', function(){
+		// 	valorSeleccionado0 = $('input:radio[name=' + group0 + ']:checked').val();
+		// 	widgetWheel.options[group0] = valorSeleccionado0;
+		// 	valorSeleccionado1 = $('input:radio[name=' + group1 + ']:checked').val();
+		// 	widgetWheel.options[group1] = valorSeleccionado1;
+		// 	widgetWheel.paint(id)
+		// });
 
-		if (valorSeleccionado0 != undefined) {
-			// $('#'+id).append('<div id="tooltip">' + widgetWheel.options[group0].toUpperCase() + '</div>');
-			$('input[name="' + group0 + '"][value="' + widgetWheel.options[group0] + '"]').prop('checked', true);
-		}  
-		if (valorSeleccionado1 != undefined){
-			//$('#'+id).append('<div id="tooltip">' + widgetWheel.options[group1].toUpperCase() + '</div>');
-			$('input[name="' + group1 + '"][value="' + widgetWheel.options[group1] + '"]').prop('checked', true);
-		} 
-		if ((valorSeleccionado0 == undefined) || (valorSeleccionado1 == undefined)) {
-			$('#'+id).append('<div id="tooltip"></div>');
-			$("#" + id + " > #tooltip").append("Faltan campos por seleccionar.");
-			return;
-		} else {
-			// $('#'+id + ' > .widget-configuration').hide();
-			// return;
-		}
+		// if (valorSeleccionado0 != undefined) {
+		// 	// $('#'+id).append('<div id="tooltip">' + widgetWheel.options[group0].toUpperCase() + '</div>');
+		// 	$('input[name="' + group0 + '"][value="' + widgetWheel.options[group0] + '"]').prop('checked', true);
+		// }  
+		// if (valorSeleccionado1 != undefined){
+		// 	//$('#'+id).append('<div id="tooltip">' + widgetWheel.options[group1].toUpperCase() + '</div>');
+		// 	$('input[name="' + group1 + '"][value="' + widgetWheel.options[group1] + '"]').prop('checked', true);
+		// } 
+		// if ((valorSeleccionado0 == undefined) || (valorSeleccionado1 == undefined)) {
+		// 	$('#'+id).append('<div id="tooltip"></div>');
+		// 	$("#" + id + " > #tooltip").append("Faltan campos por seleccionar.");
+		// 	return;
+		// } else {
+		// 	// $('#'+id + ' > .widget-configuration').hide();
+		// 	// return;
+		// }
 
-		console.log(vm.filteredData().length);
+		// console.log(vm.filteredData().length);
 		
 		if (vm.filteredData().length > 150) {
 
-			console.log('entro');
 			$('#' + id + ' > svg').remove();
 
 			d3.select('#'+id).select('svg').remove();
@@ -104,7 +103,7 @@ var widgetWheel = {
 		$.each(vm.filteredData(), function(index, item) {
 
 			var one;
-			var location = new String(item[valorSeleccionado0]()[0]);
+			var location = new String(item["entity"]()[0]);
 			var resultOne = $.grep(array, function(e) { return e["name"].valueOf() == location.valueOf(); });
 
 			if (resultOne.length == 0) {
@@ -118,11 +117,11 @@ var widgetWheel = {
 
 			var two;
 			var polarity = "";
-			if (valorSeleccionado1 == "hasPolarity") {
-				polarity = item[valorSeleccionado1]()[0].substring(24);
-			} else {
-				polarity = item[valorSeleccionado1]()[0];
-			}
+			// if (valorSeleccionado1 == "hasPolarity") {
+				polarity = item["hasPolarity"]()[0].substring(24);
+			// } else {
+			// 	// polarity = item[valorSeleccionado1]()[0];
+			// }
 
 			var resultTwo = $.grep(one["children"], function(e){ return e["name"].valueOf() == polarity.valueOf(); });
 			if (resultTwo.length == 0) {
@@ -138,9 +137,9 @@ var widgetWheel = {
 			three["name"] = new String(item.opinionText());
 			var value = parseFloat(item.polarityValue());
 
-			if (value <  -0.3) {
+			if (value <  0) {
 				three["colour"] = "#FE2E2E";
-			} else if (value > 0.3) {
+			} else if (value > 0) {
 				three["colour"] = "#2EFE2E"; 
 			} else {
 				three["colour"] = "#2E64FE"; 
@@ -240,12 +239,15 @@ var widgetWheel = {
 				});
 
 			function mouseover(d) {
-				$("#tooltip").remove();
-				$('#'+id).append('<div id="tooltip"></div>');
-				if(d.depth > 2){		
+				if(d.depth == 3){
+					$("#tooltip").remove();
+					$('#'+id).append('<div id="tooltip"></div>');
 					$("#tooltip").append(d.name);
-				}else{
-					$("#tooltip").append("<br>");
+					if (d.parent.name == "Positive") {
+						$("#tooltip").css("background-color", "#2EFE2E")
+					} else if (d.parent.name == "Negative") {
+						$("#tooltip").css("background-color", "#FE2E2E")
+					}
 				}
 			}
 
@@ -279,7 +281,7 @@ var widgetWheel = {
 						  d3.select(this).style("visibility", isParentOf(d, e) ? null : "hidden");
 						});
 				}
-			  }
+			}
 
 			function isParentOf(p, c) {
 				if (p === c) return true;
@@ -292,6 +294,22 @@ var widgetWheel = {
 			}
 
 			function colour(d) {
+				// console.log(d);
+				if (d.colour != undefined) {
+					return d.colour;
+				} else {
+					switch (d.depth) {
+						case 0: 
+							return "#012DAC";
+						case 1:
+							return "#0141F8";
+						case 2:
+							return "#2E64FE";
+						case 3:
+							return "#7A9DFE";
+					}
+				}
+				return "#FFF";
 
 				// if (d.children) {
 				// 	// There is a maximum of two children!

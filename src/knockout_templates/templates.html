@@ -84,11 +84,9 @@
 					{{/if}}
 						
 					{{if layout()=="vertical"}}
-						<div id="resultados">
-							<div class="resultado" data-bind="visible: $root.filteredData().length > 0, template: { name: 
+							<div class="resultados" data-bind="visible: $root.filteredData().length > 0, template: { name: 
 						'simple', foreach: $root.shownData, afterRender: $root.animateResultsChange }">
 							</div>
-						</div>
 					{{/if}}	
 				{{/if}}		
 			<!--se cierra widget-content-->
@@ -96,6 +94,7 @@
 			
 			</div>
 			
+			<!-- Results stats widget -->
 			{{else type()=="resultstats"}}
 			
 			<li class="ui-widget">
@@ -126,7 +125,7 @@
 				</div>
 			</li>
 			
-			<!-- Tagcloud widget -->
+			
 			{{else type()=="tagcloud"}}
 			<li class="ui-widget">
 			<div class="ui-widget-header">
@@ -192,8 +191,6 @@
 					</div>
 					<div class="ui-widget-content" 
 						data-bind="visible: !collapsed()">
-
-			<!-- Slider widget -->
 			{{if type()=="slider"}}
 			<div class="slider"></br><span>Rango filtrado: </span><span data-bind="text: values"></span><div data-bind="slider: $data, 
 				sliderOptions: {min: $data.limits()[0], max: $data.limits()[1], values: $data.values(), step: $data.value()}"></div></br></div>
@@ -203,32 +200,31 @@
 				id="contador"><p data-bind="text: $root.numberOfResults"></p></div></div>	
 			{{else type()=="twitter"}}
 			{{if currentTweets().length > 0 }}
-				<table width='100%' data-bind="template: { name: 'widget-template-twitter', foreach: currentTweets }"></table>
+			<table width='100%' data-bind="template: { name: 'widget-template-twitter', foreach: currentTweets }"></table>
 			{{else}}
-				<p>No se han podido obtener resultados</p>
+			<p>No se han podido obtener resultados</p>
 			{{/if}}
 			{{else type()=="piechart"}}
-				<div data-bind="attr: {'id': id }"></div>
+			<div data-bind="attr: {'id': id }"></div>
 			{{else type()=="barchart"}}
-				<div data-bind="attr: {'id': id }"></div>
+			<div data-bind="attr: {'id': id }"></div>
 			{{else type()=="barchartD3"}}
-				<div data-bind="attr: {'id': id }"></div>
+			<div data-bind="attr: {'id': id }"></div>
 			{{else type()=="sgvizler"}}
-				<div data-bind="attr: { 'id': id }"></div>
+			<div data-bind="attr: { 'id': id }"></div>
 			{{else}}
-				<div data-bind="attr: { 'id': id }"></div>
+			<div data-bind="attr: { 'id': id }"></div>
 			{{/if}}
-				</div></li>
+			</div></li>
 			{{/if}}
-			</div>			
+			</div>
+			
 			
 		</script>	
-
 		<script id="widget-template-tagcloud" type="text/html">
 			<a href='#' class="tag" data-bind="click: $root.tagCloudSelection.bind($data, $parent.id(), id, name()), css: { selected: 
 			state()}"><span data-bind="text: name"></span><span class="count" data-bind="css: {'zero': count()=='0' }, text: count"></span></a>
 		</script>	
-
 		<script id="widget-template-panelbar" type="text/html">
 			<li class="k-item k-state-default">
 			    <a class="filter k-link" href="#" data-bind="text: $root.getTagcloudItem(name(), count()),
@@ -236,25 +232,21 @@
 			    css: { 'panelselected': state() == true}"></a>
 			</li>	
 		</script>		
-
 		<script id="widget-template-resultsstats" type="text/html">
 			<input type="checkbox" data-bind="checked: state" />
 			<label data-bind="text: type"></label>	
-		</script>	
-
+		</script>		
 		<script id="widget-template-twitter" type="text/html">
 			<tr><td><img data-bind='attr: { src: profile_image_url }' /></td><td><a class='twitterUser' data-bind='attr: { href: 
 			"http://twitter.com/" + from_user }, text: from_user' href='http://twitter.com/${ from_user }' > </a><p data-bind="text: text"> 
 			</p><div class='tweetInfo' data-bind='text: created_at'> </div></td></tr>
 		</script>
-
 		<script id="list-active-filter" type="text/html">
 			{{if type()=="tagcloud"}} 
 				<span data-bind="template: { name: 'active-filter', foreach: values, afterRender: $root.animateTagsChange } " > 
 				</span>
 			{{/if}}
 		</script>
-
 		<script id="active-filter" type="text/html">
 			<div data-bind="visible: state()" style="display: inline;">
 				<div style="display: inline;">
@@ -262,12 +254,10 @@
 				</div>
 			</div>
 		</script>
-
 		<script id="results-layout" type="text/html">
 			<p data-bind="text: Name"></p>
 			<input data-bind="value: Value"/>
 		</script>
-
 		<script type="text/html" id="cards">
 			<li class="result_box">
 				<img id="logoimage" data-bind="attr: {src: $data[$root.resultsLayout()[3].Value()]}" />
@@ -277,16 +267,19 @@
 				<h4 class="description" data-bind="text: $data[$root.resultsLayout()[1].Value()]"></h4>
 				<p data-bind="text: $data[$root.resultsLayout()[2].Value()]"></p> 
 			</li>
-		</script>	
-
-		<script type="text/html" id="simple">				
-			<img id="logoimage" data-bind="attr: {src: $data[$root.resultsLayout()[3].Value()]}" />			
-			<h2 data-bind="text: $data[$root.resultsLayout()[0].Value()]"></h2>
-			<h4 data-bind="text: $data[$root.resultsLayout()[1].Value()]"></h4>
-			<p data-bind="text: $data[$root.resultsLayout()[2].Value()]"></p>
-			<hr>
-		</script>	
-
+		</script>			
+		<script type="text/html" id="simple">	
+			<div class="resultado">
+				<div class="image">
+					<img id="logoimage" data-bind="attr: {src: $data[$root.resultsLayout()[3].Value()]}" />
+				</div>
+				<div class="info">
+					<h2 data-bind="text: $data[$root.resultsLayout()[0].Value()]"></h2>
+					<h4 data-bind="text: $data[$root.resultsLayout()[1].Value()]"></h4>
+					<p data-bind="text: $data[$root.resultsLayout()[2].Value()]"></p>
+				</div>
+			</div>
+		</script>			
 		<script type="text/html" id="results-sparql">
 			{{if $data.hasOwnProperty([$root.resultsLayout()[3].Value()])}}
 				<img src="" alt="logo" data-bind="attr: {src: $data[$root.resultsLayout()[3].Value()].value}" />	
@@ -302,7 +295,6 @@
 			{{/if}}
 			<hr>
 		</script>
-
 		<script type="text/html" id="new-widgets-template">
 			<div data-bind="attr: { 'class': $root.widgetCategory($data.cat) }">
 				<h1 data-bind="text: $data.name"></h1>
@@ -318,5 +310,4 @@
 				</div>
 			</div>
 		</script>
-
 		<!-- end templates -->

@@ -18,6 +18,7 @@ var serverURL = "http://localhost:8080/LMF/";
 //var serverURL = "http://shannon.gsi.dit.upm.es/episteme/lmf/";
 //var serverURL = "http://minsky.gsi.dit.upm.es/episteme/tomcat/LMF/";
 	
+var mode_ftt = false;
 
 var i_layoutresultsextra = 0;
 var limit_items_tagcloud = 40;
@@ -371,9 +372,10 @@ function InitViewModel() {
 		self.updating(true);
 
 		console.log("POPULATE WIDGETS");
+		console.log(vm.activeWidgets()[0].values())
 
 		parent.values.removeAll();
-
+		console.log(parent.values)
 		$.each(self.widgetContent(), function (index, item) {
 			parent.values.push({
 				"id": ko.observable(countIndex++),
@@ -383,8 +385,54 @@ function InitViewModel() {
 			});
 		});
 
+		// if (parent.values == []) {
+		// 	$.each(self.widgetContent(), function (index, item) {
+		// 		parent.values.push({
+		// 			"id": ko.observable(countIndex++),
+		// 			"name": ko.observable(self.widgetContent()[index].facet),
+		// 			"state": ko.observable(false),
+		// 			"count": ko.observable(self.widgetContent()[index].count)
+		// 		});
+		// 	});
+		// } else {
+		// 	console.log(parent.values())
+		// 	var nameValue = {}
+		// 	for (var i = 0; i < parent.values().length; i++) {
+		// 		nameValue[parent.values()[i].name()] = parent.values()[i].state()
+		// 	}
+		// 	console.log(nameValue);
+
+
+		// // 	// console.log(parent.values()[3].name())
+		// // 	// console.log(parent.values()[3].state())
+		// // 	// console.log(parent.values()[4].name())
+		// // 	// console.log(parent.values()[4].state())
+		// // 	parent.values.removeAll();
+		// // 	// console.log(parent.values()[3].state())
+		// // 	// console.log(parent.values()[6].state())
+		// // 	// console.log(parent.values()[7].state())
+		// // 	// console.log(parent.values()[8].state())
+
+		// 	$.each(self.widgetContent(), function (index, item) {
+		// 		var state = nameValue[self.widgetContent()[index].facet]
+		// 		console.log(state);
+		// 		parent.values.push({
+		// 			"id": ko.observable(countIndex++),
+		// 			"name": ko.observable(self.widgetContent()[index].facet),
+		// 			"state": ko.observable(state),
+		// 			"count": ko.observable(self.widgetContent()[index].count)
+		// 		});
+		// 	});
+		// }
+
+		
+
+		console.log(parent.values().length)
 		parent.values.sortByPropertyCat('id');
 		self.updating(false);
+
+		// console.log(configuration.widgetsLeft[0].values[4].state)
+		// updateSolrFilter();
 	}
 
 	self.findMatchWidget = function (idwidget, type, item) {
@@ -956,6 +1004,7 @@ function InitViewModel() {
 	});
 
 	self.showMoreSPARQL = function () {
+		console.log('---------------------- MORE SPARQL');
 		var total = self.filteredData().length;
 		var offset = parseInt(self.offsetSPARQL());
 		var perPage = parseInt(self.num_shown());
@@ -984,6 +1033,7 @@ function InitViewModel() {
 			shownArray.push(self.filteredData()[i]);
 		}
 		self.shownData(shownArray);
+
 		return self.num_shown();
 	}
 
@@ -1112,12 +1162,23 @@ function InitViewModel() {
 			//updateWidgets(false);
 		}
 
+		// console.log($('.resultado').find('.info > p').html())
+		// 	setTimeout(function () {
+			// $('.resultado').each(function() {
+			// 	if ($(this).find('.info > p').html() > 0) {
+			// 		$(this).addClass('positive')
+			// 	} else if ($(this).find('.info > p').html() < 0) {
+			// 		$(this).addClass('negative');
+			// 	}
+			// })
+		// }, 5000)
+
+
 	};
 
 	/** Draw chart widgets */
 	self.drawcharts = function () {
 		$.each(self.activeWidgets(), function (index, item) {
-			console.log(item.type());
 			if (item.type() == "piechart" || item.type() == "barchart") {
 				paintHighChart(item.field(), item.id(), item.type());
 			}
@@ -1131,6 +1192,9 @@ function InitViewModel() {
 
 		});
 
+		// console.log($('.resultado'))
+
+
 	};
 
 	/** Draw charts in ResultsGraph widget */
@@ -1143,6 +1207,9 @@ function InitViewModel() {
 				paintHighChart(item.type(), item.type(), "barchart");
 			}
 		});
+		if (mode_ftt) {
+			addSentimentClass();
+		}	
 	};
 
 	/** Show/hide configuration */
@@ -1820,10 +1887,10 @@ function InitViewModel() {
 			//var configuration = $.extend({}, loaded_configuration, configuration); 
 			configuration = loaded_configuration;
 
-			templateWidgetsLeft = [];
-			templateWidgetsRight = [];
-			templateWidgetsLeftTab1 = [];
-			templateWidgetsRightTab1 = [];
+			// templateWidgetsLeft = [];
+			// templateWidgetsRight = [];
+			// templateWidgetsLeftTab1 = [];
+			// templateWidgetsRightTab1 = [];
 
 			for (var i = 0; configuration.widgetsLeft.length > i; i++) {
 
@@ -1896,6 +1963,15 @@ function InitViewModel() {
 			}
 
 			init();
+
+			for (var i = 0; i < configuration.widgetsLeft.length; i++) {
+				if (configuration.widgetsLeft[i].type == 'tagcloud') {
+					for (var j = 0; j < configuration.widgetsLeft[i].values.length; j++) {
+						vm.activeWidgetsLeft()[i].values()[j].state(configuration.widgetsLeft[i].values[j].state)
+					}
+				}
+			}
+			updateSolrFilter();
 
 		}).error(function () {
 			templateWidgetsRight.push({
@@ -1979,6 +2055,8 @@ function InitViewModel() {
 
 		self.numberOfActiveFilters = ko.computed(function (numbers) {
 			var activeFiltersCount = 0;
+
+			console.log('entrooooooo')
 
 			ko.utils.arrayFilter(self.activeWidgets(), function (item1) {
 				if (item1.type() == "tagcloud") {
@@ -2223,14 +2301,20 @@ function saveConfiguration(refreshpage, user, pass) {
 	configuration.widgetsLeftTab1 = ko.toJS(vm.activeWidgetsLeftTab1);
 	configuration.widgetsRightTab1 = ko.toJS(vm.activeWidgetsRightTab1);
 
-	////////////
-	for (var i = 0; i < configuration.widgetsRightTab1.length; i++) {
-		configuration.widgetsRightTab1[i].title = null;
+	for (var i = 0; i < vm.activeWidgets().length; i++) {
+
 	}
-	for (var i = 0; i < configuration.widgetsLeftTab1.length; i++) {
-		configuration.widgetsLeftTab1[i].title = null;
-	}
-	////////////
+
+	configuration.activeTagWidgets
+
+	//////////
+	// for (var i = 0; i < configuration.widgetsRightTab1.length; i++) {
+	// 	configuration.widgetsRightTab1[i].title = null;
+	// }
+	// for (var i = 0; i < configuration.widgetsLeftTab1.length; i++) {
+	// 	configuration.widgetsLeftTab1[i].title = null;
+	// }
+	//////////
 
 	var data = JSON.stringify(configuration).replace(/"/g, "\"").replace(/,/g, "\\,");
 	//alert(JSON.stringify([data]));
@@ -2664,5 +2748,18 @@ function sparqlPanel() {
 		$("#backgroundPopup").fadeOut("slow");
 	}
 };
+
+function addSentimentClass() {
+	setTimeout(function() {
+		$('.resultado').each(function() {
+			// console.log($(this).find('.info > p').html())
+			if ($(this).find('.info > p').html() > 0) {
+				$(this).addClass('resultado_positivo')
+			} else if ($(this).find('.info > p').html() < 0) {
+				$(this).addClass('resultado_negativo');
+			}
+		});
+	}, 5);
+}
 
 var vm = new InitViewModel();

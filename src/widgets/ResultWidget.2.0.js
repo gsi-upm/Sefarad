@@ -34,6 +34,7 @@ AjaxSolr.ResultWidget = AjaxSolr.AbstractWidget.extend({
   },
 
   afterRequest: function () {
+    // console.log(this.target)
     $(this.target).empty();
 	 
 

@@ -53,7 +53,8 @@ var widgetBarras = {
 		for (var i = 0; i < vm.filteredData().length; i++) {
 
 			entityNew = vm.filteredData()[i]['entity']()[0];
-			polarityNew = parseInt(vm.filteredData()[i]['polarityValue']()[0]);
+			// console.log(vm.filteredData()[i]['polarityValue']()[0]);
+			polarityNew = parseFloat(vm.filteredData()[i]['polarityValue']()[0]);
 
 			entityInArray = false;
 			for (var j = 0; j < arrayFields.length; j++) {
@@ -65,7 +66,7 @@ var widgetBarras = {
 
 			if (!entityInArray) {
 				arrayFields.push(entityNew);
-				fieldsSeleccionado [entityNew] = false;
+				fieldsSeleccionado [entityNew] = true;
 				polarity[entityNew] = {'positive': 0, 'negative': 0};
 			} 
 
@@ -79,7 +80,7 @@ var widgetBarras = {
 
 		// console.log(arrayFields);
 		// console.log(fieldsSeleccionado);
-		// console.log(polarity);
+		console.log(polarity);
 
 		if (widgetBarras.options[id] == undefined) {
 			widgetBarras.options[id] = fieldsSeleccionado;
@@ -89,6 +90,7 @@ var widgetBarras = {
 
 		for (var i = 0; i < arrayFields.length; i++) {
 			$('#' + id + ' > div').append('<input type="checkbox" id="' + id + arrayFields[i] + '" name="group' + id + '" value="' + arrayFields[i] + '">' + arrayFields[i] + '</input>')
+			// $('#' + id + arrayFields[i]).prop('checked', true)
 		}
 
 		$('input:checkbox').on('change', function(){
@@ -113,6 +115,7 @@ var widgetBarras = {
 				$('#' + id + arrayFields[i]).prop('checked', true)
 			} else {
 				polarity[arrayFields[i]] = null
+				// seleccionado = false;
 			}
 		}
 		console.log(polarity);
@@ -209,8 +212,6 @@ var widgetBarras = {
 				}
 			})
 			.attr("x", function(d, i) { 
-				console.log(d);
-				console.log(i);
 				if ((i%2) == 0) {
 					return x1(0);
 				} else {
