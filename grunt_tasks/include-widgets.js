@@ -6,9 +6,9 @@ module.exports = function (grunt) {
 
 		var done = this.async();
 
-		var widgetsPath = 'src/js/widgets';
-		var sourceFile = 'src/_sefarad.html';
-		var destinationFile = 'src/sefarad.html';
+		var widgetsPath = 'src/js/widgets/d3';
+		var sourceFile = 'build/index.html';
+		var destinationFile = 'build/index.html';
 
 		// Update widgets to the html file.
 		var string1 = '';
@@ -39,7 +39,7 @@ module.exports = function (grunt) {
 				grunt.log.writeln(err);
 			} else {
 				for (var i = 0; i < files.length; i++) {
-					string1 += '\t\t<script type="text/javascript" src="js/widgets/' + files[i] + '"></script>\n';
+					string1 += '\t\t<script type="text/javascript" src="js/widgets/d3/' + files[i] + '"></script>\n';
 					string2 += files[i].substring(0, files[i].length - 3) + ', ';
 				}
 

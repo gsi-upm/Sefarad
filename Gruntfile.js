@@ -20,14 +20,13 @@ module.exports = function(grunt) {
       main: {
         expand: true,
         cwd: 'src/',
-        src: '**',
-        //ingnoring: !
+        src: ['ajax-solr/**','css/**','img/**','js/**','!sefarad.html'],
         dest: 'build/',
       },
       universitiesDemo: {
         expand: true,
         cwd: 'src/demos/universitiesDemo/',
-        src: '**',
+        src: 'demo.html',
         dest: 'build/',
         // rename: function(dest, src) {
         //   return dest + 'demo.html';
@@ -50,7 +49,7 @@ module.exports = function(grunt) {
 
 
   // Tasks. 
-  grunt.registerTask('default', ['clean:build','include-widgets','processhtml:templates','copy:main']);
-  grunt.registerTask('universitiesDemo', ['default','copy:universitiesDemo']);
+  grunt.registerTask('default', ['clean:build','processhtml:templates','include-widgets','copy:main']);
+  grunt.registerTask('demo', ['default','copy:universitiesDemo']);
 
 };  
