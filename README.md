@@ -8,12 +8,14 @@ Sefarad is an application developed to explore data by making SPARQL queries to 
 ##Getting Started 
 
 ###Developers
-First of all, `Node.js version >= 0.8.0` is required. You can install it through [Node.js](http://nodejs.org/) website. Once you have installed it, you also need to install Grunt's command Line Interface (CLI). You can do this globally just running (using sudo):
+First of all, `Node.js version >= 0.8.0` is required. You can install it through [Node.js](http://nodejs.org/) website. Once you have installed it, you also need to install Grunt's command Line Interface (CLI). You can do this globally just running:
+
+> Try using sudo
 
 ```shell
 npm install -g grunt-cli
 ```
-Assuming that you have installed all you need, you may start working. You should always works into `sr/` directory. You can create, modify and remove everything you want. Upon having made every change you need, you may run the specific grunt command/s in order to generate the final executable project and pack it into `build/` folder. 
+Assuming that you have installed all you need, you may start working. You should always works into `src/` directory. You can create, modify and remove everything you want. Upon having made every change you need, you may run the specific grunt command/s in order to generate the final executable project and pack it into `build/` folder. 
 
 > Note that this will overwrite the previous content of your `build/` directory. 
 
@@ -24,7 +26,8 @@ sudo npm install
 ```
 Now, it is as easy as run the specific grunt command depending on what you want to generate. You have the following posibilities:
 
-**Sefarad default**
+**_Sefarad default_**
+
 If you want to work with a complete version of _Sefarad_, just run:
 
 ```shell
@@ -37,13 +40,15 @@ grunt default
 ```
 That will generate all you need into `build/` folder. All you need is to run `index.html`.
 
-**Universities Demo**
+**_Universities Demo_**
+
 If you want to try our demo (which is completely provided within the repository), run:
 
 ```shell
 grunt demo
 ```
 Again, that will generate all you need into `build/` folder. This time, all you need is to run `demo.html`.
+
 
 
 In order to make your own modifications, there are two files that are specially important: _sefarad.html_ and _js/mvvm.js_.
