@@ -10,7 +10,7 @@ module.exports = function(grunt) {
           'build/index.html': ['src/sefarad.html']
         }
       },
-      controller: {
+      universitiesDemo: {
         files: {
           'build/js/mvvm.js': ['src/js/mvvm.js']
         }
@@ -50,6 +50,6 @@ module.exports = function(grunt) {
 
   // Tasks. 
   grunt.registerTask('default', ['clean:build','processhtml:templates','include-widgets','copy:main']);
-  grunt.registerTask('demo', ['default','copy:universitiesDemo']);
+  grunt.registerTask('demo', ['default','processhtml:universitiesDemo','copy:universitiesDemo']);
 
 };  
