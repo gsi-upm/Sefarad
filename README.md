@@ -60,10 +60,10 @@ Again, that will generate all you need into `build/` folder. This time, all you 
 
 In order to make your own modifications, there are two files that are specially important: _sefarad.html_ and _js/mvvm.js_.
 
-####Sefarad.html
+#####Sefarad.html
 Sefarad is developed as a _single page web application_. This file contains all the information about everything you could see in Sefarad. Each part of the html is set visible or invisible depending on the variable _page()_ (managed by the controller within _mvvm.js_). 
 
-####mvvm.js
+#####mvvm.js
 This is the main JavaScript file in our project. In contais all the js functions needed and define a ViewModel variable `vm.js` based on the Model-View-ViewModel (MVVM) pattern provided by [knockout.js](http://knockoutjs.com/). 
 
 ###Widgets
