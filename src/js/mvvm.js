@@ -18,7 +18,7 @@ var serverURL = "http://localhost:8080/LMF/";
 //var serverURL = "http://shannon.gsi.dit.upm.es/episteme/lmf/";
 //var serverURL = "http://minsky.gsi.dit.upm.es/episteme/tomcat/LMF/";
 	
-var mode_ftt = false;
+var mode_ftt = true;
 
 var i_layoutresultsextra = 0;
 var limit_items_tagcloud = 40;
@@ -74,8 +74,14 @@ function InitViewModel() {
 
 	self.activeTab = ko.observable(0);
 
+	// Load sgvizler widgets everytime the activeTab is the second one.
+	self.activeTab.subscribe(function(newValue) {
+		if (newValue == 1) {
+			self.loadSgvizler()
+		}
+	})
 	/** Language */
-	self.lang = ko.observable(languages[1]);
+	self.lang = ko.observable(languages[0]);
 	self.selectedLanguage = ko.observable(configuration.template.language);
 
 	/** Active route */
@@ -115,7 +121,7 @@ function InitViewModel() {
 
 	/** Extra plugins */
 	//self.currentTweets = ko.observableArray([]);
-	self.sgvizlerQuery = ko.observable("SELECT ?o WHERE { ?s <http://www.w3.org/2006/vcard/ns#locality> ?o}");
+	self.sgvizlerQuery = ko.observable("SELECT ?o WHERE { ?s ?p ?o}");
 	self.sgvizlerGraphType = ko.observable();
 
 	/** New Widget fields */
@@ -374,65 +380,49 @@ function InitViewModel() {
 		console.log("POPULATE WIDGETS");
 		console.log(vm.activeWidgets()[0].values())
 
-		parent.values.removeAll();
-		console.log(parent.values)
-		$.each(self.widgetContent(), function (index, item) {
-			parent.values.push({
-				"id": ko.observable(countIndex++),
-				"name": ko.observable(self.widgetContent()[index].facet),
-				"state": ko.observable(false),
-				"count": ko.observable(self.widgetContent()[index].count)
+		// parent.values.removeAll();
+		// console.log(parent.values)
+		// $.each(self.widgetContent(), function (index, item) {
+		// 	parent.values.push({
+		// 		"id": ko.observable(countIndex++),
+		// 		"name": ko.observable(self.widgetContent()[index].facet),
+		// 		"state": ko.observable(false),
+		// 		"count": ko.observable(self.widgetContent()[index].count)
+		// 	});
+		// });
+
+		if (parent.values == []) {
+			$.each(self.widgetContent(), function (index, item) {
+				parent.values.push({
+					"id": ko.observable(countIndex++),
+					"name": ko.observable(self.widgetContent()[index].facet),
+					"state": ko.observable(false),
+					"count": ko.observable(self.widgetContent()[index].count)
+				});
 			});
-		});
+		} else {
+			var nameValue = {}
+			for (var i = 0; i < parent.values().length; i++) {
+				nameValue[parent.values()[i].name()] = parent.values()[i].state()
+			}
+			// console.log(nameValue);
 
-		// if (parent.values == []) {
-		// 	$.each(self.widgetContent(), function (index, item) {
-		// 		parent.values.push({
-		// 			"id": ko.observable(countIndex++),
-		// 			"name": ko.observable(self.widgetContent()[index].facet),
-		// 			"state": ko.observable(false),
-		// 			"count": ko.observable(self.widgetContent()[index].count)
-		// 		});
-		// 	});
-		// } else {
-		// 	console.log(parent.values())
-		// 	var nameValue = {}
-		// 	for (var i = 0; i < parent.values().length; i++) {
-		// 		nameValue[parent.values()[i].name()] = parent.values()[i].state()
-		// 	}
-		// 	console.log(nameValue);
+			parent.values.removeAll();
 
+			$.each(self.widgetContent(), function (index, item) {
+				var state = nameValue[self.widgetContent()[index].facet]
+				// console.log(state);
+				parent.values.push({
+					"id": ko.observable(countIndex++),
+					"name": ko.observable(self.widgetContent()[index].facet),
+					"state": ko.observable(state),
+					"count": ko.observable(self.widgetContent()[index].count)
+				});
+			});
+		}
 
-		// // 	// console.log(parent.values()[3].name())
-		// // 	// console.log(parent.values()[3].state())
-		// // 	// console.log(parent.values()[4].name())
-		// // 	// console.log(parent.values()[4].state())
-		// // 	parent.values.removeAll();
-		// // 	// console.log(parent.values()[3].state())
-		// // 	// console.log(parent.values()[6].state())
-		// // 	// console.log(parent.values()[7].state())
-		// // 	// console.log(parent.values()[8].state())
-
-		// 	$.each(self.widgetContent(), function (index, item) {
-		// 		var state = nameValue[self.widgetContent()[index].facet]
-		// 		console.log(state);
-		// 		parent.values.push({
-		// 			"id": ko.observable(countIndex++),
-		// 			"name": ko.observable(self.widgetContent()[index].facet),
-		// 			"state": ko.observable(state),
-		// 			"count": ko.observable(self.widgetContent()[index].count)
-		// 		});
-		// 	});
-		// }
-
-		
-
-		console.log(parent.values().length)
 		parent.values.sortByPropertyCat('id');
 		self.updating(false);
-
-		// console.log(configuration.widgetsLeft[0].values[4].state)
-		// updateSolrFilter();
 	}
 
 	self.findMatchWidget = function (idwidget, type, item) {
@@ -631,9 +621,9 @@ function InitViewModel() {
 			"id": ko.observable(id),
 			"title": ko.observable(title),
 			"type": ko.observable("sgvizler"),
-			"query": self.sgvizlerQuery(),
+			"query": self.sgvizlerQuery,
 			"collapsed": ko.observable(false),
-			"value": self.sgvizlerGraphType()
+			"value": self.sgvizlerGraphType
 		});
 
 		var stringid = id.toString();
@@ -1236,12 +1226,12 @@ function InitViewModel() {
 
 	/** Openning wizards related */
 	self.openNewWidgetManagerMethod = function () {
-
 		initIsotopeAndWizards();
 		self.openNewWidgetManager(true);
 	};
 
 	self.openSgvizlerManagerMethod = function () {
+		initIsotopeAndWizards();
 		self.openNewWidgetManager(false);
 		self.openSgvizlerManager(true);
 	};
@@ -1803,6 +1793,7 @@ function InitViewModel() {
 			loaded_configuration = JSON.parse(data['search.config.' + coreSelected]);
 			//var configuration = $.extend({}, loaded_configuration, configuration); 
 			configuration = loaded_configuration;
+			console.log(configuration)
 
 			// templateWidgetsLeft = [];
 			// templateWidgetsRight = [];
@@ -1881,13 +1872,13 @@ function InitViewModel() {
 
 			init();
 
-			for (var i = 0; i < configuration.widgetsLeft.length; i++) {
-				if (configuration.widgetsLeft[i].type == 'tagcloud') {
-					for (var j = 0; j < configuration.widgetsLeft[i].values.length; j++) {
-						vm.activeWidgetsLeft()[i].values()[j].state(configuration.widgetsLeft[i].values[j].state)
-					}
-				}
-			}
+			// for (var i = 0; i < configuration.widgetsLeft.length; i++) {
+			// 	if (configuration.widgetsLeft[i].type == 'tagcloud') {
+			// 		for (var j = 0; j < configuration.widgetsLeft[i].values.length; j++) {
+			// 			vm.activeWidgetsLeft()[i].values()[j].state(configuration.widgetsLeft[i].values[j].state)
+			// 		}
+			// 	}
+			// }
 			updateSolrFilter();
 
 		}).error(function () {
@@ -1973,14 +1964,19 @@ function InitViewModel() {
 		self.numberOfActiveFilters = ko.computed(function (numbers) {
 			var activeFiltersCount = 0;
 
-			console.log('entrooooooo')
+			console.log(self.activeWidgets())
 
 			ko.utils.arrayFilter(self.activeWidgets(), function (item1) {
 				if (item1.type() == "tagcloud") {
 					ko.utils.arrayFilter(item1.values(), function (item2) {
-						if (item2.state() == true) {
-							activeFiltersCount++;
+						if (item2.hasOwnProperty('state')) {
+							if (item2.state() == true) {
+								activeFiltersCount++;
+							}
+						} else {
+							item2.state = ko.observable(false);
 						}
+						
 					});
 				}
 			});
@@ -1998,8 +1994,12 @@ function InitViewModel() {
 			ko.utils.arrayFilter(self.activeWidgets(), function (item1) {
 				if (item1.type() == "tagcloud") {
 					ko.utils.arrayFilter(item1.values(), function (item2) {
-						if (item2.state() == true) {
-							activeFiltersCount++;
+						if (item2.hasOwnProperty('state')) {
+							if (item2.state() == true) {
+								activeFiltersCount++;
+							}
+						} else {
+							item2.state = ko.observable(false);
 						}
 					});
 				}
@@ -2154,8 +2154,6 @@ function InitViewModel() {
 
 		}
 
-		// Load static graphs
-		self.loadSgvizler();
 
 	};
 
