@@ -8,7 +8,7 @@ Sefarad is an application developed to explore data by making SPARQL queries to 
 ##Getting Started 
 If you want to easy try Sefarad, just download this repository (cloning it to your computer or downloading it as a .zip) and open in your web browser the file `demo.html` located in the `build /` folder. 
 
-We provide you everything you need to take your first steps in Sefarad through our [European Universities Demo](http://demos.gsi.dit.upm.es/sefarad/index.html#/sparql/universitiesDemo). Visit the [Case Study](https://www.youtube.com/watch?v=NJ8i2kpGGxs) video to learn more about the demo and the possibilities you have. Summarizing, we have make a SPARQL query for European Universities to [DBpedia](http://dbpedia.org/About) (We have set a limit of 50 results for improved performance). Furthermore, we have include some widgets that allows you to filter those universities by country/city, shows them into a map and show the total number of filtered universities.
+We provide you everything you need to take your first steps in Sefarad through our [European Universities Demo](http://demos.gsi.dit.upm.es/sefarad/index.html#/sparql/universitiesDemo). Visit the [Case Study](https://www.youtube.com/watch?v=NJ8i2kpGGxs) video to learn more about the demo and the possibilities you have. Summarizing, we have made a SPARQL query for European Universities to [DBpedia](http://dbpedia.org/About) (We have set a limit of 50 results for improved performance). Furthermore, we have include some widgets that allows you to filter those universities by country or city, shows them into a map and show the total number of filtered results.
 
 Of course you may add the widgets you want just clicking _Add widget_ button. 
 
@@ -46,7 +46,7 @@ or
 ```shell
 grunt default
 ```
-That will generate all you need into `build/` folder. All you need is to run `index.html`.
+That will generate all you need into `build/` folder. Just open `index.html` into your web browser.
 
 **_Universities Demo_**
 
@@ -64,10 +64,38 @@ In order to make your own modifications, there are two files that are specially 
 Sefarad is developed as a _single page web application_. This file contains all the information about everything you could see in Sefarad. Each part of the html is set visible or invisible depending on the variable _page()_ (managed by the controller within _mvvm.js_). 
 
 ####mvvm.js
-
+This is the main JavaScript file in our project. In contais all the js functions needed and define a ViewModel variable `vm.js` based on the Model-View-ViewModel (MVVM) pattern provided by [knockout.js](http://knockoutjs.com/). 
 
 ###Widgets
-You will find all the available widgets into `src/js/widgets`. If you want to add your own widgets you should use the `D3.js` library (Drive-Data Documents), and situate it into `src/js/widgets/d3` folder, in which our _include-widgets- grunt task will search all t
+You will find all the available widgets into `src/js/widgets`. If you want to add your own widgets you should use the `D3.js` library (Drive-Data Documents), and situate it into `src/js/widgets/d3` folder, in which our _include-widgets- grunt task will search and include the widgets. 
+
+If you want to implement your own widget, you must follow the next structure.
+
+> We are using D3.js library. 
+
+```js
+name: "Widget's name",
+description: "The description of the widget.",
+img: "path/to/image.png",
+type: "Unique type",
+cat: "Category",
+
+render: function () {
+    var id = 'A' + Math.floor(Math.random() * 10001);
+    var field = "";
+    vm.activeWidgetsRight.push({"id": ko.observable(id),
+                 "title": ko.observable(objectName.name), 
+                  "type": ko.observable(objectName.type), 
+                 "field": ko.observable(field),
+                 "collapsed": ko.observable(false)});
+
+    objectName.paint(id);
+},
+
+paint: function (id) {
+
+}
+```
 
 
 For more information, visit the [Project Wiki](https://github.com/gsi-upm/Sefarad/wiki) or contact us through: http://gsi.dit.upm.es
