@@ -97,10 +97,8 @@ var stockWidget = {
 				// console.log(fecha)
 				data[i].date = fecha
 				if (sentimentValue[fecha] == undefined) {
-					console.log('undefined')
 					data[i].sentiment = 0
 				} else {
-					console.log('defined')
 					data[i].sentiment = sentimentValue[fecha]
 				}
 			}

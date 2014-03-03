@@ -1607,11 +1607,12 @@ function InitViewModel() {
 				});
 
 				this.get('#/main', function (context) {
-					console.log("ERROR EN RUTA");
+					window.location.href = 'file:///home/mtorresl/Dropbox/FTT/grunt2/Sefarad/build/index.html#/main/ftt';
+					// console.log("ERROR EN RUTA");
 
-					setupMethod();
-					self.page(3);
-					errorinroute = true;
+					// setupMethod();
+					// self.page(3);
+					// errorinroute = true;
 				});
 
 				this.get('#/main/:coreId/admin', function () {
@@ -2047,9 +2048,7 @@ function InitViewModel() {
 
 		self.numberOfActiveFilters = ko.computed(function (numbers) {
 			var activeFiltersCount = 0;
-
-			console.log(self.activeWidgets())
-
+			
 			ko.utils.arrayFilter(self.activeWidgets(), function (item1) {
 				if (item1.type() == "tagcloud") {
 					ko.utils.arrayFilter(item1.values(), function (item2) {
