@@ -25,14 +25,14 @@ var widgetMap = {
 		var div = d3.select('#' + id);
 		div.attr("align", "center");
 
-		//Elementos a mostrar en el mapa
+		//Elements for showing
 		if(vm.sparql){
 			data = vm.shownSparqlData();
 		}else{
 			data = vm.shownData();
 		}
 
-		//Creamos mapa
+		//Create the map
 		var map_div = div.append("div")
 			.attr("id", "map")
 			.attr("class", "map");
@@ -49,7 +49,7 @@ var widgetMap = {
 
 		var bounds = new google.maps.LatLngBounds();
 
-		//Añadimos markers con las ciudades filtradas
+		//Add markers
 		$.each(data, function (index, item) {
 			if (!vm.sparql()) {
 				var marker = new google.maps.Marker({
@@ -58,7 +58,7 @@ var widgetMap = {
 					map: map,
 				});
 
-				//Ventana de info cuando clicamos el marker
+				//Info windows marker clicked
 				var contentString = '<div id="content">' + item.pais().toString() + '</div>';
 			} else {
 					var marker = new google.maps.Marker({
@@ -67,7 +67,7 @@ var widgetMap = {
 					map: map,
 				});
 
-				//Ventana de info cuando clicamos el marker
+				//Info windows marker clicked
 				var contentString = '<div id="content">' + item.country.value().toString() + '</div>';
 			}
 
@@ -79,7 +79,7 @@ var widgetMap = {
 				infowindow.open(map, marker);
 			});
 
-			//Añadimos a bound para re-centrar todos los marcadores
+			//Center markers
 			bounds.extend(marker.position);
 
 		});

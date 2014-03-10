@@ -31,19 +31,19 @@
                         layout: 'horizontal',
                         showWidgetConfiguration: false
                     });
-                    templateWidgetsLeft.push({
-                        id: 1,
-                        title: 'Cities',
-                        type: 'tagcloud',
-                        field: 'city',
-                        collapsed: false,
-                        query: '',
-                        value: [],
-                        values: [],
-                        limits: '',
-                        layout: 'horizontal',
-                        showWidgetConfiguration: false
-                    });
+                    // templateWidgetsLeft.push({
+                    //     id: 1,
+                    //     title: 'Cities',
+                    //     type: 'tagcloud',
+                    //     field: 'city',
+                    //     collapsed: false,
+                    //     query: '',
+                    //     value: [],
+                    //     values: [],
+                    //     limits: '',
+                    //     layout: 'horizontal',
+                    //     showWidgetConfiguration: false
+                    // });
                     configuration.autocomplete.field = "university";
                     self.securityEnabled(false);
                     self.adminMode(true);

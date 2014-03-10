@@ -19,14 +19,41 @@ var widgetDonuts = {
 			var field = widgetDonuts.field || "";
 			vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetDonuts.name), "type": ko.observable(widgetDonuts.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
 			
-			widgetDonuts.paint(id);		},
+			widgetDonuts.paint(id);
+		},
 
 		paint: function (id) {			
 			
 			d3.select('#'+id).selectAll('svg').remove();
 			var div = d3.select('#'+id);
-			div.attr("align", "center");
+			div.attr("align", "center");	
 
+			// Create configuration section
+			$('#'+id).append("<div></div>");
+			$('#' + id + ' > div').addClass('widget-configuration');
+
+			valorSeleccionado = stockWidget.options[id];
+
+			for (i=0; i<vm.dataColumns.length; i++) {
+				$('#' + id + ' > div').append('<input type="radio" name="group' + id + '" value="' + vm.dataColumns()[2] + '">' + vm.dataColumns()[2] + '</input>');
+			}
+
+			$('input:radio').on('change', function(){
+				valorSeleccionado = $('input:radio[name=group' + id + ']:checked').val();
+				stockWidget.options[id] = valorSeleccionado;
+				stockWidget.paint(id)
+			});
+
+			if (stockWidget.options[id] != undefined) {
+				$('#'+id).append('<div id="tooltip">' + stockWidget.options[id].toUpperCase() + '</div>');
+				$('input[name="group' + id + '"][value="' + stockWidget.options[id] + '"]').prop('checked', true);
+			} else {
+				$('#'+id).append('<div id="tooltip"></div>');
+				$("#" + id + " > #tooltip").append("Not options selected");
+				return;
+			}
+
+			//Create donuts
 			var data = new Array();
 			
 			$.each(vm.filteredData(), function(index, item) {
