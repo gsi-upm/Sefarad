@@ -49,7 +49,8 @@ module.exports = function(grunt) {
 
 
   // Tasks. 
-  grunt.registerTask('default', ['clean:build','processhtml:templates','include-widgets','copy:main']);
+  grunt.registerTask('default', ['clean:build','processhtml:templates','include-all-widgets','copy:main']);
   grunt.registerTask('demo', ['default','processhtml:universitiesDemo','copy:universitiesDemo']);
+  grunt.registerTask('php', ['clean:build','processhtml:templates','include-widgets','copy:main']);
 
 };  
