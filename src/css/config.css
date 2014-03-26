@@ -195,12 +195,6 @@ font-weight:700;
 padding:6px 11px;
 }
 
-.grid .topic:hover .icon-more,.grid .topic:hover ul,.grid .topic a:focus .icon-more,.grid .topic a:focus ul {
--ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-filter:alpha(opacity=0);
-opacity:0;
-visibility:hidden;
-}
 
 .grid .topic:hover .icon-topic,.grid .topic a:focus .icon-topic {
 margin-top:-10px;

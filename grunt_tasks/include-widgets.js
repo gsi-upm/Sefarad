@@ -16,7 +16,7 @@ module.exports = function (grunt) {
 		var finalString = '';
 
 		var updateHTML = function () {
-			grunt.log.writeln('Writing sefarad');
+			grunt.log.writeln('Writing index.html');
 
 			var data = grunt.file.read(sourceFile);
 

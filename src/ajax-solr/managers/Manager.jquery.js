@@ -21,6 +21,7 @@ AjaxSolr.Manager = AjaxSolr.AbstractManager.extend(
     else {
 
 	if(vm.sparql()){
+        console.log('SPARQL REQUEST');
 	      jQuery.getJSON(vm.solr_baseURL() + servlet + '?' + string + '&rows=300&wt=json&json.wrf=?', {}, handler);
 	}else{
 	      jQuery.getJSON(vm.solr_baseURL() + servlet + '?' + string + '&wt=json&json.wrf=?', {}, handler);

@@ -4,7 +4,7 @@
 </head>
 <body>
  <?php
-	$fp = fopen ( 'js/widgets/widgets.txt', 'w' );
+	$fp = fopen ('js/widgets/widgets.txt', 'w' );
 
 	if(!empty($_POST['widget'])) {
 		foreach($_POST['widget'] as $widget) {
@@ -20,7 +20,10 @@
 	$salida = shell_exec('grunt php');
 
 	echo "<pre>$salida</pre>";
-	
-	?>
+
+	header('Location: sefarad.html');
+
+	exit;	
+ ?>
  </body>
-</html>
+</html>	

@@ -6,7 +6,7 @@
 		<title>SEFARAD</title>
 		<!-- global stylesheets -->		
 		<link rel="stylesheet" href="css/main.css" type="text/css">
-		<link rel="stylesheet" href="css/promo.css" type="text/css">
+		<link rel="stylesheet" href="css/config.css" type="text/css">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script src="js/ext/knockout-2.1.0.js"></script>
 		<!-- sefarad -->
@@ -30,7 +30,32 @@
 		<div class="promo">
 			<ul class="grid">
 				<li class="topic topic-search">
-					<a href="index.html#/sparql/universitiesDemo">
+
+					<h2 data-bind="text: lang().demo1a"></h2>
+						<ul>
+							<form action="sefaradConf.php" method="post">
+
+								<?php
+							 
+								if ($gestor = opendir('js/widgets/d3')) {
+								    	 
+								    /* Esta es la forma correcta de iterar sobre el directorio. */
+								    while (false !== ($entrada = readdir($gestor))) {
+								    	$w = substr($entrada, 0, (strlen($entrada)-3));
+								    	echo ('<input type="checkbox" name="widget[]" value="' . $w . '"> ' . $w . '<br>');	        
+								    }
+								 
+								    closedir($gestor);
+								}
+
+								?>
+
+								<input type="submit" value="Enviar" />
+							</form>
+						</ul>
+
+					
+					<!-- <a href="index.html#/sparql/universitiesDemo">
 						<span class="icon-topic">&nbsp;</span>
 						<h2 data-bind="text: lang().demo1a"></h2>
 						<ul>
@@ -44,7 +69,7 @@
 							</li>
 						</ul>
 						<span class="btn-view-all maia-button maia-button-secondary" data-bind="text: lang().demo1f"></span>
-					</a>
+					</a> -->
 				</li>
 				<li class="topic topic-search">
 					<!-- <a href="index.html">

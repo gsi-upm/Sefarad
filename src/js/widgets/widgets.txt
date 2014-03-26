@@ -1,1 +1,1 @@
-widgetDonuts,widgetWheel,widgetMap,widgetSortBar,stockWidget,widgetBarras,widgetD3,
+stockWidget,widgetSortBar,widgetD3,widgetWheel,widgetDonuts,widgetBarras,widgetMap,,
