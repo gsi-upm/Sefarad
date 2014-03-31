@@ -20,7 +20,7 @@ module.exports = function(grunt) {
       main: {
         expand: true,
         cwd: 'src/',
-        src: ['ajax-solr/**','css/**','img/**','js/**','!sefarad.html'],
+        src: ['ajax-solr/**','css/**','img/**','js/**','php/**','sefarad.html'],
         dest: 'build/',
       },
       universitiesDemo: {
@@ -51,6 +51,6 @@ module.exports = function(grunt) {
   // Tasks. 
   grunt.registerTask('default', ['clean:build','processhtml:templates','include-all-widgets','copy:main']);
   grunt.registerTask('demo', ['default','processhtml:universitiesDemo','copy:universitiesDemo']);
-  grunt.registerTask('php', ['clean:build','processhtml:templates','include-widgets','copy:main']);
+  grunt.registerTask('php', ['include-php-widgets']);
 
 };  

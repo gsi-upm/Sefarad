@@ -5,13 +5,13 @@
 		<meta charset="utf-8" />
 		<title>SEFARAD</title>
 		<!-- global stylesheets -->		
-		<link rel="stylesheet" href="css/main.css" type="text/css">
-		<link rel="stylesheet" href="css/promo.css" type="text/css">
+		<link rel="stylesheet" href="../css/main.css" type="text/css">
+		<link rel="stylesheet" href="../css/config.css" type="text/css">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-		<script src="js/ext/knockout-2.1.0.js"></script>
+		<script src="../js/ext/knockout-2.1.0.js"></script>
 		<!-- sefarad -->
-		<script type="text/javascript" charset="UTF-8" src="js/lang.js"></script>
-		<script type="text/javascript" charset="UTF-8" src="js/default_configuration.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="../js/lang.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="../js/default_configuration.js"></script>
 		<!-- on load -->
 		<script type="text/javascript" charset="UTF-8">
 			$(document).ready(function() {
@@ -23,14 +23,41 @@
 	<body>
 		<div class="page-header">
 			<div id="logotext">
-				<img height="100" width="552" src="img/Logo5.png"/>
+				<img height="100" width="552" src="../img/Logo5.png"/>
 			</div>
 			<h1 data-bind="text: lang().promoheader"></h1>
 		</div>
 		<div class="promo">
 			<ul class="grid">
 				<li class="topic topic-search">
-					<a href="index.html#/sparql/universitiesDemo">
+
+					<h2 data-bind="text: lang().demo1a"></h2>
+						<ul>
+							<form action="sefaradConf.php" method="post">
+
+								<?php
+							 
+								if ($gestor = opendir('../js/widgets/d3')) {
+								    	 
+								    /* Esta es la forma correcta de iterar sobre el directorio. */
+								    while (false !== ($entrada = readdir($gestor))) {
+								    	if ((strlen($entrada)) > 2){
+								    		$w = substr($entrada, 0, (strlen($entrada)-3));
+								    		echo ('<input type="checkbox" name="widget[]" value="' . $w . '"> ' . $w . '<br>');
+								    	}        
+								    }
+								 
+								    closedir($gestor);
+								}
+
+								?>
+
+								<input type="submit" value="Enviar" />
+							</form>
+						</ul>
+
+					
+					<!-- <a href="index.html#/sparql/universitiesDemo">
 						<span class="icon-topic">&nbsp;</span>
 						<h2 data-bind="text: lang().demo1a"></h2>
 						<ul>
@@ -44,10 +71,10 @@
 							</li>
 						</ul>
 						<span class="btn-view-all maia-button maia-button-secondary" data-bind="text: lang().demo1f"></span>
-					</a>
+					</a> -->
 				</li>
 				<li class="topic topic-search">
-					<a href="php/sefarad.php">
+					<!-- <a href="index.html">
 						<span class="icon-topic">&nbsp;</span>
 						<h2 data-bind="text: lang().demo3a">
 						</h2>
@@ -63,7 +90,7 @@
 							</li>
 						</ul>
 						<span class="btn-view-all maia-button maia-button-secondary" data-bind="text: lang().demo3f"></span>
-					</a>
+					</a> -->
 				</li>
 				<li class="topic topic-search">
 					<a href="https://github.com/gsi-upm/Sefarad/wiki">
