@@ -48,6 +48,7 @@
 	            	// echo ('<p>FILE: '.$filename.'</p>');
 	            	// echo ('<p>EXT: ' . $extension . '</p>');
 
+	            	// widgets/d3 select only checked widgets
 	            	if((strcmp($dirname,'d3')==0) and !(in_array($filename, $_POST['widget']))){
 	            		echo ('<p>'. $filename . ' ESTA SELECCIONADO</p>');
 	            		continue;
