@@ -16,7 +16,7 @@ var widgetD3 = {
 		// Widget description.
 		description: "Representa el campo seleccionado en un gráfico de barras.",
 		// Path to the image of the widget.
-		img: "img/widgetBarrasD3.png",
+		img: "img/widgets/widgetD3.png",
 		// Type of the widget.
 		type: "barchartD3",
 		// [OPTIONAL] data taken from this field.

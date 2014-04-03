@@ -5,7 +5,7 @@ var widgetBarras = {
 	// Widget description.
 	description: "Barras",
 	// Path to the image of the widget.
-	img: "img/widgetBarras.png",
+	img: "img/widgets/widgetBarras.png",
 	// Type of the widget.
 	type: "barrasChart",
 	// [OPTIONAL] data taken from this field.

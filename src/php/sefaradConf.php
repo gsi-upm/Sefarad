@@ -48,11 +48,18 @@
 	            	// echo ('<p>FILE: '.$filename.'</p>');
 	            	// echo ('<p>EXT: ' . $extension . '</p>');
 
-	            	// widgets/d3 select only checked widgets
-	            	if((strcmp($dirname,'d3')==0) and !(in_array($filename, $_POST['widget']))){
-	            		echo ('<p>'. $filename . ' ESTA SELECCIONADO</p>');
-	            		continue;
+	            	// widgets/d3 && img/widgets select only checked widgets
+	            	if((((strcmp($dirname,'d3')==0) or (strcmp($dirname,'widgets')==0))and !(in_array($filename, $_POST['widget']))) 
+	            		or (strcmp(basename($file),'sefarad.html')==0)
+	            		or (strcmp(basename($file),'index.html')==0)){	            		
+	            			continue;
 	            	} 
+
+	            	if(strcmp(basename($file),'index_copia.html')==0){
+						$zip->addFromString('index.html', file_get_contents($file));
+						unlink($file);
+						continue;
+	            	}
 	            	
 	            	$zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
 	            	         
@@ -104,11 +111,11 @@
 	}
 
 	if (file_exists($zipFile)) {
-		unlink($zipFile);
+		unlink($zipFile);		
 	}	
 
 	// Redirigir
-	//header('Location: ../sefarad.html');
+	header('Location: ../index.html');
 
 	exit;	
  ?>

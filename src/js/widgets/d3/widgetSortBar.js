@@ -5,7 +5,7 @@ var widgetSortBar = {
 		// Widget description.
 		description: "Widget de barras ordenadas de mayor a menor",
 		// Path to the image of the widget.
-		img: "img/widgetSortBar.png",
+		img: "img/widgets/widgetSortBar.png",
 		// Type of the widget.
 		type: "widgetSortBar",
 		// [OPTIONAL] data taken from this field.

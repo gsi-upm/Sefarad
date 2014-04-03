@@ -5,7 +5,7 @@ var widgetWheel = {
 	// Widget description.
 	description: "Wheel",
 	// Path to the image of the widget.
-	img: "img/wheel.png",
+	img: "img/widgets/widgetWheel.png",
 	// Type of the widget.
 	type: "wheelChart",
 	// [OPTIONAL] data taken from this field.

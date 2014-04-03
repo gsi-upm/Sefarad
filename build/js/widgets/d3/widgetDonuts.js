@@ -5,7 +5,7 @@ var widgetDonuts = {
 		// Widget description.
 		description: "Widget Donuts",
 		// Path to the image of the widget.
-		img: "img/widgetDonuts.png",
+		img: "img/widgets/widgetDonuts.png",
 		// Type of the widget.
 		type: "widgetDonuts",
 		// [OPTIONAL] data taken from this field.

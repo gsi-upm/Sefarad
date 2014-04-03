@@ -5,7 +5,7 @@ var widgetMap = {
 	// Widget description.
 	description: "Mapa. Muestra los valores 'latitude' y 'longitude'",
 	// Path to the image of the widget.
-	img: "img/map_widget.png",
+	img: "img/widgets/widgetMap.png",
 	// Type of the widget.
 	type: "widgetMap",
 	// Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)

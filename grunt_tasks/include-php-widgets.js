@@ -8,7 +8,7 @@ module.exports = function (grunt) {
 
 		var widgetsFile = 'build/php/widgets.txt';
 		var sourceFile = 'build/sefarad.html';
-		var destinationFile = 'build/index.html';
+		var destinationFile = 'build/index_copia.html';
 
 		// Update widgets to the html file.
 		var string1 = '';

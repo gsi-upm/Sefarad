@@ -5,7 +5,7 @@ var stockWidget = {
 		// Widget description.
 		description: "Stock visualizer",
 		// Path to the image of the widget.
-		img: "img/stockwidget.png",
+		img: "img/widgets/stockWidget.png",
 		// Type of the widget.
 		type: "stockWidget",
 		// [OPTIONAL] data taken from this field.

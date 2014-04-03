@@ -1,1 +1,0 @@
-stockWidget,widgetSortBar,widgetD3,widgetWheel,widgetDonuts,widgetBarras,widgetMap,,
