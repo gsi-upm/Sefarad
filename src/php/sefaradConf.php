@@ -44,9 +44,6 @@
 	            	$dirname = basename(dirname($file));
 	            	$extension = pathinfo($file, PATHINFO_EXTENSION);
 	            	$filename = basename($file, '.'.$extension);
-	            	// echo ('<p>DIR: ' . $dirname . '</p>');
-	            	// echo ('<p>FILE: '.$filename.'</p>');
-	            	// echo ('<p>EXT: ' . $extension . '</p>');
 
 	            	// widgets/d3 && img/widgets select only checked widgets
 	            	if((((strcmp($dirname,'d3')==0) or (strcmp($dirname,'widgets')==0))and !(in_array($filename, $_POST['widget']))) 
@@ -74,13 +71,13 @@
 	    return $zip->close();
 	}
 
-	// Read widgets.txt file and update/delete necessary files
+	// Write widgets.txt file and update/delete necessary files
 	$fp = fopen ('widgets.txt', 'w' );
 
 	if(!empty($_POST['widget'])) {
 		foreach($_POST['widget'] as $widget) {
 			//echo ('<p>' . $widget . ' checked</p>');
-			fwrite ( $fp, $widget . "," );
+			fwrite ( $fp, $widget . ".js," );
 		}
 	} else {
 		echo '<p>Nothing Checked</p>';

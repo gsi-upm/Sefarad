@@ -10,6 +10,11 @@ module.exports = function(grunt) {
           'build/index.html': ['src/sefarad.html']
         }
       },
+      php_widgets: {
+        files: {
+          'build/sefarad.html': ['src/sefarad.html']
+        }
+      },
       universitiesDemo: {
         files: {
           'build/js/mvvm.js': ['src/js/mvvm.js']
@@ -50,7 +55,7 @@ module.exports = function(grunt) {
 
   // Tasks. 
   grunt.registerTask('default', ['clean:build','processhtml:templates','include-all-widgets','copy:main']);
-  grunt.registerTask('demo', ['default','processhtml:universitiesDemo','copy:universitiesDemo']);
+  grunt.registerTask('demo', ['default','processhtml:universitiesDemo','processhtml:php_widgets', 'copy:universitiesDemo']);
   grunt.registerTask('php', ['include-php-widgets']);
 
 };  

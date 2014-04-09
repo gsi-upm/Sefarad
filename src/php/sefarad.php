@@ -55,7 +55,6 @@
 								<input type="submit" value="Enviar" />
 							</form>
 						</ul>
-
 					
 					<!-- <a href="index.html#/sparql/universitiesDemo">
 						<span class="icon-topic">&nbsp;</span>
