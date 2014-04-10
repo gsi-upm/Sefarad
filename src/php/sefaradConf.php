@@ -57,6 +57,10 @@
 						unlink($file);
 						continue;
 	            	}
+
+	            	if(strcmp(basename($file),'demo.html')==0){
+						continue;
+	            	}
 	            	
 	            	$zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
 	            	         

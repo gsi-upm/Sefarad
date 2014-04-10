@@ -31,7 +31,7 @@
 			<ul class="grid">
 				<li class="topic topic-search">
 
-					<h2 data-bind="text: lang().demo1a"></h2>
+					<h2 >Select your widgets</h2>
 						<ul>
 							<form action="sefaradConf.php" method="post">
 
@@ -43,7 +43,7 @@
 								    while (false !== ($entrada = readdir($gestor))) {
 								    	if ((strlen($entrada)) > 2){
 								    		$w = substr($entrada, 0, (strlen($entrada)-3));
-								    		echo ('<input type="checkbox" name="widget[]" value="' . $w . '"> ' . $w . '<br>');
+								    		echo ('<input type="checkbox" name="widget[]" value="' . $w . '"> ' . ucfirst($w) . '<br>');
 								    	}        
 								    }
 								 
@@ -51,8 +51,8 @@
 								}
 
 								?>
-
-								<input type="submit" value="Enviar" />
+							</br>
+								<input type="submit" value="Download" />
 							</form>
 						</ul>
 					
@@ -92,7 +92,7 @@
 					</a> -->
 				</li>
 				<li class="topic topic-search">
-					<a href="https://github.com/gsi-upm/Sefarad/wiki">
+					<!-- <a href="https://github.com/gsi-upm/Sefarad/wiki">
 						<span class="icon-topic">&nbsp;</span>
 						<h2 data-bind="text: lang().demo2a">
 						</h2>
@@ -103,7 +103,7 @@
 							</li>
 						</ul>
 						<span class="btn-view-all maia-button maia-button-secondary" data-bind="text: lang().demo2e"></span>
-					</a>
+					</a> -->
 				</li>
 			</ul>
 		</div>
