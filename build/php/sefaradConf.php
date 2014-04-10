@@ -58,9 +58,9 @@
 						continue;
 	            	}
 
-	            	if(strcmp(basename($file),'demo.html')==0){
-						continue;
-	            	}
+	     //        	if(strcmp(basename($file),'demo.html')==0){
+						// continue;
+	     //        	}
 	            	
 	            	$zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
 	            	         
@@ -73,6 +73,48 @@
 	    }
 
 	    return $zip->close();
+	}
+
+	function includeWidgets($widgetsFile, $sourceFile, $destinationFile)
+	{
+
+		// Update widgets to the html file.
+		$string1 = "";
+		$string2 = "\t\t<script type=\"text/javascript\">\n\t\t\tvar widgetX = [";
+		$finalString = "";
+
+		//$wf = fopen ($widgetsFile, 'r' );
+
+		$data = file_get_contents($widgetsFile);
+
+		$widgets = split(",",$data);
+
+		foreach($widgets as $item){
+			if(!strcmp(basename($item),'')==0){
+				$string1 = $string1 . "\t\t<script type=\"text/javascript\" src=\"js/widgets/d3/" . $item . "\"></script>\n";
+				$string2 = $string2 . $item . ', ';
+			}			
+		};	
+
+		$string2 = substr($string2, 0, (strlen($string2) - 2));
+		$string2 = $string2 . "];\n\t\t</script>\n\t";
+
+		//fclose ( $wf );	
+
+		$data = file_get_contents($sourceFile);
+
+		$headPosition = (strrpos($data, ('<head>')) + strlen('<head>') + 1);
+
+		$finalString = substr($data, 0, $headPosition);			
+		$finalString = $finalString . $string1;
+		$finalString = $finalString . $string2;
+		$finalString = $finalString . substr($data, $headPosition + 1, strlen($data));
+
+		$index = fopen ($destinationFile, 'w' );
+
+		fwrite($index, $finalString);	
+
+		fclose($index);
 	}
 
 	// Write widgets.txt file and update/delete necessary files
@@ -89,9 +131,8 @@
 	
 	fclose ( $fp );
 
-	$salida = shell_exec('grunt php');
-
-	// echo "<pre>$salida</pre>";
+	// $salida = shell_exec('grunt php');
+	includeWidgets('widgets.txt','../sefarad.html','../index_copia.html');
 
 	// Create the zip file and force download
 	$zipFile = 'sefarad.zip';
@@ -116,7 +157,7 @@
 	}	
 
 	// Redirigir
-	header('Location: ../index.html');
+	//header('Location: ../index.html');
 
 	exit;	
  ?>
