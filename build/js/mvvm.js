@@ -95,6 +95,7 @@ function InitViewModel() {
 	self.sortBy = ko.observable();
 	self.dbpedia = ko.observable(false);
 	self.sparql = ko.observable(false);
+	self.mongodb = ko.observable(true);
 
 	/** All data */
 	self.testData = [];
@@ -1869,118 +1870,228 @@ function InitViewModel() {
 
 	/** Load configuration for a given core */
 	function loadConfiguration() {
-		console.info("Estoy en loadConfiguration");
-		var loaded_configuration = "";
-		var default_configuration = configuration;
+	    console.info("Estoy en loadConfiguration");
+	    var loaded_configuration = "";
+	    var default_configuration = configuration;
 
-		$.getJSON(self.serverURL() + "config/data/search.config." + coreSelected, function (data) {
+	    if (self.mongodb()) {
 
-			loaded_configuration = JSON.parse(data['search.config.' + coreSelected]);
-			//var configuration = $.extend({}, loaded_configuration, configuration); 
-			configuration = loaded_configuration;
-			console.log(configuration)
+	        $.ajax({
+	            type: 'get',
+	            url: '/php/mongo_load.php',
+	            dataType: "json",
+	            success: function (data) {
+	                console.log(data);
 
-			// templateWidgetsLeft = [];
-			// templateWidgetsRight = [];
-			// templateWidgetsLeftTab1 = [];
-			// templateWidgetsRightTab1 = [];
+	                loaded_configuration = data;
+	                configuration = loaded_configuration;
 
-			for (var i = 0; configuration.widgetsLeft.length > i; i++) {
+	                // templateWidgetsLeft = [];
+	                // templateWidgetsRight = [];
+	                // templateWidgetsLeftTab1 = [];
+	                // templateWidgetsRightTab1 = [];
 
-				templateWidgetsLeft.push({
-					id: configuration.widgetsLeft[i].id,
-					title: configuration.widgetsLeft[i].title,
-					type: configuration.widgetsLeft[i].type,
-					field: configuration.widgetsLeft[i].field,
-					collapsed: configuration.widgetsLeft[i].collapsed,
-					query: configuration.widgetsLeft[i].query,
-					value: configuration.widgetsLeft[i].value,
-					values: configuration.widgetsLeft[i].values,
-					limits: configuration.widgetsLeft[i].limits,
-					layout: configuration.widgetsLeft[i].layout,
-					currentTweets: configuration.widgetsLeft[i].currentTweets,
-					showWidgetConfiguration: configuration.widgetsLeft[i].showWidgetConfiguration
-				});
-			}
+	                for (var i = 0; configuration.widgetsLeft.length > i; i++) {
 
-			for (var i = 0; configuration.widgetsRight.length > i; i++) {
+	                    templateWidgetsLeft.push({
+	                        id: configuration.widgetsLeft[i].id,
+	                        title: configuration.widgetsLeft[i].title,
+	                        type: configuration.widgetsLeft[i].type,
+	                        field: configuration.widgetsLeft[i].field,
+	                        collapsed: configuration.widgetsLeft[i].collapsed,
+	                        query: configuration.widgetsLeft[i].query,
+	                        value: configuration.widgetsLeft[i].value,
+	                        values: configuration.widgetsLeft[i].values,
+	                        limits: configuration.widgetsLeft[i].limits,
+	                        layout: configuration.widgetsLeft[i].layout,
+	                        currentTweets: configuration.widgetsLeft[i].currentTweets,
+	                        showWidgetConfiguration: configuration.widgetsLeft[i].showWidgetConfiguration
+	                    });
+	                }
 
-				templateWidgetsRight.push({
-					id: configuration.widgetsRight[i].id,
-					title: configuration.widgetsRight[i].title,
-					type: configuration.widgetsRight[i].type,
-					field: configuration.widgetsRight[i].field,
-					collapsed: configuration.widgetsRight[i].collapsed,
-					query: configuration.widgetsRight[i].query,
-					value: configuration.widgetsRight[i].value,
-					values: configuration.widgetsRight[i].values,
-					limits: configuration.widgetsRight[i].limits,
-					layout: configuration.widgetsRight[i].layout,
-					currentTweets: configuration.widgetsRight[i].currentTweets,
-					showWidgetConfiguration: configuration.widgetsRight[i].showWidgetConfiguration
-				});
-			}
+	                for (var i = 0; configuration.widgetsRight.length > i; i++) {
 
-			for (var i = 0; configuration.widgetsLeftTab1.length > i; i++) {
-				templateWidgetsLeftTab1.push({
-					id: configuration.widgetsLeftTab1[i].id,
-					title: configuration.widgetsLeftTab1[i].title,
-					type: configuration.widgetsLeftTab1[i].type,
-					field: configuration.widgetsLeftTab1[i].field,
-					collapsed: configuration.widgetsLeftTab1[i].collapsed,
-					query: configuration.widgetsLeftTab1[i].query,
-					value: configuration.widgetsLeftTab1[i].value,
-					values: configuration.widgetsLeftTab1[i].values,
-					limits: configuration.widgetsLeftTab1[i].limits,
-					layout: configuration.widgetsLeftTab1[i].layout,
-					currentTweets: configuration.widgetsLeftTab1[i].currentTweets,
-					showWidgetConfiguration: configuration.widgetsLeftTab1[i].showWidgetConfiguration
-				});
-			}
+	                    templateWidgetsRight.push({
+	                        id: configuration.widgetsRight[i].id,
+	                        title: configuration.widgetsRight[i].title,
+	                        type: configuration.widgetsRight[i].type,
+	                        field: configuration.widgetsRight[i].field,
+	                        collapsed: configuration.widgetsRight[i].collapsed,
+	                        query: configuration.widgetsRight[i].query,
+	                        value: configuration.widgetsRight[i].value,
+	                        values: configuration.widgetsRight[i].values,
+	                        limits: configuration.widgetsRight[i].limits,
+	                        layout: configuration.widgetsRight[i].layout,
+	                        currentTweets: configuration.widgetsRight[i].currentTweets,
+	                        showWidgetConfiguration: configuration.widgetsRight[i].showWidgetConfiguration
+	                    });
+	                }
 
-			for (var i = 0; configuration.widgetsRightTab1.length > i; i++) {
-				templateWidgetsRightTab1.push({
-					id: configuration.widgetsRightTab1[i].id,
-					title: configuration.widgetsRightTab1[i].title,
-					type: configuration.widgetsRightTab1[i].type,
-					field: configuration.widgetsRightTab1[i].field,
-					collapsed: configuration.widgetsRightTab1[i].collapsed,
-					query: configuration.widgetsRightTab1[i].query,
-					value: configuration.widgetsRightTab1[i].value,
-					values: configuration.widgetsRightTab1[i].values,
-					limits: configuration.widgetsRightTab1[i].limits,
-					layout: configuration.widgetsRightTab1[i].layout,
-					currentTweets: configuration.widgetsRightTab1[i].currentTweets,
-					showWidgetConfiguration: configuration.widgetsRightTab1[i].showWidgetConfiguration
-				});
-			}
+	                for (var i = 0; configuration.widgetsLeftTab1.length > i; i++) {
+	                    templateWidgetsLeftTab1.push({
+	                        id: configuration.widgetsLeftTab1[i].id,
+	                        title: configuration.widgetsLeftTab1[i].title,
+	                        type: configuration.widgetsLeftTab1[i].type,
+	                        field: configuration.widgetsLeftTab1[i].field,
+	                        collapsed: configuration.widgetsLeftTab1[i].collapsed,
+	                        query: configuration.widgetsLeftTab1[i].query,
+	                        value: configuration.widgetsLeftTab1[i].value,
+	                        values: configuration.widgetsLeftTab1[i].values,
+	                        limits: configuration.widgetsLeftTab1[i].limits,
+	                        layout: configuration.widgetsLeftTab1[i].layout,
+	                        currentTweets: configuration.widgetsLeftTab1[i].currentTweets,
+	                        showWidgetConfiguration: configuration.widgetsLeftTab1[i].showWidgetConfiguration
+	                    });
+	                }
 
-			init();
+	                for (var i = 0; configuration.widgetsRightTab1.length > i; i++) {
+	                    templateWidgetsRightTab1.push({
+	                        id: configuration.widgetsRightTab1[i].id,
+	                        title: configuration.widgetsRightTab1[i].title,
+	                        type: configuration.widgetsRightTab1[i].type,
+	                        field: configuration.widgetsRightTab1[i].field,
+	                        collapsed: configuration.widgetsRightTab1[i].collapsed,
+	                        query: configuration.widgetsRightTab1[i].query,
+	                        value: configuration.widgetsRightTab1[i].value,
+	                        values: configuration.widgetsRightTab1[i].values,
+	                        limits: configuration.widgetsRightTab1[i].limits,
+	                        layout: configuration.widgetsRightTab1[i].layout,
+	                        currentTweets: configuration.widgetsRightTab1[i].currentTweets,
+	                        showWidgetConfiguration: configuration.widgetsRightTab1[i].showWidgetConfiguration
+	                    });
+	                }
 
-			// for (var i = 0; i < configuration.widgetsLeft.length; i++) {
-			// 	if (configuration.widgetsLeft[i].type == 'tagcloud') {
-			// 		for (var j = 0; j < configuration.widgetsLeft[i].values.length; j++) {
-			// 			vm.activeWidgetsLeft()[i].values()[j].state(configuration.widgetsLeft[i].values[j].state)
-			// 		}
-			// 	}
-			// }
-			updateSolrFilter();
+	                init();
 
-		}).error(function () {
-			templateWidgetsRight.push({
-				"id": ko.observable(0),
-				"title": ko.observable("Resultados"),
-				"type": ko.observable("resultswidget"),
-				"collapsed": ko.observable(false),
-				"layout": ko.observable("vertical"),
-				"showWidgetConfiguration": ko.observable(false)
-			});
+	                updateSolrFilter();
 
-			init();
+	            },
 
-		}).complete(function () {
+	            error: function (data) {
+	                templateWidgetsRight.push({
+	                    "id": ko.observable(0),
+	                    "title": ko.observable("Resultados"),
+	                    "type": ko.observable("resultswidget"),
+	                    "collapsed": ko.observable(false),
+	                    "layout": ko.observable("vertical"),
+	                    "showWidgetConfiguration": ko.observable(false)
+	                });
+	            }
+	        });
 
-		});
+	    } else {
+
+	        $.getJSON(self.serverURL() + "config/data/search.config." + coreSelected, function (data) {
+
+	            loaded_configuration = JSON.parse(data['search.config.' + coreSelected]);
+	            //var configuration = $.extend({}, loaded_configuration, configuration); 
+	            configuration = loaded_configuration;
+	            console.log(configuration)
+
+	            // templateWidgetsLeft = [];
+	            // templateWidgetsRight = [];
+	            // templateWidgetsLeftTab1 = [];
+	            // templateWidgetsRightTab1 = [];
+
+	            for (var i = 0; configuration.widgetsLeft.length > i; i++) {
+
+	                templateWidgetsLeft.push({
+	                    id: configuration.widgetsLeft[i].id,
+	                    title: configuration.widgetsLeft[i].title,
+	                    type: configuration.widgetsLeft[i].type,
+	                    field: configuration.widgetsLeft[i].field,
+	                    collapsed: configuration.widgetsLeft[i].collapsed,
+	                    query: configuration.widgetsLeft[i].query,
+	                    value: configuration.widgetsLeft[i].value,
+	                    values: configuration.widgetsLeft[i].values,
+	                    limits: configuration.widgetsLeft[i].limits,
+	                    layout: configuration.widgetsLeft[i].layout,
+	                    currentTweets: configuration.widgetsLeft[i].currentTweets,
+	                    showWidgetConfiguration: configuration.widgetsLeft[i].showWidgetConfiguration
+	                });
+	            }
+
+	            for (var i = 0; configuration.widgetsRight.length > i; i++) {
+
+	                templateWidgetsRight.push({
+	                    id: configuration.widgetsRight[i].id,
+	                    title: configuration.widgetsRight[i].title,
+	                    type: configuration.widgetsRight[i].type,
+	                    field: configuration.widgetsRight[i].field,
+	                    collapsed: configuration.widgetsRight[i].collapsed,
+	                    query: configuration.widgetsRight[i].query,
+	                    value: configuration.widgetsRight[i].value,
+	                    values: configuration.widgetsRight[i].values,
+	                    limits: configuration.widgetsRight[i].limits,
+	                    layout: configuration.widgetsRight[i].layout,
+	                    currentTweets: configuration.widgetsRight[i].currentTweets,
+	                    showWidgetConfiguration: configuration.widgetsRight[i].showWidgetConfiguration
+	                });
+	            }
+
+	            for (var i = 0; configuration.widgetsLeftTab1.length > i; i++) {
+	                templateWidgetsLeftTab1.push({
+	                    id: configuration.widgetsLeftTab1[i].id,
+	                    title: configuration.widgetsLeftTab1[i].title,
+	                    type: configuration.widgetsLeftTab1[i].type,
+	                    field: configuration.widgetsLeftTab1[i].field,
+	                    collapsed: configuration.widgetsLeftTab1[i].collapsed,
+	                    query: configuration.widgetsLeftTab1[i].query,
+	                    value: configuration.widgetsLeftTab1[i].value,
+	                    values: configuration.widgetsLeftTab1[i].values,
+	                    limits: configuration.widgetsLeftTab1[i].limits,
+	                    layout: configuration.widgetsLeftTab1[i].layout,
+	                    currentTweets: configuration.widgetsLeftTab1[i].currentTweets,
+	                    showWidgetConfiguration: configuration.widgetsLeftTab1[i].showWidgetConfiguration
+	                });
+	            }
+
+	            for (var i = 0; configuration.widgetsRightTab1.length > i; i++) {
+	                templateWidgetsRightTab1.push({
+	                    id: configuration.widgetsRightTab1[i].id,
+	                    title: configuration.widgetsRightTab1[i].title,
+	                    type: configuration.widgetsRightTab1[i].type,
+	                    field: configuration.widgetsRightTab1[i].field,
+	                    collapsed: configuration.widgetsRightTab1[i].collapsed,
+	                    query: configuration.widgetsRightTab1[i].query,
+	                    value: configuration.widgetsRightTab1[i].value,
+	                    values: configuration.widgetsRightTab1[i].values,
+	                    limits: configuration.widgetsRightTab1[i].limits,
+	                    layout: configuration.widgetsRightTab1[i].layout,
+	                    currentTweets: configuration.widgetsRightTab1[i].currentTweets,
+	                    showWidgetConfiguration: configuration.widgetsRightTab1[i].showWidgetConfiguration
+	                });
+	            }
+
+	            init();
+
+	            // for (var i = 0; i < configuration.widgetsLeft.length; i++) {
+	            // 	if (configuration.widgetsLeft[i].type == 'tagcloud') {
+	            // 		for (var j = 0; j < configuration.widgetsLeft[i].values.length; j++) {
+	            // 			vm.activeWidgetsLeft()[i].values()[j].state(configuration.widgetsLeft[i].values[j].state)
+	            // 		}
+	            // 	}
+	            // }
+
+	            updateSolrFilter();
+
+	        }).error(function () {
+	            templateWidgetsRight.push({
+	                "id": ko.observable(0),
+	                "title": ko.observable("Resultados"),
+	                "type": ko.observable("resultswidget"),
+	                "collapsed": ko.observable(false),
+	                "layout": ko.observable("vertical"),
+	                "showWidgetConfiguration": ko.observable(false)
+	            });
+
+	            init();
+
+	        }).complete(function () {
+
+	        });
+
+	    }
 
 	};
 
@@ -2295,7 +2406,6 @@ function saveConfiguration(refreshpage, user, pass) {
 
 	configuration.widgetsLeft = ko.toJS(vm.activeWidgetsLeft);
 	configuration.widgetsRight = ko.toJS(vm.activeWidgetsRight);
-
 	configuration.widgetsLeftTab1 = ko.toJS(vm.activeWidgetsLeftTab1);
 	configuration.widgetsRightTab1 = ko.toJS(vm.activeWidgetsRightTab1);
 
@@ -2314,38 +2424,70 @@ function saveConfiguration(refreshpage, user, pass) {
 	// }
 	//////////
 
-	var data = JSON.stringify(configuration).replace(/"/g, "\"").replace(/,/g, "\\,");
-	//alert(JSON.stringify([data]));
+	if(vm.mongodb()){
 
-	$.ajax({
-		type: "POST",
-		url: vm.serverURL() + "config/data/search.config." + coreSelected,
-		data: JSON.stringify([data]),
-		contentType: "application/json; charset=utf-8",
-		dataType: "json",
+	    $.ajax({
+			type: "POST",
+			url: '/php/mongo_save.php',
+			data: configuration,
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			beforeSend: function (xhr) {
+					
+			},
+			success: function (data) {
 
-		beforeSend: function (xhr) {
-				xhr.setRequestHeader('Authorization', make_base_auth(user, pass));
-		},
-		success: function (data) {
+				if (refreshpage) {
+					window.location.reload();
+				} else {
+					$.blockUI.defaults.growlCSS.top = '20px';
+					$.growlUI('¡Configuración guardada!', '');
+				}
 
-			if (refreshpage) {
-				window.location.reload();
-			} else {
-				$.blockUI.defaults.growlCSS.top = '20px';
-				$.growlUI('¡Configuración guardada!', '');
+				console.log(data);
+
+			},
+			error: function () {
+				alert("Error saving configuration");	
 			}
+		});
 
-			// http://jquery.malsup.com/block/#options
-		},
-		error: function () {
-			alert("Error al guardar la configuración");	
-		}
-	});
+
+	}else{
+
+		var data = JSON.stringify(configuration).replace(/"/g, "\"").replace(/,/g, "\\,");
+		//alert(JSON.stringify([data]));
+
+		$.ajax({
+			type: "POST",
+			url: vm.serverURL() + "config/data/search.config." + coreSelected,
+			data: JSON.stringify([data]),
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+
+			beforeSend: function (xhr) {
+					xhr.setRequestHeader('Authorization', make_base_auth(user, pass));
+			},
+			success: function (data) {
+
+				if (refreshpage) {
+					window.location.reload();
+				} else {
+					$.blockUI.defaults.growlCSS.top = '20px';
+					$.growlUI('¡Configuración guardada!', '');
+				}
+
+				// http://jquery.malsup.com/block/#options
+			},
+			error: function () {
+				alert("Error al guardar la configuración");	
+			}
+		});
+	}
 }
 
 /** Update solr query when a tag is clicked (depending on its state) */
-function updateSolrFilter() {
+function updateSolrFilter() {	
 	// Borramos todos los filtros previos
 	Manager.store.remove('fq');
 
