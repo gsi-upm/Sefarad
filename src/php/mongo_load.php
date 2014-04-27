@@ -13,7 +13,7 @@ $collection = $db->configuration;
 $query = array( 'name' => 'saved_configuration' );
 $cursor = $collection->find( $query );
 
-
+// comprobar si hay configuración guardada y, si no, cargar la configuración por defecto
 if (($cursor->count()) > 0) {
 	foreach ($cursor as $doc) {
 	    echo (json_encode(($doc)));
