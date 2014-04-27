@@ -13,9 +13,18 @@ $collection = $db->configuration;
 $query = array( 'name' => 'saved_configuration' );
 $cursor = $collection->find( $query );
 
-// recorrer el resultado
-foreach ($cursor as $document) {
-	echo json_encode($document);
+
+if (($cursor->count()) > 0) {
+	foreach ($cursor as $doc) {
+	    echo (json_encode(($doc)));
+	}
+} else {
+	$query = array( 'name' => 'default_configuration' );
+	$cursor = $collection->find( $query );
+
+	foreach ($cursor as $doc) {
+	    echo (json_encode(($doc)));
+	}
 }
 
 ?>

@@ -1,5 +1,7 @@
 <?php
 
+$ac = $_REQUEST['actual_configuration'];
+
 // conectar
 $m = new MongoClient();
 
@@ -9,11 +11,16 @@ $db = $m->sefarad;
 // seleccionar una colección (equivalente a una tabla en una base de datos relacional)
 $collection = $db->configuration;
 
-// añadir un registro
-$str = '{"name": "default_configuration", "autocomplete": {"field": "","actived": true }}';
+// eliminar previa configuracion guardada
+$collection->remove(array( 'name' => 'saved_configuration' ));
 
-$document = json_decode($str,true);
+// guardar nueva configuración
+$document = json_decode($ac,true);
+
+unset($document['_id']);
 
 $collection->insert($document);	
+
+echo (json_encode(array('my_message' => $ac)));
 
 ?>

@@ -1850,22 +1850,25 @@ function InitViewModel() {
 	/** If core exists, go to loadConfiguration method. Otherwise, show an error */
 	function loadCore() {
 
-		$.ajax({
-			type: "get",
-			url: self.solr_baseURL() + "admin/luke?show=schema&wt=json",
-			cache: false,
-			dataType: 'json',
-			success: function () {
-				loadConfiguration();
-			},
-			error: function () {
-				console.log("ERROR");
-				self.page(2);
-				errorinroute = true;
-				setupMethod();
-			}
-		});
-
+		if(self.mongodb()){
+			loadConfiguration();
+		}else {
+			$.ajax({
+				type: "get",
+				url: self.solr_baseURL() + "admin/luke?show=schema&wt=json",
+				cache: false,
+				dataType: 'json',
+				success: function () {
+					loadConfiguration();
+				},
+				error: function () {
+					console.log("ERROR");
+					self.page(2);
+					errorinroute = true;
+					setupMethod();
+				}
+			});
+		}
 	};
 
 	/** Load configuration for a given core */
@@ -2386,6 +2389,8 @@ function showWidgets() {
 
 /** Save configuration method */
 function saveConfiguration(refreshpage, user, pass) {
+
+	//update configuration JSON
 	configuration.endpoints.serverURL = serverURL;
 	configuration.template.pageTitle = vm.pageTitle();
 	configuration.template.logoPath = vm.logoPath();
@@ -2424,13 +2429,14 @@ function saveConfiguration(refreshpage, user, pass) {
 	// }
 	//////////
 
+	//save configuration JSON
 	if(vm.mongodb()){
-
+		ac = JSON.stringify(configuration);
+	    
 	    $.ajax({
 			type: "POST",
 			url: '/php/mongo_save.php',
-			data: configuration,
-			contentType: "application/json; charset=utf-8",
+			data: {actual_configuration : ac},
 			dataType: "json",
 			beforeSend: function (xhr) {
 					
@@ -2443,9 +2449,6 @@ function saveConfiguration(refreshpage, user, pass) {
 					$.blockUI.defaults.growlCSS.top = '20px';
 					$.growlUI('¡Configuración guardada!', '');
 				}
-
-				console.log(data);
-
 			},
 			error: function () {
 				alert("Error saving configuration");	
