@@ -46,6 +46,9 @@ var configuration = {
 	"sortable_widgets": {
 		"actived": false
 	},
+	"mongodb": {
+		"actived": true
+	},
 	"template": {
 		"pageTitle": "Sefarad",
 		"logoPath": "",

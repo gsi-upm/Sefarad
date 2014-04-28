@@ -95,7 +95,7 @@ function InitViewModel() {
 	self.sortBy = ko.observable();
 	self.dbpedia = ko.observable(false);
 	self.sparql = ko.observable(false);
-	self.mongodb = ko.observable(true);
+	self.mongodb =  ko.observable(configuration.mongodb.actived);
 
 	/** All data */
 	self.testData = [];
@@ -2408,6 +2408,7 @@ function saveConfiguration(refreshpage, user, pass) {
 	}
 
 	configuration.sortable_widgets.actived = vm.sortableWidgets();
+	configuration.mongodb.actived = vm.mongodb();
 
 	configuration.widgetsLeft = ko.toJS(vm.activeWidgetsLeft);
 	configuration.widgetsRight = ko.toJS(vm.activeWidgetsRight);
