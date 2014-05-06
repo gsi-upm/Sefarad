@@ -25,7 +25,7 @@ module.exports = function(grunt) {
       main: {
         expand: true,
         cwd: 'src/',
-        src: ['ajax-solr/**','css/**','img/**','js/**','php/**','sefarad.html'],
+        src: ['ajax-solr/**','css/**','img/**','js/**','php/**','sefarad.html','!js/widgets/widget_template.js'],
         dest: 'build/',
       },
       universitiesDemo: {
