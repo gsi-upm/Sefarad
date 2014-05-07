@@ -8,11 +8,7 @@
 //  http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 //
 //  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and  limitations under the License.
-// TO DO LIST
-// NO REPETIR CODIGO!!
-// BUG EN BUSQUEDA SOLR
-// AUTOCOMPLETAR
-// PESTAÑA DE PANEL DE CONTROL!
+
 /** YOU MUST EDIT THIS LINE */
 var serverURL = "http://localhost:8080/LMF/";
 //var serverURL = "http://shannon.gsi.dit.upm.es/episteme/lmf/";
@@ -41,6 +37,8 @@ var templateWidgetsRightTab1 = [];
 
 var errorinroute = false;
 var sparqlmode = false;
+
+var configuration = default_configuration;
 
 function InitViewModel() {
 
@@ -95,7 +93,6 @@ function InitViewModel() {
 	self.sortBy = ko.observable();
 	self.dbpedia = ko.observable(false);
 	self.sparql = ko.observable(false);
-	self.mongodb =  ko.observable(configuration.mongodb.actived);
 
 	/** All data */
 	self.testData = [];
@@ -1183,9 +1180,6 @@ function InitViewModel() {
 
 		});
 
-		// console.log($('.resultado'))
-
-
 	};
 
 	/** Draw charts in ResultsGraph widget */
@@ -1439,7 +1433,8 @@ function InitViewModel() {
 			"collapsed": ko.observable(false),
 			"value": ko.observable(step),
 			"values": self.slider,
-			"limits": ko.observable([minSliderValue, maxSliderValue])
+			"limits": ko.observable([minSliderValue, maxSliderValue]),
+			"showWidgetHelp": ko.observable(false)
 		});
 	};
 
@@ -1451,7 +1446,8 @@ function InitViewModel() {
 			"id": ko.observable(id),
 			"title": ko.observable("Nuevo Gauge"),
 			"type": ko.observable("radialgauge"),
-			"collapsed": ko.observable(false)
+			"collapsed": ko.observable(false),
+			"showWidgetHelp": ko.observable(false)
 		});
 		self.numberOfResults.valueHasMutated();
 	};
@@ -1465,7 +1461,8 @@ function InitViewModel() {
 			"title": ko.observable(self.lang().resultstats),
 			"type": ko.observable("resultstats"),
 			"collapsed": ko.observable(false),
-			"showWidgetConfiguration": ko.observable(true)
+			"showWidgetConfiguration": ko.observable(true),
+			"showWidgetHelp": ko.observable(false)
 		});
 	};
 
@@ -1479,7 +1476,8 @@ function InitViewModel() {
 			"type": ko.observable("twitter"),
 			"field": ko.observable(self.newTwitterValue()),
 			"collapsed": ko.observable(false),
-			"currentTweets": ko.observableArray([])
+			"currentTweets": ko.observableArray([]),
+			"showWidgetHelp": ko.observable(false)
 		});
 
 		updateTwitterWidget(field, id);
@@ -1495,7 +1493,8 @@ function InitViewModel() {
 			"title": ko.observable("Nuevo gráfico"),
 			"type": ko.observable("piechart"),
 			"field": ko.observable(self.newPieChartValue()),
-			"collapsed": ko.observable(false)
+			"collapsed": ko.observable(false),
+			"showWidgetHelp": ko.observable(false)
 		});
 
 		paintHighChart(field, id, "piechart");
@@ -1510,7 +1509,8 @@ function InitViewModel() {
 			"title": ko.observable("Nuevo gráfico"),
 			"type": ko.observable("barchart"),
 			"field": ko.observable(self.newBarChartValue()),
-			"collapsed": ko.observable(false)
+			"collapsed": ko.observable(false),
+			"showWidgetHelp": ko.observable(false)
 		});
 
 		paintHighChart(field, id, "barchart");
@@ -1573,17 +1573,23 @@ function InitViewModel() {
 	};
 
 	/** Reset Configuration */
-	self.deleteConfiguration = function () {
+	self.resetConfiguration = function () {
+		
 		$.ajax({
-			type: "DELETE",
-			url: vm.serverURL() + "config/data/search.config." + coreSelected,
+			type: "POST",
+			url: '/php/mongo_delete.php',
+
+			beforeSend: function (xhr) {
+					
+			},
 			success: function (data) {
 				window.location.reload();
 			},
 			error: function () {
-				alert("Error al eliminar la configuración");
+				alert("Error reseting configuration");	
 			}
 		});
+
 	};
 
 	/** Depending on the html route, redirect to a setup screen or directly to visualization screen */
@@ -1698,7 +1704,8 @@ function InitViewModel() {
 						values: [],
 						limits: '',
 						layout: 'horizontal',
-						showWidgetConfiguration: false
+						showWidgetConfiguration: false,
+						showWidgetHelp: false
 					});
 					templateWidgetsLeft.push({
 						id: 1,
@@ -1711,21 +1718,24 @@ function InitViewModel() {
 						values: [],
 						limits: '',
 						layout: 'vertical',
-						showWidgetConfiguration: false
+						showWidgetConfiguration: false,
+						showWidgetHelp: false
 					});
 					templateWidgetsLeft.push({
 						"id": 2,
 						"title": "Gráfico",
 						"type": "barchart",
 						"field": 'category',
-						"collapsed": ko.observable(false)
+						"collapsed": ko.observable(false),
+						"showWidgetHelp": ko.observable(false)
 					});
 					//templateWidgetsLeft.push({"id": 3,"title": "Mapa", "type": "map","collapsed": ko.observable(false)});
 					templateWidgetsLeft.push({
 						"id": 4,
 						"title": "Gauge",
 						"type": "radialgauge",
-						"collapsed": ko.observable(false)
+						"collapsed": ko.observable(false),
+						"showWidgetHelp": ko.observable(false)
 					});
 
 					self.adminMode(true);
@@ -1768,21 +1778,9 @@ function InitViewModel() {
                         values: [],
                         limits: '',
                         layout: 'horizontal',
-                        showWidgetConfiguration: false
+                        showWidgetConfiguration: false,
+						showWidgetHelp: false
                     });
-                    // templateWidgetsLeft.push({
-                    //     id: 1,
-                    //     title: 'Cities',
-                    //     type: 'tagcloud',
-                    //     field: 'city',
-                    //     collapsed: false,
-                    //     query: '',
-                    //     value: [],
-                    //     values: [],
-                    //     limits: '',
-                    //     layout: 'horizontal',
-                    //     showWidgetConfiguration: false
-                    // });
                     configuration.autocomplete.field = "university";
                     self.securityEnabled(false);
                     self.adminMode(true);
@@ -1801,7 +1799,8 @@ function InitViewModel() {
                             "type": ko.observable("resultswidget"),
                             "collapsed": ko.observable(false),
                             "layout": ko.observable("vertical"),
-                            "showWidgetConfiguration": ko.observable(false)
+                            "showWidgetConfiguration": ko.observable(false),
+							"showWidgetHelp": ko.observable(false)
                         });
 
                         // Add resultstats widget
@@ -1819,7 +1818,8 @@ function InitViewModel() {
                             "id": ko.observable(id),
                             "title": ko.observable("Total Universities"),
                             "type": ko.observable("radialgauge"),
-                            "collapsed": ko.observable(false)
+                            "collapsed": ko.observable(false),
+							"showWidgetHelp": ko.observable(false)
                         });
                         self.numberOfResults.valueHasMutated();
                     });
@@ -1850,7 +1850,7 @@ function InitViewModel() {
 	/** If core exists, go to loadConfiguration method. Otherwise, show an error */
 	function loadCore() {
 
-		if(self.mongodb()){
+		if(true){
 			loadConfiguration();
 		}else {
 			$.ajax({
@@ -1875,9 +1875,6 @@ function InitViewModel() {
 	function loadConfiguration() {
 	    console.info("Estoy en loadConfiguration");
 	    var loaded_configuration = "";
-	    var default_configuration = configuration;
-
-	    if (self.mongodb()) {
 
 	        $.ajax({
 	            type: 'get',
@@ -1908,7 +1905,9 @@ function InitViewModel() {
 	                        limits: configuration.widgetsLeft[i].limits,
 	                        layout: configuration.widgetsLeft[i].layout,
 	                        currentTweets: configuration.widgetsLeft[i].currentTweets,
-	                        showWidgetConfiguration: configuration.widgetsLeft[i].showWidgetConfiguration
+	                        showWidgetConfiguration: configuration.widgetsLeft[i].showWidgetConfiguration,
+	                        showWidgetHelp: configuration.widgetsLeft[i].showWidgetHelp,
+	                        help: configuration.widgetsLeft[i].help
 	                    });
 	                }
 
@@ -1926,7 +1925,9 @@ function InitViewModel() {
 	                        limits: configuration.widgetsRight[i].limits,
 	                        layout: configuration.widgetsRight[i].layout,
 	                        currentTweets: configuration.widgetsRight[i].currentTweets,
-	                        showWidgetConfiguration: configuration.widgetsRight[i].showWidgetConfiguration
+	                        showWidgetConfiguration: configuration.widgetsRight[i].showWidgetConfiguration,
+	                        showWidgetHelp: configuration.widgetsRight[i].showWidgetHelp,
+	                        help: configuration.widgetsRight[i].help
 	                    });
 	                }
 
@@ -1943,7 +1944,9 @@ function InitViewModel() {
 	                        limits: configuration.widgetsLeftTab1[i].limits,
 	                        layout: configuration.widgetsLeftTab1[i].layout,
 	                        currentTweets: configuration.widgetsLeftTab1[i].currentTweets,
-	                        showWidgetConfiguration: configuration.widgetsLeftTab1[i].showWidgetConfiguration
+	                        showWidgetConfiguration: configuration.widgetsLeftTab1[i].showWidgetConfiguration,
+	                        showWidgetHelp: configuration.widgetsLeftTab1[i].showWidgetHelp,
+	                        help: configuration.widgetsLeftTab1[i].help
 	                    });
 	                }
 
@@ -1960,7 +1963,9 @@ function InitViewModel() {
 	                        limits: configuration.widgetsRightTab1[i].limits,
 	                        layout: configuration.widgetsRightTab1[i].layout,
 	                        currentTweets: configuration.widgetsRightTab1[i].currentTweets,
-	                        showWidgetConfiguration: configuration.widgetsRightTab1[i].showWidgetConfiguration
+	                        showWidgetConfiguration: configuration.widgetsRightTab1[i].showWidgetConfiguration,
+	                        showWidgetHelp: configuration.widgetsRightTab1[i].showWidgetHelp,
+	                        help: configuration.widgetsRightTab1[i].help
 	                    });
 	                }
 
@@ -1981,121 +1986,6 @@ function InitViewModel() {
 	                });
 	            }
 	        });
-
-	    } else {
-
-	        $.getJSON(self.serverURL() + "config/data/search.config." + coreSelected, function (data) {
-
-	            loaded_configuration = JSON.parse(data['search.config.' + coreSelected]);
-	            //var configuration = $.extend({}, loaded_configuration, configuration); 
-	            configuration = loaded_configuration;
-	            console.log(configuration)
-
-	            // templateWidgetsLeft = [];
-	            // templateWidgetsRight = [];
-	            // templateWidgetsLeftTab1 = [];
-	            // templateWidgetsRightTab1 = [];
-
-	            for (var i = 0; configuration.widgetsLeft.length > i; i++) {
-
-	                templateWidgetsLeft.push({
-	                    id: configuration.widgetsLeft[i].id,
-	                    title: configuration.widgetsLeft[i].title,
-	                    type: configuration.widgetsLeft[i].type,
-	                    field: configuration.widgetsLeft[i].field,
-	                    collapsed: configuration.widgetsLeft[i].collapsed,
-	                    query: configuration.widgetsLeft[i].query,
-	                    value: configuration.widgetsLeft[i].value,
-	                    values: configuration.widgetsLeft[i].values,
-	                    limits: configuration.widgetsLeft[i].limits,
-	                    layout: configuration.widgetsLeft[i].layout,
-	                    currentTweets: configuration.widgetsLeft[i].currentTweets,
-	                    showWidgetConfiguration: configuration.widgetsLeft[i].showWidgetConfiguration
-	                });
-	            }
-
-	            for (var i = 0; configuration.widgetsRight.length > i; i++) {
-
-	                templateWidgetsRight.push({
-	                    id: configuration.widgetsRight[i].id,
-	                    title: configuration.widgetsRight[i].title,
-	                    type: configuration.widgetsRight[i].type,
-	                    field: configuration.widgetsRight[i].field,
-	                    collapsed: configuration.widgetsRight[i].collapsed,
-	                    query: configuration.widgetsRight[i].query,
-	                    value: configuration.widgetsRight[i].value,
-	                    values: configuration.widgetsRight[i].values,
-	                    limits: configuration.widgetsRight[i].limits,
-	                    layout: configuration.widgetsRight[i].layout,
-	                    currentTweets: configuration.widgetsRight[i].currentTweets,
-	                    showWidgetConfiguration: configuration.widgetsRight[i].showWidgetConfiguration
-	                });
-	            }
-
-	            for (var i = 0; configuration.widgetsLeftTab1.length > i; i++) {
-	                templateWidgetsLeftTab1.push({
-	                    id: configuration.widgetsLeftTab1[i].id,
-	                    title: configuration.widgetsLeftTab1[i].title,
-	                    type: configuration.widgetsLeftTab1[i].type,
-	                    field: configuration.widgetsLeftTab1[i].field,
-	                    collapsed: configuration.widgetsLeftTab1[i].collapsed,
-	                    query: configuration.widgetsLeftTab1[i].query,
-	                    value: configuration.widgetsLeftTab1[i].value,
-	                    values: configuration.widgetsLeftTab1[i].values,
-	                    limits: configuration.widgetsLeftTab1[i].limits,
-	                    layout: configuration.widgetsLeftTab1[i].layout,
-	                    currentTweets: configuration.widgetsLeftTab1[i].currentTweets,
-	                    showWidgetConfiguration: configuration.widgetsLeftTab1[i].showWidgetConfiguration
-	                });
-	            }
-
-	            for (var i = 0; configuration.widgetsRightTab1.length > i; i++) {
-	                templateWidgetsRightTab1.push({
-	                    id: configuration.widgetsRightTab1[i].id,
-	                    title: configuration.widgetsRightTab1[i].title,
-	                    type: configuration.widgetsRightTab1[i].type,
-	                    field: configuration.widgetsRightTab1[i].field,
-	                    collapsed: configuration.widgetsRightTab1[i].collapsed,
-	                    query: configuration.widgetsRightTab1[i].query,
-	                    value: configuration.widgetsRightTab1[i].value,
-	                    values: configuration.widgetsRightTab1[i].values,
-	                    limits: configuration.widgetsRightTab1[i].limits,
-	                    layout: configuration.widgetsRightTab1[i].layout,
-	                    currentTweets: configuration.widgetsRightTab1[i].currentTweets,
-	                    showWidgetConfiguration: configuration.widgetsRightTab1[i].showWidgetConfiguration
-	                });
-	            }
-
-	            init();
-
-	            // for (var i = 0; i < configuration.widgetsLeft.length; i++) {
-	            // 	if (configuration.widgetsLeft[i].type == 'tagcloud') {
-	            // 		for (var j = 0; j < configuration.widgetsLeft[i].values.length; j++) {
-	            // 			vm.activeWidgetsLeft()[i].values()[j].state(configuration.widgetsLeft[i].values[j].state)
-	            // 		}
-	            // 	}
-	            // }
-
-	            updateSolrFilter();
-
-	        }).error(function () {
-	            templateWidgetsRight.push({
-	                "id": ko.observable(0),
-	                "title": ko.observable("Resultados"),
-	                "type": ko.observable("resultswidget"),
-	                "collapsed": ko.observable(false),
-	                "layout": ko.observable("vertical"),
-	                "showWidgetConfiguration": ko.observable(false)
-	            });
-
-	            init();
-
-	        }).complete(function () {
-
-	        });
-
-	    }
-
 	};
 
 	function init() {
@@ -2391,6 +2281,7 @@ function showWidgets() {
 function saveConfiguration(refreshpage, user, pass) {
 
 	//update configuration JSON
+	configuration.name = "saved_configuration";
 	configuration.endpoints.serverURL = serverURL;
 	configuration.template.pageTitle = vm.pageTitle();
 	configuration.template.logoPath = vm.logoPath();
@@ -2408,7 +2299,6 @@ function saveConfiguration(refreshpage, user, pass) {
 	}
 
 	configuration.sortable_widgets.actived = vm.sortableWidgets();
-	configuration.mongodb.actived = vm.mongodb();
 
 	configuration.widgetsLeft = ko.toJS(vm.activeWidgetsLeft);
 	configuration.widgetsRight = ko.toJS(vm.activeWidgetsRight);
@@ -2421,73 +2311,39 @@ function saveConfiguration(refreshpage, user, pass) {
 
 	configuration.activeTagWidgets
 
-	//////////
 	// for (var i = 0; i < configuration.widgetsRightTab1.length; i++) {
 	// 	configuration.widgetsRightTab1[i].title = null;
 	// }
 	// for (var i = 0; i < configuration.widgetsLeftTab1.length; i++) {
 	// 	configuration.widgetsLeftTab1[i].title = null;
 	// }
-	//////////
 
 	//save configuration JSON
-	if(vm.mongodb()){
-		ac = JSON.stringify(configuration);
-	    
-	    $.ajax({
-			type: "POST",
-			url: '/php/mongo_save.php',
-			data: {actual_configuration : ac},
-			dataType: "json",
-			beforeSend: function (xhr) {
-					
-			},
-			success: function (data) {
 
-				if (refreshpage) {
-					window.location.reload();
-				} else {
-					$.blockUI.defaults.growlCSS.top = '20px';
-					$.growlUI('¡Configuración guardada!', '');
-				}
-			},
-			error: function () {
-				alert("Error saving configuration");	
+	ac = JSON.stringify(configuration);
+    
+    $.ajax({
+		type: "POST",
+		url: '/php/mongo_save.php',
+		data: {actual_configuration : ac},
+		dataType: "json",
+		beforeSend: function (xhr) {
+				
+		},
+		success: function (data) {
+
+			if (refreshpage) {
+				window.location.reload();
+			} else {
+				$.blockUI.defaults.growlCSS.top = '20px';
+				$.growlUI('¡Configuración guardada!', '');
 			}
-		});
+		},
+		error: function () {
+			alert("Error saving configuration");	
+		}
+	});
 
-
-	}else{
-
-		var data = JSON.stringify(configuration).replace(/"/g, "\"").replace(/,/g, "\\,");
-		//alert(JSON.stringify([data]));
-
-		$.ajax({
-			type: "POST",
-			url: vm.serverURL() + "config/data/search.config." + coreSelected,
-			data: JSON.stringify([data]),
-			contentType: "application/json; charset=utf-8",
-			dataType: "json",
-
-			beforeSend: function (xhr) {
-					xhr.setRequestHeader('Authorization', make_base_auth(user, pass));
-			},
-			success: function (data) {
-
-				if (refreshpage) {
-					window.location.reload();
-				} else {
-					$.blockUI.defaults.growlCSS.top = '20px';
-					$.growlUI('¡Configuración guardada!', '');
-				}
-
-				// http://jquery.malsup.com/block/#options
-			},
-			error: function () {
-				alert("Error al guardar la configuración");	
-			}
-		});
-	}
 }
 
 /** Update solr query when a tag is clicked (depending on its state) */

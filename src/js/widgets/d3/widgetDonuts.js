@@ -8,6 +8,8 @@ var widgetDonuts = {
 		img: "img/widgets/widgetDonuts.png",
 		// Type of the widget.
 		type: "widgetDonuts",
+		// Help display on the widget
+		help: "Ayuda de Donuts",
 		// [OPTIONAL] data taken from this field.
 		// field: "polarityValue",
 		// Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results)
@@ -17,7 +19,7 @@ var widgetDonuts = {
 		render: function () {
 			var id = 'A' + Math.floor(Math.random() * 10001);
 			var field = widgetDonuts.field || "";
-			vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetDonuts.name), "type": ko.observable(widgetDonuts.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
+			vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetDonuts.name), "type": ko.observable(widgetDonuts.type), "help": ko.observable(widgetDonuts.help), "field": ko.observable(field),"collapsed": ko.observable(false), "showWidgetHelp":ko.observable(false)});
 			
 			widgetDonuts.paint(id);
 		},

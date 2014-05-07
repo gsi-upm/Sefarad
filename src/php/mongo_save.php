@@ -2,19 +2,19 @@
 
 $ac = $_REQUEST['actual_configuration'];
 
-// conectar
+// connect to Mongo
 $m = new MongoClient();
 
-// seleccionar una base de datos
+// select Sefarad DataBase
 $db = $m->sefarad;
 
-// seleccionar una colección (equivalente a una tabla en una base de datos relacional)
+// select Configuration collection
 $collection = $db->configuration;
 
-// eliminar previa configuracion guardada
+// delete old saved configuration
 $collection->remove(array( 'name' => 'saved_configuration' ));
 
-// guardar nueva configuración
+// save new configuration
 $document = json_decode($ac,true);
 
 unset($document['_id']);

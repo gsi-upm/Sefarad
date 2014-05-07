@@ -178,7 +178,6 @@
 							<li><input type="checkbox" style="width:13px;" data-bind="checked: activedAutocomplete"/><label data-bind="text: lang().autocomplete"></label></li>
 							<li><select data-bind="options: dataColumns, value: autocomplete_fieldname, optionsCaption: lang().fieldcaption, enable: activedAutocomplete"></select></li>
 							<li><input type="checkbox" style="width:13px;" data-bind="checked: sortableWidgets"/><label data-bind="text: lang().sortableWidgets"></label></li>	
-							<li><input type="checkbox" style="width:13px;" data-bind="checked: mongodb"/><label data-bind="text: lang().mongodb"></label></li>
 						</ul>
 					</div>
 					<div class="col2">
@@ -195,7 +194,7 @@
 							<h3 data-bind="text: lang().advancedoptions"></h3>
 							<button class="button" data-bind="click: $root.reindexSOLR, visible: !sparql()"><span data-bind="text: 
 								lang().reindexsolr"></span></button>
-							<button class="button" data-bind="click: $root.deleteConfiguration, visible: !sparql()"><span data-bind="text: 
+							<button class="button" data-bind="click: $root.resetConfiguration, visible: !sparql()"><span data-bind="text: 
 								lang().resetconf"></span></button>
 						</div>
 					</div>

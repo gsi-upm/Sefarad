@@ -3,17 +3,17 @@
 // conectar
 $m = new MongoClient();
 
-// seleccionar una base de datos
+// select Sefarad Database
 $db = $m->sefarad;
 
-// seleccionar una colección (equivalente a una tabla en una base de datos relacional)
+// select Configuration collection
 $collection = $db->configuration;
 
-// encontrar todo lo que haya en la colección
+// search saved configuration
 $query = array( 'name' => 'saved_configuration' );
 $cursor = $collection->find( $query );
 
-// comprobar si hay configuración guardada y, si no, cargar la configuración por defecto
+// load configuration (saved or defatult)
 if (($cursor->count()) > 0) {
 	foreach ($cursor as $doc) {
 	    echo (json_encode(($doc)));

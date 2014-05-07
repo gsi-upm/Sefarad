@@ -1,4 +1,4 @@
-var configuration = {
+var default_configuration = {
 	"autocomplete": {
 		"field": "",
 		"actived": true
@@ -45,9 +45,6 @@ var configuration = {
 	"searchengine": {},
 	"sortable_widgets": {
 		"actived": false
-	},
-	"mongodb": {
-		"actived": true
 	},
 	"template": {
 		"pageTitle": "Sefarad",
