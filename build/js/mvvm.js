@@ -1447,7 +1447,8 @@ function InitViewModel() {
 			"title": ko.observable("Nuevo Gauge"),
 			"type": ko.observable("radialgauge"),
 			"collapsed": ko.observable(false),
-			"showWidgetHelp": ko.observable(false)
+			"showWidgetHelp": ko.observable(false),
+			"help": "Ayuda Gauge"
 		});
 		self.numberOfResults.valueHasMutated();
 	};
