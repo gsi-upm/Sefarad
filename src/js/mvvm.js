@@ -621,7 +621,9 @@ function InitViewModel() {
 			"type": ko.observable("sgvizler"),
 			"query": self.sgvizlerQuery,
 			"collapsed": ko.observable(false),
-			"value": self.sgvizlerGraphType
+			"value": self.sgvizlerGraphType,
+			"showWidgetHelp": ko.observable(false),
+			"help": 'Ayuda'
 		});
 
 		var stringid = id.toString();
@@ -1780,7 +1782,8 @@ function InitViewModel() {
                         limits: '',
                         layout: 'horizontal',
                         showWidgetConfiguration: false,
-						showWidgetHelp: false
+						showWidgetHelp: false,
+						help: 'Muestra los países en los que existen Universidades'
                     });
                     configuration.autocomplete.field = "university";
                     self.securityEnabled(false);
@@ -1801,7 +1804,8 @@ function InitViewModel() {
                             "collapsed": ko.observable(false),
                             "layout": ko.observable("vertical"),
                             "showWidgetConfiguration": ko.observable(false),
-							"showWidgetHelp": ko.observable(false)
+							"showWidgetHelp": ko.observable(false),
+							"help": 'Muestra las Universidades filtradas'
                         });
 
                         // Add resultstats widget
@@ -1820,7 +1824,8 @@ function InitViewModel() {
                             "title": ko.observable("Total Universities"),
                             "type": ko.observable("radialgauge"),
                             "collapsed": ko.observable(false),
-							"showWidgetHelp": ko.observable(false)
+							"showWidgetHelp": ko.observable(false),
+							"help": "Muestra el total de universidades filtradas."
                         });
                         self.numberOfResults.valueHasMutated();
                     });

@@ -8,13 +8,15 @@ var widgetMap = {
 	img: "img/widgets/widgetMap.png",
 	// Type of the widget.
 	type: "widgetMap",
+	// Help display on the widget
+	help: "Ayuda de Maps",
 	// Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
 	cat: 6,
 
 	render: function () {
 		var id = 'A' + Math.floor(Math.random() * 10001);
 		var field = widgetMap.field || "";
-		vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetMap.name), "type": ko.observable(widgetMap	.type), "field": ko.observable(field),"collapsed": ko.observable(false)});
+		vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetMap.name), "type": ko.observable(widgetMap	.type), "field": ko.observable(field),"collapsed": ko.observable(false),"showWidgetHelp": ko.observable(false), "help": ko.observable(widgetMap.help)});
 		
 		widgetMap.paint(id);	
 	},
