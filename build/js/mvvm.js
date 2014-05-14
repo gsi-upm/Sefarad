@@ -85,6 +85,9 @@ function InitViewModel() {
 	/** Active route */
 	self.page = ko.observable();
 
+	/** Bot max/min */
+	self.botMax = ko.observable(true);
+
 	/** Routes */
 	//self.goToMain = function() { location.hash = "#/main/" + self.core() };
 	//self.goToGraphic = function() { location.hash = "#/graph/" + self.core() };

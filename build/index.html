@@ -26,6 +26,9 @@
 		<link rel="stylesheet" href="css/ext/kendo.dataviz.min.css" type="text/css"/>
 		<!-- ui help guide stylesheet -->
 		<link rel=" stylesheet" type="text/css" href="css/ext/joyride-2.0.2.css"/>
+		<!-- bot stylesheets -->
+		<link rel="stylesheet" href="css/global.css" type="text/css">
+    	<link rel="stylesheet" href="css/animate-custom.css" type="text/css">
 		<!-- javascript -->
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript" charset="UTF-8" src="js/ext/underscore.js"></script>
@@ -69,6 +72,8 @@
 		<script type="text/javascript" charset="UTF-8" src="js/ext/sammy-latest.min.js"></script>
 		<script src="js/ext/jquery.isotope.min.js"></script>
 		<script src="js/ext/jquery.joyride-2.0.2.js"></script>
+   		<script src="js/bot_script.js"></script>
+    	<script src="js/ext/jquery.scrollTo.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		<!-- external -->
 		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
@@ -90,7 +95,6 @@
 				$("#backgroundPopup").click(function () {
 					sparqlPanel()
 				});
-				$('#dvLoading').fadeOut(500);
 				$("#dialog").dialog({
 					autoOpen: false,
 					buttons: {
@@ -112,7 +116,18 @@
 						vm.doSave('', '');
 					}
 				});
+				$("#max_icon").click(function () {
+					if(vm.botMax()){
+						vm.botMax(false);
+					}else{
+						vm.botMax(true);
+					}
+				});
 				//initIsotopeAndWizards();
+			});
+
+			$(window).load(function () {
+				$('#dvLoading').hide();
 			});
 			
 		</script>		
@@ -563,8 +578,35 @@
 					</a>
 				</div>
 			</div>
+
+			<!-- bot_chat_window -->
+			<div class="visible" id="bot_chat_window" >
+	          <div id="upper_bar">
+	          	<button id="max_icon" ></button>
+	            <h3>
+	              <img id="bot_avatar" src="img/bot/avatars/duke_waiting.png" />
+		          <span style="clear: both;"></span>
+	            </h3>
+	          </div>
+	          <div id="screen_wrapper" data-bind="visible: botMax() == true">
+	            <div id="msg_dialog"></div>
+	            <div id="screen"></div>
+	            <div id="meta_msgs"></div>
+	            <div id="userbar">   
+	                <form id="userinput" method="get" action="http://demos.gsi.dit.upm.es/gsibot/bottle/TalkToBot" > 
+	                  <input type="hidden" name="userAgent" value="web_html_v1" />
+	                  <input type="hidden" name="bot" value="Duke" />
+	                  <input type="hidden" name="type" value="json" />
+			  		  <input type="hidden" name="user" value="a"/>
+	                  <input type="text" name="q" />
+	                  <input type="submit" name="submit" value="Enviar" />
+	                </form>
+	            </div><!-- #userbar -->
+	          </div><!-- #screen_wrapper -->
+	      </div><!-- #bot_chat_window -->
 		<!-- ends allcontent -->
 		</div>
+
 		<!-- different error pages -->
 		<div data-bind="visible: page() == 1">
 			<div class="mini_inner centered">
