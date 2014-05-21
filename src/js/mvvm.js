@@ -2771,4 +2771,101 @@ function addSentimentClass() {
 	}, 5);
 }
 
+function responseToBot (options){
+
+	//Update widgets
+
+	vm.activeWidgetsLeft
+	
+	if(options.concept == 'http://xmlns.com/foaf/spec/#term_Person'){
+		//ResultsWidget fields
+		vm.resultsLayout()[0].Value('employee_name');
+		vm.resultsLayout()[1].Value('employee_role');
+		vm.resultsLayout()[2].Value('employee_base');
+		vm.resultsLayout()[3].Value('employee_photo');
+
+		vm.activeWidgetsLeft([]);		
+		vm.newTagCloudValue('employee_role');
+		vm.addTagCloudWidget();
+		vm.activeWidgetsLeft()[0].title('Employees Roles');
+
+		// Add Gauge Widget
+        id = Math.floor(Math.random() * 10001);
+        vm.activeWidgetsLeft.push({
+            "id": ko.observable(id),
+            "title": ko.observable("Total Employees"),
+            "type": ko.observable("radialgauge"),
+            "collapsed": ko.observable(false),
+			"showWidgetHelp": ko.observable(false),
+			"help": "Muestra el total de profesores filtrados."
+        });
+
+	}
+	else if( options.concept == 'http://rdfs.org/sioc/types#Project'){
+		//ResultsWidget fields
+		vm.resultsLayout()[0].Value('project_label');
+		vm.resultsLayout()[1].Value('project_area');
+		vm.resultsLayout()[2].Value('project_state');
+		vm.resultsLayout()[3].Value('project_logo');
+
+		vm.activeWidgetsLeft([]);		
+		vm.newTagCloudValue('project_area');
+		vm.addTagCloudWidget();
+		vm.activeWidgetsLeft()[0].title('Research areas');
+
+		// Add Gauge Widget
+        id = Math.floor(Math.random() * 10001);
+        vm.activeWidgetsLeft.push({
+            "id": ko.observable(id),
+            "title": ko.observable("Total Projects"),
+            "type": ko.observable("radialgauge"),
+            "collapsed": ko.observable(false),
+			"showWidgetHelp": ko.observable(false),
+			"help": "Muestra el total de proyectos filtrados"
+        });
+	}
+
+	//Update Solr facets
+	var tempConcept = '';
+	
+	for (var j=0; j < options.concept.length ; j++){
+
+		tempConcept += ('lmf.type:"' + options.concept[j] + '"' + ' OR ');
+	}
+
+	console.log('Concept: ' + tempConcept.substring(0, tempConcept.length - 3));
+
+	Manager.store.remove('fq');
+
+	Manager.store.addByValue('fq', tempConcept.substring(0, tempConcept.length - 3));
+		
+	obj = options.filter;
+		
+	for(var key in obj){
+
+		console.log('	Actived filter: ' + key);
+
+		if(obj[key].length != 0){
+
+			var tempString = '';
+
+			for(var i=0; i<obj[key].length; i++){
+				console.log('		' + obj[key][i]);
+				tempString += (key + ':"' + obj[key][i] + '"' + ' OR ');
+			}
+				Manager.store.addByValue('fq', tempString.substring(0, tempString.length - 3));
+		}
+	}
+
+	Manager.doRequest();
+
+}
+
+var test = {
+	"concept": ["http://rdfs.org/sioc/types#Project"],
+	"filter": {
+		"project_area":["Procesado Lenguaje Natural", "Agentes Inteligentes"],
+	}
+}	
+
 var vm = new InitViewModel();
