@@ -29,6 +29,8 @@
 		<!-- bot stylesheets -->
 		<link rel="stylesheet" href="css/global.css" type="text/css">
     	<link rel="stylesheet" href="css/animate-custom.css" type="text/css">
+    	<!-- qtip stylesheets -->
+    	<link rel="stylesheet" href="css/ext/jquery.qtip.css" type="text/css">
 		<!-- javascript -->
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript" charset="UTF-8" src="js/ext/underscore.js"></script>
@@ -78,6 +80,9 @@
 		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 		<script type='text/javascript' src="js/ext/twitterApi.js"></script>
 		<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+		<!-- qtip -->
+		<script type="text/javascript" src="js/ext/jquery.qtip.js"></script>
+		<script type="text/javascript" src="js/ext/imagesloaded.pkg.min.js"></script>
 
 		<script type="text/javascript" charset="UTF-8">
 			$(document).ready(function () {
@@ -121,6 +126,10 @@
 						vm.botMax(true);
 					}
 				});
+				$('#content a[href]').qtip({
+				    // Simply use an HTML img tag within the HTML string
+				    content: 'i am a qtip'
+				});
 				//initIsotopeAndWizards();
 			});
 
@@ -159,6 +168,7 @@
 					
 					<div class="icon"><img src="img/help.png" alt="Help" data-bind="click: $root.showHelp"/></div>
 					<div id ="configuration-button" class ="icon" data-bind="click: $root.showConfiguration, visible: $root.adminMode"><img src="img/settings.png" alt="Configuration" /></div>
+					<div id="content"><a href="#">i </a></div>
 					<div class="search" id="search-container">
 						<div class="search-inner">
 							<div id="search-btn"></div>
@@ -578,7 +588,7 @@
 			</div>
 
 			<!-- bot_chat_window -->
-			<div class="visible" id="bot_chat_window" >
+			<!-- <div class="visible" id="bot_chat_window" >
 	          <div id="upper_bar">
 	          	<button id="max_icon" ></button>
 	            <h3>
@@ -599,9 +609,9 @@
 	                  <input type="text" name="q" />
 	                  <input type="submit" name="submit" value="Enviar" />
 	                </form>
-	            </div><!-- #userbar -->
-	          </div><!-- #screen_wrapper -->
-	        </div><!-- #bot_chat_window -->
+	            </div>
+	          </div>
+	        </div> -->
 		<!-- ends allcontent -->
 		</div>
 
