@@ -1796,6 +1796,9 @@ function InitViewModel() {
 
                     //Adding widgets
                     $(window).load(function () {
+                    	//Add openalayers map
+                    	openlayersMap.render();	
+
                         //Add map widget
                         widgetMap.render();
 

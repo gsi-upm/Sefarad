@@ -392,6 +392,13 @@ height: 400px;
 margin: 0px auto;
 }
 
+#openlayersmap{
+width: auto;
+display: block;
+height: 400px;
+margin: 0px auto;
+}
+
 .left        { float: right; }
 
 
