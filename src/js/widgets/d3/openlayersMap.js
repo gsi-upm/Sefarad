@@ -1,4 +1,4 @@
-// New widget
+// Openlayers Map widget
 var openlayersMap = {
     // Widget name.
     name: "Openlayers Map",
@@ -35,6 +35,27 @@ var openlayersMap = {
         var div = d3.select('#' + id);
         div.attr("align", "center");
 
+        //Create filter toolbar
+        var toolbar_div = div.append("div")
+            .attr("id","toolbar");
+
+        var filter_input = toolbar_div.append("input")
+            .attr("id", "filter")
+            .attr("type", "text")
+            .attr("size", 80);
+
+        var update_button = toolbar_div.append("img")
+            .attr("id", "updateFilterButton")
+            .attr("src", "http://demos.gsi.dit.upm.es/geoserver/openlayers/img/east-mini.png")
+            .attr("title", "Apply filter")
+            .attr("onclick", "openlayersMap.updateFilter()");
+
+        var reset_button = toolbar_div.append("img")
+            .attr("id", "resetFilterButton")
+            .attr("src", "http://demos.gsi.dit.upm.es/geoserver/openlayers/img/cancel.png")
+            .attr("title", "Reset filter")
+            .attr("onclick", "openlayersMap.resetFilter()");
+
         //Create the map div
         var map_div = div.append("div")
             .attr("id", "openlayersmap")
@@ -44,21 +65,48 @@ var openlayersMap = {
 
     },
 
+    updateFilter: function () {
+        if(pureCoverage)
+            return;
+            
+        var filterType = 'cql';
+        var filter = document.getElementById('filter').value;
+                
+        // by default, reset all filters
+        var filterParams = {
+            filter: null,
+            cql_filter: null,
+            featureId: null
+        };
+        if (OpenLayers.String.trim(filter) != "") {
+            if (filterType == "cql") 
+                filterParams["cql_filter"] = filter;
+            if (filterType == "ogc") 
+                filterParams["filter"] = filter;
+            if (filterType == "fid") 
+                filterParams["featureId"] = filter;
+        }
+        // merge the new filter definitions
+        openlayersMap.mergeNewParams(filterParams);
+    },
+
+    resetFilter: function () {
+        if(pureCoverage)
+                  return;
+            
+        document.getElementById('filter').value = "";
+        openlayersMap.updateFilter();
+    },
+
+    mergeNewParams: function (params) {
+        tiled.mergeNewParams(params);
+        untiled.mergeNewParams(params);
+    },
+
     initopenlayersmap: function () {
         // if this is just a coverage or a group of them, disable a few items,
         // and default to jpeg format
-        //Create the Openlayers Map
-        var openlayersmap;
-        var untiled;
-        var tiled;
-        var pureCoverage = false;
-        var parcel = 'SmartOpenData:td_0201_mfe50';
-
-        // pink tile avoidance
-        OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
-        // make OL compute scale according to WMS spec
-        OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
-
+        
         format = 'image/png';
         if (pureCoverage) {
             document.getElementById('filterType').disabled = true;
@@ -85,7 +133,8 @@ var openlayersMap = {
 
         // setup tiled layer
         tiled = new OpenLayers.Layer.WMS(
-            parcel + " - Tiled", "http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", {
+            //parcel + " - Tiled", "http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", {
+            parcel + " - Tiled", "http://demos.gsi.dit.upm.es/geoserver/SmartOpenData/wms", {
                 LAYERS: parcel,
                 STYLES: '',
                 format: format
@@ -101,7 +150,8 @@ var openlayersMap = {
 
         // setup single tiled layer
         untiled = new OpenLayers.Layer.WMS(
-            parcel + " - Untiled", "http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", {
+            //parcel + " - Untiled", "http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", {
+            parcel + " - Untiled", "http://demos.gsi.dit.upm.es/geoserver/SmartOpenData/wms", {
                 LAYERS: parcel,
                 STYLES: '',
                 format: format
@@ -168,8 +218,20 @@ var openlayersMap = {
             if (openlayersmap.layers[0].params.FEATUREID) {
                 params.featureid = openlayersmap.layers[0].params.FEATUREID;
             }
-            OpenLayers.loadURL("http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", params, this, setHTML, setHTML);
+            //OpenLayers.loadURL("http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", params, this, setHTML, setHTML);
+            OpenLayers.loadURL("http://demos.gsi.dit.upm.es/geoserver/SmartOpenData/wms", params, this, setHTML, setHTML);
             OpenLayers.Event.stop(e);
         });
     }
 };
+
+// Openlayers Map variables
+var openlayersmap;
+var untiled;
+var tiled;
+var pureCoverage = false;
+var parcel = 'SmartOpenData:td_0201_mfe50';
+// pink tile avoidance
+OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
+// make OL compute scale according to WMS spec
+OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
