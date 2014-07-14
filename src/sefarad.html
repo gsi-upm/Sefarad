@@ -123,10 +123,20 @@
 						vm.botMax(true);
 					}
 				});
-				$('#content a[href]').qtip({
-				    // Simply use an HTML img tag within the HTML string
-				    content: 'i am a qtip'
+
+				$('#content a[href]').live('mouseover', function(event) {
+					$(this).qtip({
+
+						content: 'i am a qtip',
+						overwrite: false,
+						show: {
+						  event: event.type,
+						  ready: true
+						}
+						   
+					}, event);
 				});
+
 				//initIsotopeAndWizards();
 			});
 
