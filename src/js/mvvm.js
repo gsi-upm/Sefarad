@@ -625,8 +625,7 @@ function InitViewModel() {
 			"query": self.sgvizlerQuery,
 			"collapsed": ko.observable(false),
 			"value": self.sgvizlerGraphType,
-			"showWidgetHelp": ko.observable(false),
-			"help": 'Ayuda'
+			"help": 'Help'
 		});
 
 		var stringid = id.toString();
@@ -1439,7 +1438,7 @@ function InitViewModel() {
 			"value": ko.observable(step),
 			"values": self.slider,
 			"limits": ko.observable([minSliderValue, maxSliderValue]),
-			"showWidgetHelp": ko.observable(false)
+			"help": "Help"
 		});
 	};
 
@@ -1452,8 +1451,7 @@ function InitViewModel() {
 			"title": ko.observable("Nuevo Gauge"),
 			"type": ko.observable("radialgauge"),
 			"collapsed": ko.observable(false),
-			"showWidgetHelp": ko.observable(false),
-			"help": "Ayuda Gauge"
+			"help": "Help"
 		});
 		self.numberOfResults.valueHasMutated();
 	};
@@ -1468,7 +1466,7 @@ function InitViewModel() {
 			"type": ko.observable("resultstats"),
 			"collapsed": ko.observable(false),
 			"showWidgetConfiguration": ko.observable(true),
-			"showWidgetHelp": ko.observable(false)
+			"help": "Help"
 		});
 	};
 
@@ -1483,7 +1481,7 @@ function InitViewModel() {
 			"field": ko.observable(self.newTwitterValue()),
 			"collapsed": ko.observable(false),
 			"currentTweets": ko.observableArray([]),
-			"showWidgetHelp": ko.observable(false)
+			"help": "Help"
 		});
 
 		updateTwitterWidget(field, id);
@@ -1500,7 +1498,7 @@ function InitViewModel() {
 			"type": ko.observable("piechart"),
 			"field": ko.observable(self.newPieChartValue()),
 			"collapsed": ko.observable(false),
-			"showWidgetHelp": ko.observable(false)
+			"help": "Help"
 		});
 
 		paintHighChart(field, id, "piechart");
@@ -1516,7 +1514,7 @@ function InitViewModel() {
 			"type": ko.observable("barchart"),
 			"field": ko.observable(self.newBarChartValue()),
 			"collapsed": ko.observable(false),
-			"showWidgetHelp": ko.observable(false)
+			"help": "Help"
 		});
 
 		paintHighChart(field, id, "barchart");
@@ -1711,7 +1709,7 @@ function InitViewModel() {
 						limits: '',
 						layout: 'horizontal',
 						showWidgetConfiguration: false,
-						showWidgetHelp: false
+						help: "Help"
 					});
 					templateWidgetsLeft.push({
 						id: 1,
@@ -1725,7 +1723,7 @@ function InitViewModel() {
 						limits: '',
 						layout: 'vertical',
 						showWidgetConfiguration: false,
-						showWidgetHelp: false
+						help: "Help"
 					});
 					templateWidgetsLeft.push({
 						"id": 2,
@@ -1733,7 +1731,7 @@ function InitViewModel() {
 						"type": "barchart",
 						"field": 'category',
 						"collapsed": ko.observable(false),
-						"showWidgetHelp": ko.observable(false)
+						"help": "Help"
 					});
 					//templateWidgetsLeft.push({"id": 3,"title": "Mapa", "type": "map","collapsed": ko.observable(false)});
 					templateWidgetsLeft.push({
@@ -1741,7 +1739,7 @@ function InitViewModel() {
 						"title": "Gauge",
 						"type": "radialgauge",
 						"collapsed": ko.observable(false),
-						"showWidgetHelp": ko.observable(false)
+						"help": "Help"
 					});
 
 					self.adminMode(true);
@@ -1785,7 +1783,6 @@ function InitViewModel() {
                         limits: '',
                         layout: 'horizontal',
                         showWidgetConfiguration: false,
-						showWidgetHelp: false,
 						help: 'Muestra los países en los que existen Universidades'
                     });
                     configuration.autocomplete.field = "university";
@@ -1810,7 +1807,6 @@ function InitViewModel() {
                             "collapsed": ko.observable(false),
                             "layout": ko.observable("vertical"),
                             "showWidgetConfiguration": ko.observable(false),
-							"showWidgetHelp": ko.observable(false),
 							"help": 'Muestra las Universidades filtradas'
                         });
 
@@ -1830,7 +1826,6 @@ function InitViewModel() {
                             "title": ko.observable("Total Universities"),
                             "type": ko.observable("radialgauge"),
                             "collapsed": ko.observable(false),
-							"showWidgetHelp": ko.observable(false),
 							"help": "Muestra el total de universidades filtradas."
                         });
                         self.numberOfResults.valueHasMutated();
@@ -1918,7 +1913,6 @@ function InitViewModel() {
 	                        layout: configuration.widgetsLeft[i].layout,
 	                        currentTweets: configuration.widgetsLeft[i].currentTweets,
 	                        showWidgetConfiguration: configuration.widgetsLeft[i].showWidgetConfiguration,
-	                        showWidgetHelp: configuration.widgetsLeft[i].showWidgetHelp,
 	                        help: configuration.widgetsLeft[i].help
 	                    });
 	                }
@@ -1938,7 +1932,6 @@ function InitViewModel() {
 	                        layout: configuration.widgetsRight[i].layout,
 	                        currentTweets: configuration.widgetsRight[i].currentTweets,
 	                        showWidgetConfiguration: configuration.widgetsRight[i].showWidgetConfiguration,
-	                        showWidgetHelp: configuration.widgetsRight[i].showWidgetHelp,
 	                        help: configuration.widgetsRight[i].help
 	                    });
 	                }
@@ -1957,7 +1950,6 @@ function InitViewModel() {
 	                        layout: configuration.widgetsLeftTab1[i].layout,
 	                        currentTweets: configuration.widgetsLeftTab1[i].currentTweets,
 	                        showWidgetConfiguration: configuration.widgetsLeftTab1[i].showWidgetConfiguration,
-	                        showWidgetHelp: configuration.widgetsLeftTab1[i].showWidgetHelp,
 	                        help: configuration.widgetsLeftTab1[i].help
 	                    });
 	                }
@@ -1976,7 +1968,6 @@ function InitViewModel() {
 	                        layout: configuration.widgetsRightTab1[i].layout,
 	                        currentTweets: configuration.widgetsRightTab1[i].currentTweets,
 	                        showWidgetConfiguration: configuration.widgetsRightTab1[i].showWidgetConfiguration,
-	                        showWidgetHelp: configuration.widgetsRightTab1[i].showWidgetHelp,
 	                        help: configuration.widgetsRightTab1[i].help
 	                    });
 	                }
@@ -2799,7 +2790,6 @@ function responseToBot (options){
             "title": ko.observable("Total Employees"),
             "type": ko.observable("radialgauge"),
             "collapsed": ko.observable(false),
-			"showWidgetHelp": ko.observable(false),
 			"help": "Muestra el total de profesores filtrados."
         });
 
@@ -2823,7 +2813,6 @@ function responseToBot (options){
             "title": ko.observable("Total Projects"),
             "type": ko.observable("radialgauge"),
             "collapsed": ko.observable(false),
-			"showWidgetHelp": ko.observable(false),
 			"help": "Muestra el total de proyectos filtrados"
         });
 	}

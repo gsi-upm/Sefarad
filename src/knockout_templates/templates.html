@@ -21,6 +21,7 @@
 							$root.adminMode"></div>
 						<div class="ui-icon ui-icon-gear" style="float: right;" data-bind="visible: $root.adminMode, click: 
 							function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
+						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
 					</div>
 				</div>
 				<div class="ui-widget-content" data-bind="visible: !collapsed()">
@@ -113,6 +114,7 @@
 						<div class="ui-icon ui-icon-gear" id="resultsConfig" style="float: 
 							right;" data-bind="visible: $root.adminMode, click: 
 							function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
+						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
 					</div>
 				</div>
 				<div class="ui-widget-content" 
@@ -144,6 +146,7 @@
 						$root.adminMode"></div>
 					<div class="ui-icon ui-icon-gear" style="float: right;" data-bind="visible: $root.adminMode, click: 
 						function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
+					<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
 				</div>
 			</div>
 			<div class="ui-widget-content" 
@@ -188,16 +191,10 @@
 							blur: function() { $root.editTitle(''); } }"/>
 						<div class="ui-icon ui-icon-trash" style="float:right" data-bind="click: 
 								$root.deleteWidget.bind($data, id(), type()), visible: $root.adminMode"></div>
-						<div class="ui-icon ui-icon-help" style="float:right" data-bind="visible: $root.adminMode, click: 
-							function(){showWidgetHelp(!showWidgetHelp());}"></div>
-						<div id="content" style="float:right"><a href="#">i </a></div>
+						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
 					</div>
 
 					<div class="ui-widget-content" data-bind="visible: !collapsed()">
-
-						<div class="widget-help" data-bind="fadeVisible: showWidgetHelp">
-							<div data-bind="text: help"></div>
-						</div>
 
 						<!-- Slider widget -->
 						{{if type()=="slider"}}

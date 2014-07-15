@@ -123,11 +123,15 @@
 						vm.botMax(true);
 					}
 				});
-
-				$('#content a[href]').live('mouseover', function(event) {
+				$('#qtip-help').live('mouseover', function(event) {
 					$(this).qtip({
 
-						content: 'i am a qtip',
+						content: $(this).attr('help-text'),
+						position: {
+					        my: 'top right',  
+					        at: 'bottom left', 
+					        target: $(this) 
+					    },
 						overwrite: false,
 						show: {
 						  event: event.type,
@@ -176,7 +180,6 @@
 					
 					<div class="icon"><img src="img/help.png" alt="Help" data-bind="click: $root.showHelp"/></div>
 					<div id ="configuration-button" class ="icon" data-bind="click: $root.showConfiguration, visible: $root.adminMode"><img src="img/settings.png" alt="Configuration" /></div>
-					<div id="content"><a href="#">i </a></div>
 					<div class="search" id="search-container">
 						<div class="search-inner">
 							<div id="search-btn"></div>
