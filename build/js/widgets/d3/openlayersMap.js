@@ -42,7 +42,7 @@ var openlayersMap = {
         var filter_input = toolbar_div.append("input")
             .attr("id", "filter")
             .attr("type", "text")
-            .attr("size", 80);
+            .attr("size", 100);
 
         var update_button = toolbar_div.append("img")
             .attr("id", "updateFilterButton")
@@ -119,22 +119,23 @@ var openlayersMap = {
         }
 
         var bounds = new OpenLayers.Bounds(
-            58922.38499999978, 4637883.9998,
-            192487.31350000037, 4726275.338900001
+            97584.79260000028, 4673928.6877,
+            128577.46260000028, 4700554.5716
         );
         var options = {
             controls: [],
             maxExtent: bounds,
-            maxResolution: 521.7380019531273,
+            maxResolution: 121.0651171875,
             projection: "EPSG:2062",
             units: 'm'
         };
+        
         openlayersmap = new OpenLayers.Map('openlayersmap', options);
 
         // setup tiled layer
         tiled = new OpenLayers.Layer.WMS(
-            //parcel + " - Tiled", "http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", {
-            parcel + " - Tiled", "http://demos.gsi.dit.upm.es/geoserver/SmartOpenData/wms", {
+            parcel + " - Tiled", "http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", {
+            //parcel + " - Tiled", "http://demos.gsi.dit.upm.es/geoserver/SmartOpenData/wms", {
                 LAYERS: parcel,
                 STYLES: '',
                 format: format
@@ -150,8 +151,8 @@ var openlayersMap = {
 
         // setup single tiled layer
         untiled = new OpenLayers.Layer.WMS(
-            //parcel + " - Untiled", "http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", {
-            parcel + " - Untiled", "http://demos.gsi.dit.upm.es/geoserver/SmartOpenData/wms", {
+            parcel + " - Untiled", "http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", {
+            //parcel + " - Untiled", "http://demos.gsi.dit.upm.es/geoserver/SmartOpenData/wms", {
                 LAYERS: parcel,
                 STYLES: '',
                 format: format
@@ -218,8 +219,8 @@ var openlayersMap = {
             if (openlayersmap.layers[0].params.FEATUREID) {
                 params.featureid = openlayersmap.layers[0].params.FEATUREID;
             }
-            //OpenLayers.loadURL("http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", params, this, setHTML, setHTML);
-            OpenLayers.loadURL("http://demos.gsi.dit.upm.es/geoserver/SmartOpenData/wms", params, this, setHTML, setHTML);
+            OpenLayers.loadURL("http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", params, this, setHTML, setHTML);
+            //OpenLayers.loadURL("http://demos.gsi.dit.upm.es/geoserver/SmartOpenData/wms", params, this, setHTML, setHTML);
             OpenLayers.Event.stop(e);
         });
     }
@@ -230,7 +231,7 @@ var openlayersmap;
 var untiled;
 var tiled;
 var pureCoverage = false;
-var parcel = 'SmartOpenData:td_0201_mfe50';
+var parcel = 'SmartOpenData:td_0307_sigpac';
 // pink tile avoidance
 OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
 // make OL compute scale according to WMS spec

@@ -750,6 +750,38 @@ function InitViewModel() {
 
 	};
 
+	self.getDataSmod = function () {
+			
+			$.ajax({
+				type: 'GET',
+				url: 'http://demos.gsi.dit.upm.es:8890/sparql?default-graph-uri=http%3A%2F%2Fdataset1.smartopen.gsi.edu&query=select+%3Fshape_area+%3Fparcela+%3Fpendiente+%3Fuso+where+%7B+%3Fs+a+%3Chttp%3A%2F%2Fsmartod.gsi.dit.upm.es%2Fparcels0307%2Fschema%23Parcels%3E+.+%3Fs+a+%3Fitemtype+%3B+%3Chttp%3A%2F%2Fsmartod.gsi.dit.upm.es%2Fparcels0307%2Fschema%23Shape_Area%3E+%3Fshape_area+%3B+%3Chttp%3A%2F%2Fsmartod.gsi.dit.upm.es%2Fparcels0307%2Fschema%23PENDIENTE_%3E+%3Fpendiente+%3B+%3Chttp%3A%2F%2Fsmartod.gsi.dit.upm.es%2Fparcels0307%2Fschema%23USO_SIGPAC%3E+%3Fuso+%3B+%3Chttp%3A%2F%2Fsmartod.gsi.dit.upm.es%2Fparcels0307%2Fschema%23PARCELA%3E+%3Fparcela+%7D%0D%0A&format=application%2Fsparql-results%2Bjson&CXML_redir_for_subjs=121&CXML_redir_for_hrefs=&timeout=0&debug=on',
+				data: {
+					output: 'json',
+					format: 'json',
+					debug: 'on',
+					timeout: '0'
+				},
+				crossDomain: true,
+				dataType: 'jsonp',
+				beforeSend: function () {
+					//$('#loading').show();
+				},
+				complete: function () {
+					//$('#loading').hide();
+				},
+				success: function (allData) {
+					//console.log(allData);
+					var data = JSON.stringify(allData.results.bindings);
+					//console.log('DATA' + data);
+					ko.mapping.fromJSON(data, self.viewData);
+					updateWidgets(true);
+				},
+				error: function () {
+					//$('#docs').append("Consulta fallida");  
+				}
+			});
+	}
+
 	self.doDeleteAllFilters = function () {
 		if (self.sparql()) {
 			updateWidgets(true);
@@ -1439,7 +1471,8 @@ function InitViewModel() {
 			"values": self.slider,
 			"limits": ko.observable([minSliderValue, maxSliderValue]),
 			"help": "Help"
-		});
+		});		
+
 	};
 
 	/** Adding a new GaugeWidget */
@@ -1793,9 +1826,7 @@ function InitViewModel() {
 
                     //Adding widgets
                     $(window).load(function () {
-                    	//Add openalayers map
-                    	openlayersMap.render();	
-
+                    	
                         //Add map widget
                         widgetMap.render();
 
@@ -1828,7 +1859,99 @@ function InitViewModel() {
                             "collapsed": ko.observable(false),
 							"help": "Muestra el total de universidades filtradas."
                         });
+                        self.numberOfResults.valueHasMutated();                        
+                    });
+                });
+
+				this.get('#/sparql/smod', function () {
+                    console.log("SMOD DEMO");
+                    self.sparql = ko.observable(true);
+                    vm.getDataSmod();
+                    configuration.template.language = "English";
+                    configuration.template.pageTitle = "SmartOpenData";
+                    configuration.results.resultsLayout = [{
+                        Name: "Parcel",
+                        Value: "parcela"
+                    }, {
+                        Name: "Area",
+                        Value: "shape_area"
+                    }, {
+                        Name: "Use",
+                        Value: "uso"
+                    }, {
+                        Name: "Image",
+                        Value: ""
+                    }, ];
+                    templateWidgetsLeft.push({
+                        id: 0,
+                        title: 'Land Use',
+                        type: 'tagcloud',
+                        field: 'uso',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+						help: 'Muestra los distintos usos de suelo existentes'
+                    });
+                    configuration.autocomplete.field = "parcela";
+                    self.securityEnabled(false);
+                    self.adminMode(true);
+                    sparqlmode = true;
+                    init();
+
+                    //Adding widgets
+                    $(window).load(function () {
+                    	//Add openalayers map
+                    	openlayersMap.render();                    	
+                    	
+                        // // Add results widget
+                        self.activeWidgetsRight.push({
+                            "id": ko.observable(0),
+                            "title": ko.observable(self.lang().results),
+                            "type": ko.observable("resultswidget"),
+                            "collapsed": ko.observable(false),
+                            "layout": ko.observable("vertical"),
+                            "showWidgetConfiguration": ko.observable(false),
+							"help": 'Muestra las parcelas filtradas'
+                        });
+
+                        // Add PieChart sgvizler wigdet
+                        self.sgvizlerQuery("SELECT ?university ?students WHERE{ ?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university . ?countryresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/EuropeanCountries> . ?universityresource <http://dbpedia.org/ontology/numberOfStudents> ?students FILTER ( lang(?university) = 'en') } GROUP BY ?university LIMIT 50");
+                        self.sgvizlerGraphType('google.visualization.PieChart');
+                        self.sparql_baseURL("http://dbpedia.org/sparql");
+                        self.addSgvizlerWidget("Total students by University");
+
+                        //Add slider widget
+                        self.newNumericFilterValue('shape_area');
+                        self.slider = ko.observable([]);
+						self.slider().push(minSliderValue, maxSliderValue);
+
+						self.activeWidgetsLeft.push({
+							"id": ko.observable(Math.floor(Math.random() * 10001)),
+							"title": ko.observable("Shape Area"),
+							"type": ko.observable("slider"),
+							"field": ko.observable(self.newNumericFilterValue()),
+							"collapsed": ko.observable(false),
+							"value": ko.observable(((maxSliderValue - minSliderValue) / 100)),
+							"values": self.slider,
+							"limits": ko.observable([minSliderValue, maxSliderValue]),
+							"help": "Seleccione el rango de areas en el que desea filtrar las parcelas"
+						});
+
+                        // Add Gauge Widget
+                        var id = Math.floor(Math.random() * 10001);
+                        self.activeWidgetsLeft.push({
+                            "id": ko.observable(id),
+                            "title": ko.observable("Filtered Parcels"),
+                            "type": ko.observable("radialgauge"),
+                            "collapsed": ko.observable(false),
+							"help": "Muestra el numero total de parcelas filtradas."
+                        });
                         self.numberOfResults.valueHasMutated();
+                        	
                     });
                 });
 
