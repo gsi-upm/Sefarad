@@ -141,6 +141,25 @@
 					}, event);
 				});
 
+				$('#qtip-help-conf').live('mouseover', function(event) {
+					$(this).qtip({
+
+						content: $(this).attr('help-text'),
+						position: {
+					        my: 'left',  
+					        at: 'right', 
+					        target: $(this) 
+					    },
+						overwrite: false,
+						show: {
+						  event: event.type,
+						  ready: true
+						}
+						   
+					}, event);
+				});
+
+
 				//initIsotopeAndWizards();
 			});
 
@@ -153,7 +172,7 @@
 	</head>
 	<!-- ends head -->
 	<!-- body starts -->
-	<body>
+	<body><section id='qtip-help-conf' help-text='ruta de la imagen logo de la página'></section>
 		<!-- Loading animation -->
 		<div id="dvLoading"></div>
 		<div class="allcontent" data-bind="visible: page() == 0">
@@ -212,15 +231,24 @@
 					<div class="col1">
 						<h3 data-bind="text: lang().personalization"></h3>
 						<ul>
-							<li data-bind="text: lang().pagetitle"></li>
+							<ul>
+								<li data-bind="text: lang().pagetitle"></li>
+							</ul>
+							<ul>
+								<center><div id='qtip-help-conf' class="ui-icon ui-icon-help" help-text='the title that will be shown at the top of the page'></div></center>
+							</ul>
 							<li><input id="pagetitle" type="text" data-bind="value: pageTitle" placeholder="Título de la página" /></li>
-							<li data-bind="text: lang().logo"></li>
+
+							<li data-bind="text: lang().logo"></li><center><div id='qtip-help-conf' class="ui-icon ui-icon-help" help-text='the path of the image used as logo'></div></center>
 							<li><input id="logopath" type="text" data-bind="value: logoPath" placeholder="Logo de la página" /></li>
-							<li data-bind="text: lang().language"></li>
+
+							<li data-bind="text: lang().language"></li><center><div id='qtip-help-conf' class="ui-icon ui-icon-help" help-text='language the page will be shown in'></div></center>							
 							<li><select id="lang" data-bind="options: languages, value: selectedLanguage, optionsCaption: 
 								lang().langcaption"></select></li>
-							<li><input type="checkbox" style="width:13px;" data-bind="checked: activedAutocomplete"/><label data-bind="text: lang().autocomplete"></label></li>
+
+							<li><input type="checkbox" style="width:13px;" data-bind="checked: activedAutocomplete"/><label data-bind="text: lang().autocomplete"></label></li><center><div id='qtip-help-conf' class="ui-icon ui-icon-help" help-text='enable/disable autocomplete feature in the search field'></div></center>
 							<li><select data-bind="options: dataColumns, value: autocomplete_fieldname, optionsCaption: lang().fieldcaption, enable: activedAutocomplete"></select></li>
+
 							<li><input type="checkbox" style="width:13px;" data-bind="checked: sortableWidgets"/><label data-bind="text: lang().sortableWidgets"></label></li>	
 						</ul>
 					</div>
