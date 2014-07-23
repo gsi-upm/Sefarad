@@ -10,7 +10,7 @@
 //  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and  limitations under the License.
 
 /** YOU MUST EDIT THIS LINE */
-var serverURL = "http://localhost:8080/LMF/";
+var serverURL = "http://localhost:8983/solr/";
 //var serverURL = "http://shannon.gsi.dit.upm.es/episteme/lmf/";
 //var serverURL = "http://minsky.gsi.dit.upm.es/episteme/tomcat/LMF/";
 	

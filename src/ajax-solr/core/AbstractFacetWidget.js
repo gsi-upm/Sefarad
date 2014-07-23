@@ -265,7 +265,7 @@ AjaxSolr.AbstractFacetWidget = AjaxSolr.AbstractWidget.extend(
 	  if(!vm.lightmode()){
 			 
 		if (self[meth].call(self, value)) {
-			self.doRequest();
+			self.manager.doRequest(0);
 		}
    	}else{
 	// Modo local
@@ -321,7 +321,7 @@ AjaxSolr.AbstractFacetWidget = AjaxSolr.AbstractWidget.extend(
     var self = this;
     return function () {
       if (self.remove(value)) {
-        self.doRequest();
+        self.manager.doRequest(0);
       }
       return false;
     }

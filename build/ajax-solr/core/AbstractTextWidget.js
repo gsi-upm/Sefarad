@@ -71,7 +71,7 @@ AjaxSolr.AbstractTextWidget = AjaxSolr.AbstractWidget.extend(
     var self = this;
     return function () {
       if (self.clear()) {
-        self.doRequest();
+        self.manager.doRequest(0);
       }
       return false;
     }
@@ -87,7 +87,7 @@ AjaxSolr.AbstractTextWidget = AjaxSolr.AbstractWidget.extend(
     var self = this;
     return function () {
       if (self.set(q)) {
-        self.doRequest();
+        self.manager.doRequest(0);
 	
       }
       return false;
