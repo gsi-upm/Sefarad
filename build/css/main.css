@@ -147,9 +147,10 @@ box-shadow: 0 1px 40px rgba(0, 0, 0, 0.75),inset 0 -1px 0 rgba(0, 0, 0, 0.7);
 }
 
 .search{display:block;float:right !important;margin:20px 0 10px 0}
-.search{display:block;float:right;padding-top:20px;height:28px;margin-top:-3px;margin-bottom:7px;overflow:hidden;position:relative;-webkit-transition:width .25s ease;-moz-transition:width .25s ease;-o-transition:width .25s ease;transition:width .25s ease;z-index:8;width:50px}
+.search{display:block;float:right;width:245px;padding-top:20px;height:28px;margin-top:-3px;margin-bottom:7px;position:relative}
 .search #search-btn{background:url(../img/icon_search.png) no-repeat;float:left;height:28px;width:50px}
 .search-inner{width:245px;z-index:8}
+
 .search:hover,.search.active{width:245px}
 .search .icon{background:url(http://www.android.com/images/microphone.png) no-repeat 0 0;float:right;height:18px;margin:3px 8px 0;position:relative;width:8px}
 

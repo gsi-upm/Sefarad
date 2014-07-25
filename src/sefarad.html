@@ -150,7 +150,7 @@
 					        at: 'right', 
 					        target: $(this) 
 					    },
-						overwrite: false,
+						overwrite: true,
 						show: {
 						  event: event.type,
 						  ready: true
@@ -158,6 +158,8 @@
 						   
 					}, event);
 				});
+
+				
 
 
 				//initIsotopeAndWizards();
@@ -199,6 +201,7 @@
 					
 					<div class="icon"><img src="img/help.png" alt="Help" data-bind="click: $root.showHelp"/></div>
 					<div id ="configuration-button" class ="icon" data-bind="click: $root.showConfiguration, visible: $root.adminMode"><img src="img/settings.png" alt="Configuration" /></div>
+
 					<div class="search" id="search-container">
 						<div class="search-inner">
 							<div id="search-btn"></div>
@@ -206,15 +209,16 @@
 							<!-- ko if: $root.sparql -->
 							<input style="background-color:#000;border:none;color:#fff;font-size:.95em;height:24px;;padding:0 0 0 
 								0px;position:relative;width:178px;" id="query" size="80" 
-								data-bind="attr: { placeholder: lang().searchplaceholder }, kendoAutoComplete: { data: autoCompleteFields, value: filter }"/>
+								data-bind="attr: { placeholder: lang().searchplaceholder }, kendoAutoComplete: { data: autoCompleteFields, value: filter, animation: false }"/>
 							<!-- /ko -->
 							<!-- ko ifnot: $root.sparql -->
 							<input style="background-color:#000;border:none;color:#fff;font-size:.95em;height:24px;;padding:0 0 0 
 								0px;position:relative;width:178px;" id="query" size="80"  
-								data-bind="attr: { placeholder: lang().searchplaceholder }, kendoAutoComplete: { data: autoCompleteFieldsSOLR, value: filter }"/>
+								data-bind="attr: { placeholder: lang().searchplaceholder }, kendoAutoComplete: { data: autoCompleteFieldsSOLR, value: filter, animation: false }"/>
 							<!-- /ko -->
 						</div>
-					</div>					
+					</div>	
+
 				</div>
 				<!-- User-Pass Dialog -->
 				<div id="dialog">
@@ -231,22 +235,17 @@
 					<div class="col1">
 						<h3 data-bind="text: lang().personalization"></h3>
 						<ul>
-							<ul>
-								<li data-bind="text: lang().pagetitle"></li>
-							</ul>
-							<ul>
-								<center><div id='qtip-help-conf' class="ui-icon ui-icon-help" help-text='the title that will be shown at the top of the page'></div></center>
-							</ul>
+							<li data-bind="text: lang().pagetitle"></li><center><div id='qtip-help-conf' data-bind="attr: {'help-text': lang().pagetitlehelp}" class="ui-icon ui-icon-help" ></div></center>
 							<li><input id="pagetitle" type="text" data-bind="value: pageTitle" placeholder="Título de la página" /></li>
 
-							<li data-bind="text: lang().logo"></li><center><div id='qtip-help-conf' class="ui-icon ui-icon-help" help-text='the path of the image used as logo'></div></center>
+							<li data-bind="text: lang().logo"></li><center><div id='qtip-help-conf' class="ui-icon ui-icon-help" data-bind="attr: {'help-text': lang().logohelp}"></div></center>
 							<li><input id="logopath" type="text" data-bind="value: logoPath" placeholder="Logo de la página" /></li>
 
-							<li data-bind="text: lang().language"></li><center><div id='qtip-help-conf' class="ui-icon ui-icon-help" help-text='language the page will be shown in'></div></center>							
+							<li data-bind="text: lang().language"></li><center><div id='qtip-help-conf' class="ui-icon ui-icon-help" data-bind="attr: {'help-text': lang().languagehelp}"></div></center>							
 							<li><select id="lang" data-bind="options: languages, value: selectedLanguage, optionsCaption: 
 								lang().langcaption"></select></li>
 
-							<li><input type="checkbox" style="width:13px;" data-bind="checked: activedAutocomplete"/><label data-bind="text: lang().autocomplete"></label></li><center><div id='qtip-help-conf' class="ui-icon ui-icon-help" help-text='enable/disable autocomplete feature in the search field'></div></center>
+							<li><input type="checkbox" style="width:13px;" data-bind="checked: activedAutocomplete"/><label data-bind="text: lang().autocomplete"></label></li><center><div id='qtip-help-conf' class="ui-icon ui-icon-help" data-bind="attr: {'help-text': lang().autocompletehelp}"></div></center>
 							<li><select data-bind="options: dataColumns, value: autocomplete_fieldname, optionsCaption: lang().fieldcaption, enable: activedAutocomplete"></select></li>
 
 							<li><input type="checkbox" style="width:13px;" data-bind="checked: sortableWidgets"/><label data-bind="text: lang().sortableWidgets"></label></li>	
@@ -260,6 +259,7 @@
 						</div>
 						<div data-bind="visible: sparql()">
 							<h3 data-bind="text: lang().sparqlaccessendpoint"></h3>
+							<center><div id='qtip-help-conf' class="ui-icon ui-icon-help" data-bind="attr: {'help-text': lang().sparqlhelp}"></div></center>
 							<input id="serverURL" type="text" data-bind="value: sparql_baseURL" placeholder="SPARQL endpoint"/>
 						</div>
 						<div data-bind="visible: !sparql()">
@@ -268,6 +268,28 @@
 								lang().reindexsolr"></span></button>
 							<button class="button" data-bind="click: $root.resetConfiguration, visible: !sparql()"><span data-bind="text: 
 								lang().resetconf"></span></button>
+						</div>
+
+						<div id='tabs-config'>
+							<h3 data-bind="text: lang().tabs"></h3>
+
+							<center>
+							<div id='checkboxes'  style="margin-left:25%; margin-right:25%; width:25%">
+
+							<p align="left">
+								<input type="checkbox" style="width:13px;" data-bind="checked: searchTabEnabled"/><label data-bind="text: lang().search"></label>
+							</p>
+							<p align="left">
+								<input type="checkbox" style="width:13px;" data-bind="checked: dashboardTabEnabled"/><label data-bind="text: lang().dashboard"></label>
+							</p>
+							<p align="left">
+								<input type="checkbox" style="width:13px;" data-bind="checked: payolaTabEnabled"/><label data-bind="text: lang().payola"></label>
+							</p>
+							<p align="left">
+								<input type="checkbox" style="width:13px;" data-bind="checked: sparqlEditorTabEnabled"/><label data-bind="text: lang().sparqleditor"></label>
+							</p>
+							</div>
+							</center>
 						</div>
 					</div>
 					<div style="clear:both">					
@@ -306,7 +328,7 @@
 									lang().addWidget2"></span></button>
 							</div>
 						</div>
-						<div class="box cat5">
+						<div class="box cat5">data-bind="visible: !sparql()
 							<h1 data-bind="text: lang().resultsgrid"></h1>
 							<table id="wrapper">
 								<tr>
@@ -543,9 +565,11 @@
 			</div>
 			<!-- below top bar -->
 			<div class="page-header" style="padding-top: 0px;"></div>
-			<ul class="tabrow">
-				<li data-bind="css: {'selected': activeTab() == 0}, click: function() { $root.activeTab(0); }"><a data-bind="text: lang().search"></a></li>
-				<li data-bind="css: {'selected': activeTab() == 1}, click: function() { $root.activeTab(1); }"><a data-bind="text: lang().dashboard"></a></li>
+			<ul class="tabrow">				
+				<li data-bind="css: {'selected': activeTab() == 0}, click: function() { $root.activeTab(0); }, visible: searchTabEnabled"><a data-bind="text: lang().search"></a></li>
+				<li data-bind="css: {'selected': activeTab() == 1}, click: function() { $root.activeTab(1); }, visible: dashboardTabEnabled"><a data-bind="text: lang().dashboard"></a></li>
+				<li data-bind="css: {'selected': activeTab() == 2}, click: function() { $root.activeTab(2); }, visible: payolaTabEnabled"><a data-bind="text: lang().payola"></a></li>
+				<li data-bind="css: {'selected': activeTab() == 3}, click: function() { $root.activeTab(3); }, visible: sparqlEditorTabEnabled"><a data-bind="text: lang().sparqleditor"></a></li>
 			</ul>
 			<!-- Starts main content -->
 			<div class="maincontent" data-bind="visible: page() == 0">

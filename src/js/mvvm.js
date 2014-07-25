@@ -146,6 +146,12 @@ function InitViewModel() {
 	/** Sortable widgets */
 	self.sortableWidgets = ko.observable(configuration.sortable_widgets.actived);
 
+	/**Variables for showing/hiding the tabs*/
+	self.searchTabEnabled = ko.observable(true);
+	self.dashboardTabEnabled = ko.observable(true);
+	self.payolaTabEnabled = ko.observable(true);
+	self.sparqlEditorTabEnabled = ko.observable(true);
+
 	/**Number of data requested in each request  (LOCAL ONLY) */
 	self.num_rows = ko.observable(10);
 
@@ -581,7 +587,7 @@ function InitViewModel() {
 		return response;
 	});
 
-	self.selectedLanguageIndex = ko.dependentObservable(function () {
+	self.selectedLanguageIndex = ko.dependentObservable(function () {		
 		return self.languages().indexOf(self.selectedLanguage());
 	}, self);
 
