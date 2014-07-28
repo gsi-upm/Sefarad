@@ -1290,7 +1290,8 @@ function InitViewModel() {
 			"type": ko.observable("resultswidget"),
 			"collapsed": ko.observable(false),
 			"layout": ko.observable("vertical"),
-			"showWidgetConfiguration": ko.observable(true)
+			"showWidgetConfiguration": ko.observable(true),
+			"help": 'help'
 		});
 	};
 
@@ -1303,7 +1304,8 @@ function InitViewModel() {
 			"type": ko.observable("resultswidget"),
 			"collapsed": ko.observable(false),
 			"layout": ko.observable("grid"),
-			"showWidgetConfiguration": ko.observable(true)
+			"showWidgetConfiguration": ko.observable(true),
+			"help": 'help'
 		});
 	};
 
@@ -1322,7 +1324,8 @@ function InitViewModel() {
 			"collapsed": ko.observable(false),
 			"values": ko.observableArray(),
 			"layout": ko.observable("vertical"),
-			"showWidgetConfiguration": ko.observable(false)
+			"showWidgetConfiguration": ko.observable(false),
+			"help": 'help'
 		});
 
 		if (self.sparql()) {
@@ -1365,7 +1368,8 @@ function InitViewModel() {
 				"collapsed": ko.observable(false),
 				"values": ko.observableArray(),
 				"layout": ko.observable("horizontal"),
-				"showWidgetConfiguration": ko.observable(false)
+				"showWidgetConfiguration": ko.observable(false),
+				"help": 'help'
 			});
 
 		} else {
@@ -2016,16 +2020,17 @@ function InitViewModel() {
 	            type: 'get',
 	            url: '/php/mongo_load.php',
 	            dataType: "json",
-	            success: function (data) {
-	                console.log(data);
+	            success: function (data) {	                
 
 	                loaded_configuration = data;
 	                configuration = loaded_configuration;
 
-	                // templateWidgetsLeft = [];
-	                // templateWidgetsRight = [];
-	                // templateWidgetsLeftTab1 = [];
-	                // templateWidgetsRightTab1 = [];
+	                console.log(configuration);
+
+	                templateWidgetsLeft = [];
+	                templateWidgetsRight = [];
+	                templateWidgetsLeftTab1 = [];
+	                templateWidgetsRightTab1 = [];
 
 	                for (var i = 0; configuration.widgetsLeft.length > i; i++) {
 
@@ -2108,14 +2113,30 @@ function InitViewModel() {
 	            },
 
 	            error: function (data) {
+
+	            	console.log('Error loading mongoconfiguartion');	            	
+	                configuration = default_configuration;
+	                console.log(configuration);
+
+	                templateWidgetsLeft = [];
+	                templateWidgetsRight = [];
+	                templateWidgetsLeftTab1 = [];
+	                templateWidgetsRightTab1 = [];
+
 	                templateWidgetsRight.push({
 	                    "id": ko.observable(0),
 	                    "title": ko.observable("Resultados"),
 	                    "type": ko.observable("resultswidget"),
 	                    "collapsed": ko.observable(false),
 	                    "layout": ko.observable("vertical"),
-	                    "showWidgetConfiguration": ko.observable(false)
+	                    "showWidgetConfiguration": ko.observable(false),
+						"help": 'help'
 	                });
+
+	                init();
+
+	                updateSolrFilter();	                
+	                
 	            }
 	        });
 	};

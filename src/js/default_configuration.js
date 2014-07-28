@@ -1,4 +1,5 @@
 var default_configuration = {
+	"name": "default_configuration",
 	"autocomplete": {
 		"field": "",
 		"actived": true

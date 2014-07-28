@@ -22,9 +22,13 @@ if (($cursor->count()) > 0) {
 	$query = array( 'name' => 'default_configuration' );
 	$cursor = $collection->find( $query );
 
-	foreach ($cursor as $doc) {
-	    echo (json_encode(($doc)));
-	}
+	if (($cursor->count()) > 0) {
+		foreach ($cursor as $doc) {
+		    echo (json_encode(($doc)));
+		}
+	} else {
+		trigger_error("No se encuentra ninguna configuracion", E_USER_ERROR);
+	}	
 }
 
 ?>
