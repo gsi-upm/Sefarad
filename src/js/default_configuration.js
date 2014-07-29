@@ -48,7 +48,7 @@ var default_configuration = {
 		"actived": false
 	},
 	"template": {
-		"pageTitle": "Sefarad",
+		"pageTitle": "Smart Open Data",
 		"logoPath": "",
 		"showResultsWidget": false,
 		"language": "Español"
