@@ -43,15 +43,9 @@ class User
 	{
 		if (empty($this->_user)) return Null;
 		switch ($attr) {
-		case 'address':
-			$address = $this->_user['address'];
-			return sprintf('Town: %s, Planet: %s', $address['town'], $address['planet']);
-		case 'town':
-			return $this->_user['address']['town'];
-		case 'planet':
-			return $this->_user['address']['planet'];
-		case 'password':
-			return NULL;
+		case 'username':
+			$username = $this->_user['username'];
+			return sprintf('Username: %s', $username);
 		default:
 			return (isset($this->_user[$attr])) ? $this->_user[$attr] : NULL;
 		}

@@ -1624,7 +1624,7 @@ function InitViewModel() {
 		
 		$.ajax({
 			type: "POST",
-			url: '/php/mongo_delete.php',
+			url: 'php/mongo_delete.php',
 
 			beforeSend: function (xhr) {
 					
@@ -2018,7 +2018,7 @@ function InitViewModel() {
 
 	        $.ajax({
 	            type: 'get',
-	            url: '/php/mongo_load.php',
+	            url: 'php/mongo_load.php',
 	            dataType: "json",
 	            success: function (data) {	                
 
@@ -2477,7 +2477,7 @@ function saveConfiguration(refreshpage, user, pass) {
     
     $.ajax({
 		type: "POST",
-		url: '/php/mongo_save.php',
+		url: 'php/mongo_save.php',
 		data: {actual_configuration : ac},
 		dataType: "json",
 		beforeSend: function (xhr) {
