@@ -1,4 +1,5 @@
 <!-- Different templates -->
+<script type="text/javascript" charset="UTF-8" src="js/lang.js"></script>
 		<script id="widgets-template" type="text/html">
 			<div class="item" data-bind="sortableItem: { item: $data, parentList: $item.parentList }">
 			<!-- Widgets with own configuration first -->
@@ -21,7 +22,7 @@
 							$root.adminMode"></div>
 						<div class="ui-icon ui-icon-gear" style="float: right;" data-bind="visible: $root.adminMode, click: 
 							function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
-						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
+						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().resultsWidgetHelp }"></div>
 					</div>
 				</div>
 				<div class="ui-widget-content" data-bind="visible: !collapsed()">
@@ -114,7 +115,7 @@
 						<div class="ui-icon ui-icon-gear" id="resultsConfig" style="float: 
 							right;" data-bind="visible: $root.adminMode, click: 
 							function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
-						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
+						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().resultStatsHelp }"></div>
 					</div>
 				</div>
 				<div class="ui-widget-content" 
@@ -146,7 +147,7 @@
 						$root.adminMode"></div>
 					<div class="ui-icon ui-icon-gear" style="float: right;" data-bind="visible: $root.adminMode, click: 
 						function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
-					<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
+					<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().tagCloudHelp }"></div>
 				</div>
 			</div>
 			<div class="ui-widget-content" 
@@ -191,7 +192,7 @@
 							blur: function() { $root.editTitle(''); } }"/>
 						<div class="ui-icon ui-icon-trash" style="float:right" data-bind="click: 
 								$root.deleteWidget.bind($data, id(), type()), visible: $root.adminMode"></div>
-						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
+						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().otherWidgetHelp }"></div>
 					</div>
 
 					<div class="ui-widget-content" data-bind="visible: !collapsed()">

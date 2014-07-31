@@ -143,7 +143,7 @@
 					        at: 'bottom left', 
 					        target: $(this) 
 					    },
-						overwrite: false,
+						overwrite: true,
 						show: {
 						  event: event.type,
 						  ready: true
@@ -246,17 +246,68 @@
 					<div class="col1">
 						<h3 data-bind="text: lang().personalization"></h3>
 						<ul>
-							<li data-bind="text: lang().pagetitle"></li><center><div id='qtip-help-conf' data-bind="attr: {'help-text': lang().pagetitlehelp}" class="ui-icon ui-icon-help" ></div></center>
-							<li><input id="pagetitle" type="text" data-bind="value: pageTitle" placeholder="Título de la página" /></li>
+							<li>
+								<center><table>
+									<tr>
+										<th>
+											<span data-bind="text: lang().pagetitle"></span>	
+										</th>
+										<th>
+											<span id='qtip-help-conf' data-bind="attr: {'help-text': lang().pagetitlehelp}" class="ui-icon ui-icon-help" ></span>
+										</th>	
+									</tr>								
+								</table></center>
+							
+							</li>
+							<li>
+								<input id="pagetitle" type="text" data-bind="value: pageTitle" placeholder="Título de la página" />
+							</li>							
 
-							<li data-bind="text: lang().logo"></li><center><div id='qtip-help-conf' class="ui-icon ui-icon-help" data-bind="attr: {'help-text': lang().logohelp}"></div></center>
-							<li><input id="logopath" type="text" data-bind="value: logoPath" placeholder="Logo de la página" /></li>
+							<li>
+								<center><table>
+									<tr>
+										<th>
+											<span data-bind="text: lang().logo"></span>	
+										</th>
+										<th>
+											<span id='qtip-help-conf' data-bind="attr: {'help-text': lang().logohelp}" class="ui-icon ui-icon-help" ></span>
+										</th>	
+									</tr>								
+								</table></center>
+							
+							</li>
+							<li><input id="logopath" type="text" data-bind="value: logoPath" placeholder="Logo de la página" /></li>			
 
-							<li data-bind="text: lang().language"></li><center><div id='qtip-help-conf' class="ui-icon ui-icon-help" data-bind="attr: {'help-text': lang().languagehelp}"></div></center>							
+							<li>
+								<center><table>
+									<tr>
+										<th>
+											<div data-bind="text: lang().language"></div>	
+										</th>
+										<th>
+											<span id='qtip-help-conf' data-bind="attr: {'help-text': lang().languagehelp}" class="ui-icon ui-icon-help" ></span>
+										</th>	
+									</tr>								
+								</table></center>							
+							</li>							
 							<li><select id="lang" data-bind="options: languages, value: selectedLanguage, optionsCaption: 
 								lang().langcaption"></select></li>
-
-							<li><input type="checkbox" style="width:13px;" data-bind="checked: activedAutocomplete"/><label data-bind="text: lang().autocomplete"></label></li><center><div id='qtip-help-conf' class="ui-icon ui-icon-help" data-bind="attr: {'help-text': lang().autocompletehelp}"></div></center>
+							
+							<li>
+								<center><table>
+									<tr>
+										<th>
+											<input type="checkbox" style="width:13px;" data-bind="checked: activedAutocomplete"/>
+										</th>
+										<th>
+											<span data-bind="text: lang().autocomplete"></span>	
+										</th>
+										<th>
+											<span id='qtip-help-conf' data-bind="attr: {'help-text': lang().autocompletehelp}" class="ui-icon ui-icon-help" ></span>
+										</th>	
+									</tr>								
+								</table></center>							
+							</li>										
 							<li><select data-bind="options: dataColumns, value: autocomplete_fieldname, optionsCaption: lang().fieldcaption, enable: activedAutocomplete"></select></li>
 
 							<li><input type="checkbox" style="width:13px;" data-bind="checked: sortableWidgets"/><label data-bind="text: lang().sortableWidgets"></label></li>	
@@ -269,8 +320,16 @@
 							<p data-bind="text: serverURL"></p>
 						</div>
 						<div data-bind="visible: sparql()">
-							<h3 data-bind="text: lang().sparqlaccessendpoint"></h3>
-							<center><div id='qtip-help-conf' class="ui-icon ui-icon-help" data-bind="attr: {'help-text': lang().sparqlhelp}"></div></center>
+							<center><table>
+									<tr>
+										<th>
+											<h3 data-bind="text: lang().sparqlaccessendpoint"></h3>	
+										</th>
+										<th>
+											<div id='qtip-help-conf' class="ui-icon ui-icon-help" data-bind="attr: {'help-text': lang().sparqlhelp}"></div>
+										</th>	
+									</tr>								
+								</table></center>							
 							<input id="serverURL" type="text" data-bind="value: sparql_baseURL" placeholder="SPARQL endpoint"/>
 						</div>
 						<div data-bind="visible: !sparql()">
@@ -283,23 +342,45 @@
 
 						<div id='tabs-config'>
 							<h3 data-bind="text: lang().tabs"></h3>
-
 							<center>
-							<div id='checkboxes'  style="margin-left:25%; margin-right:25%; width:25%">
-
-							<p align="left">
-								<input type="checkbox" style="width:13px;" data-bind="checked: searchTabEnabled"/><label data-bind="text: lang().search"></label>
-							</p>
-							<p align="left">
-								<input type="checkbox" style="width:13px;" data-bind="checked: dashboardTabEnabled"/><label data-bind="text: lang().dashboard"></label>
-							</p>
-							<p align="left">
-								<input type="checkbox" style="width:13px;" data-bind="checked: payolaTabEnabled"/><label data-bind="text: lang().payola"></label>
-							</p>
-							<p align="left">
-								<input type="checkbox" style="width:13px;" data-bind="checked: sparqlEditorTabEnabled"/><label data-bind="text: lang().sparqleditor"></label>
-							</p>
+							<div id='checkboxes'>							
+								<input type="checkbox" style="width:13px;" data-bind="checked: searchTabEnabled"/><label data-bind="text: lang().search"></label>							
+								<input type="checkbox" style="width:13px;" data-bind="checked: dashboardTabEnabled"/><label data-bind="text: lang().dashboard"></label>							
+								<input type="checkbox" style="width:13px;" data-bind="checked: payolaTabEnabled"/><label data-bind="text: lang().payola"></label>							
+								<input type="checkbox" style="width:13px;" data-bind="checked: sparqlEditorTabEnabled"/><label data-bind="text: lang().sparqleditor"></label>							
 							</div>
+							</center>
+						</div>
+
+						<p></p>
+
+						<div data-bind="visible: sparql()">
+							<center><table>
+									<tr>
+										<th>
+											<h3 data-bind="text: lang().sparqlquery"></h3>	
+										</th>
+										<th>
+											<div id='qtip-help-conf' class="ui-icon ui-icon-help" data-bind="attr: {'help-text': lang().sparqlqueryhelp}"></div>
+										</th>	
+									</tr>								
+								</table>								
+							<div  id="search-container" align="center">
+								<div >									
+									<!-- es el form el que da estilo al input -->
+									<!-- ko if: $root.sparql -->
+									<input style="background-color:#fff;border:none;color:#000;font-size:.95em;height:24px;;padding:0 0 0 
+										0px;position:relative;width:300px;" id="query" size="80" 
+										data-bind="attr: { placeholder: lang().searchplaceholder }, kendoAutoComplete: { data: autoCompleteFields, value: filter, animation: false }"/>
+									<!-- /ko -->
+									<!-- ko ifnot: $root.sparql -->
+									<input style="background-color:#fff;border:none;color:#000;font-size:.95em;height:24px;;padding:0 0 0 
+										0px;position:relative;width:300px;" id="query" size="80"  
+										data-bind="attr: { placeholder: lang().searchplaceholder }, kendoAutoComplete: { data: autoCompleteFieldsSOLR, value: filter, animation: false }"/>
+									<!-- /ko -->
+									<button type="button" data-bind="text: lang().runquery" style="display: inline-block;"></button>
+								</div>
+							</div>	
 							</center>
 						</div>
 					</div>
@@ -632,6 +713,12 @@
 					</div>
 					<!-- end two columns (tab 1) -->
 				</div>
+
+				<!-- columns in tab 3 -->
+				<div id="columns" data-bind="visible: activeTab() == 3">
+					<center><iframe src="http://demos.gsi.dit.upm.es/tomcat/sparqled/" width="800" height="600" align="center"></iframe></center> 
+				</div>
+
 				<!-- ends maincontent -->
 			</div>
 			<div class="pre-footer">
@@ -773,6 +860,7 @@
 			</ol>
 			
 		<!-- Different templates -->
+<script type="text/javascript" charset="UTF-8" src="js/lang.js"></script>
 		<script id="widgets-template" type="text/html">
 			<div class="item" data-bind="sortableItem: { item: $data, parentList: $item.parentList }">
 			<!-- Widgets with own configuration first -->
@@ -795,7 +883,7 @@
 							$root.adminMode"></div>
 						<div class="ui-icon ui-icon-gear" style="float: right;" data-bind="visible: $root.adminMode, click: 
 							function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
-						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
+						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().resultsWidgetHelp }"></div>
 					</div>
 				</div>
 				<div class="ui-widget-content" data-bind="visible: !collapsed()">
@@ -888,7 +976,7 @@
 						<div class="ui-icon ui-icon-gear" id="resultsConfig" style="float: 
 							right;" data-bind="visible: $root.adminMode, click: 
 							function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
-						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
+						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().resultStatsHelp }"></div>
 					</div>
 				</div>
 				<div class="ui-widget-content" 
@@ -920,7 +1008,7 @@
 						$root.adminMode"></div>
 					<div class="ui-icon ui-icon-gear" style="float: right;" data-bind="visible: $root.adminMode, click: 
 						function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
-					<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
+					<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().tagCloudHelp }"></div>
 				</div>
 			</div>
 			<div class="ui-widget-content" 
@@ -965,7 +1053,7 @@
 							blur: function() { $root.editTitle(''); } }"/>
 						<div class="ui-icon ui-icon-trash" style="float:right" data-bind="click: 
 								$root.deleteWidget.bind($data, id(), type()), visible: $root.adminMode"></div>
-						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
+						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().otherWidgetHelp }"></div>
 					</div>
 
 					<div class="ui-widget-content" data-bind="visible: !collapsed()">
