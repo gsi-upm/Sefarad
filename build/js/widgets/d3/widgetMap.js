@@ -27,6 +27,7 @@ var widgetMap = {
             "showWidgetConfiguration": ko.observable(false)
         });
 
+        openlayersMap.paintConfig(configid);
         widgetMap.paint(id);
     },
 

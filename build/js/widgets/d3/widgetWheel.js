@@ -28,6 +28,7 @@ var widgetWheel = {
         });
 
         // widgetWheel.paint(field, id, widgetWheel.type);
+        openlayersMap.paintConfig(configid);
         widgetWheel.paint(id);
     },
 

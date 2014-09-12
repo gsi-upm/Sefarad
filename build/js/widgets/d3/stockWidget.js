@@ -29,6 +29,7 @@ var stockWidget = {
         });
 
         // stockWidget.paint(field, id, stockWidget.type);
+        openlayersMap.paintConfig(configid);
         stockWidget.paint(id);
     },
 
@@ -36,6 +37,12 @@ var stockWidget = {
 
     },
 
+    paintConfig: function (configid) {
+        d3.select('#' + configid).selectAll('div').remove();
+        var div = d3.select('#' + configid);
+        div.attr("align", "center");
+
+    },
 
     paint: function(id) {
 

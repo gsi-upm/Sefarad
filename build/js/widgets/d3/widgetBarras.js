@@ -29,10 +29,18 @@ var widgetBarras = {
         });
 
         // widgetB.paint(field, id, widgetBarras.type);
+        openlayersMap.paintConfig(configid);
         widgetBarras.paint(id);
     },
 
     options: {
+
+    },
+
+    paintConfig: function (configid) {
+        d3.select('#' + configid).selectAll('div').remove();
+        var div = d3.select('#' + configid);
+        div.attr("align", "center");
 
     },
 

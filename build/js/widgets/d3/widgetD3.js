@@ -39,6 +39,7 @@ var widgetD3 = {
         });
 
         // widgetD3.paint(field, id, widgetD3.type);
+        openlayersMap.paintConfig(configid);
         widgetD3.paint(id);
     },
 

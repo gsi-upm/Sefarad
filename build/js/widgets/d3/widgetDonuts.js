@@ -31,6 +31,7 @@ var widgetDonuts = {
             "showWidgetConfiguration": ko.observable(false)
         });
 
+        openlayersMap.paintConfig(configid);
         widgetDonuts.paint(id);
     },
 

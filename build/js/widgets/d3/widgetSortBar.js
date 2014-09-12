@@ -28,6 +28,7 @@ var widgetSortBar = {
             "showWidgetConfiguration": ko.observable(false)
         });
 
+        openlayersMap.paintConfig(configid);
         widgetSortBar.paint(id);
     },
 
