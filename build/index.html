@@ -2,16 +2,16 @@
 <html lang="es">
 	<!-- head starts -->
 	<head>
-		<script type="text/javascript" src="js/widgets/d3/widgetDonuts.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetMap.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetD3.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetSortBar.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetWheel.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetBarras.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/openlayersMap.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/stockWidget.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetBarras.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetD3.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetDonuts.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetMap.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetSortBar.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetWheel.js"></script>
 		<script type="text/javascript">
-			var widgetX = [widgetDonuts, widgetMap, widgetD3, widgetSortBar, widgetWheel, widgetBarras, openlayersMap, stockWidget];
+			var widgetX = [openlayersMap, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
 		</script>
 		<meta charset="utf-8" />
 		<title>SEFARAD</title>
@@ -1054,6 +1054,8 @@
 						<div class="ui-icon ui-icon-trash" style="float:right" data-bind="click: 
 								$root.deleteWidget.bind($data, id(), type()), visible: $root.adminMode"></div>
 						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().otherWidgetHelp }"></div>
+						<div class="ui-icon ui-icon-gear" style="float: right;" data-bind="visible: $root.adminMode, click: 
+							function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
 					</div>
 
 					<div class="ui-widget-content" data-bind="visible: !collapsed()">
@@ -1089,6 +1091,7 @@
 						{{else type()=="sgvizler"}}
 						<div data-bind="attr: { 'id': id }"></div>
 						{{else}}
+						<div class="widget-configuration" data-bind="attr: { 'id': configid }, fadeVisible: showWidgetConfiguration"></div>
 						<div data-bind="attr: { 'id': id }"></div>
 						{{/if}}
 					</div>

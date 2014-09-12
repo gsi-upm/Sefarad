@@ -1,4 +1,5 @@
 var default_configuration = {
+	"name": "default_configuration",
 	"autocomplete": {
 		"field": "",
 		"actived": true
@@ -47,7 +48,7 @@ var default_configuration = {
 		"actived": false
 	},
 	"template": {
-		"pageTitle": "Sefarad",
+		"pageTitle": "Smart Open Data",
 		"logoPath": "",
 		"showResultsWidget": false,
 		"language": "Español"

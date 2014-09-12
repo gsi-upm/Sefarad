@@ -15,24 +15,27 @@ var openlayersMap = {
 
     render: function () {
         var id = 'A' + Math.floor(Math.random() * 10001);
+        var configid = 'A' + Math.floor(Math.random() * 10001);
         var field = openlayersMap.field || "";
         vm.activeWidgetsRight.push({
             "id": ko.observable(id),
+            "configid": ko.observable(configid),
             "title": ko.observable(openlayersMap.name),
             "type": ko.observable(openlayersMap.type),
             "field": ko.observable(field),
             "collapsed": ko.observable(false),
             "showWidgetHelp": ko.observable(false),
-            "help": ko.observable(openlayersMap.help)
+            "help": ko.observable(openlayersMap.help),
+            "showWidgetConfiguration": ko.observable(false)
         });
 
+        openlayersMap.paintConfig(configid);
         openlayersMap.paint(id);
     },
 
-    // paint: function (field, id, type) {  
-    paint: function (id) {
-        d3.select('#' + id).selectAll('div').remove();
-        var div = d3.select('#' + id);
+    paintConfig: function (configid) {
+        d3.select('#' + configid).selectAll('div').remove();
+        var div = d3.select('#' + configid);
         div.attr("align", "center");
 
         //Create filter toolbar
@@ -55,6 +58,13 @@ var openlayersMap = {
             .attr("src", "http://demos.gsi.dit.upm.es/geoserver/openlayers/img/cancel.png")
             .attr("title", "Reset filter")
             .attr("onclick", "openlayersMap.resetFilter()");
+
+    },
+
+    paint: function (id) {
+        d3.select('#' + id).selectAll('div').remove();
+        var div = d3.select('#' + id);
+        div.attr("align", "center");
 
         //Create the map div
         var map_div = div.append("div")
