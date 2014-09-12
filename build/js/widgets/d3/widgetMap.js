@@ -1,91 +1,100 @@
 // New widget
 var widgetMap = {
-	// Widget name.
-	name: "Map",
-	// Widget description.
-	description: "Mapa. Muestra los valores 'latitude' y 'longitude'",
-	// Path to the image of the widget.
-	img: "img/widgets/widgetMap.png",
-	// Type of the widget.
-	type: "widgetMap",
-	// Help display on the widget
-	help: "Ayuda de Maps",
-	// Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
-	cat: 6,
+    // Widget name.
+    name: "Map",
+    // Widget description.
+    description: "Mapa. Muestra los valores 'latitude' y 'longitude'",
+    // Path to the image of the widget.
+    img: "img/widgets/widgetMap.png",
+    // Type of the widget.
+    type: "widgetMap",
+    // Help display on the widget
+    help: "Ayuda de Maps",
+    // Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
+    cat: 6,
 
-	render: function () {
-		var id = 'A' + Math.floor(Math.random() * 10001);
-		var field = widgetMap.field || "";
-		vm.activeWidgetsRight.push({"id":ko.observable(id),"title": ko.observable(widgetMap.name), "type": ko.observable(widgetMap	.type), "field": ko.observable(field),"collapsed": ko.observable(false),"showWidgetHelp": ko.observable(false), "help": ko.observable(widgetMap.help)});
-		
-		widgetMap.paint(id);	
-	},
+    render: function() {
+        var id = 'A' + Math.floor(Math.random() * 10001);
+        var field = widgetMap.field || "";
+        vm.activeWidgetsRight.push({
+            "id": ko.observable(id),
+            "title": ko.observable(widgetMap.name),
+            "type": ko.observable(widgetMap.type),
+            "field": ko.observable(field),
+            "collapsed": ko.observable(false),
+            "showWidgetHelp": ko.observable(false),
+            "help": ko.observable(openlayersMap.help),
+            "showWidgetConfiguration": ko.observable(false)
+        });
 
-	// paint: function (field, id, type) {	
-	paint: function (id) {
-		d3.select('#' + id).selectAll('div').remove();
-		var div = d3.select('#' + id);
-		div.attr("align", "center");
+        widgetMap.paint(id);
+    },
 
-		//Elements for showing
-		if(vm.sparql){
-			data = vm.shownSparqlData();
-		}else{
-			data = vm.shownData();
-		}
+    // paint: function (field, id, type) {	
+    paint: function(id) {
+        d3.select('#' + id).selectAll('div').remove();
+        var div = d3.select('#' + id);
+        div.attr("align", "center");
 
-		//Create the map
-		var map_div = div.append("div")
-			.attr("id", "map")
-			.attr("class", "map");
+        //Elements for showing
+        if (vm.sparql) {
+            data = vm.shownSparqlData();
+        } else {
+            data = vm.shownData();
+        }
 
-		var myCenter = new google.maps.LatLng(40.42761, -3.703187);
+        //Create the map
+        var map_div = div.append("div")
+            .attr("id", "map")
+            .attr("class", "map");
 
-		var mapProperties = {
-			center: myCenter,
-			zoom: 5,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		};
+        var myCenter = new google.maps.LatLng(40.42761, -3.703187);
 
-		var map = new google.maps.Map(map_div.node(), mapProperties);
+        var mapProperties = {
+            center: myCenter,
+            zoom: 5,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
 
-		var bounds = new google.maps.LatLngBounds();
+        var map = new google.maps.Map(map_div.node(), mapProperties);
 
-		//Add markers
-		$.each(data, function (index, item) {
-			if (!vm.sparql()) {
-				var marker = new google.maps.Marker({
-					position: new google.maps.LatLng(item.latitude(), item.longitude()),
-					title: item.nombre().toString(),
-					map: map,
-				});
+        var bounds = new google.maps.LatLngBounds();
 
-				//Info windows marker clicked
-				var contentString = '<div id="content">' + item.pais().toString() + '</div>';
-			} else {
-					var marker = new google.maps.Marker({
-					position: new google.maps.LatLng(item.latitude.value(), item.longitude.value()),
-					title: item.university.value().toString(),
-					map: map,
-				});
+        //Add markers
+        $.each(data, function(index, item) {
+            if (!vm.sparql()) {
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(item.latitude(), item.longitude()),
+                    title: item.nombre().toString(),
+                    map: map,
+                });
 
-				//Info windows marker clicked
-				var contentString = '<div id="content">' + item.country.value().toString() + '</div>';
-			}
+                //Info windows marker clicked
+                var contentString = '<div id="content">' + item.pais().toString() + '</div>';
+            } else {
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(item.latitude.value(), item.longitude.value()),
+                    title: item.university.value().toString(),
+                    map: map,
+                });
 
-			var infowindow = new google.maps.InfoWindow({
-				content: contentString
-			});
+                //Info windows marker clicked
+                var contentString = '<div id="content">' + item.country.value().toString() + '</div>';
+            }
 
-			google.maps.event.addListener(marker, "click", function () {
-				infowindow.open(map, marker);
-			});
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
 
-			//Center markers
-			bounds.extend(marker.position);
+            google.maps.event.addListener(marker, "click", function() {
+                infowindow.open(map, marker);
+            });
 
-		});
+            //Center markers
+            bounds.extend(marker.position);
 
-		map.fitBounds(bounds);
-	}
+        });
+
+        map.fitBounds(bounds);
+    }
 };
