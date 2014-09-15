@@ -198,6 +198,12 @@
 				</div>
 				<!-- Search and help area -->
 				<div class="right_area" >
+
+					<div style="width:200px;float:right" class="login" id="user-password">
+						   	<div><input id="user" type="text" style="width: 178px" data-bind="attr: { placeholder: lang().formuser }"/></div>
+							<div><input id="pass" type="password" style="width: 178px" data-bind="attr: { placeholder: lang().formpass }"/></div>
+					    
+					</div> 
 					
 					<div class="icon"><img src="img/help.png" alt="Help" data-bind="click: $root.showHelp"/></div>
 					<div id ="configuration-button" class ="icon" data-bind="click: $root.showConfiguration, visible: $root.adminMode"><img src="img/settings.png" alt="Configuration" /></div>
@@ -217,7 +223,7 @@
 								data-bind="attr: { placeholder: lang().searchplaceholder }, kendoAutoComplete: { data: autoCompleteFieldsSOLR, value: filter, animation: false }"/>
 							<!-- /ko -->
 						</div>
-					</div>	
+					</div>	 
 
 				</div>
 				<!-- User-Pass Dialog -->
