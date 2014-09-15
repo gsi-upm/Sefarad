@@ -16,9 +16,11 @@ var widgetSortBar = {
 
     render: function() {
         var id = 'A' + Math.floor(Math.random() * 10001);
+        var configid = 'A' + Math.floor(Math.random() * 10001);
         var field = widgetSortBar.field || "";
         vm.activeWidgetsRight.push({
             "id": ko.observable(id),
+            "configid": ko.observable(configid),
             "title": ko.observable(widgetSortBar.name),
             "type": ko.observable(widgetSortBar.type),
             "field": ko.observable(field),

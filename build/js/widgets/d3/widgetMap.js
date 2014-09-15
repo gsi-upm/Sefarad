@@ -15,9 +15,11 @@ var widgetMap = {
 
     render: function() {
         var id = 'A' + Math.floor(Math.random() * 10001);
+        var configid = 'A' + Math.floor(Math.random() * 10001);
         var field = widgetMap.field || "";
         vm.activeWidgetsRight.push({
             "id": ko.observable(id),
+            "configid": ko.observable(configid),
             "title": ko.observable(widgetMap.name),
             "type": ko.observable(widgetMap.type),
             "field": ko.observable(field),

@@ -26,9 +26,11 @@ var widgetD3 = {
 
     render: function() {
         var id = 'D3' + Math.floor(Math.random() * 10001);
+        var configid = 'A' + Math.floor(Math.random() * 10001);
         var field = widgetD3.field || "";
         vm.activeWidgetsLeft.push({
             "id": ko.observable(id),
+            "configid": ko.observable(configid),
             "title": ko.observable(widgetD3.name),
             "type": ko.observable(widgetD3.type),
             "field": ko.observable(field),

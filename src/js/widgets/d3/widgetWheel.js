@@ -15,9 +15,11 @@ var widgetWheel = {
 
     render: function() {
         var id = 'A' + Math.floor(Math.random() * 10001);
+        var configid = 'A' + Math.floor(Math.random() * 10001);
         var field = widgetWheel.field || "";
         vm.activeWidgetsRight.push({
             "id": ko.observable(id),
+            "configid": ko.observable(configid),
             "title": ko.observable(widgetWheel.name),
             "type": ko.observable(widgetWheel.type),
             "field": ko.observable(field),

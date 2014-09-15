@@ -16,9 +16,11 @@ var widgetBarras = {
 
     render: function() {
         var id = 'A' + Math.floor(Math.random() * 10001);
+        var configid = 'A' + Math.floor(Math.random() * 10001);
         var field = widgetBarras.field || "";
         vm.activeWidgetsRight.push({
             "id": ko.observable(id),
+            "configid": ko.observable(configid),
             "title": ko.observable(widgetBarras.name),
             "type": ko.observable(widgetBarras.type),
             "field": ko.observable(field),

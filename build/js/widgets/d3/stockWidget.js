@@ -16,9 +16,11 @@ var stockWidget = {
 
     render: function() {
         var id = 'A' + Math.floor(Math.random() * 10001);
+        var configid = 'A' + Math.floor(Math.random() * 10001);
         var field = stockWidget.field || "";
         vm.activeWidgetsRight.push({
             "id": ko.observable(id),
+            "configid": ko.observable(configid),
             "title": ko.observable(stockWidget.name),
             "type": ko.observable(stockWidget.type),
             "field": ko.observable(field),

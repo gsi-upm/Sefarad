@@ -18,9 +18,11 @@ var widgetDonuts = {
 
     render: function() {
         var id = 'A' + Math.floor(Math.random() * 10001);
+        var configid = 'A' + Math.floor(Math.random() * 10001);
         var field = widgetDonuts.field || "";
         vm.activeWidgetsRight.push({
             "id": ko.observable(id),
+            "configid": ko.observable(configid),
             "title": ko.observable(widgetDonuts.name),
             "type": ko.observable(widgetDonuts.type),
             "help": ko.observable(widgetDonuts.help),
