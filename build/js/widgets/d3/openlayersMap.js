@@ -71,7 +71,7 @@ var openlayersMap = {
             .attr("id", "openlayersmap")
             .attr("class", "olMap");
 
-        openlayersMap.initopenlayersmap();
+        //openlayersMap.initopenlayersmap();
 
     },
 
