@@ -1798,7 +1798,7 @@ function InitViewModel() {
                 this.get('#/sparql/universitiesDemo', function () {
                     console.log("UNIVERSITIES DEMO");
                     self.sparql = ko.observable(true);
-                    //vm.getResultsSPARQL("select distinct ?university ?city ?country ?latitude ?longitude where { { ?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/Spain> ; <http://dbpedia.org/ontology/city> ?cityresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university ; <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ; <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . ?countryresource <http://www.w3.org/2000/01/rdf-schema#label> ?country . ?cityresource <http://www.w3.org/2000/01/rdf-schema#label> ?city } UNION { ?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/France> ; <http://dbpedia.org/ontology/city> ?cityresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university ; <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ; <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . ?countryresource <http://www.w3.org/2000/01/rdf-schema#label> ?country . ?cityresource <http://www.w3.org/2000/01/rdf-schema#label> ?city } FILTER ( lang(?university) = 'en' && lang(?country) = 'en' && lang(?city) = 'en') }", "http://dbpedia.org/sparql");
+                    vm.getResultsSPARQL("select distinct ?university ?city ?country ?latitude ?longitude where { { ?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/Spain> ; <http://dbpedia.org/ontology/city> ?cityresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university ; <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ; <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . ?countryresource <http://www.w3.org/2000/01/rdf-schema#label> ?country . ?cityresource <http://www.w3.org/2000/01/rdf-schema#label> ?city } UNION { ?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/France> ; <http://dbpedia.org/ontology/city> ?cityresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university ; <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ; <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . ?countryresource <http://www.w3.org/2000/01/rdf-schema#label> ?country . ?cityresource <http://www.w3.org/2000/01/rdf-schema#label> ?city } FILTER ( lang(?university) = 'en' && lang(?country) = 'en' && lang(?city) = 'en') }", "http://dbpedia.org/sparql");
                     configuration.template.language = "English";
                     configuration.template.pageTitle = "Universities Demo";
                     configuration.results.resultsLayout = [{
@@ -1830,7 +1830,6 @@ function InitViewModel() {
                     });
                     configuration.autocomplete.field = "university";
                     self.securityEnabled(false);
-                    self.adminMode(true);
                     sparqlmode = true;
                     init();
 
@@ -1908,7 +1907,6 @@ function InitViewModel() {
                     });
                     configuration.autocomplete.field = "parcela";
                     self.securityEnabled(false);
-                    self.adminMode(true);
                     sparqlmode = true;
                     init();
 

@@ -117,6 +117,9 @@ if ($user->isLoggedIn()){
 					console.log("Aplicamos bindings");
 					ko.applyBindings(vm);
 				}
+
+				vm.adminMode(<?php echo($user->isLoggedIn()) ?>);
+
 				$(".sparqlquery").click(function () {
 					sparqlPanel()
 				});
