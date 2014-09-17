@@ -1965,10 +1965,6 @@ function InitViewModel() {
                     });
                 });
 
-				// this.post('index.php', function (context) {
-				// 	console.log("index.php");				
-				// });
-
 				// this.notFound = function () {
 				// 	console.log("no found sammy");
 				// 	self.page(1);

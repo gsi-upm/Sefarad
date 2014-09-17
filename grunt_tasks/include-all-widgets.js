@@ -7,10 +7,10 @@ module.exports = function (grunt) {
 		var done = this.async();
 
 		var widgetsPath = 'src/js/widgets/d3';
-		var sourceFile = 'build/index.html';
-		var destinationFile = 'build/index.html';
+		var sourceFile = 'build/index.php';
+		var destinationFile = 'build/index.php';
 
-		// Update widgets to the html file.
+		// Update widgets to the php file.
 		var string1 = '';
 		var string2 = '\t\t<script type="text/javascript">\n\t\t\tvar widgetX = [';
 		var finalString = '';

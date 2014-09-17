@@ -7,8 +7,8 @@ module.exports = function (grunt) {
 		var done = this.async();
 
 		var widgetsFile = 'build/php/widgets.txt';
-		var sourceFile = 'build/sefarad.html';
-		var destinationFile = 'build/index_copia.html';
+		var sourceFile = 'build/sefarad.php';
+		var destinationFile = 'build/index_copia.php';
 
 		// Update widgets to the html file.
 		var string1 = '';
@@ -16,7 +16,7 @@ module.exports = function (grunt) {
 		var finalString = '';
 
 		var updateHTML = function () {
-			grunt.log.writeln('Writing index.html');
+			grunt.log.writeln('Writing index.php');
 
 			var data = grunt.file.read(sourceFile);
 

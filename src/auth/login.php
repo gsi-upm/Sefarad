@@ -10,8 +10,8 @@ case 'login':
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	if ($user->authenticate($username, $password)) {
-		header('location: profile.php');
-		exit;
+		$_SESSION['user_name'] = $username;
+		break;
 	}
 	else {
 		$errorMessage = "Username/password did not match.";
@@ -43,6 +43,9 @@ default:
 							<ul>
 								<?php if(isset($errorMessage)): ?>
 								<li><?php echo $errorMessage; ?></li>
+								<?php endif ?>
+								<?php if(isset($_SESSION['user_id'])): ?>
+								<li><?php echo ($_SESSION['user_name']) ?></li>
 								<?php endif ?>
 								<li>
 									<label>Username </label>

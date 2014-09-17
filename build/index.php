@@ -1,11 +1,12 @@
 <?php
+
 $action = (!empty($_POST['login']) && ($_POST['login'] === 'Log in')) ? 'login' : 'show_form';
 switch ($action) {
 case 'login':
 	require ('auth/session.php');
 
-	require ('auth/user.php');
-
+	require ('auth/user.php');	
+	
 	$user = new User();
 	$username = $_POST['username'];
 	$password = $_POST['password'];
@@ -14,11 +15,12 @@ case 'login':
 		break;		
 	}
 	else {
-		$errorMessage = "Username/password did not match.";
+		$errorMessage = "Try again";
 		break;
-	}
+	}	
 
 case 'show_form':
+
 default:
 	$errorMessage = NULL;
 }
@@ -197,9 +199,6 @@ default:
 					}, event);
 				});
 
-				
-
-
 				//initIsotopeAndWizards();
 			});
 
@@ -237,38 +236,37 @@ default:
 				<!-- Search and help area -->
 				<div class="right_area" >
 
-					<div id="login-box" style="float:right">
+					<div id="login-box" style="float:right; width:30%">
 						<div class="inner">
 							<form id="login" action="" method="post" accept-charset="utf-8">
 								<ul>
-									<?php if(isset($errorMessage)): ?>
-									<li><?php echo $errorMessage; ?></li>
+									<?php if(!isset($_SESSION['user_id'])): ?>
+										<?php if(isset($errorMessage)): ?>
+										<li><?php echo $errorMessage; ?></li>
+										<?php endif ?>
+										<li>										
+											<input class="textbox" style="float:right" tabindex="1" type="text" name="username" placeholder="User" autocomplete="off"/>
+										</li>
+										<li>
+											<input class="textbox" style="float:right"  tabindex="2" type="password" name="password" placeholder="Password"/>
+										</li>
+										<li>
+											<input id="login-submit" name="login" tabindex="3" type="submit" value="Log in" style="float:right"/>
+										</li>
+										<li class="clear"></li>
 									<?php endif ?>
+
 									<?php if(isset($_SESSION['user_id'])): ?>
-									<li><?php echo ($_SESSION['user_name']) ?></li>
-									<?php endif ?>
-									<li>
-										<label>Username </label>
-										<input class="textbox" tabindex="1" type="text" name="username" autocomplete="off"/>
-									</li>
-									<li>
-										<label>Password </label>
-										<input class="textbox" tabindex="2" type="password" name="password"/>
-									</li>
-									<li>
-										<input id="login-submit" name="login" tabindex="3" type="submit" value="Log in" />
-									</li>
-									<li class="clear"></li>
+										<li ><p><?php echo ($_SESSION['user_name']) ?></p></li>
+										<li class="clear"></p></li>
+										<li>
+											<p><a style="float:right" href="auth/logout.php">Log out</a></p>
+										</li>
+									<?php endif ?>									
 								</ul>
 							</form>
 						</div>
 					</div>
-
-					<!-- <div style="width:200px;float:right" class="login" id="user-password">
-						   	<div><input id="user" type="text" style="width: 178px" data-bind="attr: { placeholder: lang().formuser }"/></div>
-							<div><input id="pass" type="password" style="width: 178px" data-bind="attr: { placeholder: lang().formpass }"/></div>
-					    
-					</div>  -->
 					
 					<div class="icon"><img src="img/help.png" alt="Help" data-bind="click: $root.showHelp"/></div>
 					<div id ="configuration-button" class ="icon" data-bind="click: $root.showConfiguration, visible: $root.adminMode"><img src="img/settings.png" alt="Configuration" /></div>

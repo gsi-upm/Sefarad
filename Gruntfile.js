@@ -7,12 +7,12 @@ module.exports = function(grunt) {
     processhtml: {
       templates: {
         files: {
-          'build/index.html': ['src/sefarad.html']
+          'build/index.php': ['src/sefarad.php']
         }
       },
       php_widgets: {
         files: {
-          'build/sefarad.html': ['src/sefarad.html']
+          'build/sefarad.php': ['src/sefarad.php']
         }
       },
       universitiesDemo: {
@@ -25,7 +25,7 @@ module.exports = function(grunt) {
       main: {
         expand: true,
         cwd: 'src/',
-        src: ['ajax-solr/**','css/**','img/**','js/**','php/**','auth/**','sefarad.html','!js/widgets/widget_template.js'],
+        src: ['ajax-solr/**','css/**','img/**','js/**','php/**','auth/**','sefarad.php','!js/widgets/widget_template.js'],
         dest: 'build/',
       },
       universitiesDemo: {
