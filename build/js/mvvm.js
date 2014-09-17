@@ -1965,11 +1965,15 @@ function InitViewModel() {
                     });
                 });
 
-				this.notFound = function () {
+				// this.post('index.php', function (context) {
+				// 	console.log("index.php");				
+				// });
 
-					self.page(1);
-					errorinroute = true;
-				}
+				// this.notFound = function () {
+				// 	console.log("no found sammy");
+				// 	self.page(1);
+				// 	errorinroute = true;
+				// }
 			}).run('#/main');
 		}
 	}

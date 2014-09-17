@@ -1,17 +1,44 @@
+<?php
+$action = (!empty($_POST['login']) && ($_POST['login'] === 'Log in')) ? 'login' : 'show_form';
+switch ($action) {
+case 'login':
+	require ('auth/session.php');
+
+	require ('auth/user.php');
+
+	$user = new User();
+	$username = $_POST['username'];
+	$password = $_POST['password'];
+	if ($user->authenticate($username, $password)) {
+		$_SESSION['user_name'] = $username;
+		break;		
+	}
+	else {
+		$errorMessage = "Username/password did not match.";
+		break;
+	}
+
+case 'show_form':
+default:
+	$errorMessage = NULL;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 	<!-- head starts -->
 	<head>
-		<script type="text/javascript" src="js/widgets/d3/widgetDonuts.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetMap.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetD3.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetSortBar.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetWheel.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetBarras.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/openlayersMap.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/stockWidget.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetBarras.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetD3.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetDonuts.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetMap.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetSortBar.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetWheel.js"></script>
 		<script type="text/javascript">
-			var widgetX = [widgetDonuts, widgetMap, widgetD3, widgetSortBar, widgetWheel, widgetBarras, openlayersMap, stockWidget];
+			var widgetX = [openlayersMap, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
 		</script>
 		<meta charset="utf-8" />
 		<title>SEFARAD</title>
@@ -210,11 +237,38 @@
 				<!-- Search and help area -->
 				<div class="right_area" >
 
-					<div style="width:200px;float:right" class="login" id="user-password">
+					<div id="login-box" style="float:right">
+						<div class="inner">
+							<form id="login" action="" method="post" accept-charset="utf-8">
+								<ul>
+									<?php if(isset($errorMessage)): ?>
+									<li><?php echo $errorMessage; ?></li>
+									<?php endif ?>
+									<?php if(isset($_SESSION['user_id'])): ?>
+									<li><?php echo ($_SESSION['user_name']) ?></li>
+									<?php endif ?>
+									<li>
+										<label>Username </label>
+										<input class="textbox" tabindex="1" type="text" name="username" autocomplete="off"/>
+									</li>
+									<li>
+										<label>Password </label>
+										<input class="textbox" tabindex="2" type="password" name="password"/>
+									</li>
+									<li>
+										<input id="login-submit" name="login" tabindex="3" type="submit" value="Log in" />
+									</li>
+									<li class="clear"></li>
+								</ul>
+							</form>
+						</div>
+					</div>
+
+					<!-- <div style="width:200px;float:right" class="login" id="user-password">
 						   	<div><input id="user" type="text" style="width: 178px" data-bind="attr: { placeholder: lang().formuser }"/></div>
 							<div><input id="pass" type="password" style="width: 178px" data-bind="attr: { placeholder: lang().formpass }"/></div>
 					    
-					</div> 
+					</div>  -->
 					
 					<div class="icon"><img src="img/help.png" alt="Help" data-bind="click: $root.showHelp"/></div>
 					<div id ="configuration-button" class ="icon" data-bind="click: $root.showConfiguration, visible: $root.adminMode"><img src="img/settings.png" alt="Configuration" /></div>

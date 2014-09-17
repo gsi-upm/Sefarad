@@ -1966,9 +1966,9 @@ function InitViewModel() {
                 });
 
 				this.notFound = function () {
-
-					self.page(1);
-					errorinroute = true;
+					console.log("no found sammy");
+					// self.page(1);
+					// errorinroute = true;
 				}
 			}).run('#/main');
 		}
