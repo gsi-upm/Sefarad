@@ -1,28 +1,27 @@
 <?php
 
-$action = (!empty($_POST['login']) && ($_POST['login'] === 'Log in')) ? 'login' : 'show_form';
-switch ($action) {
-case 'login':
-	require ('auth/session.php');
+require ('auth/session.php');
+require ('auth/user.php');
 
-	require ('auth/user.php');	
-	
-	$user = new User();
-	$username = $_POST['username'];
-	$password = $_POST['password'];
-	if ($user->authenticate($username, $password)) {
-		$_SESSION['user_name'] = $username;
-		break;		
+$user = new User();
+if ($user->isLoggedIn()){
+	if (!empty($_POST['logout']) && ($_POST['logout'] === 'Log out')) {
+		$user->logout();
 	}
-	else {
-		$errorMessage = "Try again";
-		break;
-	}	
+}else {
 
-case 'show_form':
-
-default:
-	$errorMessage = NULL;
+	if (!empty($_POST['login']) && ($_POST['login'] === 'Log in')) {
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+		if ($user->authenticate($username, $password)) {
+			$_SESSION['user_name'] = $username;
+		}
+		else {
+			$errorMessage = "Try again";
+		}	
+	} else {
+		$errorMessage = NULL;
+	}
 }
 
 ?>
@@ -225,7 +224,7 @@ default:
 				<!-- Search and help area -->
 				<div class="right_area" >
 
-					<div id="login-box" style="float:right; width:30%">
+					<div id="login-box" style="float:right; width:30%; height:100%">
 						<div class="inner">							
 							<ul>
 								<?php if(!isset($_SESSION['user_id'])): ?>
@@ -246,11 +245,13 @@ default:
 									</form>
 								<?php endif ?>
 								<?php if(isset($_SESSION['user_id'])): ?>
-									<li ><?php echo ($_SESSION['user_name']) ?></li>
-									<li class="clear"></li>
-									<li>
-										<input id="log-submit" name="login" tabindex="3" type="submit" value="Log in" style="float:right"/>
-									</li>
+									<form id="logout" action="" method="post" accept-charset="utf-8">
+										<li ><?php echo ($_SESSION['user_name']) ?></li>
+										<li class="clear"></li>
+										<li>
+											<input id="logout-submit" name="logout" tabindex="3" type="submit" value="Log out" style="float:right"/>
+										</li>
+									</form>
 								<?php endif ?>									
 							</ul>							
 						</div>
