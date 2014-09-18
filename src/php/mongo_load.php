@@ -1,5 +1,7 @@
 <?php
 
+require ('../auth/session.php');
+
 // conectar
 $m = new MongoClient();
 
@@ -10,7 +12,7 @@ $db = $m->sefarad;
 $collection = $db->configuration;
 
 // search saved configuration
-$query = array( 'name' => 'saved_configuration' );
+$query = array( 'name' => 'saved_configuration', 'user_id' => $_SESSION['user_id']);
 $cursor = $collection->find( $query );
 
 // load configuration (saved or defatult)
@@ -27,7 +29,7 @@ if (($cursor->count()) > 0) {
 		    echo (json_encode(($doc)));
 		}
 	} else {
-		trigger_error("No se encuentra ninguna configuracion", E_USER_ERROR);
+		trigger_error("No configuration found", E_USER_ERROR);
 	}	
 }
 

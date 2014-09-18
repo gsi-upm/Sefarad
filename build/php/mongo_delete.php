@@ -1,15 +1,21 @@
 <?php
 
-// connect to Mongo
-$m = new MongoClient();
+require ('../auth/session.php');
 
-// select Sefarad DataBase
-$db = $m->sefarad;
+if (isset($_SESSION['user_id'])){
 
-// select Configuration collection
-$collection = $db->configuration;
+	// connect to Mongo
+	$m = new MongoClient();
 
-// delete old saved configuration
-$collection->remove(array( 'name' => 'saved_configuration' ));
+	// select Sefarad DataBase
+	$db = $m->sefarad;
+
+	// select Configuration collection
+	$collection = $db->configuration;
+
+	// delete old saved configuration
+	$collection->remove(array( 'name' => 'saved_configuration', 'user_id' => $_SESSION['user_id']));
+
+}
 
 ?>

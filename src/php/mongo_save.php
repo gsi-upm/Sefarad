@@ -1,26 +1,34 @@
 <?php
 
-$ac = $_REQUEST['actual_configuration'];
+require ('../auth/session.php');
 
-// connect to Mongo
-$m = new MongoClient();
+if (isset($_SESSION['user_id'])){
 
-// select Sefarad DataBase
-$db = $m->sefarad;
+	$ac = $_REQUEST['actual_configuration'];
 
-// select Configuration collection
-$collection = $db->configuration;
+	// connect to Mongo
+	$m = new MongoClient();
 
-// delete old saved configuration
-$collection->remove(array( 'name' => 'saved_configuration' ));
+	// select Sefarad DataBase
+	$db = $m->sefarad;
 
-// save new configuration
-$document = json_decode($ac,true);
+	// select Configuration collection
+	$collection = $db->configuration;
 
-unset($document['_id']);
+	// delete old saved configuration
+	$collection->remove(array( 'name' => 'saved_configuration', 'user_id' => $_SESSION['user_id']));
 
-$collection->insert($document);	
+	// save new configuration
+	$document = json_decode($ac,true);
 
-echo (json_encode(array('my_message' => $ac)));
+	unset($document['_id']);
+
+	$document['user_id'] = $_SESSION['user_id'];
+
+	$collection->insert($document);	
+
+	echo (json_encode(array('my_message' => $ac)));
+
+}
 
 ?>

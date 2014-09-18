@@ -9,7 +9,6 @@ if ($user->isLoggedIn()){
 		$user->logout();
 	}
 }else {
-
 	if (!empty($_POST['login']) && ($_POST['login'] === 'Log in')) {
 		$username = $_POST['username'];
 		$password = $_POST['password'];
@@ -136,27 +135,6 @@ if ($user->isLoggedIn()){
 				});
 				$("#backgroundPopup").click(function () {
 					sparqlPanel()
-				});
-				$("#dialog").dialog({
-					autoOpen: false,
-					buttons: {
-						Ok: function () {
-							vm.doSave($("#user").val(), $("#pass").val());
-							$(this).dialog("close");
-							$("#user").val("");
-							$("#pass").val("");
-						},
-						Cancel: function () {
-							$(this).dialog("close");
-						}
-					}
-				});
-				$("#save_changes").click(function () {
-					if (vm.securityEnabled()) {
-						$("#dialog").dialog("open");
-					} else {
-						vm.doSave('', '');
-					}
 				});
 				$("#max_icon").click(function () {
 					if(vm.botMax()){
@@ -292,13 +270,6 @@ if ($user->isLoggedIn()){
 					</div>	 
 
 				</div>
-				<!-- User-Pass Dialog -->
-				<div id="dialog">
-				    <p>
-				    	<p>Username <input id="user" type="text" /></p>
-						<p>Password <input id="pass" type="password" /></p>
-				    </p> 
-				</div>
 				<!-- Configuration section (hidden by default) -->
 				<div id="configuration" data-bind="fadeVisible: showConfigurationPanel">
 					<div class="ui-widget-header">
@@ -396,9 +367,7 @@ if ($user->isLoggedIn()){
 						<div data-bind="visible: !sparql()">
 							<h3 data-bind="text: lang().advancedoptions"></h3>
 							<button class="button" data-bind="click: $root.reindexSOLR, visible: !sparql()"><span data-bind="text: 
-								lang().reindexsolr"></span></button>
-							<button class="button" data-bind="click: $root.resetConfiguration, visible: !sparql()"><span data-bind="text: 
-								lang().resetconf"></span></button>
+								lang().reindexsolr"></span></button>							
 						</div>
 
 						<div id='tabs-config'>
@@ -446,8 +415,8 @@ if ($user->isLoggedIn()){
 						</div>
 					</div>
 					<div style="clear:both">					
-						<button class="button" id="save_changes" data-bind="visible: !sparql()"><span data-bind="text: 
-							lang().savechanges"></span> </button>
+						<button class="button" id="save_changes" ><span data-bind="text: lang().savechanges, click: $root.doSave" ></span> </button>
+						<button class="button" data-bind="click: $root.resetConfiguration"><span data-bind="text: lang().resetconf"></span></button>
 					</div>
 					<br/>
 				</div>
