@@ -238,8 +238,9 @@ if ($user->isLoggedIn()){
 								<?php endif ?>
 								<?php if(isset($_SESSION['user_id'])): ?>
 									<form id="logout" action="" method="post" accept-charset="utf-8">
-										<li ><?php echo ($_SESSION['user_name']) ?></li>
+										<li style="float:right; font-size:18px;"><?php echo ('Welcome ' . $_SESSION['user_name'] . '!') ?></li>
 										<li class="clear"></li>
+										</br></br></br>
 										<li>
 											<input id="logout-submit" name="logout" tabindex="3" type="submit" value="Log out" style="float:right"/>
 										</li>

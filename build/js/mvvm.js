@@ -185,7 +185,7 @@ function InitViewModel() {
 	/** Administrator */
 	self.userName = ko.observable("");
 	self.userPassword = ko.observable("");
-	self.securityEnabled = ko.observable(false);
+	self.securityEnabled = ko.observable(true);
 	self.adminMode = ko.observable(false);
 
 	self.activeWidgetsLeft = ko.observableArray([]);
