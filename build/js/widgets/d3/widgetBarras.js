@@ -31,7 +31,7 @@ var widgetBarras = {
         });
 
         // widgetB.paint(field, id, widgetBarras.type);
-        openlayersMap.paintConfig(configid);
+        widgetBarras.paintConfig(configid);
         widgetBarras.paint(id);
     },
 

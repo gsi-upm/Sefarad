@@ -30,11 +30,18 @@ var widgetWheel = {
         });
 
         // widgetWheel.paint(field, id, widgetWheel.type);
-        openlayersMap.paintConfig(configid);
+        widgetWheel.paintConfig(configid);
         widgetWheel.paint(id);
     },
 
     options: {
+
+    },
+
+    paintConfig: function (configid) {
+        d3.select('#' + configid).selectAll('div').remove();
+        var div = d3.select('#' + configid);
+        div.attr("align", "center");
 
     },
 

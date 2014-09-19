@@ -41,8 +41,15 @@ var widgetD3 = {
         });
 
         // widgetD3.paint(field, id, widgetD3.type);
-        openlayersMap.paintConfig(configid);
+        widgetD3.paintConfig(configid);
         widgetD3.paint(id);
+    },
+
+    paintConfig: function (configid) {
+        d3.select('#' + configid).selectAll('div').remove();
+        var div = d3.select('#' + configid);
+        div.attr("align", "center");
+
     },
 
     // paint: function (field, id, type) {	

@@ -30,8 +30,15 @@ var widgetSortBar = {
             "showWidgetConfiguration": ko.observable(false)
         });
 
-        openlayersMap.paintConfig(configid);
+        widgetSortBar.paintConfig(configid);
         widgetSortBar.paint(id);
+    },
+
+    paintConfig: function (configid) {
+        d3.select('#' + configid).selectAll('div').remove();
+        var div = d3.select('#' + configid);
+        div.attr("align", "center");
+
     },
 
     // paint: function (field, id, type) {	

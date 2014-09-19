@@ -440,7 +440,7 @@ if ($user->isLoggedIn()){
 									lang().addWidget2"></span></button>
 							</div>
 						</div>
-						<div class="box cat5">data-bind="visible: !sparql()
+						<div class="box cat5">
 							<h1 data-bind="text: lang().resultsgrid"></h1>
 							<table id="wrapper">
 								<tr>

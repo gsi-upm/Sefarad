@@ -29,6 +29,7 @@ if ($user->isLoggedIn()){
 <html lang="es">
 	<!-- head starts -->
 	<head>
+		<script type="text/javascript" src="js/widgets/d3/openStreetMap.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/openlayersMap.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/stockWidget.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetBarras.js"></script>
@@ -38,7 +39,7 @@ if ($user->isLoggedIn()){
 		<script type="text/javascript" src="js/widgets/d3/widgetSortBar.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetWheel.js"></script>
 		<script type="text/javascript">
-			var widgetX = [openlayersMap, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
+			var widgetX = [openStreetMap, openlayersMap, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
 		</script>
 		<meta charset="utf-8" />
 		<title>SEFARAD</title>
@@ -451,7 +452,7 @@ if ($user->isLoggedIn()){
 									lang().addWidget2"></span></button>
 							</div>
 						</div>
-						<div class="box cat5">data-bind="visible: !sparql()
+						<div class="box cat5">
 							<h1 data-bind="text: lang().resultsgrid"></h1>
 							<table id="wrapper">
 								<tr>

@@ -31,7 +31,7 @@ var stockWidget = {
         });
 
         // stockWidget.paint(field, id, stockWidget.type);
-        openlayersMap.paintConfig(configid);
+        stockWidget.paintConfig(configid);
         stockWidget.paint(id);
     },
 

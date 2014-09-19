@@ -1,7 +1,7 @@
 // New widget
 var newWidget = {
 	// Widget name.
-	name: "Nname",
+	name: "Name",
 	// Widget description.
 	description: "description",
 	// Path to the image of the widget.
@@ -25,6 +25,8 @@ var newWidget = {
 		d3.select('#' + id).selectAll('div').remove();
 		var div = d3.select('#' + id);
 		div.attr("align", "center");
+
+		
 
 		// Code
 	}
