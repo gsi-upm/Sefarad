@@ -669,6 +669,8 @@ function InitViewModel() {
 	/** This function does a mapping from json (response) to self.viewData and updateWidgets */
 	self.getResultsSPARQL = function (sparql_query, endpoint) {
 
+		console.log('Executing SPARQL query');
+
 		if (isBlank(sparql_query)) {
 			var queryText = self.sparqlQuery();
 		} else {
@@ -688,8 +690,8 @@ function InitViewModel() {
 			endpoint = "http://dbpedia.org/sparql";
 		}
 
-		finalQuery = encodeURIComponent(finalQuery);
-		finalQuery = decodeURIComponent(finalQuery);
+		// finalQuery = encodeURIComponent(finalQuery);
+		// finalQuery = decodeURIComponent(finalQuery);
 
 		var lmf_sparql_baseURL = self.serverURL() + 'sparql/select';
 
@@ -711,7 +713,7 @@ function InitViewModel() {
 				success: function (allData) {
 					//console.log(allData);
 					var data = JSON.stringify(allData.results.bindings);
-					//////console.log(data);
+					//console.log(data);
 					ko.mapping.fromJSON(data, self.viewData);
 					updateWidgets(true);
 				},
@@ -721,7 +723,6 @@ function InitViewModel() {
 			});
 
 		} else if (finalQuery != 'undefined') {
-			
 			$.ajax({
 				type: 'GET',
 				url: endpoint,
@@ -738,17 +739,18 @@ function InitViewModel() {
 					//$('#loading').show();
 				},
 				complete: function () {
+					console.log('SPARQL query complete');
 					//$('#loading').hide();
 				},
 				success: function (allData) {
-					//console.log(allData);
+					console.log('SPARQL Query success');
+					console.log(allData);
 					var data = JSON.stringify(allData.results.bindings);
-					//console.log(data);
 					ko.mapping.fromJSON(data, self.viewData);
 					updateWidgets(true);
 				},
 				error: function () {
-					//$('#docs').append("Consulta fallida");  
+					console.log('SPARQL Query failed');
 				}
 			});
 
@@ -1828,6 +1830,20 @@ function InitViewModel() {
                         showWidgetConfiguration: false,
 						help: 'Muestra los países en los que existen Universidades'
                     });
+      //               templateWidgetsLeft.push({
+      //                   id: 0,
+      //                   title: 'Cities',
+      //                   type: 'tagcloud',
+      //                   field: 'city',
+      //                   collapsed: false,
+      //                   query: '',
+      //                   value: [],
+      //                   values: [],
+      //                   limits: '',
+      //                   layout: 'horizontal',
+      //                   showWidgetConfiguration: false,
+						// help: 'Muestra los países en los que existen Universidades'
+      //               });
                     configuration.autocomplete.field = "university";
                     self.securityEnabled(false);
                     sparqlmode = true;
@@ -2147,7 +2163,7 @@ function InitViewModel() {
 		/** Endpoint variables */
 
 		var sparql_baseURL = self.serverURL() + 'sparql/select';
-		self.sparql_baseURL(sparql_baseURL);
+		self.sparql_baseURL('http://dbpedia.org/sparql');
 
 		/** Overriding some template variables */
 		self.pageTitle(configuration.template.pageTitle);
