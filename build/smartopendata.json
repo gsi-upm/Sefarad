@@ -1,0 +1,47 @@
+{
+    "type": "FeatureCollection",
+    "features": [{
+        "type": "Feature",
+        "crs": {
+            "type": "name",
+            "properties": {
+                "name": "EPSG:4326"
+            }
+        },
+        "geometry": {
+            "type": "MultiPolygon",
+            "coordinates": [
+                [
+                    [
+                        [-80.662120612605904, 35.042875219905184],
+                        [-80.662141716053014, 35.042832740965068],
+                        [-80.662171938563816, 35.042789546962993],
+                        [-80.662209174653029, 35.042750233165179],
+                        [-80.662250709107454, 35.042716920859959],
+                        [-80.662627586829899, 35.043072078075667],
+                        [-80.662595574310288, 35.043162322407341],
+                        [-80.662142312824884, 35.043015448098977],
+                        [-80.662145396323511, 35.042970839922489],
+                        [-80.662117972448982, 35.042908385949438],
+                        [-80.662120612605904, 35.042875219905184]
+                    ]
+                ]
+            ]
+        },
+        "properties": {
+            "gemeente": "\"Stichtse Vecht\"",
+            "plaats": "\"Kockengen\"",
+            "kaartblad": "\"31G\"",
+            "code": "\"038\"",
+            "Monumentnummer": "\"11942\"^^<http://www.w3.org/2001/XMLSchema#decimal>",
+            "ycoordinaatRD": "\"462293\"^^<http://www.w3.org/2001/XMLSchema#decimal>",
+            "geometrie": "http://erfgeo.nl/d2r/resource/archeologisch_monument_geometrie/10038",
+            "toponiem": "\"CENTRUM\"",
+            "provincie": "\"Utrecht\"",
+            "xcoordinaatRD": "\"124918\"^^<http://www.w3.org/2001/XMLSchema#decimal>",
+            "waarde": "\"Terrein van hoge archeologische waarde\"",
+            "URI": "http://erfgeo.nl/d2r/resource/archeologisch_monument/11942"
+        },
+        "id": "fid--4982cafa_1485ae1449d_-7f58"
+    } ]
+}

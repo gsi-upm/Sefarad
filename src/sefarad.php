@@ -96,6 +96,7 @@ if ($user->isLoggedIn()){
 		<script src="js/ext/jquery.joyride-2.0.2.js"></script>
     	<script src="js/ext/jquery.scrollTo.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script type="text/javascript" charset="UTF-8" src="js/ext/OpenLayers.js"></script>
 		<!-- external -->
 		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 		<script type='text/javascript' src="js/ext/twitterApi.js"></script>
@@ -103,7 +104,7 @@ if ($user->isLoggedIn()){
 		<!-- openlayers -->
 		<!-- <script src="http://openlayers.org/api/OpenLayers.js"></script> -->
 		<!-- <script src="http://alpha.gsi.dit.upm.es:8080/geoserver/openlayers/OpenLayers.js" type="text/javascript"></script> -->
-        <script src="http://demos.gsi.dit.upm.es/geoserver/openlayers/OpenLayers.js" type="text/javascript"></script>
+        <!-- <script src="http://demos.gsi.dit.upm.es/geoserver/openlayers/OpenLayers.js" type="text/javascript"></script> -->
 		<!-- qtip -->
 		<script type="text/javascript" src="js/ext/jquery.qtip.js"></script>
 		<script type="text/javascript" src="js/ext/imagesloaded.pkg.min.js"></script>
