@@ -54,22 +54,21 @@ var newResultsWidget = {
         var div = d3.select('#' + id);
         div.attr("align", "center");
 
-        var table = div.append("table").attr("style", "margin-left: 250px"),
+        var table = div.append("table").attr("style", "margin-left: 5px"),
         thead = table.append("thead"),
         tbody = table.append("tbody");
 
         data = new Array();
 
-        $.each(vm.shownSparqlData(), function(index, item) {
+        $.each(vm.shownSparqlData(), function(index, item) {             
+            data.push(item);
+        });        
 
-            var result = new Object();
-
-            data.push(result);
-
-        });
-
-        // create a row for each object in the data
-        var rows = tbody.selectAll("tr").data(data).enter().append("tr").text(function(data) { return data.pop(); });;
+        rows = tbody.selectAll("tr")  
+        .data(data.filter(function(d,i){return d;}))
+        .enter()
+        .append("tr")
+        .text(function(d) {return d.university.value();});
 
         newResultsWidget.initnewResultsWidget();
 
@@ -85,3 +84,4 @@ var newResultsWidget = {
 // Global variables
 var newResultsWidget;
 var data;
+var rows;
