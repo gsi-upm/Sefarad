@@ -746,6 +746,7 @@ function InitViewModel() {
 					console.log('SPARQL Query success');
 					console.log(allData);
 					var data = JSON.stringify(allData.results.bindings);
+					console.log(data);
 					ko.mapping.fromJSON(data, self.viewData);
 					updateWidgets(true);
 				},
@@ -1717,6 +1718,9 @@ function InitViewModel() {
 						self.showConfigurationPanel(false);
 					}
 					init();
+					$(window).load(function () {
+						openLayers.render();
+					});
 
 				});
 
@@ -1796,6 +1800,23 @@ function InitViewModel() {
 
 				});
 
+				this.get('#/sparql/countriesDemo', function () {
+					sparqlmode = true;
+					self.sparql = ko.observable(true);
+					self.showSparqlPanel = ko.observable(true);
+
+					if (!self.securityEnabled()) {
+						self.adminMode(true);
+					} else {
+						self.adminMode(false);
+						self.showConfigurationPanel(false);
+					}
+					init();
+					$(window).load(function () {
+						self.viewData(countries.features);
+						openLayers.render();
+					});
+				});
 				                
                 this.get('#/sparql/universitiesDemo', function () {
                     console.log("UNIVERSITIES DEMO");

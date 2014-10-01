@@ -69,7 +69,7 @@ var newResultsWidget = {
         });
 
         // create a row for each object in the data
-        var rows = tbody.selectAll("tr").data(data).enter().append("tr").text(function(data) { return data.pop(); });;
+        var rows = tbody.selectAll("tr").data(data,pop()).enter().append("tr");
 
         newResultsWidget.initnewResultsWidget();
 
