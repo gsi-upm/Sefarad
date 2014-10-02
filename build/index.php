@@ -113,6 +113,7 @@ if ($user->isLoggedIn()){
 		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 		<script type='text/javascript' src="js/ext/twitterApi.js"></script>
 		<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+		<script type="text/javascript" src="js/ext/sparql-geojson.js"></script>
 		<!-- openlayers -->
 		<script src="http://openlayers.org/api/OpenLayers.js"></script>
         <!-- <script type="text/javascript" charset="UTF-8" src="js/ext/OpenLayers.js"></script> -->
@@ -121,6 +122,7 @@ if ($user->isLoggedIn()){
 		<script type="text/javascript" src="js/ext/imagesloaded.pkg.min.js"></script>
 		<!-- json -->
 		<script type="text/javascript" charset="UTF-8" src="json_examples/countries.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="json_examples/netherlands.js"></script>
 
 		<script type="text/javascript" charset="UTF-8">
 			$(document).ready(function () {

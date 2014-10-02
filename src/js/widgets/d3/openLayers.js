@@ -46,12 +46,10 @@ var openLayers = {
         div.attr("align", "center");
 
         //Update filtered polygons
-        polygons_filtered = {
-            "type": "FeatureCollection",
-                                                                                            
-            "features": []
-        };
-        polygons_filtered.features = vm.filteredData();
+        var geometries = new Array();
+        var geojson = new Object();
+        //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
+        geojson = sparqlToGeoJSON(vm.viewData());
 
         //Create the map div
         var map_div = div.append("div")
@@ -70,7 +68,7 @@ var openLayers = {
         var geojson_format = new OpenLayers.Format.GeoJSON();
         var vector_layer = new OpenLayers.Layer.Vector();
         layersmap.addLayer(vector_layer);
-        vector_layer.addFeatures(geojson_format.read(polygons_filtered));
+        vector_layer.addFeatures(geojson_format.read(geojson));
 
     }
 

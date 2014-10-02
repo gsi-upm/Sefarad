@@ -773,7 +773,7 @@ function InitViewModel() {
 				crossDomain: true,
 				dataType: 'jsonp',
 				beforeSend: function () {
-					//$('#loading').show();
+					
 				},
 				complete: function () {
 					//$('#loading').hide();
@@ -790,6 +790,64 @@ function InitViewModel() {
 				}
 			});
 	}
+
+	self.getNetherlandsDataTest = function() {
+	    var poligons_query = 'PREFIX geof:<http://www.opengis.net/def/function/geosparql/\> PREFIX geo:<http://www.opengis.net/ont/geosparql#> PREFIX d2r-vocab:<http://erfgeo.nl/d2r/d2r-vocab/\> SELECT DISTINCT * WHERE {?URI d2r-vocab:archeologisch_monument_monumentnr ?Monumentnummer; d2r-vocab:archeologisch_monument_code ?code; d2r-vocab:archeologisch_monument_provincie ?provincie; d2r-vocab:archeologisch_monument_gemeente ?gemeente; d2r-vocab:archeologisch_monument_plaats ?plaats; d2r-vocab:archeologisch_monument_toponiem ?toponiem; d2r-vocab:archeologisch_monument_kaartblad ?kaartblad; d2r-vocab:archeologisch_monument_x_coord ?xcoordinaatRD; d2r-vocab:archeologisch_monument_y_coord ?ycoordinaatRD; d2r-vocab:archeologisch_monument_waarde ?waarde; geo:hasGeometry ?geometrie . ?geometrie geo:asWKT ?WKT . FILTER (geof:sfIntersects(?WKT, "POLYGON((4.867391586303719 52.12839664545966,5.1326084136963015 52.12839664545966,5.1326084136963015 52.19158092981249,4.867391586303719 52.19158092981249,4.867391586303719 52.12839664545966))"^^geo:wktLiteral))} LIMIT 10';
+
+	    $.ajax({
+	        url: 'http://erfgeo.nl/useekm',
+	        data: {
+	            queryLn: 'SPARQL',
+	            query: poligons_query,
+	            infer: 'true',
+	            Accept: 'application/sparql-results+json',
+	            output: 'json'
+	        },
+	        crossDomain: true,
+	        dataType: 'jsonp',		
+	        success: function(data) {
+	        	console.log('Holanda is good');
+	            var geometries = new Array();
+	            var geojson = new Object();
+
+	            //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
+	            geojson = sparqlToGeoJSON(data);
+	            console.log(geojson);
+
+	        },
+	        error: function () {
+			}
+	    });
+	}
+
+	self.getNetherlandsData = function() {
+
+	    var poligons_query = 'PREFIX geof:<http://www.opengis.net/def/function/geosparql/\> PREFIX geo:<http://www.opengis.net/ont/geosparql#> PREFIX d2r-vocab:<http://erfgeo.nl/d2r/d2r-vocab/\> SELECT DISTINCT * WHERE {?URI d2r-vocab:archeologisch_monument_monumentnr ?Monumentnummer; d2r-vocab:archeologisch_monument_code ?code; d2r-vocab:archeologisch_monument_provincie ?provincie; d2r-vocab:archeologisch_monument_gemeente ?gemeente; d2r-vocab:archeologisch_monument_plaats ?plaats; d2r-vocab:archeologisch_monument_toponiem ?toponiem; d2r-vocab:archeologisch_monument_kaartblad ?kaartblad; d2r-vocab:archeologisch_monument_x_coord ?xcoordinaatRD; d2r-vocab:archeologisch_monument_y_coord ?ycoordinaatRD; d2r-vocab:archeologisch_monument_waarde ?waarde; geo:hasGeometry ?geometrie . ?geometrie geo:asWKT ?WKT . FILTER (geof:sfIntersects(?WKT, "POLYGON((4.867391586303719 52.12839664545966,5.1326084136963015 52.12839664545966,5.1326084136963015 52.19158092981249,4.867391586303719 52.19158092981249,4.867391586303719 52.12839664545966))"^^geo:wktLiteral))} LIMIT 10';
+
+	    var connectionl = new XDomainRequest();
+	    connectionl.contentType = "application/javascript";
+	    connectionl.timeout = 100000;
+        connectionl.open('GET', 'http://erfgeo.nl/useekm?query='+ encodeURIComponent(poligons_query));
+	    connectionl.onprogress = (function() {});
+	    connectionl.ontimeout = (function() {});
+	    connectionl.send();
+	    connectionl.onload = (function() {
+
+	        console.log('Holanda is good');
+	        var geometries = new Array();
+	        var geojson = new Object();
+
+	        //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
+	        geojson = sparqlToGeoJSON(data);
+	        console.log(geojson);
+
+	    });
+	    connectionl.onerror = (function() {
+	        console.log("XDomainRequest Error - netherlands");
+	    });
+
+	}
+
 
 	self.doDeleteAllFilters = function () {
 		if (self.sparql()) {
@@ -1718,9 +1776,6 @@ function InitViewModel() {
 						self.showConfigurationPanel(false);
 					}
 					init();
-					$(window).load(function () {
-						openLayers.render();
-					});
 
 				});
 
@@ -1813,7 +1868,9 @@ function InitViewModel() {
 					}
 					init();
 					$(window).load(function () {
-						self.viewData(countries.features);
+						var data = JSON.stringify(netherlands.results.bindings);
+						ko.mapping.fromJSON(data, self.viewData);						
+						updateWidgets(true);
 						openLayers.render();
 					});
 				});
@@ -1851,20 +1908,6 @@ function InitViewModel() {
                         showWidgetConfiguration: false,
 						help: 'Muestra los países en los que existen Universidades'
                     });
-      //               templateWidgetsLeft.push({
-      //                   id: 0,
-      //                   title: 'Cities',
-      //                   type: 'tagcloud',
-      //                   field: 'city',
-      //                   collapsed: false,
-      //                   query: '',
-      //                   value: [],
-      //                   values: [],
-      //                   limits: '',
-      //                   layout: 'horizontal',
-      //                   showWidgetConfiguration: false,
-						// help: 'Muestra los países en los que existen Universidades'
-      //               });
                     configuration.autocomplete.field = "university";
                     self.securityEnabled(false);
                     sparqlmode = true;
@@ -2184,7 +2227,7 @@ function InitViewModel() {
 		/** Endpoint variables */
 
 		var sparql_baseURL = self.serverURL() + 'sparql/select';
-		self.sparql_baseURL('http://dbpedia.org/sparql');
+		//self.sparql_baseURL('http://dbpedia.org/sparql');
 
 		/** Overriding some template variables */
 		self.pageTitle(configuration.template.pageTitle);
