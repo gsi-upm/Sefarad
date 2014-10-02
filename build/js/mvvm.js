@@ -824,28 +824,35 @@ function InitViewModel() {
 
 	    var poligons_query = 'PREFIX geof:<http://www.opengis.net/def/function/geosparql/\> PREFIX geo:<http://www.opengis.net/ont/geosparql#> PREFIX d2r-vocab:<http://erfgeo.nl/d2r/d2r-vocab/\> SELECT DISTINCT * WHERE {?URI d2r-vocab:archeologisch_monument_monumentnr ?Monumentnummer; d2r-vocab:archeologisch_monument_code ?code; d2r-vocab:archeologisch_monument_provincie ?provincie; d2r-vocab:archeologisch_monument_gemeente ?gemeente; d2r-vocab:archeologisch_monument_plaats ?plaats; d2r-vocab:archeologisch_monument_toponiem ?toponiem; d2r-vocab:archeologisch_monument_kaartblad ?kaartblad; d2r-vocab:archeologisch_monument_x_coord ?xcoordinaatRD; d2r-vocab:archeologisch_monument_y_coord ?ycoordinaatRD; d2r-vocab:archeologisch_monument_waarde ?waarde; geo:hasGeometry ?geometrie . ?geometrie geo:asWKT ?WKT . FILTER (geof:sfIntersects(?WKT, "POLYGON((4.867391586303719 52.12839664545966,5.1326084136963015 52.12839664545966,5.1326084136963015 52.19158092981249,4.867391586303719 52.19158092981249,4.867391586303719 52.12839664545966))"^^geo:wktLiteral))} LIMIT 10';
 
-	    var connectionl = new XDomainRequest();
-	    connectionl.contentType = "application/javascript";
-	    connectionl.timeout = 100000;
-        connectionl.open('GET', 'http://erfgeo.nl/useekm?query='+ encodeURIComponent(poligons_query));
-	    connectionl.onprogress = (function() {});
-	    connectionl.ontimeout = (function() {});
-	    connectionl.send();
-	    connectionl.onload = (function() {
 
-	        console.log('Holanda is good');
-	        var geometries = new Array();
-	        var geojson = new Object();
+	    var  temporal = 'http://erfgeo.nl/useekm?query=';
+		var req = new XMLHttpRequest();
+	    req.open("POST", temporal, true);
+		var params = encodeURIComponent(poligons_query) ;
+	    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	    req.setRequestHeader("Content-length", params.length);
+	    req.setRequestHeader("Connection", "close");
+	    req.send(params);
+	    req.onreadystatechange = function() 
+	    { 
+	        if (req.readyState == 4)
+				if (req.status == 200)
+				{ 
 
-	        //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
-	        geojson = sparqlToGeoJSON(data);
-	        console.log(geojson);
+				    console.log('Holanda is good');
+		            var geometries = new Array();
+		            var geojson = new Object();
 
-	    });
-	    connectionl.onerror = (function() {
-	        console.log("XDomainRequest Error - netherlands");
-	    });
-
+		            //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
+		            geojson = sparqlToGeoJSON(data);
+		            console.log(geojson);
+				}
+	            else
+				{
+				  console.log("Not here"+req.status);
+				}
+	    };
+	    return false;
 	}
 
 

@@ -8,10 +8,12 @@ function sparqlToGeoJSON(sparqlJSON) {
         };
 
         for (bindingindex = 0; bindingindex < sparqlJSON.length; ++bindingindex) {
-                for (varindex = 0; varindex < sparqlJSON.head.vars.length; ++varindex) {
-                        if (sparqlJSON[bindingindex][sparqlJSON.head.vars[varindex]] && (sparqlJSON[bindingindex][sparqlJSON.head.vars[varindex]].datatype === "http://www.opengis.net/ont/geosparql#wktLiteral" || sparqlJSON[bindingindex][sparqlJSON.head.vars[varindex]].datatype === "http://www.openlinksw.com/schemas/virtrdf#Geometry")) {
+                for (var key in sparqlJSON[bindingindex]){                        
+                                               
+                //for (varindex = 0; varindex < sparqlJSON.head.vars.length; ++varindex) {
+                        if ((sparqlJSON[bindingindex][key].datatype != undefined) && (sparqlJSON[bindingindex][key].datatype() === "http://www.opengis.net/ont/geosparql#wktLiteral" || sparqlJSON[bindingindex][key].datatype() === "http://www.openlinksw.com/schemas/virtrdf#Geometry")) {
                                 //assumes the well-known text is valid!
-                                wkt = sparqlJSON[bindingindex][sparqlJSON.head.vars[varindex]].value;
+                                wkt = sparqlJSON[bindingindex][key].value();
 
                                 //chop off geometry type, already have that
                                 coordinates = wkt.substr(wkt.indexOf("("), wkt.length);
