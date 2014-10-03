@@ -746,6 +746,7 @@ function InitViewModel() {
 					console.log('SPARQL Query success');
 					console.log(allData);
 					var data = JSON.stringify(allData.results.bindings);
+					console.log(data);
 					ko.mapping.fromJSON(data, self.viewData);
 					updateWidgets(true);
 				},
@@ -772,7 +773,7 @@ function InitViewModel() {
 				crossDomain: true,
 				dataType: 'jsonp',
 				beforeSend: function () {
-					//$('#loading').show();
+					
 				},
 				complete: function () {
 					//$('#loading').hide();
@@ -789,6 +790,71 @@ function InitViewModel() {
 				}
 			});
 	}
+
+	self.getNetherlandsDataTest = function() {
+	    var poligons_query = 'PREFIX geof:<http://www.opengis.net/def/function/geosparql/\> PREFIX geo:<http://www.opengis.net/ont/geosparql#> PREFIX d2r-vocab:<http://erfgeo.nl/d2r/d2r-vocab/\> SELECT DISTINCT * WHERE {?URI d2r-vocab:archeologisch_monument_monumentnr ?Monumentnummer; d2r-vocab:archeologisch_monument_code ?code; d2r-vocab:archeologisch_monument_provincie ?provincie; d2r-vocab:archeologisch_monument_gemeente ?gemeente; d2r-vocab:archeologisch_monument_plaats ?plaats; d2r-vocab:archeologisch_monument_toponiem ?toponiem; d2r-vocab:archeologisch_monument_kaartblad ?kaartblad; d2r-vocab:archeologisch_monument_x_coord ?xcoordinaatRD; d2r-vocab:archeologisch_monument_y_coord ?ycoordinaatRD; d2r-vocab:archeologisch_monument_waarde ?waarde; geo:hasGeometry ?geometrie . ?geometrie geo:asWKT ?WKT . FILTER (geof:sfIntersects(?WKT, "POLYGON((4.867391586303719 52.12839664545966,5.1326084136963015 52.12839664545966,5.1326084136963015 52.19158092981249,4.867391586303719 52.19158092981249,4.867391586303719 52.12839664545966))"^^geo:wktLiteral))} LIMIT 10';
+
+	    $.ajax({
+	        url: 'http://erfgeo.nl/useekm',
+	        data: {
+	            queryLn: 'SPARQL',
+	            query: poligons_query,
+	            infer: 'true',
+	            Accept: 'application/sparql-results+json',
+	            output: 'json'
+	        },
+	        crossDomain: true,
+	        dataType: 'jsonp',		
+	        success: function(data) {
+	        	console.log('Holanda is good');
+	            var geometries = new Array();
+	            var geojson = new Object();
+
+	            //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
+	            geojson = sparqlToGeoJSON(data);
+	            console.log(geojson);
+
+	        },
+	        error: function () {
+			}
+	    });
+	}
+
+	self.getNetherlandsData = function() {
+
+	    var poligons_query = 'PREFIX geof:<http://www.opengis.net/def/function/geosparql/\> PREFIX geo:<http://www.opengis.net/ont/geosparql#> PREFIX d2r-vocab:<http://erfgeo.nl/d2r/d2r-vocab/\> SELECT DISTINCT * WHERE {?URI d2r-vocab:archeologisch_monument_monumentnr ?Monumentnummer; d2r-vocab:archeologisch_monument_code ?code; d2r-vocab:archeologisch_monument_provincie ?provincie; d2r-vocab:archeologisch_monument_gemeente ?gemeente; d2r-vocab:archeologisch_monument_plaats ?plaats; d2r-vocab:archeologisch_monument_toponiem ?toponiem; d2r-vocab:archeologisch_monument_kaartblad ?kaartblad; d2r-vocab:archeologisch_monument_x_coord ?xcoordinaatRD; d2r-vocab:archeologisch_monument_y_coord ?ycoordinaatRD; d2r-vocab:archeologisch_monument_waarde ?waarde; geo:hasGeometry ?geometrie . ?geometrie geo:asWKT ?WKT . FILTER (geof:sfIntersects(?WKT, "POLYGON((4.867391586303719 52.12839664545966,5.1326084136963015 52.12839664545966,5.1326084136963015 52.19158092981249,4.867391586303719 52.19158092981249,4.867391586303719 52.12839664545966))"^^geo:wktLiteral))} LIMIT 10';
+
+
+	    var  temporal = 'http://erfgeo.nl/useekm?query=';
+		var req = new XMLHttpRequest();
+	    req.open("POST", temporal, true);
+		var params = encodeURIComponent(poligons_query) ;
+	    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	    req.setRequestHeader("Content-length", params.length);
+	    req.setRequestHeader("Connection", "close");
+	    req.send(params);
+	    req.onreadystatechange = function() 
+	    { 
+	        if (req.readyState == 4)
+				if (req.status == 200)
+				{ 
+
+				    console.log('Holanda is good');
+		            var geometries = new Array();
+		            var geojson = new Object();
+
+		            //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
+		            geojson = sparqlToGeoJSON(data);
+		            console.log(geojson);
+				}
+	            else
+				{
+				  console.log("Not here"+req.status);
+				}
+	    };
+	    return false;
+	}
+
 
 	self.doDeleteAllFilters = function () {
 		if (self.sparql()) {
@@ -1796,6 +1862,25 @@ function InitViewModel() {
 
 				});
 
+				this.get('#/sparql/countriesDemo', function () {
+					sparqlmode = true;
+					self.sparql = ko.observable(true);
+					self.showSparqlPanel = ko.observable(true);
+
+					if (!self.securityEnabled()) {
+						self.adminMode(true);
+					} else {
+						self.adminMode(false);
+						self.showConfigurationPanel(false);
+					}
+					init();
+					$(window).load(function () {
+						var data = JSON.stringify(netherlands.results.bindings);
+						ko.mapping.fromJSON(data, self.viewData);						
+						updateWidgets(true);
+						openLayers.render();
+					});
+				});
 				                
                 this.get('#/sparql/universitiesDemo', function () {
                     console.log("UNIVERSITIES DEMO");
@@ -1830,20 +1915,6 @@ function InitViewModel() {
                         showWidgetConfiguration: false,
 						help: 'Muestra los países en los que existen Universidades'
                     });
-      //               templateWidgetsLeft.push({
-      //                   id: 0,
-      //                   title: 'Cities',
-      //                   type: 'tagcloud',
-      //                   field: 'city',
-      //                   collapsed: false,
-      //                   query: '',
-      //                   value: [],
-      //                   values: [],
-      //                   limits: '',
-      //                   layout: 'horizontal',
-      //                   showWidgetConfiguration: false,
-						// help: 'Muestra los países en los que existen Universidades'
-      //               });
                     configuration.autocomplete.field = "university";
                     self.securityEnabled(false);
                     sparqlmode = true;
@@ -2163,7 +2234,7 @@ function InitViewModel() {
 		/** Endpoint variables */
 
 		var sparql_baseURL = self.serverURL() + 'sparql/select';
-		self.sparql_baseURL('http://dbpedia.org/sparql');
+		//self.sparql_baseURL('http://dbpedia.org/sparql');
 
 		/** Overriding some template variables */
 		self.pageTitle(configuration.template.pageTitle);
