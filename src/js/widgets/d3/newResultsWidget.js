@@ -54,24 +54,28 @@ var newResultsWidget = {
         var div = d3.select('#' + id);
         div.attr("align", "center");
 
+        d3.select('#' + id).selectAll('table').remove();
+
         var table = div.append("table").attr("style", "margin-left: 5px"),
         thead = table.append("thead"),
         tbody = table.append("tbody");
 
         data = new Array();
-
+        
         $.each(vm.shownSparqlData(), function(index, item) {             
             data.push(item);
-        });        
+        });       
 
-        rows = tbody.selectAll("tr")  
-        .data(data.filter(function(d,i){return d;}))
+        rows = d3.select("tbody");        
+        rows.data(data.filter(function(d,i){return d;}))
         .enter()
-        .append("tr")
-        .text(function(d) {return d.university.value();});
+        .append("tr");
+        //.append("hr");
+        rows.append("h2").text(function(d) {return d.university.value();});        
+        rows.append("h4").text(function(d) {return d.country.value();});  
+        rows.append("hr");      
 
         newResultsWidget.initnewResultsWidget();
-
     },
     
 
