@@ -744,9 +744,8 @@ function InitViewModel() {
 				},
 				success: function (allData) {
 					console.log('SPARQL Query success');
-					console.log(allData);
+					//console.log(allData);
 					var data = JSON.stringify(allData.results.bindings);
-					console.log(data);
 					ko.mapping.fromJSON(data, self.viewData);
 					updateWidgets(true);
 				},
@@ -1864,6 +1863,7 @@ function InitViewModel() {
 
 				this.get('#/sparql/countriesDemo', function () {
 					sparqlmode = true;
+					self.get
 					self.sparql = ko.observable(true);
 					self.showSparqlPanel = ko.observable(true);
 
@@ -1875,7 +1875,7 @@ function InitViewModel() {
 					}
 					init();
 					$(window).load(function () {
-						var data = JSON.stringify(netherlands.results.bindings);
+						var data = JSON.stringify(poligonosUsa.results.bindings);
 						ko.mapping.fromJSON(data, self.viewData);						
 						updateWidgets(true);
 						openLayers.render();

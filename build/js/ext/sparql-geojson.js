@@ -8,6 +8,7 @@ function sparqlToGeoJSON(sparqlJSON) {
         };
 
         for (bindingindex = 0; bindingindex < sparqlJSON.length; ++bindingindex) {
+
                 for (var key in sparqlJSON[bindingindex]){                        
                                                
                 //for (varindex = 0; varindex < sparqlJSON.head.vars.length; ++varindex) {
@@ -25,6 +26,11 @@ function sparqlToGeoJSON(sparqlJSON) {
                                 coordinates = coordinates.split(",").join("],[");
                                 //replace spaces with ,
                                 coordinates = coordinates.split(" ").join(",");
+                                //delete repeated ,,
+                                var re = new RegExp(',,', 'g');
+                                coordinates = coordinates.replace(re, '');
+
+                                var polygon = new RegExp("POLYGON*");
 
                                 //find substring left of first "(" occurrence for geometry type
                                 switch (wkt.substr(0, wkt.indexOf("("))) {
@@ -41,7 +47,7 @@ function sparqlToGeoJSON(sparqlJSON) {
                                 case "MULTILINE":
                                         geometryType = "MultiLine";
                                         break;
-                                case "POLYGON":
+                                case "POLYGON ":
                                         geometryType = "Polygon";
                                         break;
                                 case "MULTIPOLYGON":
@@ -52,7 +58,7 @@ function sparqlToGeoJSON(sparqlJSON) {
                                         break;
                                 default:
                                         //invalid wkt!
-                                        return {};
+                                        continue;
                                 }
 
 
@@ -65,7 +71,7 @@ function sparqlToGeoJSON(sparqlJSON) {
                                         "properties": sparqlJSON[bindingindex]
                                 };
 
-                        geojson.features.push(feature);
+                                geojson.features.push(feature);
                         }
                 }
         }
