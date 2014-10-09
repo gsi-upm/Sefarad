@@ -127,6 +127,7 @@ if ($user->isLoggedIn()){
 		<!-- json -->
 		<script type="text/javascript" charset="UTF-8" src="json_examples/countries.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="json_examples/netherlands.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="json_examples/poligonosUsa.js"></script>
 
 		<script type="text/javascript" charset="UTF-8">
 			$(document).ready(function () {
