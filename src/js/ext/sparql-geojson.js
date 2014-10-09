@@ -8,7 +8,7 @@ function sparqlToGeoJSON(sparqlJSON) {
         };
 
         for (bindingindex = 0; bindingindex < sparqlJSON.length; ++bindingindex) {
-
+                
                 for (var key in sparqlJSON[bindingindex]){                        
                                                
                 //for (varindex = 0; varindex < sparqlJSON.head.vars.length; ++varindex) {
@@ -28,39 +28,36 @@ function sparqlToGeoJSON(sparqlJSON) {
                                 coordinates = coordinates.split(" ").join(",");
                                 //delete repeated ,,
                                 var re = new RegExp(',,', 'g');
-                                coordinates = coordinates.replace(re, '');
-
-                                var polygon = new RegExp("POLYGON*");
+                                coordinates = coordinates.replace(re, '');                                
 
                                 //find substring left of first "(" occurrence for geometry type
-                                switch (wkt.substr(0, wkt.indexOf("("))) {
-                                case "POINT":
-                                        geometryType = "Point";
-					coordinates = coordinates.substr(1, coordinates.length - 2); //remove redundant [ and ] at beginning and end
-                                        break;
-                                case "MULTIPOINT":
-                                        geometryType = "MultiPoint";
-                                        break;
-                                case "LINESTRING":
-                                        geometryType = "Linestring";
-                                        break;
-                                case "MULTILINE":
-                                        geometryType = "MultiLine";
-                                        break;
-                                case "POLYGON ":
-                                        geometryType = "Polygon";
-                                        break;
-                                case "MULTIPOLYGON":
-                                        geometryType = "MultiPolygon";
-                                        break;
-                                case "GEOMETRYCOLLECTION":
-                                        geometryType = "GeometryCollection";
-                                        break;
-                                default:
-                                        //invalid wkt!
-                                        continue;
-                                }
-
+                                switch (true) {
+                                        case /POINT*/.test(wkt.substr(0, wkt.indexOf("("))):
+                                                geometryType = "Point";
+                                                coordinates = coordinates.substr(1, coordinates.length - 2); //remove redundant [ and ] at beginning and end
+                                                break;
+                                        case /MULTIPOINT*/.test(wkt.substr(0, wkt.indexOf("("))):
+                                                geometryType = "MultiPoint";
+                                                break;
+                                        case /LINESTRING*/.test(wkt.substr(0, wkt.indexOf("("))):
+                                                geometryType = "Linestring";
+                                                break;
+                                        case /MULTILINE*/.test(wkt.substr(0, wkt.indexOf("("))):
+                                                geometryType = "MultiLine";
+                                                break;
+                                        case /POLYGON*/.test(wkt.substr(0, wkt.indexOf("("))):
+                                                geometryType = "Polygon";
+                                                break;
+                                        case /MULTIPOLYGON*/.test(wkt.substr(0, wkt.indexOf("("))):
+                                                geometryType = "MultiPolygon";
+                                                break;
+                                        case /GEOMETRYCOLLECTION*/.test(wkt.substr(0, wkt.indexOf("("))):
+                                                geometryType = "GeometryCollection";
+                                                break;
+                                        default:
+                                                //invalid wkt!
+                                                continue;
+                                }                         
 
                                 var feature = {
                                         "type": "Feature",
