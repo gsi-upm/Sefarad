@@ -47,45 +47,100 @@ var newResultsWidget = {
             .attr("type", "text")
             .attr("size", 100);       
 
+
+
+
+
     },
 
     paint: function (id) {
+
         d3.select('#' + id).selectAll('div').remove();
-        var div = d3.select('#' + id);
-        div.attr("align", "center");
+        var divBig = d3.select('#' + id);
+        divBig.attr("align", "center");
 
-        d3.select('#' + id).selectAll('table').remove();
+        var div = divBig.append("div").attr("id", "containerDiv").attr("style", "height: 50%; width: 100%");
 
-        var table = div.append("table").attr("style", "margin-left: 5px"),
-        thead = table.append("thead"),
+        //Clean the workspace
+        d3.select('#' + id).selectAll('table').remove();    
+        d3.select('#' + id).selectAll("controlDiv").remove();         
+
+        //Create the table
+        var table = div.append("table").attr("style", "height: 80%; width: 95%").attr("id", "resultsTable");
+        thead = table.append("thead");
         tbody = table.append("tbody");
+        tfoot = table.append("tfoot");
 
-        data = new Array();
-        
-        $.each(vm.shownSparqlData(), function(index, item) {             
+        //Extract the data from vm variable
+        data = new Array();        
+        $.each(vm.filteredData(), function(index, item) {             
             data.push(item);
-        });       
+        });         
 
-        rows = d3.select("tbody");        
-        rows.data(data.filter(function(d,i){return d;}))
-        .enter()
-        .append("tr");
-        //.append("hr");
-        rows.append("h2").text(function(d) {return d.university.value();});        
-        rows.append("h4").text(function(d) {return d.country.value();});  
-        rows.append("hr");      
+        //Print the header line   
+        var hrow = thead.append("tr");        
+        for (i=0;i<Object.keys(data[0]).length;i++)
+        {
+            hrow.append("th").text(Object.keys(data[0])[i]);
+        }
 
-        newResultsWidget.initnewResultsWidget();
-    },
-    
-
-    initnewResultsWidget: function () {
-       
+        //Print the footer line   
+        var frow = tfoot.append("tr");        
+        for (i=0;i<Object.keys(data[0]).length;i++)
+        {
+            frow.append("th").text(Object.keys(data[0])[i]);
+        }
         
-    }
+        //Print the data
+        for (i=0;i<data.length;i++)
+        {
+            var row = tbody.append("tr");            
+            for (j=0;j<Object.keys(data[0]).length;j++)
+            {
+                row.append("td").text(data[i][Object.keys(data[0])[j]].value());
+            }            
+        }
+
+        console.log("Se llama a paint");
+
+        //Table inicialization depending on the language
+        switch(vm.lang()[Object.keys(vm.lang())[0]]) {
+
+            default:
+                $('#resultsTable').dataTable( {
+                    "language": {
+                        "lengthMenu": "Display _MENU_ records per page",
+                        "zeroRecords": "Nothing found - sorry",
+                        "info": "Showing page _PAGE_ of _PAGES_",
+                        "infoEmpty": "No records available",
+                        "search":  "Search:",
+                        "infoFiltered": "(filtered from _MAX_ total records)"
+                    }
+                } );                
+                break;
+
+            case "Español":
+                $('#resultsTable').dataTable( {
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ resultados por página",
+                        "zeroRecords": "No se encontraron resultados - lo sentimos",
+                        "info": "Mostrando página _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay resultados disponibles",
+                        "search":  "Filtrar:",
+                        "infoFiltered": "(filtrados de _MAX_ resultados totales)"
+                    }
+                } );                
+                break;            
+        }            
+    },    
 };
 
 // Global variables
 var newResultsWidget;
 var data;
 var rows;
+
+
+
+//Debug variables;
+

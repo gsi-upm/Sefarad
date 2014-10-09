@@ -29,19 +29,19 @@ if ($user->isLoggedIn()){
 <html lang="es">
 	<!-- head starts -->
 	<head>
-		<script type="text/javascript" src="js/widgets/d3/newResultsWidget.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/openLayers.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/openStreetMap.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/openlayersMap.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/stockWidget.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetBarras.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetD3.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetDonuts.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetMap.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetD3.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetSortBar.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetWheel.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetBarras.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/openLayers.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/newResultsWidget.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/openlayersMap.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/stockWidget.js"></script>
 		<script type="text/javascript">
-			var widgetX = [newResultsWidget, openLayers, openStreetMap, openlayersMap, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
+			var widgetX = [openStreetMap, widgetDonuts, widgetMap, widgetD3, widgetSortBar, widgetWheel, widgetBarras, openLayers, newResultsWidget, openlayersMap, stockWidget];
 		</script>
 		<meta charset="utf-8" />
 		<title>SEFARAD</title>
@@ -62,6 +62,9 @@ if ($user->isLoggedIn()){
     	<link rel="stylesheet" href="css/animate-custom.css" type="text/css">
     	<!-- qtip stylesheets -->
     	<link rel="stylesheet" href="css/ext/jquery.qtip.css" type="text/css">
+    	<!-- datatable stylesheets -->
+    	<!--<link rel="stylesheet" href="css/ext/datatablesPlugin.css" type="text/css"> -->    	
+    	<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css" type="text/css">
     	<!-- Import OL CSS, auto import does not work with our minified OL.js build -->
         <link rel="stylesheet" type="text/css" href="http://demos.gsi.dit.upm.es/geoserver/openlayers/theme/default/style.css">
 		<!-- javascript -->
@@ -109,6 +112,7 @@ if ($user->isLoggedIn()){
 		<script src="js/ext/jquery.joyride-2.0.2.js"></script>
     	<script src="js/ext/jquery.scrollTo.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script src="js/datatablesPlugin.js" charset="utf-8"></script>
 		<!-- external -->
 		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 		<script type='text/javascript' src="js/ext/twitterApi.js"></script>

@@ -330,6 +330,8 @@ function InitViewModel() {
 
 			$.each(self.activeWidgetsLeft(), function (index, item) {
 
+				item.paint();
+
 				if (item.type() == "tagcloud" && ko.utils.getDataColumns(item.field()) != undefined) {
 					self.widgetContent(ko.utils.getDataColumns(item.field()));
 
@@ -350,6 +352,8 @@ function InitViewModel() {
 			});
 
 			$.each(self.activeWidgetsRight(), function (index, item) {
+
+				item.paint();
 
 				if (item.type() == "tagcloud" && ko.utils.getDataColumns(item.field()) != undefined) {
 					self.widgetContent(ko.utils.getDataColumns(item.field()));
@@ -598,6 +602,9 @@ function InitViewModel() {
 		if (idx > -1) {
 			self.lang(languages[parseInt(idx)]);
 		} else {}
+
+		hasChanged = true;
+		updateWidgets(false);
 
 	});
 

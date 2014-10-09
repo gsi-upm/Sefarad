@@ -48,6 +48,9 @@ if ($user->isLoggedIn()){
     	<link rel="stylesheet" href="css/animate-custom.css" type="text/css">
     	<!-- qtip stylesheets -->
     	<link rel="stylesheet" href="css/ext/jquery.qtip.css" type="text/css">
+    	<!-- datatable stylesheets -->
+    	<!--<link rel="stylesheet" href="css/ext/datatablesPlugin.css" type="text/css"> -->    	
+    	<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css" type="text/css">
     	<!-- Import OL CSS, auto import does not work with our minified OL.js build -->
         <link rel="stylesheet" type="text/css" href="http://demos.gsi.dit.upm.es/geoserver/openlayers/theme/default/style.css">
 		<!-- javascript -->
@@ -95,6 +98,7 @@ if ($user->isLoggedIn()){
 		<script src="js/ext/jquery.joyride-2.0.2.js"></script>
     	<script src="js/ext/jquery.scrollTo.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script src="js/datatablesPlugin.js" charset="utf-8"></script>
 		<!-- external -->
 		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 		<script type='text/javascript' src="js/ext/twitterApi.js"></script>
