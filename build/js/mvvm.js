@@ -765,6 +765,34 @@ function InitViewModel() {
 
 	};
 
+	self.getDataPolygons = function() {
+
+		var poligons_query = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo: <http://www.opengis.net/ont/geosparql#> PREFIX geof: <http://www.opengis.net/def/function/geosparql/> PREFIX gnis: <http://cegis.usgs.gov/rdf/gnis/> PREFIX gu: <http://cegis.usgs.gov/rdf/gu/>  PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> SELECT  * WHERE  { { ?uri rdfs:label ?name1 . ?s geo:hasGeometry ?fGeom . ?fGeom geo:asWKT ?fWKT . ?s gu:areaSqKM  ?areaSqKM  . ?s gu:dataSecurity ?dataSecurity . ?s gu:distributionPolicy ?distributionPolicy . ?s gnis:shapeLength ?shapeLength . ?s gnis:shapeArea ?shapeArea . ?s gu:sourceDataDesc ?sourceDataDesc . ?s gu:stateName ?stateName . ?s gu:minorCivilDivisonName ?minorCivilDivisonName . } }  LIMIT 500 ';
+
+	    var temporal = 'http://alpha.gsi.dit.upm.es:3030/ds/query?query=' + encodeURIComponent(poligons_query);
+	    var req = new XMLHttpRequest();
+	    req.open("GET", temporal, true);
+	    var params = encodeURIComponent(poligons_query);
+	    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	    req.setRequestHeader("Accept", "application/sparql-results+json");
+	    req.setRequestHeader("Content-length", params.length);
+	    req.setRequestHeader("Connection", "close");
+	    req.send();
+	    req.onreadystatechange = function() {
+	        if (req.readyState == 4)
+	            if (req.status == 200) {
+	            	var res = eval ("(" + req.responseText + ")");
+	                var data = JSON.stringify(res.results.bindings);
+					ko.mapping.fromJSON(data, self.viewData);
+					updateWidgets(true);
+	                
+	            } else {
+	                console.log("Not here" + req.status);
+	            }
+	    };
+	    return false;
+	}
+
 	self.getDataSmod = function () {
 			
 			$.ajax({
@@ -1869,10 +1897,7 @@ function InitViewModel() {
 				});
 
 				this.get('#/sparql/countriesDemo', function () {
-					sparqlmode = true;
-					self.get
 					self.sparql = ko.observable(true);
-					self.showSparqlPanel = ko.observable(true);
 
 					if (!self.securityEnabled()) {
 						self.adminMode(true);
@@ -1880,11 +1905,13 @@ function InitViewModel() {
 						self.adminMode(false);
 						self.showConfigurationPanel(false);
 					}
+
+					self.getDataPolygons();
+
 					init();
+
 					$(window).load(function () {
-						var data = JSON.stringify(poligonosUsa.results.bindings);
-						ko.mapping.fromJSON(data, self.viewData);						
-						updateWidgets(true);
+						//self.viewData() = 	ko.mapping.fromJS(countries);					
 						openLayers.render();
 					});
 				});
