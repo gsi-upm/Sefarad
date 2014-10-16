@@ -48,6 +48,7 @@ if ($user->isLoggedIn()){
     	<link rel="stylesheet" href="css/animate-custom.css" type="text/css">
     	<!-- qtip stylesheets -->
     	<link rel="stylesheet" href="css/ext/jquery.qtip.css" type="text/css">
+    
     	<!-- datatable stylesheets -->
     	<!--<link rel="stylesheet" href="css/ext/datatablesPlugin.css" type="text/css"> -->    	
     	<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css" type="text/css">
@@ -104,6 +105,7 @@ if ($user->isLoggedIn()){
 		<script type='text/javascript' src="js/ext/twitterApi.js"></script>
 		<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
 		<script type="text/javascript" src="js/ext/sparql-geojson.js"></script>
+		
 		<!-- openlayers -->
 		<script src="http://openlayers.org/api/OpenLayers.js"></script>
         <!-- <script type="text/javascript" charset="UTF-8" src="js/ext/OpenLayers.js"></script> -->

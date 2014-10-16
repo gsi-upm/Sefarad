@@ -51,7 +51,7 @@ var newResultsWidget = {
 
 
 
-    },
+    },    
 
     paint: function (id) {
 
@@ -63,7 +63,7 @@ var newResultsWidget = {
 
         //Clean the workspace
         d3.select('#' + id).selectAll('table').remove();    
-        d3.select('#' + id).selectAll("controlDiv").remove();         
+        d3.select('#' + id).selectAll("controlDiv").remove(); 
 
         //Create the table
         var table = div.append("table").attr("style", "height: 80%; width: 95%").attr("id", "resultsTable");
@@ -91,15 +91,19 @@ var newResultsWidget = {
             frow.append("th").text(Object.keys(data[0])[i]);
         }
         
-        //Print the data
+        //Print the data with links to wikipedia
         for (i=0;i<data.length;i++)
         {
-            var row = tbody.append("tr");            
+            var row = tbody.append("tr");                       
             for (j=0;j<Object.keys(data[0]).length;j++)
             {
-                row.append("td").text(data[i][Object.keys(data[0])[j]].value());
+                var link = row.append("td").append("a");
+                link.text(data[i][Object.keys(data[0])[j]].value());
+                //link.attr("href", "http://es.wikipedia.org/wiki/" + data[i][Object.keys(data[0])[j]].value());
+                link.attr("class", i.toString()+j.toString());                        
             }            
-        }
+        }    
+       
 
         console.log("Se llama a paint");
 
@@ -113,8 +117,9 @@ var newResultsWidget = {
                         "zeroRecords": "Nothing found - sorry",
                         "info": "Showing page _PAGE_ of _PAGES_",
                         "infoEmpty": "No records available",
-                        "search":  "Search:",
+                        "search":  "Filter:",
                         "infoFiltered": "(filtered from _MAX_ total records)"
+                        
                     }
                 } );                
                 break;
@@ -139,7 +144,7 @@ var newResultsWidget = {
 var newResultsWidget;
 var data;
 var rows;
-
+var descriptionData;
 
 
 //Debug variables;
