@@ -1464,7 +1464,7 @@ function InitViewModel() {
 		if (self.activeTab() == 0) {
 			self.activeWidgetsLeft.push({
 				"id": ko.observable(id),
-				"title": ko.observable("Nuevo TagCloud Widget"),
+				"title": ko.observable("TagCloud Widget"),
 				"type": ko.observable("tagcloud"),
 				"field": ko.observable(self.newTagCloudValue()),
 				"collapsed": ko.observable(false),
@@ -1911,7 +1911,9 @@ function InitViewModel() {
 					init();
 
 					$(window).load(function () {
-						//self.viewData() = 	ko.mapping.fromJS(countries);					
+						var data = JSON.stringify(poligonosUsa.results.bindings);
+						ko.mapping.fromJSON(data, self.viewData);
+						updateWidgets(true);
 						openLayers.render();
 					});
 				});

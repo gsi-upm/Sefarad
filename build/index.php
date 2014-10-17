@@ -29,6 +29,7 @@ if ($user->isLoggedIn()){
 <html lang="es">
 	<!-- head starts -->
 	<head>
+		<script type="text/javascript" src="js/widgets/d3/accordionWidget.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/newResultsWidget.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/openLayers.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/openStreetMap.js"></script>
@@ -41,7 +42,7 @@ if ($user->isLoggedIn()){
 		<script type="text/javascript" src="js/widgets/d3/widgetSortBar.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetWheel.js"></script>
 		<script type="text/javascript">
-			var widgetX = [newResultsWidget, openLayers, openStreetMap, openlayersMap, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
+			var widgetX = [accordionWidget, newResultsWidget, openLayers, openStreetMap, openlayersMap, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
 		</script>
 		<meta charset="utf-8" />
 		<title>SEFARAD</title>
@@ -190,6 +191,8 @@ if ($user->isLoggedIn()){
 						   
 					}, event);
 				});
+
+				$("#accordion").accordion();
 
 				//initIsotopeAndWizards();
 			});

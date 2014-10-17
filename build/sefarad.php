@@ -177,6 +177,8 @@ if ($user->isLoggedIn()){
 					}, event);
 				});
 
+				$("#accordion").accordion();
+
 				//initIsotopeAndWizards();
 			});
 
