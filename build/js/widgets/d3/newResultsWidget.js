@@ -117,7 +117,7 @@ var newResultsWidget = {
 
                     dom: 'C<"clear">lfrtip',
                     "scrollX": true,
-                    "scrollY": "400px",
+                    
                     "scrollCollapse": true,
                     "destroy": true,
                     "language": {
@@ -138,7 +138,7 @@ var newResultsWidget = {
 
                     dom: 'C<"clear">lfrtip',
                     "scrollX": true,
-                    "scrollY": "400px",
+                    
                     "scrollCollapse": true,
                     "destroy": true,
                     "language":  {                       
