@@ -29,29 +29,20 @@ if ($user->isLoggedIn()){
 <html lang="es">
 	<!-- head starts -->
 	<head>
-<<<<<<< HEAD
-=======
 		<script type="text/javascript" src="js/widgets/d3/accordionWidget.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/newResultsWidget.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/openLayers.js"></script>
->>>>>>> 9bdaab9af801aa21065bfe70580e6a56d848c656
 		<script type="text/javascript" src="js/widgets/d3/openStreetMap.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetDonuts.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetMap.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetD3.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetSortBar.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetWheel.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetBarras.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/openLayers.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/newResultsWidget.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/openlayersMap.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/stockWidget.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetBarras.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetD3.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetDonuts.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetMap.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetSortBar.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetWheel.js"></script>
 		<script type="text/javascript">
-<<<<<<< HEAD
-			var widgetX = [openStreetMap, widgetDonuts, widgetMap, widgetD3, widgetSortBar, widgetWheel, widgetBarras, openLayers, newResultsWidget, openlayersMap, stockWidget];
-=======
 			var widgetX = [accordionWidget, newResultsWidget, openLayers, openStreetMap, openlayersMap, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
->>>>>>> 9bdaab9af801aa21065bfe70580e6a56d848c656
 		</script>
 		<meta charset="utf-8" />
 		<title>SEFARAD</title>
@@ -1214,9 +1205,7 @@ if ($user->isLoggedIn()){
 				</li>
 			
 			{{/if}}
-			</div>
-			
-			
+			</div>			
 		</script>	
 		<script id="widget-template-tagcloud" type="text/html">
 			<a href='#' class="tag" data-bind="click: $root.tagCloudSelection.bind($data, $parent.id(), id, name()), css: { selected: state()}">

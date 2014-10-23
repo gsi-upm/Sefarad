@@ -1190,9 +1190,7 @@ if ($user->isLoggedIn()){
 				</li>
 			
 			{{/if}}
-			</div>
-			
-			
+			</div>			
 		</script>	
 		<script id="widget-template-tagcloud" type="text/html">
 			<a href='#' class="tag" data-bind="click: $root.tagCloudSelection.bind($data, $parent.id(), id, name()), css: { selected: state()}">
