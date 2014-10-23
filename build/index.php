@@ -29,6 +29,12 @@ if ($user->isLoggedIn()){
 <html lang="es">
 	<!-- head starts -->
 	<head>
+<<<<<<< HEAD
+=======
+		<script type="text/javascript" src="js/widgets/d3/accordionWidget.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/newResultsWidget.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/openLayers.js"></script>
+>>>>>>> 9bdaab9af801aa21065bfe70580e6a56d848c656
 		<script type="text/javascript" src="js/widgets/d3/openStreetMap.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetDonuts.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetMap.js"></script>
@@ -41,7 +47,11 @@ if ($user->isLoggedIn()){
 		<script type="text/javascript" src="js/widgets/d3/openlayersMap.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/stockWidget.js"></script>
 		<script type="text/javascript">
+<<<<<<< HEAD
 			var widgetX = [openStreetMap, widgetDonuts, widgetMap, widgetD3, widgetSortBar, widgetWheel, widgetBarras, openLayers, newResultsWidget, openlayersMap, stockWidget];
+=======
+			var widgetX = [accordionWidget, newResultsWidget, openLayers, openStreetMap, openlayersMap, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
+>>>>>>> 9bdaab9af801aa21065bfe70580e6a56d848c656
 		</script>
 		<meta charset="utf-8" />
 		<title>SEFARAD</title>
@@ -203,6 +213,8 @@ if ($user->isLoggedIn()){
 						   
 					}, event);
 				});
+
+				$("#accordion").accordion();
 
 				//initIsotopeAndWizards();
 			});
@@ -545,10 +557,10 @@ if ($user->isLoggedIn()){
 							<div class="mask">
 								<h2 data-bind="text: lang().tagcloud"></h2>
 								<p data-bind="text: lang().tagcloudexp"></p>
-								<select data-bind="options: $root.dataColumns, value: newTagCloudValue, optionsCaption: 
-									lang().fieldcaption"></select>
-								<button class="button" data-bind="click: $root.addTagCloudWidget, enable: newTagCloudValue()!=undefined"><span 
-									data-bind="text: lang().addWidget2"></span></button>
+								<select data-bind="options: $root.dataColumns, value: newTagCloudValue, optionsCaption: lang().fieldcaption"></select>
+								<button class="button" data-bind="click: $root.addTagCloudWidget, enable: newTagCloudValue()!=undefined">
+									<span data-bind="text: lang().addWidget2"></span>
+								</button>
 							</div>
 						</div>
 						<div class="box cat1">
@@ -1114,6 +1126,32 @@ if ($user->isLoggedIn()){
 				<div class="tagarea"><div data-bind="template: { name: 'widget-template-tagcloud', templateOptions: {parent_id: id 
 					},foreach: values }"></div></div>			
 			{{/if}}
+
+			<!-- Accordion widget -->
+			{{else type()=="accordion"}}
+			<li class="ui-widget">
+			<div class="ui-widget-header">
+				<div style="float:left">
+					<div class="ui-icon" data-bind="css: {'ui-icon-arrow-1-s': collapsed(), 'ui-icon-arrow-1-n': !collapsed()}, click: $root.collapseWidget"></div>
+				</div>
+				<h3><a href="#" data-bind="text: title, click: function() { $root.editTitle($data); }, visible: $data !== $root.editingTitle()"></a></h3>
+				<input data-bind="value: title, visibleAndSelect: $data === $root.editingTitle(), event: { blur: function() { $root.editTitle(''); } }"/>
+				<div style="display:inline-block; float: right;">
+					<div style="float: right;" class="ui-icon ui-icon-trash" data-bind="click: $root.deleteWidget.bind($data, id(), type()), visible: 
+						$root.adminMode"></div>
+					<div class="ui-icon ui-icon-gear" style="float: right;" data-bind="visible: $root.adminMode, click: 
+						function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
+					<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().tagCloudHelp }"></div>
+				</div>
+			</div>
+			<div class="ui-widget-content" data-bind="visible: !collapsed()">			
+				<div class="widget-configuration" data-bind="fadeVisible: showWidgetConfiguration">
+					<p>Seleccione un nuevo campo</p>					
+				</div>
+				<div class="tagarea">
+					<div data-bind="template: { name: 'widget-template-tagcloud', templateOptions: {parent_id: id },foreach: values }"></div>
+				</div>
+			</div>
 			
 			<!-- Other widget -->
 			{{else}}
@@ -1181,8 +1219,10 @@ if ($user->isLoggedIn()){
 			
 		</script>	
 		<script id="widget-template-tagcloud" type="text/html">
-			<a href='#' class="tag" data-bind="click: $root.tagCloudSelection.bind($data, $parent.id(), id, name()), css: { selected: 
-			state()}"><span data-bind="text: name"></span><span class="count" data-bind="css: {'zero': count()=='0' }, text: count"></span></a>
+			<a href='#' class="tag" data-bind="click: $root.tagCloudSelection.bind($data, $parent.id(), id, name()), css: { selected: state()}">
+				<span data-bind="text: name"></span>
+				<span class="count" data-bind="css: {'zero': count()=='0' }, text: count"></span>
+			</a>
 		</script>	
 		<script id="widget-template-panelbar" type="text/html">
 			<li class="k-item k-state-default">

@@ -190,6 +190,8 @@ if ($user->isLoggedIn()){
 					}, event);
 				});
 
+				$("#accordion").accordion();
+
 				//initIsotopeAndWizards();
 			});
 
@@ -531,10 +533,10 @@ if ($user->isLoggedIn()){
 							<div class="mask">
 								<h2 data-bind="text: lang().tagcloud"></h2>
 								<p data-bind="text: lang().tagcloudexp"></p>
-								<select data-bind="options: $root.dataColumns, value: newTagCloudValue, optionsCaption: 
-									lang().fieldcaption"></select>
-								<button class="button" data-bind="click: $root.addTagCloudWidget, enable: newTagCloudValue()!=undefined"><span 
-									data-bind="text: lang().addWidget2"></span></button>
+								<select data-bind="options: $root.dataColumns, value: newTagCloudValue, optionsCaption: lang().fieldcaption"></select>
+								<button class="button" data-bind="click: $root.addTagCloudWidget, enable: newTagCloudValue()!=undefined">
+									<span data-bind="text: lang().addWidget2"></span>
+								</button>
 							</div>
 						</div>
 						<div class="box cat1">
