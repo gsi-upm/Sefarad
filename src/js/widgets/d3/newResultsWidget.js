@@ -1,7 +1,7 @@
 // Results widget 3.0
 var newResultsWidget = {
     // Widget name.
-    name: "new Results Widget",
+    name: "Results Table",
     // Widget description.
     description: "List of the query results with links to the info",
     // Path to the image of the widget.
@@ -40,19 +40,14 @@ var newResultsWidget = {
         div.attr("align", "center");        
     },    
 
-    paint: function (id) {          
+    paint: function (id) {
 
         d3.select('#' + id).selectAll('div').remove();
-        var bigDiv = d3.select('#' + id);
-        //bigDiv.attr("align", "center");
-        bigDiv.attr("id", "bigDiv");
+        var div = d3.select('#' + id);
+        div.attr("align", "center");        
 
-        var tablediv = bigDiv.append("div").attr("id", "tableDiv")
-        .attr("style", "height: 100%; width: 100%");        
-
-        //Clean the workspace
-        //d3.select('#' + id).selectAll('table').remove();    
-        //d3.select('#' + id).selectAll("controlDiv").remove(); 
+        var tablediv = div.append("div").attr("id", "tableDiv")
+        .attr("style", "height: 100%; width: 100%");
 
         //Create the table
         var table = tablediv.append("table").attr("id", "resultsTable").attr("class", "cell-border").attr("cellspacing", "0").attr("style", "height: 100%; width: 100%");        
@@ -62,10 +57,10 @@ var newResultsWidget = {
         tfoot = table.append("tfoot");
 
         //Extract the data from vm variable
-        data = new Array();        
+        var data = new Array();        
         $.each(vm.filteredData(), function(index, item) {             
             data.push(item);
-        });         
+        });       
 
         //Print the header line   
         var hrow = thead.append("tr");        
@@ -118,12 +113,13 @@ var newResultsWidget = {
         switch(vm.lang()[Object.keys(vm.lang())[0]]) {
 
             default:
-                var tableAux = $('#resultsTable').DataTable( {
+                $('#resultsTable').DataTable( {
 
                     dom: 'C<"clear">lfrtip',
                     "scrollX": true,
                     "scrollY": "400px",
                     "scrollCollapse": true,
+                    "destroy": true,
                     "language": {
                         "lengthMenu": "Display _MENU_ records per page",
                         "zeroRecords": "Nothing found - sorry",
@@ -138,12 +134,13 @@ var newResultsWidget = {
                 break;
 
             case "Español":            
-                var tableAux = $('#resultsTable').DataTable( {
+                $('#resultsTable').DataTable( {
 
                     dom: 'C<"clear">lfrtip',
                     "scrollX": true,
                     "scrollY": "400px",
                     "scrollCollapse": true,
+                    "destroy": true,
                     "language":  {                       
                         "lengthMenu": "Mostrar _MENU_ resultados por página",
                         "zeroRecords": "No se encontraron resultados - lo sentimos",
@@ -161,11 +158,8 @@ var newResultsWidget = {
 };
 
 // Global variables
-var newResultsWidget;
-var data;
 var rows;
 var descriptionData;
-
 var enabledColumn;
 
 

@@ -609,6 +609,7 @@ function InitViewModel() {
 
 		hasChanged = true;
 		updateWidgets(false);
+		self.drawcharts();
 
 	});
 
