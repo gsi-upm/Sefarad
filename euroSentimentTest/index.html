@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Eurosentiment sparql demo</title>
+  <link href="yasqe.min.css" rel="stylesheet" type="text/css" />
+  <link href="yasr.min.css" rel="stylesheet" type="text/css" />
+  <style type="text/css">
+
+body{
+  font-family: titillium, arial, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  overflow: hidden;
+}
+
+h1{
+  color: rgb(80, 74, 75);
+  display: block;
+  font-family: titillium, arial, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+input{
+      height: 34px;
+}
+  
+.form-control {
+  border-radius: 0;
+  border: 1px solid #bcb1b3;
+  font-size: 16px;
+  color: #000;
+  margin: 0 0 8px;
+}
+.form-control {
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+
+    #description{
+  		border: 1px #ccc solid;
+  		padding: 4px;
+      margin:4px;
+      font-size:14px;
+
+  	}
+    
+    #queryButton button:HOVER{
+      color: #333;
+      outline: 0;
+      background-color: #ebebeb;
+      border-color: #adadad;
+    }
+
+    #queryButton button{
+      margin-top:8px;
+      height:36px;
+      font-size: 16px;
+      color: #333;
+      border: 1px solid transparent;
+      background-color: #fff;
+      border-color: #ccc;
+      border-width: 1px;
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      cursor: pointer;
+      white-space: nowrap;
+      padding: 6px 12px;
+      border-radius: 4px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-appearance: button;
+      overflow: visible;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <h1>Directly query linked data in Eurosentiment</h1>
+
+  <div id="queries">
+  	<label>Choose example query template and later query parameter values:</label><br />
+    <select class="form-control" id="queryName"></select>
+  	<select class="form-control" id="allParams"></select>
+  	<select class="form-control" id="dynamicParam"></select>
+  	<br />
+  	Query description:
+  	<div id="description" ></div>
+  </div>
+  <div id="yasqe"></div>
+  <div id="queryButton" ><button>Get results from sparql endpoint</button></div>
+  <div id="yasr"></div>
+
+  <script src="jquery-1.11.1.min.js" ></script>
+  <script src="papaparse.min.js"></script>
+  <script src="yasqe.min.js"></script>
+  <script src="yasr.min.js"></script>
+  <script src="sparql-demo.js"></script>
+</body>
+

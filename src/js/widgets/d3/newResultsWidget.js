@@ -13,7 +13,8 @@ var newResultsWidget = {
     // Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
     cat: 5,
 
-    render: function () {
+    render: function () {        
+
         var id = 'A' + Math.floor(Math.random() * 10001);
         var configid = 'A' + Math.floor(Math.random() * 10001);
         var field = newResultsWidget.field || "";
@@ -36,37 +37,26 @@ var newResultsWidget = {
    paintConfig: function (configid) {
         d3.select('#' + configid).selectAll('div').remove();
         var div = d3.select('#' + configid);
-        div.attr("align", "center");
-
-        //Create filter toolbar
-        var toolbar_div = div.append("div")
-            .attr("id","toolbar");
-
-        var filter_input = toolbar_div.append("input")
-            .attr("id", "filter")
-            .attr("type", "text")
-            .attr("size", 100);       
-
-
-
-
-
+        div.attr("align", "center");        
     },    
 
-    paint: function (id) {
+    paint: function (id) {          
 
         d3.select('#' + id).selectAll('div').remove();
-        var divBig = d3.select('#' + id);
-        divBig.attr("align", "center");
+        var bigDiv = d3.select('#' + id);
+        //bigDiv.attr("align", "center");
+        bigDiv.attr("id", "bigDiv");
 
-        var div = divBig.append("div").attr("id", "containerDiv").attr("style", "height: 50%; width: 100%");
+        var tablediv = bigDiv.append("div").attr("id", "tableDiv")
+        .attr("style", "height: 100%; width: 100%");        
 
         //Clean the workspace
-        d3.select('#' + id).selectAll('table').remove();    
-        d3.select('#' + id).selectAll("controlDiv").remove(); 
+        //d3.select('#' + id).selectAll('table').remove();    
+        //d3.select('#' + id).selectAll("controlDiv").remove(); 
 
         //Create the table
-        var table = div.append("table").attr("style", "height: 80%; width: 95%").attr("id", "resultsTable");
+        var table = tablediv.append("table").attr("id", "resultsTable").attr("class", "cell-border").attr("cellspacing", "0").attr("style", "height: 100%; width: 100%");        
+        //.attr("class", "display");
         thead = table.append("thead");
         tbody = table.append("tbody");
         tfoot = table.append("tfoot");
@@ -81,62 +71,92 @@ var newResultsWidget = {
         var hrow = thead.append("tr");        
         for (i=0;i<Object.keys(data[0]).length;i++)
         {
-            hrow.append("th").text(Object.keys(data[0])[i]);
+            if (Object.keys(data[0])[i].match(/Resource/g) == null)
+            {
+                hrow.append("th").text(Object.keys(data[0])[i]);
+            }
+            //hrow.append("th").text(Object.keys(data[0])[i]);
         }
 
         //Print the footer line   
         var frow = tfoot.append("tr");        
         for (i=0;i<Object.keys(data[0]).length;i++)
         {
-            frow.append("th").text(Object.keys(data[0])[i]);
+            if (Object.keys(data[0])[i].match(/Resource/g) == null)
+            {
+                frow.append("th").text(Object.keys(data[0])[i]);
+            }
         }
         
-        //Print the data with links to wikipedia
+        //Print the data with links to dbpedia. data (+ dataResource as link)
         for (i=0;i<data.length;i++)
         {
             var row = tbody.append("tr");                       
             for (j=0;j<Object.keys(data[0]).length;j++)
             {
-                var link = row.append("td").append("a");
-                link.text(data[i][Object.keys(data[0])[j]].value());
-                //link.attr("href", "http://es.wikipedia.org/wiki/" + data[i][Object.keys(data[0])[j]].value());
-                link.attr("class", i.toString()+j.toString());                        
+                if (Object.keys(data[0])[j].match(/Resource/g) == null) //Pasamos de las columnas que acaben en ...Resource
+                {
+                    var link = row.append("td").append("a");
+                    link.attr("target", "_blank");
+                    link.text(data[i][Object.keys(data[0])[j]].value());                    
+                    for (m=0;m<Object.keys(data[0]).length;m++) //Buscamos si tiene su columna ...Resource adjunta para ponerle su contenido de link
+                    {
+                        //construct the pattern
+                        var resourceName = Object.keys(data[0])[j] + "Resource";
+                        //look for the resource column
+                        if (Object.keys(data[0])[m] == resourceName)
+                        {
+                            link.attr("href", data[i][Object.keys(data[0])[m]].value());
+                        }
+                        
+                    }
+                }                       
             }            
-        }    
-       
-
-        console.log("Se llama a paint");
+        }           
 
         //Table inicialization depending on the language
         switch(vm.lang()[Object.keys(vm.lang())[0]]) {
 
             default:
-                $('#resultsTable').dataTable( {
+                var tableAux = $('#resultsTable').DataTable( {
+
+                    dom: 'C<"clear">lfrtip',
+                    "scrollX": true,
+                    "scrollY": "400px",
+                    "scrollCollapse": true,
                     "language": {
                         "lengthMenu": "Display _MENU_ records per page",
                         "zeroRecords": "Nothing found - sorry",
                         "info": "Showing page _PAGE_ of _PAGES_",
                         "infoEmpty": "No records available",
                         "search":  "Filter:",
-                        "infoFiltered": "(filtered from _MAX_ total records)"
-                        
+                        "infoFiltered": "(filtered from _MAX_ total records)"                                      
                     }
+                    //"dom": 'C&gt;"clear"&lt;lfrtip'
+                      
                 } );                
                 break;
 
-            case "Español":
-                $('#resultsTable').dataTable( {
-                    "language": {
+            case "Español":            
+                var tableAux = $('#resultsTable').DataTable( {
+
+                    dom: 'C<"clear">lfrtip',
+                    "scrollX": true,
+                    "scrollY": "400px",
+                    "scrollCollapse": true,
+                    "language":  {                       
                         "lengthMenu": "Mostrar _MENU_ resultados por página",
                         "zeroRecords": "No se encontraron resultados - lo sentimos",
                         "info": "Mostrando página _PAGE_ de _PAGES_",
                         "infoEmpty": "No hay resultados disponibles",
                         "search":  "Filtrar:",
-                        "infoFiltered": "(filtrados de _MAX_ resultados totales)"
+                        "infoFiltered": "(filtrados de _MAX_ resultados totales)"                        
                     }
+                    //"dom": 'C&gt;"clear"&lt;lfrtip'
+                      
                 } );                
                 break;            
-        }            
+        }        
     },    
 };
 
@@ -145,6 +165,8 @@ var newResultsWidget;
 var data;
 var rows;
 var descriptionData;
+
+var enabledColumn;
 
 
 //Debug variables;

@@ -29,19 +29,19 @@ if ($user->isLoggedIn()){
 <html lang="es">
 	<!-- head starts -->
 	<head>
-		<script type="text/javascript" src="js/widgets/d3/newResultsWidget.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/openLayers.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/openStreetMap.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/openlayersMap.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/stockWidget.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetBarras.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetD3.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetDonuts.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetMap.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetD3.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetSortBar.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetWheel.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetBarras.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/openLayers.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/newResultsWidget.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/openlayersMap.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/stockWidget.js"></script>
 		<script type="text/javascript">
-			var widgetX = [newResultsWidget, openLayers, openStreetMap, openlayersMap, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
+			var widgetX = [openStreetMap, widgetDonuts, widgetMap, widgetD3, widgetSortBar, widgetWheel, widgetBarras, openLayers, newResultsWidget, openlayersMap, stockWidget];
 		</script>
 		<meta charset="utf-8" />
 		<title>SEFARAD</title>
@@ -64,8 +64,14 @@ if ($user->isLoggedIn()){
     	<link rel="stylesheet" href="css/ext/jquery.qtip.css" type="text/css">
     
     	<!-- datatable stylesheets -->
-    	<!--<link rel="stylesheet" href="css/ext/datatablesPlugin.css" type="text/css"> -->    	
-    	<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css" type="text/css">
+    	<link rel="stylesheet" href="css/ext/datatablesPlugin.css" type="text/css">	
+    	<link rel="stylesheet" type="text/css" href="css/ext/dataTables.colVis.css">
+
+    	<!-- euroSentiment Stylesheets -->
+    	<link href="css/ext/yasqe.min.css" rel="stylesheet" type="text/css" >
+    	<link href="css/ext/yasr.min.css" rel="stylesheet" type="text/css" >
+    	
+
     	<!-- Import OL CSS, auto import does not work with our minified OL.js build -->
         <link rel="stylesheet" type="text/css" href="http://demos.gsi.dit.upm.es/geoserver/openlayers/theme/default/style.css">
 		<!-- javascript -->
@@ -114,6 +120,12 @@ if ($user->isLoggedIn()){
     	<script src="js/ext/jquery.scrollTo.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		<script src="js/datatablesPlugin.js" charset="utf-8"></script>
+		<script src="js/dataTables.colVis.js" charset="utf-8"></script>
+
+		<script src="js/ext/papaparse.min.js"></script>
+		<script src="js/ext/yasqe.min.js"></script>
+		<script src="js/ext/yasr.min.js"></script>
+
 		<!-- external -->
 		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 		<script type='text/javascript' src="js/ext/twitterApi.js"></script>
@@ -123,7 +135,8 @@ if ($user->isLoggedIn()){
 		<!-- openlayers -->
 		<script src="http://openlayers.org/api/OpenLayers.js"></script>
         <!-- <script type="text/javascript" charset="UTF-8" src="js/ext/OpenLayers.js"></script> -->
-		<!-- qtip -->
+		<!-- qtip -->		<script src="js/ext/yasqe.min.js"></script>
+		<script src="js/ext/yasr.min.js"></script>
 		<script type="text/javascript" src="js/ext/jquery.qtip.js"></script>
 		<script type="text/javascript" src="js/ext/imagesloaded.pkg.min.js"></script>
 		<!-- json -->
@@ -759,7 +772,29 @@ if ($user->isLoggedIn()){
 
 				<!-- columns in tab 3 -->
 				<div id="columns" data-bind="visible: activeTab() == 3">
-					<center><iframe src="http://demos.gsi.dit.upm.es/tomcat/sparqled/" width="800" height="600" align="center"></iframe></center> 
+
+					<!--This is a Widget from the project eurosentiment-->
+					<h1>Directly query linked data in Eurosentiment</h1>
+
+					  <div id="queries">
+					  	<label>Choose example query template and later query parameter values:</label><br />
+					    <select class="form-control" id="queryName"></select>
+					  	<select class="form-control" id="allParams"></select>
+					  	<select class="form-control" id="dynamicParam"></select>
+					  	<br />
+					  	Query description:
+					  	<div id="description" ></div>
+					  </div>
+					  <div id="yasqe"></div>
+					  <div id="queryButton" ><button>Get results from sparql endpoint</button></div>
+					  <div id="yasr"></div>
+
+					  
+						<!--<script src="jquery-1.11.1.min.js" ></script> 
+						
+						<script src="js/ext/sparql-demo.js"></script>-->
+					
+
 				</div>
 
 				<!-- ends maincontent -->
