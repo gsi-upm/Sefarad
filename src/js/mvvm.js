@@ -3160,7 +3160,49 @@ var test = {
 	"filter": {
 		"project_area":["Procesado Lenguaje Natural", "Agentes Inteligentes"],
 	}
-}	
+}
 
+//-------------------------------------------------------------
+// EUROSENTIMENT SPARQL EDITOR
+
+//configuration
+var eurosentimentEndpointURI =  "http://146.148.28.139/eurosentiment/sparql-endpoint";
+var googleSpreadsheetURI = "https://docs.google.com/spreadsheet/pub?key=0AoneFswCzkATdDFGTzFHdmpvNG93M2dfTG1jb001YXc&single=true&gid=23&output=csv";
+var eurosentimentResourceNavigatorURLPrefix = "http://www.eurosentiment.eu/dataset/";       // if urls in the sparql results starts with such prefix
+var eurosentimentResourceNavigatorURL = "http://portal.eurosentiment.eu/lr_navigator_demo"; // then later on click they will point to this navigator
+
+// end of configuration
+
+var queries = [];
+//var yasqe = YASQE(document.getElementById("yasqe"));
+
+// var yasqe = YASQE(document.getElementById("yasqe"), {
+// 	sparql: {
+// 		showQueryButton: false,
+// 		createShareLink: false,
+// 		endpoint: eurosentimentEndpointURI 
+// 	}
+// });
+// var yasr = YASR(document.getElementById("yasr"), {
+// 	//this way, the URLs in the results are prettified using the defined prefixes in the query
+// 	getUsedPrefixes: yasqe.getPrefixesFromQuery
+// });
+
+/**
+* Set some of the hooks to link YASR and YASQE
+*/
+// yasqe.options.sparql.handlers.success =  function(data, textStatus, xhr) {
+// 	yasr.setResponse({response: data, contentType: xhr.getResponseHeader("Content-Type")});
+// };
+// yasqe.options.sparql.handlers.error = function(xhr, textStatus, errorThrown) {
+// 	var exceptionMsg = textStatus + " (response status code " + xhr.status + ")";
+// 	if (errorThrown && errorThrown.length) exceptionMsg += ": " + errorThrown;
+// 	yasr.setResponse({exception: exceptionMsg});
+// };
+
+
+
+
+//-------------------------------------------------------------
 
 var vm = new InitViewModel();
