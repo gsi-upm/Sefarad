@@ -50,14 +50,8 @@ if ($user->isLoggedIn()){
     	<link rel="stylesheet" href="css/ext/jquery.qtip.css" type="text/css">
     
     	<!-- datatable stylesheets -->
-    	<link rel="stylesheet" href="css/ext/datatablesPlugin.css" type="text/css">	
-    	<link rel="stylesheet" type="text/css" href="css/ext/dataTables.colVis.css">
-
-    	<!-- euroSentiment Stylesheets -->
-    	<link href="css/ext/yasqe.min.css" rel="stylesheet" type="text/css" >
-    	<link href="css/ext/yasr.min.css" rel="stylesheet" type="text/css" >
-    	
-
+    	<!--<link rel="stylesheet" href="css/ext/datatablesPlugin.css" type="text/css"> -->    	
+    	<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css" type="text/css">
     	<!-- Import OL CSS, auto import does not work with our minified OL.js build -->
         <link rel="stylesheet" type="text/css" href="http://demos.gsi.dit.upm.es/geoserver/openlayers/theme/default/style.css">
 		<!-- javascript -->
@@ -106,12 +100,6 @@ if ($user->isLoggedIn()){
     	<script src="js/ext/jquery.scrollTo.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		<script src="js/datatablesPlugin.js" charset="utf-8"></script>
-		<script src="js/dataTables.colVis.js" charset="utf-8"></script>
-
-		<script src="js/ext/papaparse.min.js"></script>
-		<script src="js/ext/yasqe.min.js"></script>
-		<script src="js/ext/yasr.min.js"></script>
-
 		<!-- external -->
 		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 		<script type='text/javascript' src="js/ext/twitterApi.js"></script>
@@ -121,8 +109,7 @@ if ($user->isLoggedIn()){
 		<!-- openlayers -->
 		<script src="http://openlayers.org/api/OpenLayers.js"></script>
         <!-- <script type="text/javascript" charset="UTF-8" src="js/ext/OpenLayers.js"></script> -->
-		<!-- qtip -->		<script src="js/ext/yasqe.min.js"></script>
-		<script src="js/ext/yasr.min.js"></script>
+		<!-- qtip -->
 		<script type="text/javascript" src="js/ext/jquery.qtip.js"></script>
 		<script type="text/javascript" src="js/ext/imagesloaded.pkg.min.js"></script>
 		<!-- json -->
@@ -190,7 +177,11 @@ if ($user->isLoggedIn()){
 					}, event);
 				});
 
-				$("#accordion").accordion();
+				$("#accordion").live('load', function(){
+				    $(this).accordion({
+				      heightStyle: "content",
+				    });
+				});
 
 				//initIsotopeAndWizards();
 			});
@@ -355,8 +346,8 @@ if ($user->isLoggedIn()){
 								</table></center>							
 							</li>										
 							<li><select data-bind="options: dataColumns, value: autocomplete_fieldname, optionsCaption: lang().fieldcaption, enable: activedAutocomplete"></select></li>
-
-							<li><input type="checkbox" style="width:13px;" data-bind="checked: sortableWidgets"/><label data-bind="text: lang().sortableWidgets"></label></li>	
+							<li><input type="checkbox" style="width:13px;" data-bind="checked: sortableWidgets"/><label data-bind="text: lang().sortableWidgets"></label></li>
+							<li><input type="checkbox" style="width:13px;" data-bind="checked: accordionLayout"/><label data-bind="text: 'AccordioLayout'"></label></li>	
 						</ul>
 					</div>
 					<div class="col2">
@@ -722,9 +713,17 @@ if ($user->isLoggedIn()){
 						</div>
 						<!-- all widgets at left column -->
 						<!-- more effects: http://jqueryui.com/effect/#easing -->
-						<div class="container" data-bind="template: { name: 'widgets-template', foreach: activeWidgetsLeft, 
-							beforeRemove: function(elem) { $(elem).slideUp(1500,'easeOutBounce', function() {$(elem).remove(); });  }, 
-							templateOptions: { parentList: activeWidgetsLeft} }, sortableList: activeWidgetsLeft"></div>
+						<!-- linear layout -->
+						<div data-bind="visible: !($root.accordionLayout())">							
+							<div class="container" data-bind="template: { name: 'widgets-template', foreach: activeWidgetsLeft, 
+								beforeRemove: function(elem) { $(elem).slideUp(1500,'easeOutBounce', function() {$(elem).remove(); });  }, 
+								templateOptions: { parentList: activeWidgetsLeft} }, sortableList: activeWidgetsLeft"></div>
+						</div>
+						<!-- accordion layout -->
+						<div data-bind="visible: $root.accordionLayout, foreach: activeWidgetsLeft, accordion: {}">
+						    <h3><a href="#" data-bind="text: title"></a></h3>
+						    <div data-bind="template: { name: 'widgets-template-accordion', foreach: $data}"></div>
+						</div>						
 						<!-- column 0 tab 0 end -->
 					</div>
 					<!-- column 1 tab 0 start -->
@@ -760,29 +759,7 @@ if ($user->isLoggedIn()){
 
 				<!-- columns in tab 3 -->
 				<div id="columns" data-bind="visible: activeTab() == 3">
-
-					<!--This is a Widget from the project eurosentiment-->
-					<h1>Directly query linked data in Eurosentiment</h1>
-
-					  <div id="queries">
-					  	<label>Choose example query template and later query parameter values:</label><br />
-					    <select class="form-control" id="queryName"></select>
-					  	<select class="form-control" id="allParams"></select>
-					  	<select class="form-control" id="dynamicParam"></select>
-					  	<br />
-					  	Query description:
-					  	<div id="description" ></div>
-					  </div>
-					  <div id="yasqe"></div>
-					  <div id="queryButton" ><button>Get results from sparql endpoint</button></div>
-					  <div id="yasr"></div>
-
-					  
-						<!--<script src="jquery-1.11.1.min.js" ></script> 
-						
-						<script src="js/ext/sparql-demo.js"></script>-->
-					
-
+					<center><iframe src="http://demos.gsi.dit.upm.es/tomcat/sparqled/" width="800" height="600" align="center"></iframe></center> 
 				</div>
 
 				<!-- ends maincontent -->

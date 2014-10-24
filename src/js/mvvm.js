@@ -143,8 +143,9 @@ function InitViewModel() {
 		self.newWidgets.push(widgetX[i])
 	}
 
-	/** Sortable widgets */
+	/** Layout options  */
 	self.sortableWidgets = ko.observable(configuration.sortable_widgets.actived);
+	self.accordionLayout = ko.observable(true);
 
 	/**Variables for showing/hiding the tabs*/
 	self.searchTabEnabled = ko.observable(true);
@@ -3006,6 +3007,27 @@ ko.bindingHandlers.visibleAndSelect = {
 			}, 0);
 		}
 	}
+}
+
+//accordion bindingHandlers
+ko.bindingHandlers.accordion = {
+    init: function(element, valueAccessor) {
+        var options = valueAccessor() || {};
+        setTimeout(function() {
+            $(element).accordion(options);
+        }, 0);
+        
+        //handle disposal (if KO removes by the template binding)
+          ko.utils.domNodeDisposal.addDisposeCallback(element, function(){
+              $(element).accordion("destroy");
+          });
+    },
+    update: function(element, valueAccessor) {
+        var options = valueAccessor() || {};
+        if(typeof $(element).data("ui-accordion") != "undefined"){
+			$(element).accordion("destroy").accordion(options);
+		}
+    }
 }
 
 function mySgvizlerQuery(query, id, type) {

@@ -29,20 +29,20 @@ if ($user->isLoggedIn()){
 <html lang="es">
 	<!-- head starts -->
 	<head>
-		<script type="text/javascript" src="js/widgets/d3/openStreetMap.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetDonuts.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/accordionWidget.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetMap.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetD3.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetSortBar.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetWheel.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetBarras.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/openLayers.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/newResultsWidget.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/openLayers.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/openStreetMap.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/openlayersMap.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/stockWidget.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetBarras.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetD3.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetDonuts.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetMap.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetSortBar.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetWheel.js"></script>
 		<script type="text/javascript">
-			var widgetX = [openStreetMap, widgetDonuts, accordionWidget, widgetMap, widgetD3, widgetSortBar, widgetWheel, widgetBarras, openLayers, newResultsWidget, openlayersMap, stockWidget];
+			var widgetX = [accordionWidget, newResultsWidget, openLayers, openStreetMap, openlayersMap, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
 		</script>
 		<meta charset="utf-8" />
 		<title>SEFARAD</title>
@@ -65,14 +65,8 @@ if ($user->isLoggedIn()){
     	<link rel="stylesheet" href="css/ext/jquery.qtip.css" type="text/css">
     
     	<!-- datatable stylesheets -->
-    	<link rel="stylesheet" href="css/ext/datatablesPlugin.css" type="text/css">	
-    	<link rel="stylesheet" type="text/css" href="css/ext/dataTables.colVis.css">
-
-    	<!-- euroSentiment Stylesheets -->
-    	<link href="css/ext/yasqe.min.css" rel="stylesheet" type="text/css" >
-    	<link href="css/ext/yasr.min.css" rel="stylesheet" type="text/css" >
-    	
-
+    	<!--<link rel="stylesheet" href="css/ext/datatablesPlugin.css" type="text/css"> -->    	
+    	<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css" type="text/css">
     	<!-- Import OL CSS, auto import does not work with our minified OL.js build -->
         <link rel="stylesheet" type="text/css" href="http://demos.gsi.dit.upm.es/geoserver/openlayers/theme/default/style.css">
 		<!-- javascript -->
@@ -121,12 +115,6 @@ if ($user->isLoggedIn()){
     	<script src="js/ext/jquery.scrollTo.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		<script src="js/datatablesPlugin.js" charset="utf-8"></script>
-		<script src="js/dataTables.colVis.js" charset="utf-8"></script>
-
-		<script src="js/ext/papaparse.min.js"></script>
-		<script src="js/ext/yasqe.min.js"></script>
-		<script src="js/ext/yasr.min.js"></script>
-
 		<!-- external -->
 		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 		<script type='text/javascript' src="js/ext/twitterApi.js"></script>
@@ -136,8 +124,7 @@ if ($user->isLoggedIn()){
 		<!-- openlayers -->
 		<script src="http://openlayers.org/api/OpenLayers.js"></script>
         <!-- <script type="text/javascript" charset="UTF-8" src="js/ext/OpenLayers.js"></script> -->
-		<!-- qtip -->		<script src="js/ext/yasqe.min.js"></script>
-		<script src="js/ext/yasr.min.js"></script>
+		<!-- qtip -->
 		<script type="text/javascript" src="js/ext/jquery.qtip.js"></script>
 		<script type="text/javascript" src="js/ext/imagesloaded.pkg.min.js"></script>
 		<!-- json -->
@@ -205,7 +192,11 @@ if ($user->isLoggedIn()){
 					}, event);
 				});
 
-				$("#accordion").accordion();
+				$("#accordion").live('load', function(){
+				    $(this).accordion({
+				      heightStyle: "content",
+				    });
+				});
 
 				//initIsotopeAndWizards();
 			});
@@ -370,8 +361,8 @@ if ($user->isLoggedIn()){
 								</table></center>							
 							</li>										
 							<li><select data-bind="options: dataColumns, value: autocomplete_fieldname, optionsCaption: lang().fieldcaption, enable: activedAutocomplete"></select></li>
-
-							<li><input type="checkbox" style="width:13px;" data-bind="checked: sortableWidgets"/><label data-bind="text: lang().sortableWidgets"></label></li>	
+							<li><input type="checkbox" style="width:13px;" data-bind="checked: sortableWidgets"/><label data-bind="text: lang().sortableWidgets"></label></li>
+							<li><input type="checkbox" style="width:13px;" data-bind="checked: accordionLayout"/><label data-bind="text: 'AccordioLayout'"></label></li>	
 						</ul>
 					</div>
 					<div class="col2">
@@ -737,9 +728,17 @@ if ($user->isLoggedIn()){
 						</div>
 						<!-- all widgets at left column -->
 						<!-- more effects: http://jqueryui.com/effect/#easing -->
-						<div class="container" data-bind="template: { name: 'widgets-template', foreach: activeWidgetsLeft, 
-							beforeRemove: function(elem) { $(elem).slideUp(1500,'easeOutBounce', function() {$(elem).remove(); });  }, 
-							templateOptions: { parentList: activeWidgetsLeft} }, sortableList: activeWidgetsLeft"></div>
+						<!-- linear layout -->
+						<div data-bind="visible: !($root.accordionLayout())">							
+							<div class="container" data-bind="template: { name: 'widgets-template', foreach: activeWidgetsLeft, 
+								beforeRemove: function(elem) { $(elem).slideUp(1500,'easeOutBounce', function() {$(elem).remove(); });  }, 
+								templateOptions: { parentList: activeWidgetsLeft} }, sortableList: activeWidgetsLeft"></div>
+						</div>
+						<!-- accordion layout -->
+						<div data-bind="visible: $root.accordionLayout, foreach: activeWidgetsLeft, accordion: {}">
+						    <h3><a href="#" data-bind="text: title"></a></h3>
+						    <div data-bind="template: { name: 'widgets-template-accordion', foreach: $data}"></div>
+						</div>						
 						<!-- column 0 tab 0 end -->
 					</div>
 					<!-- column 1 tab 0 start -->
@@ -775,29 +774,7 @@ if ($user->isLoggedIn()){
 
 				<!-- columns in tab 3 -->
 				<div id="columns" data-bind="visible: activeTab() == 3">
-
-					<!--This is a Widget from the project eurosentiment-->
-					<h1>Directly query linked data in Eurosentiment</h1>
-
-					  <div id="queries">
-					  	<label>Choose example query template and later query parameter values:</label><br />
-					    <select class="form-control" id="queryName"></select>
-					  	<select class="form-control" id="allParams"></select>
-					  	<select class="form-control" id="dynamicParam"></select>
-					  	<br />
-					  	Query description:
-					  	<div id="description" ></div>
-					  </div>
-					  <div id="yasqe"></div>
-					  <div id="queryButton" ><button>Get results from sparql endpoint</button></div>
-					  <div id="yasr"></div>
-
-					  
-						<!--<script src="jquery-1.11.1.min.js" ></script> 
-						
-						<script src="js/ext/sparql-demo.js"></script>-->
-					
-
+					<center><iframe src="http://demos.gsi.dit.upm.es/tomcat/sparqled/" width="800" height="600" align="center"></iframe></center> 
 				</div>
 
 				<!-- ends maincontent -->
@@ -1208,268 +1185,16 @@ if ($user->isLoggedIn()){
 			</div>			
 		</script>
 		<script id="widgets-template-accordion" type="text/html">
-			<div class="item" data-bind="sortableItem: { item: $data, parentList: $item.parentList }">
-			<!-- Widgets with own configuration first -->
-			
-			<!-- Results Widget -->
-			{{if type()=="resultswidget"}}
-			<div class="ui-widget">
-				<div class="ui-widget-header">
-					<div style="float:left">
-						<div class="ui-icon" data-bind="css: 
-							{'ui-icon-arrow-1-s': collapsed(), 'ui-icon-arrow-1-n': !collapsed()}, click: $root.collapseWidget"></div>
-					</div>
-					<h3><a href="#" data-bind="text: title, click: function() { $root.editTitle($data); }, visible: $data !== 
-						$root.editingTitle()"></a></h3>
-					<input data-bind="value: title, visibleAndSelect: $data === $root.editingTitle(), event: { 
-						blur: function() { $root.editTitle(''); } }"/>
-					<div style="display:inline-block; float: right;">
-						<div style="float: right;" 
-							class="ui-icon ui-icon-trash" data-bind="click: $root.deleteWidget.bind($data, id(), type()), visible: 
-							$root.adminMode"></div>
-						<div class="ui-icon ui-icon-gear" style="float: right;" data-bind="visible: $root.adminMode, click: 
-							function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
-						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().resultsWidgetHelp }"></div>
-					</div>
-				</div>
-				<div class="ui-widget-content" data-bind="visible: !collapsed()">
-				<div class="widget-configuration" data-bind="fadeVisible: showWidgetConfiguration">
-					<div data-bind="template: { name: 'results-layout', foreach: $root.resultsLayout }"></div>
-				</div>
-				<div class="resultswidget-header">
-					<div>
-						<select id="pager-perPage" data-bind="value: $root.num_shown">
-						    <option value=10>10</option>
-	      					<option value=20>20</option>
-	        				<option value=30>30</option>
-	        				<option value=40>40</option>
-	      					<option value=50>50</option>
-	      					<option data-bind="value: $root.filteredData().length">All</option>  					
-						</select>
-						<label alt="Per page" data-bind="text:$root.lang().perPage"></label>
-
-						{{if $root.sparql()}}
-						<div id="pager-header">
-							<span data-bind="text: $root.resultsSparqlText" alt=""></span>
+			<div >
+				{{if type()=="radialgauge"}}
+					<div id="gauge-container">
+						<div id="gauge" data-bind="kendoRadialGauge: {value: $root.numberOfResults, scale: { max: 
+							$root.getMaxNumberOfResults(), labels: { visible: true }, majorUnit: $root.getGaugeMajorUnits() } } "></div>
+						<div id="contador">
+							<p data-bind="text: $root.numberOfResults"></p>
 						</div>
-						<div>
-							<ul id="pager">
-								<a href="#" data-bind="click: $root.showLessSPARQL ">← Prev</a>
-								<a href="#" data-bind="click: $root.showMoreSPARQL ">Next →</a>
-							</ul>
-						</div>
-
-						{{else}}
-						<div id="pager-header"></div>
-						<ul id="pager"></ul>
-
-						{{/if}}
 					</div>
-					<br>
-					<h2 data-bind="visible: $root.anyActiveFilter(), text: $root.lang().activefilters"></h2>
-					<h2 data-bind="visible: !$root.anyActiveFilter(), text: $root.lang().notActiveFilters"></h2>
-					<div data-bind="template: { name: 'list-active-filter', foreach: $root.activeWidgets } " ></div>
-					<a href="#" class="tag" data-bind="text: $root.filter, click: function() { $root.filter(''); }, visible: $root.filter()!=''"></a>
-					<br>
-				</div>
-				
-				{{if $root.sparql()}}
-
-					<div id="alertmsg" class="alertmsg-yellow" data-bind="visible: $root.filteredData().length == 0"><span data-bind="text: $root.lang().nodata"></span></div>
-					<div id="resultados">
-						<div class="resultado" data-bind="visible: $root.filteredData().length > 0, template: { name: 
-						'results-sparql', foreach: $root.shownSparqlData, afterRender: $root.animateResultsChange }">
-						</div>
-					</div>									
-					
-				{{else}}
-				
-					<div id="alertmsg" class="alertmsg-yellow" data-bind="visible: $root.filteredData().length == 0"><span data-bind="text: $root.lang().nodata"></span></div>	
-				
-					{{if layout()=="grid"}}
-						<ul id="contenedorr" data-bind="template: { name: 'cards', foreach: $root.filteredData, afterAdd: 
-						$root.serviceAdded }, jqIsotope: $root.isotope">
-						</ul>
-					{{/if}}
-						
-					{{if layout()=="vertical"}}
-							<div class="resultados" data-bind="visible: $root.filteredData().length > 0, template: { name: 
-						'simple', foreach: $root.shownData, afterRender: $root.animateResultsChange }">
-							</div>
-					{{/if}}	
-				{{/if}}		
-			<!--se cierra widget-content-->
-			</div>
-			
-			</div>
-			
-			<!-- Results stats widget -->
-			{{else type()=="resultstats"}}
-			
-			<li class="ui-widget">
-				<div class="ui-widget-header">
-					<div style="float:left">
-						<div class="ui-icon" data-bind="css: 
-							{'ui-icon-arrow-1-s': collapsed(), 'ui-icon-arrow-1-n': !collapsed()}, click: $root.collapseWidget"></div>
-					</div>
-					<h3><a href="#" 
-						data-bind="text: title, click: function() { $root.editTitle($data); }, visible: $data !== $root.editingTitle()"></a></h3>
-					<input 
-						data-bind="value: title, visibleAndSelect: $data === $root.editingTitle(), event: { blur: function() { $root.editTitle(''); } }"/>
-					<div style="display:inline-block; float: right;">
-						<div style="float: right;" class="ui-icon ui-icon-trash" data-bind="click: 
-							$root.deleteWidget.bind($data, id(), type()), visible: $root.adminMode"></div>
-						<div class="ui-icon ui-icon-gear" id="resultsConfig" style="float: 
-							right;" data-bind="visible: $root.adminMode, click: 
-							function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
-						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().resultStatsHelp }"></div>
-					</div>
-				</div>
-				<div class="ui-widget-content" 
-					data-bind="visible: !collapsed()">
-					<div class="widget-configuration" data-bind="fadeVisible: showWidgetConfiguration">
-						<div data-bind="template: { name: 'widget-template-resultsstats', foreach: $root.resultsGraphs }" style="display: 
-							inline"></div>
-					</div>
-					<div class="graphics"></div>
-				</div>
-			</li>
-			
-			<!-- Tagcloud widget -->
-			{{else type()=="tagcloud"}}
-			<li class="ui-widget">
-			<div class="ui-widget-header">
-				<div style="float:left">
-					<div class="ui-icon" data-bind="css: 
-						{'ui-icon-arrow-1-s': collapsed(), 'ui-icon-arrow-1-n': !collapsed()}, click: $root.collapseWidget"></div>
-				</div>
-				<h3><a 
-					href="#" data-bind="text: title, click: function() { $root.editTitle($data); }, visible: $data !== 
-					$root.editingTitle()"></a></h3>
-				<input data-bind="value: title, visibleAndSelect: $data === $root.editingTitle(), event: { 
-					blur: function() { $root.editTitle(''); } }"/>
-				<div style="display:inline-block; float: right;">
-					<div style="float: right;" 
-						class="ui-icon ui-icon-trash" data-bind="click: $root.deleteWidget.bind($data, id(), type()), visible: 
-						$root.adminMode"></div>
-					<div class="ui-icon ui-icon-gear" style="float: right;" data-bind="visible: $root.adminMode, click: 
-						function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
-					<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().tagCloudHelp }"></div>
-				</div>
-			</div>
-			<div class="ui-widget-content" 
-				data-bind="visible: !collapsed()">
-			
-			{{if layout()=="vertical"}}
-				<div class="widget-configuration" data-bind="fadeVisible: showWidgetConfiguration">
-					<p>Estilo del Widget</p>
-					<img height="32px" width="32px" src="img/tag_icon.png" data-bind="click: $root.switchLayout"/>
-					<img height="32px" width="32px" class="activo" src="img/list_icon.png"/>
-				</div>
-				<ul data-bind="kendoPanelBar: { }">
-					<li>
-						<span class="filterName" data-bind="text: title()"></span>	
-						<ul data-bind="template: {name: 'widget-template-panelbar', foreach: $data.values }"></ul>
-					</li>
-				</ul>
-			{{else}}
-				<div class="widget-configuration" data-bind="fadeVisible: showWidgetConfiguration">
-					<p>Estilo del Widget</p>
-					<img height="32px" width="32px" class="activo" src="img/tag_icon.png"/>
-					<img height="32px" width="32px" src="img/list_icon.png" data-bind="click: $root.switchLayout"/>
-				</div>	
-				
-				<div class="tagarea"><div data-bind="template: { name: 'widget-template-tagcloud', templateOptions: {parent_id: id 
-					},foreach: values }"></div></div>			
-			{{/if}}
-
-			<!-- Accordion widget -->
-			{{else type()=="accordion"}}
-			<li class="ui-widget">
-			<div class="ui-widget-header">
-				<div style="float:left">
-					<div class="ui-icon" data-bind="css: {'ui-icon-arrow-1-s': collapsed(), 'ui-icon-arrow-1-n': !collapsed()}, click: $root.collapseWidget"></div>
-				</div>
-				<h3><a href="#" data-bind="text: title, click: function() { $root.editTitle($data); }, visible: $data !== $root.editingTitle()"></a></h3>
-				<input data-bind="value: title, visibleAndSelect: $data === $root.editingTitle(), event: { blur: function() { $root.editTitle(''); } }"/>
-				<div style="display:inline-block; float: right;">
-					<div style="float: right;" class="ui-icon ui-icon-trash" data-bind="click: $root.deleteWidget.bind($data, id(), type()), visible: 
-						$root.adminMode"></div>
-					<div class="ui-icon ui-icon-gear" style="float: right;" data-bind="visible: $root.adminMode, click: 
-						function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
-					<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().tagCloudHelp }"></div>
-				</div>
-			</div>
-			<div class="ui-widget-content" data-bind="visible: !collapsed()">			
-				<div class="widget-configuration" data-bind="fadeVisible: showWidgetConfiguration">
-					<p>Seleccione un nuevo campo</p>					
-				</div>
-				<div class="tagarea">
-					<div data-bind="template: { name: 'widget-template-tagcloud', templateOptions: {parent_id: id },foreach: values }"></div>
-				</div>
-			</div>
-			
-			<!-- Other widget -->
-			{{else}}
-				<li class="ui-widget">
-					<div class="ui-widget-header">
-						<div style="float:left">
-							<div class="ui-icon" data-bind="css: 
-								{'ui-icon-arrow-1-s': collapsed(), 'ui-icon-arrow-1-n': !collapsed()}, click: $root.collapseWidget">
-							</div>
-						</div>
-						<h3><a 
-							href="#" data-bind="text: title, click: function() { $root.editTitle($data); }, visible: $data !== 
-							$root.editingTitle()"></a></h3>
-						<input data-bind="value: title, visibleAndSelect: $data === $root.editingTitle(), event: { 
-							blur: function() { $root.editTitle(''); } }"/>
-						<div class="ui-icon ui-icon-trash" style="float:right" data-bind="click: 
-								$root.deleteWidget.bind($data, id(), type()), visible: $root.adminMode"></div>
-						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().otherWidgetHelp }"></div>
-						<div class="ui-icon ui-icon-gear" style="float: right;" data-bind="visible: $root.adminMode, click: 
-							function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
-					</div>
-
-					<div class="ui-widget-content" data-bind="visible: !collapsed()">
-
-						<!-- Slider widget -->
-						{{if type()=="slider"}}
-						<div class="slider"></br><span>Rango filtrado: </span><span data-bind="text: values"></span><div data-bind="slider: $data, 
-							sliderOptions: {min: $data.limits()[0], max: $data.limits()[1], values: $data.values(), step: $data.value()}"></div></br></div>
-						
-						<!-- Radial gauge widget -->
-						{{else type()=="radialgauge"}}
-						<div id="gauge-container"><div id="gauge" data-bind="kendoRadialGauge: {value: $root.numberOfResults, scale: { max: 
-							$root.getMaxNumberOfResults(), labels: { visible: true }, majorUnit: $root.getGaugeMajorUnits() } } "></div><div 
-							id="contador"><p data-bind="text: $root.numberOfResults"></p></div></div>	
-						
-						<!-- Twitter widget -->
-						{{else type()=="twitter"}}
-						
-						{{if currentTweets().length > 0 }}
-						<table width='100%' data-bind="template: { name: 'widget-template-twitter', foreach: currentTweets }"></table>
-						
-						{{else}}
-						<p>No se han podido obtener resultados</p>
-						{{/if}}
-						
-						<!-- Rest widget -->
-						{{else type()=="piechart"}}
-						<div data-bind="attr: {'id': id }"></div>
-						{{else type()=="barchart"}}
-						<div data-bind="attr: {'id': id }"></div>
-						{{else type()=="barchartD3"}}
-						<div data-bind="attr: {'id': id }"></div>
-						{{else type()=="sgvizler"}}
-						<div data-bind="attr: { 'id': id }"></div>
-						{{else}}
-						<div class="widget-configuration" data-bind="attr: { 'id': configid }, fadeVisible: showWidgetConfiguration"></div>
-						<div data-bind="attr: { 'id': id }"></div>
-						{{/if}}
-					</div>
-				</li>
-			
-			{{/if}}
+				{{/if}}
 			</div>			
 		</script>	
 		<script id="widget-template-tagcloud" type="text/html">
