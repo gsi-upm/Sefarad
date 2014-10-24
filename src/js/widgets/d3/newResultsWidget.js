@@ -60,7 +60,20 @@ var newResultsWidget = {
         var data = new Array();        
         $.each(vm.filteredData(), function(index, item) {             
             data.push(item);
-        });       
+        });     
+
+        //If we search with the faceted search (at the top of the page) and get no results (filteredData is null), we have to take the header info from non-filtered data
+        if (data.length == 0)  {
+
+            data = new Array();        
+            $.each(vm.viewData(), function(index, item) {             
+                data.push(item);
+            });    
+
+            //make a faceted search. Using a boolean in order to perform the search when the table is initialized.
+            //searchDone = true;
+
+        }
 
         //Print the header line   
         var hrow = thead.append("tr");        
@@ -113,7 +126,7 @@ var newResultsWidget = {
         switch(vm.lang()[Object.keys(vm.lang())[0]]) {
 
             default:
-                $('#resultsTable').DataTable( {
+                resultsTable = $('#resultsTable').DataTable( {
 
                     dom: 'C<"clear">lfrtip',
                     "scrollX": true,
@@ -134,7 +147,7 @@ var newResultsWidget = {
                 break;
 
             case "Español":            
-                $('#resultsTable').DataTable( {
+                resultsTable =  $('#resultsTable').DataTable( {
 
                     dom: 'C<"clear">lfrtip',
                     "scrollX": true,
@@ -153,7 +166,10 @@ var newResultsWidget = {
                       
                 } );                
                 break;            
-        }        
+        }       
+
+            
+        //if(searchDone == true) resultsTable.search('no results found').draw();
     },    
 };
 
@@ -161,7 +177,8 @@ var newResultsWidget = {
 var rows;
 var descriptionData;
 var enabledColumn;
-
+var searchDone;
+var resultsTable;
 
 //Debug variables;
 
