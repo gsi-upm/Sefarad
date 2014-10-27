@@ -177,12 +177,6 @@ if ($user->isLoggedIn()){
 					}, event);
 				});
 
-				$("#accordion").live('load', function(){
-				    $(this).accordion({
-				      heightStyle: "content",
-				    });
-				});
-
 				//initIsotopeAndWizards();
 			});
 

@@ -3014,7 +3014,10 @@ ko.bindingHandlers.accordion = {
     init: function(element, valueAccessor) {
         var options = valueAccessor() || {};
         setTimeout(function() {
-            $(element).accordion(options);
+            $(element).accordion({
+			    heightStyle: "content",
+			    collapsible: true,
+			});
         }, 0);
         
         //handle disposal (if KO removes by the template binding)
@@ -3025,7 +3028,10 @@ ko.bindingHandlers.accordion = {
     update: function(element, valueAccessor) {
         var options = valueAccessor() || {};
         if(typeof $(element).data("ui-accordion") != "undefined"){
-			$(element).accordion("destroy").accordion(options);
+			$(element).accordion("destroy").accordion({
+			    heightStyle: "content",
+			    collapsible: true,
+			});
 		}
     }
 }

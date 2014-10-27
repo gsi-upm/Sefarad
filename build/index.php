@@ -192,12 +192,6 @@ if ($user->isLoggedIn()){
 					}, event);
 				});
 
-				$("#accordion").live('load', function(){
-				    $(this).accordion({
-				      heightStyle: "content",
-				    });
-				});
-
 				//initIsotopeAndWizards();
 			});
 
@@ -1186,7 +1180,21 @@ if ($user->isLoggedIn()){
 		</script>
 		<script id="widgets-template-accordion" type="text/html">
 			<div >
-				{{if type()=="radialgauge"}}
+				{{if type()=="tagcloud"}}
+					<div >									
+						{{if layout()=="vertical"}}							
+							<ul data-bind="kendoPanelBar: { }">
+								<li>
+									<span class="filterName" data-bind="text: title()"></span>	
+									<ul data-bind="template: {name: 'widget-template-panelbar', foreach: $data.values }"></ul>
+								</li>
+							</ul>
+						{{else}}						
+							<div class="tagarea"><div data-bind="template: { name: 'widget-template-tagcloud', templateOptions: {parent_id: id 
+								},foreach: values }"></div></div>			
+						{{/if}}
+					</div>
+				{{else type()=="radialgauge"}}
 					<div id="gauge-container">
 						<div id="gauge" data-bind="kendoRadialGauge: {value: $root.numberOfResults, scale: { max: 
 							$root.getMaxNumberOfResults(), labels: { visible: true }, majorUnit: $root.getGaugeMajorUnits() } } "></div>
@@ -1194,6 +1202,8 @@ if ($user->isLoggedIn()){
 							<p data-bind="text: $root.numberOfResults"></p>
 						</div>
 					</div>
+				{{else}}
+					<div data-bind="attr: { 'id': id }"></div>
 				{{/if}}
 			</div>			
 		</script>	
