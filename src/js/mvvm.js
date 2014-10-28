@@ -3029,7 +3029,7 @@ ko.bindingHandlers.accordion = {
         var options = valueAccessor() || {};
         if(typeof $(element).data("ui-accordion") != "undefined"){
 			$(element).accordion("destroy").accordion({
-			    heightStyle: "content",
+			    heightStyle: "contentsnt",
 			    collapsible: true,
 			});
 		}
