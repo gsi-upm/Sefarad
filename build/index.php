@@ -730,7 +730,12 @@ if ($user->isLoggedIn()){
 						</div>
 						<!-- accordion layout -->
 						<div data-bind="visible: $root.accordionLayout, foreach: activeWidgetsLeft, accordion: {}">
-						    <h3><a href="#" data-bind="text: title"></a></h3>
+						    <h3>
+						    	<a href="#" data-bind="text: title"></a>
+								<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
+						    	<div class="ui-icon ui-icon-trash" style="float:right" data-bind="click: 
+								$root.deleteWidget.bind($data, id(), type()), visible: $root.adminMode"></div>						    										
+							</h3>
 						    <div data-bind="template: { name: 'widgets-template-accordion', foreach: $data}"></div>
 						</div>						
 						<!-- column 0 tab 0 end -->
@@ -1105,7 +1110,7 @@ if ($user->isLoggedIn()){
 							blur: function() { $root.editTitle(''); } }"/>
 						<div class="ui-icon ui-icon-trash" style="float:right" data-bind="click: 
 								$root.deleteWidget.bind($data, id(), type()), visible: $root.adminMode"></div>
-						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().otherWidgetHelp }"></div>
+						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
 						<div class="ui-icon ui-icon-gear" style="float: right;" data-bind="visible: $root.adminMode, click: 
 							function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
 					</div>
@@ -1167,10 +1172,6 @@ if ($user->isLoggedIn()){
 							<div class="tagarea"><div data-bind="template: { name: 'widget-template-tagcloud', templateOptions: {parent_id: id 
 								},foreach: values }"></div></div>			
 						{{/if}}
-					</div>
-				{{else type()=="resultstats"}}
-					<div >
-						<div class="graphics"></div>
 					</div>
 				{{else type()=="radialgauge"}}
 					<div id="gauge-container">

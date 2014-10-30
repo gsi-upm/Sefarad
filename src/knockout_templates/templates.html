@@ -192,7 +192,7 @@
 							blur: function() { $root.editTitle(''); } }"/>
 						<div class="ui-icon ui-icon-trash" style="float:right" data-bind="click: 
 								$root.deleteWidget.bind($data, id(), type()), visible: $root.adminMode"></div>
-						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': $root.lang().otherWidgetHelp }"></div>
+						<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
 						<div class="ui-icon ui-icon-gear" style="float: right;" data-bind="visible: $root.adminMode, click: 
 							function(){showWidgetConfiguration(!showWidgetConfiguration());}"></div>
 					</div>
@@ -254,10 +254,6 @@
 							<div class="tagarea"><div data-bind="template: { name: 'widget-template-tagcloud', templateOptions: {parent_id: id 
 								},foreach: values }"></div></div>			
 						{{/if}}
-					</div>
-				{{else type()=="resultstats"}}
-					<div >
-						<div class="graphics"></div>
 					</div>
 				{{else type()=="radialgauge"}}
 					<div id="gauge-container">

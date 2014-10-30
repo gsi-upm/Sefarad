@@ -715,7 +715,12 @@ if ($user->isLoggedIn()){
 						</div>
 						<!-- accordion layout -->
 						<div data-bind="visible: $root.accordionLayout, foreach: activeWidgetsLeft, accordion: {}">
-						    <h3><a href="#" data-bind="text: title"></a></h3>
+						    <h3>
+						    	<a href="#" data-bind="text: title"></a>
+								<div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
+						    	<div class="ui-icon ui-icon-trash" style="float:right" data-bind="click: 
+								$root.deleteWidget.bind($data, id(), type()), visible: $root.adminMode"></div>						    										
+							</h3>
 						    <div data-bind="template: { name: 'widgets-template-accordion', foreach: $data}"></div>
 						</div>						
 						<!-- column 0 tab 0 end -->

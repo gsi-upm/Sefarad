@@ -1955,7 +1955,21 @@ function InitViewModel() {
                         limits: '',
                         layout: 'horizontal',
                         showWidgetConfiguration: false,
-						help: 'Muestra los países en los que existen Universidades'
+						help: 'Filter by country'
+                    });
+                    templateWidgetsLeft.push({
+                        id: 0,
+                        title: 'Cities',
+                        type: 'tagcloud',
+                        field: 'city',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+						help: 'Filter by city'
                     });
                     configuration.autocomplete.field = "university";
                     self.securityEnabled(false);
@@ -1968,21 +1982,8 @@ function InitViewModel() {
                         //Add map widget
                         widgetMap.render();
 
-                        // // Add results widget
-       //                  self.activeWidgetsRight.push({
-       //                      "id": ko.observable(0),
-       //                      "title": ko.observable(self.lang().results),
-       //                      "type": ko.observable("resultswidget"),
-       //                      "collapsed": ko.observable(false),
-       //                      "layout": ko.observable("vertical"),
-       //                      "showWidgetConfiguration": ko.observable(false),
-							// "help": 'Muestra las Universidades filtradas'
-       //                  });
-
+                        //Add results widget
 						newResultsWidget.render();
-
-                        // Add resultstats widget
-                        self.addResultStatsWidget();
 
                         // Add PieChart sgvizler wigdet
                         self.sgvizlerQuery("SELECT ?university ?students WHERE{ ?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university . ?countryresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/EuropeanCountries> . ?universityresource <http://dbpedia.org/ontology/numberOfStudents> ?students FILTER ( lang(?university) = 'en') } GROUP BY ?university LIMIT 50");
@@ -1997,7 +1998,7 @@ function InitViewModel() {
                             "title": ko.observable("Total Universities"),
                             "type": ko.observable("radialgauge"),
                             "collapsed": ko.observable(false),
-							"help": "Muestra el total de universidades filtradas."
+							"help": "Total universities filtered."
                         });
                         self.numberOfResults.valueHasMutated();                        
                     });
@@ -3029,7 +3030,7 @@ ko.bindingHandlers.accordion = {
         var options = valueAccessor() || {};
         if(typeof $(element).data("ui-accordion") != "undefined"){
 			$(element).accordion("destroy").accordion({
-			    heightStyle: "content",
+			    heightStyle: "contentsnt",
 			    collapsible: true,
 			});
 		}

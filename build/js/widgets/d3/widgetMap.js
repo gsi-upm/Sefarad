@@ -48,9 +48,9 @@ var widgetMap = {
 
         //Elements for showing
         if (vm.sparql) {
-            data = vm.shownSparqlData();
+            data = vm.filteredData();
         } else {
-            data = vm.shownData();
+            data = vm.filteredData();
         }
 
         //Create the map
