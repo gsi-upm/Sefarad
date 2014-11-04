@@ -771,6 +771,33 @@ function InitViewModel() {
 
 	};
 
+	self.getResultsSPARQLRestaurants = function () {
+			
+		var restaurants_query = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo: <http://www.opengis.net/ont/geosparql#> PREFIX geof: <http://www.opengis.net/def/function/geosparql/> PREFIX gnis: <http://sefarad.gsi.dit.upm.es/rdf/gnis/> PREFIX gp: <http://sefarad.gsi.dit.upm.es/rdf/gp/>  PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#> SELECT  * WHERE  { ?s gp:price ?price . ?s gp:address ?address. ?s gp:reservations ?reservations . ?s gp:takeout ?takeout . ?s gp:foodtype ?foodtype . ?s gp:stars ?stars . ?s gp:district ?district .   ?s wgs84_pos:latitude ?latitude  . ?s wgs84_pos:longitude ?longitude  } ' ;		
+		var temporal = 'http://alpha.gsi.dit.upm.es:3030/geo/query?query=' + encodeURIComponent(restaurants_query);
+	    var req = new XMLHttpRequest();
+	    req.open("GET", temporal, true);
+	    var params = encodeURIComponent(restaurants_query);
+	    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	    req.setRequestHeader("Accept", "application/sparql-results+json");
+	    req.setRequestHeader("Content-length", params.length);
+	    req.setRequestHeader("Connection", "close");
+	    req.send();
+	    req.onreadystatechange = function() {
+	        if (req.readyState == 4){
+	            if (req.status == 200) {
+				    
+	            	var res = eval ("(" + req.responseText + ")");
+	                var data = JSON.stringify(res.results.bindings);
+					ko.mapping.fromJSON(data, self.viewData);
+					updateWidgets(true);	                
+	            } else {
+	            }
+	        }
+	    };
+	    return false;			
+	};
+
 	self.getDataPolygons = function() {
 
 		var poligons_query = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo: <http://www.opengis.net/ont/geosparql#> PREFIX geof: <http://www.opengis.net/def/function/geosparql/> PREFIX gnis: <http://cegis.usgs.gov/rdf/gnis/> PREFIX gu: <http://cegis.usgs.gov/rdf/gu/>  PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> SELECT  * WHERE  { { ?uri rdfs:label ?name1 . ?s geo:hasGeometry ?fGeom . ?fGeom geo:asWKT ?fWKT . ?s gu:areaSqKM  ?areaSqKM  . ?s gu:dataSecurity ?dataSecurity . ?s gu:distributionPolicy ?distributionPolicy . ?s gnis:shapeLength ?shapeLength . ?s gnis:shapeArea ?shapeArea . ?s gu:sourceDataDesc ?sourceDataDesc . ?s gu:stateName ?stateName . ?s gu:minorCivilDivisonName ?minorCivilDivisonName . } }  LIMIT 500 ';
@@ -1923,6 +1950,126 @@ function InitViewModel() {
 						openLayers.render();
 					});
 				});
+
+				this.get('#/sparql/restaurantsDemo', function () {
+                    console.log("RESTAURANTS DEMO");
+                    self.sparql = ko.observable(true);
+                    vm.getResultsSPARQLRestaurants();
+					configuration.template.language = "English";
+                    configuration.template.pageTitle = "Restaurants Demo";
+
+					templateWidgetsLeft.push({
+                        id: 2,
+                        title: 'District',
+                        type: 'tagcloud',
+                        field: 'district',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+						help: 'Districts'
+                    });
+
+                    templateWidgetsLeft.push({
+                        id: 2,
+                        title: 'Price',
+                        type: 'tagcloud',
+                        field: 'price',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+						help: 'Price ranges'
+                    });	
+
+					 templateWidgetsLeft.push({
+                        id: 1,
+                        title: 'Rating',
+                        type: 'tagcloud',
+                        field: 'stars',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+						help: 'Restaurants rating'
+                    });
+
+					 // templateWidgetsLeft.push({
+      //                   id: 0,
+      //                   title: 'FoodType',
+      //                   type: 'tagcloud',
+      //                   field: 'foodtype',
+      //                   collapsed: false,
+      //                   query: '',
+      //                   value: [],
+      //                   values: [],
+      //                   limits: '',
+      //                   layout: 'horizontal',
+      //                   showWidgetConfiguration: false,
+						// help: 'Different food types'
+      //               });				 
+					
+					 // templateWidgetsLeft.push({
+      //                   id: 2,
+      //                   title: 'Reservations',
+      //                   type: 'tagcloud',
+      //                   field: 'reservations',
+      //                   collapsed: false,
+      //                   query: '',
+      //                   value: [],
+      //                   values: [],
+      //                   limits: '',
+      //                   layout: 'horizontal',
+      //                   showWidgetConfiguration: false,
+						// help: 'Reservations'
+      //               });
+					
+					 // templateWidgetsLeft.push({
+      //                   id: 2,
+      //                   title: 'Take-out',
+      //                   type: 'tagcloud',
+      //                   field: 'takeout',
+      //                   collapsed: false,
+      //                   query: '',
+      //                   value: [],
+      //                   values: [],
+      //                   limits: '',
+      //                   layout: 'horizontal',
+      //                   showWidgetConfiguration: false,
+						// help: 'Take-out possibility'
+      //               });					
+					
+                    configuration.autocomplete.field = "district";
+                    self.securityEnabled(true);
+                    self.adminMode(false);
+                    sparqlmode = true;
+                    init();
+
+                    //Adding widgets
+                    $(window).load(function () {
+                    	
+                        //Add map widget
+                        widgetMap.render();
+
+                        //Add results table
+                        newResultsWidget.render();
+
+                        resultsTable.column(0).visible(false);
+                        resultsTable.column(8).visible(false);
+                        resultsTable.column(9).visible(false);
+
+                        self.numberOfResults.valueHasMutated();                       
+                    });
+                });
 				                
                 this.get('#/sparql/universitiesDemo', function () {
                     console.log("UNIVERSITIES DEMO");
@@ -3016,9 +3163,21 @@ ko.bindingHandlers.accordion = {
         var options = valueAccessor() || {};
         setTimeout(function() {
             $(element).accordion({
+            	header: "> h3",
 			    heightStyle: "content",
 			    collapsible: true,
-			});
+			}).sortable({
+		        axis: "y",
+		        handle: "h3",
+		        stop: function( event, ui ) {
+		          // IE doesn't register the blur when sorting
+		          // so trigger focusout handlers to remove .ui-state-focus
+		          ui.item.children( "h3" ).triggerHandler( "focusout" );
+		 
+		          // Refresh accordion to handle new order
+		          $( this ).accordion( "refresh" );
+		        }
+		    });
         }, 0);
         
         //handle disposal (if KO removes by the template binding)
@@ -3030,9 +3189,21 @@ ko.bindingHandlers.accordion = {
         var options = valueAccessor() || {};
         if(typeof $(element).data("ui-accordion") != "undefined"){
 			$(element).accordion("destroy").accordion({
+				header: "> h3",
 			    heightStyle: "contentsnt",
 			    collapsible: true,
-			});
+			}).sortable({
+		        axis: "y",
+		        handle: "h3",
+		        stop: function( event, ui ) {
+		          // IE doesn't register the blur when sorting
+		          // so trigger focusout handlers to remove .ui-state-focus
+		          ui.item.children( "h3" ).triggerHandler( "focusout" );
+		 
+		          // Refresh accordion to handle new order
+		          $( this ).accordion( "refresh" );
+		        }
+		    });
 		}
     }
 }
