@@ -1,125 +1,77 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN""http://www.w3.org/TR/html4/strict.dtd"><html>
 
+<link href="codemirror.css" rel="stylesheet" type="text/css" />
+<link href="./../lib/DataTables/media/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 <link href="yasqe.min.css" rel="stylesheet" type="text/css" />
 <link href="yasr.min.css" rel="stylesheet" type="text/css" />
- 
-<style type="text/css">
-
-body{
-  font-family: titillium, arial, sans-serif;
-  font-size: 16px;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
-  overflow: hidden;
-}
-
-h1{
-  color: rgb(80, 74, 75);
-  display: block;
-  font-family: titillium, arial, sans-serif;
-  font-size: 24px;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
-}
-
-input{
-      height: 34px;
-}
-  
-.form-control {
-  border-radius: 0;
-  border: 1px solid #bcb1b3;
-  font-size: 16px;
-  color: #000;
-  margin: 0 0 8px;
-}
-.form-control {
-  height: 34px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.428571429;
-  color: #555;
-  background-color: #fff;
-  background-image: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-  -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-}
 
 
-    #description{
-      border: 1px #ccc solid;
-      padding: 4px;
-      margin:4px;
-      font-size:14px;
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="./../lib/DataTables/media/js/jquery.dataTables.js"></script>  
+<script src="codemirror.js"></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/yasqe/2.0.1/yasqe.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/yasr/1.2.3/yasr.min.js'></script>	
 
-    }
-    
-    #queryButton button:HOVER{
-      color: #333;
-      outline: 0;
-      background-color: #ebebeb;
-      border-color: #adadad;
-    }
-
-    #queryButton button{
-      margin-top:8px;
-      height:36px;
-      font-size: 16px;
-      color: #333;
-      border: 1px solid transparent;
-      background-color: #fff;
-      border-color: #ccc;
-      border-width: 1px;
-      display: inline-block;
-      text-align: center;
-      vertical-align: middle;
-      cursor: pointer;
-      white-space: nowrap;
-      padding: 6px 12px;
-      border-radius: 4px;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-appearance: button;
-      overflow: visible;
-      box-sizing: border-box;
-    }
-  </style>
-
-  <script src="jquery-1.11.1.min.js" ></script>
-  <script src="papaparse.min.js"></script>
-  <script src="yasqe.min.js"></script>
-  <script src="yasr.min.js"></script>
-  
 
 	<head>
 		<title>SentimentTest</title>
 	</head>
-	<body>
-		  <h1>Directly query linked data in Eurosentiment</h1>
+	<body>		  
+		<div id="yasqe"></div>	
+		<button>Get results from sparql endpoint</button></div>
+		<div id="yasr"></div>	
 
-		  <div id="queries">
-		  	<label>Choose example query template and later query parameter values:</label><br />
-		    <select class="form-control" id="queryName"></select>
-		  	<select class="form-control" id="allParams"></select>
-		  	<select class="form-control" id="dynamicParam"></select>
-		  	<br />
-		  	Query description:
-		  	<div id="description" ></div>
-		  </div>
-		  <div id="yasqe"></div>
-		  <div id="queryButton" ><button>Get results from sparql endpoint</button></div>
-		  <div id="yasr"></div>
-<script src="sparql-demo.js"></script>
-		  
-			
+
+		<table id="example" class="display" cellspacing="0" width="100%">
+			<thead>
+			    <tr>
+				<th>Name</th>
+				<th>Position</th>
+				<th>Office</th>
+				<th>Age</th>
+				<th>Start date</th>
+				<th>Salary</th>
+			    </tr>
+			</thead>
+		 
+			<tfoot>
+			    <tr>
+				<th>Name</th>
+				<th>Position</th>
+				<th>Office</th>
+				<th>Age</th>
+				<th>Start date</th>
+				<th>Salary</th>
+			    </tr>
+			</tfoot>
+		 
+			<tbody>
+			    <tr>
+				<td>Tiger Nixon</td>
+				<td>System Architect</td>
+				<td>Edinburgh</td>
+				<td>61</td>
+				<td>2011/04/25</td>
+				<td>$320,800</td>
+			    </tr>
+			    <tr>
+				<td>Garrett Winters</td>
+				<td>Accountant</td>
+				<td>Tokyo</td>
+				<td>63</td>
+				<td>2011/07/25</td>
+				<td>$170,750</td>
+			    </tr>
+			    <tr>
+				<td>Ashton Cox</td>
+				<td>Junior Technical Author</td>
+				<td>San Francisco</td>
+				<td>66</td>
+				<td>2009/01/12</td>
+				<td>$86,000</td>
+			    </tr>
+			</tbody>
+		</table>	
 	</body>
 
 </html>

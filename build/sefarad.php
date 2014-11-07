@@ -54,8 +54,11 @@ if ($user->isLoggedIn()){
     	<link rel="stylesheet" type="text/css" href="css/ext/dataTables.colVis.css">
 
     	<!-- euroSentiment Stylesheets -->
+    	<link href="css/ext/codemirror.css" rel="stylesheet" type="text/css" />
     	<link href="css/ext/yasqe.min.css" rel="stylesheet" type="text/css" >
     	<link href="css/ext/yasr.min.css" rel="stylesheet" type="text/css" >
+
+    
     	
 
     	<!-- Import OL CSS, auto import does not work with our minified OL.js build -->
@@ -105,14 +108,18 @@ if ($user->isLoggedIn()){
 		<script src="js/ext/jquery.joyride-2.0.2.js"></script>
     	<script src="js/ext/jquery.scrollTo.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-		<script src="js/datatablesPlugin.js" charset="utf-8"></script>
+		<script src="js/datatablesPlugin.js" charset="utf-8"></script> 
 		<script src="js/dataTables.colVis.js" charset="utf-8"></script>
 
 		<script src="js/ext/papaparse.min.js"></script>
-		<script src="js/ext/yasqe.min.js"></script>
-		<script src="js/ext/yasr.min.js"></script>
+		<script src="js/ext/codemirror.js"></script>
+		
 
 		<!-- external -->
+		<script src='http://cdnjs.cloudflare.com/ajax/libs/yasqe/2.0.1/yasqe.min.js'></script>
+		
+		<script src='//cdnjs.cloudflare.com/ajax/libs/yasr/1.2.3/yasr.bundled.min.js'></script>
+
 		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 		<script type='text/javascript' src="js/ext/twitterApi.js"></script>
 		<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
@@ -121,8 +128,7 @@ if ($user->isLoggedIn()){
 		<!-- openlayers -->
 		<script src="http://openlayers.org/api/OpenLayers.js"></script>
         <!-- <script type="text/javascript" charset="UTF-8" src="js/ext/OpenLayers.js"></script> -->
-		<!-- qtip -->		<script src="js/ext/yasqe.min.js"></script>
-		<script src="js/ext/yasr.min.js"></script>
+		<!-- qtip -->
 		<script type="text/javascript" src="js/ext/jquery.qtip.js"></script>
 		<script type="text/javascript" src="js/ext/imagesloaded.pkg.min.js"></script>
 		<!-- json -->
@@ -132,14 +138,25 @@ if ($user->isLoggedIn()){
 
 		<script type="text/javascript" charset="UTF-8">
 			$(document).ready(function () {
-				$(".button").button();
+
+				//JQuery apply UI style to all buttons
+				$(".mybutton").button();
+
+				//Depending on the html route, redirect
 				vm.routes();
+
+
 				if (errorinroute || sparqlmode) {
-					console.log("Aplicamos bindings");
+					console.log("Aplicamos bindings de knockout");
+					//Apply bindings between UI elements and vm variables.
 					ko.applyBindings(vm);
 				}
 
+				//
 				vm.adminMode(<?php echo($user->isLoggedIn()) ?>);
+
+
+
 
 				$(".sparqlquery").click(function () {
 					sparqlPanel()
@@ -192,11 +209,276 @@ if ($user->isLoggedIn()){
 
 				$("#accordion").accordion();
 
+
+				//SPARQL EDITOR MODULE:
+
+				//-------------------------Eurosentiment SPARQLEDITOR code---------------------------------
+//-----------------------------------------------------------------------------------------
+
+//configuration
+var eurosentimentEndpointURI = "http://146.148.28.139/eurosentiment/sparql-endpoint";
+var googleSpreadsheetURI = "assets/EuroSentimentDemoSparqlQueries.csv";
+var eurosentimentResourceNavigatorURLPrefix = "http://www.eurosentiment.eu/dataset/"; // if urls in the sparql results starts with such prefix
+var eurosentimentResourceNavigatorURL = "http://portal.eurosentiment.eu/lr_navigator_demo"; // then later on click they will point to this navigator
+
+// end of configuration
+
+var queries = [];
+
+var yasqe = YASQE(document.getElementById("yasqe"), {
+    sparql: {
+        showQueryButton: false,
+        createShareLink: false,        
+        endpoint: "http://dbpedia.org/sparql"
+    }
+});
+
+var yasr = YASR(document.getElementById("yasr"), {
+    //this way, the URLs in the results are prettified using the defined prefixes in the query
+    getUsedPrefixes: yasqe.getPrefixesFromQuery
+});
+
+/**
+* Set some of the hooks to link YASR and YASQE
+*/
+yasr.setResponse({
+    response: self.viewData    
+});
+
+
+//Query function:
+function demoQuery () {
+
+    var restaurants_query = yasqe.getValue().replace(/(\r\n|\n|\r)/gm,"");    
+    console.log(restaurants_query);   
+    var temporal = 'http://alpha.gsi.dit.upm.es:3030/geo/query?query=' + encodeURIComponent(restaurants_query);
+    var req = new XMLHttpRequest();
+    req.open("GET", temporal, true);
+    var params = encodeURIComponent(restaurants_query);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.setRequestHeader("Accept", "application/sparql-results+json");
+    req.send();
+    req.onreadystatechange = function() {
+        if (req.readyState == 4){
+            if (req.status == 200) {
+                
+                var res = eval ("(" + req.responseText + ")");
+                var data = JSON.stringify(res.results.bindings);
+                console.log(data);
+                //ko.mapping.fromJSON(data, vm.viewData);
+                //updateWidgets(true);  
+                yasr.setResponse({
+                    response: res,
+                    contentType: req.getResponseHeader("Content-Type")
+                });                  
+            } else {
+            }
+        }
+    };
+    return false;
+};
+
+function populateParametersSelect(allParamValues) {
+    var id = "#allParams";
+
+    if (!allParamValues || allParamValues == "") {
+        $(id).hide();
+        $("#dynamicParam").hide();
+        return;
+    }
+
+    $(id).empty().show();
+
+    var params = allParamValues.split(",");
+    $(id).append('<option value="">choose parameters</option>');
+
+    for (var i = 0; i < params.length; i++) {
+        $(id).append('<option value="' + params[i].trim() + '">' + params[i].trim() + "</option>");
+    }
+}
+
+function populateTemplateWithDynamicParams(queryTemplate, selectedParameter) {
+    queryTemplate = queryTemplate.replace(/<sentimentValue>|<aspect>/g, selectedParameter);
+    return queryTemplate;
+}
+
+function populateTemplateWithStaticParams(queryTemplate, selectedParameters, paramNo) {
+    var parameterValues = selectedParameters.trim().split(/\s+/);
+    
+
+
+
+    //This code is extremely horrible
+    if (parameterValues.length == 1) {
+        queryTemplate = queryTemplate.replace(/<domain>/g, parameterValues[0]);
+    } else if (parameterValues.length == 2) {
+        queryTemplate = queryTemplate.replace(/<domain>/g, parameterValues[0]);
+        queryTemplate = queryTemplate.replace(/<language>/g, parameterValues[1]);
+    } else if (parameterValues.length == 3 || parameterValues.length == 4) {
+        queryTemplate = queryTemplate.replace(/<domain>/g, parameterValues[0]);
+        queryTemplate = queryTemplate.replace(/<language>/g, parameterValues[1]);
+        queryTemplate = queryTemplate.replace(/<resource>/g, parameterValues[2]);
+        if (parameterValues.length == 4) {
+            queryTemplate = queryTemplate.replace(/<translatein>/g, parameterValues[3]);
+        }
+    }
+    return queryTemplate;
+}
+
+$("#queryButton button").click(function(e) {
+    e.preventDefault();
+    demoQuery();
+    //yasqe.query();
+});
+
+$("#queryName").change(function() {
+    // update param list 
+    var i = $("#queryName").val();
+    var query = queries[i];
+    var description = query.description;
+    var allParamsValue = query.allParams;
+    var queryTemplate = query.queryTemplate.trim();
+
+
+    // put template query into the box
+    yasqe.setValue(queryTemplate);
+    $("#description").text(description);
+
+    $("#allParam").hide();
+    $("#dynamicParam").hide();
+
+    // populate paramete select 
+    populateParametersSelect(allParamsValue);
+
+});
+
+$("#allParams").change(function() {
+    // update the query template using selected parameters 
+    var i = $("#queryName").val();
+    var query = queries[i];
+    var queryTemplate = query.queryTemplate.trim();
+    var paramNo = query.paramNo
+    var selectedParameters = $("#allParams").val();
+    queryTemplate = populateTemplateWithStaticParams(queryTemplate, selectedParameters, paramNo);
+    yasqe.setValue(queryTemplate);
+
+    if (paramNo != 4 && paramNo != 5) {
+        $("#dynamicParam").empty().hide();
+    }
+    // here fetch extra param automatically 
+    if (paramNo == 4 || paramNo == 5) {
+        // use query 27 to get 10 to aspects 
+        var queryForDynamicParameter = query.queryForDynamicParameter.split(",");
+        var dynamicQueryNo = parseInt(queryForDynamicParameter[0], 10);
+        var dynamicQuery = queries[dynamicQueryNo].queryTemplate;
+        // here take the static params and populate the query template 
+        dynamicQuery = populateTemplateWithStaticParams(dynamicQuery, selectedParameters, paramNo);
+
+
+        // here fire the ajax query and populate the dynamicParam select 
+        // TODO: use 2 queris for positive ad negative sentiment values 
+        $.ajax({
+            url: eurosentimentEndpointURI,
+            data: {
+                query: dynamicQuery
+            },
+            dataType: "json",
+            success: function(json) {
+
+                var results = [];
+                for (var i = 0; i < json.results.bindings.length; i++) {
+                    var binding = json.results.bindings[i];
+
+                    if (binding.sentiment && binding.sentiment.value) {
+                        results.push(binding.sentiment.value);
+                    } else if (binding.aspect && binding.aspect.value) {
+                        results.push(binding.aspect.value);
+                    }
+                }
+
+                if (results.length == 0) {
+                    alert("No results");
+                }
+                $("#dynamicParam").empty().append('<option>Choose option</option>');
+                for (var i = 0; i < results.length; i++) {
+                    $("#dynamicParam").append('<option>' + results[i] + '</option>')
+                }
+                $("#dynamicParam").show();
+            }
+        })
+
+    }
+});
+
+$("#dynamicParam").change(function() {
+    var i = $("#queryName").val();
+    var query = queries[i];
+    var queryTemplate = query.queryTemplate.trim();
+    var paramNo = query.paramNo
+    var selectedParameters = $("#allParams").val();
+    var selectedDynamicParam = $("#dynamicParam").val();
+    queryTemplate = populateTemplateWithStaticParams(queryTemplate, selectedParameters, paramNo);
+    queryTemplate = populateTemplateWithDynamicParams(queryTemplate, selectedDynamicParam);
+    yasqe.setValue(queryTemplate);
+});
+
+$(document).on("click", "a.uri", function(e) {
+    var link = $(this).attr("href");
+    if (link.indexOf(eurosentimentResourceNavigatorURLPrefix) == 0) {
+        link = eurosentimentResourceNavigatorURL + "#conceptURI=" + encodeURIComponent(link);
+        $(this).attr("href", link);
+    }
+})
+
+
+Papa.parse(
+    googleSpreadsheetURI, {
+        download: true,
+        complete: function(json) {
+            // here populate the list from the json data
+            var paramNo;
+            for (var i = 1; i < json.data.length; i++) {
+
+                paramNo = 0;
+                try {
+                    paramNo = parseInt(json.data[i][5], 10);
+                } catch (e) {}
+
+                queries.push({
+                    linkedResources: json.data[i][0],
+                    showInDemo: json.data[i][1].trim(),
+                    name: json.data[i][2],
+                    queryTemplate: json.data[i][3],
+                    description: json.data[i][4],
+                    paramNo: paramNo,
+                    allParams: json.data[i][6],
+                    queryForDynamicParameter: json.data[i][7]
+                });
+            }
+
+            var query;
+
+            for (i = 0; i < queries.length; i++) {
+                query = queries[i];
+                if (query.showInDemo == "yes") {
+                    $("#queryName").append('<option value="' + i + '">' + query.name + "</option>");
+                    //$("#queryName").append('<option value="'+i+'">'+ (i+2) +" "+query.name+"</option>");
+                }
+            }
+            $("#queryName").change();
+        }
+    });
+
+
+
+//-----------------------------------------------------------------------------------------
+
 				//initIsotopeAndWizards();
 			});
 
 			$(window).load(function () {
 				$('#dvLoading').hide();
+
 			});
 			
 		</script>
@@ -380,7 +662,7 @@ if ($user->isLoggedIn()){
 						</div>
 						<div data-bind="visible: !sparql()">
 							<h3 data-bind="text: lang().advancedoptions"></h3>
-							<button class="button" data-bind="click: $root.reindexSOLR, visible: !sparql()"><span data-bind="text: 
+							<button class="mybutton" data-bind="click: $root.reindexSOLR, visible: !sparql()"><span data-bind="text: 
 								lang().reindexsolr"></span></button>							
 						</div>
 
@@ -429,8 +711,8 @@ if ($user->isLoggedIn()){
 						</div>
 					</div>
 					<div style="clear:both">					
-						<button class="button" id="save_changes" ><span data-bind="text: lang().savechanges, click: $root.doSave" ></span> </button>
-						<button class="button" data-bind="click: $root.resetConfiguration"><span data-bind="text: lang().resetconf"></span></button>
+						<button class="mybutton" id="save_changes" ><span data-bind="text: lang().savechanges, click: $root.doSave" ></span> </button>
+						<button class="mybutton" data-bind="click: $root.resetConfiguration"><span data-bind="text: lang().resetconf"></span></button>
 					</div>
 					<br/>
 				</div>
@@ -460,7 +742,7 @@ if ($user->isLoggedIn()){
 							<div class="mask">
 								<h2 data-bind="text: lang().resultsvertical"></h2>
 								<p data-bind="text: lang().resultsverticalexp"></p>
-								<button class="button" data-bind="click: $root.addResultsVerticalWidget"><span data-bind="text: 
+								<button class="mybutton" data-bind="click: $root.addResultsVerticalWidget"><span data-bind="text: 
 									lang().addWidget2"></span></button>
 							</div>
 						</div>
@@ -474,7 +756,7 @@ if ($user->isLoggedIn()){
 							<div class="mask">
 								<h2 data-bind="text: lang().resultsgrid"></h2>
 								<p data-bind="text: lang().resultsgridexp"></p>
-								<button class="button" data-bind="click: $root.addResultsGridWidget"><span data-bind="text: 
+								<button class="mybutton" data-bind="click: $root.addResultsGridWidget"><span data-bind="text: 
 									lang().addWidget2"></span></button>
 							</div>
 						</div>						
@@ -490,7 +772,7 @@ if ($user->isLoggedIn()){
 								<p data-bind="text: lang().numericwidgetexp"></p>
 								<select data-bind="options: $root.dataColumns, value: newNumericFilterValue, optionsCaption: 
 									lang().fieldcaption"></select>
-								<button class="button" data-bind="click: $root.addSliderWidget, enable: newNumericFilterValidation"><span 
+								<button class="mybutton" data-bind="click: $root.addSliderWidget, enable: newNumericFilterValidation"><span 
 									data-bind="text: lang().addWidget2"></span></button>
 							</div>
 						</div>
@@ -504,7 +786,7 @@ if ($user->isLoggedIn()){
 							<div class="mask">
 								<h2 data-bind="text: lang().gauge"></h2>
 								<p data-bind="text: lang().gaugeexp"></p>
-								<button class="button" data-bind="click: $root.addGaugeWidget"><span data-bind="text: 
+								<button class="mybutton" data-bind="click: $root.addGaugeWidget"><span data-bind="text: 
 									lang().addWidget2"></span></button>
 							</div>
 						</div>
@@ -518,7 +800,7 @@ if ($user->isLoggedIn()){
 							<div class="mask">
 								<h2 data-bind="text: lang().resultstats"></h2>
 								<p data-bind="text: lang().resultstatsexp"></p>
-								<button class="button" data-bind="click: $root.addResultStatsWidget, enable: !showResultsGraphsWidget()"><span 
+								<button class="mybutton" data-bind="click: $root.addResultStatsWidget, enable: !showResultsGraphsWidget()"><span 
 									data-bind="text: lang().addWidget2, visible: !showResultsGraphsWidget()"></span><span data-bind="text: 
 									lang().alreadyAdded, visible: showResultsGraphsWidget()"></span></button>
 							</div>
@@ -534,7 +816,7 @@ if ($user->isLoggedIn()){
 								<h2 data-bind="text: lang().tagcloud"></h2>
 								<p data-bind="text: lang().tagcloudexp"></p>
 								<select data-bind="options: $root.dataColumns, value: newTagCloudValue, optionsCaption: lang().fieldcaption"></select>
-								<button class="button" data-bind="click: $root.addTagCloudWidget, enable: newTagCloudValue()!=undefined">
+								<button class="mybutton" data-bind="click: $root.addTagCloudWidget, enable: newTagCloudValue()!=undefined">
 									<span data-bind="text: lang().addWidget2"></span>
 								</button>
 							</div>
@@ -551,7 +833,7 @@ if ($user->isLoggedIn()){
 								<p data-bind="text: lang().panelbarexp"></p>
 								<select data-bind="options: $root.dataColumns, value: newPanelBarValue, optionsCaption: 
 									lang().fieldcaption"></select>
-								<button class="button" data-bind="click: $root.addPanelBarWidget, enable: newPanelBarValue()!=undefined"><span 
+								<button class="mybutton" data-bind="click: $root.addPanelBarWidget, enable: newPanelBarValue()!=undefined"><span 
 									data-bind="text: lang().addWidget2"></span></button>						
 							</div>
 						</div>
@@ -567,7 +849,7 @@ if ($user->isLoggedIn()){
 								<p data-bind="text: lang().twitterexp"></p>
 								<select data-bind="options: $root.dataColumns, value: newTwitterValue, optionsCaption: 
 									lang().fieldcaption"></select>
-								<button class="button" data-bind="click: $root.addTwitterWidget, enable: newTwitterValue()!=undefined"><span 
+								<button class="mybutton" data-bind="click: $root.addTwitterWidget, enable: newTwitterValue()!=undefined"><span 
 									data-bind="text: lang().addWidget2"></span></button>						
 							</div>
 						</div>
@@ -583,7 +865,7 @@ if ($user->isLoggedIn()){
 								<p data-bind="text: lang().piechartexp"></p>
 								<select data-bind="options: $root.dataColumns, value: newPieChartValue, optionsCaption: 
 									lang().fieldcaption"></select>
-								<button class="button" data-bind="click: $root.addPieChartWidget, enable: newPieChartValue()!=undefined"><span 
+								<button class="mybutton" data-bind="click: $root.addPieChartWidget, enable: newPieChartValue()!=undefined"><span 
 									data-bind="text: lang().addWidget2"></span></button>						
 							</div>
 						</div>
@@ -599,7 +881,7 @@ if ($user->isLoggedIn()){
 								<p data-bind="text: lang().barchartexp"></p>
 								<select data-bind="options: $root.dataColumns, value: newBarChartValue, optionsCaption: 
 									lang().fieldcaption"></select>
-								<button class="button" data-bind="click: $root.addBarChartWidget, enable: newBarChartValue()!=undefined"><span 
+								<button class="mybutton" data-bind="click: $root.addBarChartWidget, enable: newBarChartValue()!=undefined"><span 
 									data-bind="text: lang().addWidget2"></span></button>						
 							</div>
 						</div>
@@ -691,7 +973,7 @@ if ($user->isLoggedIn()){
 							<div class="sgvizler-form">
 								<textarea data-bind="value: sgvizlerQuery">Enter your SPARQL query here</textarea>
 								<br>
-								<button class="button" data-bind="click: $root.addSgvizlerWidget"><span data-bind="text: 
+								<button class="mybutton" data-bind="click: $root.addSgvizlerWidget"><span data-bind="text: 
 									lang().addWidget2"></span></button>
 							</div>
 						</div>
