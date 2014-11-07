@@ -29,18 +29,11 @@ var widgetMap = {
             "showWidgetConfiguration": ko.observable(false)
         });
 
-        widgetMap.paintConfig(configid);
+        openlayersMap.paintConfig(configid);
         widgetMap.paint(id);
     },
 
-    paintConfig: function (configid) {
-        d3.select('#' + configid).selectAll('div').remove();
-        var div = d3.select('#' + configid);
-        div.attr("align", "center");
-
-    },
-
-    // paint: function (field, id, type) {	
+    // paint: function (field, id, type) {  
     paint: function(id) {
         d3.select('#' + id).selectAll('div').remove();
         var div = d3.select('#' + id);
@@ -48,9 +41,9 @@ var widgetMap = {
 
         //Elements for showing
         if (vm.sparql) {
-            data = vm.shownSparqlData();
+            data = vm.filteredData();
         } else {
-            data = vm.shownData();
+            data = vm.filteredData();
         }
 
         //Create the map
@@ -74,8 +67,9 @@ var widgetMap = {
         $.each(data, function(index, item) {
             if (!vm.sparql()) {
                 var marker = new google.maps.Marker({
+                    // tranformar la direccion a coordnadas
                     position: new google.maps.LatLng(item.latitude(), item.longitude()),
-                    title: item.nombre().toString(),
+                    //title: item.nombre().toString(),
                     map: map,
                 });
 
@@ -84,12 +78,12 @@ var widgetMap = {
             } else {
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(item.latitude.value(), item.longitude.value()),
-                    title: item.university.value().toString(),
+                    //title: item.university.value().toString(),
                     map: map,
                 });
 
                 //Info windows marker clicked
-                var contentString = '<div id="content">' + item.country.value().toString() + '</div>';
+               // var contentString = '<div id="content">' + item.country.value().toString() + '</div>';
             }
 
             var infowindow = new google.maps.InfoWindow({

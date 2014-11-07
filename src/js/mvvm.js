@@ -145,8 +145,9 @@ function InitViewModel() {
 		self.newWidgets.push(widgetX[i])
 	}
 
-	/** Sortable widgets */
+	/** Layout options  */
 	self.sortableWidgets = ko.observable(configuration.sortable_widgets.actived);
+	self.accordionLayout = ko.observable(true);
 
 	/**Variables for showing/hiding the tabs*/
 	self.searchTabEnabled = ko.observable(true);
@@ -770,6 +771,33 @@ function InitViewModel() {
 
 		}
 
+	};
+
+	self.getResultsSPARQLRestaurants = function () {
+			
+		var restaurants_query = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo: <http://www.opengis.net/ont/geosparql#> PREFIX geof: <http://www.opengis.net/def/function/geosparql/> PREFIX gnis: <http://sefarad.gsi.dit.upm.es/rdf/gnis/> PREFIX gp: <http://sefarad.gsi.dit.upm.es/rdf/gp/>  PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#> SELECT  * WHERE  { ?s gp:price ?price . ?s gp:address ?address. ?s gp:reservations ?reservations . ?s gp:takeout ?takeout . ?s gp:foodtype ?foodtype . ?s gp:stars ?stars . ?s gp:district ?district .   ?s wgs84_pos:latitude ?latitude  . ?s wgs84_pos:longitude ?longitude  } ' ;		
+		var temporal = 'http://alpha.gsi.dit.upm.es:3030/geo/query?query=' + encodeURIComponent(restaurants_query);
+	    var req = new XMLHttpRequest();
+	    req.open("GET", temporal, true);
+	    var params = encodeURIComponent(restaurants_query);
+	    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	    req.setRequestHeader("Accept", "application/sparql-results+json");
+	    req.setRequestHeader("Content-length", params.length);
+	    req.setRequestHeader("Connection", "close");
+	    req.send();
+	    req.onreadystatechange = function() {
+	        if (req.readyState == 4){
+	            if (req.status == 200) {
+				    
+	            	var res = eval ("(" + req.responseText + ")");
+	                var data = JSON.stringify(res.results.bindings);
+					ko.mapping.fromJSON(data, self.viewData);
+					updateWidgets(true);	                
+	            } else {
+	            }
+	        }
+	    };
+	    return false;			
 	};
 
 	self.getDataPolygons = function() {
@@ -1924,6 +1952,126 @@ function InitViewModel() {
 						openLayers.render();
 					});
 				});
+
+				this.get('#/sparql/restaurantsDemo', function () {
+                    console.log("RESTAURANTS DEMO");
+                    self.sparql = ko.observable(true);
+                    vm.getResultsSPARQLRestaurants();
+					configuration.template.language = "English";
+                    configuration.template.pageTitle = "Restaurants Demo";
+
+					templateWidgetsLeft.push({
+                        id: 2,
+                        title: 'District',
+                        type: 'tagcloud',
+                        field: 'district',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+						help: 'Districts'
+                    });
+
+                    templateWidgetsLeft.push({
+                        id: 2,
+                        title: 'Price',
+                        type: 'tagcloud',
+                        field: 'price',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+						help: 'Price ranges'
+                    });	
+
+					 templateWidgetsLeft.push({
+                        id: 1,
+                        title: 'Rating',
+                        type: 'tagcloud',
+                        field: 'stars',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+						help: 'Restaurants rating'
+                    });
+
+					 // templateWidgetsLeft.push({
+      //                   id: 0,
+      //                   title: 'FoodType',
+      //                   type: 'tagcloud',
+      //                   field: 'foodtype',
+      //                   collapsed: false,
+      //                   query: '',
+      //                   value: [],
+      //                   values: [],
+      //                   limits: '',
+      //                   layout: 'horizontal',
+      //                   showWidgetConfiguration: false,
+						// help: 'Different food types'
+      //               });				 
+					
+					 // templateWidgetsLeft.push({
+      //                   id: 2,
+      //                   title: 'Reservations',
+      //                   type: 'tagcloud',
+      //                   field: 'reservations',
+      //                   collapsed: false,
+      //                   query: '',
+      //                   value: [],
+      //                   values: [],
+      //                   limits: '',
+      //                   layout: 'horizontal',
+      //                   showWidgetConfiguration: false,
+						// help: 'Reservations'
+      //               });
+					
+					 // templateWidgetsLeft.push({
+      //                   id: 2,
+      //                   title: 'Take-out',
+      //                   type: 'tagcloud',
+      //                   field: 'takeout',
+      //                   collapsed: false,
+      //                   query: '',
+      //                   value: [],
+      //                   values: [],
+      //                   limits: '',
+      //                   layout: 'horizontal',
+      //                   showWidgetConfiguration: false,
+						// help: 'Take-out possibility'
+      //               });					
+					
+                    configuration.autocomplete.field = "district";
+                    self.securityEnabled(true);
+                    self.adminMode(false);
+                    sparqlmode = true;
+                    init();
+
+                    //Adding widgets
+                    $(window).load(function () {
+                    	
+                        //Add map widget
+                        widgetMap.render();
+
+                        //Add results table
+                        newResultsWidget.render();
+
+                        resultsTable.column(0).visible(false);
+                        resultsTable.column(8).visible(false);
+                        resultsTable.column(9).visible(false);
+
+                        self.numberOfResults.valueHasMutated();                       
+                    });
+                });
 				                
                 this.get('#/sparql/universitiesDemo', function () {
                     console.log("UNIVERSITIES DEMO");
@@ -1956,7 +2104,21 @@ function InitViewModel() {
                         limits: '',
                         layout: 'horizontal',
                         showWidgetConfiguration: false,
-						help: 'Muestra los países en los que existen Universidades'
+						help: 'Filter by country'
+                    });
+                    templateWidgetsLeft.push({
+                        id: 0,
+                        title: 'Cities',
+                        type: 'tagcloud',
+                        field: 'city',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+						help: 'Filter by city'
                     });
                     configuration.autocomplete.field = "university";
                     self.securityEnabled(false);
@@ -1969,21 +2131,8 @@ function InitViewModel() {
                         //Add map widget
                         widgetMap.render();
 
-                        // // Add results widget
-       //                  self.activeWidgetsRight.push({
-       //                      "id": ko.observable(0),
-       //                      "title": ko.observable(self.lang().results),
-       //                      "type": ko.observable("resultswidget"),
-       //                      "collapsed": ko.observable(false),
-       //                      "layout": ko.observable("vertical"),
-       //                      "showWidgetConfiguration": ko.observable(false),
-							// "help": 'Muestra las Universidades filtradas'
-       //                  });
-
+                        //Add results widget
 						newResultsWidget.render();
-
-                        // Add resultstats widget
-                        self.addResultStatsWidget();
 
                         // Add PieChart sgvizler wigdet
                         self.sgvizlerQuery("SELECT ?university ?students WHERE{ ?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university . ?countryresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/EuropeanCountries> . ?universityresource <http://dbpedia.org/ontology/numberOfStudents> ?students FILTER ( lang(?university) = 'en') } GROUP BY ?university LIMIT 50");
@@ -1998,7 +2147,7 @@ function InitViewModel() {
                             "title": ko.observable("Total Universities"),
                             "type": ko.observable("radialgauge"),
                             "collapsed": ko.observable(false),
-							"help": "Muestra el total de universidades filtradas."
+							"help": "Total universities filtered."
                         });
                         self.numberOfResults.valueHasMutated();                        
                     });
@@ -3008,6 +3157,57 @@ ko.bindingHandlers.visibleAndSelect = {
 			}, 0);
 		}
 	}
+}
+
+//accordion bindingHandlers
+ko.bindingHandlers.accordion = {
+    init: function(element, valueAccessor) {
+        var options = valueAccessor() || {};
+        setTimeout(function() {
+            $(element).accordion({
+            	header: "> h3",
+			    heightStyle: "content",
+			    collapsible: true,
+			}).sortable({
+		        axis: "y",
+		        handle: "h3",
+		        stop: function( event, ui ) {
+		          // IE doesn't register the blur when sorting
+		          // so trigger focusout handlers to remove .ui-state-focus
+		          ui.item.children( "h3" ).triggerHandler( "focusout" );
+		 
+		          // Refresh accordion to handle new order
+		          $( this ).accordion( "refresh" );
+		        }
+		    });
+        }, 0);
+        
+        //handle disposal (if KO removes by the template binding)
+          ko.utils.domNodeDisposal.addDisposeCallback(element, function(){
+              $(element).accordion("destroy");
+          });
+    },
+    update: function(element, valueAccessor) {
+        var options = valueAccessor() || {};
+        if(typeof $(element).data("ui-accordion") != "undefined"){
+			$(element).accordion("destroy").accordion({
+				header: "> h3",
+			    heightStyle: "contentsnt",
+			    collapsible: true,
+			}).sortable({
+		        axis: "y",
+		        handle: "h3",
+		        stop: function( event, ui ) {
+		          // IE doesn't register the blur when sorting
+		          // so trigger focusout handlers to remove .ui-state-focus
+		          ui.item.children( "h3" ).triggerHandler( "focusout" );
+		 
+		          // Refresh accordion to handle new order
+		          $( this ).accordion( "refresh" );
+		        }
+		    });
+		}
+    }
 }
 
 function mySgvizlerQuery(query, id, type) {
