@@ -9,6 +9,8 @@ var eurosentimentResourceNavigatorURL = "http://portal.eurosentiment.eu/lr_navig
 
 // end of configuration
 
+//comentario para probar integracion con github
+
 var queries = [];
 
 var yasqe = YASQE(document.getElementById("yasqe"), {
