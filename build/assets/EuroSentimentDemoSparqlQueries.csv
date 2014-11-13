@@ -1,4 +1,4 @@
-Which resources it links?,Show in demo yes/no,Short name (diplayed in dropbox),Actual SPARQL query Please format it with enters!,Explanation (long explanation to be shown in UI),parameterNumbers,parameters definition,all parameters,which queries to use to get 4th parameter (put the row number -2 ),,
+Which resources it links?,Show in demo yes/no,Short name (diplayed in dropbox),Actual SPARQL query Please format it with enters!,Explanation (long explanation to be shown in UI),parameterNumbers,all parameters,which queries to use to get 4th parameter (put the row number -2 ),paramDefinition,,paramDefinition
 "demosEndpoint, dbpedia",yes,All restaurants in {district},"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
@@ -28,7 +28,7 @@ SERVICE <http://localhost:3030/geo/query> {
 ?d ?p ?o 
 
   FILTER(REGEX(?o, ?desbdt))
-  FILTER(str(?desbdt)=""Salamanca"") 
+  FILTER(str(?desbdt)=""<district>"") 
 
 
     }
@@ -44,13 +44,13 @@ SERVICE <http://localhost:3030/geo/query> {
     }
 
 
-}",Return all restaurants in theselected district,1,district,"Salamanca,
+}",Return all restaurants in theselected district,1,"Salamanca,
 Arganzuela,
 Retiro,
 Chamartín,
 Tetuán,
 Chamberí,
-Usera",,,
+Usera",,district,,district
 ,,Multilingual example,,,,,,,,
 ,,Cross dataset example,,,,,,,,
 ,,...,,,,,,,,
@@ -68,7 +68,7 @@ WHERE{
 GROUP BY ?sentimentURI ?sentiment
 ORDER BY DESC(?occurences)
 LIMIT 10","Configurable template for retrieveing the top 10 sentiment words from a lexicon in the given domain and language.
-Configuration: domain language resource",3,,"electronics ca 0001,
+Configuration: domain language resource",3,"electronics ca 0001,
 electronics en 0002,
 electronics es 0003,
 electronics fr 0004,
@@ -79,7 +79,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012",,,
+hotel pt 0012",,,,
 N/A This query shows data within a processed LR.,,Top sentiments for electronics in Catalan.,"
 PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
@@ -120,7 +120,7 @@ WHERE {
 }
 GROUP BY ?sentimentURI ?sentiment
 ORDER BY DESC(?occurences) limit 10","Configurable template for retrieveing top 10 positive sentiment words based on their occurences in the context of existing domain aspects from a lexicon in the given domain and language.
-Configuration: domain language resource",3,,"electronics ca 0001,
+Configuration: domain language resource",3,"electronics ca 0001,
 electronics en 0002,
 electronics es 0003,
 electronics fr 0004,
@@ -131,7 +131,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012",,,
+hotel pt 0012",,,,
 ,yes,Show top 10 negative sentiments for {domain} in {language},"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT ( count(distinct ?cx) as ?occurences ) ?sentiment ?sentimentURI
@@ -149,7 +149,7 @@ ORDER BY DESC(?occurences)
 LIMIT 10
 ","Configurable template for retrieveing top 10 negative sentiment words based on their occurences in the context of existing domain aspects from a lexicon in the given domain and language.
 Configuration: domain language resource
-",3,,"electronics ca 0001,
+",3,"electronics ca 0001,
 electronics en 0002,
 electronics es 0003,
 electronics fr 0004,
@@ -160,7 +160,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012",,,
+hotel pt 0012",,,,
 ,yes,Show 50 sentiments for various aspects for {domain} in {language},"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT DISTINCT ?domainAspect ?sentiment ?polarityValue 
@@ -180,7 +180,7 @@ WHERE {
 LIMIT 50","Configurable template for retrieveing 50 sentiment words and their related domain aspects from a 
 lexicon in the given domain and language.
 Configuration: domain language resource
-",3,,"electronics ca 0001,
+",3,"electronics ca 0001,
 electronics en 0002,
 electronics es 0003,
 electronics fr 0004,
@@ -191,7 +191,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012",,,
+hotel pt 0012",,,,
 ,yes,Show the domain aspects that are described as {sentimentValue} in {domain} for {language} .,"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT DISTINCT ?domainAspect ?sentiment ?polarityValue
@@ -211,7 +211,7 @@ WHERE {
 ORDER BY DESC(?polarityValue) ","Configurable template for retrieveing the domain aspects that are annotated with a given sentiment from a 
 lexicon in the given domain and language.
 Configuration: domain language resource sentimentValue(s)
-",4,,"electronics ca 0001,
+",4,"electronics ca 0001,
 electronics en 0002,
 electronics es 0003,
 electronics fr 0004,
@@ -222,7 +222,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012","17,18","19,2",
+hotel pt 0012","17,18","19,2",,
 ,yes,Show the sentiments used for a given {aspect} in {doman} for {language}.,"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT DISTINCT ?domainAspect ?sentiment ?polarityValue
@@ -241,7 +241,7 @@ WHERE {
 }
 ORDER BY DESC(?polarityValue) ","Configurable template for retrieveing the sentiment words used to describe a given domain aspect from a 
 lexicon in the given domain and language.
-Configuration: domain language resource aspect(s)",4,,"electronics ca 0001,
+Configuration: domain language resource aspect(s)",4,"electronics ca 0001,
 electronics en 0002,
 electronics es 0003,
 electronics fr 0004,
@@ -252,7 +252,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012",25,27,
+hotel pt 0012",25,27,,
 Wordnet Dbpedia,yes,Show the links to other linked data datasets for a given {aspect} in {domain} for {language},"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT distinct ?domainAspect ?reference 
@@ -264,7 +264,7 @@ WHERE{
     ?sense lemon:reference ?reference .
 }","Configurable template for retrieveing the links to other datasets like DBpedia and Wordnet for a given domain aspect from a 
 lexicon in the given domain and language.
-Configuration: domain language resource aspect(s)",4,,"electronics ca 0001,
+Configuration: domain language resource aspect(s)",4,"electronics ca 0001,
 electronics en 0002,
 electronics es 0003,
 electronics fr 0004,
@@ -275,7 +275,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012",25,27,
+hotel pt 0012",25,27,,
 Wordnet Dbpedia,yes,Show the links to other linked data datasets for a given  {sentimentValue} in {domain} for {language},"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT DISTINCT ?sentimentValue ?reference
@@ -289,7 +289,7 @@ WHERE{
 ","Configurable template for retrieveing the domain aspects that are annotated with a given sentiment from a 
 lexicon in the given domain and language.
 Configuration: domain language resource sentimentValue(s)
-",4,,"electronics ca 0001,
+",4,"electronics ca 0001,
 electronics en 0002,
 electronics es 0003,
 electronics fr 0004,
@@ -300,7 +300,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012","17,18",,
+hotel pt 0012","17,18",,,
 ,,"Show the uris for a given entity, domain and language","PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
@@ -355,7 +355,7 @@ ORDER BY DESC(?occurences)
 LIMIT 10","Configurable template for retrieveing top 10 domain aspects 
 based on how many sentiments are expresed about them from a lexicon in the given domain and language.
 Configuration: {domain} {language} {resource}
-",3,,"electronics ca 0001,
+",3,"electronics ca 0001,
 electronics en 0002,
 electronics es 0003,
 electronics fr 0004,
@@ -366,7 +366,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012",,,
+hotel pt 0012",,,,
 ,,,,,,,,,,
 ,,,,,,,,,,
 ,,,,,,,,,,
@@ -400,7 +400,7 @@ electronics en 0002 RO
 hotel en 0008 DE
 hotel en 0008 ES
 hotel en 0008 IT
-hotel en 0008 RO",5,,"electronics en 0002 DE,
+hotel en 0008 RO",5,"electronics en 0002 DE,
 electronics en 0002 ES,
 electronics en 0002 IT,
 electronics en 0002 RO,
@@ -412,7 +412,7 @@ prefix lb ??
 
 The 4th should be sentiment URI
 
-Is <translatein> the 5th parameter ??"
+Is <translatein> the 5th parameter ??",
 ,,This is q query to get 20 positive sentiments for query 31,"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT ( count(distinct ?cx) as ?occurences ) ?sentiment ?sentimentURI 
@@ -453,14 +453,14 @@ GRAPH <http://www.eurosentiment.eu/dataset/<domain>/<language>/paradigma/<resour
 } limit 20","
 Configurable template for retrieving translations in different languages  for english lexical entries based on the BabelNet connections via the WordNet references.
 
-",4,,"electronics en 0002 DE,
+",4,"electronics en 0002 DE,
 electronics en 0002 ES,
 electronics en 0002 IT,
 electronics en 0002 RO,
 hotel en 0008 DE,
 hotel en 0008 ES,
 hotel en 0008 IT,
-hotel en 0008 RO",,,
+hotel en 0008 RO",,,,
 ,"yes
 ",Show most popular sentiments in TripAdvisor,"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
@@ -504,7 +504,7 @@ SELECT distinct ?ENwrittenRepresentation ?TranslationWrittenRepresentation WHERE
 Configurable template for retrieving translations in different languages
  for english lexical entries based on a machine translation approach.
 
-",2,,"really-comfortable de,
+",2,"really-comfortable de,
 really-comfortable es,
 really-comfortable it,
 very-courteous de,
@@ -521,7 +521,7 @@ very-nicely-decorated es,
 very-nicely-decorated it,
 available-each-morning de,
 available-each-morning es,
-available-each-morning it",,,
+available-each-morning it",,,,
 ,"yes
 ",Show translations of composed words from Amazon lexicon.,"PREFIX lemon: <http://lemon-model.net/lemon#>
 SELECT distinct ?ENwrittenRepresentation ?TranslationWrittenRepresentation WHERE {
@@ -543,7 +543,7 @@ Configurable template for retrieving translations in different languages
  for english lexical entries based on a machine translation approach.
 
 Configuration:
-resource language",2,,"very-flexible de,
+resource language",2,"very-flexible de,
 very-flexible es,
 very-flexible it,
 clear-and-readable de ,
@@ -554,7 +554,7 @@ hard-to-press es,
 hard-to-press it,
 easy-to-read de,
 easy-to-read es,
-easy-to-read it",,,
+easy-to-read it",,,,
 WN affect,"yes
 ",Get WordNet affect emotions for the corpora data.,"select distinct ?text ?emotion from <http://www.eurosentiment.eu/dataset/cars/en/expertsystem/0062/corpus> where {
   ?context <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#isString> ?text.

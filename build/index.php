@@ -29,20 +29,20 @@ if ($user->isLoggedIn()){
 <html lang="es">
 	<!-- head starts -->
 	<head>
-		<script type="text/javascript" src="js/widgets/d3/openStreetMap.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetDonuts.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/accordionWidget.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetMap.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetD3.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetSortBar.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetWheel.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/widgetBarras.js"></script>
-		<script type="text/javascript" src="js/widgets/d3/openLayers.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/newResultsWidget.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/openLayers.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/openStreetMap.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/openlayersMap.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/stockWidget.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetBarras.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetD3.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetDonuts.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetMap.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetSortBar.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/widgetWheel.js"></script>
 		<script type="text/javascript">
-			var widgetX = [openStreetMap, widgetDonuts, accordionWidget, widgetMap, widgetD3, widgetSortBar, widgetWheel, widgetBarras, openLayers, newResultsWidget, openlayersMap, stockWidget];
+			var widgetX = [accordionWidget, newResultsWidget, openLayers, openStreetMap, openlayersMap, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
 		</script>
 		<meta charset="utf-8" />
 		<title>SEFARAD</title>
@@ -316,27 +316,32 @@ function populateTemplateWithDynamicParams(queryTemplate, selectedParameter) {
     return queryTemplate;
 }
 
-function populateTemplateWithStaticParams(queryTemplate, selectedParameters, paramNo) {
-    var parameterValues = selectedParameters.trim().split(/\s+/);
-    
+function populateTemplateWithStaticParams(queryTemplate, paramDefinition, selectedParameters, paramNo) {
 
+    var parameterValues = selectedParameters.trim().split(/\s+/);
+    var parameterDefs = paramDefinition.trim().split(/\s+/);
 
 
     //This code is extremely horrible
-    if (parameterValues.length == 1) {
-        queryTemplate = queryTemplate.replace(/<domain>/g, parameterValues[0]);
-    } else if (parameterValues.length == 2) {
-        queryTemplate = queryTemplate.replace(/<domain>/g, parameterValues[0]);
-        queryTemplate = queryTemplate.replace(/<language>/g, parameterValues[1]);
-    } else if (parameterValues.length == 3 || parameterValues.length == 4) {
-        queryTemplate = queryTemplate.replace(/<domain>/g, parameterValues[0]);
-        queryTemplate = queryTemplate.replace(/<language>/g, parameterValues[1]);
-        queryTemplate = queryTemplate.replace(/<resource>/g, parameterValues[2]);
-        if (parameterValues.length == 4) {
-            queryTemplate = queryTemplate.replace(/<translatein>/g, parameterValues[3]);
-        }
+    //if (parameterValues.length == 1) {
+    //    queryTemplate = queryTemplate.replace(/<domain>/g, parameterValues[0]);
+    //} else if (parameterValues.length == 2) {
+    //    queryTemplate = queryTemplate.replace(/<domain>/g, parameterValues[0]);
+    //    queryTemplate = queryTemplate.replace(/<language>/g, parameterValues[1]);
+    //} else if (parameterValues.length == 3 || parameterValues.length == 4) {
+    //    queryTemplate = queryTemplate.replace(/<domain>/g, parameterValues[0]);
+    //    queryTemplate = queryTemplate.replace(/<language>/g, parameterValues[1]);
+    //    queryTemplate = queryTemplate.replace(/<resource>/g, parameterValues[2]);
+    //    if (parameterValues.length == 4) {
+    //        queryTemplate = queryTemplate.replace(/<translatein>/g, parameterValues[3]);
+    //    }
+    //}
+
+    for (i = 0; i < parameterDefs.length; i++) {
+        var re = new RegExp("<" + parameterDefs[i] + ">", "g");
+        queryTemplate = queryTemplate.replace(re, parameterValues[i]);
+        return queryTemplate;
     }
-    return queryTemplate;
 }
 
 $("#queryButton button").click(function(e) {
@@ -352,6 +357,7 @@ $("#queryName").change(function() {
     var description = query.description;
     var allParamsValue = query.allParams;
     var queryTemplate = query.queryTemplate.trim();
+    var paramDefinition = query.paramDefinition;
 
 
     // put template query into the box
@@ -373,7 +379,8 @@ $("#allParams").change(function() {
     var queryTemplate = query.queryTemplate.trim();
     var paramNo = query.paramNo
     var selectedParameters = $("#allParams").val();
-    queryTemplate = populateTemplateWithStaticParams(queryTemplate, selectedParameters, paramNo);
+    var paramDefinition = query.paramDefinition;
+    queryTemplate = populateTemplateWithStaticParams(queryTemplate, paramDefinition, selectedParameters, paramNo);
     yasqe.setValue(queryTemplate);
 
     if (paramNo != 4 && paramNo != 5) {
@@ -386,7 +393,7 @@ $("#allParams").change(function() {
         var dynamicQueryNo = parseInt(queryForDynamicParameter[0], 10);
         var dynamicQuery = queries[dynamicQueryNo].queryTemplate;
         // here take the static params and populate the query template 
-        dynamicQuery = populateTemplateWithStaticParams(dynamicQuery, selectedParameters, paramNo);
+        dynamicQuery = populateTemplateWithStaticParams(dynamicQuery, paramDefinition, selectedParameters, paramNo);
 
 
         // here fire the ajax query and populate the dynamicParam select 
@@ -431,7 +438,8 @@ $("#dynamicParam").change(function() {
     var paramNo = query.paramNo
     var selectedParameters = $("#allParams").val();
     var selectedDynamicParam = $("#dynamicParam").val();
-    queryTemplate = populateTemplateWithStaticParams(queryTemplate, selectedParameters, paramNo);
+    var paramDefinition = query.paramDefinition;
+    queryTemplate = populateTemplateWithStaticParams(queryTemplate, paramDefinition, selectedParameters, paramNo);
     queryTemplate = populateTemplateWithDynamicParams(queryTemplate, selectedDynamicParam);
     yasqe.setValue(queryTemplate);
 });
@@ -466,7 +474,8 @@ Papa.parse(
                     description: json.data[i][4],
                     paramNo: paramNo,
                     allParams: json.data[i][6],
-                    queryForDynamicParameter: json.data[i][7]
+                    queryForDynamicParameter: json.data[i][7],
+                    paramDefinition: json.data[i][8]
                 });
             }
 
