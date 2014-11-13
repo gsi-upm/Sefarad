@@ -12,7 +12,7 @@ function sparqlToGeoJSON(sparqlJSON) {
                 for (var key in sparqlJSON[bindingindex]){                        
                                                
                 //for (varindex = 0; varindex < sparqlJSON.head.vars.length; ++varindex) {
-                        if ((sparqlJSON[bindingindex][key].datatype != undefined) && (sparqlJSON[bindingindex][key].datatype() === "http://www.opengis.net/ont/geosparql#wktLiteral" || sparqlJSON[bindingindex][key].datatype() === "http://www.openlinksw.com/schemas/virtrdf#Geometry")) {
+                        if ((sparqlJSON[bindingindex][key].datatype != undefined) && (sparqlJSON[bindingindex][key].datatype() === "http://www.opengis.net/ont/geosparql#wktLiteral" || sparqlJSON[bindingindex][key].datatype() === "http://www.opengis.net/ont/sf#wktLiteral" || sparqlJSON[bindingindex][key].datatype() === "http://www.openlinksw.com/schemas/virtrdf#Geometry")) {
                                 //assumes the well-known text is valid!
                                 wkt = sparqlJSON[bindingindex][key].value();
 
@@ -22,6 +22,7 @@ function sparqlToGeoJSON(sparqlJSON) {
                                 coordinates = "[" + coordinates.split("(").join("[");
                                 //replace ) by ] and add extra ]
                                 coordinates = coordinates.split(")").join("]") + "]";
+                                coordinates = coordinates.split(", ").join(",");
                                 //replace , by ],[
                                 coordinates = coordinates.split(",").join("],[");
                                 //replace spaces with ,
@@ -45,11 +46,11 @@ function sparqlToGeoJSON(sparqlJSON) {
                                         case /MULTILINE*/.test(wkt.substr(0, wkt.indexOf("("))):
                                                 geometryType = "MultiLine";
                                                 break;
+                                        case /MULTIPOLYGON*/.test(wkt.substr(0, wkt.indexOf("("))):
+                                            geometryType = "MultiPolygon";
+                                            break;
                                         case /POLYGON*/.test(wkt.substr(0, wkt.indexOf("("))):
                                                 geometryType = "Polygon";
-                                                break;
-                                        case /MULTIPOLYGON*/.test(wkt.substr(0, wkt.indexOf("("))):
-                                                geometryType = "MultiPolygon";
                                                 break;
                                         case /GEOMETRYCOLLECTION*/.test(wkt.substr(0, wkt.indexOf("("))):
                                                 geometryType = "GeometryCollection";

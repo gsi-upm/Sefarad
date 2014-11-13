@@ -50,7 +50,7 @@ var openLayers = {
         var geojson = new Object();
         //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
         geojson = sparqlToGeoJSON(vm.filteredData());
-        //console.log(geojson);
+        //console.log(JSON.stringify(geojson));
 
         //Create the map div
         var map_div = div.append("div")
@@ -59,11 +59,15 @@ var openLayers = {
        
         layersmap = new OpenLayers.Map('layersmap');
 
-        layer = new OpenLayers.Layer.WMS("OpenLayers WMS",
-            "http://vmap0.tiles.osgeo.org/wms/vmap0", {
-                layers: 'basic'
-            });
-        layersmap.addLayer(layer);
+        //OpenStreetMap
+        osm = new OpenLayers.Layer.OSM("");
+        layersmap.addLayer(osm);
+
+        //layer = new OpenLayers.Layer.WMS("OpenLayers WMS",
+        //    "http://vmap0.tiles.osgeo.org/wms/vmap0", {
+        //        layers: 'basic'
+        //    });
+        //layersmap.addLayer(layer);
         
         var geojson_format = new OpenLayers.Format.GeoJSON();
         var vector_layer = new OpenLayers.Layer.Vector();

@@ -775,8 +775,9 @@ function InitViewModel() {
 
 	self.getResultsSPARQLRestaurants = function () {
 			
-		var restaurants_query = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo: <http://www.opengis.net/ont/geosparql#> PREFIX geof: <http://www.opengis.net/def/function/geosparql/> PREFIX gnis: <http://sefarad.gsi.dit.upm.es/rdf/gnis/> PREFIX gp: <http://sefarad.gsi.dit.upm.es/rdf/gp/>  PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#> SELECT  * WHERE  { ?s gp:price ?price . ?s gp:address ?address. ?s gp:reservations ?reservations . ?s gp:takeout ?takeout . ?s gp:foodtype ?foodtype . ?s gp:stars ?stars . ?s gp:district ?district .   ?s wgs84_pos:latitude ?latitude  . ?s wgs84_pos:longitude ?longitude  } ' ;		
-		var temporal = 'http://alpha.gsi.dit.upm.es:3030/geo/query?query=' + encodeURIComponent(restaurants_query);
+		//var restaurants_query = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo: <http://www.opengis.net/ont/geosparql#> PREFIX geof: <http://www.opengis.net/def/function/geosparql/> PREFIX gnis: <http://sefarad.gsi.dit.upm.es/rdf/gnis/> PREFIX gp: <http://sefarad.gsi.dit.upm.es/rdf/gp/>  PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#> SELECT  * WHERE  { ?s gp:price ?price . ?s gp:address ?address. ?s gp:reservations ?reservations . ?s gp:takeout ?takeout . ?s gp:foodtype ?foodtype . ?s gp:stars ?stars . ?s gp:district ?district .   ?s wgs84_pos:latitude ?latitude  . ?s wgs84_pos:longitude ?longitude  } ' ;
+        var restaurants_query = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo: <http://www.opengis.net/ont/geosparql#> PREFIX geof: <http://www.opengis.net/def/function/geosparql/> PREFIX gnis: <http://smartopendata.gsi.dit.upm.es/rdf/gnis/> PREFIX gu: <http://smartopendata.gsi.dit.upm.es/rdf/gu/> PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX dbpedia-owl: <http://dbpedia.org/property/> prefix text: <http://jena.apache.org/text#> PREFIX gp: <http://sefarad.gsi.dit.upm.es/rdf/gp/> SELECT * WHERE { SERVICE <http://localhost:3030/books/query> { ?res geo:hasGeometry ?fGeom . ?fGeom geo:asWKT ?fWKT . ?res gu:GEOCODIGO ?geocodigo . ?res gu:DESBDT ?desbdt . ?res owl:sameAs ?dbpediaLink . } SERVICE <http://localhost:3030/geo/query> { ?d ?p ?o FILTER(REGEX(?o, ?desbdt)) } SERVICE <http://localhost:3030/geo/query> { ?d gp:price ?price . ?d gp:foodtype ?foodtype . ?d gp:stars ?stars . ?d gp:takeout ?takeout . ?d gp:reservations ?reservations . ?d wgs84_pos:latitude ?latitude  . ?d wgs84_pos:longitude ?longitude} }';
+        var temporal = 'http://alpha.gsi.dit.upm.es:3030/geo/query?query=' + encodeURIComponent(restaurants_query);
 	    var req = new XMLHttpRequest();
 	    req.open("GET", temporal, true);
 	    var params = encodeURIComponent(restaurants_query);
@@ -788,7 +789,7 @@ function InitViewModel() {
 	    req.onreadystatechange = function() {
 	        if (req.readyState == 4){
 	            if (req.status == 200) {
-				    
+				    //console.log(req.responseText);
 	            	var res = eval ("(" + req.responseText + ")");
 	                var data = JSON.stringify(res.results.bindings);
 					ko.mapping.fromJSON(data, self.viewData);
@@ -1961,10 +1962,10 @@ function InitViewModel() {
                     configuration.template.pageTitle = "Restaurants Demo";
 
 					templateWidgetsLeft.push({
-                        id: 2,
+                        id: 1,
                         title: 'District',
                         type: 'tagcloud',
-                        field: 'district',
+                        field: 'desbdt',
                         collapsed: false,
                         query: '',
                         value: [],
@@ -1991,7 +1992,7 @@ function InitViewModel() {
                     });	
 
 					 templateWidgetsLeft.push({
-                        id: 1,
+                        id: 3,
                         title: 'Rating',
                         type: 'tagcloud',
                         field: 'stars',
@@ -2005,50 +2006,50 @@ function InitViewModel() {
 						help: 'Restaurants rating'
                     });
 
-					 // templateWidgetsLeft.push({
-      //                   id: 0,
-      //                   title: 'FoodType',
-      //                   type: 'tagcloud',
-      //                   field: 'foodtype',
-      //                   collapsed: false,
-      //                   query: '',
-      //                   value: [],
-      //                   values: [],
-      //                   limits: '',
-      //                   layout: 'horizontal',
-      //                   showWidgetConfiguration: false,
-						// help: 'Different food types'
-      //               });				 
+					 templateWidgetsLeft.push({
+                         id: 4,
+                         title: 'FoodType',
+                         type: 'tagcloud',
+                         field: 'foodtype',
+                         collapsed: false,
+                         query: '',
+                         value: [],
+                         values: [],
+                         limits: '',
+                         layout: 'horizontal',
+                         showWidgetConfiguration: false,
+						help: 'Different food types'
+                     });
 					
-					 // templateWidgetsLeft.push({
-      //                   id: 2,
-      //                   title: 'Reservations',
-      //                   type: 'tagcloud',
-      //                   field: 'reservations',
-      //                   collapsed: false,
-      //                   query: '',
-      //                   value: [],
-      //                   values: [],
-      //                   limits: '',
-      //                   layout: 'horizontal',
-      //                   showWidgetConfiguration: false,
-						// help: 'Reservations'
-      //               });
-					
-					 // templateWidgetsLeft.push({
-      //                   id: 2,
-      //                   title: 'Take-out',
-      //                   type: 'tagcloud',
-      //                   field: 'takeout',
-      //                   collapsed: false,
-      //                   query: '',
-      //                   value: [],
-      //                   values: [],
-      //                   limits: '',
-      //                   layout: 'horizontal',
-      //                   showWidgetConfiguration: false,
-						// help: 'Take-out possibility'
-      //               });					
+					 templateWidgetsLeft.push({
+                         id: 5,
+                         title: 'Reservations',
+                         type: 'tagcloud',
+                         field: 'reservations',
+                         collapsed: false,
+                         query: '',
+                         value: [],
+                         values: [],
+                         limits: '',
+                         layout: 'horizontal',
+                         showWidgetConfiguration: false,
+						help: 'Reservations'
+                     });
+
+                    templateWidgetsLeft.push({
+                         id: 6,
+                         title: 'Take-out',
+                         type: 'tagcloud',
+                         field: 'takeout',
+                         collapsed: false,
+                         query: '',
+                         value: [],
+                         values: [],
+                         limits: '',
+                         layout: 'horizontal',
+                         showWidgetConfiguration: false,
+						help: 'Take-out possibility'
+                     });
 					
                     configuration.autocomplete.field = "district";
                     self.securityEnabled(true);
@@ -2058,16 +2059,17 @@ function InitViewModel() {
 
                     //Adding widgets
                     $(window).load(function () {
+
+                        //Add openlayers map
+                        openLayers.render();
                     	
                         //Add map widget
                         widgetMap.render();
 
                         //Add results table
-                        newResultsWidget.render();
+                        //newResultsWidget.render();
 
-                        resultsTable.column(0).visible(false);
-                        resultsTable.column(8).visible(false);
-                        resultsTable.column(9).visible(false);
+
 
                         self.numberOfResults.valueHasMutated();                       
                     });
