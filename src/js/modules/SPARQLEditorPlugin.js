@@ -83,7 +83,7 @@ function populateParametersSelect(allParamValues) {
     }
 }
 
-function populateTemplateWithDynamicParams(queryTemplate, selectedParameter) {
+function populateQueryWithDynamicParams(queryTemplate, selectedParameter) {
     queryTemplate = queryTemplate.replace(/<sentimentValue>|<aspect>/g, selectedParameter);
     return queryTemplate;
 }
@@ -91,17 +91,17 @@ function populateTemplateWithDynamicParams(queryTemplate, selectedParameter) {
 //This function takes a list of parameter names and another list of parameters values.
 //Then looks for every parameter name in the query code and replace it with its parameter value.
 //parameterValues is a string containing all parameters values selected one after another ex:["Salamanca, queso, barato]
-function populateTemplateWithStaticParams(query, parameterDefinitions, parameterValues, paramNo) {
+function populateQueryWithStaticParams(query, parameterNames, parameterValues, paramNo) {
 
     var pValues = parameterValues.trim().split(/\s+/);
-    var pDefinitions = parameterDefinitions.trim().split(/\s+/);
+    var pNames = parameterNames.trim().split(/\s+/);
 
 
-    for (i = 0; i < pDefinitions.length; i++) {
-        var re = new RegExp("<" + pDefinitions[i] + ">", "g");
+    for (i = 0; i < pNames.length; i++) {
+        var re = new RegExp("<" + pNames[i] + ">", "g");
         query = query.replace(re, pValues[i]);
-        return query;
     }
+    return query;
 }
 
 $("#queryButton button").click(function(e) {
@@ -117,7 +117,7 @@ $("#queryName").change(function() {
     var description = query.description;
     var allParamsValue = query.allParams;
     var queryTemplate = query.queryTemplate.trim();
-    var paramDefinition = query.paramDefinition;
+    var paramDefinition = query.paramNames;
 
 
     // put template query into the box
@@ -139,8 +139,8 @@ $("#allParams").change(function() {
     var queryTemplate = query.queryTemplate.trim();
     var paramNo = query.paramNo
     var selectedParameters = $("#allParams").val();
-    var paramDefinition = query.paramDefinition;
-    queryTemplate = populateTemplateWithStaticParams(queryTemplate, paramDefinition, selectedParameters, paramNo);
+    var paramDefinition = query.paramNames;
+    queryTemplate = populateQueryWithStaticParams(queryTemplate, paramDefinition, selectedParameters, paramNo);
     yasqe.setValue(queryTemplate);
 
     if (paramNo != 4 && paramNo != 5) {
@@ -153,7 +153,7 @@ $("#allParams").change(function() {
         var dynamicQueryNo = parseInt(queryForDynamicParameter[0], 10);
         var dynamicQuery = queries[dynamicQueryNo].queryTemplate;
         // here take the static params and populate the query template 
-        dynamicQuery = populateTemplateWithStaticParams(dynamicQuery, paramDefinition, selectedParameters, paramNo);
+        dynamicQuery = populateQueryWithStaticParams(dynamicQuery, paramDefinition, selectedParameters, paramNo);
 
 
         // here fire the ajax query and populate the dynamicParam select 
@@ -198,9 +198,9 @@ $("#dynamicParam").change(function() {
     var paramNo = query.paramNo
     var selectedParameters = $("#allParams").val();
     var selectedDynamicParam = $("#dynamicParam").val();
-    var paramDefinition = query.paramDefinition;
-    queryTemplate = populateTemplateWithStaticParams(queryTemplate, paramDefinition, selectedParameters, paramNo);
-    queryTemplate = populateTemplateWithDynamicParams(queryTemplate, selectedDynamicParam);
+    var paramDefinition = query.paramNames;
+    queryTemplate = populateQueryWithStaticParams(queryTemplate, paramDefinition, selectedParameters, paramNo);
+    queryTemplate = populateQueryWithDynamicParams(queryTemplate, selectedDynamicParam);
     yasqe.setValue(queryTemplate);
 });
 
@@ -235,7 +235,7 @@ Papa.parse(
                     paramNo: paramNo,
                     allParams: json.data[i][6],
                     queryForDynamicParameter: json.data[i][7],
-                    paramDefinition: json.data[i][8]
+                    paramNames: json.data[i][8]
                 });
             }
 
