@@ -90,8 +90,8 @@ function populateQueryWithDynamicParams(queryTemplate, selectedParameter) {
 
 //This function takes a list of parameter names and another list of parameters values.
 //Then looks for every parameter name in the query code and replace it with its parameter value.
-//parameterValues is a string containing all parameters values selected one after another ex:["Salamanca, queso, barato]
-function populateQueryWithStaticParams(query, parameterNames, parameterValues, paramNo) {
+//parameterValues is a string containing all parameters values selected one after another ex:["Salamanca queso barato]
+function populateQueryWithStaticParams(query, parameterNames, parameterValues) {
 
     var pValues = parameterValues.trim().split(/\s+/);
     var pNames = parameterNames.trim().split(/\s+/);
@@ -153,7 +153,7 @@ $("#allParams").change(function() {
         var dynamicQueryNo = parseInt(queryForDynamicParameter[0], 10);
         var dynamicQuery = queries[dynamicQueryNo].queryTemplate;
         // here take the static params and populate the query template 
-        dynamicQuery = populateQueryWithStaticParams(dynamicQuery, paramDefinition, selectedParameters, paramNo);
+        dynamicQuery = populateQueryWithStaticParams(dynamicQuery, paramDefinition, selectedParameters);
 
 
         // here fire the ajax query and populate the dynamicParam select 
@@ -199,7 +199,7 @@ $("#dynamicParam").change(function() {
     var selectedParameters = $("#allParams").val();
     var selectedDynamicParam = $("#dynamicParam").val();
     var paramDefinition = query.paramNames;
-    queryTemplate = populateQueryWithStaticParams(queryTemplate, paramDefinition, selectedParameters, paramNo);
+    queryTemplate = populateQueryWithStaticParams(queryTemplate, paramDefinition, selectedParameters);
     queryTemplate = populateQueryWithDynamicParams(queryTemplate, selectedDynamicParam);
     yasqe.setValue(queryTemplate);
 });
@@ -212,19 +212,21 @@ $(document).on("click", "a.uri", function(e) {
     }
 })
 
-
+//This function parse the csv table to take its data. Retrieves everything except the actual parameters values,
+//cause they can grow in numbers at unknown amount (so we take them later, once we know how many are they).
 Papa.parse(
     googleSpreadsheetURI, {
         download: true,
-        complete: function(json) {
+        complete: function (json) {
             // here populate the list from the json data
             var paramNo;
             for (var i = 1; i < json.data.length; i++) {
-
+                //How many params?
                 paramNo = 0;
                 try {
                     paramNo = parseInt(json.data[i][5], 10);
-                } catch (e) {}
+                } catch (e) {
+                }
 
                 queries.push({
                     linkedResources: json.data[i][0],
@@ -233,18 +235,20 @@ Papa.parse(
                     queryTemplate: json.data[i][3],
                     description: json.data[i][4],
                     paramNo: paramNo,
-                    allParams: json.data[i][6],
-                    queryForDynamicParameter: json.data[i][7],
-                    paramNames: json.data[i][8]
+                    paramNames: json.data[i][6]
                 });
+                //Here we add a variable number of parameter rows, each with its values
+                for (var j = 0; j < paramNo; j++) {
+                    queries[i]["param" + j] = json.data[i][7 + j];
+                }
             }
 
-            var query;
-
+            //Here we populate the query form selector with query names
+            var queryAux;
             for (i = 0; i < queries.length; i++) {
-                query = queries[i];
-                if (query.showInDemo == "yes") {
-                    $("#queryName").append('<option value="' + i + '">' + query.name + "</option>");
+                queryAux = queries[i];
+                if (queryAux.showInDemo == "yes") {
+                    $("#queryName").append('<option value="' + i + '">' + queryAux.name + "</option>");
                     //$("#queryName").append('<option value="'+i+'">'+ (i+2) +" "+query.name+"</option>");
                 }
             }
