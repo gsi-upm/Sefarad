@@ -17,7 +17,7 @@ if ($user->isLoggedIn()){
 		}
 		else {
 			$errorMessage = "Try again";
-		}	
+		}
 	} else {
 		$errorMessage = NULL;
 	}
@@ -435,8 +435,8 @@ if ($user->isLoggedIn()){
 									</tr>								
 								</table>								
 							<div  id="search-container" align="center">
-								<div >									
-									<!-- es el form el que da estilo al input -->
+                                    <div >
+                                    <!-- es el form el que da estilo al input -->
 									<!-- ko if: $root.sparql -->
 									<input style="background-color:#fff;border:none;color:#000;font-size:.95em;height:24px;;padding:0 0 0 
 										0px;position:relative;width:300px;" id="query" size="80" 

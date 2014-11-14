@@ -17,7 +17,7 @@ if ($user->isLoggedIn()){
 		}
 		else {
 			$errorMessage = "Try again";
-		}	
+		}
 	} else {
 		$errorMessage = NULL;
 	}
@@ -336,8 +336,8 @@ $("#querySelector").change(function() {
 
 });
 
-var onSelectorChange = function (selectorId){
-    console.log("selectorOnChange for selector with id: " + selectorId);
+var onSelectorChange = function (selectorOrder){
+    console.log("selectorOnChange for selector with order: " + selectorOrder);
 
     // update the query template using selected parameters
     var i = $("#querySelector").val();
@@ -353,15 +353,16 @@ var onSelectorChange = function (selectorId){
     for (var i = 0; i < paramNo; i++) {
        if($("#selector"+i).val() == "")
        {
-           selectedParameters += "<"+pNames[i]+"> "
+           selectedParameters += "<"+pNames[i]+"> ";
            console.log("empty parameter");
 
        }
        else
        {
-           console.log("value selected");
-           var value = query['param'+i].split(",");
-           selectedParameters += (value[selectorId]+" ");
+           console.log("value selected: "+ document.getElementById("selector"+i).value);
+           //var values = query['param'+i].split(",");
+
+           selectedParameters += (document.getElementById("selector"+i).value + " ");
        }
 
     }
@@ -734,8 +735,8 @@ Papa.parse(
 									</tr>								
 								</table>								
 							<div  id="search-container" align="center">
-								<div >									
-									<!-- es el form el que da estilo al input -->
+                                    <div >
+                                    <!-- es el form el que da estilo al input -->
 									<!-- ko if: $root.sparql -->
 									<input style="background-color:#fff;border:none;color:#000;font-size:.95em;height:24px;;padding:0 0 0 
 										0px;position:relative;width:300px;" id="query" size="80" 

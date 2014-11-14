@@ -123,8 +123,8 @@ $("#querySelector").change(function() {
 
 });
 
-var onSelectorChange = function (selectorId){
-    console.log("selectorOnChange for selector with id: " + selectorId);
+var onSelectorChange = function (selectorOrder){
+    console.log("selectorOnChange for selector with order: " + selectorOrder);
 
     // update the query template using selected parameters
     var i = $("#querySelector").val();
@@ -140,15 +140,16 @@ var onSelectorChange = function (selectorId){
     for (var i = 0; i < paramNo; i++) {
        if($("#selector"+i).val() == "")
        {
-           selectedParameters += "<"+pNames[i]+"> "
+           selectedParameters += "<"+pNames[i]+"> ";
            console.log("empty parameter");
 
        }
        else
        {
-           console.log("value selected");
-           var value = query['param'+i].split(",");
-           selectedParameters += (value[selectorId]+" ");
+           console.log("value selected: "+ document.getElementById("selector"+i).value);
+           //var values = query['param'+i].split(",");
+
+           selectedParameters += (document.getElementById("selector"+i).value + " ");
        }
 
     }

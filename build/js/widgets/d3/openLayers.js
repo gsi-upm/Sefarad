@@ -1,7 +1,7 @@
 // Openlayers Map widget
 var openLayers = {
     // Widget name.
-    name: "Layers Map",
+    name: "Open Street Map",
     // Widget description.
     description: "An Openlayers Map that shows shapes info",
     // Path to the image of the widget.
@@ -45,31 +45,55 @@ var openLayers = {
         var div = d3.select('#' + id);
         div.attr("align", "center");
 
+        //Elements for showing
+        if (vm.sparql) {
+            var data = vm.filteredData();
+        } else {
+            var data = vm.filteredData();
+        }
+
         //Update filtered polygons
         var geometries = new Array();
         var geojson = new Object();
         //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
         geojson = sparqlToGeoJSON(vm.filteredData());
-        //console.log(geojson);
+        //console.log(JSON.stringify(geojson));
 
         //Create the map div
         var map_div = div.append("div")
             .attr("id", "layersmap")
-            .attr("style", "height:400px"); 
-       
+            .attr("style", "height:400px");
+
         layersmap = new OpenLayers.Map('layersmap');
 
-        layer = new OpenLayers.Layer.WMS("OpenLayers WMS",
-            "http://vmap0.tiles.osgeo.org/wms/vmap0", {
-                layers: 'basic'
-            });
-        layersmap.addLayer(layer);
-        
+        //OpenStreetMap
+        osm = new OpenLayers.Layer.OSM("");
+        layersmap.addLayer(osm);
+
+        //BasicLayer
+        //layer = new OpenLayers.Layer.WMS("OpenLayers WMS",
+        //    "http://vmap0.tiles.osgeo.org/wms/vmap0", {
+        //        layers: 'basic'
+        //    });
+        //layersmap.addLayer(layer);
+
+        var markers = new OpenLayers.Layer.Markers( "Markers" );
+        var size = new OpenLayers.Size(21,25);
+        var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+        var icon = new OpenLayers.Icon('http://dev.openlayers.org/img/marker.png',size,offset);
+
+        $.each(data, function(index, item) {
+            markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.longitude.value(), item.latitude.value()).transform('EPSG:4326', 'EPSG:3857'),icon.clone()));
+        });
+
+        layersmap.addLayer(markers);
+
         var geojson_format = new OpenLayers.Format.GeoJSON();
         var vector_layer = new OpenLayers.Layer.Vector();
         layersmap.addLayer(vector_layer);
         vector_layer.addFeatures(geojson_format.read(geojson));
-        layersmap.zoomToExtent(vector_layer.getDataExtent());
+        layersmap.zoomToExtent(markers.getDataExtent());
+        layersmap.zoomToExtent(markers.getDataExtent());
     }
 
 };
@@ -77,4 +101,3 @@ var openLayers = {
 // Openlayers Map variables
 var layersmap;
 var layer;
-var polygons_filtered;
