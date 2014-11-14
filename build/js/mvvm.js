@@ -2062,14 +2062,9 @@ function InitViewModel() {
 
                         //Add openlayers map
                         openLayers.render();
-                    	
-                        //Add map widget
-                        widgetMap.render();
 
                         //Add results table
-                        //newResultsWidget.render();
-
-
+                        newResultsWidget.render();
 
                         self.numberOfResults.valueHasMutated();                       
                     });

@@ -2,12 +2,13 @@
 //-----------------------------------------------------------------------------------------
 
 //configuration
+
 var eurosentimentEndpointURI = "http://146.148.28.139/eurosentiment/sparql-endpoint";
 var googleSpreadsheetURI = "assets/EuroSentimentDemoSparqlQueries.csv";
-var eurosentimentResourceNavigatorURLPrefix = "http://www.eurosentiment.eu/dataset/"; // if urls in the sparql results starts with such prefix
-var eurosentimentResourceNavigatorURL = "http://portal.eurosentiment.eu/lr_navigator_demo"; // then later on click they will point to this navigator
-
-// end of configuration
+// if urls in the sparql results starts with such prefix
+var eurosentimentResourceNavigatorURLPrefix = "http://www.eurosentiment.eu/dataset/";
+// then later on click they will point to this navigator
+var eurosentimentResourceNavigatorURL = "http://portal.eurosentiment.eu/lr_navigator_demo";
 
 var queries = [];
 
@@ -18,22 +19,19 @@ var yasqe = YASQE(document.getElementById("yasqe"), {
         endpoint: "http://dbpedia.org/sparql"
     }
 });
-
 var yasr = YASR(document.getElementById("yasr"), {
     //this way, the URLs in the results are prettified using the defined prefixes in the query
     getUsedPrefixes: yasqe.getPrefixesFromQuery
 });
-
-/**
-* Set some of the hooks to link YASR and YASQE
-*/
 yasr.setResponse({
     response: self.viewData    
 });
 
+// end of configuration
 
-//Query function:
-function demoQuery () {
+
+//ExecuteQuery function. Still not generalized, it takes 2restaurants" info from our endpoint at gsi's alpha
+function executeQuery () {
 
     var restaurants_query = yasqe.getValue().replace(/(\r\n|\n|\r)/gm,"");    
     console.log(restaurants_query);   
@@ -64,24 +62,7 @@ function demoQuery () {
     return false;
 };
 
-function populateParametersSelect(allParamValues) {
-    var id = "#allParams";
 
-    if (!allParamValues || allParamValues == "") {
-        $(id).hide();
-        $("#dynamicParam").hide();
-        return;
-    }
-
-    $(id).empty().show();
-
-    var params = allParamValues.split(",");
-    $(id).append('<option value="">choose parameters</option>');
-
-    for (var i = 0; i < params.length; i++) {
-        $(id).append('<option value="' + params[i].trim() + '">' + params[i].trim() + "</option>");
-    }
-}
 
 function populateQueryWithDynamicParams(queryTemplate, selectedParameter) {
     queryTemplate = queryTemplate.replace(/<sentimentValue>|<aspect>/g, selectedParameter);
@@ -90,8 +71,8 @@ function populateQueryWithDynamicParams(queryTemplate, selectedParameter) {
 
 //This function takes a list of parameter names and another list of parameters values.
 //Then looks for every parameter name in the query code and replace it with its parameter value.
-//parameterValues is a string containing all parameters values selected one after another ex:["Salamanca, queso, barato]
-function populateQueryWithStaticParams(query, parameterNames, parameterValues, paramNo) {
+//parameterValues is a string containing all parameters values selected one after another ex:["Salamanca queso barato]
+function populateQueryWithStaticParams(query, parameterNames, parameterValues) {
 
     var pValues = parameterValues.trim().split(/\s+/);
     var pNames = parameterNames.trim().split(/\s+/);
@@ -106,39 +87,54 @@ function populateQueryWithStaticParams(query, parameterNames, parameterValues, p
 
 $("#queryButton button").click(function(e) {
     e.preventDefault();
-    demoQuery();
-    //yasqe.query();
+    executeQuery();
 });
 
-$("#queryName").change(function() {
+$("#querySelector").change(function() {
     // update param list 
-    var i = $("#queryName").val();
+    var i = $("#querySelector").val();
     var query = queries[i];
+    var paramNo = query.paramNo;
     var description = query.description;
-    var allParamsValue = query.allParams;
     var queryTemplate = query.queryTemplate.trim();
     var paramDefinition = query.paramNames;
 
 
-    // put template query into the box
+    //put template query into the box (without replacing the parameters in the text)
     yasqe.setValue(queryTemplate);
     $("#description").text(description);
 
-    $("#allParam").hide();
-    $("#dynamicParam").hide();
+    //Create as many selectors as params for the selected query
+    $("#paramSelector").empty();
+    for (var i = 0; i < paramNo; i++) {
+        $("#paramSelector").append("<select class=Selector id=selector"+i+">");
 
-    // populate paramete select 
-    populateParametersSelect(allParamsValue);
+        //populate the selector with its parameter values
+        populateParametersSelector("#selector"+i, query["param"+i]);
+    }
 
 });
 
-$("#allParams").change(function() {
+//Receives the id of the selector and populate it with the values of the corresponding parameter
+function populateParametersSelector(id, values) {
+
+    values = values.split(",");
+
+    $(id).append('<option value="">choose parameters</option>');
+    for (var i = 0; i < values.length; i++) {
+        $(id).append('<option value="' + values[i].trim() + '">' + values[i].trim() + "</option>");
+    }
+}
+
+
+//This doesn't work
+$(".Selector").change(function() {
     // update the query template using selected parameters 
-    var i = $("#queryName").val();
+    var i = $("#querySelector").val();
     var query = queries[i];
     var queryTemplate = query.queryTemplate.trim();
-    var paramNo = query.paramNo
-    var selectedParameters = $("#allParams").val();
+    var paramNo = query.paramNo;
+    var selectedParameters = $("#paramSelector").val();
     var paramDefinition = query.paramNames;
     queryTemplate = populateQueryWithStaticParams(queryTemplate, paramDefinition, selectedParameters, paramNo);
     yasqe.setValue(queryTemplate);
@@ -153,7 +149,7 @@ $("#allParams").change(function() {
         var dynamicQueryNo = parseInt(queryForDynamicParameter[0], 10);
         var dynamicQuery = queries[dynamicQueryNo].queryTemplate;
         // here take the static params and populate the query template 
-        dynamicQuery = populateQueryWithStaticParams(dynamicQuery, paramDefinition, selectedParameters, paramNo);
+        dynamicQuery = populateQueryWithStaticParams(dynamicQuery, paramDefinition, selectedParameters);
 
 
         // here fire the ajax query and populate the dynamicParam select 
@@ -192,14 +188,14 @@ $("#allParams").change(function() {
 });
 
 $("#dynamicParam").change(function() {
-    var i = $("#queryName").val();
+    var i = $("#querySelector").val();
     var query = queries[i];
     var queryTemplate = query.queryTemplate.trim();
     var paramNo = query.paramNo
-    var selectedParameters = $("#allParams").val();
+    var selectedParameters = $("#paramSelector").val();
     var selectedDynamicParam = $("#dynamicParam").val();
     var paramDefinition = query.paramNames;
-    queryTemplate = populateQueryWithStaticParams(queryTemplate, paramDefinition, selectedParameters, paramNo);
+    queryTemplate = populateQueryWithStaticParams(queryTemplate, paramDefinition, selectedParameters);
     queryTemplate = populateQueryWithDynamicParams(queryTemplate, selectedDynamicParam);
     yasqe.setValue(queryTemplate);
 });
@@ -212,19 +208,20 @@ $(document).on("click", "a.uri", function(e) {
     }
 })
 
-
+//This function parse the csv table to take its data.
 Papa.parse(
     googleSpreadsheetURI, {
         download: true,
-        complete: function(json) {
+        complete: function (json) {
             // here populate the list from the json data
             var paramNo;
             for (var i = 1; i < json.data.length; i++) {
-
+                //How many params?
                 paramNo = 0;
                 try {
                     paramNo = parseInt(json.data[i][5], 10);
-                } catch (e) {}
+                } catch (e) {
+                }
 
                 queries.push({
                     linkedResources: json.data[i][0],
@@ -233,22 +230,25 @@ Papa.parse(
                     queryTemplate: json.data[i][3],
                     description: json.data[i][4],
                     paramNo: paramNo,
-                    allParams: json.data[i][6],
-                    queryForDynamicParameter: json.data[i][7],
-                    paramNames: json.data[i][8]
+                    paramNames: json.data[i][6]
                 });
+                //Here we add a variable number of parameter rows, each with its values,
+                //in the format: param0, param1...
+                for (var j = 0; j < paramNo; j++) {
+                    queries[i-1]["param" + j] = json.data[i][7 + j];
+                }
             }
 
-            var query;
-
+            //Here we populate the query form selector with query names
+            var queryAux;
             for (i = 0; i < queries.length; i++) {
-                query = queries[i];
-                if (query.showInDemo == "yes") {
-                    $("#queryName").append('<option value="' + i + '">' + query.name + "</option>");
+                queryAux = queries[i];
+                if (queryAux.showInDemo == "yes") {
+                    $("#querySelector").append('<option value="' + i + '">' + queryAux.name + "</option>");
                     //$("#queryName").append('<option value="'+i+'">'+ (i+2) +" "+query.name+"</option>");
                 }
             }
-            $("#queryName").change();
+            $("#querySelector").change();
         }
     });
 
