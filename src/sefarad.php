@@ -802,8 +802,8 @@ if ($user->isLoggedIn()){
 
 					  <div id="queries">
 					  	<label>Choose example query template and later query parameter values:</label><br />
-					    <select class="form-control" id="queryName"></select>
-					  	<select class="form-control" id="allParams"></select>
+					    <select class="form-control" id="querySelector"></select>
+					  	<div id="paramSelector"></div>
 					  	<select class="form-control" id="dynamicParam"></select>
 					  	<br />
 					  	Query description:

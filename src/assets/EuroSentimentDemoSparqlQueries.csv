@@ -1,5 +1,5 @@
-Which resources it links?,Show in demo yes/no,Short name (diplayed in dropbox),Actual SPARQL query Please format it with enters!,Explanation (long explanation to be shown in UI),parameterNumbers,all parameters,which queries to use to get 4th parameter (put the row number -2 ),paramDefinition,,paramDefinition
-"demosEndpoint, dbpedia",yes,All restaurants in {district},"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+Which resources it links?,Show in demo yes/no,Short name (diplayed in dropbox),Actual SPARQL query Please format it with enters!,Explanation (long explanation to be shown in UI),parameterNumbers,paramDefinition,parameter1,parameter2
+"demosEndpoint, dbpedia",yes,All restaurants in {district} with aprox rate of {stars},"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 PREFIX gnis: <http://smartopendata.gsi.dit.upm.es/rdf/gnis/>
@@ -38,22 +38,24 @@ SERVICE <http://localhost:3030/geo/query> {
   ?d gp:price ?price .
   ?d gp:foodtype ?foodtype .
   ?d gp:stars ?stars .
-  FILTER(str(?stars)=""4.5"") 
+  FILTER(str(?stars)=""<stars>"") 
 
 
     }
 
 
-}",Return all restaurants in theselected district,1,"Salamanca,
+}",Return all restaurants in the selected district with at least the selected rate.,2,district stars,"Salamanca,
 Arganzuela,
 Retiro,
-Chamartín,
 Tetuán,
 Chamberí,
-Usera",,district,,district
-,,Multilingual example,,,,,,,,
-,,Cross dataset example,,,,,,,,
-,,...,,,,,,,,
+Usera
+","3,
+3.5,
+4"
+,,Multilingual example,,,,,,
+,,Cross dataset example,,,,,,
+,,...,,,,,,
 ,yes,Show top 10 sentiments for {domain} in {language},"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT ( count(distinct ?cx) as ?occurences ) ?sentiment ?sentimentURI 
@@ -79,7 +81,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012",,,,
+hotel pt 0012",,
 N/A This query shows data within a processed LR.,,Top sentiments for electronics in Catalan.,"
 PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
@@ -94,18 +96,18 @@ WHERE {
 }  
 GROUP BY ?sentimentURI ?sentiment
 ORDER BY DESC(?occurences)
-LIMIT 10",Retrieves the top 10 most common sentiment words from the lexicon. You can configure the query to get top K instead.,0,,,,,
-N/A This query shows data within a processed LR.,,Top sentiments for electronics in English.,,idem,,,,,,
-N/A This query shows data within a processed LR.,,Top sentiments for electronics in Spanish.,,idem,,,,,,
-N/A This query shows data within a processed LR.,,Top sentiments for electronics in French.,,idem,,,,,,
-N/A This query shows data within a processed LR.,,Top sentiments for electronics in Italian.,,idem,,,,,,
-N/A This query shows data within a processed LR.,,Top sentiments for electronics in Portuguese.,,idem,,,,,,
-N/A This query shows data within a processed LR.,,Top sentiments for hotel in Catalan.,,idem,,,,,,
-N/A This query shows data within a processed LR.,,Top sentiments for hotel in English.,,idem,,,,,,
-N/A This query shows data within a processed LR.,,Top sentiments for hotel in Spanish.,,idem,,,,,,
-N/A This query shows data within a processed LR.,,Top sentiments for hotel in French.,,idem,,,,,,
-N/A This query shows data within a processed LR.,,Top sentiments for hotel in Italian.,,idem,,,,,,
-N/A This query shows data within a processed LR.,,Top sentiments for hotel in Portuguese.,,idem,,,,,,
+LIMIT 10",Retrieves the top 10 most common sentiment words from the lexicon. You can configure the query to get top K instead.,0,,,
+N/A This query shows data within a processed LR.,,Top sentiments for electronics in English.,,idem,,,,
+N/A This query shows data within a processed LR.,,Top sentiments for electronics in Spanish.,,idem,,,,
+N/A This query shows data within a processed LR.,,Top sentiments for electronics in French.,,idem,,,,
+N/A This query shows data within a processed LR.,,Top sentiments for electronics in Italian.,,idem,,,,
+N/A This query shows data within a processed LR.,,Top sentiments for electronics in Portuguese.,,idem,,,,
+N/A This query shows data within a processed LR.,,Top sentiments for hotel in Catalan.,,idem,,,,
+N/A This query shows data within a processed LR.,,Top sentiments for hotel in English.,,idem,,,,
+N/A This query shows data within a processed LR.,,Top sentiments for hotel in Spanish.,,idem,,,,
+N/A This query shows data within a processed LR.,,Top sentiments for hotel in French.,,idem,,,,
+N/A This query shows data within a processed LR.,,Top sentiments for hotel in Italian.,,idem,,,,
+N/A This query shows data within a processed LR.,,Top sentiments for hotel in Portuguese.,,idem,,,,
 ,yes,Show top 10 positive sentiments for {domain} in {language},"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT ( count(distinct ?cx) as ?occurences ) ?sentiment ?sentimentURI 
@@ -131,7 +133,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012",,,,
+hotel pt 0012",,
 ,yes,Show top 10 negative sentiments for {domain} in {language},"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT ( count(distinct ?cx) as ?occurences ) ?sentiment ?sentimentURI
@@ -160,7 +162,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012",,,,
+hotel pt 0012",,
 ,yes,Show 50 sentiments for various aspects for {domain} in {language},"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT DISTINCT ?domainAspect ?sentiment ?polarityValue 
@@ -191,7 +193,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012",,,,
+hotel pt 0012",,
 ,yes,Show the domain aspects that are described as {sentimentValue} in {domain} for {language} .,"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT DISTINCT ?domainAspect ?sentiment ?polarityValue
@@ -222,7 +224,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012","17,18","19,2",,
+hotel pt 0012","17,18","19,2"
 ,yes,Show the sentiments used for a given {aspect} in {doman} for {language}.,"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT DISTINCT ?domainAspect ?sentiment ?polarityValue
@@ -252,7 +254,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012",25,27,,
+hotel pt 0012",25,27
 Wordnet Dbpedia,yes,Show the links to other linked data datasets for a given {aspect} in {domain} for {language},"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT distinct ?domainAspect ?reference 
@@ -275,7 +277,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012",25,27,,
+hotel pt 0012",25,27
 Wordnet Dbpedia,yes,Show the links to other linked data datasets for a given  {sentimentValue} in {domain} for {language},"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT DISTINCT ?sentimentValue ?reference
@@ -300,7 +302,7 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012","17,18",,,
+hotel pt 0012","17,18",
 ,,"Show the uris for a given entity, domain and language","PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
@@ -337,7 +339,7 @@ music - <http://www.gsi.dit.upm.es/ontologies/wndomains/ns#Music>
 finance - <http://www.gsi.dit.upm.es/ontologies/wndomains/ns#Finance>
 movies - <http://www.gsi.dit.upm.es/ontologies/wndomains/ns#Cinema>
 health - <http://www.gsi.dit.upm.es/ontologies/wndomains/ns#Health>
-",,,,,,
+",,,,
 ,yes,Show top 10 domain aspects in {domain} and {language}.,"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT count(?sentiSense) as ?occurences ?aspect ?aspectURI
@@ -366,10 +368,10 @@ hotel en 0008,
 hotel es 0009,
 hotel fr 0010,
 hotel it 0011,
-hotel pt 0012",,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
+hotel pt 0012",,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
 "BabelNet, Wordnet31, Wordnet30",yes,Show the translation of a sentiment from a domain and a language based on the connections to BabelNet via WordNet references.,"PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX lb:    <http://www.lemon-model.net/lemon#>
 PREFIX wn30:    <http://lemon-model.net/lexica/pwn/>
@@ -407,12 +409,7 @@ electronics en 0002 RO,
 hotel en 0008 DE,
 hotel en 0008 ES,
 hotel en 0008 IT,
-hotel en 0008 RO",30,32,"here we would need a mechanism to get the 5th parameter, Talk to GABI
-prefix lb ??
-
-The 4th should be sentiment URI
-
-Is <translatein> the 5th parameter ??",
+hotel en 0008 RO",30,32
 ,,This is q query to get 20 positive sentiments for query 31,"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
 SELECT ( count(distinct ?cx) as ?occurences ) ?sentiment ?sentimentURI 
@@ -426,7 +423,7 @@ WHERE {
     ?sense marl:hasPolarity <http://purl.org/marl/ns/positive> .
 }
 GROUP BY ?sentimentURI ?sentiment
-ORDER BY DESC(?occurences) limit 20",,,,,,,
+ORDER BY DESC(?occurences) limit 20",,,,,
 "
 BabelNet, Wordnet31, Wordnet30","yes
 ",Show translations of a lexical entry based on the connections to BabelNet via WordNet references.," PREFIX lemon: <http://lemon-model.net/lemon#>
@@ -460,7 +457,7 @@ electronics en 0002 RO,
 hotel en 0008 DE,
 hotel en 0008 ES,
 hotel en 0008 IT,
-hotel en 0008 RO",,,,
+hotel en 0008 RO",,
 ,"yes
 ",Show most popular sentiments in TripAdvisor,"PREFIX lemon: <http://lemon-model.net/lemon#>
 PREFIX marl: <http://purl.org/marl/ns/>
@@ -470,7 +467,7 @@ SELECT count(distinct ?cx) as ?occurences ?sentiment ?sentimentURI from <http://
  ?cf lemon:writtenRep ?sentiment.
  ?sense lemon:context ?cx.
  ?sense marl:polarityValue ?polarityValue .
-} group by ?sentimentURI ?sentiment order by DESC(?occurences) limit 20",Lists top 20 sentiments that describe most of the aspect terms in the TripAdvisor corpus.,0,,,,,
+} group by ?sentimentURI ?sentiment order by DESC(?occurences) limit 20",Lists top 20 sentiments that describe most of the aspect terms in the TripAdvisor corpus.,0,,,
 ,"yes
 ","Show most popular sentiments in Amazon, electronics.","PREFIX lemon: <http://lemon-model.net/lemon#>
 
@@ -481,7 +478,7 @@ SELECT count(distinct ?cx) as ?occurences ?sentiment ?sentimentURI from <http://
  ?cf lemon:writtenRep ?sentiment.
  ?sense lemon:context ?cx.
  ?sense marl:polarityValue ?polarityValue .
-} group by ?sentimentURI ?sentiment order by DESC(?occurences) limit 20",Lists top 20 sentiments that describe most of the aspect terms in the Amazon corpus.,0,,,,,
+} group by ?sentimentURI ?sentiment order by DESC(?occurences) limit 20",Lists top 20 sentiments that describe most of the aspect terms in the Amazon corpus.,0,,,
 ,"
 yes",Show translations of composed words from TripAdvisor lexicon.,"PREFIX lemon: <http://lemon-model.net/lemon#>
 SELECT distinct ?ENwrittenRepresentation ?TranslationWrittenRepresentation WHERE {
@@ -521,7 +518,7 @@ very-nicely-decorated es,
 very-nicely-decorated it,
 available-each-morning de,
 available-each-morning es,
-available-each-morning it",,,,
+available-each-morning it",,
 ,"yes
 ",Show translations of composed words from Amazon lexicon.,"PREFIX lemon: <http://lemon-model.net/lemon#>
 SELECT distinct ?ENwrittenRepresentation ?TranslationWrittenRepresentation WHERE {
@@ -554,7 +551,7 @@ hard-to-press es,
 hard-to-press it,
 easy-to-read de,
 easy-to-read es,
-easy-to-read it",,,,
+easy-to-read it",,
 WN affect,"yes
 ",Get WordNet affect emotions for the corpora data.,"select distinct ?text ?emotion from <http://www.eurosentiment.eu/dataset/cars/en/expertsystem/0062/corpus> where {
   ?context <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#isString> ?text.
@@ -562,7 +559,7 @@ WN affect,"yes
   ?emotionset <http://www.gsi.dit.upm.es/ontologies/onyx/ns#hasEmotion> ?emotionC.
   ?emotionC <http://www.gsi.dit.upm.es/ontologies/onyx/ns#hasEmotionCategory>  ?emotion .
   } limit 10","Get WordNet affect emotions for the corpora data.
-",0,,,,,
+",0,,,
 "
 WN affect, WordNet","yes
 ",Get WordNet affect emotions for lexical entries via WordNet links.,"PREFIX lemon: <http://lemon-model.net/lemon#>
@@ -575,4 +572,4 @@ SELECT ?le, ?label,  ?wnaffect WHERE {
   ?wnaffect skos:related ?reference .
  }
 }","
-Get WordNet affect emotions for lexical entries via WordNet links.",0,,,,,
+Get WordNet affect emotions for lexical entries via WordNet links.",0,,,
