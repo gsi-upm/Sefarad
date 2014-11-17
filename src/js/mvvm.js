@@ -1395,7 +1395,7 @@ function InitViewModel() {
 			'tipAnimationFadeSpeed': 800, // if 'fade'- speed in ms of transition
 			'cookieMonster': false, // true/false for whether cookies are used
 			'cookieName': 'JoyRide', // choose your own cookie name
-			'cookieDomain': false, // set to false or yoursite.com
+			'cookieDomain': false // set to false or yoursite.com
 		});
 	};
 
@@ -3164,7 +3164,7 @@ ko.bindingHandlers.accordion = {
             $(element).accordion({
             	header: "> h3",
 			    heightStyle: "content",
-			    collapsible: true,
+			    collapsible: true
 			}).sortable({
 		        axis: "y",
 		        handle: "h3",
@@ -3190,7 +3190,7 @@ ko.bindingHandlers.accordion = {
 			$(element).accordion("destroy").accordion({
 				header: "> h3",
 			    heightStyle: "contentsnt",
-			    collapsible: true,
+			    collapsible: true
 			}).sortable({
 		        axis: "y",
 		        handle: "h3",
@@ -3335,47 +3335,9 @@ function responseToBot (options){
 var test = {
 	"concept": ["http://rdfs.org/sioc/types#Project"],
 	"filter": {
-		"project_area":["Procesado Lenguaje Natural", "Agentes Inteligentes"],
+		"project_area":["Procesado Lenguaje Natural", "Agentes Inteligentes"]
 	}
 }
 
-//-------------------------------------------------------------
-// EUROSENTIMENT SPARQL EDITOR
 
-//configuration
-// var eurosentimentEndpointURI =  "http://146.148.28.139/eurosentiment/sparql-endpoint";
-// var googleSpreadsheetURI = "https://docs.google.com/spreadsheet/pub?key=0AoneFswCzkATdDFGTzFHdmpvNG93M2dfTG1jb001YXc&single=true&gid=23&output=csv";
-// var eurosentimentResourceNavigatorURLPrefix = "http://www.eurosentiment.eu/dataset/";       // if urls in the sparql results starts with such prefix
-// var eurosentimentResourceNavigatorURL = "http://portal.eurosentiment.eu/lr_navigator_demo"; // then later on click they will point to this navigator
-
-// end of configuration
-
-//var yasqe = YASQE(document.getElementById("yasqe"));
-// 	sparql: {
-// 		showQueryButton: false,
-// 		createShareLink: false,
-// 		endpoint: eurosentimentEndpointURI 
-// 	}
-// });
-// var yasr = YASR(document.getElementById("yasr"), {
-// 	//this way, the URLs in the results are prettified using the defined prefixes in the query
-// 	getUsedPrefixes: yasqe.getPrefixesFromQuery
-// });
-
-// /**
-// * Set some of the hooks to link YASR and YASQE
-// */
-// yasqe.options.sparql.handlers.success =  function(data, textStatus, xhr) {
-// 	yasr.setResponse({response: data, contentType: xhr.getResponseHeader("Content-Type")});
-// };
-// yasqe.options.sparql.handlers.error = function(xhr, textStatus, errorThrown) {
-// 	var exceptionMsg = textStatus + " (response status code " + xhr.status + ")";
-// 	if (errorThrown && errorThrown.length) exceptionMsg += ": " + errorThrown;
-// 	yasr.setResponse({exception: exceptionMsg});
-// };
-
-
-
-
-//-------------------------------------------------------------
 

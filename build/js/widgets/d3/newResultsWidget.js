@@ -170,7 +170,7 @@ var newResultsWidget = {
 
             
         //if(searchDone == true) resultsTable.search('no results found').draw();
-    },    
+    }
 };
 
 // Global variables

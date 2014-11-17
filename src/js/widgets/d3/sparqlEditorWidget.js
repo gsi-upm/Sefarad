@@ -1,20 +1,18 @@
 /**
  * Created by asaura on 17/11/14.
  */
-// New widget
-
-var newWidgetTemplate = { //IMPORTANT: the var name must match the name of the file without the .js extension
-
+// Eurosentiment's SPARQL Editor
+var sparqlEditorWidget = {
     // Widget name.
-    name: "A brand new widget",
+    name: "SPARQL Editor",
     // Widget description.
     description: "Offers some query templates with variable parameters",
     // Path to the image of the widget.
-    img: "img/widgetImage.png",
+    img: "img/SPARQLeditor.png",
     // Type of the widget. Must be exactly the name of the .js file!
-    type: "type",
+    type: "sparqlEditorWidget",
     // Help display on the widget
-    help: "help",
+    help: "Results help",
     // Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
     cat: 4,
 
@@ -43,10 +41,6 @@ var newWidgetTemplate = { //IMPORTANT: the var name must match the name of the f
         d3.select('#' + configid).selectAll('div').remove();
         var div = d3.select('#' + configid);
         div.attr("align", "center");
-
-
-        //CONFIGURATION ZONE. HERE YOU CAN DRAW IT AND ADD ITS FUNCTIONALITY
-
     },
 
     paint: function (id) {
@@ -54,9 +48,6 @@ var newWidgetTemplate = { //IMPORTANT: the var name must match the name of the f
         d3.select('#' + id).selectAll('div').remove();
         var div = d3.select('#' + id);
         div.attr("align", "center");
-
-
-        //HERE IS WHERE YOUR CODE CAN GET INFO, DRAW OR INJECT DATA.
 
 
     }

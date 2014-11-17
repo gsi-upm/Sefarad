@@ -211,9 +211,9 @@ if ($user->isLoggedIn()){
 
 				//SPARQL EDITOR MODULE:
 
-				<!-- build:include js/modules/SPARQLEditorPlugin.js -->
-					<!-- This will be replaced by the content of  js/modules/SPARQLEditorPlugin.js-->
-				<!-- /build -->
+				// build:include js/modules/SPARQLEditorPlugin.js -->
+				//	<!-- This will be replaced by the content of  js/modules/SPARQLEditorPlugin.js-->
+				// /build -->
 
 
 				//initIsotopeAndWizards();
