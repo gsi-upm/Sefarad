@@ -123,8 +123,8 @@ $("#querySelector").change(function() {
 
 });
 
-var onSelectorChange = function (selectorId){
-    console.log("selectorOnChange for selector with id: " + selectorId);
+var onSelectorChange = function (selectorOrder){
+    console.log("selectorOnChange for selector with order: " + selectorOrder);
 
     // update the query template using selected parameters
     var i = $("#querySelector").val();
@@ -140,15 +140,16 @@ var onSelectorChange = function (selectorId){
     for (var i = 0; i < paramNo; i++) {
        if($("#selector"+i).val() == "")
        {
-           selectedParameters += "<"+pNames[i]+"> "
+           selectedParameters += "<"+pNames[i]+"> ";
            console.log("empty parameter");
 
        }
        else
        {
-           console.log("value selected");
-           var value = query['param'+i].split(",");
-           selectedParameters += (value[selectorId]+" ");
+           console.log("value selected: "+ document.getElementById("selector"+i).value);
+           //var values = query['param'+i].split(",");
+
+           selectedParameters += (document.getElementById("selector"+i).value + " ");
        }
 
     }
@@ -172,78 +173,6 @@ function populateParametersSelector(id, values) {
     }
 }
 
-//This doesn't work
-//$(".Selector").change(function() {
-//    // update the query template using selected parameters
-//    var i = $("#querySelector").val();
-//    var query = queries[i];
-//    var queryTemplate = query.queryTemplate.trim();
-//    var paramNo = query.paramNo;
-//    var selectedParameters = $("#paramSelector").val();
-//    var paramDefinition = query.paramNames;
-//    queryTemplate = populateQueryWithStaticParams(queryTemplate, paramDefinition, selectedParameters, paramNo);
-//    yasqe.setValue(queryTemplate);
-//
-//    if (paramNo != 4 && paramNo != 5) {
-//        $("#dynamicParam").empty().hide();
-//    }
-//    // here fetch extra param automatically
-//    if (paramNo == 4 || paramNo == 5) {
-//        // use query 27 to get 10 to aspects
-//        var queryForDynamicParameter = query.queryForDynamicParameter.split(",");
-//        var dynamicQueryNo = parseInt(queryForDynamicParameter[0], 10);
-//        var dynamicQuery = queries[dynamicQueryNo].queryTemplate;
-//        // here take the static params and populate the query template
-//        dynamicQuery = populateQueryWithStaticParams(dynamicQuery, paramDefinition, selectedParameters);
-//
-//
-//        // here fire the ajax query and populate the dynamicParam select
-//        // TODO: use 2 queries for positive ad negative sentiment values
-//        $.ajax({
-//            url: eurosentimentEndpointURI,
-//            data: {
-//                query: dynamicQuery
-//            },
-//            dataType: "json",
-//            success: function(json) {
-//
-//                var results = [];
-//                for (var i = 0; i < json.results.bindings.length; i++) {
-//                    var binding = json.results.bindings[i];
-//
-//                    if (binding.sentiment && binding.sentiment.value) {
-//                        results.push(binding.sentiment.value);
-//                    } else if (binding.aspect && binding.aspect.value) {
-//                        results.push(binding.aspect.value);
-//                    }
-//                }
-//
-//                if (results.length == 0) {
-//                    alert("No results");
-//                }
-//                $("#dynamicParam").empty().append('<option>Choose option</option>');
-//                for (var i = 0; i < results.length; i++) {
-//                    $("#dynamicParam").append('<option>' + results[i] + '</option>')
-//                }
-//                $("#dynamicParam").show();
-//            }
-//        })
-//
-//    }
-//});
-
-$("#dynamicParam").change(function() {
-    var i = $("#querySelector").val();
-    var query = queries[i];
-    var queryTemplate = query.queryTemplate.trim();
-    var paramNo = query.paramNo
-    var selectedParameters = $("#paramSelector").val();
-    var selectedDynamicParam = $("#dynamicParam").val();
-    var paramDefinition = query.paramNames;
-    queryTemplate = populateQueryWithStaticParams(queryTemplate, paramDefinition, selectedParameters);
-    queryTemplate = populateQueryWithDynamicParams(queryTemplate, selectedDynamicParam);
-    yasqe.setValue(queryTemplate);
-});
 
 $(document).on("click", "a.uri", function(e) {
     var link = $(this).attr("href");
