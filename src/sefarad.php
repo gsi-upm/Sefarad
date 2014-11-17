@@ -223,7 +223,7 @@ if ($user->isLoggedIn()){
 				$('#dvLoading').hide();
 
 			});
-			
+
 		</script>
 
 	</head>
@@ -798,20 +798,7 @@ if ($user->isLoggedIn()){
 
 				<!-- columns in tab 3 -->
 				<div id="columns" data-bind="visible: activeTab() == 3">
-					<h1>Directly query linked data in Eurosentiment</h1>
 
-					  <div id="queries">
-					  	<label>Choose example query template and later query parameter values:</label><br />
-					    <select class="form-control" id="querySelector"></select>
-					  	<div id="paramSelector"></div>
-					  	<select class="form-control" id="dynamicParam"></select>
-					  	<br />
-					  	Query description:
-					  	<div id="description" ></div>
-					  </div>
-					  <div id="yasqe"></div>
-					  <div id="queryButton" ><button>Get results from sparql endpoint</button></div>
-					  <div id="yasr"></div>
 				</div>
 
 				<!-- ends maincontent -->

@@ -71,7 +71,7 @@ var sparqlEditorWidget = {
         queriesDiv.append("label").text("Choose example query template and later query parameter values:");
         queriesDiv.append("br");
         queriesDiv.append("select").attr("class", "form-control").attr("id", "querySelector");
-        queriesDiv.append();
+        //queriesDiv.append();
 
 
 
