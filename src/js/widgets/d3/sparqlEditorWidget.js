@@ -70,7 +70,7 @@ var sparqlEditorWidget = {
         var queriesDiv = div.append("div").attr("id", "queries");
         queriesDiv.append("label").text("Choose example query template and later query parameter values:");
         queriesDiv.append("br");
-        var querySelector = queriesDiv.append("select").attr("class", "form-control").attr("id", "querySelector");
+        var querySelector = queriesDiv.append("select").attr("class", "form-control").attr("id", "querySelector").attr("style", "height: 100%; width: 100%");
         var paramSelector = queriesDiv.append("div").attr("id", "paramSelector");
         queriesDiv.append("br");
         queriesDiv.append("p").text("Query description");
@@ -78,7 +78,7 @@ var sparqlEditorWidget = {
         var yasqeDiv = div.append("div").attr("id", "yasqe");
         var yasqeButtonDiv = div.append("div").attr("id", "queryButton");
         var yasqeButton = yasqeButtonDiv.append("button").text("Get results from SPARQL endpoint")
-        var yasrDiv = div.append("div").attr("id", "yasr");
+        var yasrDiv = div.append("div").attr("id", "yasr").attr("style", "width: 100%");
 
         //configuration
 
@@ -91,6 +91,12 @@ var sparqlEditorWidget = {
                 endpoint: "http://dbpedia.org/sparql"
             }
         });
+
+        YASR.plugins.table.defaults.datatable.scrollX = true;
+        YASR.plugins.table.defaults.datatable.scrollCollapse = true;
+        YASR.plugins.table.defaults.datatable.autoWidth = true;
+        YASR.plugins.table.defaults.datatable.scrollY = "300px";
+
         var yasr = YASR(document.getElementById("yasr"), {
             //this way, the URLs in the results are prettified using the defined prefixes in the query
             getUsedPrefixes: yasqe.getPrefixesFromQuery
@@ -98,6 +104,10 @@ var sparqlEditorWidget = {
         yasr.setResponse({
             response: vm.viewData
         });
+
+
+
+
 
         // end of configuration
 
