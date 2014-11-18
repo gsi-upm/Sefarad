@@ -115,6 +115,7 @@ var newResultsWidget = {
                         if (Object.keys(data[0])[m] == resourceName)
                         {
                             link.attr("href", data[i][Object.keys(data[0])[m]].value());
+
                         }
                         
                     }

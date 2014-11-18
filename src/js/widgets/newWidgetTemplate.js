@@ -11,7 +11,7 @@ var newWidgetTemplate = { //IMPORTANT: the var name must match the name of the f
     description: "Offers some query templates with variable parameters",
     // Path to the image of the widget.
     img: "img/widgetImage.png",
-    // Type of the widget. Must be exactly the name of the .js file!
+    // Type of the widget. Must be unique between all widgets
     type: "type",
     // Help display on the widget
     help: "help",
@@ -45,7 +45,7 @@ var newWidgetTemplate = { //IMPORTANT: the var name must match the name of the f
         div.attr("align", "center");
 
 
-        //CONFIGURATION ZONE. HERE YOU CAN DRAW IT AND ADD ITS FUNCTIONALITY
+        //CONFIGURATION AREA. HERE YOU CAN DRAW IT AND ADD ITS FUNCTIONALITY
 
     },
 

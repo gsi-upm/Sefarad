@@ -30,7 +30,7 @@ yasr.setResponse({
 // end of configuration
 
 
-//ExecuteQuery function. Still not generalized, it takes 2restaurants" info from our endpoint at gsi's alpha
+//ExecuteQuery function. Still not generalized, it takes "restaurants" info from our endpoint at gsi's alpha
 function executeQuery() {
 
     var restaurants_query = yasqe.getValue().replace(/(\r\n|\n|\r)/gm, "");
