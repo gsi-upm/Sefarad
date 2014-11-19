@@ -2131,7 +2131,7 @@ function InitViewModel() {
                     $(window).load(function () {
 
                         //Add map widget
-                        widgetMap.render();
+                        openLayers.render();
 
                         //Add results widget
 						newResultsWidget.render();
