@@ -46,6 +46,7 @@ var sparqlEditorWidget = {
     paint: function (id) {
 
         d3.select('#' + id).selectAll('div').remove();
+        d3.select('#' + id).selectAll('h2').remove();
         var div = d3.select('#' + id);
         div.attr("align", "center");
 
