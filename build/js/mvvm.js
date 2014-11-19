@@ -44,14 +44,14 @@ var vm = new InitViewModel();
 
 function InitViewModel() {
 
-	var self = this;
+    var self = this;
 
-	/** Endpoint variables */
-	self.serverURL = ko.observable(serverURL);
-	self.solr_baseURL = ko.observable();
-	self.sparql_baseURL = ko.observable();
-	self.core = ko.observable();
-	self.listCores = ko.observableArray();
+    /** Endpoint variables */
+    self.serverURL = ko.observable(serverURL);
+    self.solr_baseURL = ko.observable();
+    self.sparql_baseURL = ko.observable();
+    self.core = ko.observable();
+    self.listCores = ko.observableArray();
 
 	/** Template variables */
 	self.pageTitle = ko.observable(configuration.template.pageTitle);
@@ -963,7 +963,7 @@ function InitViewModel() {
 					self.adminMode(true);
 					self.userName("");
 					self.userPassword("");	
-					// loadCore();			
+					// loadConfiguration();
 				}
 			}
 		});
@@ -1818,7 +1818,9 @@ function InitViewModel() {
 					self.adminMode(true);
 
 					/** Cargamos la configuración para el core dado */
-					loadCore();
+                    loadConfiguration();
+                    init();
+                    updateSolrFilter();
 				});
 
 				this.get('#/main/:coreId', function () {
@@ -1837,7 +1839,9 @@ function InitViewModel() {
 					}
 
 					/** Cargamos la configuración para el core dado */
-					loadCore();
+                    loadConfiguration();
+                    init();
+                    updateSolrFilter();
 				});
 
 				this.get('#/sparql', function () {
@@ -2073,7 +2077,9 @@ function InitViewModel() {
                 this.get('#/sparql/universitiesDemo', function () {
                     console.log("UNIVERSITIES DEMO");
                     self.sparql = ko.observable(true);
+                    sparqlmode = true;
                     vm.getResultsSPARQL("select distinct ?universityResource ?countryResource ?cityResource ?university ?city ?country ?latitude ?longitude where { { ?universityResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryResource ; <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/Spain> ; <http://dbpedia.org/ontology/city> ?cityResource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university ; <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ; <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . ?countryResource <http://www.w3.org/2000/01/rdf-schema#label> ?country . ?cityResource <http://www.w3.org/2000/01/rdf-schema#label> ?city } UNION { ?universityResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryResource ; <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/France> ; <http://dbpedia.org/ontology/city> ?cityResource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university ; <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ; <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . ?countryResource <http://www.w3.org/2000/01/rdf-schema#label> ?country . ?cityResource <http://www.w3.org/2000/01/rdf-schema#label> ?city } FILTER ( lang(?university) = 'en' && lang(?country) = 'en' && lang(?city) = 'en') }", "http://dbpedia.org/sparql");
+
                     configuration.template.language = "English";
                     configuration.template.pageTitle = "Universities Demo";
                     configuration.results.resultsLayout = [{
@@ -2118,13 +2124,12 @@ function InitViewModel() {
 						help: 'Filter by city'
                     });
                     configuration.autocomplete.field = "university";
-                    self.securityEnabled(false);
-                    sparqlmode = true;
+
                     init();
 
                     //Adding widgets
                     $(window).load(function () {
-                    	
+
                         //Add map widget
                         widgetMap.render();
 
@@ -2146,7 +2151,7 @@ function InitViewModel() {
                             "collapsed": ko.observable(false),
 							"help": "Total universities filtered."
                         });
-                        self.numberOfResults.valueHasMutated();                        
+                        self.numberOfResults.valueHasMutated();
                     });
                 });
 
@@ -2263,36 +2268,13 @@ function InitViewModel() {
 		}
 	};
 
-	/** If core exists, go to loadConfiguration method. Otherwise, show an error */
-	function loadCore() {
-
-		if(true){
-			loadConfiguration();
-		}else {
-			$.ajax({
-				type: "get",
-				url: self.solr_baseURL() + "admin/luke?show=schema&wt=json",
-				cache: false,
-				dataType: 'json',
-				success: function () {
-					loadConfiguration();
-				},
-				error: function () {
-					console.log("ERROR");
-					self.page(2);
-					errorinroute = true;
-					setupMethod();
-				}
-			});
-		}
-	};
-
 	/** Load configuration for a given core */
 	function loadConfiguration() {
 	    console.info("Estoy en loadConfiguration");
 	    var loaded_configuration = "";
 
 	        $.ajax({
+                async: false,
 	            type: 'get',
 	            url: 'php/mongo_load.php',
 	            dataType: "json",
@@ -2308,84 +2290,10 @@ function InitViewModel() {
 	                templateWidgetsLeftTab1 = [];
 	                templateWidgetsRightTab1 = [];
 
-	                for (var i = 0; configuration.widgetsLeft.length > i; i++) {
-
-	                    templateWidgetsLeft.push({
-	                        id: configuration.widgetsLeft[i].id,
-	                        title: configuration.widgetsLeft[i].title,
-	                        type: configuration.widgetsLeft[i].type,
-	                        field: configuration.widgetsLeft[i].field,
-	                        collapsed: configuration.widgetsLeft[i].collapsed,
-	                        query: configuration.widgetsLeft[i].query,
-	                        value: configuration.widgetsLeft[i].value,
-	                        values: configuration.widgetsLeft[i].values,
-	                        limits: configuration.widgetsLeft[i].limits,
-	                        layout: configuration.widgetsLeft[i].layout,
-	                        currentTweets: configuration.widgetsLeft[i].currentTweets,
-	                        showWidgetConfiguration: configuration.widgetsLeft[i].showWidgetConfiguration,
-	                        help: configuration.widgetsLeft[i].help
-	                    });
-	                }
-
-	                for (var i = 0; configuration.widgetsRight.length > i; i++) {
-
-	                    templateWidgetsRight.push({
-	                        id: configuration.widgetsRight[i].id,
-	                        title: configuration.widgetsRight[i].title,
-	                        type: configuration.widgetsRight[i].type,
-	                        field: configuration.widgetsRight[i].field,
-	                        collapsed: configuration.widgetsRight[i].collapsed,
-	                        query: configuration.widgetsRight[i].query,
-	                        value: configuration.widgetsRight[i].value,
-	                        values: configuration.widgetsRight[i].values,
-	                        limits: configuration.widgetsRight[i].limits,
-	                        layout: configuration.widgetsRight[i].layout,
-	                        currentTweets: configuration.widgetsRight[i].currentTweets,
-	                        showWidgetConfiguration: configuration.widgetsRight[i].showWidgetConfiguration,
-	                        help: configuration.widgetsRight[i].help
-	                    });
-	                }
-
-	                for (var i = 0; configuration.widgetsLeftTab1.length > i; i++) {
-	                    templateWidgetsLeftTab1.push({
-	                        id: configuration.widgetsLeftTab1[i].id,
-	                        title: configuration.widgetsLeftTab1[i].title,
-	                        type: configuration.widgetsLeftTab1[i].type,
-	                        field: configuration.widgetsLeftTab1[i].field,
-	                        collapsed: configuration.widgetsLeftTab1[i].collapsed,
-	                        query: configuration.widgetsLeftTab1[i].query,
-	                        value: configuration.widgetsLeftTab1[i].value,
-	                        values: configuration.widgetsLeftTab1[i].values,
-	                        limits: configuration.widgetsLeftTab1[i].limits,
-	                        layout: configuration.widgetsLeftTab1[i].layout,
-	                        currentTweets: configuration.widgetsLeftTab1[i].currentTweets,
-	                        showWidgetConfiguration: configuration.widgetsLeftTab1[i].showWidgetConfiguration,
-	                        help: configuration.widgetsLeftTab1[i].help
-	                    });
-	                }
-
-	                for (var i = 0; configuration.widgetsRightTab1.length > i; i++) {
-	                    templateWidgetsRightTab1.push({
-	                        id: configuration.widgetsRightTab1[i].id,
-	                        title: configuration.widgetsRightTab1[i].title,
-	                        type: configuration.widgetsRightTab1[i].type,
-	                        field: configuration.widgetsRightTab1[i].field,
-	                        collapsed: configuration.widgetsRightTab1[i].collapsed,
-	                        query: configuration.widgetsRightTab1[i].query,
-	                        value: configuration.widgetsRightTab1[i].value,
-	                        values: configuration.widgetsRightTab1[i].values,
-	                        limits: configuration.widgetsRightTab1[i].limits,
-	                        layout: configuration.widgetsRightTab1[i].layout,
-	                        currentTweets: configuration.widgetsRightTab1[i].currentTweets,
-	                        showWidgetConfiguration: configuration.widgetsRightTab1[i].showWidgetConfiguration,
-	                        help: configuration.widgetsRightTab1[i].help
-	                    });
-	                }
-
-	                init();
-
-	                updateSolrFilter();
-
+                    fillWidgetConfiguration(configuration.widgetsRight, templateWidgetsRight);
+                    fillWidgetConfiguration(configuration.widgetsLeft, templateWidgetsLeft);
+                    fillWidgetConfiguration(configuration.widgetsLeftTab1, templateWidgetsLeftTab1);
+                    fillWidgetConfiguration(configuration.widgetsRightTab1, templateWidgetsRightTab1);
 	            },
 
 	            error: function (data) {
@@ -2408,14 +2316,32 @@ function InitViewModel() {
 	                    "showWidgetConfiguration": ko.observable(false),
 						"help": 'help'
 	                });
-
-	                init();
-
-	                updateSolrFilter();	                
-	                
 	            }
 	        });
 	};
+
+    function fillWidgetConfiguration(widgets, template) {
+
+        for (var i = 0; widgets.length > i; i++) {
+
+            template.push({
+                id: widgets[i].id,
+                configid: widgets[i].configid,
+                title: widgets[i].title,
+                type: widgets[i].type,
+                field: widgets[i].field,
+                collapsed: widgets[i].collapsed,
+                query: widgets[i].query,
+                value: widgets[i].value,
+                values: widgets[i].values,
+                limits: widgets[i].limits,
+                layout: widgets[i].layout,
+                currentTweets: widgets[i].currentTweets,
+                showWidgetConfiguration: widgets[i].showWidgetConfiguration,
+                help: widgets[i].help
+            });
+        }
+    }
 
 	function init() {
 

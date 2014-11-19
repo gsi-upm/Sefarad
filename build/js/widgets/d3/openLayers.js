@@ -77,13 +77,13 @@ var openLayers = {
         //    });
         //layersmap.addLayer(layer);
 
-        var markers = new OpenLayers.Layer.Markers( "Markers" );
-        var size = new OpenLayers.Size(21,25);
-        var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-        var icon = new OpenLayers.Icon('http://dev.openlayers.org/img/marker.png',size,offset);
+        var markers = new OpenLayers.Layer.Markers("Markers");
+        var size = new OpenLayers.Size(21, 25);
+        var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
+        var icon = new OpenLayers.Icon('http://dev.openlayers.org/img/marker.png', size, offset);
 
-        $.each(data, function(index, item) {
-            markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.longitude.value(), item.latitude.value()).transform('EPSG:4326', 'EPSG:3857'),icon.clone()));
+        $.each(data, function (index, item) {
+            markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.longitude.value(), item.latitude.value()).transform('EPSG:4326', 'EPSG:3857'), icon.clone()));
         });
 
         layersmap.addLayer(markers);
