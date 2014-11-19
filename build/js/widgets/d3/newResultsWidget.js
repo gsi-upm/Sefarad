@@ -42,6 +42,15 @@ var newResultsWidget = {
 
     paint: function (id) {
 
+        //Here we save the visibility state of the columns (in case of existance) in order to repaint correctly
+        var tableState = [];
+        if (resultsTable != null) {
+            for (i = 0; i < resultsTable.columns()[0].length; i++) {
+                tableState [i] = resultsTable.column(i).visible();
+            }
+        }
+
+
         d3.select('#' + id).selectAll('div').remove();
         var div = d3.select('#' + id);
         div.attr("align", "center");        
@@ -166,8 +175,16 @@ var newResultsWidget = {
                     //"dom": 'C&gt;"clear"&lt;lfrtip'
                       
                 } );                
-                break;            
-        }       
+                break;
+
+        }
+
+        if(tableState.length != 0) {
+            for (i = 0; i < tableState.length; i++) {
+                resultsTable.column(i).visible(tableState [i]);
+            }
+            $.fn.dataTable.ColVis.fnRebuild();
+        }
 
             
         //if(searchDone == true) resultsTable.search('no results found').draw();

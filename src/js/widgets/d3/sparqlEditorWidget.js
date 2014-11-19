@@ -165,7 +165,7 @@ var sparqlEditorWidget = {
             }
         });
 
-//Receives the id of the selector and populate it with the values of the corresponding parameter
+        //Receives the id of the selector and populate it with the values of the corresponding parameter
         function populateParametersSelector(id, values) {
 
             values = values.split(",");
@@ -214,7 +214,7 @@ var sparqlEditorWidget = {
         };
 
 
-//ExecuteQuery function. Still not generalized, it takes "restaurants" info from our endpoint at gsi's alpha
+        //ExecuteQuery function. Still not generalized, it takes "restaurants" info from our endpoint at gsi's alpha
         function executeQuery() {
 
             var restaurants_query = yasqe.getValue().replace(/(\r\n|\n|\r)/gm, "");
@@ -246,9 +246,9 @@ var sparqlEditorWidget = {
             return false;
         };
 
-//This function takes a list of parameter names and another list of parameters values.
-//Then looks for every parameter name in the query code and replace it with its parameter value.
-//parameterValues is a string containing all parameters values selected one after another ex:["Salamanca queso barato"]
+        //This function takes a list of parameter names and another list of parameters values.
+        //Then looks for every parameter name in the query code and replace it with its parameter value.
+        //parameterValues is a string containing all parameters values selected one after another ex:["Salamanca queso barato"]
         function populateQueryWithStaticParams(query, parameterNames, parameterValues) {
 
             var pValues = parameterValues.trim().split(/\s+/);
@@ -300,17 +300,7 @@ var sparqlEditorWidget = {
 
         });
 
-
-
-
-
     }
-
-
-
-
-
-
 
 };
 
