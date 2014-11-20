@@ -57,7 +57,6 @@ var openLayers = {
         var geojson = new Object();
         //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
         geojson = sparqlToGeoJSON(vm.filteredData());
-        //console.log(JSON.stringify(geojson));
 
         //Create the map div
         var map_div = div.append("div")
@@ -77,6 +76,8 @@ var openLayers = {
         //    });
         //layersmap.addLayer(layer);
 
+
+        // markers
         var markers = new OpenLayers.Layer.Markers("Markers");
         var size = new OpenLayers.Size(21, 25);
         var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
@@ -88,11 +89,13 @@ var openLayers = {
 
         layersmap.addLayer(markers);
 
-        var geojson_format = new OpenLayers.Format.GeoJSON();
+        var geojson_format = new OpenLayers.Format.GeoJSON({
+            internalProjection: new OpenLayers.Projection("EPSG:3857"),
+            externalProjection: new OpenLayers.Projection("EPSG:4326")
+        });
         var vector_layer = new OpenLayers.Layer.Vector();
         layersmap.addLayer(vector_layer);
         vector_layer.addFeatures(geojson_format.read(geojson));
-        layersmap.zoomToExtent(markers.getDataExtent());
         layersmap.zoomToExtent(markers.getDataExtent());
     }
 

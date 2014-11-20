@@ -681,6 +681,8 @@ function InitViewModel() {
 		}
 	});
 
+    /* Queries methods */
+
 	/** This function does a mapping from json (response) to self.viewData and updateWidgets */
 	self.getResultsSPARQL = function (sparql_query, endpoint) {
 
@@ -775,9 +777,8 @@ function InitViewModel() {
 
 	self.getResultsSPARQLRestaurants = function () {
 			
-		//var restaurants_query = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo: <http://www.opengis.net/ont/geosparql#> PREFIX geof: <http://www.opengis.net/def/function/geosparql/> PREFIX gnis: <http://sefarad.gsi.dit.upm.es/rdf/gnis/> PREFIX gp: <http://sefarad.gsi.dit.upm.es/rdf/gp/>  PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#> SELECT  * WHERE  { ?s gp:price ?price . ?s gp:address ?address. ?s gp:reservations ?reservations . ?s gp:takeout ?takeout . ?s gp:foodtype ?foodtype . ?s gp:stars ?stars . ?s gp:district ?district .   ?s wgs84_pos:latitude ?latitude  . ?s wgs84_pos:longitude ?longitude  } ' ;
-        var restaurants_query = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo: <http://www.opengis.net/ont/geosparql#> PREFIX geof: <http://www.opengis.net/def/function/geosparql/> PREFIX gnis: <http://smartopendata.gsi.dit.upm.es/rdf/gnis/> PREFIX gu: <http://smartopendata.gsi.dit.upm.es/rdf/gu/> PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX dbpedia-owl: <http://dbpedia.org/property/> prefix text: <http://jena.apache.org/text#> PREFIX gp: <http://sefarad.gsi.dit.upm.es/rdf/gp/> SELECT * WHERE { SERVICE <http://localhost:3030/books/query> { ?res geo:hasGeometry ?fGeom . ?fGeom geo:asWKT ?fWKT . ?res gu:GEOCODIGO ?geocodigo . ?res gu:DESBDT ?desbdt . ?res owl:sameAs ?dbpediaLink . } SERVICE <http://localhost:3030/geo/query> { ?d ?p ?o FILTER(REGEX(?o, ?desbdt)) } SERVICE <http://localhost:3030/geo/query> { ?d gp:price ?price . ?d gp:foodtype ?foodtype . ?d gp:stars ?stars . ?d gp:takeout ?takeout . ?d gp:reservations ?reservations . ?d wgs84_pos:latitude ?latitude  . ?d wgs84_pos:longitude ?longitude} }';
-        var temporal = 'http://alpha.gsi.dit.upm.es:3030/geo/query?query=' + encodeURIComponent(restaurants_query);
+        var restaurants_query = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo: <http://www.opengis.net/ont/geosparql#> PREFIX geof: <http://www.opengis.net/def/function/geosparql/> PREFIX gnis: <http://smartopendata.gsi.dit.upm.es/rdf/gnis/> PREFIX gu: <http://smartopendata.gsi.dit.upm.es/rdf/gu/> PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX dbpedia-owl: <http://dbpedia.org/property/> prefix text: <http://jena.apache.org/text#> PREFIX gp: <http://sefarad.gsi.dit.upm.es/rdf/gp/> SELECT * WHERE { SERVICE <http://localhost:3030/districts/query> { ?t geo:hasGeometry ?fGeom . ?fGeom geo:asWKT ?fWKT . ?t gu:GEOCODIGO ?geocodigo . ?t gu:DESBDT ?desbdt . ?t owl:sameAs ?dbpediaLink . } SERVICE <http://localhost:3030/restaurants/query> { ?d ?p ?o FILTER(REGEX(?o, ?desbdt)) } SERVICE <http://localhost:3030/restaurants/query> { ?d gp:price ?price . ?d gp:foodtype ?foodtype . ?d gp:stars ?stars . } } ';
+        var temporal = 'http://alpha.gsi.dit.upm.es:3030/restaurants/query?query=' + encodeURIComponent(restaurants_query);
 	    var req = new XMLHttpRequest();
 	    req.open("GET", temporal, true);
 	    var params = encodeURIComponent(restaurants_query);
@@ -801,33 +802,32 @@ function InitViewModel() {
 	    return false;			
 	};
 
-	self.getDataPolygons = function() {
+    self.getPolyginsFromEuro = function () {
 
-		var poligons_query = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo: <http://www.opengis.net/ont/geosparql#> PREFIX geof: <http://www.opengis.net/def/function/geosparql/> PREFIX gnis: <http://cegis.usgs.gov/rdf/gnis/> PREFIX gu: <http://cegis.usgs.gov/rdf/gu/>  PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> SELECT  * WHERE  { { ?uri rdfs:label ?name1 . ?s geo:hasGeometry ?fGeom . ?fGeom geo:asWKT ?fWKT . ?s gu:areaSqKM  ?areaSqKM  . ?s gu:dataSecurity ?dataSecurity . ?s gu:distributionPolicy ?distributionPolicy . ?s gnis:shapeLength ?shapeLength . ?s gnis:shapeArea ?shapeArea . ?s gu:sourceDataDesc ?sourceDataDesc . ?s gu:stateName ?stateName . ?s gu:minorCivilDivisonName ?minorCivilDivisonName . } }  LIMIT 500 ';
-
-	    var temporal = 'http://alpha.gsi.dit.upm.es:3030/ds/query?query=' + encodeURIComponent(poligons_query);
-	    var req = new XMLHttpRequest();
-	    req.open("GET", temporal, true);
-	    var params = encodeURIComponent(poligons_query);
-	    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	    req.setRequestHeader("Accept", "application/sparql-results+json");
-	    req.setRequestHeader("Content-length", params.length);
-	    req.setRequestHeader("Connection", "close");
-	    req.send();
-	    req.onreadystatechange = function() {
-	        if (req.readyState == 4)
-	            if (req.status == 200) {
-	            	var res = eval ("(" + req.responseText + ")");
-	                var data = JSON.stringify(res.results.bindings);
-					ko.mapping.fromJSON(data, self.viewData);
-					updateWidgets(true);
-	                
-	            } else {
-	                console.log("Not here" + req.status);
-	            }
-	    };
-	    return false;
-	}
+        var polygonsfeuro_query = 'PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX j.0: <http://inspire.jrc.ec.europa.eu/schemas/gn/3.0/> PREFIX j.1: <http://inspire.jrc.ec.europa.eu/schemas/ps/3.0/> PREFIX j.2: <http://inspire.jrc.ec.europa.eu/schemas/base/3.2/> PREFIX j.3: <http://www.opengis.net/ont/geosparql#> SELECT * WHERE { SERVICE <http://localhost:3030/slovakia/query> { ?res j.3:hasGeometry ?fGeom . ?fGeom j.3:asWKT ?fWKT . ?res j.1:siteProtectionClassification ?spc  . ?res j.1:LegalFoundationDate ?lfd .   ?res j.1:LegalFoundationDocument ?lfdoc .  ?res j.1:inspireId ?inspire . ?inspire j.2:namespace ?namespace . ?inspire j.2:namespace ?localId . ?res j.1:siteDesignation ?siteDesignation .  ?siteDesignation j.1:percentageUnderDesignation ?percentageUnderDesignation . ?siteDesignation j.1:designation ?designation . ?siteDesignation j.1:designationScheme ?designationScheme . } } LIMIT 10';
+        var temporal = 'http://alpha.gsi.dit.upm.es:3030/slovakia/query?query=' + encodeURIComponent(polygonsfeuro_query);
+        var req = new XMLHttpRequest();
+        req.open("GET", temporal, true);
+        var params = encodeURIComponent(polygonsfeuro_query);
+        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        req.setRequestHeader("Accept", "application/sparql-results+json");
+        req.setRequestHeader("Content-length", params.length);
+        req.setRequestHeader("Connection", "close");
+        req.send();
+        req.onreadystatechange = function() {
+            if (req.readyState == 4){
+                if (req.status == 200) {
+                    //console.log(req.responseText);
+                    var res = eval ("(" + req.responseText + ")");
+                    var data = JSON.stringify(res.results.bindings);
+                    ko.mapping.fromJSON(data, self.viewData);
+                    updateWidgets(true);
+                } else {
+                }
+            }
+        };
+        return false;
+    };
 
 	self.getDataSmod = function () {
 			
@@ -860,71 +860,6 @@ function InitViewModel() {
 				}
 			});
 	}
-
-	self.getNetherlandsDataTest = function() {
-	    var poligons_query = 'PREFIX geof:<http://www.opengis.net/def/function/geosparql/\> PREFIX geo:<http://www.opengis.net/ont/geosparql#> PREFIX d2r-vocab:<http://erfgeo.nl/d2r/d2r-vocab/\> SELECT DISTINCT * WHERE {?URI d2r-vocab:archeologisch_monument_monumentnr ?Monumentnummer; d2r-vocab:archeologisch_monument_code ?code; d2r-vocab:archeologisch_monument_provincie ?provincie; d2r-vocab:archeologisch_monument_gemeente ?gemeente; d2r-vocab:archeologisch_monument_plaats ?plaats; d2r-vocab:archeologisch_monument_toponiem ?toponiem; d2r-vocab:archeologisch_monument_kaartblad ?kaartblad; d2r-vocab:archeologisch_monument_x_coord ?xcoordinaatRD; d2r-vocab:archeologisch_monument_y_coord ?ycoordinaatRD; d2r-vocab:archeologisch_monument_waarde ?waarde; geo:hasGeometry ?geometrie . ?geometrie geo:asWKT ?WKT . FILTER (geof:sfIntersects(?WKT, "POLYGON((4.867391586303719 52.12839664545966,5.1326084136963015 52.12839664545966,5.1326084136963015 52.19158092981249,4.867391586303719 52.19158092981249,4.867391586303719 52.12839664545966))"^^geo:wktLiteral))} LIMIT 10';
-
-	    $.ajax({
-	        url: 'http://erfgeo.nl/useekm',
-	        data: {
-	            queryLn: 'SPARQL',
-	            query: poligons_query,
-	            infer: 'true',
-	            Accept: 'application/sparql-results+json',
-	            output: 'json'
-	        },
-	        crossDomain: true,
-	        dataType: 'jsonp',		
-	        success: function(data) {
-	        	console.log('Holanda is good');
-	            var geometries = new Array();
-	            var geojson = new Object();
-
-	            //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
-	            geojson = sparqlToGeoJSON(data);
-	            console.log(geojson);
-
-	        },
-	        error: function () {
-			}
-	    });
-	}
-
-	self.getNetherlandsData = function() {
-
-	    var poligons_query = 'PREFIX geof:<http://www.opengis.net/def/function/geosparql/\> PREFIX geo:<http://www.opengis.net/ont/geosparql#> PREFIX d2r-vocab:<http://erfgeo.nl/d2r/d2r-vocab/\> SELECT DISTINCT * WHERE {?URI d2r-vocab:archeologisch_monument_monumentnr ?Monumentnummer; d2r-vocab:archeologisch_monument_code ?code; d2r-vocab:archeologisch_monument_provincie ?provincie; d2r-vocab:archeologisch_monument_gemeente ?gemeente; d2r-vocab:archeologisch_monument_plaats ?plaats; d2r-vocab:archeologisch_monument_toponiem ?toponiem; d2r-vocab:archeologisch_monument_kaartblad ?kaartblad; d2r-vocab:archeologisch_monument_x_coord ?xcoordinaatRD; d2r-vocab:archeologisch_monument_y_coord ?ycoordinaatRD; d2r-vocab:archeologisch_monument_waarde ?waarde; geo:hasGeometry ?geometrie . ?geometrie geo:asWKT ?WKT . FILTER (geof:sfIntersects(?WKT, "POLYGON((4.867391586303719 52.12839664545966,5.1326084136963015 52.12839664545966,5.1326084136963015 52.19158092981249,4.867391586303719 52.19158092981249,4.867391586303719 52.12839664545966))"^^geo:wktLiteral))} LIMIT 10';
-
-
-	    var  temporal = 'http://erfgeo.nl/useekm?query=';
-		var req = new XMLHttpRequest();
-	    req.open("POST", temporal, true);
-		var params = encodeURIComponent(poligons_query) ;
-	    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	    req.setRequestHeader("Content-length", params.length);
-	    req.setRequestHeader("Connection", "close");
-	    req.send(params);
-	    req.onreadystatechange = function() 
-	    { 
-	        if (req.readyState == 4)
-				if (req.status == 200)
-				{ 
-
-				    console.log('Holanda is good');
-		            var geometries = new Array();
-		            var geojson = new Object();
-
-		            //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
-		            geojson = sparqlToGeoJSON(data);
-		            console.log(geojson);
-				}
-	            else
-				{
-				  console.log("Not here"+req.status);
-				}
-	    };
-	    return false;
-	}
-
 
 	self.doDeleteAllFilters = function () {
 		if (self.sparql()) {
@@ -1039,6 +974,9 @@ function InitViewModel() {
 
 	/** Filter results and get only different ones (ideal for sparql mode where there could be repeated results with a multivalued field) */
 	self.uniqueItems = ko.computed(function () {
+
+        console.log('UniqueItems');
+
 		if (self.sparql()) {
 
 			var filteredArray = [];
@@ -1129,6 +1067,7 @@ function InitViewModel() {
 
 	/** Final data visualized in results widget (after text filter through input if exists) */
 	self.filteredData = ko.computed(function () {
+
 		var data = self.filteredCategory();
 		var array = [];
 
@@ -2073,7 +2012,120 @@ function InitViewModel() {
                         self.numberOfResults.valueHasMutated();                       
                     });
                 });
-				                
+
+                this.get('#/sparql/slovakiaPolygonsDemo', function () {
+                    console.log("SLOVAKIA DEMO");
+                    self.sparql = ko.observable(true);
+                    vm.getPolyginsFromEuro();
+                    configuration.template.language = "English";
+                    configuration.template.pageTitle = "SLOVAKia Demo";
+
+                    templateWidgetsLeft.push({
+                        id: 1,
+                        title: 'ProtectionClassification',
+                        type: 'tagcloud',
+                        field: 'spc',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+                        help: 'Districts'
+                    });
+
+                    templateWidgetsLeft.push({
+                        id: 2,
+                        title: 'Namespace',
+                        type: 'tagcloud',
+                        field: 'namespace',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+                        help: 'Price ranges'
+                    });
+
+                    templateWidgetsLeft.push({
+                        id: 3,
+                        title: 'LocalId',
+                        type: 'tagcloud',
+                        field: 'localId',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+                        help: 'Restaurants rating'
+                    });
+
+                    templateWidgetsLeft.push({
+                        id: 4,
+                        title: 'Designation',
+                        type: 'tagcloud',
+                        field: 'designation',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+                        help: 'Different food types'
+                    });
+
+                    templateWidgetsLeft.push({
+                        id: 5,
+                        title: 'designation Scheme',
+                        type: 'tagcloud',
+                        field: 'designationScheme',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+                        help: 'Reservations'
+                    });
+
+
+                    configuration.autocomplete.field = "spc";
+                    self.securityEnabled(true);
+                    self.adminMode(false);
+                    sparqlmode = true;
+                    init();
+
+                    //Adding widgets
+                    $(window).load(function () {
+
+                        //Add openlayers map
+                        openLayers.render();
+
+                        //Add results table
+                        newResultsWidget.render();
+
+                        resultsTable.column(0).visible(false);
+                        resultsTable.column(1).visible(false);
+                        resultsTable.column(2).visible(false);
+                        resultsTable.column(3).visible(false);
+                        resultsTable.column(4).visible(false);
+                        resultsTable.column(5).visible(false);
+                        resultsTable.column(6).visible(false);
+                        resultsTable.column(9).visible(false);
+                        resultsTable.column(10).visible(false);
+                        resultsTable.column(12).visible(false);
+
+                        self.numberOfResults.valueHasMutated();
+                    });
+                });
+
                 this.get('#/sparql/universitiesDemo', function () {
                     console.log("UNIVERSITIES DEMO");
                     self.sparql = ko.observable(true);

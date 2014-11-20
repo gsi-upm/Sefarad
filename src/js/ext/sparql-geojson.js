@@ -29,7 +29,7 @@ function sparqlToGeoJSON(sparqlJSON) {
                                 coordinates = coordinates.split(" ").join(",");
                                 //delete repeated ,,
                                 var re = new RegExp(',,', 'g');
-                                coordinates = coordinates.replace(re, '');                                
+                                coordinates = coordinates.replace(re, '');
 
                                 //find substring left of first "(" occurrence for geometry type
                                 switch (true) {
