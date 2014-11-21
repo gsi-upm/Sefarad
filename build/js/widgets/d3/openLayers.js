@@ -78,16 +78,16 @@ var openLayers = {
 
 
         // markers
-        var markers = new OpenLayers.Layer.Markers("Markers");
-        var size = new OpenLayers.Size(21, 25);
-        var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
-        var icon = new OpenLayers.Icon('http://dev.openlayers.org/img/marker.png', size, offset);
-
-        $.each(data, function (index, item) {
-            markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.longitude.value(), item.latitude.value()).transform('EPSG:4326', 'EPSG:3857'), icon.clone()));
-        });
-
-        layersmap.addLayer(markers);
+        //var markers = new OpenLayers.Layer.Markers("Markers");
+        //var size = new OpenLayers.Size(21, 25);
+        //var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
+        //var icon = new OpenLayers.Icon('http://dev.openlayers.org/img/marker.png', size, offset);
+        //
+        //$.each(data, function (index, item) {
+        //    markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.longitude.value(), item.latitude.value()).transform('EPSG:4326', 'EPSG:3857'), icon.clone()));
+        //});
+        //
+        //layersmap.addLayer(markers);
 
         var geojson_format = new OpenLayers.Format.GeoJSON({
             internalProjection: new OpenLayers.Projection("EPSG:3857"),
@@ -96,7 +96,7 @@ var openLayers = {
         var vector_layer = new OpenLayers.Layer.Vector();
         layersmap.addLayer(vector_layer);
         vector_layer.addFeatures(geojson_format.read(geojson));
-        layersmap.zoomToExtent(markers.getDataExtent());
+        layersmap.zoomToExtent(vector_layer.getDataExtent());
     }
 
 };
