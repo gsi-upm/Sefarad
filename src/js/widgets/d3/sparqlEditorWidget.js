@@ -107,9 +107,6 @@ var sparqlEditorWidget = {
         });
 
 
-
-
-
         // end of configuration
 
 

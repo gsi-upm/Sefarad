@@ -34,6 +34,8 @@ var templateWidgetsLeft = [];
 var templateWidgetsRight = [];
 var templateWidgetsLeftTab1 = [];
 var templateWidgetsRightTab1 = [];
+var templateWidgetsLeftTab3 = [];
+var templateWidgetsRightTab3 = [];
 
 var errorinroute = false;
 var sparqlmode = false;
@@ -2340,6 +2342,8 @@ function InitViewModel() {
 	                templateWidgetsRight = [];
 	                templateWidgetsLeftTab1 = [];
 	                templateWidgetsRightTab1 = [];
+                    templateWidgetsLeftTab3 = [];
+                    templateWidgetsRightTab3 = [];
 
                     fillWidgetConfiguration(configuration.widgetsRight, templateWidgetsRight);
                     fillWidgetConfiguration(configuration.widgetsLeft, templateWidgetsLeft);
@@ -2357,6 +2361,8 @@ function InitViewModel() {
 	                templateWidgetsRight = [];
 	                templateWidgetsLeftTab1 = [];
 	                templateWidgetsRightTab1 = [];
+                    templateWidgetsLeftTab3 = [];
+                    templateWidgetsRightTab3 = [];
 
 	                templateWidgetsRight.push({
 	                    "id": ko.observable(0),
@@ -2421,6 +2427,9 @@ function InitViewModel() {
 		self.activeWidgetsRight = ko.mapping.fromJS(templateWidgetsRight);
 		self.activeWidgetsLeftTab1 = ko.mapping.fromJS(templateWidgetsLeftTab1);
 		self.activeWidgetsRightTab1 = ko.mapping.fromJS(templateWidgetsRightTab1);
+        self.activeWidgetsLeftTab3 = ko.mapping.fromJS(templateWidgetsLeft);
+        self.activeWidgetsRightTab3 = ko.mapping.fromJS(templateWidgetsRight);
+
 		self.filter('');
 		//self.resultsGraphsTemp = ko.mapping.fromJS(self.testData);
 

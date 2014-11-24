@@ -1,4 +1,4 @@
-Which resources it links?,Show in demo yes/no,Short name (diplayed in dropbox),Actual SPARQL query Please format it with enters!,Explanation (long explanation to be shown in UI),parameterNumbers,paramDefinition,parameter1,parameter2
+Which resources it links?,Show in demo yes/no,Short name (diplayed in dropbox),Actual SPARQL query Please format it with enters!,Explanation (long explanation to be shown in UI),parameterNumbers,paramDefinition,parameter1 values,parameter2 values
 "demosEndpoint, dbpedia",yes,All restaurants in {district} with aprox rate of {stars},"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
