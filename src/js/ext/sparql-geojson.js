@@ -31,7 +31,7 @@ function sparqlToGeoJSON(sparqlJSON, yxconversion) {
                                 var re = new RegExp(',,', 'g');
                                 coordinates = coordinates.replace(re, '');
 
-                                console.log(coordinates);
+                                //console.log(coordinates);
 
                                 if(yxconversion){
 
