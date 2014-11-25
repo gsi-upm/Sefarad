@@ -56,7 +56,7 @@ var openLayers = {
         var geometries = new Array();
         var geojson = new Object();
         //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
-        geojson = sparqlToGeoJSON(vm.filteredData());
+        geojson = sparqlToGeoJSON(vm.filteredData(), true);
 
         //Create the map div
         var map_div = div.append("div")
@@ -76,23 +76,26 @@ var openLayers = {
         //    });
         //layersmap.addLayer(layer);
 
-
         // markers
-        //var markers = new OpenLayers.Layer.Markers("Markers");
-        //var size = new OpenLayers.Size(21, 25);
-        //var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
-        //var icon = new OpenLayers.Icon('http://dev.openlayers.org/img/marker.png', size, offset);
-        //
-        //$.each(data, function (index, item) {
-        //    markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.longitude.value(), item.latitude.value()).transform('EPSG:4326', 'EPSG:3857'), icon.clone()));
-        //});
-        //
-        //layersmap.addLayer(markers);
+        var markers = new OpenLayers.Layer.Markers("Markers");
+        var size = new OpenLayers.Size(21, 25);
+        var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
+        var icon = new OpenLayers.Icon('http://dev.openlayers.org/img/marker.png', size, offset);
 
-        var geojson_format = new OpenLayers.Format.GeoJSON({
-            internalProjection: new OpenLayers.Projection("EPSG:3857"),
-            externalProjection: new OpenLayers.Projection("EPSG:4326")
+        $.each(data, function (index, item) {
+            markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.longitude.value(), item.latitude.value()).transform('EPSG:4326', 'EPSG:3857'), icon.clone()));
         });
+
+        layersmap.addLayer(markers);
+
+        // Transform polyons projection
+        //var geojson_format = new OpenLayers.Format.GeoJSON({
+        //    internalProjection: new OpenLayers.Projection("EPSG:3857"),
+        //    externalProjection: new OpenLayers.Projection("EPSG:4326")
+        //});
+
+        // Not transform polygons projection
+        var geojson_format = new OpenLayers.Format.GeoJSON({});
         var vector_layer = new OpenLayers.Layer.Vector();
         layersmap.addLayer(vector_layer);
         vector_layer.addFeatures(geojson_format.read(geojson));

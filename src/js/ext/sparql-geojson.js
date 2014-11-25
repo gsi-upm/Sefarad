@@ -1,5 +1,5 @@
 //SPARQL-GeoJSON v.0.2-alpha
-function sparqlToGeoJSON(sparqlJSON) {
+function sparqlToGeoJSON(sparqlJSON, yxconversion) {
         'use strict';
         var bindingindex, varindex, geometryType, wkt, coordinates, property;
         var geojson = {
@@ -30,6 +30,12 @@ function sparqlToGeoJSON(sparqlJSON) {
                                 //delete repeated ,,
                                 var re = new RegExp(',,', 'g');
                                 coordinates = coordinates.replace(re, '');
+
+                                console.log(coordinates);
+
+                                if(yxconversion){
+
+                                }
 
                                 //find substring left of first "(" occurrence for geometry type
                                 switch (true) {

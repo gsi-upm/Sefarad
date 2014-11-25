@@ -56,7 +56,7 @@ var openLayers = {
         var geometries = new Array();
         var geojson = new Object();
         //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
-        geojson = sparqlToGeoJSON(vm.filteredData());
+        geojson = sparqlToGeoJSON(vm.filteredData(), true);
 
         //Create the map div
         var map_div = div.append("div")
