@@ -2211,6 +2211,36 @@ function InitViewModel() {
                     });
                 });
 
+
+				/*
+				 ######################################
+				 ##############SENTIVID DEMO###########
+				 ######################################
+				*/
+				this.get('#/sparql/sentivid', function() {
+					console.log("Sentivid Demo");
+					// Do we want sparql? I think so
+					self.sparql = ko.observable(true);
+
+					configuration.template.language = "English";
+                    configuration.template.pageTitle = "Video Sentiment";
+                    configuration.template.logoPath = "img/heart.png";
+
+                    self.accordionLayout = ko.observable(false);
+
+					init();
+					//Adding widgets
+                    $(window).load(function () {
+                    	
+                        //Add map widget
+                        videoDataWidget.render();   
+                        videoTimeWidget.render();
+                        videoTranscriptWidget.render();
+                        videoWidget.render();             
+                    });
+				});
+
+
 				this.get('#/sparql/smod', function () {
                     console.log("SMOD DEMO");
                     self.sparql = ko.observable(true);

@@ -102,6 +102,11 @@ if ($user->isLoggedIn()){
 		<script type="text/javascript" charset="UTF-8" src="js/widgets/ext/AutocompleteWidget.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="js/widgets/ext/PagerWidget.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="js/widgets/ext/ResultWidget.2.0.js"></script>
+
+		<!-- video sentiment widgets -->
+ 		<script type="text/javascript" charset="UTF-8" src="js/ext/popcorn-complete.min.js"></script>
+ 		<!-- #video sentiment widgets -->
+
 		<!-- other -->
 		<script type="text/javascript" charset="UTF-8" src="js/ext/sammy-latest.min.js"></script>
 		<script src="js/ext/jquery.isotope.min.js"></script>

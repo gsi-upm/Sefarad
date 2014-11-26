@@ -36,6 +36,10 @@ if ($user->isLoggedIn()){
 		<script type="text/javascript" src="js/widgets/d3/openlayersMap.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/sparqlEditorWidget.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/stockWidget.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/videoDataWidget.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/videoTimeWidget.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/videoTranscriptWidget.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/videoWidget.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetBarras.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetD3.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetDonuts.js"></script>
@@ -43,7 +47,7 @@ if ($user->isLoggedIn()){
 		<script type="text/javascript" src="js/widgets/d3/widgetSortBar.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetWheel.js"></script>
 		<script type="text/javascript">
-			var widgetX = [accordionWidget, newResultsWidget, openLayers, openStreetMap, openlayersMap, sparqlEditorWidget, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
+			var widgetX = [accordionWidget, newResultsWidget, openLayers, openStreetMap, openlayersMap, sparqlEditorWidget, stockWidget, videoDataWidget, videoTimeWidget, videoTranscriptWidget, videoWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
 		</script>
 		<meta charset="utf-8" />
 		<title>SEFARAD</title>
@@ -118,6 +122,11 @@ if ($user->isLoggedIn()){
 		<script type="text/javascript" charset="UTF-8" src="js/widgets/ext/AutocompleteWidget.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="js/widgets/ext/PagerWidget.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="js/widgets/ext/ResultWidget.2.0.js"></script>
+
+		<!-- video sentiment widgets -->
+ 		<script type="text/javascript" charset="UTF-8" src="js/ext/popcorn-complete.min.js"></script>
+ 		<!-- #video sentiment widgets -->
+
 		<!-- other -->
 		<script type="text/javascript" charset="UTF-8" src="js/ext/sammy-latest.min.js"></script>
 		<script src="js/ext/jquery.isotope.min.js"></script>
