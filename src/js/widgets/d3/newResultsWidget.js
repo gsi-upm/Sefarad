@@ -13,12 +13,14 @@ var newResultsWidget = {
     // Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
     cat: 5,
 
+
+
     render: function () {
 
         var id = 'A' + Math.floor(Math.random() * 10001);
         var configid = 'A' + Math.floor(Math.random() * 10001);
         var field = newResultsWidget.field || "";
-        vm.activeWidgetsRight.push({
+        var properties = {
             "id": ko.observable(id),
             "configid": ko.observable(configid),
             "title": ko.observable(newResultsWidget.name),
@@ -28,7 +30,9 @@ var newResultsWidget = {
             "showWidgetHelp": ko.observable(false),
             "help": ko.observable(newResultsWidget.help),
             "showWidgetConfiguration": ko.observable(false)
-        });
+        };
+
+        vm.addNewWidget(properties);
 
         newResultsWidget.paintConfig(configid);
         newResultsWidget.paint(id);

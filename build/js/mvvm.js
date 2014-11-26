@@ -1537,6 +1537,12 @@ function InitViewModel() {
 		}
 	});
 
+
+    self.addNewWidget = function (object)
+    {
+        self.activeWidgetsLeftTab1.push(object);
+    }
+
 	/** Adding a new SliderWidget */
 	self.addSliderWidget = function () {
 
@@ -3330,10 +3336,7 @@ var test = {
 
 
 
-function addWidget (data)
-{
-    self.activeWidgetsLeftTab1.push(data);
-}
+
 
 
 
