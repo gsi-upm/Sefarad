@@ -254,7 +254,7 @@ if ($user->isLoggedIn()){
 				<div id="logos" data-bind="visible: !showSparqlPanel()">
 					<!-- ko if: logoPath == undefined -->
 					<!-- /ko -->
-					<div id="logotext"><img data-bind="attr:{src: vm.logoPath}"><span data-bind="text: pageTitle"></span></div>
+					<div id="logotext"><img data-bind="attr:{src: vm.logoPath}" height='50'><span data-bind="text: pageTitle"></span></div>
 				</div>
 				<!-- Search and help area -->
 				<div class="right_area" >

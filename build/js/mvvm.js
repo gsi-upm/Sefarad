@@ -2217,7 +2217,7 @@ function InitViewModel() {
 				 ##############SENTIVID DEMO###########
 				 ######################################
 				*/
-				this.get('#/sparql/sentivid', function() {
+				this.get('#/sentivid', function() {
 					console.log("Sentivid Demo");
 					// Do we want sparql? I think so
 					self.sparql = ko.observable(true);
