@@ -57,7 +57,7 @@ function InitViewModel() {
 
 	/** Template variables */
 	self.pageTitle = ko.observable(configuration.template.pageTitle);
-	self.logoPath = ko.observable();
+	self.logoPath = ko.observable(configuration.template.logoPath);
 	self.showTwitterWidget = ko.observable(true);
 	self.showConfigurationPanel = ko.observable(configuration.template.showResultsWidget);
 	self.showResultsWidget = ko.observable(false);
@@ -1043,8 +1043,8 @@ function InitViewModel() {
 
 						}
 					});
-                    console.log(item1.field())
-                    console.log(tempFilter.length);
+                    //console.log(item1.field())
+                    //console.log(tempFilter.length);
 
 				}
 
@@ -2137,6 +2137,7 @@ function InitViewModel() {
 
                     configuration.template.language = "English";
                     configuration.template.pageTitle = "Universities Demo";
+                    configuration.template.logoPath = 'img/color.png';
                     configuration.results.resultsLayout = [{
                         Name: "Títulos",
                         Value: "university"
@@ -3245,7 +3246,7 @@ function responseToBot (options){
 		vm.resultsLayout()[2].Value('employee_base');
 		vm.resultsLayout()[3].Value('employee_photo');
 
-		vm.activeWidgetsLeft([]);		
+		vm.activeWidgetsLeft([]);
 		vm.newTagCloudValue('employee_role');
 		vm.addTagCloudWidget();
 		vm.activeWidgetsLeft()[0].title('Employees Roles');
@@ -3268,7 +3269,7 @@ function responseToBot (options){
 		vm.resultsLayout()[2].Value('project_state');
 		vm.resultsLayout()[3].Value('project_logo');
 
-		vm.activeWidgetsLeft([]);		
+		vm.activeWidgetsLeft([]);
 		vm.newTagCloudValue('project_area');
 		vm.addTagCloudWidget();
 		vm.activeWidgetsLeft()[0].title('Research areas');
@@ -3325,6 +3326,13 @@ var test = {
 	"filter": {
 		"project_area":["Procesado Lenguaje Natural", "Agentes Inteligentes"]
 	}
+}
+
+
+
+function addWidget (data)
+{
+    self.activeWidgetsLeftTab1.push(data);
 }
 
 

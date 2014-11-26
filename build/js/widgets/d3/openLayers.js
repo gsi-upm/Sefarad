@@ -99,7 +99,7 @@ var openLayers = {
         var vector_layer = new OpenLayers.Layer.Vector();
         layersmap.addLayer(vector_layer);
         vector_layer.addFeatures(geojson_format.read(geojson));
-        layersmap.zoomToExtent(markers.getDataExtent());
+        layersmap.zoomToExtent(vector_layer.getDataExtent());
     }
 
 };

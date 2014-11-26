@@ -132,8 +132,7 @@ box-shadow: 0 1px 40px rgba(0, 0, 0, 0.75),inset 0 -1px 0 rgba(0, 0, 0, 0.7);
 
 .topbar .right_area .login_area{
   float: left;
-  width:  %;
-  height: 70px; 
+  height: 70px;
 }
 
 .topbar .icon{
@@ -361,6 +360,12 @@ background: url('../img/noise.png');
 
 #columns #column0tab1 .ui-widget { margin: 30px 3px 0 25px; } 
 #columns #column1tab1 .ui-widget { margin: 30px 3px 0 25px; }
+
+#columns #column0tab3 { float: left; width:40%; }
+#columns #column1tab3 { float: left; width:58%; }
+
+#columns #column0tab3 .ui-widget { margin: 30px 3px 0 25px; }
+#columns #column1tab3 .ui-widget { margin: 30px 3px 0 25px; }
 
 .widget-placeholder { 
   border: 2px dashed #819bcb;

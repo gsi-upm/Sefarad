@@ -57,7 +57,7 @@ function initIsotopeAndWizards(){
 	});			
 
 	$('.column').resizable({ handles: 'e' });
-	vm.drawcharts();
+	//vm.drawcharts();
 
 	$("#sgvizlertable td").click(function(e) {
 		var currentCellText = $(this).text();

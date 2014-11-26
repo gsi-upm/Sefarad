@@ -23,7 +23,7 @@ var newWidgetTemplate = { //IMPORTANT: the var name must match the name of the f
         var id = 'A' + Math.floor(Math.random() * 10001);
         var configid = 'A' + Math.floor(Math.random() * 10001);
         var field = this.field || "";
-        vm.activeWidgetsRight.push({
+        var properties = {
             "id": ko.observable(id),
             "configid": ko.observable(configid),
             "title": ko.observable(this.name),
@@ -33,7 +33,20 @@ var newWidgetTemplate = { //IMPORTANT: the var name must match the name of the f
             "showWidgetHelp": ko.observable(false),
             "help": ko.observable(this.help),
             "showWidgetConfiguration": ko.observable(false)
-        });
+        };
+
+        //deprecated
+        //vm.activeWidgetsRight.push({
+        //    "id": ko.observable(id),
+        //    "configid": ko.observable(configid),
+        //    "title": ko.observable(this.name),
+        //    "type": ko.observable(this.type),
+        //    "field": ko.observable(field),
+        //    "collapsed": ko.observable(false),
+        //    "showWidgetHelp": ko.observable(false),
+        //    "help": ko.observable(this.help),
+        //    "showWidgetConfiguration": ko.observable(false)
+        //});
 
         this.paintConfig(configid);
         this.paint(id);

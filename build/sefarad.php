@@ -249,7 +249,7 @@ if ($user->isLoggedIn()){
 				<div id="logos" data-bind="visible: !showSparqlPanel()">
 					<!-- ko if: logoPath == undefined -->
 					<!-- /ko -->
-					<div id="logotext"><img src="img/smod2.png"><span data-bind="text: pageTitle"></span></div>
+					<div id="logotext"><img data-bind="attr:{src: vm.logoPath}"><span data-bind="text: pageTitle"></span></div>
 				</div>
 				<!-- Search and help area -->
 				<div class="right_area" >
@@ -798,6 +798,28 @@ if ($user->isLoggedIn()){
 
 				<!-- columns in tab 3 -->
 				<div id="columns" data-bind="visible: activeTab() == 3">
+                    <div id="column0tab3" class="column">
+                        <!-- Add new widget section (left column) -->
+                        <div class="addNewWidget" data-bind="visible: $root.adminMode">
+                            <h1 data-bind="click: $root.openNewWidgetManagerMethod, text: lang().addWidget"></h1>
+                        </div>
+                        <!-- linear layout -->
+                        <div data-bind="visible: !($root.accordionLayout())">
+                            <div class="container" data-bind="template: { name: 'widgets-template', foreach: activeWidgetsLeftTab3,
+								beforeRemove: function(elem) { $(elem).slideUp(1500,'easeOutBounce', function() {$(elem).remove(); });  },
+								templateOptions: { parentList: activeWidgetsLeftTab3} }, sortableList: activeWidgetsLeftTab3"></div>
+                        </div>
+
+                    </div>
+                    <div id="column1tab3" class="column" >
+                        <!-- Widgets at right column -->
+                        <div class="container right" data-bind="template: { name: 'widgets-template', foreach: activeWidgetsRightTab3,
+							beforeRemove: function(elem) { $(elem).slideUp(1500,'easeOutBounce', function() {$(elem).remove(); });  },
+							templateOptions: { parentList: activeWidgetsRightTab3} }, sortableList: activeWidgetsRightTab3"></div>
+                        <!-- column 1 tab 0 end -->
+
+                    </div>
+
 
 				</div>
 
@@ -1305,6 +1327,9 @@ if ($user->isLoggedIn()){
 					<h2 data-bind="text: $data.name"></h2>
 					<p data-bind="text: $data.description"></p>
 					<a href="#" data-bind="click: $data.render"><button class="button">Añadir</button></a>
+                    <!--
+                    <a href="#" data-bind="click: vm.addWidget($data)"><button class="button">Añadir</button></a>
+                    -->
 				</div>
 			</div>
 		</script>
