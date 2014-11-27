@@ -13,11 +13,14 @@ var openStreetMap = {
     // Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
     cat: 6,
 
-    render: function() {
+    render: function(loc) {
+
+        loc = typeof loc !== 'undefined' ? loc : "Left";
+
         var id = 'A' + Math.floor(Math.random() * 10001);
         var configid = 'A' + Math.floor(Math.random() * 10001);
         var field = openStreetMap.field || "";
-        vm.activeWidgetsRight.push({
+        var properties = {
             "id": ko.observable(id),
             "configid": ko.observable(configid),
             "title": ko.observable(openStreetMap.name),
@@ -28,7 +31,9 @@ var openStreetMap = {
             "help": ko.observable(openStreetMap.help),
             "showWidgetConfiguration": ko.observable(false)
 
-        });
+        };
+
+        vm.addNewWidget(properties, loc);
 
         openStreetMap.paintConfig(configid);
         openStreetMap.paint(id);

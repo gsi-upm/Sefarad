@@ -24,11 +24,14 @@ var widgetD3 = {
     cat: 3,
 
 
-    render: function() {
+    render: function(loc) {
+
+        loc = typeof loc !== 'undefined' ? loc : "Left";
+
         var id = 'D3' + Math.floor(Math.random() * 10001);
         var configid = 'A' + Math.floor(Math.random() * 10001);
         var field = widgetD3.field || "";
-        vm.activeWidgetsLeft.push({
+        var properties = {
             "id": ko.observable(id),
             "configid": ko.observable(configid),
             "title": ko.observable(widgetD3.name),
@@ -38,7 +41,9 @@ var widgetD3 = {
             "showWidgetHelp": ko.observable(false),
             "help": ko.observable(openlayersMap.help),
             "showWidgetConfiguration": ko.observable(false)
-        });
+        };
+
+        vm.addNewWidget(properties, loc);
 
         // widgetD3.paint(field, id, widgetD3.type);
         widgetD3.paintConfig(configid);

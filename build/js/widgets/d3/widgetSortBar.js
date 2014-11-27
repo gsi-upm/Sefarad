@@ -14,11 +14,14 @@ var widgetSortBar = {
     cat: 3,
 
 
-    render: function() {
+    render: function(loc) {
+
+        loc = typeof loc !== 'undefined' ? loc : "Left";
+
         var id = 'A' + Math.floor(Math.random() * 10001);
         var configid = 'A' + Math.floor(Math.random() * 10001);
         var field = widgetSortBar.field || "";
-        vm.activeWidgetsRight.push({
+        var properties = {
             "id": ko.observable(id),
             "configid": ko.observable(configid),
             "title": ko.observable(widgetSortBar.name),
@@ -28,7 +31,9 @@ var widgetSortBar = {
             "showWidgetHelp": ko.observable(false),
             "help": ko.observable(openlayersMap.help),
             "showWidgetConfiguration": ko.observable(false)
-        });
+        };
+
+        vm.addNewWidget(properties, loc);
 
         widgetSortBar.paintConfig(configid);
         widgetSortBar.paint(id);

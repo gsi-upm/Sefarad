@@ -18,7 +18,9 @@ var newWidgetTemplate = { //IMPORTANT: the var name must match the name of the f
     // Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
     cat: 4,
 
-    render: function () {
+    render: function (loc) {
+
+        loc = typeof loc !== 'undefined' ? loc : "Left";
 
         var id = 'A' + Math.floor(Math.random() * 10001);
         var configid = 'A' + Math.floor(Math.random() * 10001);
@@ -35,18 +37,7 @@ var newWidgetTemplate = { //IMPORTANT: the var name must match the name of the f
             "showWidgetConfiguration": ko.observable(false)
         };
 
-        //deprecated
-        //vm.activeWidgetsRight.push({
-        //    "id": ko.observable(id),
-        //    "configid": ko.observable(configid),
-        //    "title": ko.observable(this.name),
-        //    "type": ko.observable(this.type),
-        //    "field": ko.observable(field),
-        //    "collapsed": ko.observable(false),
-        //    "showWidgetHelp": ko.observable(false),
-        //    "help": ko.observable(this.help),
-        //    "showWidgetConfiguration": ko.observable(false)
-        //});
+        vm.addNewWidget(properties, loc);
 
         this.paintConfig(configid);
         this.paint(id);

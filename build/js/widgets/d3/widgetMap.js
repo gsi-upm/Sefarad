@@ -13,11 +13,14 @@ var widgetMap = {
     // Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
     cat: 6,
 
-    render: function() {
+    render: function(loc) {
+
+        loc = typeof loc !== 'undefined' ? loc : "Left";
+
         var id = 'A' + Math.floor(Math.random() * 10001);
         var configid = 'A' + Math.floor(Math.random() * 10001);
         var field = widgetMap.field || "";
-        vm.activeWidgetsRight.push({
+        var properties = {
             "id": ko.observable(id),
             "configid": ko.observable(configid),
             "title": ko.observable(widgetMap.name),
@@ -27,7 +30,9 @@ var widgetMap = {
             "showWidgetHelp": ko.observable(false),
             "help": ko.observable(openlayersMap.help),
             "showWidgetConfiguration": ko.observable(false)
-        });
+        };
+
+        vm.addNewWidget(properties, loc);
 
         openlayersMap.paintConfig(configid);
         widgetMap.paint(id);

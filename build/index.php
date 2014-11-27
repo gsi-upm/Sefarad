@@ -825,6 +825,16 @@ if ($user->isLoggedIn()){
 								beforeRemove: function(elem) { $(elem).slideUp(1500,'easeOutBounce', function() {$(elem).remove(); });  },
 								templateOptions: { parentList: activeWidgetsLeftTab3} }, sortableList: activeWidgetsLeftTab3"></div>
                         </div>
+                        <!-- accordion layout -->
+                        <div data-bind="visible: $root.accordionLayout, foreach: activeWidgetsLeftTab3, accordion: {}">
+                            <h3>
+                                <a href="#" data-bind="text: title"></a>
+                                <div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
+                                <div class="ui-icon ui-icon-trash" style="float:right" data-bind="click:
+								$root.deleteWidget.bind($data, id(), type()), visible: $root.adminMode"></div>
+                            </h3>
+                            <div data-bind="template: { name: 'widgets-template-accordion', foreach: $data}"></div>
+                        </div>
 
                     </div>
                     <div id="column1tab3" class="column" >

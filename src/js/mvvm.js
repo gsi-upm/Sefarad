@@ -195,8 +195,10 @@ function InitViewModel() {
 
 	self.activeWidgetsLeft = ko.observableArray([]);
 	self.activeWidgetsLeftTab1 = ko.observableArray([]);
+    self.activeWidgetsLeftTab3 = ko.observableArray([]);
 	self.activeWidgetsRight = ko.observableArray([]);
 	self.activeWidgetsRightTab1 = ko.observableArray([]);
+    self.activeWidgetsRightTab3 = ko.observableArray([]);
 	self.activeWidgets = ko.mapping.fromJS(self.testData);
 	self.deleteAllFilters = ko.observable(false);
 
@@ -1361,7 +1363,28 @@ function InitViewModel() {
 
 	/** ADD WIDGETS METHODS */
 
-	/** Results Widgets */
+
+    //This function add a widget (made of the new template) attending to the tabs where it's created
+    //Always enter the widget at the left column in the active tab by default, but you can pass "Left" or "Right"
+    //as parameter.
+    self.addNewWidget = function (object, loc)
+    {
+        loc = typeof loc !== 'undefined' ? loc : "Left";
+
+        if(self.activeTab() != 0) {
+            self["activeWidgets"+loc+"Tab" + self.activeTab()].push(object);
+
+        }else{
+            //for tab0, because it's not called activeWidgetsTab0...
+            self["activeWidgets"+loc].push(object);
+
+        }
+
+
+    }
+
+
+    /** Results Widgets */
 	self.addResultsVerticalWidget = function () {
 		var id = Math.floor(Math.random() * 10001);
 
@@ -1538,10 +1561,7 @@ function InitViewModel() {
 	});
 
 
-    self.addNewWidget = function (object)
-    {
-        self.activeWidgetsLeftTab1.push(object);
-    }
+
 
 	/** Adding a new SliderWidget */
 	self.addSliderWidget = function () {
@@ -2143,7 +2163,7 @@ function InitViewModel() {
 
                     configuration.template.language = "English";
                     configuration.template.pageTitle = "Universities Demo";
-                    configuration.template.logoPath = 'img/color.png';
+                    configuration.template.logoPath = 'img/smod2.png';
                     configuration.results.resultsLayout = [{
                         Name: "Títulos",
                         Value: "university"
@@ -2193,10 +2213,10 @@ function InitViewModel() {
                     $(window).load(function () {
 
                         //Add map widget
-                        openLayers.render();
+                        openLayers.render("Right");
 
                         //Add results widget
-						newResultsWidget.render();
+						newResultsWidget.render("Right");
 
                         // Add PieChart sgvizler wigdet
                         self.sgvizlerQuery("SELECT ?university ?students WHERE{ ?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university . ?countryresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/EuropeanCountries> . ?universityresource <http://dbpedia.org/ontology/numberOfStudents> ?students FILTER ( lang(?university) = 'en') } GROUP BY ?university LIMIT 50");
@@ -2436,8 +2456,8 @@ function InitViewModel() {
 		self.activeWidgetsRight = ko.mapping.fromJS(templateWidgetsRight);
 		self.activeWidgetsLeftTab1 = ko.mapping.fromJS(templateWidgetsLeftTab1);
 		self.activeWidgetsRightTab1 = ko.mapping.fromJS(templateWidgetsRightTab1);
-        self.activeWidgetsLeftTab3 = ko.mapping.fromJS(templateWidgetsLeft);
-        self.activeWidgetsRightTab3 = ko.mapping.fromJS(templateWidgetsRight);
+        self.activeWidgetsLeftTab3 = ko.mapping.fromJS(templateWidgetsLeftTab3);
+        self.activeWidgetsRightTab3 = ko.mapping.fromJS(templateWidgetsRightTab3);
 
 		self.filter('');
 		//self.resultsGraphsTemp = ko.mapping.fromJS(self.testData);
@@ -3333,6 +3353,8 @@ var test = {
 		"project_area":["Procesado Lenguaje Natural", "Agentes Inteligentes"]
 	}
 }
+
+
 
 
 
