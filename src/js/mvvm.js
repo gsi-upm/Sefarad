@@ -2033,16 +2033,17 @@ function InitViewModel() {
                     $(window).load(function () {
 
                         //Add openlayers map
-                        openLayers.render();
+                        openLayers.render("Right");
 
                         //Add results table
-                        newResultsWidget.render();
+                        newResultsWidget.render("Right");
 
                         self.numberOfResults.valueHasMutated();                       
                     });
                 });
 
                 this.get('#/sparql/slovakiaPolygonsDemo', function () {
+
                     console.log("SLOVAKIA DEMO");
                     self.sparql = ko.observable(true);
                     vm.getPolyginsFromEuro();
@@ -2135,10 +2136,10 @@ function InitViewModel() {
                     $(window).load(function () {
 
                         //Add openlayers map
-                        openLayers.render();
+                        openLayers.render("Right");
 
                         //Add results table
-                        newResultsWidget.render();
+                        newResultsWidget.render("Right");
 
                         resultsTable.column(0).visible(false);
                         resultsTable.column(1).visible(false);
