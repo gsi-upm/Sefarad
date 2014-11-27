@@ -60,7 +60,7 @@ var openLayers = {
         var geometries = new Array();
         var geojson = new Object();
         //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
-        geojson = sparqlToGeoJSON(vm.filteredData(), true);
+        geojson = sparqlToGeoJSON(vm.filteredData(), false);
 
         //Create the map div
         var map_div = div.append("div")
@@ -87,19 +87,19 @@ var openLayers = {
         var icon = new OpenLayers.Icon('http://dev.openlayers.org/img/marker.png', size, offset);
 
         $.each(data, function (index, item) {
-            markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.longitude.value(), item.latitude.value()).transform('EPSG:4326', 'EPSG:3857'), icon.clone()));
+            markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.long.value(), item.lat.value()).transform('EPSG:4326', layersmap.getProjectionObject().projCode), icon.clone()));
+            console.log(new OpenLayers.Marker(new OpenLayers.LonLat(item.long.value(), item.lat.value()).transform('EPSG:4326', layersmap.getProjectionObject().projCode)).lonlat);
         });
 
         layersmap.addLayer(markers);
 
         // Transform polyons projection
-        //var geojson_format = new OpenLayers.Format.GeoJSON({
-        //    internalProjection: new OpenLayers.Projection("EPSG:3857"),
-        //    externalProjection: new OpenLayers.Projection("EPSG:4326")
-        //});
+        var geojson_format = new OpenLayers.Format.GeoJSON({
+            internalProjection: layersmap.getProjectionObject().projCode,
+            externalProjection: new OpenLayers.Projection("EPSG:32628")
+        });
 
         // Not transform polygons projection
-        var geojson_format = new OpenLayers.Format.GeoJSON({});
         var vector_layer = new OpenLayers.Layer.Vector();
         layersmap.addLayer(vector_layer);
         vector_layer.addFeatures(geojson_format.read(geojson));

@@ -396,7 +396,6 @@ function InitViewModel() {
 		self.updating(true);
 
 		console.log("POPULATE WIDGETS");
-		console.log(vm.activeWidgets()[0].values())
 
 		// parent.values.removeAll();
 		// console.log(parent.values)
@@ -2033,16 +2032,133 @@ function InitViewModel() {
                     $(window).load(function () {
 
                         //Add openlayers map
-                        openLayers.render();
+                        openLayers.render("Right");
 
                         //Add results table
-                        newResultsWidget.render();
+                        newResultsWidget.render("Right");
 
                         self.numberOfResults.valueHasMutated();                       
                     });
                 });
 
+                this.get('#/sparql/test', function () {
+                    console.log("TEST DEMO");
+                    self.sparql = ko.observable(true);
+                    configuration.template.language = "English";
+                    configuration.template.pageTitle = "Restaurants Demo";
+
+                    templateWidgetsLeft.push({
+                        id: 1,
+                        title: 'District',
+                        type: 'tagcloud',
+                        field: 'desbdt',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+                        help: 'Districts'
+                    });
+
+                    templateWidgetsLeft.push({
+                        id: 2,
+                        title: 'Price',
+                        type: 'tagcloud',
+                        field: 'price',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+                        help: 'Price ranges'
+                    });
+
+                    templateWidgetsLeft.push({
+                        id: 3,
+                        title: 'Rating',
+                        type: 'tagcloud',
+                        field: 'stars',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+                        help: 'Restaurants rating'
+                    });
+
+                    templateWidgetsLeft.push({
+                        id: 4,
+                        title: 'FoodType',
+                        type: 'tagcloud',
+                        field: 'foodtype',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+                        help: 'Different food types'
+                    });
+
+                    templateWidgetsLeft.push({
+                        id: 5,
+                        title: 'Reservations',
+                        type: 'tagcloud',
+                        field: 'reservations',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+                        help: 'Reservations'
+                    });
+
+                    templateWidgetsLeft.push({
+                        id: 6,
+                        title: 'Take-out',
+                        type: 'tagcloud',
+                        field: 'takeout',
+                        collapsed: false,
+                        query: '',
+                        value: [],
+                        values: [],
+                        limits: '',
+                        layout: 'horizontal',
+                        showWidgetConfiguration: false,
+                        help: 'Take-out possibility'
+                    });
+
+                    configuration.autocomplete.field = "district";
+                    self.securityEnabled(true);
+                    self.adminMode(false);
+                    sparqlmode = true;
+                    init();
+
+                    //Adding widgets
+                    $(window).load(function () {
+
+                        var data = JSON.stringify(restaurants.results.bindings);
+                        ko.mapping.fromJSON(data, self.viewData);
+                        updateWidgets(true);
+
+                        //Add openlayers map
+                        openLayers.render("Right");
+
+                        self.numberOfResults.valueHasMutated();
+                    });
+                });
+
                 this.get('#/sparql/slovakiaPolygonsDemo', function () {
+
                     console.log("SLOVAKIA DEMO");
                     self.sparql = ko.observable(true);
                     vm.getPolyginsFromEuro();
@@ -2135,10 +2251,10 @@ function InitViewModel() {
                     $(window).load(function () {
 
                         //Add openlayers map
-                        openLayers.render();
+                        openLayers.render("Right");
 
                         //Add results table
-                        newResultsWidget.render();
+                        newResultsWidget.render("Right");
 
                         resultsTable.column(0).visible(false);
                         resultsTable.column(1).visible(false);
