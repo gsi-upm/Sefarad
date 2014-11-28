@@ -16,6 +16,8 @@ function sparqlToGeoJSON(sparqlJSON, yxconversion) {
                                 //assumes the well-known text is valid!
                                 wkt = sparqlJSON[bindingindex][key].value();
 
+                                console.log(wkt);
+
                                 //chop off geometry type, already have that
                                 coordinates = wkt.substr(wkt.indexOf("("), wkt.length);
                                 //add extra [ and replace ( by [ 

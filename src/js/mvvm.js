@@ -2250,18 +2250,18 @@ function InitViewModel() {
                         openLayers.render("Right");
 
                         //Add results table
-                        newResultsWidget.render("Right");
-
-                        resultsTable.column(0).visible(false);
-                        resultsTable.column(1).visible(false);
-                        resultsTable.column(2).visible(false);
-                        resultsTable.column(3).visible(false);
-                        resultsTable.column(4).visible(false);
-                        resultsTable.column(5).visible(false);
-                        resultsTable.column(6).visible(false);
-                        resultsTable.column(9).visible(false);
-                        resultsTable.column(10).visible(false);
-                        resultsTable.column(12).visible(false);
+                        //newResultsWidget.render("Right");
+                        //
+                        //resultsTable.column(0).visible(false);
+                        //resultsTable.column(1).visible(false);
+                        //resultsTable.column(2).visible(false);
+                        //resultsTable.column(3).visible(false);
+                        //resultsTable.column(4).visible(false);
+                        //resultsTable.column(5).visible(false);
+                        //resultsTable.column(6).visible(false);
+                        //resultsTable.column(9).visible(false);
+                        //resultsTable.column(10).visible(false);
+                        //resultsTable.column(12).visible(false);
 
                         self.numberOfResults.valueHasMutated();
                     });

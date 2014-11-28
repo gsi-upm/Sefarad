@@ -50,7 +50,7 @@ var openLayers = {
         div.attr("align", "center");
 
         //Elements for showing
-        if (vm.sparql) {
+        if (vm.sparql()) {
             var data = vm.filteredData();
         } else {
             var data = vm.filteredData();
@@ -90,23 +90,22 @@ var openLayers = {
             $.each(data, function (index, item) {
                 markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.longitude.value(), item.latitude.value()).transform('EPSG:4326', layersmap.getProjectionObject().projCode), icon.clone()));
             });
+            layersmap.addLayer(markers);
         }catch(e){
             throw new Error("Open layer couldn't render the map. Probably there's no data to render.");
         }
 
-        layersmap.addLayer(markers);
-
         // Transform polyons projection
         var geojson_format = new OpenLayers.Format.GeoJSON({
             internalProjection: layersmap.getProjectionObject().projCode,
-            externalProjection: new OpenLayers.Projection("EPSG:32628")
+            externalProjection: new OpenLayers.Projection("EPSG:4326")
         });
 
         // Not transform polygons projection
-        //var vector_layer = new OpenLayers.Layer.Vector();
-        //layersmap.addLayer(vector_layer);
-        //vector_layer.addFeatures(geojson_format.read(geojson));
-        layersmap.zoomToExtent(markers.getDataExtent());
+        var vector_layer = new OpenLayers.Layer.Vector();
+        layersmap.addLayer(vector_layer);
+        vector_layer.addFeatures(geojson_format.read(geojson));
+        layersmap.zoomToExtent(vector_layer.getDataExtent());
     }
 
 };
