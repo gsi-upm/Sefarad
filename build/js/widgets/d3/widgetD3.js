@@ -26,7 +26,7 @@ var widgetD3 = {
 
     render: function(loc) {
 
-        loc = typeof loc !== 'undefined' ? loc : "Left";
+        if(loc != 'Left' && loc != 'Right') loc = 'Left';
 
         var id = 'D3' + Math.floor(Math.random() * 10001);
         var configid = 'A' + Math.floor(Math.random() * 10001);
