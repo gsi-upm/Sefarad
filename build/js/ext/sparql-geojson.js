@@ -31,11 +31,9 @@ function sparqlToGeoJSON(sparqlJSON, yxconversion) {
                                 var re = new RegExp(',,', 'g');
                                 coordinates = coordinates.replace(re, '');
 
+                                if(yxconversion) coordinates = convertXY(eval(coordinates));
+
                                 //console.log(coordinates);
-
-                                if(yxconversion){
-
-                                }
 
                                 //find substring left of first "(" occurrence for geometry type
                                 switch (true) {
@@ -80,4 +78,21 @@ function sparqlToGeoJSON(sparqlJSON, yxconversion) {
                 }
         }
         return geojson;
-}
+};
+
+function convertXY(coordinates) {
+    var converted = coordinates;
+
+    $.each(converted, function (index, item) {
+        if(item.length == 2){
+            var lat = item[0];
+            var long = item[1];
+            item[0] = long;
+            item[1] = lat;
+        }else{
+            item = convertXY(item);
+        }
+    });
+
+    return JSON.stringify(converted);
+};
