@@ -88,7 +88,7 @@ var openLayers = {
 
         try {
             $.each(data, function (index, item) {
-                markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.long.value(), item.lat.value()).transform('EPSG:4326', layersmap.getProjectionObject().projCode), icon.clone()));
+                markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.longitude.value(), item.latitude.value()).transform('EPSG:4326', layersmap.getProjectionObject().projCode), icon.clone()));
             });
         }catch(e){
             throw new Error("Open layer couldn't render the map. Probably there's no data to render.");
@@ -103,10 +103,10 @@ var openLayers = {
         });
 
         // Not transform polygons projection
-        var vector_layer = new OpenLayers.Layer.Vector();
-        layersmap.addLayer(vector_layer);
-        vector_layer.addFeatures(geojson_format.read(geojson));
-        layersmap.zoomToExtent(vector_layer.getDataExtent());
+        //var vector_layer = new OpenLayers.Layer.Vector();
+        //layersmap.addLayer(vector_layer);
+        //vector_layer.addFeatures(geojson_format.read(geojson));
+        layersmap.zoomToExtent(markers.getDataExtent());
     }
 
 };

@@ -145,7 +145,6 @@ if ($user->isLoggedIn()){
 		<!-- openlayers -->
 		<script src="http://openlayers.org/api/OpenLayers.js"></script>
         <!-- <script type="text/javascript" charset="UTF-8" src="js/ext/OpenLayers.js"></script> -->
-        <script type="text/javascript" charset="UTF-8" src="js/ext/proj4.js"></script>
 		<!-- qtip -->
 		<script type="text/javascript" src="js/ext/jquery.qtip.js"></script>
 		<script type="text/javascript" src="js/ext/imagesloaded.pkg.min.js"></script>

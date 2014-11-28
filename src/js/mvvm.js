@@ -556,10 +556,6 @@ function InitViewModel() {
 
 	/** When a tag in TagCloud widget is clicked we switch its state */
 	self.tagCloudSelection = function (pIndex, index, field) {
-		console.log("tagcloud")
-		console.log(pIndex)
-		console.log(index())
-		console.log(field)
 
 		var parent_match = ko.utils.arrayFilter(self.activeWidgets(), function (item) {
 			if (item.id() == pIndex) {
@@ -2177,7 +2173,7 @@ function InitViewModel() {
                         limits: '',
                         layout: 'horizontal',
                         showWidgetConfiguration: false,
-                        help: 'Districts'
+                        help: ''
                     });
 
                     templateWidgetsLeft.push({
@@ -2192,7 +2188,7 @@ function InitViewModel() {
                         limits: '',
                         layout: 'horizontal',
                         showWidgetConfiguration: false,
-                        help: 'Price ranges'
+                        help: ''
                     });
 
                     templateWidgetsLeft.push({
@@ -2207,7 +2203,7 @@ function InitViewModel() {
                         limits: '',
                         layout: 'horizontal',
                         showWidgetConfiguration: false,
-                        help: 'Restaurants rating'
+                        help: ''
                     });
 
                     templateWidgetsLeft.push({
@@ -2222,7 +2218,7 @@ function InitViewModel() {
                         limits: '',
                         layout: 'horizontal',
                         showWidgetConfiguration: false,
-                        help: 'Different food types'
+                        help: ''
                     });
 
                     templateWidgetsLeft.push({
@@ -2237,7 +2233,7 @@ function InitViewModel() {
                         limits: '',
                         layout: 'horizontal',
                         showWidgetConfiguration: false,
-                        help: 'Reservations'
+                        help: ''
                     });
 
 
