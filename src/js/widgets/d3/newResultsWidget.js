@@ -90,45 +90,52 @@ var newResultsWidget = {
 
         }
 
-        //Print the header line   
-        var hrow = thead.append("tr");
-        for (i = 0; i < Object.keys(data[0]).length; i++) {
-            if (Object.keys(data[0])[i].match(/Resource/g) == null) {
-                hrow.append("th").text(Object.keys(data[0])[i]);
-            }
-            //hrow.append("th").text(Object.keys(data[0])[i]);
-        }
+        try {
 
-        //Print the footer line   
-        var frow = tfoot.append("tr");
-        for (i = 0; i < Object.keys(data[0]).length; i++) {
-            if (Object.keys(data[0])[i].match(/Resource/g) == null) {
-                frow.append("th").text(Object.keys(data[0])[i]);
-            }
-        }
 
-        //Print the data with links to dbpedia. data (+ dataResource as link)
-        for (i = 0; i < data.length; i++) {
-            var row = tbody.append("tr");
-            for (j = 0; j < Object.keys(data[0]).length; j++) {
-                if (Object.keys(data[0])[j].match(/Resource/g) == null) //Pasamos de las columnas que acaben en ...Resource
-                {
-                    var link = row.append("td").append("a");
-                    link.attr("target", "_blank");
-                    link.text(data[i][Object.keys(data[0])[j]].value());
-                    for (m = 0; m < Object.keys(data[0]).length; m++) //Buscamos si tiene su columna ...Resource adjunta para ponerle su contenido de link
+            //Print the header line
+            var hrow = thead.append("tr");
+            for (i = 0; i < Object.keys(data[0]).length; i++) {
+                if (Object.keys(data[0])[i].match(/Resource/g) == null) {
+                    hrow.append("th").text(Object.keys(data[0])[i]);
+                }
+                //hrow.append("th").text(Object.keys(data[0])[i]);
+            }
+
+            //Print the footer line
+            var frow = tfoot.append("tr");
+            for (i = 0; i < Object.keys(data[0]).length; i++) {
+                if (Object.keys(data[0])[i].match(/Resource/g) == null) {
+                    frow.append("th").text(Object.keys(data[0])[i]);
+                }
+            }
+
+            //Print the data with links to dbpedia. data (+ dataResource as link)
+            for (i = 0; i < data.length; i++) {
+                var row = tbody.append("tr");
+                for (j = 0; j < Object.keys(data[0]).length; j++) {
+                    if (Object.keys(data[0])[j].match(/Resource/g) == null) //Pasamos de las columnas que acaben en ...Resource
                     {
-                        //construct the pattern
-                        var resourceName = Object.keys(data[0])[j] + "Resource";
-                        //look for the resource column
-                        if (Object.keys(data[0])[m] == resourceName) {
-                            link.attr("href", data[i][Object.keys(data[0])[m]].value());
+                        var link = row.append("td").append("a");
+                        link.attr("target", "_blank");
+                        link.text(data[i][Object.keys(data[0])[j]].value());
+                        for (m = 0; m < Object.keys(data[0]).length; m++) //Buscamos si tiene su columna ...Resource adjunta para ponerle su contenido de link
+                        {
+                            //construct the pattern
+                            var resourceName = Object.keys(data[0])[j] + "Resource";
+                            //look for the resource column
+                            if (Object.keys(data[0])[m] == resourceName) {
+                                link.attr("href", data[i][Object.keys(data[0])[m]].value());
+
+                            }
 
                         }
-
                     }
                 }
             }
+
+        }catch(e){
+            throw new Error("Results widget couldn't render the results. Probably they're empty.");
         }
 
         //Table inicialization depending on the language

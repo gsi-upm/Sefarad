@@ -978,7 +978,7 @@ function InitViewModel() {
 	/** Filter results and get only different ones (ideal for sparql mode where there could be repeated results with a multivalued field) */
 	self.uniqueItems = ko.computed(function () {
 
-        console.log('UniqueItems');
+        //console.log('UniqueItems');
 
 		if (self.sparql()) {
 

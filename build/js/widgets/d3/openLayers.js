@@ -86,10 +86,13 @@ var openLayers = {
         var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
         var icon = new OpenLayers.Icon('http://dev.openlayers.org/img/marker.png', size, offset);
 
-        $.each(data, function (index, item) {
-            markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.long.value(), item.lat.value()).transform('EPSG:4326', layersmap.getProjectionObject().projCode), icon.clone()));
-            console.log(new OpenLayers.Marker(new OpenLayers.LonLat(item.long.value(), item.lat.value()).transform('EPSG:4326', layersmap.getProjectionObject().projCode)).lonlat);
-        });
+        try {
+            $.each(data, function (index, item) {
+                markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.long.value(), item.lat.value()).transform('EPSG:4326', layersmap.getProjectionObject().projCode), icon.clone()));
+            });
+        }catch(e){
+            throw new Error("Open layer couldn't render the map. Probably there's no data to render.");
+        }
 
         layersmap.addLayer(markers);
 
