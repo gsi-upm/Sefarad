@@ -135,7 +135,7 @@ var newResultsWidget = {
             }
 
         }catch(e){
-            throw new Error("Results widget couldn't render the results. Probably they're empty.");
+            console.log("Results widget couldn't render the results. Probably they're empty.");
         }
 
         //Table inicialization depending on the language

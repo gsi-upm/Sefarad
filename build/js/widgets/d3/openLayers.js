@@ -15,7 +15,7 @@ var openLayers = {
 
     render: function (loc) {
 
-        if(loc != 'Left' && loc != 'Right') loc = 'Left';
+        if (loc != 'Left' && loc != 'Right') loc = 'Left';
 
         var id = 'A' + Math.floor(Math.random() * 10001);
         var configid = 'A' + Math.floor(Math.random() * 10001);
@@ -61,6 +61,7 @@ var openLayers = {
         var geojson = new Object();
         //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
         geojson = sparqlToGeoJSON(vm.filteredData(), false);
+        console.log(JSON.stringify(geojson));
 
         //Create the map div
         var map_div = div.append("div")
@@ -73,13 +74,6 @@ var openLayers = {
         osm = new OpenLayers.Layer.OSM("");
         layersmap.addLayer(osm);
 
-        //BasicLayer
-        //layer = new OpenLayers.Layer.WMS("OpenLayers WMS",
-        //    "http://vmap0.tiles.osgeo.org/wms/vmap0", {
-        //        layers: 'basic'
-        //    });
-        //layersmap.addLayer(layer);
-
         // markers
         var markers = new OpenLayers.Layer.Markers("Markers");
         var size = new OpenLayers.Size(21, 25);
@@ -91,8 +85,8 @@ var openLayers = {
                 markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.longitude.value(), item.latitude.value()).transform('EPSG:4326', layersmap.getProjectionObject().projCode), icon.clone()));
             });
             layersmap.addLayer(markers);
-        }catch(e){
-            throw new Error("Open layer couldn't render the map. Probably there's no data to render.");
+        } catch (e) {
+            console.log("Open layer couldn't render the map. Probably there's no data to render.");
         }
 
         // Transform polyons projection
@@ -101,7 +95,6 @@ var openLayers = {
             externalProjection: new OpenLayers.Projection("EPSG:4326")
         });
 
-        // Not transform polygons projection
         var vector_layer = new OpenLayers.Layer.Vector();
         layersmap.addLayer(vector_layer);
         vector_layer.addFeatures(geojson_format.read(geojson));
