@@ -2248,6 +2248,10 @@ function InitViewModel() {
 
                         //Add openlayers map
                         openLayers.render("Right");
+                        //self.activeTab = 3;
+                        self.activeTab(3);
+                        sparqlEditorWidget.render("Left");
+                        self.activeTab(0);
 
                         //Add results table
                         //newResultsWidget.render("Right");

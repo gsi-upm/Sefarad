@@ -65,7 +65,7 @@ if ($user->isLoggedIn()){
         <link rel="stylesheet" type="text/css" href="http://demos.gsi.dit.upm.es/geoserver/openlayers/theme/default/style.css">
 
         <!-- Apply custom theme -->
-        <link rel="stylesheet" href="css/themes/default/theme.css" type="text/css"/>
+        <link rel="stylesheet" href="css/themes/blue/theme.css" type="text/css"/>
 
 		<!---------------------------------------------- javascript -------------------------------------------->
 
@@ -810,21 +810,12 @@ if ($user->isLoggedIn()){
                             <h1 data-bind="click: $root.openNewWidgetManagerMethod, text: lang().addWidget"></h1>
                         </div>
                         <!-- linear layout -->
-                        <div data-bind="visible: !($root.accordionLayout())">
+                        <div >
                             <div class="container" data-bind="template: { name: 'widgets-template', foreach: activeWidgetsLeftTab3,
 								beforeRemove: function(elem) { $(elem).slideUp(1500,'easeOutBounce', function() {$(elem).remove(); });  },
 								templateOptions: { parentList: activeWidgetsLeftTab3} }, sortableList: activeWidgetsLeftTab3"></div>
                         </div>
-                        <!-- accordion layout -->
-                        <div data-bind="visible: $root.accordionLayout, foreach: activeWidgetsLeftTab3, accordion: {}">
-                            <h3>
-                                <a href="#" data-bind="text: title"></a>
-                                <div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
-                                <div class="ui-icon ui-icon-trash" style="float:right" data-bind="click:
-								$root.deleteWidget.bind($data, id(), type()), visible: $root.adminMode"></div>
-                            </h3>
-                            <div data-bind="template: { name: 'widgets-template-accordion', foreach: $data}"></div>
-                        </div>
+
 
                     </div>
                     <div id="column1tab3" class="column" >
