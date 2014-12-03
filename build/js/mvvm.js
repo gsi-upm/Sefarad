@@ -2160,6 +2160,8 @@ function InitViewModel() {
                     vm.getPolyginsFromEuro();
                     configuration.template.language = "English";
                     configuration.template.pageTitle = "SLOVAKia Demo";
+                    configuration.template.logoPath = 'img/slovakiaFlag.jpg';
+
 
                     templateWidgetsLeft.push({
                         id: 1,
@@ -2248,13 +2250,15 @@ function InitViewModel() {
 
                         //Add openlayers map
                         openLayers.render("Right");
-                        //self.activeTab = 3;
+
+
+
                         self.activeTab(3);
                         sparqlEditorWidget.render("Left");
                         self.activeTab(0);
 
                         //Add results table
-                        //newResultsWidget.render("Right");
+                        newResultsWidget.render("Right");
                         //
                         //resultsTable.column(0).visible(false);
                         //resultsTable.column(1).visible(false);
