@@ -56,7 +56,6 @@ var newResultsWidget = {
             }
         }
 
-
         d3.select('#' + id).selectAll('div').remove();
         var div = d3.select('#' + id);
         div.attr("align", "center");
@@ -200,7 +199,7 @@ var newResultsWidget = {
 };
 
 // Global variables
-var rows;
+
 var descriptionData;
 var enabledColumn;
 var searchDone;
