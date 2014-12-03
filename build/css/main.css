@@ -72,7 +72,7 @@
   width:100%;
   height: 70px; 
   background: #000;
-  z-index: 1001;
+  z-index: 9999;
 
 background: url(../img/topheader.png);
 
@@ -380,6 +380,10 @@ background: url('../img/noise.png');
 #columns .ui-widget-header h3 {
     padding: 0 10px;
     float: left;
+}
+
+.ui-widget-header a {
+    text-decoration: none;
 }
 
 .container{
@@ -953,4 +957,3 @@ svg {
   fill-opacity: .125;
   shape-rendering: crispEdges;
 }
-

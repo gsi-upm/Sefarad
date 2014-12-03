@@ -79,7 +79,12 @@ if ($user->isLoggedIn()){
 
     	<!-- Import OL CSS, auto import does not work with our minified OL.js build -->
         <link rel="stylesheet" type="text/css" href="http://demos.gsi.dit.upm.es/geoserver/openlayers/theme/default/style.css">
-		<!-- javascript -->
+
+        <!-- Apply custom theme -->
+        <link rel="stylesheet" href="css/themes/default/theme.css" type="text/css"/>
+
+		<!---------------------------------------------- javascript -------------------------------------------->
+
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript" charset="UTF-8" src="js/ext/underscore.js"></script>
 		<!-- jquery related -->

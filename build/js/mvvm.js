@@ -2275,7 +2275,7 @@ function InitViewModel() {
 
                     configuration.template.language = "English";
                     configuration.template.pageTitle = "Universities Demo";
-                    configuration.template.logoPath = 'img/smod2.png';
+                    configuration.template.logoPath = 'img/universities.jpg';
                     configuration.results.resultsLayout = [{
                         Name: "Títulos",
                         Value: "university"
