@@ -116,7 +116,7 @@ var sparqlEditorWidget = {
 
 
         //This function parse the csv table to take its data.
-        var googleSpreadsheetURI = "assets/EuroSentimentDemoSparqlQueries.csv";
+        var googleSpreadsheetURI = "assets/" + _csvResource;
         Papa.parse(
             googleSpreadsheetURI, {
                 download: true,
@@ -220,12 +220,12 @@ var sparqlEditorWidget = {
         //ExecuteQuery function. Still not generalized, it takes "restaurants" info from our endpoint at gsi's alpha
         function executeQuery() {
 
-            var restaurants_query = yasqe.getValue().replace(/(\r\n|\n|\r)/gm, "");
-            console.log(restaurants_query);
-            var temporal = 'http://alpha.gsi.dit.upm.es:3030/geo/query?query=' + encodeURIComponent(restaurants_query);
+            var _query = yasqe.getValue().replace(/(\r\n|\n|\r)/gm, "");
+            console.log(_query);
+            var temporal = _editorEndpoint + encodeURIComponent(_query);
             var req = new XMLHttpRequest();
             req.open("GET", temporal, true);
-            var params = encodeURIComponent(restaurants_query);
+            var params = encodeURIComponent(_query);
             req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             req.setRequestHeader("Accept", "application/sparql-results+json");
             req.send();
@@ -303,7 +303,18 @@ var sparqlEditorWidget = {
 
         });
 
-    }
+    },
+
+    // endpoint
+    editorEndpoint: 'http://alpha.gsi.dit.upm.es:3030/geo/query?query=',
+    csvResource: "EuroSentimentDemoSparqlQueries.csv"
+
+
+
 
 };
+
+//Global variables
+var _editorEndpoint = 'http://alpha.gsi.dit.upm.es:3030/geo/query?query=';
+var _csvResource = "assets/" + "EuroSentimentDemoSparqlQueries.csv";
 

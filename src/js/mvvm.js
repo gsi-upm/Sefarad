@@ -2167,6 +2167,8 @@ function InitViewModel() {
 
                     console.log("SLOVAKIA DEMO");
                     self.sparql = ko.observable(true);
+                    self.dashboardTabEnabled(false);
+                    self.payolaTabEnabled(false);
                     vm.getPolyginsFromEuro();
                     configuration.template.language = "English";
                     configuration.template.pageTitle = "SLOVAKIA Demo";
@@ -2262,7 +2264,11 @@ function InitViewModel() {
 
 
 
+
+
                         self.activeTab(3);
+                        _editorEndpoint = 'http://alpha.gsi.dit.upm.es:3030/slovakia/query?query=';
+                        _csvResource = "SlovakianDemoSparqlQueries.csv";
                         sparqlEditorWidget.render("Left");
                         self.activeTab(0);
 

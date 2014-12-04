@@ -1,0 +1,84 @@
+/*------------------------------------------------Logo---------------------------------------------*/
+
+#logotext img {
+    height: 8%;
+    width: 8%;
+}
+
+#logotext {
+    width: 40%;}
+
+.topbar .right_area{
+    display: inline-block;
+}
+
+
+/*---------------------------------------------Backgrounds------------------------------------------*/
+
+.topbar {
+    /*Page Header Background*/
+    background: #025;
+
+
+}
+.allcontent {
+    /* page background */
+    background: url('../img/noise.png');
+}
+
+
+/*--------------------------------------------Text Properties----------------------------------------*/
+
+body {
+    /* general text properties*/
+    font-size: 0.8em;
+    font-family: "Lucida Console", Monaco, monospace;
+}
+
+.tabrow {
+    /* text in the tab selector properties*/
+    font-family: "Lucida Console", Monaco, monospace;
+}
+
+.ui-widget {
+    /* widgets text properties */
+    font-family: "Lucida Console", Monaco, monospace;
+}
+
+
+/*---------------------------------------------Widgets Header-------------------------------------------*/
+
+#columns .ui-widget-header {
+    /* widgets Header Background */
+    background: #5c9ccc url(images/ui-bg_gloss-wave_55_5c9ccc_500x100.png) 50% 50% repeat-x;
+}
+
+/*The Gear, trash and help icons are all in the same image, the only thing that changes is the background position*/
+.ui-icon {
+    display: block;
+    text-indent: -99999px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+}
+.ui-icon-gear {
+    background-position: -192px -112px;
+}
+.ui-icon-help {
+    background-position: -48px -144px;
+}
+.ui-icon-trash {
+    background-position: -176px -96px;
+}
+
+/* These are the two common images*/
+.ui-widget-header .ui-icon {
+    background-image: url(images/ui-icons_d8e7f3_256x240.png);
+}
+.ui-widget-header .ui-icon:hover {
+    cursor: pointer;
+    background-image: url(images/ui-icons_217bc0_256x240.png);
+}
+
+/*----------------------------------------------------------------------------------------------------------*/
