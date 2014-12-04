@@ -9,7 +9,7 @@ var newResultsWidget = {
     // Type of the widget.
     type: "newResultsWidget",
     // Help display on the widget
-    help: "Results help",
+    help: "This widget shows the total filtered results. The user can show or hide the different columns of the data, sort the elements by any of the attributes and search any result. If any result contains a link to the URI of its web resource, it can be directly accessed by clicking on it, so it will open a new tab. ",
     // Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
     cat: 5,
 
@@ -134,6 +134,13 @@ var newResultsWidget = {
             }
 
         }catch(e){
+            //Create the message div
+            var message_div = div.append("div")
+                .attr("id", "message_div");
+
+            message_div.append("text")
+                .text("No data to show");
+
             console.log("Results widget couldn't render the results. Probably they're empty.");
         }
 

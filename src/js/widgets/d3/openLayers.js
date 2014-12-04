@@ -9,7 +9,7 @@ var openLayers = {
     // Type of the widget.
     type: "openLayers",
     // Help display on the widget
-    help: "OpenLayersMap help",
+    help: 'This is an Openlayers map which can represent any geospatial and geometric information in GeoJSON format. This widget draws in a OSM every geometric information contained in the filtered data.',
     // Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
     cat: 6,
 
