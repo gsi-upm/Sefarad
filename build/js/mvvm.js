@@ -2268,7 +2268,7 @@ function InitViewModel() {
 
 
                         self.activeTab(3);
-                        _editorEndpoint = 'http://alpha.gsi.dit.upm.es:3030/slovakia/query?query=';
+                        _editorEndpoint = 'http://demos.gsi.dit.upm.es/fuseki/slovakia/query?query=';
                         _csvResource = "SlovakianDemoSparqlQueries.csv";
                         sparqlEditorWidget.render("Left");
                         self.activeTab(0);

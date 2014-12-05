@@ -76,8 +76,8 @@ var sparqlEditorWidget = {
         var queriesDiv = div.append("div").attr("id", "queries");
         queriesDiv.append("label").text("Choose example query template and later query parameter values:");
         queriesDiv.append("br");
-        var querySelector = queriesDiv.append("select").attr("class", "form-control").attr("id", "querySelector").attr("style", "height: 100%; width: 100%");
-        var paramSelector = queriesDiv.append("div").attr("id", "paramSelector");
+        var querySelector = queriesDiv.append("select").attr("class", "form-control").attr("id", "querySelector").attr("style", "height: 100%; width: 25%");
+        var paramSelector = queriesDiv.append("div").attr("id", "paramSelector").attr("style", "display: inline; width: 5%");
         queriesDiv.append("br");
         queriesDiv.append("p").text("Query description");
         queriesDiv.append("div").attr("id", "description");
