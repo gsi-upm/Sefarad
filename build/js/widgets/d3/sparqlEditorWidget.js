@@ -57,10 +57,10 @@ var sparqlEditorWidget = {
 
         //Create the HTML:
         //
-        //<h1>Directly query linked data in Eurosentiment</h1>
+        //
         //
         //<div id="queries">
-        //    <label>Choose example query template and later query parameter values:</label><br />
+        //
         //    <select class="form-control" id="querySelector"></select>
         //    <div id="paramSelector"></div>
         //    <select class="form-control" id="dynamicParam"></select>
@@ -72,16 +72,16 @@ var sparqlEditorWidget = {
         //    <div id="queryButton" ><button>Get results from sparql endpoint</button></div>
         //    <div id="yasr"></div>
 
-        div.append("h2").text("Eurosentiment SPARQL query linked data");
+
         var queriesDiv = div.append("div").attr("id", "queries");
-        queriesDiv.append("label").text("Choose example query template and later query parameter values:");
+
         queriesDiv.append("br");
-        var querySelector = queriesDiv.append("select").attr("class", "form-control").attr("id", "querySelector").attr("style", "height: 100%; width: 25%");
-        var paramSelector = queriesDiv.append("div").attr("id", "paramSelector").attr("style", "display: inline; width: 5%");
+        var querySelector = queriesDiv.append("select").attr("class", "form-control").attr("id", "querySelector").attr("style", "height: 100%; width: 95%");
+        var paramSelector = queriesDiv.append("div").attr("id", "paramSelector").attr("style", "display: inline; width: 5%;");
         queriesDiv.append("br");
-        queriesDiv.append("p").text("Query description");
-        queriesDiv.append("div").attr("id", "description");
-        var yasqeDiv = div.append("div").attr("id", "yasqe");
+
+        //queriesDiv.append("div").attr("id", "description").attr("style", "width: 95%; border: 1px solid; border-radius: 5px; padding-top: 15px; padding-bottom: 15px");
+        var yasqeDiv = div.append("div").attr("id", "yasqe").attr("style", "text-align: left; width: 95%; padding-top: 15px; padding-bottom: 15px");;
         var yasqeButtonDiv = div.append("div").attr("id", "queryButton");
         var yasqeButton = yasqeButtonDiv.append("button").text("Get results from SPARQL endpoint")
         var yasrDiv = div.append("div").attr("id", "yasr").attr("style", "width: 100%");
@@ -93,8 +93,7 @@ var sparqlEditorWidget = {
         var yasqe = YASQE(document.getElementById("yasqe"), {
             sparql: {
                 showQueryButton: false,
-                createShareLink: false,
-                endpoint: "http://dbpedia.org/sparql"
+                createShareLink: false
             }
         });
 
