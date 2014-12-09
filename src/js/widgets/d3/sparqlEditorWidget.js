@@ -305,8 +305,8 @@ var sparqlEditorWidget = {
     },
 
     // endpoint
-    editorEndpoint: 'http://alpha.gsi.dit.upm.es:3030/geo/query?query=',
-    csvResource: "EuroSentimentDemoSparqlQueries.csv"
+    editorEndpoint: '',
+    csvResource: ""
 
 
 

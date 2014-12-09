@@ -75,6 +75,17 @@ var openLayers = {
             osm = new OpenLayers.Layer.OSM("");
             layersmap.addLayer(osm);
 
+            // Transform polyons projection
+            var geojson_format = new OpenLayers.Format.GeoJSON({
+                internalProjection: layersmap.getProjectionObject().projCode,
+                externalProjection: new OpenLayers.Projection("EPSG:4326")
+            });
+
+            var vector_layer = new OpenLayers.Layer.Vector();
+            layersmap.addLayer(vector_layer);
+            vector_layer.addFeatures(geojson_format.read(geojson));
+            layersmap.zoomToExtent(vector_layer.getDataExtent());
+
             // markers
             var markers = new OpenLayers.Layer.Markers("Markers");
             var size = new OpenLayers.Size(21, 25);
@@ -86,20 +97,10 @@ var openLayers = {
                     markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.longitude.value(), item.latitude.value()).transform('EPSG:4326', layersmap.getProjectionObject().projCode), icon.clone()));
                 });
                 layersmap.addLayer(markers);
+                layersmap.zoomToExtent(markers.getDataExtent());
             } catch (e) {
                 console.log("Open layer couldn't render the map. Probably there's no data to render.");
             }
-
-            // Transform polyons projection
-            var geojson_format = new OpenLayers.Format.GeoJSON({
-                internalProjection: layersmap.getProjectionObject().projCode,
-                externalProjection: new OpenLayers.Projection("EPSG:4326")
-            });
-
-            var vector_layer = new OpenLayers.Layer.Vector();
-            layersmap.addLayer(vector_layer);
-            vector_layer.addFeatures(geojson_format.read(geojson));
-            layersmap.zoomToExtent(vector_layer.getDataExtent());
 
         }else {
             //Create the message div

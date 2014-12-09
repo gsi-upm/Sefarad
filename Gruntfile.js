@@ -33,9 +33,12 @@ module.exports = function(grunt) {
         cwd: 'src/demos/universitiesDemo/',
         src: 'demo.html',
         dest: 'build/',
-        // rename: function(dest, src) {
-        //   return dest + 'demo.html';
-        // },
+      },
+      smodDemo: {
+        expand: true,
+        cwd: 'src/demos/smodDemo/',
+        src: 'demo.html',
+        dest: 'build/',
       },
     },
     clean: {
@@ -56,6 +59,7 @@ module.exports = function(grunt) {
   // Tasks. 
   grunt.registerTask('default', ['clean:build','processhtml:templates','include-all-widgets','copy:main']);
   grunt.registerTask('demo', ['default','processhtml:universitiesDemo','processhtml:php_widgets', 'copy:universitiesDemo']);
+  grunt.registerTask('smod', ['default','processhtml:php_widgets', 'copy:smodDemo']);
   grunt.registerTask('php', ['include-php-widgets']);
 
 };  
