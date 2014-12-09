@@ -822,15 +822,15 @@ function InitViewModel() {
                     var data = JSON.stringify(res.results.bindings);
                     ko.mapping.fromJSON(data, self.viewData);
                     updateWidgets(true);
-                    resultsTable.column(0).visible(false);
-                    resultsTable.column(1).visible(false);
-                    resultsTable.column(2).visible(false);
-                    resultsTable.column(3).visible(false);
-                    resultsTable.column(4).visible(false);
-                    resultsTable.column(5).visible(false);
-                    resultsTable.column(6).visible(false);
-                    resultsTable.column(9).visible(false);
-                    resultsTable.column(10).visible(false);
+                    newResultsWidget.resultsTable.column(0).visible(false);
+                    newResultsWidget.resultsTable.column(1).visible(false);
+                    newResultsWidget.resultsTable.column(2).visible(false);
+                    newResultsWidget.resultsTable.column(3).visible(false);
+                    newResultsWidget.resultsTable.column(4).visible(false);
+                    newResultsWidget.resultsTable.column(5).visible(false);
+                    newResultsWidget.resultsTable.column(6).visible(false);
+                    newResultsWidget.resultsTable.column(9).visible(false);
+                    newResultsWidget.resultsTable.column(10).visible(false);
                     newResultsWidget.paint();
                 } else {
                 }
@@ -2271,12 +2271,26 @@ function InitViewModel() {
                         _editorEndpoint = 'http://demos.gsi.dit.upm.es/fuseki/slovakia/query?query=';
                         _csvResource = "SlovakianDemoSparqlQueries.csv";
                         sparqlEditorWidget.render("Left");
+                        //sparqlEditorResultsWidget.render("Right");
+
+                        //var sparqlResultsViewer = newResultsWidget;
+                        //sparqlResultsViewer.type = "sparqlResultsViewer";
+                        //sparqlResultsViewer.render("Right");
+
+                        //newResultsWidget.render();
+
+
+
                         self.activeTab(0);
 
-                        //Add results table
+
                         newResultsWidget.render("Right");
+                        //sparqlEditorResultsWidget.render("Right");
+
+
 
                         self.numberOfResults.valueHasMutated();
+
                     });
                 });
 

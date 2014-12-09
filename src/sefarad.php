@@ -732,7 +732,7 @@ if ($user->isLoggedIn()){
 			</div>
 			<!-- below top bar -->
 			<div class="page-header" style="padding-top: 0px;"></div>
-			<ul class="tabrow">				
+			<ul class="tabrow">
 				<li data-bind="css: {'selected': activeTab() == 0}, click: function() { $root.activeTab(0); }, visible: searchTabEnabled"><a data-bind="text: lang().search"></a></li>
 				<li data-bind="css: {'selected': activeTab() == 1}, click: function() { $root.activeTab(1); }, visible: dashboardTabEnabled"><a data-bind="text: lang().dashboard"></a></li>
 				<li data-bind="css: {'selected': activeTab() == 2}, click: function() { $root.activeTab(2); }, visible: payolaTabEnabled"><a data-bind="text: lang().payola"></a></li>

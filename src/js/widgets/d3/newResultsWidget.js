@@ -13,6 +13,7 @@ var newResultsWidget = {
     // Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
     cat: 5,
 
+    resultsTable: null,
 
 
     render: function (loc) {
@@ -50,9 +51,9 @@ var newResultsWidget = {
 
         //Here we save the visibility state of the columns (in case of existance) in order to repaint correctly
         var tableState = [];
-        if (resultsTable != null) {
-            for (i = 0; i < resultsTable.columns()[0].length; i++) {
-                tableState [i] = resultsTable.column(i).visible();
+        if (this.resultsTable != null) {
+            for (i = 0; i < this.resultsTable.columns()[0].length; i++) {
+                tableState [i] = this.resultsTable.column(i).visible();
             }
         }
 
@@ -64,7 +65,7 @@ var newResultsWidget = {
             .attr("style", "height: 100%; width: 100%");
 
         //Create the table
-        var table = tablediv.append("table").attr("id", "resultsTable").attr("class", "cell-border").attr("cellspacing", "0").attr("style", "height: 100%; width: 100%");
+        var table = tablediv.append("table").attr("id", "resultsTable"+id).attr("class", "cell-border").attr("cellspacing", "0").attr("style", "height: 100%; width: 100%");
         //.attr("class", "display");
         thead = table.append("thead");
         tbody = table.append("tbody");
@@ -148,7 +149,7 @@ var newResultsWidget = {
         switch (vm.lang()[Object.keys(vm.lang())[0]]) {
 
             default:
-                resultsTable = $('#resultsTable').DataTable({
+                this.resultsTable = $('#resultsTable'+id).DataTable({
 
                     dom: 'C<"clear">lfrtip',
                     "scrollX": true,
@@ -169,7 +170,7 @@ var newResultsWidget = {
                 break;
 
             case "Español":
-                resultsTable = $('#resultsTable').DataTable({
+                this.resultsTable = $('#resultsTable'+id).DataTable({
 
                     dom: 'C<"clear">lfrtip',
                     "scrollX": true,
@@ -195,13 +196,13 @@ var newResultsWidget = {
         //Hide the columns in order to the previous state
         if (tableState.length != 0) {
             for (i = 0; i < tableState.length; i++) {
-                resultsTable.column(i).visible(tableState [i]);
+                this.resultsTable.column(i).visible(tableState [i]);
             }
             $.fn.dataTable.ColVis.fnRebuild();
         }
 
 
-        //if(searchDone == true) resultsTable.search('no results found').draw();
+        //if(searchDone == true) this.resultsTable.search('no results found').draw();
     }
 };
 
@@ -210,7 +211,7 @@ var newResultsWidget = {
 var descriptionData;
 var enabledColumn;
 var searchDone;
-var resultsTable;
+//var resultsTable;
 
 //Debug variables;
 

@@ -1,13 +1,16 @@
+/**
+ * Created by asaura on 9/12/14.
+ */
 // Results widget 3.0
-var newResultsWidget = {
+var sparqlEditorResultsWidget = {
     // Widget name.
-    name: "Results Table",
+    name: " Editor Results Table",
     // Widget description.
     description: "List of the query results with links to the info",
     // Path to the image of the widget.
     img: "img/results_vertical.png",
     // Type of the widget.
-    type: "newResultsWidget",
+    type: "sparqlEditorResultsWidget",
     // Help display on the widget
     help: "This widget shows the total filtered results. The user can show or hide the different columns of the data, sort the elements by any of the attributes and search any result. If any result contains a link to the URI of its web resource, it can be directly accessed by clicking on it, so it will open a new tab. ",
     // Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
@@ -22,23 +25,23 @@ var newResultsWidget = {
 
         var id = 'A' + Math.floor(Math.random() * 10001);
         var configid = 'A' + Math.floor(Math.random() * 10001);
-        var field = newResultsWidget.field || "";
+        var field = sparqlEditorResultsWidget.field || "";
         var properties = {
             "id": ko.observable(id),
             "configid": ko.observable(configid),
-            "title": ko.observable(newResultsWidget.name),
-            "type": ko.observable(newResultsWidget.type),
+            "title": ko.observable(sparqlEditorResultsWidget.name),
+            "type": ko.observable(sparqlEditorResultsWidget.type),
             "field": ko.observable(field),
             "collapsed": ko.observable(false),
             "showWidgetHelp": ko.observable(false),
-            "help": ko.observable(newResultsWidget.help),
+            "help": ko.observable(sparqlEditorResultsWidget.help),
             "showWidgetConfiguration": ko.observable(false)
         };
 
         vm.addNewWidget(properties, loc);
 
-        newResultsWidget.paintConfig(configid);
-        newResultsWidget.paint(id);
+        sparqlEditorResultsWidget.paintConfig(configid);
+        sparqlEditorResultsWidget.paint(id);
     },
 
     paintConfig: function (configid) {
@@ -208,10 +211,6 @@ var newResultsWidget = {
 
 // Global variables
 
-var descriptionData;
-var enabledColumn;
-var searchDone;
-//var resultsTable;
 
 //Debug variables;
 
