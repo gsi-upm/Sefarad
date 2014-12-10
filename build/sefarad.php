@@ -65,7 +65,7 @@ if ($user->isLoggedIn()){
         <link rel="stylesheet" type="text/css" href="http://demos.gsi.dit.upm.es/geoserver/openlayers/theme/default/style.css">
 
         <!-- Apply custom theme -->
-        <link rel="stylesheet" href="css/themes/blue/theme.css" type="text/css"/>
+        <link rel="stylesheet" href="css/themes/smod/theme.css" type="text/css"/>
 
 		<!---------------------------------------------- javascript -------------------------------------------->
 
@@ -302,9 +302,7 @@ if ($user->isLoggedIn()){
 							<div id="search-btn"></div>
 							<!-- es el form el que da estilo al input -->
 							<!-- ko if: $root.sparql -->
-							<input style="background-color:#000;border:none;color:#fff;font-size:.95em;height:24px;;padding:0 0 0 
-								0px;position:relative;width:178px;" id="query" size="80" 
-								data-bind="attr: { placeholder: lang().searchplaceholder }, kendoAutoComplete: { data: autoCompleteFields, value: filter, animation: false }"/>
+							<input id="search-field" data-bind="attr: { placeholder: lang().searchplaceholder }, kendoAutoComplete: { data: autoCompleteFields, value: filter, animation: false }"/>
 							<!-- /ko -->
 							<!-- ko ifnot: $root.sparql -->
 							<input style="background-color:#000;border:none;color:#fff;font-size:.95em;height:24px;;padding:0 0 0 

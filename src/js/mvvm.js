@@ -804,6 +804,7 @@ function InitViewModel() {
     self.getPolyginsFromEuro = function () {
 
         var polygonsfeuro_query = 'PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX j.0: <http://inspire.jrc.ec.europa.eu/schemas/gn/3.0/> PREFIX j.1: <http://inspire.jrc.ec.europa.eu/schemas/ps/3.0/> PREFIX j.2: <http://inspire.jrc.ec.europa.eu/schemas/base/3.2/> PREFIX j.3: <http://www.opengis.net/ont/geosparql#> SELECT * WHERE { SERVICE <http://localhost:3030/slovakia/query> { ?res j.3:hasGeometry ?fGeom . ?fGeom j.3:asWKT ?fWKT . ?res j.1:siteProtectionClassification ?spc  . ?res j.1:LegalFoundationDate ?lfd .   ?res j.1:LegalFoundationDocument ?lfdoc .  ?res j.1:inspireId ?inspire . ?inspire j.2:namespace ?namespace . ?inspire j.2:namespace ?localId . ?res j.1:siteDesignation ?siteDesignation .  ?siteDesignation j.1:percentageUnderDesignation ?percentageUnderDesignation . ?siteDesignation j.1:designation ?designation . ?siteDesignation j.1:designationScheme ?designationScheme . } } LIMIT 10';
+
         //var temporal = 'http://alpha.gsi.dit.upm.es:3030/slovakia/query?query=' + encodeURIComponent(polygonsfeuro_query);
         var temporal = 'http://demos.gsi.dit.upm.es/fuseki/slovakia/query?query=' + encodeURIComponent(polygonsfeuro_query);
         var req = new XMLHttpRequest();
@@ -813,11 +814,13 @@ function InitViewModel() {
         req.setRequestHeader("Accept", "application/sparql-results+json");
         req.setRequestHeader("Content-length", params.length);
         req.setRequestHeader("Connection", "close");
+        console.log("query start");
         req.send();
         req.onreadystatechange = function() {
             if (req.readyState == 4){
                 if (req.status == 200) {
-                    //console.log(req.responseText);
+                    //console.log("query response" + req.responseText);
+                    console.log("query OK");
                     var res = eval ("(" + req.responseText + ")");
                     var data = JSON.stringify(res.results.bindings);
                     ko.mapping.fromJSON(data, self.viewData);
@@ -2172,8 +2175,8 @@ function InitViewModel() {
                     self.payolaTabEnabled(false);
                     vm.getPolyginsFromEuro();
                     configuration.template.language = "English";
-                    configuration.template.pageTitle = "SLOVAKIA Demo";
-                    configuration.template.logoPath = 'img/slovakiaFlag.jpg';
+                    configuration.template.pageTitle = "Slovakian Demo";
+                    configuration.template.logoPath = 'img/smod2.png';
 
                     templateWidgetsLeft.push({
                         id: 1,
