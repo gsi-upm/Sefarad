@@ -13,7 +13,7 @@ var openLayers = {
     // Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
     cat: 6,
 
-    render: function (loc) {
+    render: function(loc) {
 
         if (loc != 'Left' && loc != 'Right') loc = 'Left';
 
@@ -37,14 +37,14 @@ var openLayers = {
         openLayers.paint(id);
     },
 
-    paintConfig: function (configid) {
+    paintConfig: function(configid) {
         d3.select('#' + configid).selectAll('div').remove();
         var div = d3.select('#' + configid);
         div.attr("align", "center");
 
     },
 
-    paint: function (id) {
+    paint: function(id) {
         d3.select('#' + id).selectAll('div').remove();
         var div = d3.select('#' + id);
         div.attr("align", "center");
@@ -63,55 +63,46 @@ var openLayers = {
         geojson = sparqlToGeoJSON(vm.filteredData(), false);
         //console.log(geojson.features.length);
 
-        if(geojson.features.length <= 100){
-            //Create the map div
-            var map_div = div.append("div")
-                .attr("id", "layersmap")
-                .attr("style", "height:400px");
+        //Create the map div
+        var map_div = div.append("div")
+            .attr("id", "layersmap")
+            .attr("style", "height:400px");
 
-            layersmap = new OpenLayers.Map('layersmap');
+        layersmap = new OpenLayers.Map('layersmap');
 
-            //OpenStreetMap
-            osm = new OpenLayers.Layer.OSM("");
-            layersmap.addLayer(osm);
+        //OpenStreetMap
+        osm = new OpenLayers.Layer.OSM("");
+        layersmap.addLayer(osm);
 
-            // markers
-            var markers = new OpenLayers.Layer.Markers("Markers");
-            var size = new OpenLayers.Size(21, 25);
-            var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
-            var icon = new OpenLayers.Icon('http://dev.openlayers.org/img/marker.png', size, offset);
+        // Transform polyons projection
+        var geojson_format = new OpenLayers.Format.GeoJSON({
+            internalProjection: layersmap.getProjectionObject().projCode,
+            externalProjection: new OpenLayers.Projection("EPSG:4326")
+        });
 
-            try {
-                $.each(data, function (index, item) {
-                    markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.longitude.value(), item.latitude.value()).transform('EPSG:4326', layersmap.getProjectionObject().projCode), icon.clone()));
-                });
-                layersmap.addLayer(markers);
-            } catch (e) {
-                console.log("Open layer couldn't render the map. Probably there's no data to render.");
-            }
+        var vector_layer = new OpenLayers.Layer.Vector('polygonslayer',{
+            strategies: [new OpenLayers.Strategy.CenteredCluster({distance: 50, threshold: 3})]
+        });
+        layersmap.addLayer(vector_layer);
+        vector_layer.addFeatures(geojson_format.read(geojson));
+        layersmap.zoomToExtent(vector_layer.getDataExtent());
 
-            // Transform polyons projection
-            var geojson_format = new OpenLayers.Format.GeoJSON({
-                internalProjection: layersmap.getProjectionObject().projCode,
-                externalProjection: new OpenLayers.Projection("EPSG:4326")
+        // markers
+        var markers = new OpenLayers.Layer.Markers("Markers");
+        var size = new OpenLayers.Size(21, 25);
+        var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
+        var icon = new OpenLayers.Icon('http://dev.openlayers.org/img/marker.png', size, offset);
+
+        try {
+            $.each(data, function(index, item) {
+                markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.longitude.value(), item.latitude.value()).transform('EPSG:4326', layersmap.getProjectionObject().projCode), icon.clone()));
             });
-
-            var vector_layer = new OpenLayers.Layer.Vector();
-            layersmap.addLayer(vector_layer);
-            vector_layer.addFeatures(geojson_format.read(geojson));
-            layersmap.zoomToExtent(vector_layer.getDataExtent());
-
-        }else {
-            //Create the message div
-            var message_div = div.append("div")
-                .attr("id", "message_div")
-                .attr("style", "height:400px");
-
-            message_div.append("text")
-                .text("Too many results. Select more filter criteria");
+            layersmap.addLayer(markers);
+            layersmap.zoomToExtent(markers.getDataExtent());
+        } catch (e) {
+            console.log("Open layer couldn't render the map. Probably there's no data to render.");
         }
     }
-
 };
 
 // Openlayers Map variables

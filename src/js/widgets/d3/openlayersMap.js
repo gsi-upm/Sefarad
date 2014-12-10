@@ -29,7 +29,7 @@ var openlayersMap = {
             "collapsed": ko.observable(false),
             "showWidgetHelp": ko.observable(false),
             "help": ko.observable(openlayersMap.help),
-            "showWidgetConfiguration": ko.observable(false)
+            "showWidgetConfiguration": ko.observable(true)
         };
 
         vm.addNewWidget(properties, loc);
@@ -149,8 +149,8 @@ var openlayersMap = {
 
         // setup tiled layer
         tiled = new OpenLayers.Layer.WMS(
-            parcel + " - Tiled", "http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", {
-            //parcel + " - Tiled", "http://demos.gsi.dit.upm.es/geoserver/SmartOpenData/wms", {
+            //parcel + " - Tiled", "http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", {
+            parcel + " - Tiled", "http://demos.gsi.dit.upm.es/geoserver/SmartOpenData/wms", {
                 LAYERS: parcel,
                 STYLES: '',
                 format: format
@@ -166,8 +166,8 @@ var openlayersMap = {
 
         // setup single tiled layer
         untiled = new OpenLayers.Layer.WMS(
-            parcel + " - Untiled", "http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", {
-            //parcel + " - Untiled", "http://demos.gsi.dit.upm.es/geoserver/SmartOpenData/wms", {
+            //parcel + " - Untiled", "http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", {
+            parcel + " - Untiled", "http://demos.gsi.dit.upm.es/geoserver/SmartOpenData/wms", {
                 LAYERS: parcel,
                 STYLES: '',
                 format: format
@@ -234,8 +234,8 @@ var openlayersMap = {
             if (openlayersmap.layers[0].params.FEATUREID) {
                 params.featureid = openlayersmap.layers[0].params.FEATUREID;
             }
-            OpenLayers.loadURL("http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", params, this, setHTML, setHTML);
-            //OpenLayers.loadURL("http://demos.gsi.dit.upm.es/geoserver/SmartOpenData/wms", params, this, setHTML, setHTML);
+            //OpenLayers.loadURL("http://alpha.gsi.dit.upm.es:8080/geoserver/SmartOpenData/wms", params, this, setHTML, setHTML);
+            OpenLayers.loadURL("http://demos.gsi.dit.upm.es/geoserver/SmartOpenData/wms", params, this, setHTML, setHTML);
             OpenLayers.Event.stop(e);
         });
     }
