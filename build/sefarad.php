@@ -37,6 +37,7 @@ if ($user->isLoggedIn()){
 		<link rel="stylesheet" href="css/widgets.css" type="text/css"/>
 		<link rel="stylesheet" href="css/themes/redmond/jquery-ui-1.9.2.custom.css" type="text/css"/>
 		<link rel="stylesheet" type="text/css" href="js/ext/jquery.autocomplete.css" media="screen" />
+        <link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
 		<!-- kendo widgets stylesheets -->
 		<link rel="stylesheet" href="css/ext/kendo.default.min.css" type="text/css"/>
 		<link rel="stylesheet" href="css/ext/kendo.common.min.css" type="text/css"/>
@@ -261,7 +262,7 @@ if ($user->isLoggedIn()){
 				<!-- Search and help area -->
 				<div class="right_area" >
 
-					<div id="login-box" style="float:right; width:30%; height:100%">
+					<div id="login-box">
 						<div class="inner">							
 							<ul>
 								<?php if(!isset($_SESSION['user_id'])): ?>
@@ -270,14 +271,14 @@ if ($user->isLoggedIn()){
 										<li><?php echo $errorMessage; ?></li>
 										<?php endif ?>
 										<li>										
-											<input class="textbox" style="float:right" tabindex="1" type="text" name="username" placeholder="User" autocomplete="off"/>
+											<input class="textbox" tabindex="1" type="text" name="username" placeholder="User" autocomplete="off"/>
 										</li>
 										<li>
-											<input class="textbox" style="float:right"  tabindex="2" type="password" name="password" placeholder="Password"/>
+											<input class="textbox" tabindex="2" type="password" name="password" placeholder="Password"/>
 										</li>
-										<li>
-											<input id="login-submit" name="login" tabindex="3" type="submit" value="Log in" style="float:right"/>
-										</li>
+
+											<input id="login-submit" name="login" tabindex="3" type="submit" value="Log in" />
+
 										<li class="clear"></li>
 									</form>
 								<?php endif ?>
@@ -291,7 +292,8 @@ if ($user->isLoggedIn()){
 										</li>
 									</form>
 								<?php endif ?>									
-							</ul>							
+							</ul>
+
 						</div>
 					</div>
 					
@@ -730,7 +732,7 @@ if ($user->isLoggedIn()){
 			<!-- sgvizler wizard end -->
 			</div>
 			<!-- below top bar -->
-			<div class="page-header" style="padding-top: 0px;"></div>
+			
 			<ul class="tabrow">
 				<li data-bind="css: {'selected': activeTab() == 0}, click: function() { $root.activeTab(0); }, visible: searchTabEnabled"><a data-bind="text: lang().search"></a></li>
 				<li data-bind="css: {'selected': activeTab() == 1}, click: function() { $root.activeTab(1); }, visible: dashboardTabEnabled"><a data-bind="text: lang().dashboard"></a></li>

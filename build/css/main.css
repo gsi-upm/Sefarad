@@ -66,11 +66,11 @@
 }
 
 .topbar {
-  position:fixed;
+  /*position:fixed;*/
   top:0;
   left:0;
   width:100%;
-  height: 70px; 
+  height: 73px;
   background: #000;
   z-index: 9999;
 
@@ -821,10 +821,10 @@ body.editing #configuration_button:hover {
 .tabrow {
   text-align: center;
   list-style: none;
-  margin: 50px 0 20px;
+  margin: 0px 0 20px;
   padding: 0;
   line-height: 35px;
-  height: 37px;
+  height: 100%;
   overflow: hidden;
   font-size: 12px;
   font-family: arial;

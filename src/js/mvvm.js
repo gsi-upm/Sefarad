@@ -2174,8 +2174,8 @@ function InitViewModel() {
                     self.payolaTabEnabled(false);
                     vm.getPolyginsFromEuro();
                     configuration.template.language = "English";
-                    configuration.template.pageTitle = "SLOVAKIA Demo";
-                    configuration.template.logoPath = 'img/slovakiaFlag.jpg';
+                    configuration.template.pageTitle = "Slovakian Demo";
+                    configuration.template.logoPath = 'img/smod2.png';
 
                     templateWidgetsLeft.push({
                         id: 1,
@@ -2264,6 +2264,7 @@ function InitViewModel() {
 
                         //Add openlayers map
                         openLayers.render("Right");
+                        newResultsWidget.render("Right");
 
 
                         self.activeTab(3);

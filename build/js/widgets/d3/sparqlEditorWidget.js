@@ -84,7 +84,7 @@ var sparqlEditorWidget = {
         var yasqeDiv = div.append("div").attr("id", "yasqe").attr("style", "text-align: left; width: 95%; padding-top: 15px; padding-bottom: 15px");;
         var yasqeButtonDiv = div.append("div").attr("id", "queryButton");
         var yasqeButton = yasqeButtonDiv.append("button").text("Get results from SPARQL endpoint")
-        var yasrDiv = div.append("div").attr("id", "yasr").attr("style", "width: 100%");
+        //var yasrDiv = div.append("div").attr("id", "yasr").attr("style", "width: 100%");
 
         //configuration
 
