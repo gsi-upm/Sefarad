@@ -749,7 +749,7 @@ if ($user->isLoggedIn()){
 			<!-- sgvizler wizard end -->
 			</div>
 			<!-- below top bar -->
-			
+
 			<ul class="tabrow">
 				<li data-bind="css: {'selected': activeTab() == 0}, click: function() { $root.activeTab(0); }, visible: searchTabEnabled"><a data-bind="text: lang().search"></a></li>
 				<li data-bind="css: {'selected': activeTab() == 1}, click: function() { $root.activeTab(1); }, visible: dashboardTabEnabled"><a data-bind="text: lang().dashboard"></a></li>
@@ -865,10 +865,13 @@ if ($user->isLoggedIn()){
 							<div class="gsiLogo" title="Grupo de Sistemas Inteligentes" ></div>
 							-->
 					</a>
-					<img src="img/logoAvanza.png" alt="Plan Avanza 2">
-					<a href="http://www.paradigmatecnologico.com/">
-					<img src="img/paradigma.jpg" alt="Paradigma Tecnológico">
+
+					<img src="img/ue_logo.gif" alt="European Union" style="height: 100px; width: 150px;">
+
+					<a href="http://http://www.smartopendata.eu/">
+					<img src="img/smartOpenData.jpg" style="height: 100px; width: 110px;" alt="Paradigma Tecnológico">
 					</a>
+
 				</div>
 			</div>
 

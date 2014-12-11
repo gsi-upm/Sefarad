@@ -848,10 +848,13 @@ if ($user->isLoggedIn()){
 							<div class="gsiLogo" title="Grupo de Sistemas Inteligentes" ></div>
 							-->
 					</a>
-					<img src="img/logoAvanza.png" alt="Plan Avanza 2">
-					<a href="http://www.paradigmatecnologico.com/">
-					<img src="img/paradigma.jpg" alt="Paradigma Tecnológico">
+
+					<img src="img/ue_logo.gif" alt="European Union" style="height: 100px; width: 150px;">
+
+					<a href="http://http://www.smartopendata.eu/">
+					<img src="img/smartOpenData.jpg" style="height: 100px; width: 110px;" alt="Paradigma Tecnológico">
 					</a>
+
 				</div>
 			</div>
 
