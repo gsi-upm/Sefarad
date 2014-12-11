@@ -97,18 +97,18 @@ var sparqlEditorWidget = {
             }
         });
 
-        YASR.plugins.table.defaults.datatable.scrollX = true;
-        YASR.plugins.table.defaults.datatable.scrollCollapse = true;
-        YASR.plugins.table.defaults.datatable.autoWidth = true;
-        YASR.plugins.table.defaults.datatable.scrollY = "300px";
-
-        var yasr = YASR(document.getElementById("yasr"), {
-            //this way, the URLs in the results are prettified using the defined prefixes in the query
-            getUsedPrefixes: yasqe.getPrefixesFromQuery
-        });
-        yasr.setResponse({
-            response: vm.viewData
-        });
+        //YASR.plugins.table.defaults.datatable.scrollX = true;
+        //YASR.plugins.table.defaults.datatable.scrollCollapse = true;
+        //YASR.plugins.table.defaults.datatable.autoWidth = true;
+        //YASR.plugins.table.defaults.datatable.scrollY = "300px";
+        //
+        //var yasr = YASR(document.getElementById("yasr"), {
+        //    //this way, the URLs in the results are prettified using the defined prefixes in the query
+        //    getUsedPrefixes: yasqe.getPrefixesFromQuery
+        //});
+        //yasr.setResponse({
+        //    response: vm.viewData
+        //});
 
 
         // end of configuration
@@ -237,10 +237,10 @@ var sparqlEditorWidget = {
                         console.log(data);
                         //ko.mapping.fromJSON(data, vm.viewData);
                         //updateWidgets(true);
-                        yasr.setResponse({
-                            response: res,
-                            contentType: req.getResponseHeader("Content-Type")
-                        });
+                        //yasr.setResponse({
+                        //    response: res,
+                        //    contentType: req.getResponseHeader("Content-Type")
+                        //});
                     } else {
                     }
                 }
