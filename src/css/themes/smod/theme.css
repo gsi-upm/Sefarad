@@ -38,6 +38,7 @@
 .topbar #logotext {
     color: #ffffff;
     text-shadow: 2px 2px rgba(0, 0, 0, 0.15);
+    font-family: 'Roboto Slab', serif;
 }
 
 body {
@@ -136,5 +137,23 @@ color: #867B0C;
     position: relative;
     width: 200%;
     background-color: rgb(255, 255, 255);
+}
+
+
+
+#login-box {
+
+    float:right;
+    width:35%;
+    height:100%
+
+
+}
+
+#login-submit {
+    position: absolute;
+    right: 1%;
+    top: 4%;
+
 }
 
