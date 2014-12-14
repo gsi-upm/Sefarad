@@ -53,8 +53,8 @@ function sparqlToGeoJSON(sparqlJSON, yxconversion) {
                                                 geometryType = "MultiLine";
                                                 break;
                                         case /MULTIPOLYGON*/.test(wkt.substr(0, wkt.indexOf("("))):
-                                            geometryType = "MultiPolygon";
-                                            break;
+                                                geometryType = "MultiPolygon";
+                                                break;
                                         case /POLYGON*/.test(wkt.substr(0, wkt.indexOf("("))):
                                                 geometryType = "Polygon";
                                                 break;

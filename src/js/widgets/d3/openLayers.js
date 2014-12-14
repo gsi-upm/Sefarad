@@ -13,7 +13,7 @@ var openLayers = {
     // Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
     cat: 6,
 
-    render: function(loc) {
+    render: function (loc) {
 
         if (loc != 'Left' && loc != 'Right') loc = 'Left';
 
@@ -37,14 +37,14 @@ var openLayers = {
         openLayers.paint(id);
     },
 
-    paintConfig: function(configid) {
+    paintConfig: function (configid) {
         d3.select('#' + configid).selectAll('div').remove();
         var div = d3.select('#' + configid);
         div.attr("align", "center");
 
     },
 
-    paint: function(id) {
+    paint: function (id) {
         d3.select('#' + id).selectAll('div').remove();
         var div = d3.select('#' + id);
         div.attr("align", "center");
@@ -61,7 +61,7 @@ var openLayers = {
         var geojson = new Object();
         //supplied by sparql-geojson on https://github.com/erfgoed-en-locatie/sparql-geojson
         geojson = sparqlToGeoJSON(vm.filteredData(), false);
-        //console.log(geojson.features.length);
+        //console.log(geojson);
 
         //Create the map div
         var map_div = div.append("div")
@@ -80,11 +80,23 @@ var openLayers = {
             externalProjection: new OpenLayers.Projection("EPSG:4326")
         });
 
-        var vector_layer = new OpenLayers.Layer.Vector('polygonslayer',{
+        var vector_layer = new OpenLayers.Layer.Vector('polygonslayer', {
             strategies: [new OpenLayers.Strategy.CenteredCluster({distance: 50, threshold: 3})]
         });
         layersmap.addLayer(vector_layer);
+
+        selectControl = new OpenLayers.Control.SelectFeature(vector_layer,{
+            onSelect: openLayers.onFeatureSelect,
+            onUnselect: openLayers.onFeatureUnselect
+        });
+
         vector_layer.addFeatures(geojson_format.read(geojson));
+
+        layersmap.addControl(selectControl);
+        layersmap.addControl(new OpenLayers.Control.MousePosition());
+
+        selectControl.activate();
+
         layersmap.zoomToExtent(vector_layer.getDataExtent());
 
         // markers
@@ -94,7 +106,7 @@ var openLayers = {
         var icon = new OpenLayers.Icon('http://dev.openlayers.org/img/marker.png', size, offset);
 
         try {
-            $.each(data, function(index, item) {
+            $.each(data, function (index, item) {
                 markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(item.longitude.value(), item.latitude.value()).transform('EPSG:4326', layersmap.getProjectionObject().projCode), icon.clone()));
             });
             layersmap.addLayer(markers);
@@ -102,9 +114,44 @@ var openLayers = {
         } catch (e) {
             console.log("Open layer couldn't render the map. Probably there's no data to render.");
         }
+    },
+
+    onPopupClose: function (evt) {
+        selectControl.unselect(selectedFeature);
+    },
+
+    onFeatureSelect: function (feature) {
+        selectedFeature = feature;
+        if(feature.cluster != undefined){
+            popup = new OpenLayers.Popup.FramedCloud("chicken",
+                feature.geometry.getBounds().getCenterLonLat(),
+                null,
+                "<div style='font-size:1em'>" + feature.cluster.length + " items" + "<br>" + "</div>",
+                null,
+                true,
+                openLayers.onPopupClose);
+            feature.popup = popup;
+        }else{
+            popup = new OpenLayers.Popup.FramedCloud("chicken",
+                feature.geometry.getBounds().getCenterLonLat(),
+                null,
+                "<div style='font-size:1em'>Designation: " + feature.attributes.designation.value() + "<br>Area: " + feature.geometry.getArea() + "</div>",
+                null,
+                true,
+                openLayers.onPopupClose);
+            feature.popup = popup;
+        }
+
+        layersmap.addPopup(popup);
+    },
+
+    onFeatureUnselect: function (feature) {
+        layersmap.removePopup(feature.popup);
+        feature.popup.destroy();
+        feature.popup = null;
     }
 };
 
 // Openlayers Map variables
-var layersmap;
+var layersmap, drawControls, selectControl, selectedFeature;
 var layer;

@@ -2262,31 +2262,17 @@ function InitViewModel() {
                     //Adding widgets
                     $(window).load(function () {
 
-                        //Add openlayers map
-                        openLayers.render("Right");
-                        newResultsWidget.render("Right");
-
-
                         self.activeTab(3);
                         _editorEndpoint = 'http://demos.gsi.dit.upm.es/fuseki/slovakia/query?query=';
                         _csvResource = "SlovakianDemoSparqlQueries.csv";
                         sparqlEditorWidget.render("Left");
-                        //sparqlEditorResultsWidget.render("Right");
-
-                        //var sparqlResultsViewer = newResultsWidget;
-                        //sparqlResultsViewer.type = "sparqlResultsViewer";
-                        //sparqlResultsViewer.render("Right");
-
-                        //newResultsWidget.render();
-
-
-
                         self.activeTab(0);
 
 
-                        //newResultsWidget.render("Right");
-                        //sparqlEditorResultsWidget.render("Right");
 
+                        //Add openlayers map
+                        openLayers.render("Right");
+                        //newResultsWidget.render("Right");
 
 
                         self.numberOfResults.valueHasMutated();

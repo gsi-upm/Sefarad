@@ -2272,7 +2272,7 @@ function InitViewModel() {
 
                         //Add openlayers map
                         openLayers.render("Right");
-                        newResultsWidget.render("Right");
+                        //newResultsWidget.render("Right");
 
 
                         self.numberOfResults.valueHasMutated();
