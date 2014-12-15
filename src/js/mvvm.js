@@ -801,6 +801,30 @@ function InitViewModel() {
 	    return false;			
 	};
 
+	self.getPolyginsFromMongo = function () {
+
+		console.info("Cargando dataset de MongoDB");
+
+		$.ajax({
+			async: false,
+			type: 'get',
+			url: 'php/mongo_dataset.php',
+			dataType: "json",
+			success: function (data) {
+				console.log(data);
+				var results = JSON.stringify(data.bindings);
+				ko.mapping.fromJSON(results, self.viewData);
+				updateWidgets(true);
+
+			},
+
+			error: function (data) {
+				console.log('Error loading mongo dataset');
+				//console.log(data);
+			}
+		});
+	};
+
     self.getPolyginsFromEuro = function () {
 
         var polygonsfeuro_query = 'PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX j.0: <http://inspire.jrc.ec.europa.eu/schemas/gn/3.0/> PREFIX j.1: <http://inspire.jrc.ec.europa.eu/schemas/ps/3.0/> PREFIX j.2: <http://inspire.jrc.ec.europa.eu/schemas/base/3.2/> PREFIX j.3: <http://www.opengis.net/ont/geosparql#> SELECT * WHERE { SERVICE <http://localhost:3030/slovakia/query> { ?res j.3:hasGeometry ?fGeom . ?fGeom j.3:asWKT ?fWKT . ?res j.1:siteProtectionClassification ?spc  . ?res j.1:LegalFoundationDate ?lfd .   ?res j.1:LegalFoundationDocument ?lfdoc .  ?res j.1:inspireId ?inspire . ?inspire j.2:namespace ?namespace . ?inspire j.2:namespace ?localId . ?res j.1:siteDesignation ?siteDesignation .  ?siteDesignation j.1:percentageUnderDesignation ?percentageUnderDesignation . ?siteDesignation j.1:designation ?designation . ?siteDesignation j.1:designationScheme ?designationScheme . } } LIMIT 100';
@@ -2172,7 +2196,6 @@ function InitViewModel() {
                     self.sparql = ko.observable(true);
                     self.dashboardTabEnabled(false);
                     self.payolaTabEnabled(false);
-                    vm.getPolyginsFromEuro();
                     configuration.template.language = "English";
                     configuration.template.pageTitle = "Slovakian Demo";
                     configuration.template.logoPath = 'img/sazp.jpg';
@@ -2259,6 +2282,9 @@ function InitViewModel() {
                     sparqlmode = true;
                     init();
 
+					//load polygons from cache in Mongo
+					vm.getPolyginsFromMongo();
+
                     //Adding widgets
                     $(window).load(function () {
 
@@ -2268,12 +2294,32 @@ function InitViewModel() {
                         sparqlEditorWidget.render("Left");
                         self.activeTab(0);
 
-
-
                         //Add openlayers map
                         openLayers.render("Right");
                         newResultsWidget.render("Right");
 
+						newResultsWidget.resultsTable.column(0).visible(false);
+						newResultsWidget.resultsTable.column(1).visible(false);
+						newResultsWidget.resultsTable.column(2).visible(false);
+						newResultsWidget.resultsTable.column(3).visible(false);
+						newResultsWidget.resultsTable.column(4).visible(false);
+						newResultsWidget.resultsTable.column(5).visible(false);
+						newResultsWidget.resultsTable.column(6).visible(false);
+						newResultsWidget.resultsTable.column(7).visible(false);
+						newResultsWidget.resultsTable.column(8).visible(false);
+						newResultsWidget.resultsTable.column(9).visible(false);
+						newResultsWidget.resultsTable.column(10).visible(false);
+						newResultsWidget.resultsTable.column(12).visible(false);
+						newResultsWidget.resultsTable.column(13).visible(false);
+						newResultsWidget.resultsTable.column(16).visible(false);
+						newResultsWidget.resultsTable.column(17).visible(false);
+						newResultsWidget.resultsTable.column(18).visible(false);
+						newResultsWidget.resultsTable.column(19).visible(false);
+						newResultsWidget.resultsTable.column(20).visible(false);
+						newResultsWidget.resultsTable.column(21).visible(false);
+						newResultsWidget.resultsTable.column(22).visible(false);
+						newResultsWidget.resultsTable.column(24).visible(false);
+						newResultsWidget.paint();
 
                         self.numberOfResults.valueHasMutated();
 

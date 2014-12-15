@@ -135,7 +135,7 @@ var openLayers = {
             popup = new OpenLayers.Popup.FramedCloud("chicken",
                 feature.geometry.getBounds().getCenterLonLat(),
                 null,
-                "<div style='font-size:1em'>Designation: " + feature.attributes.designation.value() + "<br>Area: " + feature.geometry.getArea() + "</div>",
+                "<div style='font-size:1em'>Name: " + feature.attributes.text1.value() + "<br>Area: " + feature.geometry.getArea() + "</div>",
                 null,
                 true,
                 openLayers.onPopupClose);
