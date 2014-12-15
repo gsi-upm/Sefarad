@@ -2175,7 +2175,7 @@ function InitViewModel() {
                     vm.getPolyginsFromEuro();
                     configuration.template.language = "English";
                     configuration.template.pageTitle = "Slovakian Demo";
-                    configuration.template.logoPath = 'img/smod2.png';
+                    configuration.template.logoPath = 'img/sazp.jpg';
 
                     templateWidgetsLeft.push({
                         id: 1,
