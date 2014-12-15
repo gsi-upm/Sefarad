@@ -1850,6 +1850,8 @@ function InitViewModel() {
 					self.sparql = ko.observable(true);
 					self.showSparqlPanel = ko.observable(true);
 
+					vm.getPolyginsFromEuro();
+
 					if (!self.securityEnabled()) {
 						self.adminMode(true);
 					} else {
@@ -2193,6 +2195,7 @@ function InitViewModel() {
                 this.get('#/sparql/slovakiaPolygonsDemo', function () {
 
                     console.log("SLOVAKIA DEMO");
+					vm.getPolyginsFromEuro();
                     self.sparql = ko.observable(true);
                     self.dashboardTabEnabled(false);
                     self.payolaTabEnabled(false);
@@ -2283,7 +2286,7 @@ function InitViewModel() {
                     init();
 
 					//load polygons from cache in Mongo
-					vm.getPolyginsFromMongo();
+					//vm.getPolyginsFromMongo();
 
                     //Adding widgets
                     $(window).load(function () {
@@ -2296,35 +2299,54 @@ function InitViewModel() {
 
                         //Add openlayers map
                         openLayers.render("Right");
-                        newResultsWidget.render("Right");
 
-						newResultsWidget.resultsTable.column(0).visible(false);
-						newResultsWidget.resultsTable.column(1).visible(false);
-						newResultsWidget.resultsTable.column(2).visible(false);
-						newResultsWidget.resultsTable.column(3).visible(false);
-						newResultsWidget.resultsTable.column(4).visible(false);
-						newResultsWidget.resultsTable.column(5).visible(false);
-						newResultsWidget.resultsTable.column(6).visible(false);
-						newResultsWidget.resultsTable.column(7).visible(false);
-						newResultsWidget.resultsTable.column(8).visible(false);
-						newResultsWidget.resultsTable.column(9).visible(false);
-						newResultsWidget.resultsTable.column(10).visible(false);
-						newResultsWidget.resultsTable.column(12).visible(false);
-						newResultsWidget.resultsTable.column(13).visible(false);
-						newResultsWidget.resultsTable.column(16).visible(false);
-						newResultsWidget.resultsTable.column(17).visible(false);
-						newResultsWidget.resultsTable.column(18).visible(false);
-						newResultsWidget.resultsTable.column(19).visible(false);
-						newResultsWidget.resultsTable.column(20).visible(false);
-						newResultsWidget.resultsTable.column(21).visible(false);
-						newResultsWidget.resultsTable.column(22).visible(false);
-						newResultsWidget.resultsTable.column(24).visible(false);
-						newResultsWidget.paint();
+						//Add results table
+                        //newResultsWidget.render("Right");
+						//newResultsWidget.resultsTable.column(0).visible(false);
+						//newResultsWidget.resultsTable.column(1).visible(false);
+						//newResultsWidget.resultsTable.column(2).visible(false);
+						//newResultsWidget.resultsTable.column(3).visible(false);
+						//newResultsWidget.resultsTable.column(4).visible(false);
+						//newResultsWidget.resultsTable.column(5).visible(false);
+						//newResultsWidget.resultsTable.column(6).visible(false);
+						//newResultsWidget.resultsTable.column(7).visible(false);
+						//newResultsWidget.resultsTable.column(8).visible(false);
+						//newResultsWidget.resultsTable.column(9).visible(false);
+						//newResultsWidget.resultsTable.column(10).visible(false);
+						//newResultsWidget.resultsTable.column(12).visible(false);
+						//newResultsWidget.resultsTable.column(13).visible(false);
+						//newResultsWidget.resultsTable.column(16).visible(false);
+						//newResultsWidget.resultsTable.column(17).visible(false);
+						//newResultsWidget.resultsTable.column(18).visible(false);
+						//newResultsWidget.resultsTable.column(19).visible(false);
+						//newResultsWidget.resultsTable.column(20).visible(false);
+						//newResultsWidget.resultsTable.column(21).visible(false);
+						//newResultsWidget.resultsTable.column(22).visible(false);
+						//newResultsWidget.resultsTable.column(24).visible(false);
+						//newResultsWidget.paint();
 
                         self.numberOfResults.valueHasMutated();
 
                     });
                 });
+
+				this.get('#/sparql/videoDemo', function () {
+
+					console.log("SLOVAKIA DEMO");
+					vm.getPolyginsFromEuro();
+					self.sparql = ko.observable(true);
+					self.dashboardTabEnabled(false);
+					self.payolaTabEnabled(false);
+					configuration.template.language = "English";
+					configuration.template.pageTitle = "Slovakian Demo";
+					configuration.template.logoPath = 'img/sazp.jpg';
+					configuration.autocomplete.field = "spc";
+					self.securityEnabled(true);
+					self.adminMode(false);
+					sparqlmode = true;
+					init();
+
+				});
 
                 this.get('#/sparql/universitiesDemo', function () {
                     console.log("UNIVERSITIES DEMO");

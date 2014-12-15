@@ -45,6 +45,7 @@ var openLayers = {
     },
 
     paint: function (id) {
+        console.log('Painting Map');
         d3.select('#' + id).selectAll('div').remove();
         var div = d3.select('#' + id);
         div.attr("align", "center");
@@ -94,7 +95,6 @@ var openLayers = {
 
         layersmap.addControl(selectControl);
         layersmap.addControl(new OpenLayers.Control.MousePosition());
-
         selectControl.activate();
 
         layersmap.zoomToExtent(vector_layer.getDataExtent());
@@ -135,7 +135,7 @@ var openLayers = {
             popup = new OpenLayers.Popup.FramedCloud("chicken",
                 feature.geometry.getBounds().getCenterLonLat(),
                 null,
-                "<div style='font-size:1em'>Name: " + feature.attributes.text1.value() + "<br>Area: " + feature.geometry.getArea() + "</div>",
+                "<div style='font-size:1em'>Name: " + feature.attributes.designation.value() + "<br>Area: " + feature.geometry.getArea() + "</div>",
                 null,
                 true,
                 openLayers.onPopupClose);

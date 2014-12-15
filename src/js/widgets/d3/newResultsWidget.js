@@ -49,6 +49,8 @@ var newResultsWidget = {
 
     paint: function (id) {
 
+        console.log('PAINTING RESULTS');
+
         //Here we save the visibility state of the columns (in case of existance) in order to repaint correctly
         var tableState = [];
         if (this.resultsTable != null) {
@@ -200,6 +202,8 @@ var newResultsWidget = {
             }
             $.fn.dataTable.ColVis.fnRebuild();
         }
+
+        console.log('TABLE PAINTED');
 
 
         //if(searchDone == true) this.resultsTable.search('no results found').draw();
