@@ -23,6 +23,7 @@
     /*Page Header Background*/
     /*background: linear-gradient(#FFFFFF, #CACED3);*/
     background: url('images/forest.jpg');
+    height: 80px;
 
 
 
@@ -150,10 +151,28 @@ color: #867B0C;
 
 }
 
+
+
 #login-submit {
-    position: absolute;
-    right: 1%;
-    top: 4%;
+    border : solid 1px #e6e6e6;
+    border-radius : 3px;
+    moz-border-radius : 3px;
+    -webkit-box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+    -moz-box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+    box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+    font-size : 14px;
+    color : #696869;
+    padding : 1px 17px;
+    background : #ffffff;
+    background : -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(49%,#f1f1f1), color-stop(51%,#e1e1e1), color-stop(100%,#f6f6f6));
+    background : -moz-linear-gradient(top, #ffffff 0%, #f1f1f1 49%, #e1e1e1 51%, #f6f6f6 100%);
+    background : -webkit-linear-gradient(top, #ffffff 0%, #f1f1f1 49%, #e1e1e1 51%, #f6f6f6 100%);
+    background : -o-linear-gradient(top, #ffffff 0%, #f1f1f1 49%, #e1e1e1 51%, #f6f6f6 100%);
+    background : -ms-linear-gradient(top, #ffffff 0%, #f1f1f1 49%, #e1e1e1 51%, #f6f6f6 100%);
+    background : linear-gradient(top, #ffffff 0%, #f1f1f1 49%, #e1e1e1 51%, #f6f6f6 100%);
+    filter : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 );
 
 }
+
+
 

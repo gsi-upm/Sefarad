@@ -65,7 +65,7 @@ var newResultsWidget = {
             .attr("style", "height: 100%; width: 100%");
 
         //Create the table
-        var table = tablediv.append("table").attr("id", "resultsTable"+id).attr("class", "cell-border").attr("cellspacing", "0").attr("style", "height: 100%; width: 100%");
+        var table = tablediv.append("table").attr("id", "resultsTable").attr("class", "cell-border").attr("cellspacing", "0").attr("style", "height: 100%; width: 100%");
         //.attr("class", "display");
         thead = table.append("thead");
         tbody = table.append("tbody");
@@ -149,7 +149,7 @@ var newResultsWidget = {
         switch (vm.lang()[Object.keys(vm.lang())[0]]) {
 
             default:
-                this.resultsTable = $('#resultsTable'+id).DataTable({
+                this.resultsTable = $('#resultsTable').DataTable({
 
                     dom: 'C<"clear">lfrtip',
                     "scrollX": true,
@@ -170,7 +170,7 @@ var newResultsWidget = {
                 break;
 
             case "Español":
-                this.resultsTable = $('#resultsTable'+id).DataTable({
+                this.resultsTable = $('#resultsTable').DataTable({
 
                     dom: 'C<"clear">lfrtip',
                     "scrollX": true,

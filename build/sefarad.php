@@ -267,17 +267,19 @@ if ($user->isLoggedIn()){
 							<ul>
 								<?php if(!isset($_SESSION['user_id'])): ?>
 									<form id="login" action="" method="post" accept-charset="utf-8">
-										<?php if(isset($errorMessage)): ?>
-										<li><?php echo $errorMessage; ?></li>
-										<?php endif ?>
+
 										<li>										
 											<input class="textbox" tabindex="1" type="text" name="username" placeholder="User" autocomplete="off"/>
 										</li>
 										<li>
 											<input class="textbox" tabindex="2" type="password" name="password" placeholder="Password"/>
 										</li>
-
+                                        <li>
 											<input id="login-submit" name="login" tabindex="3" type="submit" value="Log in" />
+                                        </li>
+                                        <?php if(isset($errorMessage)): ?>
+                                            <li><?php echo $errorMessage; ?></li>
+                                        <?php endif ?>
 
 										<li class="clear"></li>
 									</form>
@@ -841,6 +843,13 @@ if ($user->isLoggedIn()){
 				<hr>
 				</br>
 				<div style="display:inline">
+                    <span style="max-width:200px; word-wrap:break-word;">
+                        <p>This research has been cofunded through the SmartOpenData Project developed under the activity code
+                        ENV.2013.6.5-3:</p>
+                        <p>Exploiting the European Open Data Strategy
+                        to mobilise the use of environmental data and information</p>
+                        <br>
+                    </span>
 					<!--<img src="img/logo2.png" style="float: right;"/>-->
 					<a href="http://gsi.dit.upm.es/" target="_blank">
 						<img height="100px" src="img/logo_gsi.png" alt="GSI-UPM"/>
@@ -849,7 +858,7 @@ if ($user->isLoggedIn()){
 							-->
 					</a>
 
-					<img src="img/ue_logo.gif" alt="European Union" style="height: 100px; width: 150px;">
+					<img src="img/seventh.png" alt="European Union" style="height: 100px; width: 150px;">
 
 					<a href="http://http://www.smartopendata.eu/">
 					<img src="img/smartOpenData.jpg" style="height: 100px; width: 110px;" alt="Paradigma Tecnológico">
