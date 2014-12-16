@@ -49,7 +49,7 @@ var newResultsWidget = {
 
     paint: function (id) {
 
-        console.log('PAINTING RESULTS');
+        console.log('ResultsTable: Painting results table');
 
         //Here we save the visibility state of the columns (in case of existance) in order to repaint correctly
         var tableState = [];
@@ -57,6 +57,7 @@ var newResultsWidget = {
             for (i = 0; i < this.resultsTable.columns()[0].length; i++) {
                 tableState [i] = this.resultsTable.column(i).visible();
             }
+            console.log('ResultsTable: Table columns state saved');
         }
 
         d3.select('#' + id).selectAll('div').remove();
@@ -73,27 +74,26 @@ var newResultsWidget = {
         tbody = table.append("tbody");
         tfoot = table.append("tfoot");
 
-        //Extract the data from vm variable
+        //Extract the data from vm variable, taking out the polygon field
         var data = new Array();
         $.each(vm.filteredData(), function (index, item) {
+            //remove the polygon field
+            delete item["fWKT"];
             data.push(item);
         });
+        //console.log('ResultsTable: Data that will be drawn = '+data);
 
         //If we search with the faceted search (at the top of the page) and get no results (filteredData is null), we have to take the header info from non-filtered data
         if (data.length == 0) {
-
             data = new Array();
             $.each(vm.viewData(), function (index, item) {
                 data.push(item);
             });
-
             //make a faceted search. Using a boolean in order to perform the search when the table is initialized.
             //searchDone = true;
-
         }
 
         try {
-
 
             //Print the header line
             var hrow = thead.append("tr");
@@ -136,74 +136,85 @@ var newResultsWidget = {
                 }
             }
 
+
+            //Table inicialization depending on the language
+            switch (vm.lang()[Object.keys(vm.lang())[0]]) {
+
+                default:
+                    this.resultsTable = $('#resultsTable').DataTable({
+
+                        dom: 'C<"clear">lfrtip',
+                        "scrollX": true,
+
+                        "scrollCollapse": true,
+                        "destroy": true,
+                        "language": {
+                            "lengthMenu": "Display _MENU_ records per page",
+                            "zeroRecords": "Nothing found - sorry",
+                            "info": "Showing page _PAGE_ of _PAGES_",
+                            "infoEmpty": "No records available",
+                            "search": "Filter:",
+                            "infoFiltered": "(filtered from _MAX_ total records)"
+                        }
+                        //"dom": 'C&gt;"clear"&lt;lfrtip'
+
+                    });
+                    break;
+
+                case "Español":
+                    this.resultsTable = $('#resultsTable').DataTable({
+
+                        dom: 'C<"clear">lfrtip',
+                        "scrollX": true,
+
+                        "scrollCollapse": true,
+                        "destroy": true,
+                        "language": {
+                            "lengthMenu": "Mostrar _MENU_ resultados por página",
+                            "zeroRecords": "No se encontraron resultados - lo sentimos",
+                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                            "infoEmpty": "No hay resultados disponibles",
+                            "search": "Filtrar:",
+                            "infoFiltered": "(filtrados de _MAX_ resultados totales)"
+                        }
+                        //"dom": 'C&gt;"clear"&lt;lfrtip'
+
+                    });
+                    break;
+
+            }
+
+            //Hide the columns in order to the previous state
+            if (tableState.length != 0) {
+                for (i = 0; i < tableState.length; i++) {
+                    this.resultsTable.column(i).visible(tableState [i]);
+                }
+                $.fn.dataTable.ColVis.fnRebuild();
+            }
+
+            console.log('Results table: Table Painted');
+
+
+
+
+
         }catch(e){
             //Create the message div
             var message_div = div.append("div")
                 .attr("id", "message_div");
 
             message_div.append("text")
-                .text("No data to show");
+                .text("...Loading data...");
 
-            console.log("Results widget couldn't render the results. Probably they're empty.");
-        }
-
-        //Table inicialization depending on the language
-        switch (vm.lang()[Object.keys(vm.lang())[0]]) {
-
-            default:
-                this.resultsTable = $('#resultsTable').DataTable({
-
-                    dom: 'C<"clear">lfrtip',
-                    "scrollX": true,
-
-                    "scrollCollapse": true,
-                    "destroy": true,
-                    "language": {
-                        "lengthMenu": "Display _MENU_ records per page",
-                        "zeroRecords": "Nothing found - sorry",
-                        "info": "Showing page _PAGE_ of _PAGES_",
-                        "infoEmpty": "No records available",
-                        "search": "Filter:",
-                        "infoFiltered": "(filtered from _MAX_ total records)"
-                    }
-                    //"dom": 'C&gt;"clear"&lt;lfrtip'
-
-                });
-                break;
-
-            case "Español":
-                this.resultsTable = $('#resultsTable').DataTable({
-
-                    dom: 'C<"clear">lfrtip',
-                    "scrollX": true,
-
-                    "scrollCollapse": true,
-                    "destroy": true,
-                    "language": {
-                        "lengthMenu": "Mostrar _MENU_ resultados por página",
-                        "zeroRecords": "No se encontraron resultados - lo sentimos",
-                        "info": "Mostrando página _PAGE_ de _PAGES_",
-                        "infoEmpty": "No hay resultados disponibles",
-                        "search": "Filtrar:",
-                        "infoFiltered": "(filtrados de _MAX_ resultados totales)"
-                    }
-                    //"dom": 'C&gt;"clear"&lt;lfrtip'
-
-                });
-                break;
-
+            console.log("Results widget: can't render the results. Probably they're empty.");
         }
 
 
-        //Hide the columns in order to the previous state
-        if (tableState.length != 0) {
-            for (i = 0; i < tableState.length; i++) {
-                this.resultsTable.column(i).visible(tableState [i]);
-            }
-            $.fn.dataTable.ColVis.fnRebuild();
-        }
 
-        console.log('TABLE PAINTED');
+
+
+
+
 
 
         //if(searchDone == true) this.resultsTable.search('no results found').draw();

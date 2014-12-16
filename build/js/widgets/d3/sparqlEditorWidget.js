@@ -84,7 +84,7 @@ var sparqlEditorWidget = {
         var yasqeDiv = div.append("div").attr("id", "yasqe").attr("style", "text-align: left; width: 95%; padding-top: 15px; padding-bottom: 15px");;
         var yasqeButtonDiv = div.append("div").attr("id", "queryButton");
         var yasqeButton = yasqeButtonDiv.append("button").text("Get results from SPARQL endpoint")
-        //var yasrDiv = div.append("div").attr("id", "yasr").attr("style", "width: 100%");
+        var yasrDiv = div.append("div").attr("id", "yasr").attr("style", "width: 100%");
 
         //configuration
 
@@ -97,15 +97,16 @@ var sparqlEditorWidget = {
             }
         });
 
-        //YASR.plugins.table.defaults.datatable.scrollX = true;
-        //YASR.plugins.table.defaults.datatable.scrollCollapse = true;
-        //YASR.plugins.table.defaults.datatable.autoWidth = true;
-        //YASR.plugins.table.defaults.datatable.scrollY = "300px";
-        //
-        //var yasr = YASR(document.getElementById("yasr"), {
-        //    //this way, the URLs in the results are prettified using the defined prefixes in the query
-        //    getUsedPrefixes: yasqe.getPrefixesFromQuery
-        //});
+        YASR.plugins.table.defaults.datatable.scrollX = true;
+        YASR.plugins.table.defaults.datatable.scrollCollapse = true;
+        YASR.plugins.table.defaults.datatable.autoWidth = true;
+        YASR.plugins.table.defaults.datatable.scrollY = "300px";
+        YASR.plugins.rawResponse.defaults.scrollbarStyle = "native";
+
+        var yasr = YASR(document.getElementById("yasr"), {
+            //this way, the URLs in the results are prettified using the defined prefixes in the query
+            getUsedPrefixes: yasqe.getPrefixesFromQuery
+        });
         //yasr.setResponse({
         //    response: vm.viewData
         //});
@@ -237,10 +238,10 @@ var sparqlEditorWidget = {
                         console.log(data);
                         //ko.mapping.fromJSON(data, vm.viewData);
                         //updateWidgets(true);
-                        //yasr.setResponse({
-                        //    response: res,
-                        //    contentType: req.getResponseHeader("Content-Type")
-                        //});
+                        yasr.setResponse({
+                            response: res,
+                            contentType: req.getResponseHeader("Content-Type")
+                        });
                     } else {
                     }
                 }

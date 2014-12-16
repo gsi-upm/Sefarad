@@ -847,17 +847,22 @@ function InitViewModel() {
                     var res = eval ("(" + req.responseText + ")");
                     var data = JSON.stringify(res.results.bindings);
                     ko.mapping.fromJSON(data, self.viewData);
+
+                    if(newResultsWidget.resultsTable != null) {
+                        newResultsWidget.resultsTable.column(0).visible(false);
+                        newResultsWidget.resultsTable.column(1).visible(false);
+                        newResultsWidget.resultsTable.column(2).visible(false);
+                        newResultsWidget.resultsTable.column(3).visible(false);
+                        newResultsWidget.resultsTable.column(4).visible(false);
+                        newResultsWidget.resultsTable.column(5).visible(false);
+                        newResultsWidget.resultsTable.column(6).visible(false);
+                        newResultsWidget.resultsTable.column(9).visible(false);
+                        newResultsWidget.resultsTable.column(10).visible(false);
+                        //newResultsWidget.paint();
+                    }
                     updateWidgets(true);
-                    newResultsWidget.resultsTable.column(0).visible(false);
-                    newResultsWidget.resultsTable.column(1).visible(false);
-                    newResultsWidget.resultsTable.column(2).visible(false);
-                    newResultsWidget.resultsTable.column(3).visible(false);
-                    newResultsWidget.resultsTable.column(4).visible(false);
-                    newResultsWidget.resultsTable.column(5).visible(false);
-                    newResultsWidget.resultsTable.column(6).visible(false);
-                    newResultsWidget.resultsTable.column(9).visible(false);
-                    newResultsWidget.resultsTable.column(10).visible(false);
-                    newResultsWidget.paint();
+
+
                 } else {
                 }
             }
@@ -1231,8 +1236,8 @@ function InitViewModel() {
 			}
 
 			updateTwitterWidgets();
-			self.redraw();
-			self.drawcharts();
+			//self.redraw();
+			//self.drawcharts();
 
 		}
 	});
@@ -2301,28 +2306,32 @@ function InitViewModel() {
                         openLayers.render("Right");
 
 						//Add results table
-                        //newResultsWidget.render("Right");
-						//newResultsWidget.resultsTable.column(0).visible(false);
-						//newResultsWidget.resultsTable.column(1).visible(false);
-						//newResultsWidget.resultsTable.column(2).visible(false);
-						//newResultsWidget.resultsTable.column(3).visible(false);
-						//newResultsWidget.resultsTable.column(4).visible(false);
-						//newResultsWidget.resultsTable.column(5).visible(false);
-						//newResultsWidget.resultsTable.column(6).visible(false);
-						//newResultsWidget.resultsTable.column(7).visible(false);
-						//newResultsWidget.resultsTable.column(8).visible(false);
-						//newResultsWidget.resultsTable.column(9).visible(false);
-						//newResultsWidget.resultsTable.column(10).visible(false);
-						//newResultsWidget.resultsTable.column(12).visible(false);
-						//newResultsWidget.resultsTable.column(13).visible(false);
-						//newResultsWidget.resultsTable.column(16).visible(false);
-						//newResultsWidget.resultsTable.column(17).visible(false);
-						//newResultsWidget.resultsTable.column(18).visible(false);
-						//newResultsWidget.resultsTable.column(19).visible(false);
-						//newResultsWidget.resultsTable.column(20).visible(false);
-						//newResultsWidget.resultsTable.column(21).visible(false);
-						//newResultsWidget.resultsTable.column(22).visible(false);
-						//newResultsWidget.resultsTable.column(24).visible(false);
+                        newResultsWidget.render("Right");
+
+                        if(newResultsWidget.resultsTable != null) {
+                            newResultsWidget.resultsTable.column(0).visible(false);
+                            newResultsWidget.resultsTable.column(1).visible(false);
+                            newResultsWidget.resultsTable.column(2).visible(false);
+                            newResultsWidget.resultsTable.column(3).visible(false);
+                            newResultsWidget.resultsTable.column(4).visible(false);
+                            newResultsWidget.resultsTable.column(5).visible(false);
+                            newResultsWidget.resultsTable.column(6).visible(false);
+                            newResultsWidget.resultsTable.column(7).visible(false);
+                            newResultsWidget.resultsTable.column(8).visible(false);
+                            newResultsWidget.resultsTable.column(9).visible(false);
+                            newResultsWidget.resultsTable.column(10).visible(false);
+                            newResultsWidget.resultsTable.column(12).visible(false);
+                            newResultsWidget.resultsTable.column(13).visible(false);
+                            newResultsWidget.resultsTable.column(16).visible(false);
+                            newResultsWidget.resultsTable.column(17).visible(false);
+                            newResultsWidget.resultsTable.column(18).visible(false);
+                            newResultsWidget.resultsTable.column(19).visible(false);
+                            newResultsWidget.resultsTable.column(20).visible(false);
+                            newResultsWidget.resultsTable.column(21).visible(false);
+                            newResultsWidget.resultsTable.column(22).visible(false);
+                            newResultsWidget.resultsTable.column(24).visible(false);
+                        }
+
 						//newResultsWidget.paint();
 
                         self.numberOfResults.valueHasMutated();
