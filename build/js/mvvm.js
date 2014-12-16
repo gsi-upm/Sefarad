@@ -827,7 +827,7 @@ function InitViewModel() {
 
     self.getPolyginsFromEuro = function () {
 
-        var polygonsfeuro_query = 'PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX j.0: <http://inspire.jrc.ec.europa.eu/schemas/gn/3.0/> PREFIX j.1: <http://inspire.jrc.ec.europa.eu/schemas/ps/3.0/> PREFIX j.2: <http://inspire.jrc.ec.europa.eu/schemas/base/3.2/> PREFIX j.3: <http://www.opengis.net/ont/geosparql#> SELECT * WHERE { SERVICE <http://localhost:3030/slovakia/query> { ?res j.3:hasGeometry ?fGeom . ?fGeom j.3:asWKT ?fWKT . ?res j.1:siteProtectionClassification ?spc  . ?res j.1:LegalFoundationDate ?lfd .   ?res j.1:LegalFoundationDocument ?lfdoc .  ?res j.1:inspireId ?inspire . ?inspire j.2:namespace ?namespace . ?inspire j.2:namespace ?localId . ?res j.1:siteDesignation ?siteDesignation .  ?siteDesignation j.1:percentageUnderDesignation ?percentageUnderDesignation . ?siteDesignation j.1:designation ?designation . ?siteDesignation j.1:designationScheme ?designationScheme . } } LIMIT 100';
+        var polygonsfeuro_query = 'PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX j.0: <http://inspire.jrc.ec.europa.eu/schemas/gn/3.0/> PREFIX j.1: <http://inspire.jrc.ec.europa.eu/schemas/ps/3.0/> PREFIX j.2: <http://inspire.jrc.ec.europa.eu/schemas/base/3.2/> PREFIX j.3: <http://www.opengis.net/ont/geosparql#> SELECT * WHERE { SERVICE <http://localhost:3030/slovakia/query> { ?res j.3:hasGeometry ?fGeom . ?fGeom j.3:asWKT ?fWKT . ?res j.1:siteProtectionClassification ?spc . ?res j.1:LegalFoundationDate ?lfd . ?res j.1:LegalFoundationDocument ?lfdoc . ?res j.1:inspireId ?inspire . ?res j.1:siteName ?sitename . ?sitename j.0:GeographicalName ?gname . ?gname j.0:spelling ?spelling . ?spelling j.0:SpellingOfName ?spellingofname . ?spellingofname j.0:text ?name . ?inspire j.2:namespace ?namespace . ?inspire j.2:namespace ?localId . ?res j.1:siteDesignation ?siteDesignation . ?siteDesignation j.1:percentageUnderDesignation ?percentageUnderDesignation . ?siteDesignation j.1:designation ?designation . ?siteDesignation j.1:designationScheme ?designationScheme . } } LIMIT 100';
         //var temporal = 'http://alpha.gsi.dit.upm.es:3030/slovakia/query?query=' + encodeURIComponent(polygonsfeuro_query);
         var temporal = 'http://demos.gsi.dit.upm.es/fuseki/slovakia/query?query=' + encodeURIComponent(polygonsfeuro_query);
         var req = new XMLHttpRequest();
@@ -856,9 +856,13 @@ function InitViewModel() {
                         newResultsWidget.resultsTable.column(4).visible(false);
                         newResultsWidget.resultsTable.column(5).visible(false);
                         newResultsWidget.resultsTable.column(6).visible(false);
+						newResultsWidget.resultsTable.column(7).visible(false);
+						newResultsWidget.resultsTable.column(8).visible(false);
                         newResultsWidget.resultsTable.column(9).visible(false);
-                        newResultsWidget.resultsTable.column(10).visible(false);
-                        //newResultsWidget.paint();
+                        newResultsWidget.resultsTable.column(12).visible(false);
+						newResultsWidget.resultsTable.column(13).visible(false);
+						newResultsWidget.resultsTable.column(14).visible(false);
+                        newResultsWidget.paint();
                     }
                     updateWidgets(true);
 
@@ -2200,7 +2204,7 @@ function InitViewModel() {
                 this.get('#/sparql/slovakiaPolygonsDemo', function () {
 
                     console.log("SLOVAKIA DEMO");
-					vm.getPolyginsFromEuro();
+					//vm.getPolyginsFromEuro();
                     self.sparql = ko.observable(true);
                     self.dashboardTabEnabled(false);
                     self.payolaTabEnabled(false);
@@ -2291,7 +2295,7 @@ function InitViewModel() {
                     init();
 
 					//load polygons from cache in Mongo
-					//vm.getPolyginsFromMongo();
+					vm.getPolyginsFromMongo();
 
                     //Adding widgets
                     $(window).load(function () {
@@ -2309,30 +2313,22 @@ function InitViewModel() {
                         newResultsWidget.render("Right");
 
                         if(newResultsWidget.resultsTable != null) {
-                            newResultsWidget.resultsTable.column(0).visible(false);
-                            newResultsWidget.resultsTable.column(1).visible(false);
-                            newResultsWidget.resultsTable.column(2).visible(false);
-                            newResultsWidget.resultsTable.column(3).visible(false);
-                            newResultsWidget.resultsTable.column(4).visible(false);
-                            newResultsWidget.resultsTable.column(5).visible(false);
-                            newResultsWidget.resultsTable.column(6).visible(false);
-                            newResultsWidget.resultsTable.column(7).visible(false);
-                            newResultsWidget.resultsTable.column(8).visible(false);
-                            newResultsWidget.resultsTable.column(9).visible(false);
-                            newResultsWidget.resultsTable.column(10).visible(false);
-                            newResultsWidget.resultsTable.column(12).visible(false);
-                            newResultsWidget.resultsTable.column(13).visible(false);
-                            newResultsWidget.resultsTable.column(16).visible(false);
-                            newResultsWidget.resultsTable.column(17).visible(false);
-                            newResultsWidget.resultsTable.column(18).visible(false);
-                            newResultsWidget.resultsTable.column(19).visible(false);
-                            newResultsWidget.resultsTable.column(20).visible(false);
-                            newResultsWidget.resultsTable.column(21).visible(false);
-                            newResultsWidget.resultsTable.column(22).visible(false);
-                            newResultsWidget.resultsTable.column(24).visible(false);
-                        }
+							newResultsWidget.resultsTable.column(0).visible(false);
+							newResultsWidget.resultsTable.column(1).visible(false);
+							newResultsWidget.resultsTable.column(2).visible(false);
+							newResultsWidget.resultsTable.column(3).visible(false);
+							newResultsWidget.resultsTable.column(4).visible(false);
+							newResultsWidget.resultsTable.column(5).visible(false);
+							newResultsWidget.resultsTable.column(6).visible(false);
+							newResultsWidget.resultsTable.column(7).visible(false);
+							newResultsWidget.resultsTable.column(8).visible(false);
+							newResultsWidget.resultsTable.column(9).visible(false);
+							newResultsWidget.resultsTable.column(12).visible(false);
+							newResultsWidget.resultsTable.column(13).visible(false);
+							newResultsWidget.resultsTable.column(14).visible(false);
 
-						//newResultsWidget.paint();
+							newResultsWidget.paint();
+                        }
 
                         self.numberOfResults.valueHasMutated();
 

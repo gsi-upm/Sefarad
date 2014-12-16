@@ -45,7 +45,7 @@ var openLayers = {
     },
 
     paint: function (id) {
-        console.log('Painting Map');
+        //console.log('Painting Map');
         d3.select('#' + id).selectAll('div').remove();
         var div = d3.select('#' + id);
         div.attr("align", "center");
@@ -112,7 +112,7 @@ var openLayers = {
             layersmap.addLayer(markers);
             layersmap.zoomToExtent(markers.getDataExtent());
         } catch (e) {
-            console.log("Open layer couldn't render the map. Probably there's no data to render.");
+            //console.log("Open layer couldn't render the map. Probably there's no data to render.");
         }
     },
 

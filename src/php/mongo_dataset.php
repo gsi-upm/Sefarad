@@ -12,7 +12,7 @@ $db = $m->sefarad;
 $collection = $db->dataset;
 
 // search saved configuration
-$query = array( "dataset" => "slovakia");
+$query = array( "dataset" => "slovakia_minv2");
 $cursor = $collection->find( $query );
 
 // load configuration (saved or defatult)

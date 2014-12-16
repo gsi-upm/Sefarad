@@ -49,7 +49,7 @@ var newResultsWidget = {
 
     paint: function (id) {
 
-        console.log('ResultsTable: Painting results table');
+        //console.log('ResultsTable: Painting results table');
 
         //Here we save the visibility state of the columns (in case of existance) in order to repaint correctly
         var tableState = [];
@@ -78,8 +78,9 @@ var newResultsWidget = {
         var data = new Array();
         $.each(vm.filteredData(), function (index, item) {
             //remove the polygon field
-            delete item["fWKT"];
-            data.push(item);
+            var dataItem = $.extend({},item);
+            delete dataItem["fWKT"];
+            data.push(dataItem);
         });
         //console.log('ResultsTable: Data that will be drawn = '+data);
 
@@ -192,11 +193,7 @@ var newResultsWidget = {
                 $.fn.dataTable.ColVis.fnRebuild();
             }
 
-            console.log('Results table: Table Painted');
-
-
-
-
+            //console.log('Results table: Table Painted');
 
         }catch(e){
             //Create the message div
@@ -208,14 +205,6 @@ var newResultsWidget = {
 
             console.log("Results widget: can't render the results. Probably they're empty.");
         }
-
-
-
-
-
-
-
-
 
         //if(searchDone == true) this.resultsTable.search('no results found').draw();
     }
