@@ -877,7 +877,7 @@ if ($user->isLoggedIn()){
 
 					<img src="img/seventh.png" alt="European Union" style="height: 100px; width: 150px;">
 
-					<a href="http://http://www.smartopendata.eu/">
+					<a href="http://www.smartopendata.eu/">
 					<img src="img/smartOpenData.jpg" style="height: 100px; width: 110px;" alt="Paradigma Tecnológico">
 					</a>
 
