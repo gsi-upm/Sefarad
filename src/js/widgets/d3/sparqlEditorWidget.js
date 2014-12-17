@@ -250,6 +250,11 @@ var sparqlEditorWidget = {
                             response: res,
                             contentType: req.getResponseHeader("Content-Type")
                         });
+
+
+
+
+
                     } else {
                         $(".error").show();
 

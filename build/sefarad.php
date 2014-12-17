@@ -262,6 +262,8 @@ if ($user->isLoggedIn()){
 				<!-- Search and help area -->
 				<div class="right_area" >
 
+                    <div class="icon"><a href="https://github.com/gsi-upm/demo-smartopendata/wiki"><img src="img/help.png" alt="Help" /></a></div>
+
 					<div id="login-box">
 						<div class="inner">							
 							<ul>
@@ -299,7 +301,7 @@ if ($user->isLoggedIn()){
 						</div>
 					</div>
 					
-					<div class="icon"><img src="img/help.png" alt="Help" data-bind="click: $root.showHelp"/></div>
+
 					<div id ="configuration-button" class ="icon" data-bind="click: $root.showConfiguration, visible: $root.adminMode"><img src="img/settings.png" alt="Configuration" /></div>
 
 					<div class="search" id="search-container">

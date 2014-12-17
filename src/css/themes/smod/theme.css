@@ -214,9 +214,8 @@ color: #867B0C;
     text-align: left;
 }
 
-.CodeMirror-scroll {
-    overflow-y: scroll;
-    overflow-x: auto;
+.CodeMirror {
+
     height: 500px;
 
 }

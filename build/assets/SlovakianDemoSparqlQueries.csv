@@ -6,7 +6,7 @@ PREFIX j.2: <http://inspire.jrc.ec.europa.eu/schemas/base/3.2/>
 PREFIX j.3: <http://www.opengis.net/ont/geosparql#> 
 SELECT * WHERE { 
 SERVICE <http://localhost:3030/slovakia/query> { 
-?res j.3:hasGeometry ?fGeom . ?fGeom j.3:asWKT ?fWKT . 
+ 
 ?res j.1:siteProtectionClassification ?spc  . 
 ?res j.1:LegalFoundationDate ?lfd .   
 ?res j.1:LegalFoundationDocument ?lfdoc .  
