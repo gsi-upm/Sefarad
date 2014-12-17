@@ -81,9 +81,13 @@ var sparqlEditorWidget = {
         queriesDiv.append("br");
 
         //queriesDiv.append("div").attr("id", "description").attr("style", "width: 95%; border: 1px solid; border-radius: 5px; padding-top: 15px; padding-bottom: 15px");
-        var yasqeDiv = div.append("div").attr("id", "yasqe").attr("style", "text-align: left; width: 95%; padding-top: 15px; padding-bottom: 15px");;
+        var yasqeDiv = div.append("div").attr("id", "yasqe").attr("style", "text-align: left; width: 95%; padding-top: 15px; padding-bottom: 15px");
         var yasqeButtonDiv = div.append("div").attr("id", "queryButton");
-        var yasqeButton = yasqeButtonDiv.append("button").text("Get results from SPARQL endpoint")
+        var yasqeButton = yasqeButtonDiv.append("button").text("Get results from SPARQL endpoint");
+
+        var succesDiv = div.append("div").attr("class", "success").attr("style", "width: 70%; display: none").text("Query successful");
+        var failDiv = div.append("div").attr("class", "error").attr("style", "width: 70%; display: none").text("Query failed");
+
         var yasrDiv = div.append("div").attr("id", "yasr").attr("style", "width: 100%");
 
         //configuration
@@ -220,6 +224,9 @@ var sparqlEditorWidget = {
         //ExecuteQuery function. Still not generalized, it takes "restaurants" info from our endpoint at gsi's alpha
         function executeQuery() {
 
+            $(".success").hide();
+            $(".error").hide();
+
             var _query = yasqe.getValue().replace(/(\r\n|\n|\r)/gm, "");
             console.log(_query);
             var temporal = _editorEndpoint + encodeURIComponent(_query);
@@ -236,6 +243,7 @@ var sparqlEditorWidget = {
                         var res = eval("(" + req.responseText + ")");
                         var data = JSON.stringify(res.results.bindings);
                         console.log(data);
+                        $(".success").show();
                         //ko.mapping.fromJSON(data, vm.viewData);
                         //updateWidgets(true);
                         yasr.setResponse({
@@ -243,6 +251,8 @@ var sparqlEditorWidget = {
                             contentType: req.getResponseHeader("Content-Type")
                         });
                     } else {
+                        $(".error").show();
+
                     }
                 }
             };
