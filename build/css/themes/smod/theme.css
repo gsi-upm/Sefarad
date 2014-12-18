@@ -216,7 +216,12 @@ color: #867B0C;
 
 .CodeMirror {
 
-    overflow-y: scroll;
-    height: 500px;
+    height: 400px;
+    overflow-y: auto;
 
+}
+
+.CodeMirror-lines {
+    height: 500px;
+    
 }
