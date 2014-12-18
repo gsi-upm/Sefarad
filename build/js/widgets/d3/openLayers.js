@@ -15,7 +15,7 @@ var openLayers = {
 
     render: function (loc) {
 
-        if (loc != 'Left' && loc != 'Right') loc = 'Left';
+        if (loc != 'Left' && loc != 'Right') loc = 'Right';
 
         var id = 'A' + Math.floor(Math.random() * 10001);
         var configid = 'A' + Math.floor(Math.random() * 10001);
@@ -135,7 +135,7 @@ var openLayers = {
             popup = new OpenLayers.Popup.FramedCloud("chicken",
                 feature.geometry.getBounds().getCenterLonLat(),
                 null,
-                "<div style='font-size:1em'>Name: " + feature.attributes.designation.value() + "<br>Area: " + feature.geometry.getArea() + "</div>",
+                "<div style='font-size:1em'><strong>Name:</strong> " + feature.attributes.name.value() + "<br><strong>Area:</strong> " + feature.geometry.getArea() + "</div>",
                 null,
                 true,
                 openLayers.onPopupClose);

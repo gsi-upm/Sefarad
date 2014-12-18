@@ -330,6 +330,7 @@ var sparqlEditorWidget = {
 };
 
 //Global variables
-var _editorEndpoint = 'http://alpha.gsi.dit.upm.es:3030/geo/query?query=';
+//var _editorEndpoint = 'http://alpha.gsi.dit.upm.es:3030/geo/query?query=';
+var _editorEndpoint = 'http://demos.gsi.dit.upm.es/fuseki/geo/query?query=';
 var _csvResource = "assets/" + "EuroSentimentDemoSparqlQueries.csv";
 

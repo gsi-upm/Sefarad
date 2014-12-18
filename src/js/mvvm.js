@@ -2201,10 +2201,33 @@ function InitViewModel() {
                     });
                 });
 
+				this.get('#/sparql/videoDemo', function () {
+
+					console.log("SLOVAKIA DEMO");
+					//vm.getPolyginsFromEuro();
+					self.sparql = ko.observable(true);
+					self.dashboardTabEnabled(false);
+					self.payolaTabEnabled(false);
+					configuration.template.language = "English";
+					configuration.template.pageTitle = "Slovakian Demo";
+					configuration.template.logoPath = 'img/sazp.jpg';
+					configuration.autocomplete.field = "spc";
+					self.securityEnabled(true);
+					self.adminMode(false);
+					sparqlmode = true;
+					_editorEndpoint = 'http://demos.gsi.dit.upm.es/fuseki/slovakia/query?query=';
+					_csvResource = "SlovakianDemoSparqlQueries.csv";
+					vm.accordionLayout(false);
+					vm.sortableWidgets(true);
+					init();
+					vm.getPolyginsFromMongo();
+
+				});
+
                 this.get('#/sparql/slovakiaPolygonsDemo', function () {
 
                     console.log("SLOVAKIA DEMO");
-					//vm.getPolyginsFromEuro();
+					vm.getPolyginsFromEuro();
                     self.sparql = ko.observable(true);
                     self.dashboardTabEnabled(false);
                     self.payolaTabEnabled(false);
@@ -2295,7 +2318,7 @@ function InitViewModel() {
                     init();
 
 					//load polygons from cache in Mongo
-					vm.getPolyginsFromMongo();
+					//vm.getPolyginsFromMongo();
 
                     //Adding widgets
                     $(window).load(function () {
@@ -2334,24 +2357,6 @@ function InitViewModel() {
 
                     });
                 });
-
-				this.get('#/sparql/videoDemo', function () {
-
-					console.log("SLOVAKIA DEMO");
-					vm.getPolyginsFromEuro();
-					self.sparql = ko.observable(true);
-					self.dashboardTabEnabled(false);
-					self.payolaTabEnabled(false);
-					configuration.template.language = "English";
-					configuration.template.pageTitle = "Slovakian Demo";
-					configuration.template.logoPath = 'img/sazp.jpg';
-					configuration.autocomplete.field = "spc";
-					self.securityEnabled(true);
-					self.adminMode(false);
-					sparqlmode = true;
-					init();
-
-				});
 
                 this.get('#/sparql/universitiesDemo', function () {
                     console.log("UNIVERSITIES DEMO");

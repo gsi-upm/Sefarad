@@ -18,7 +18,7 @@ var newResultsWidget = {
 
     render: function (loc) {
 
-        if(loc != 'Left' && loc != 'Right') loc = 'Left';
+        if(loc != 'Left' && loc != 'Right') loc = 'Right';
 
         var id = 'A' + Math.floor(Math.random() * 10001);
         var configid = 'A' + Math.floor(Math.random() * 10001);
