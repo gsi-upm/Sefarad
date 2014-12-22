@@ -37,6 +37,7 @@ if ($user->isLoggedIn()){
 		<link rel="stylesheet" href="css/widgets.css" type="text/css"/>
 		<link rel="stylesheet" href="css/themes/redmond/jquery-ui-1.9.2.custom.css" type="text/css"/>
 		<link rel="stylesheet" type="text/css" href="js/ext/jquery.autocomplete.css" media="screen" />
+        <link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
 		<!-- kendo widgets stylesheets -->
 		<link rel="stylesheet" href="css/ext/kendo.default.min.css" type="text/css"/>
 		<link rel="stylesheet" href="css/ext/kendo.common.min.css" type="text/css"/>
@@ -63,7 +64,12 @@ if ($user->isLoggedIn()){
 
     	<!-- Import OL CSS, auto import does not work with our minified OL.js build -->
         <link rel="stylesheet" type="text/css" href="http://demos.gsi.dit.upm.es/geoserver/openlayers/theme/default/style.css">
-		<!-- javascript -->
+
+        <!-- Apply custom theme -->
+        <link rel="stylesheet" href="css/themes/smod/theme.css" type="text/css"/>
+
+		<!---------------------------------------------- javascript -------------------------------------------->
+
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript" charset="UTF-8" src="js/ext/underscore.js"></script>
 		<!-- jquery related -->
@@ -128,6 +134,7 @@ if ($user->isLoggedIn()){
 		
 		<!-- openlayers -->
 		<script src="http://openlayers.org/api/OpenLayers.js"></script>
+        <script type="text/javascript" charset="UTF-8" src="js/ext/CenteredCluster.js"></script>
         <!-- <script type="text/javascript" charset="UTF-8" src="js/ext/OpenLayers.js"></script> -->
 		<!-- qtip -->
 		<script type="text/javascript" src="js/ext/jquery.qtip.js"></script>
@@ -255,23 +262,27 @@ if ($user->isLoggedIn()){
 				<!-- Search and help area -->
 				<div class="right_area" >
 
-					<div id="login-box" style="float:right; width:30%; height:100%">
+                    <div class="icon"><a href="https://github.com/gsi-upm/demo-smartopendata/wiki"><img src="img/help.png" alt="Help" /></a></div>
+
+					<div id="login-box">
 						<div class="inner">							
 							<ul>
 								<?php if(!isset($_SESSION['user_id'])): ?>
 									<form id="login" action="" method="post" accept-charset="utf-8">
-										<?php if(isset($errorMessage)): ?>
-										<li><?php echo $errorMessage; ?></li>
-										<?php endif ?>
+
 										<li>										
-											<input class="textbox" style="float:right" tabindex="1" type="text" name="username" placeholder="User" autocomplete="off"/>
+											<input class="textbox" tabindex="1" type="text" name="username" placeholder="User" autocomplete="off"/>
 										</li>
 										<li>
-											<input class="textbox" style="float:right"  tabindex="2" type="password" name="password" placeholder="Password"/>
+											<input class="textbox" tabindex="2" type="password" name="password" placeholder="Password"/>
 										</li>
-										<li>
-											<input id="login-submit" name="login" tabindex="3" type="submit" value="Log in" style="float:right"/>
-										</li>
+                                        <li>
+											<input id="login-submit" name="login" tabindex="3" type="submit" value="Log in" />
+                                        </li>
+                                        <?php if(isset($errorMessage)): ?>
+                                            <li><?php echo $errorMessage; ?></li>
+                                        <?php endif ?>
+
 										<li class="clear"></li>
 									</form>
 								<?php endif ?>
@@ -285,11 +296,12 @@ if ($user->isLoggedIn()){
 										</li>
 									</form>
 								<?php endif ?>									
-							</ul>							
+							</ul>
+
 						</div>
 					</div>
 					
-					<div class="icon"><img src="img/help.png" alt="Help" data-bind="click: $root.showHelp"/></div>
+
 					<div id ="configuration-button" class ="icon" data-bind="click: $root.showConfiguration, visible: $root.adminMode"><img src="img/settings.png" alt="Configuration" /></div>
 
 					<div class="search" id="search-container">
@@ -297,9 +309,7 @@ if ($user->isLoggedIn()){
 							<div id="search-btn"></div>
 							<!-- es el form el que da estilo al input -->
 							<!-- ko if: $root.sparql -->
-							<input style="background-color:#000;border:none;color:#fff;font-size:.95em;height:24px;;padding:0 0 0 
-								0px;position:relative;width:178px;" id="query" size="80" 
-								data-bind="attr: { placeholder: lang().searchplaceholder }, kendoAutoComplete: { data: autoCompleteFields, value: filter, animation: false }"/>
+							<input id="search-field" data-bind="attr: { placeholder: lang().searchplaceholder }, kendoAutoComplete: { data: autoCompleteFields, value: filter, animation: false }"/>
 							<!-- /ko -->
 							<!-- ko ifnot: $root.sparql -->
 							<input style="background-color:#000;border:none;color:#fff;font-size:.95em;height:24px;;padding:0 0 0 
@@ -726,8 +736,8 @@ if ($user->isLoggedIn()){
 			<!-- sgvizler wizard end -->
 			</div>
 			<!-- below top bar -->
-			<div class="page-header" style="padding-top: 0px;"></div>
-			<ul class="tabrow">				
+
+			<ul class="tabrow">
 				<li data-bind="css: {'selected': activeTab() == 0}, click: function() { $root.activeTab(0); }, visible: searchTabEnabled"><a data-bind="text: lang().search"></a></li>
 				<li data-bind="css: {'selected': activeTab() == 1}, click: function() { $root.activeTab(1); }, visible: dashboardTabEnabled"><a data-bind="text: lang().dashboard"></a></li>
 				<li data-bind="css: {'selected': activeTab() == 2}, click: function() { $root.activeTab(2); }, visible: payolaTabEnabled"><a data-bind="text: lang().payola"></a></li>
@@ -805,21 +815,12 @@ if ($user->isLoggedIn()){
                             <h1 data-bind="click: $root.openNewWidgetManagerMethod, text: lang().addWidget"></h1>
                         </div>
                         <!-- linear layout -->
-                        <div data-bind="visible: !($root.accordionLayout())">
+                        <div >
                             <div class="container" data-bind="template: { name: 'widgets-template', foreach: activeWidgetsLeftTab3,
 								beforeRemove: function(elem) { $(elem).slideUp(1500,'easeOutBounce', function() {$(elem).remove(); });  },
 								templateOptions: { parentList: activeWidgetsLeftTab3} }, sortableList: activeWidgetsLeftTab3"></div>
                         </div>
-                        <!-- accordion layout -->
-                        <div data-bind="visible: $root.accordionLayout, foreach: activeWidgetsLeftTab3, accordion: {}">
-                            <h3>
-                                <a href="#" data-bind="text: title"></a>
-                                <div id='qtip-help' class="ui-icon ui-icon-help" style="float:right" data-bind="attr: {'help-text': help }"></div>
-                                <div class="ui-icon ui-icon-trash" style="float:right" data-bind="click:
-								$root.deleteWidget.bind($data, id(), type()), visible: $root.adminMode"></div>
-                            </h3>
-                            <div data-bind="template: { name: 'widgets-template-accordion', foreach: $data}"></div>
-                        </div>
+
 
                     </div>
                     <div id="column1tab3" class="column" >
@@ -844,6 +845,13 @@ if ($user->isLoggedIn()){
 				<hr>
 				</br>
 				<div style="display:inline">
+                    <span style="max-width:200px; word-wrap:break-word;">
+                        <p>This research has been cofunded through the SmartOpenData Project developed under the activity code
+                        ENV.2013.6.5-3:</p>
+                        <p>Exploiting the European Open Data Strategy
+                        to mobilise the use of environmental data and information</p>
+                        <br>
+                    </span>
 					<!--<img src="img/logo2.png" style="float: right;"/>-->
 					<a href="http://gsi.dit.upm.es/" target="_blank">
 						<img height="100px" src="img/logo_gsi.png" alt="GSI-UPM"/>
@@ -851,10 +859,13 @@ if ($user->isLoggedIn()){
 							<div class="gsiLogo" title="Grupo de Sistemas Inteligentes" ></div>
 							-->
 					</a>
-					<img src="img/logoAvanza.png" alt="Plan Avanza 2">
-					<a href="http://www.paradigmatecnologico.com/">
-					<img src="img/paradigma.jpg" alt="Paradigma Tecnológico">
+
+					<img src="img/seventh.png" alt="European Union" style="height: 100px; width: 150px;">
+
+					<a href="http://www.smartopendata.eu/">
+					<img src="img/smartOpenData.jpg" style="height: 100px; width: 110px;" alt="Paradigma Tecnológico">
 					</a>
+
 				</div>
 			</div>
 

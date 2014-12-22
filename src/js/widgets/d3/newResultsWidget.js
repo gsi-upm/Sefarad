@@ -9,15 +9,16 @@ var newResultsWidget = {
     // Type of the widget.
     type: "newResultsWidget",
     // Help display on the widget
-    help: "Results help",
+    help: "This widget shows the total filtered results. The user can show or hide the different columns of the data, sort the elements by any of the attributes and search any result. If any result contains a link to the URI of its web resource, it can be directly accessed by clicking on it, so it will open a new tab. ",
     // Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
     cat: 5,
 
+    resultsTable: null,
 
 
     render: function (loc) {
 
-        if(loc != 'Left' && loc != 'Right') loc = 'Left';
+        if(loc != 'Left' && loc != 'Right') loc = 'Right';
 
         var id = 'A' + Math.floor(Math.random() * 10001);
         var configid = 'A' + Math.floor(Math.random() * 10001);
@@ -48,14 +49,16 @@ var newResultsWidget = {
 
     paint: function (id) {
 
+        //console.log('ResultsTable: Painting results table');
+
         //Here we save the visibility state of the columns (in case of existance) in order to repaint correctly
         var tableState = [];
-        if (resultsTable != null) {
-            for (i = 0; i < resultsTable.columns()[0].length; i++) {
-                tableState [i] = resultsTable.column(i).visible();
+        if (this.resultsTable != null) {
+            for (i = 0; i < this.resultsTable.columns()[0].length; i++) {
+                tableState [i] = this.resultsTable.column(i).visible();
             }
+            console.log('ResultsTable: Table columns state saved');
         }
-
 
         d3.select('#' + id).selectAll('div').remove();
         var div = d3.select('#' + id);
@@ -71,27 +74,27 @@ var newResultsWidget = {
         tbody = table.append("tbody");
         tfoot = table.append("tfoot");
 
-        //Extract the data from vm variable
+        //Extract the data from vm variable, taking out the polygon field
         var data = new Array();
         $.each(vm.filteredData(), function (index, item) {
-            data.push(item);
+            //remove the polygon field
+            var dataItem = $.extend({},item);
+            delete dataItem["fWKT"];
+            data.push(dataItem);
         });
+        //console.log('ResultsTable: Data that will be drawn = '+data);
 
         //If we search with the faceted search (at the top of the page) and get no results (filteredData is null), we have to take the header info from non-filtered data
         if (data.length == 0) {
-
             data = new Array();
             $.each(vm.viewData(), function (index, item) {
                 data.push(item);
             });
-
             //make a faceted search. Using a boolean in order to perform the search when the table is initialized.
             //searchDone = true;
-
         }
 
         try {
-
 
             //Print the header line
             var hrow = thead.append("tr");
@@ -134,77 +137,85 @@ var newResultsWidget = {
                 }
             }
 
-        }catch(e){
-            throw new Error("Results widget couldn't render the results. Probably they're empty.");
-        }
 
-        //Table inicialization depending on the language
-        switch (vm.lang()[Object.keys(vm.lang())[0]]) {
+            //Table inicialization depending on the language
+            switch (vm.lang()[Object.keys(vm.lang())[0]]) {
 
-            default:
-                resultsTable = $('#resultsTable').DataTable({
+                default:
+                    this.resultsTable = $('#resultsTable').DataTable({
 
-                    dom: 'C<"clear">lfrtip',
-                    "scrollX": true,
+                        dom: 'C<"clear">lfrtip',
+                        "scrollX": true,
 
-                    "scrollCollapse": true,
-                    "destroy": true,
-                    "language": {
-                        "lengthMenu": "Display _MENU_ records per page",
-                        "zeroRecords": "Nothing found - sorry",
-                        "info": "Showing page _PAGE_ of _PAGES_",
-                        "infoEmpty": "No records available",
-                        "search": "Filter:",
-                        "infoFiltered": "(filtered from _MAX_ total records)"
-                    }
-                    //"dom": 'C&gt;"clear"&lt;lfrtip'
+                        "scrollCollapse": true,
+                        "destroy": true,
+                        "language": {
+                            "lengthMenu": "Display _MENU_ records per page",
+                            "zeroRecords": "Nothing found - sorry",
+                            "info": "Showing page _PAGE_ of _PAGES_",
+                            "infoEmpty": "No records available",
+                            "search": "Filter:",
+                            "infoFiltered": "(filtered from _MAX_ total records)"
+                        }
+                        //"dom": 'C&gt;"clear"&lt;lfrtip'
 
-                });
-                break;
+                    });
+                    break;
 
-            case "Español":
-                resultsTable = $('#resultsTable').DataTable({
+                case "Español":
+                    this.resultsTable = $('#resultsTable').DataTable({
 
-                    dom: 'C<"clear">lfrtip',
-                    "scrollX": true,
+                        dom: 'C<"clear">lfrtip',
+                        "scrollX": true,
 
-                    "scrollCollapse": true,
-                    "destroy": true,
-                    "language": {
-                        "lengthMenu": "Mostrar _MENU_ resultados por página",
-                        "zeroRecords": "No se encontraron resultados - lo sentimos",
-                        "info": "Mostrando página _PAGE_ de _PAGES_",
-                        "infoEmpty": "No hay resultados disponibles",
-                        "search": "Filtrar:",
-                        "infoFiltered": "(filtrados de _MAX_ resultados totales)"
-                    }
-                    //"dom": 'C&gt;"clear"&lt;lfrtip'
+                        "scrollCollapse": true,
+                        "destroy": true,
+                        "language": {
+                            "lengthMenu": "Mostrar _MENU_ resultados por página",
+                            "zeroRecords": "No se encontraron resultados - lo sentimos",
+                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                            "infoEmpty": "No hay resultados disponibles",
+                            "search": "Filtrar:",
+                            "infoFiltered": "(filtrados de _MAX_ resultados totales)"
+                        }
+                        //"dom": 'C&gt;"clear"&lt;lfrtip'
 
-                });
-                break;
+                    });
+                    break;
 
-        }
-
-
-        //Hide the columns in order to the previous state
-        if (tableState.length != 0) {
-            for (i = 0; i < tableState.length; i++) {
-                resultsTable.column(i).visible(tableState [i]);
             }
-            $.fn.dataTable.ColVis.fnRebuild();
+
+            //Hide the columns in order to the previous state
+            if (tableState.length != 0) {
+                for (i = 0; i < tableState.length; i++) {
+                    this.resultsTable.column(i).visible(tableState [i]);
+                }
+                $.fn.dataTable.ColVis.fnRebuild();
+            }
+
+            //console.log('Results table: Table Painted');
+
+        }catch(e){
+            //Create the message div
+            var message_div = div.append("div")
+                .attr("id", "message_div");
+
+            message_div.append("text")
+                .text("...Loading data...");
+
+            console.log("Results widget: can't render the results. Probably they're empty.");
         }
 
-
-        //if(searchDone == true) resultsTable.search('no results found').draw();
+        //if(searchDone == true) this.resultsTable.search('no results found').draw();
     }
 };
 
 // Global variables
-var rows;
+
 var descriptionData;
 var enabledColumn;
 var searchDone;
-var resultsTable;
+//var resultsTable;
 
 //Debug variables;
 

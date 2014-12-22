@@ -801,10 +801,35 @@ function InitViewModel() {
 	    return false;			
 	};
 
+	self.getPolyginsFromMongo = function () {
+
+		console.info("Cargando dataset de MongoDB");
+
+		$.ajax({
+			async: false,
+			type: 'get',
+			url: 'php/mongo_dataset.php',
+			dataType: "json",
+			success: function (data) {
+				console.log(data);
+				var results = JSON.stringify(data.bindings);
+				ko.mapping.fromJSON(results, self.viewData);
+				updateWidgets(true);
+
+			},
+
+			error: function (data) {
+				console.log('Error loading mongo dataset');
+				//console.log(data);
+			}
+		});
+	};
+
     self.getPolyginsFromEuro = function () {
 
-        var polygonsfeuro_query = 'PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX j.0: <http://inspire.jrc.ec.europa.eu/schemas/gn/3.0/> PREFIX j.1: <http://inspire.jrc.ec.europa.eu/schemas/ps/3.0/> PREFIX j.2: <http://inspire.jrc.ec.europa.eu/schemas/base/3.2/> PREFIX j.3: <http://www.opengis.net/ont/geosparql#> SELECT * WHERE { SERVICE <http://localhost:3030/slovakia/query> { ?res j.3:hasGeometry ?fGeom . ?fGeom j.3:asWKT ?fWKT . ?res j.1:siteProtectionClassification ?spc  . ?res j.1:LegalFoundationDate ?lfd .   ?res j.1:LegalFoundationDocument ?lfdoc .  ?res j.1:inspireId ?inspire . ?inspire j.2:namespace ?namespace . ?inspire j.2:namespace ?localId . ?res j.1:siteDesignation ?siteDesignation .  ?siteDesignation j.1:percentageUnderDesignation ?percentageUnderDesignation . ?siteDesignation j.1:designation ?designation . ?siteDesignation j.1:designationScheme ?designationScheme . } } LIMIT 100';
-        var temporal = 'http://alpha.gsi.dit.upm.es:3030/slovakia/query?query=' + encodeURIComponent(polygonsfeuro_query);
+        var polygonsfeuro_query = 'PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX j.0: <http://inspire.jrc.ec.europa.eu/schemas/gn/3.0/> PREFIX j.1: <http://inspire.jrc.ec.europa.eu/schemas/ps/3.0/> PREFIX j.2: <http://inspire.jrc.ec.europa.eu/schemas/base/3.2/> PREFIX j.3: <http://www.opengis.net/ont/geosparql#> SELECT * WHERE { SERVICE <http://localhost:3030/slovakia/query> { ?res j.3:hasGeometry ?fGeom . ?fGeom j.3:asWKT ?fWKT . ?res j.1:siteProtectionClassification ?spc . ?res j.1:LegalFoundationDate ?lfd . ?res j.1:LegalFoundationDocument ?lfdoc . ?res j.1:inspireId ?inspire . ?res j.1:siteName ?sitename . ?sitename j.0:GeographicalName ?gname . ?gname j.0:spelling ?spelling . ?spelling j.0:SpellingOfName ?spellingofname . ?spellingofname j.0:text ?name . ?inspire j.2:namespace ?namespace . ?inspire j.2:namespace ?localId . ?res j.1:siteDesignation ?siteDesignation . ?siteDesignation j.1:percentageUnderDesignation ?percentageUnderDesignation . ?siteDesignation j.1:designation ?designation . ?siteDesignation j.1:designationScheme ?designationScheme . } } LIMIT 100';
+        //var temporal = 'http://alpha.gsi.dit.upm.es:3030/slovakia/query?query=' + encodeURIComponent(polygonsfeuro_query);
+        var temporal = 'http://demos.gsi.dit.upm.es/fuseki/slovakia/query?query=' + encodeURIComponent(polygonsfeuro_query);
         var req = new XMLHttpRequest();
         req.open("GET", temporal, true);
         var params = encodeURIComponent(polygonsfeuro_query);
@@ -812,15 +837,36 @@ function InitViewModel() {
         req.setRequestHeader("Accept", "application/sparql-results+json");
         req.setRequestHeader("Content-length", params.length);
         req.setRequestHeader("Connection", "close");
+        console.log("query start");
         req.send();
         req.onreadystatechange = function() {
             if (req.readyState == 4){
                 if (req.status == 200) {
-                    //console.log(req.responseText);
+                    //console.log("query response" + req.responseText);
+                    console.log("query OK");
                     var res = eval ("(" + req.responseText + ")");
                     var data = JSON.stringify(res.results.bindings);
                     ko.mapping.fromJSON(data, self.viewData);
+
+                    if(newResultsWidget.resultsTable != null) {
+                        newResultsWidget.resultsTable.column(0).visible(false);
+                        newResultsWidget.resultsTable.column(1).visible(false);
+                        newResultsWidget.resultsTable.column(2).visible(false);
+                        newResultsWidget.resultsTable.column(3).visible(false);
+                        newResultsWidget.resultsTable.column(4).visible(false);
+                        newResultsWidget.resultsTable.column(5).visible(false);
+                        newResultsWidget.resultsTable.column(6).visible(false);
+						newResultsWidget.resultsTable.column(7).visible(false);
+						newResultsWidget.resultsTable.column(8).visible(false);
+                        newResultsWidget.resultsTable.column(9).visible(false);
+                        newResultsWidget.resultsTable.column(12).visible(false);
+						newResultsWidget.resultsTable.column(13).visible(false);
+						newResultsWidget.resultsTable.column(14).visible(false);
+                        newResultsWidget.paint();
+                    }
                     updateWidgets(true);
+
+
                 } else {
                 }
             }
@@ -1194,8 +1240,8 @@ function InitViewModel() {
 			}
 
 			updateTwitterWidgets();
-			self.redraw();
-			self.drawcharts();
+			//self.redraw();
+			//self.drawcharts();
 
 		}
 	});
@@ -1813,6 +1859,8 @@ function InitViewModel() {
 					self.sparql = ko.observable(true);
 					self.showSparqlPanel = ko.observable(true);
 
+					vm.getPolyginsFromEuro();
+
 					if (!self.securityEnabled()) {
 						self.adminMode(true);
 					} else {
@@ -2153,19 +2201,45 @@ function InitViewModel() {
                     });
                 });
 
+				this.get('#/sparql/videoDemo', function () {
+
+					console.log("SLOVAKIA DEMO");
+					//vm.getPolyginsFromEuro();
+					self.sparql = ko.observable(true);
+					self.dashboardTabEnabled(false);
+					self.payolaTabEnabled(false);
+					configuration.template.language = "English";
+					configuration.template.pageTitle = "Slovakian Demo";
+					configuration.template.logoPath = 'img/sazp.jpg';
+					configuration.autocomplete.field = "spc";
+					self.securityEnabled(true);
+					self.adminMode(false);
+					sparqlmode = true;
+					_editorEndpoint = 'http://demos.gsi.dit.upm.es/fuseki/slovakia/query?query=';
+					_csvResource = "SlovakianDemoSparqlQueries.csv";
+					vm.accordionLayout(false);
+					vm.sortableWidgets(true);
+					init();
+					vm.getPolyginsFromMongo();
+
+				});
+
                 this.get('#/sparql/slovakiaPolygonsDemo', function () {
 
                     console.log("SLOVAKIA DEMO");
+					vm.getPolyginsFromEuro();
                     self.sparql = ko.observable(true);
-                    vm.getPolyginsFromEuro();
+                    self.dashboardTabEnabled(false);
+                    self.payolaTabEnabled(false);
                     configuration.template.language = "English";
-                    configuration.template.pageTitle = "SLOVAKia Demo";
+                    configuration.template.pageTitle = "Slovakian Demo";
+                    configuration.template.logoPath = 'img/sazp.jpg';
 
                     templateWidgetsLeft.push({
                         id: 1,
-                        title: 'ProtectionClassification',
+                        title: 'Designation',
                         type: 'tagcloud',
-                        field: 'spc',
+                        field: 'designation',
                         collapsed: false,
                         query: '',
                         value: [],
@@ -2173,14 +2247,14 @@ function InitViewModel() {
                         limits: '',
                         layout: 'horizontal',
                         showWidgetConfiguration: false,
-                        help: ''
+                        help: 'Designation'
                     });
 
                     templateWidgetsLeft.push({
                         id: 2,
-                        title: 'Namespace',
+                        title: 'Designation Scheme',
                         type: 'tagcloud',
-                        field: 'namespace',
+                        field: 'designationScheme',
                         collapsed: false,
                         query: '',
                         value: [],
@@ -2188,7 +2262,7 @@ function InitViewModel() {
                         limits: '',
                         layout: 'horizontal',
                         showWidgetConfiguration: false,
-                        help: ''
+                        help: 'Designation Scheme'
                     });
 
                     templateWidgetsLeft.push({
@@ -2203,14 +2277,14 @@ function InitViewModel() {
                         limits: '',
                         layout: 'horizontal',
                         showWidgetConfiguration: false,
-                        help: ''
+                        help: 'Local ID'
                     });
 
                     templateWidgetsLeft.push({
                         id: 4,
-                        title: 'Designation',
+                        title: 'Protection classification',
                         type: 'tagcloud',
-                        field: 'designation',
+                        field: 'spc',
                         collapsed: false,
                         query: '',
                         value: [],
@@ -2218,14 +2292,14 @@ function InitViewModel() {
                         limits: '',
                         layout: 'horizontal',
                         showWidgetConfiguration: false,
-                        help: ''
+                        help: 'Protection classification'
                     });
 
                     templateWidgetsLeft.push({
                         id: 5,
-                        title: 'designation Scheme',
+                        title: 'Namespace',
                         type: 'tagcloud',
-                        field: 'designationScheme',
+                        field: 'namespace',
                         collapsed: false,
                         query: '',
                         value: [],
@@ -2233,7 +2307,7 @@ function InitViewModel() {
                         limits: '',
                         layout: 'horizontal',
                         showWidgetConfiguration: false,
-                        help: ''
+                        help: 'Namespace'
                     });
 
 
@@ -2243,27 +2317,44 @@ function InitViewModel() {
                     sparqlmode = true;
                     init();
 
+					//load polygons from cache in Mongo
+					//vm.getPolyginsFromMongo();
+
                     //Adding widgets
                     $(window).load(function () {
+
+                        self.activeTab(3);
+                        _editorEndpoint = 'http://demos.gsi.dit.upm.es/fuseki/slovakia/query?query=';
+                        _csvResource = "SlovakianDemoSparqlQueries.csv";
+                        sparqlEditorWidget.render("Left");
+                        self.activeTab(0);
 
                         //Add openlayers map
                         openLayers.render("Right");
 
-                        //Add results table
-                        //newResultsWidget.render("Right");
-                        //
-                        //resultsTable.column(0).visible(false);
-                        //resultsTable.column(1).visible(false);
-                        //resultsTable.column(2).visible(false);
-                        //resultsTable.column(3).visible(false);
-                        //resultsTable.column(4).visible(false);
-                        //resultsTable.column(5).visible(false);
-                        //resultsTable.column(6).visible(false);
-                        //resultsTable.column(9).visible(false);
-                        //resultsTable.column(10).visible(false);
-                        //resultsTable.column(12).visible(false);
+						//Add results table
+                        newResultsWidget.render("Right");
+
+                        if(newResultsWidget.resultsTable != null) {
+							newResultsWidget.resultsTable.column(0).visible(false);
+							newResultsWidget.resultsTable.column(1).visible(false);
+							newResultsWidget.resultsTable.column(2).visible(false);
+							newResultsWidget.resultsTable.column(3).visible(false);
+							newResultsWidget.resultsTable.column(4).visible(false);
+							newResultsWidget.resultsTable.column(5).visible(false);
+							newResultsWidget.resultsTable.column(6).visible(false);
+							newResultsWidget.resultsTable.column(7).visible(false);
+							newResultsWidget.resultsTable.column(8).visible(false);
+							newResultsWidget.resultsTable.column(9).visible(false);
+							newResultsWidget.resultsTable.column(12).visible(false);
+							newResultsWidget.resultsTable.column(13).visible(false);
+							newResultsWidget.resultsTable.column(14).visible(false);
+
+							newResultsWidget.paint();
+                        }
 
                         self.numberOfResults.valueHasMutated();
+
                     });
                 });
 
@@ -2275,7 +2366,7 @@ function InitViewModel() {
 
                     configuration.template.language = "English";
                     configuration.template.pageTitle = "Universities Demo";
-                    configuration.template.logoPath = 'img/smod2.png';
+                    configuration.template.logoPath = 'img/universities.jpg';
                     configuration.results.resultsLayout = [{
                         Name: "Títulos",
                         Value: "university"
@@ -2345,6 +2436,11 @@ function InitViewModel() {
                             "collapsed": ko.observable(false),
 							"help": "Total universities filtered."
                         });
+
+                        document.getElementById('filter').value = "Shape_Area > 100000";
+
+                        ope
+
                         self.numberOfResults.valueHasMutated();
                     });
                 });
@@ -2352,6 +2448,8 @@ function InitViewModel() {
 				this.get('#/sparql/smod', function () {
                     console.log("SMOD DEMO");
                     self.sparql = ko.observable(true);
+                    self.dashboardTabEnabled(false);
+                    self.payolaTabEnabled(false);
                     vm.getDataSmod();
                     configuration.template.language = "English";
                     configuration.template.pageTitle = "SmartOpenData";
@@ -2380,7 +2478,7 @@ function InitViewModel() {
                         limits: '',
                         layout: 'horizontal',
                         showWidgetConfiguration: false,
-						help: 'Muestra los distintos usos de suelo existentes'
+						help: 'Show differents land uses'
                     });
                     configuration.autocomplete.field = "parcela";
                     self.securityEnabled(false);
@@ -2390,41 +2488,27 @@ function InitViewModel() {
                     //Adding widgets
                     $(window).load(function () {
                     	//Add openalayers map
-                    	openlayersMap.render();                    	
+                    	openlayersMap.render("Right");
                     	
-                        // // Add results widget
-                        self.activeWidgetsRight.push({
-                            "id": ko.observable(0),
-                            "title": ko.observable(self.lang().results),
-                            "type": ko.observable("resultswidget"),
-                            "collapsed": ko.observable(false),
-                            "layout": ko.observable("vertical"),
-                            "showWidgetConfiguration": ko.observable(false),
-							"help": 'Muestra las parcelas filtradas'
-                        });
-
-                        // Add PieChart sgvizler wigdet
-                        self.sgvizlerQuery("SELECT ?university ?students WHERE{ ?universityresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryresource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university . ?countryresource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/EuropeanCountries> . ?universityresource <http://dbpedia.org/ontology/numberOfStudents> ?students FILTER ( lang(?university) = 'en') } GROUP BY ?university LIMIT 50");
-                        self.sgvizlerGraphType('google.visualization.PieChart');
-                        self.sparql_baseURL("http://dbpedia.org/sparql");
-                        self.addSgvizlerWidget("Total students by University");
+                        //Add results table
+                        newResultsWidget.render("Right");
 
                         //Add slider widget
-                        self.newNumericFilterValue('shape_area');
-                        self.slider = ko.observable([]);
-						self.slider().push(minSliderValue, maxSliderValue);
-
-						self.activeWidgetsLeft.push({
-							"id": ko.observable(Math.floor(Math.random() * 10001)),
-							"title": ko.observable("Shape Area"),
-							"type": ko.observable("slider"),
-							"field": ko.observable(self.newNumericFilterValue()),
-							"collapsed": ko.observable(false),
-							"value": ko.observable(((maxSliderValue - minSliderValue) / 100)),
-							"values": self.slider,
-							"limits": ko.observable([minSliderValue, maxSliderValue]),
-							"help": "Seleccione el rango de areas en el que desea filtrar las parcelas"
-						});
+                        //self.newNumericFilterValue('shape_area');
+                        //self.slider = ko.observable([]);
+                        //self.slider().push(minSliderValue, maxSliderValue);
+                        //
+                        //self.activeWidgetsLeft.push({
+							//"id": ko.observable(Math.floor(Math.random() * 10001)),
+							//"title": ko.observable("Shape Area"),
+							//"type": ko.observable("slider"),
+							//"field": ko.observable(self.newNumericFilterValue()),
+							//"collapsed": ko.observable(false),
+							//"value": ko.observable(((maxSliderValue - minSliderValue) / 100)),
+							//"values": self.slider,
+							//"limits": ko.observable([minSliderValue, maxSliderValue]),
+							//"help": "Seleccione el rango de areas en el que desea filtrar las parcelas"
+                        //});
 
                         // Add Gauge Widget
                         var id = Math.floor(Math.random() * 10001);
@@ -2433,18 +2517,13 @@ function InitViewModel() {
                             "title": ko.observable("Filtered Parcels"),
                             "type": ko.observable("radialgauge"),
                             "collapsed": ko.observable(false),
-							"help": "Muestra el numero total de parcelas filtradas."
+							"help": "Total number of filtered parcels"
                         });
                         self.numberOfResults.valueHasMutated();
                         	
                     });
                 });
 
-				// this.notFound = function () {
-				// 	console.log("no found sammy");
-				// 	self.page(1);
-				// 	errorinroute = true;
-				// }
 			}).run('#/main');
 		}
 	}

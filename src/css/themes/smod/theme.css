@@ -1,0 +1,227 @@
+/*------------------------------------------------Logo---------------------------------------------*/
+
+#logotext img {
+    height: 13%;
+    width: 13%;
+}
+
+#logotext {
+    width: 40%;
+
+}
+
+
+
+.topbar .right_area{
+    display: inline-block;
+}
+
+
+/*---------------------------------------------Backgrounds------------------------------------------*/
+
+.topbar {
+    /*Page Header Background*/
+    /*background: linear-gradient(#FFFFFF, #CACED3);*/
+    background: url('images/forest.jpg');
+    height: 80px;
+
+
+
+}
+.allcontent {
+    /* page background */
+    background: url('../img/noise.png');
+}
+
+
+/*--------------------------------------------Text Properties----------------------------------------*/
+
+.topbar #logotext {
+    color: #ffffff;
+    text-shadow: 2px 2px rgba(0, 0, 0, 0.15);
+    font-family: 'Roboto Slab', serif;
+}
+
+body {
+    /* general text properties*/
+    font-size: 0.8em;
+    font-family: Tahoma,Geneva,sans-serif;
+}
+
+.tabrow {
+    /* text in the tab selector properties*/
+    font-family: Tahoma,Geneva,sans-serif;
+}
+
+.ui-widget {
+    /* widgets text properties */
+    font-family: Tahoma,Geneva,sans-serif;
+}
+
+.ui-widget-header a {
+    color: #867B0C;
+/*text-shadow: 2px 2px rgba(0, 0, 0, 0.15);*/
+}
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+color: #867B0C;
+/*text-shadow: 2px 2px rgba(0, 0, 0, 0.15);*/
+}
+
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
+color: #867B0C;
+    /*text-shadow: 2px 2px rgba(0, 0, 0, 0.15);*/
+}
+
+#configuration h2 {
+    font-family: Tahoma,Geneva,sans-serif;
+    color: #867B0C;
+}
+
+.ui-state-default {
+    color: #867B0C;
+}
+
+
+/*---------------------------------------------Widgets Header-------------------------------------------*/
+
+.ui-widget-header  {
+    /* widgets Header Background */
+
+    background: linear-gradient(#D5E975, #AFC547);
+    border: 1px solid #6D820C;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    background: linear-gradient(#D5E975, #AFC547);
+    border: 1px solid #6D820C;
+}
+
+/*The Gear, trash and help icons are all in the same image, the only thing that changes is the background position*/
+.ui-icon {
+    display: block;
+    text-indent: -99999px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+}
+.ui-icon-gear {
+    background-position: -192px -112px;
+}
+.ui-icon-help {
+    background-position: -48px -144px;
+}
+.ui-icon-trash {
+    background-position: -176px -96px;
+}
+
+
+
+
+/* These are the two common images*/
+.ui-widget-header .ui-icon {
+    background-image: url(images/ui-icons_d8e7f3_256x240.png);
+}
+.ui-widget-header .ui-icon:hover {
+    cursor: pointer;
+    background-image: url(images/ui-icons_217bc0_256x240.png);
+}
+
+
+
+/*----------------------------------------------------------------------------------------------------------*/
+
+.ui-widget-content {
+    border: 1px solid #6D820C;
+}
+
+
+/*--------------------------------------header elements------------------------------------*/
+
+#search-field {
+    border: none;
+    color: rgb(0, 0, 0);
+    font-size: 0.95em;
+    height: 24px;
+    padding: 0px;
+    position: relative;
+    width: 200%;
+    background-color: rgb(255, 255, 255);
+}
+
+
+
+#login-box {
+
+    float:right;
+    width:35%;
+    height:100%
+
+
+}
+
+
+
+#login-submit {
+    border : solid 1px #e6e6e6;
+    border-radius : 3px;
+    moz-border-radius : 3px;
+    -webkit-box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+    -moz-box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+    box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+    font-size : 14px;
+    color : #696869;
+    padding : 1px 17px;
+    background : #ffffff;
+    background : -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(49%,#f1f1f1), color-stop(51%,#e1e1e1), color-stop(100%,#f6f6f6));
+    background : -moz-linear-gradient(top, #ffffff 0%, #f1f1f1 49%, #e1e1e1 51%, #f6f6f6 100%);
+    background : -webkit-linear-gradient(top, #ffffff 0%, #f1f1f1 49%, #e1e1e1 51%, #f6f6f6 100%);
+    background : -o-linear-gradient(top, #ffffff 0%, #f1f1f1 49%, #e1e1e1 51%, #f6f6f6 100%);
+    background : -ms-linear-gradient(top, #ffffff 0%, #f1f1f1 49%, #e1e1e1 51%, #f6f6f6 100%);
+    background : linear-gradient(top, #ffffff 0%, #f1f1f1 49%, #e1e1e1 51%, #f6f6f6 100%);
+    filter : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 );
+
+}
+
+#logout-submit {
+    border : solid 1px #e6e6e6;
+    border-radius : 3px;
+    moz-border-radius : 3px;
+    -webkit-box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+    -moz-box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+    box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+    font-size : 14px;
+    color : #696869;
+    padding : 1px 17px;
+    background : #ffffff;
+    background : -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(49%,#f1f1f1), color-stop(51%,#e1e1e1), color-stop(100%,#f6f6f6));
+    background : -moz-linear-gradient(top, #ffffff 0%, #f1f1f1 49%, #e1e1e1 51%, #f6f6f6 100%);
+    background : -webkit-linear-gradient(top, #ffffff 0%, #f1f1f1 49%, #e1e1e1 51%, #f6f6f6 100%);
+    background : -o-linear-gradient(top, #ffffff 0%, #f1f1f1 49%, #e1e1e1 51%, #f6f6f6 100%);
+    background : -ms-linear-gradient(top, #ffffff 0%, #f1f1f1 49%, #e1e1e1 51%, #f6f6f6 100%);
+    background : linear-gradient(top, #ffffff 0%, #f1f1f1 49%, #e1e1e1 51%, #f6f6f6 100%);
+    filter : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 );
+
+}
+
+
+
+#configuration {
+    z-index: 9999;
+}
+
+.yasr {
+    text-align: left;
+}
+
+.CodeMirror {
+
+    height: 400px;
+    overflow-y: auto;
+
+}
+
+.CodeMirror-lines {
+    height: 500px;
+
+}

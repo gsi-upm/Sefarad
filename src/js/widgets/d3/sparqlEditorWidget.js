@@ -57,10 +57,10 @@ var sparqlEditorWidget = {
 
         //Create the HTML:
         //
-        //<h1>Directly query linked data in Eurosentiment</h1>
+        //
         //
         //<div id="queries">
-        //    <label>Choose example query template and later query parameter values:</label><br />
+        //
         //    <select class="form-control" id="querySelector"></select>
         //    <div id="paramSelector"></div>
         //    <select class="form-control" id="dynamicParam"></select>
@@ -72,18 +72,22 @@ var sparqlEditorWidget = {
         //    <div id="queryButton" ><button>Get results from sparql endpoint</button></div>
         //    <div id="yasr"></div>
 
-        div.append("h2").text("Eurosentiment SPARQL query linked data");
+
         var queriesDiv = div.append("div").attr("id", "queries");
-        queriesDiv.append("label").text("Choose example query template and later query parameter values:");
+
         queriesDiv.append("br");
-        var querySelector = queriesDiv.append("select").attr("class", "form-control").attr("id", "querySelector").attr("style", "height: 100%; width: 100%");
-        var paramSelector = queriesDiv.append("div").attr("id", "paramSelector");
+        var querySelector = queriesDiv.append("select").attr("class", "form-control").attr("id", "querySelector").attr("style", "height: 100%; width: 95%");
+        var paramSelector = queriesDiv.append("div").attr("id", "paramSelector").attr("style", "display: inline; width: 5%;");
         queriesDiv.append("br");
-        queriesDiv.append("p").text("Query description");
-        queriesDiv.append("div").attr("id", "description");
-        var yasqeDiv = div.append("div").attr("id", "yasqe");
+
+        //queriesDiv.append("div").attr("id", "description").attr("style", "width: 95%; border: 1px solid; border-radius: 5px; padding-top: 15px; padding-bottom: 15px");
+        var yasqeDiv = div.append("div").attr("id", "yasqe").attr("style", "text-align: left; width: 95%; padding-top: 15px; padding-bottom: 15px");
         var yasqeButtonDiv = div.append("div").attr("id", "queryButton");
-        var yasqeButton = yasqeButtonDiv.append("button").text("Get results from SPARQL endpoint")
+        var yasqeButton = yasqeButtonDiv.append("button").text("Get results from SPARQL endpoint");
+
+        var succesDiv = div.append("div").attr("class", "success").attr("style", "width: 70%; display: none").text("Query successful");
+        var failDiv = div.append("div").attr("class", "error").attr("style", "width: 70%; display: none").text("Query failed");
+
         var yasrDiv = div.append("div").attr("id", "yasr").attr("style", "width: 100%");
 
         //configuration
@@ -93,8 +97,7 @@ var sparqlEditorWidget = {
         var yasqe = YASQE(document.getElementById("yasqe"), {
             sparql: {
                 showQueryButton: false,
-                createShareLink: false,
-                endpoint: "http://dbpedia.org/sparql"
+                createShareLink: false
             }
         });
 
@@ -102,21 +105,22 @@ var sparqlEditorWidget = {
         YASR.plugins.table.defaults.datatable.scrollCollapse = true;
         YASR.plugins.table.defaults.datatable.autoWidth = true;
         YASR.plugins.table.defaults.datatable.scrollY = "300px";
+        YASR.plugins.rawResponse.defaults.scrollbarStyle = "native";
 
         var yasr = YASR(document.getElementById("yasr"), {
             //this way, the URLs in the results are prettified using the defined prefixes in the query
             getUsedPrefixes: yasqe.getPrefixesFromQuery
         });
-        yasr.setResponse({
-            response: vm.viewData
-        });
+        //yasr.setResponse({
+        //    response: vm.viewData
+        //});
 
 
         // end of configuration
 
 
         //This function parse the csv table to take its data.
-        var googleSpreadsheetURI = "assets/EuroSentimentDemoSparqlQueries.csv";
+        var googleSpreadsheetURI = "assets/" + _csvResource;
         Papa.parse(
             googleSpreadsheetURI, {
                 download: true,
@@ -220,12 +224,15 @@ var sparqlEditorWidget = {
         //ExecuteQuery function. Still not generalized, it takes "restaurants" info from our endpoint at gsi's alpha
         function executeQuery() {
 
-            var restaurants_query = yasqe.getValue().replace(/(\r\n|\n|\r)/gm, "");
-            console.log(restaurants_query);
-            var temporal = 'http://alpha.gsi.dit.upm.es:3030/geo/query?query=' + encodeURIComponent(restaurants_query);
+            $(".success").hide();
+            $(".error").hide();
+
+            var _query = yasqe.getValue().replace(/(\r\n|\n|\r)/gm, "");
+            console.log(_query);
+            var temporal = _editorEndpoint + encodeURIComponent(_query);
             var req = new XMLHttpRequest();
             req.open("GET", temporal, true);
-            var params = encodeURIComponent(restaurants_query);
+            var params = encodeURIComponent(_query);
             req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             req.setRequestHeader("Accept", "application/sparql-results+json");
             req.send();
@@ -236,13 +243,21 @@ var sparqlEditorWidget = {
                         var res = eval("(" + req.responseText + ")");
                         var data = JSON.stringify(res.results.bindings);
                         console.log(data);
+                        $(".success").show();
                         //ko.mapping.fromJSON(data, vm.viewData);
                         //updateWidgets(true);
                         yasr.setResponse({
                             response: res,
                             contentType: req.getResponseHeader("Content-Type")
                         });
+
+
+
+
+
                     } else {
+                        $(".error").show();
+
                     }
                 }
             };
@@ -303,7 +318,19 @@ var sparqlEditorWidget = {
 
         });
 
-    }
+    },
+
+    // endpoint
+    editorEndpoint: '',
+    csvResource: ""
+
+
+
 
 };
+
+//Global variables
+//var _editorEndpoint = 'http://alpha.gsi.dit.upm.es:3030/geo/query?query=';
+var _editorEndpoint = 'http://demos.gsi.dit.upm.es/fuseki/geo/query?query=';
+var _csvResource = "assets/" + "EuroSentimentDemoSparqlQueries.csv";
 
