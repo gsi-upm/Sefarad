@@ -44,6 +44,7 @@ var configuration = default_configuration;
 
 var vm = new InitViewModel();
 
+
 function InitViewModel() {
 
     var self = this;
@@ -103,6 +104,28 @@ function InitViewModel() {
 
 	/** All data */
 	self.testData = [];
+
+    //-----------------------------------------------------------------------//
+
+    //Our input data region, initialized with the first data stream:
+    self.rawData = [];
+    self.stream0 = [];
+    self.rawData[0] = ko.mapping.fromJS(self.stream0);
+
+    //Filters region, initialized with the first stream:
+    self.filters = [];
+    self.filters[0] = [];
+    //Filters output region, initialized with the first stream:
+    self.filtersOutput = [];
+    self.filtersOutput[0] = [];
+
+    //filtered data, obtained by merging the filters output of its stream
+    self.newFilteredData = [];
+    self.newFilteredData[0] = [];
+
+
+    //-----------------------------------------------------------------------//
+
 	self.shownData = ko.mapping.fromJS(self.testData);
 	self.viewData = ko.mapping.fromJS(self.testData);
 	self.resultsLayout = ko.mapping.fromJS(self.testData);
@@ -112,6 +135,12 @@ function InitViewModel() {
 	self.activedAutocomplete = ko.observable(configuration.autocomplete.actived);
 
 	self.default_autocomplete_fieldname = ko.observable(configuration.autocomplete.field);
+
+    self.filterResults = [];
+    self.finalResultTest = [];
+
+
+
 
 	/** Text in search field */
 	self.filter = ko.observable();
@@ -680,9 +709,90 @@ function InitViewModel() {
 		}
 	});
 
-    /* Queries methods */
 
-	/** This function does a mapping from json (response) to self.viewData and updateWidgets */
+    self.initializeDataStream = function (streamNumber) {
+        //raw data area
+        self["stream"+streamNumber] = [];
+        self.rawData[streamNumber] = ko.mapping.fromJS(self["stream"+streamNumber]);
+
+        //filters area
+        self.filters[streamNumber] = [];
+
+        //filters output
+        self.filtersOutput[streamNumber] = [];
+
+        //filteredData area
+        self.newFilteredData[streamNumber] = [];
+    }
+
+
+
+
+    /* Queries methods */
+    /** This function performs the query and stores the json (response) data to self.rawData[streamNumber]
+     * In order to use it:
+     *
+     * typeOfQuery: SPARQL, WFS ...
+     * _query: text format without returns
+     * endpoint: the url of the remote service
+     * streamNumber: which stream do you want to fill with the response.
+     *
+     * */
+    self.getRawDataSPARQL = function (typeOfQuery, _query, endpoint, streamNumber) {
+
+        //If the streamNumber doesn't exist, create it and its associated filters
+        if (self.rawData[streamNumber] == undefined)
+        {
+            self.initializeDataStream(streamNumber);
+        }
+
+        if(typeOfQuery == "SPARQL")
+        {
+            console.log('execute SPARQL query');
+            $.ajax({
+                type: 'GET',
+                url: endpoint,
+                data: {
+                    query: _query,
+                    output: 'json',
+                    format: 'json',
+                    debug: 'on',
+                    timeout: '0'
+                },
+                crossDomain: true,
+                dataType: 'jsonp',
+                beforeSend: function () {
+                    //$('#loading').show();
+                },
+                complete: function () {
+                    console.log('SPARQL query complete');
+                    //$('#loading').hide();
+                },
+                success: function (allData) {
+                    console.log('SPARQL Query success, storing in rawData');
+                    //console.log(allData);
+                    var data = JSON.stringify(allData.results.bindings);
+                    //self.rawData = data;
+                    ko.mapping.fromJSON(data, self.rawData[streamNumber]);
+
+                    //process all data giving each item an unique id
+                    self.giveUniqueIdentifier(self.rawData[streamNumber]());
+                    //update all widgets with the new data
+                    updateWidgets(true);
+                },
+                error: function () {
+                    console.log('SPARQL Query failed');
+                }
+            });
+        }
+
+
+
+    };
+
+
+
+	/** This function performs the query and stores the json (response) data to self.rawData[stream]*/
 	self.getResultsSPARQL = function (sparql_query, endpoint) {
 
 		console.log('Executing SPARQL query');
@@ -1022,30 +1132,31 @@ function InitViewModel() {
 
         //console.log('UniqueItems');
 
-		if (self.sparql()) {
+        var filteredArray = [];
 
-			var filteredArray = [];
-			var i;
-			$.each(self.viewData(), function (index, item) {
+        var i;
+        $.each(self.viewData(), function (index, item) {
 
-				var alreadyAdded = false;
-				for (i in filteredArray) {
-					if (item[self.resultsLayout()[0].Value()] != undefined && filteredArray[i][self.resultsLayout()[0].Value()] != undefined) {
-						if (filteredArray[i][self.resultsLayout()[0].Value()].value() == item[self.resultsLayout()[0].Value()].value()) {
-							alreadyAdded = true;
-						}
-					}
-				}
+            var alreadyAdded = false;
+            for (i in filteredArray) {
+                if (item[self.resultsLayout()[0].Value()] != undefined && filteredArray[i][self.resultsLayout()[0].Value()] != undefined) {
+                    if (filteredArray[i][self.resultsLayout()[0].Value()].value() == item[self.resultsLayout()[0].Value()].value()) {
+                        alreadyAdded = true;
+                    }
+                }
+            }
 
-				if (!alreadyAdded) {
-					filteredArray.push(item);
-				}
-			});
-			return filteredArray;
-		} else {
-			return self.viewData();
-		}
+            if (!alreadyAdded) {
+                filteredArray.push(item);
+            }
+        });
+        return filteredArray;
+
 	}, self);
+
+
+
+
 
 	var dummyObservable = ko.observable();
 
@@ -1111,6 +1222,138 @@ function InitViewModel() {
 			return tempFilter;
 		}
 	}, self);
+
+
+    self.testFilter1 = function (array){
+        // filter1: items which country is Spain.
+        // saves in filterResults[1] the result
+
+        var result = [];
+
+        for (var i=0; i < array.length; i++)
+        {
+            if (array[i]["country"].value() =="Spain")
+            {
+                result.push(array[i]);
+            }
+        }
+        return result;
+    }
+
+
+    self.filterTest = ko.computed(function () {
+
+
+        self.finalResultTest = [];
+        var _rawData = self.viewData();
+        self.filterResults[1] = [];
+        self.filterResults[2] = [];
+
+
+        // filter1: items which country is Spain.
+        // saves in filterResults[1] the result
+        for (var i=0; i < _rawData.length; i++)
+        {
+            if (_rawData[i]["country"].value() =="Spain")
+            {
+                self.filterResults[1].push(_rawData[i]);
+            }
+        }
+
+
+        // filter2: items which city is Toulouse
+        // saves in filterResults[2] the result
+        for (var i=0; i < _rawData.length; i++)
+        {
+            if (_rawData[i]["city"].value() =="Toulouse")
+            {
+                self.filterResults[2].push(_rawData[i]);
+            }
+        }
+
+        //merge: merges all filterResults[] into one array and make each element unique.
+        //self.mergeUnique(self.filterResults[1], self.finalResultTest);
+        //self.mergeUnique(self.filterResults[2], self.finalResultTest);
+
+
+
+        return null;
+    }, self);
+
+    //This function adds a id field to each item of the array passed as parameter
+    self.giveUniqueIdentifier = function (array) {
+
+        if (array.length != 0) {
+
+            //assign an unique identifier to each item of the raw Data array
+            for (var i = 0; i < array.length; i++) {
+                array[i]["id"] = i;
+            }
+        }
+
+    };
+
+    //This function adds all items in array1 to array2 if they are not yet in array2, comparing items by their id field.
+    self.mergeUnique = function (array1, array2) {
+
+        //make sure that items have id field
+        if( (array1[0]["id"]==undefined) || (array1[0]["id"]==undefined))
+        {
+            throw new Error("Error occurred while merging arrays: items have not a id field");
+        }
+
+        //iterate through each array1 item
+        loop1:
+        for (var i=0; i < array1.length; i++)
+        {
+            var alreadyAdded = false;
+            //look for an element in array2 with the same id, if it doesn't exist, add it.
+            loop2:
+            for (var j=0; j < array2; j++) {
+
+                if (array1[i]["id"] == array2[j]["id"]) {
+                    alreadyAdded = true;
+                    break loop2;
+                }
+            }
+            if(!alreadyAdded) array2.push(array1[i]);
+        }
+
+        //so in array2 we have all array2 elements plus the array1 new ones (without duplicated elements)
+        return array2;
+
+    };
+
+    //Adds the filter function to the filters[] array of the stream selected
+    self.addFilter = function (filter, stream)
+    {
+        var lastFilter = self.filters[stream].length;
+        self.filters[stream][lastFilter] = filter;
+        //initialize its output zone:
+        self.filtersOutput[stream][lastFilter] = []
+    };
+
+
+    //Filters all raw data to produce the filtered data that widgets can render.
+    self.filterPipeline = function(){
+
+        //for each data stream we have
+        for (var i=0; i < self.rawData.length; i++) {
+
+            var raw = self.rawData[i](); //the raw data array
+
+            //for each filter of that stream
+            for (var j=0; j < self.filters[i].length; j++) {
+                //put the raw data through the filter and store the result in the filtersOutput[i] area
+                self.filtersOutput[i][j] = self.filters[i][j](raw);
+
+                //merge filtersOutput arrays into the final newFilteredData[i] array.
+                self.mergeUnique(self.filtersOutput[i][j], self.newFilteredData[i])
+            }
+        }
+    }
+
+
 
 	/** Final data visualized in results widget (after text filter through input if exists) */
 	self.filteredData = ko.computed(function () {
@@ -2224,6 +2467,11 @@ function InitViewModel() {
 
 				});
 
+
+
+
+
+
                 this.get('#/sparql/slovakiaPolygonsDemo', function () {
 
                     console.log("SLOVAKIA DEMO");
@@ -2356,6 +2604,43 @@ function InitViewModel() {
                         self.numberOfResults.valueHasMutated();
 
                     });
+                });
+
+
+                this.get('#/test', function(){
+                    console.log("new pipeline test ");
+                    configuration.template.language = "English";
+                    configuration.template.pageTitle = "New Pipeline Test";
+                    configuration.template.logoPath = 'img/universities.jpg';
+                    sparqlmode = true;
+                    var testQuery = "select distinct ?universityResource ?countryResource ?cityResource ?university ?city ?country ?latitude ?longitude where { { ?universityResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryResource ; <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/Spain> ; <http://dbpedia.org/ontology/city> ?cityResource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university ; <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ; <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . ?countryResource <http://www.w3.org/2000/01/rdf-schema#label> ?country . ?cityResource <http://www.w3.org/2000/01/rdf-schema#label> ?city } UNION { ?universityResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryResource ; <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/France> ; <http://dbpedia.org/ontology/city> ?cityResource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university ; <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ; <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . ?countryResource <http://www.w3.org/2000/01/rdf-schema#label> ?country . ?cityResource <http://www.w3.org/2000/01/rdf-schema#label> ?city } FILTER ( lang(?university) = 'en' && lang(?country) = 'en' && lang(?city) = 'en') }";
+                    vm.getResultsSPARQL(testQuery, "http://dbpedia.org/sparql");
+                    vm.getRawDataSPARQL("SPARQL", testQuery, "http://dbpedia.org/sparql", 1);
+
+                    //vm.giveUniqueIdentifier(vm.rawData[1]());
+
+                    init();
+                    //vm.giveUniqueIdentifier(vm.rawData[1]());
+
+
+
+                    $(window).load(function () {
+
+                        //Add map widget
+                        openLayers.render("Right");
+                        //Add results widget
+                        newResultsWidget.render("Right");
+
+                        //add a test filter to the stream with the data
+                        vm.addFilter(vm.testFilter1, 1);
+
+                        //run the pipeline to test the system results
+                        vm.filterPipeline();
+
+
+                    });
+
+
                 });
 
                 this.get('#/sparql/universitiesDemo', function () {
@@ -2621,6 +2906,9 @@ function InitViewModel() {
     }
 
 	function init() {
+
+
+
 
 		self.page(0);
 

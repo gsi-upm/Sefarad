@@ -31,6 +31,7 @@ if ($user->isLoggedIn()){
 	<head>
 		<script type="text/javascript" src="js/widgets/d3/accordionWidget.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/newResultsWidget.js"></script>
+		<script type="text/javascript" src="js/widgets/d3/newTagCloud.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/openLayers.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/openStreetMap.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/openlayersMap.js"></script>
@@ -43,7 +44,7 @@ if ($user->isLoggedIn()){
 		<script type="text/javascript" src="js/widgets/d3/widgetSortBar.js"></script>
 		<script type="text/javascript" src="js/widgets/d3/widgetWheel.js"></script>
 		<script type="text/javascript">
-			var widgetX = [accordionWidget, newResultsWidget, openLayers, openStreetMap, openlayersMap, sparqlEditorWidget, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
+			var widgetX = [accordionWidget, newResultsWidget, newTagCloud, openLayers, openStreetMap, openlayersMap, sparqlEditorWidget, stockWidget, widgetBarras, widgetD3, widgetDonuts, widgetMap, widgetSortBar, widgetWheel];
 		</script>
 		<meta charset="utf-8" />
 		<title>SEFARAD</title>
