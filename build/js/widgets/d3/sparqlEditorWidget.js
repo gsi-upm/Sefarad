@@ -120,7 +120,7 @@ var sparqlEditorWidget = {
 
 
         //This function parse the csv table to take its data.
-        var googleSpreadsheetURI = "assets/" + _csvResource;
+        var googleSpreadsheetURI = "" + _csvResource;
         Papa.parse(
             googleSpreadsheetURI, {
                 download: true,

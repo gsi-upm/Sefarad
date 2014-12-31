@@ -1365,7 +1365,7 @@ if ($user->isLoggedIn()){
 				<div class="mask">
 					<h2 data-bind="text: $data.name"></h2>
 					<p data-bind="text: $data.description"></p>
-					<a href="#" data-bind="click: $data.render"><button class="button">Añadir</button></a>
+					<a href="#" data-bind="click: $data.create"><button class="button">Añadir</button></a>
                     <!--
                     <a href="#" data-bind="click: vm.addWidget($data)"><button class="button">Añadir</button></a>
                     -->

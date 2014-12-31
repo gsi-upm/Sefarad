@@ -45,6 +45,9 @@ var configuration = default_configuration;
 var vm = new InitViewModel();
 
 
+
+
+
 function InitViewModel() {
 
     var self = this;
@@ -107,10 +110,16 @@ function InitViewModel() {
 
     //-----------------------------------------------------------------------//
 
+    //streams definition
+    self.streams = [];
+    self.streams[0] = [];
+    self.streams[0]["name"] = "base";
+    self.streams[0]["stream"] = [];
+
+
     //Our input data region, initialized with the first data stream:
     self.rawData = [];
-    self.stream0 = [];
-    self.rawData[0] = ko.mapping.fromJS(self.stream0);
+    self.rawData[0] = ko.mapping.fromJS(self.streams[0]["stream"]);
 
     //Filters region, initialized with the first stream:
     self.filters = [];
@@ -122,6 +131,9 @@ function InitViewModel() {
     //filtered data, obtained by merging the filters output of its stream
     self.newFilteredData = [];
     self.newFilteredData[0] = [];
+
+    //------------- Widgets -------------------//
+    self.newActiveWidgets = [];
 
 
     //-----------------------------------------------------------------------//
@@ -491,6 +503,23 @@ function InitViewModel() {
 	self.deleteWidget = function (idwidget, type) {
 		var hasFilters = false;
 
+
+        //Get it out of newActiveWidgets []
+        for (var j=0; j < self.newActiveWidgets.length; j++)
+        {
+            if(self.newActiveWidgets[j].id == idwidget)
+            {
+                self.newActiveWidgets.splice(j, 1);
+                break;
+            }
+        }
+
+        //if it has filters, remove all of them of the pipeline
+        self.removeAllFiltersOf(idwidget);
+
+
+
+
 		ko.utils.arrayFilter(self.activeWidgetsLeft(), function (item) {
 			if (self.findMatchWidget(idwidget, type, item)) {
 				self.activeWidgetsLeft.remove(item);
@@ -515,6 +544,18 @@ function InitViewModel() {
 			}
 		});
 
+        ko.utils.arrayFilter(self.activeWidgetsLeftTab3(), function (item) {
+            if (self.findMatchWidget(idwidget, type, item)) {
+                self.activeWidgetsLeftTab3.remove(item);
+            }
+        });
+
+        ko.utils.arrayFilter(self.activeWidgetsRightTab3(), function (item) {
+            if (self.findMatchWidget(idwidget, type, item)) {
+                self.activeWidgetsRightTab3.remove(item);
+            }
+        });
+
 		if (type == "resultswidget") {
 			self.showResultsGraphsWidget(false);
 			$.each(self.resultsGraphs(), function (index, item) {
@@ -527,6 +568,10 @@ function InitViewModel() {
 		if (hasFilters || type == "slider") {
 			updateSolrFilter();
 		}
+
+
+
+        self.filterPipeline();
 	};
 
 	/** Switch Tagcloud layout */
@@ -710,10 +755,14 @@ function InitViewModel() {
 	});
 
 
-    self.initializeDataStream = function (streamNumber) {
+    self.initializeDataStream = function (streamNumber, streamName) {
+
+        self.streams[streamNumber] = [];
+        self.streams[streamNumber]["name"] = streamName;
+        self.streams[streamNumber]["stream"] = [];
+
         //raw data area
-        self["stream"+streamNumber] = [];
-        self.rawData[streamNumber] = ko.mapping.fromJS(self["stream"+streamNumber]);
+        self.rawData[streamNumber] = ko.mapping.fromJS(self.streams[streamNumber]["stream"]);
 
         //filters area
         self.filters[streamNumber] = [];
@@ -743,7 +792,7 @@ function InitViewModel() {
         //If the streamNumber doesn't exist, create it and its associated filters
         if (self.rawData[streamNumber] == undefined)
         {
-            self.initializeDataStream(streamNumber);
+            self.initializeDataStream(streamNumber, "unnamedStream");
         }
 
         if(typeOfQuery == "SPARQL")
@@ -1297,10 +1346,14 @@ function InitViewModel() {
     self.mergeUnique = function (array1, array2) {
 
         //make sure that items have id field
-        if( (array1[0]["id"]==undefined) || (array1[0]["id"]==undefined))
+        if (array1[0] != undefined && array2[0] != undefined)
         {
-            throw new Error("Error occurred while merging arrays: items have not a id field");
+            if( (array1[0]["id"]==undefined) || (array2[0]["id"]==undefined))
+            {
+                throw new Error("Error occurred while merging arrays: items have not a id field");
+            }
         }
+
 
         //iterate through each array1 item
         loop1:
@@ -1309,7 +1362,7 @@ function InitViewModel() {
             var alreadyAdded = false;
             //look for an element in array2 with the same id, if it doesn't exist, add it.
             loop2:
-            for (var j=0; j < array2; j++) {
+            for (var j=0; j < array2.length; j++) {
 
                 if (array1[i]["id"] == array2[j]["id"]) {
                     alreadyAdded = true;
@@ -1333,6 +1386,35 @@ function InitViewModel() {
         self.filtersOutput[stream][lastFilter] = []
     };
 
+    self.removeFilter = function (id, stream)
+    {
+        for (var i=0; i < self.filters[stream].length; i++)
+        {
+            if(self.filters[stream][i]["id"] == id)
+            {
+                //get that element out of the array
+                self.filters[stream].splice(i, 1);
+            }
+        }
+    };
+
+    self.removeAllFiltersOf = function (parentId)
+    {
+        for (var stream=0; stream < self.filters.length; stream++)
+        {
+            for (var i=0; i < self.filters[stream].length; i++)
+            {
+                if(self.filters[stream][i]["parent"] == parentId)
+                {
+                    //get that element out of the array
+                    self.filters[stream].splice(i, 1);
+                    i--;
+                }
+            }
+        }
+    };
+
+
 
     //Filters all raw data to produce the filtered data that widgets can render.
     self.filterPipeline = function(){
@@ -1342,12 +1424,24 @@ function InitViewModel() {
 
             var raw = self.rawData[i](); //the raw data array
 
-            //for each filter of that stream
+
+            //when we have no filters, the final filtered data equals the raw data:
+            if(self.filters[i].length == 0)
+            {
+                for (var j=0; j < raw.length; j++) {
+                    self.newFilteredData[i][j] = raw[j];
+                }
+            }else{
+                //If we have filters, clean the results area
+                self.newFilteredData[i] = [];
+            }
+
+            //In case that we have filters, for each filter of that stream:
             for (var j=0; j < self.filters[i].length; j++) {
 
                 if (self.filters[i][j] != undefined){ // make sure there is a filter there, and not a blank space
                     //put the raw data through the filter and store the result in the filtersOutput[i] area
-                    self.filtersOutput[i][j] = self.filters[i][j](raw);
+                    self.filtersOutput[i][j] = self.filters[i][j]["filterFunction"](raw);
 
                     //merge filtersOutput arrays into the final newFilteredData[i] array.
                     self.mergeUnique(self.filtersOutput[i][j], self.newFilteredData[i])
@@ -1355,6 +1449,8 @@ function InitViewModel() {
 
             }
         }
+
+        updateWidgets(true);
     }
 
 
@@ -1651,6 +1747,11 @@ function InitViewModel() {
 
 	/** ADD WIDGETS METHODS */
 
+    self.createNewWidget = function (object){
+        var newInstance = jQuery.extend({}, object);
+        self.newActiveWidgets.push(newInstance);
+        newInstance.render();
+    };
 
     //This function add a widget (made of the new template) attending to the tabs where it's created
     //Always enter the widget at the left column in the active tab by default, but you can pass "Left" or "Right"
@@ -1659,12 +1760,16 @@ function InitViewModel() {
     {
         loc = typeof loc !== 'undefined' ? loc : "Left";
 
+        //We make an instance of the object (that is the template) and give it an unique name.
+        //var newInstance = jQuery.extend({}, object);
+        var newInstance = object;
+
         if(self.activeTab() != 0) {
-            self["activeWidgets"+loc+"Tab" + self.activeTab()].push(object);
+            self["activeWidgets"+loc+"Tab" + self.activeTab()].push(newInstance);
 
         }else{
             //for tab0, because it's not called activeWidgetsTab0...
-            self["activeWidgets"+loc].push(object);
+            self["activeWidgets"+loc].push(newInstance);
 
         }
 
@@ -2616,10 +2721,13 @@ function InitViewModel() {
                     configuration.template.language = "English";
                     configuration.template.pageTitle = "New Pipeline Test";
                     configuration.template.logoPath = 'img/universities.jpg';
+
                     sparqlmode = true;
                     var testQuery = "select distinct ?universityResource ?countryResource ?cityResource ?university ?city ?country ?latitude ?longitude where { { ?universityResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryResource ; <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/Spain> ; <http://dbpedia.org/ontology/city> ?cityResource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university ; <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ; <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . ?countryResource <http://www.w3.org/2000/01/rdf-schema#label> ?country . ?cityResource <http://www.w3.org/2000/01/rdf-schema#label> ?city } UNION { ?universityResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University> ; <http://dbpedia.org/ontology/country> ?countryResource ; <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/France> ; <http://dbpedia.org/ontology/city> ?cityResource ; <http://www.w3.org/2000/01/rdf-schema#label> ?university ; <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ; <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . ?countryResource <http://www.w3.org/2000/01/rdf-schema#label> ?country . ?cityResource <http://www.w3.org/2000/01/rdf-schema#label> ?city } FILTER ( lang(?university) = 'en' && lang(?country) = 'en' && lang(?city) = 'en') }";
                     vm.getResultsSPARQL(testQuery, "http://dbpedia.org/sparql");
+                    vm.initializeDataStream(1, "universities");
                     vm.getRawDataSPARQL("SPARQL", testQuery, "http://dbpedia.org/sparql", 1);
+                    vm.accordionLayout(false);
 
                     //vm.giveUniqueIdentifier(vm.rawData[1]());
 
@@ -2630,16 +2738,20 @@ function InitViewModel() {
 
                     $(window).load(function () {
 
+                        //run the pipeline to test the system results
+                        vm.filterPipeline();
+
                         //Add map widget
                         openLayers.render("Right");
                         //Add results widget
                         newResultsWidget.render("Right");
 
-                        //add a test filter to the stream with the data
-                        vm.addFilter(vm.testFilter1, 1);
+                        newTagCloud.create();
 
-                        //run the pipeline to test the system results
-                        vm.filterPipeline();
+                        //add a test filter to the stream with the data
+                        //vm.addFilter(vm.testFilter1, 1);
+
+
 
 
                     });
@@ -2979,7 +3091,7 @@ function InitViewModel() {
 
 		self.numberOfActiveFilters = ko.computed(function (numbers) {
 			var activeFiltersCount = 0;
-			
+
 			ko.utils.arrayFilter(self.activeWidgets(), function (item1) {
 				if (item1.type() == "tagcloud") {
 					ko.utils.arrayFilter(item1.values(), function (item2) {
@@ -2990,7 +3102,7 @@ function InitViewModel() {
 						} else {
 							item2.state = ko.observable(false);
 						}
-						
+
 					});
 				}
 			});

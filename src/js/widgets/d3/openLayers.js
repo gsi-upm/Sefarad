@@ -51,11 +51,8 @@ var openLayers = {
         div.attr("align", "center");
 
         //Elements for showing
-        if (vm.sparql()) {
-            var data = vm.filteredData();
-        } else {
-            var data = vm.filteredData();
-        }
+        var data = vm.filteredData();
+
 
         //Update filtered polygons
         var geometries = new Array();

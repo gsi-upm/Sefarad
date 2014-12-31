@@ -18,6 +18,10 @@ var newWidgetTemplate = { //IMPORTANT: the var name must match the name of the f
     // Category of the widget (1: textFilter, 2: numericFilter, 3: graph, 5:results, 4: other, 6:map)
     cat: 4,
 
+    create: function () {
+        vm.createNewWidget(this);
+    },
+
     render: function (loc) {
 
         loc = typeof loc !== 'undefined' ? loc : "Left";
