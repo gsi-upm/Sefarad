@@ -16,7 +16,7 @@ var newTagCloud = {
 
     //other variables:
     stream: 1,
-    param: "country", //the field we have explore in data to get the values and render them.
+    param: "", //the field we have explore in data to get the values and render them.
     values: [], //[i]["value"]=value, [i]["quantity"]=quantity
     activeFilters: [],
 
@@ -82,6 +82,10 @@ var newTagCloud = {
 
         //var streamSelector = configDiv.append("select").attr("id", "streamSelector"+this.id).attr("onchange", "newTagCloud.onStreamSelectorChange()");
         var streamSelector = configDiv.append("select").attr("id", "streamSelector"+this.id).attr("onchange", "newTagCloud.streamSelectorChangedOnWidget("+this.id+")");
+        //var streamSelector = configDiv.append("select").attr("id", "streamSelector"+this.id);
+        //$('#streamSelector'+this.id).change(this.onStreamSelectorChange());
+        //$('#streamSelector'+this.id).change(function () {});
+
         for (var i=0; i < vm.streams.length; i++)
         {
             var option = streamSelector.append("option").attr("value", vm.streams[i]["name"]).text(vm.streams[i]["name"]);
@@ -94,6 +98,9 @@ var newTagCloud = {
         configDiv.append("p");
 
         var paramSelector = configDiv.append("select").attr("id", "paramSelector"+this.id).attr("onchange", "newTagCloud.paramSelectorChangedOnWidget("+this.id+")");
+        //var paramSelector = configDiv.append("select").attr("id", "paramSelector"+this.id);
+        //$('#streamSelector'+this.id).change(this.onParamSelectorChange());
+
         for (property in vm.rawData[this.stream]()[0])
         {
             //we fill teh selector with calues except the id field and those endind in "Resource"
@@ -102,6 +109,8 @@ var newTagCloud = {
                 paramSelector.append("option").attr("value", property).text(property);
             }
         }
+
+        if(this.param == "") this.param = paramSelector[0][0].value;
 
         configDiv.append("p");
 
@@ -176,6 +185,8 @@ var newTagCloud = {
         d3.select('#' + id).selectAll('h2').remove();
         var div = d3.select('#' + id);
         div.attr("align", "center");
+        div.attr("style", "max-height: 300px; overflow: scroll;");
+
 
         this.getValues(this.param);
 
@@ -256,8 +267,8 @@ var newTagCloud = {
         this.removeAllFilters();
 
         var selector = document.getElementById('streamSelector'+this.id);
-        var text = selector.options[selector.selectedIndex].innerHTML;
 
+        var text = selector.options[selector.selectedIndex].innerHTML;
 
         var streamNumber;
         loop1:
@@ -273,8 +284,6 @@ var newTagCloud = {
 
         this.stream = streamNumber;
 
-
-
         d3.select('#' + this.id).selectAll('div').remove();
         this.paintConfig(this.configid); //just repaint the paintConfig area to update the params to filter.
 
@@ -289,6 +298,7 @@ var newTagCloud = {
         this.removeAllFilters();
 
         var selector = document.getElementById('paramSelector'+this.id);
+
         var text = selector.options[selector.selectedIndex].innerHTML;
 
         this.param = text;
