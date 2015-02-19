@@ -5,6 +5,8 @@
 var rawData = [];
 var filteredData = [];
 
+var datatable;
+
 
 
 $( document ).ready(function() {
@@ -37,7 +39,97 @@ $( document ).ready(function() {
 
     var ndx = crossfilter(data);
 
-    
+    var parseDate = d3.time.format("%m/%d/%Y").parse;
+
+    data.forEach(function(d) {
+        d.date = parseDate(d.date);
+        d.total= d.http_404+d.http_200+d.http_302;
+        d.Year=d.date.getFullYear();
+    });
+    print_filter("data");
+
+    var dateDim = ndx.dimension(function(d) {return d.date;});
+    var hits = dateDim.group().reduceSum(function(d) {return d.total;});
+    var status_200=dateDim.group().reduceSum(function(d) {return d.http_200;});
+    var status_302=dateDim.group().reduceSum(function(d) {return d.http_302;});
+    var status_404=dateDim.group().reduceSum(function(d) {return d.http_404;});
+
+    var minDate = dateDim.bottom(1)[0].date;
+    var maxDate = dateDim.top(1)[0].date;
+
+    var hitslineChart  = dc.lineChart("#chart-line-hitsperday");
+    hitslineChart
+        .width(500).height(200)
+        .dimension(dateDim)
+        .group(status_200,"200")
+        .stack(status_302,"302")
+        .stack(status_404,"404")
+        .renderArea(true)
+        .x(d3.time.scale().domain([minDate,maxDate]))
+        .brushOn(true)
+        .legend(dc.legend().x(50).y(10).itemHeight(13).gap(5))
+        .yAxisLabel("Hits per day");
+
+
+
+    var yearDim  = ndx.dimension(function(d) {return +d.Year;});
+    var year_total = yearDim.group().reduceSum(function(d) {return d.total;});
+
+    var yearRingChart   = dc.pieChart("#chart-ring-year");
+    yearRingChart
+        .width(150).height(150)
+        .dimension(yearDim)
+        .group(year_total)
+        .innerRadius(30);
+
+
+
+
+
+
+
+
+
+    document.getElementById("makeDataTable").onclick = function ()
+    {
+        alldata = dateDim.top(Infinity);
+        RefreshTable(alldata);
+    };
+
+    datatable = $(".dc-data-table").dataTable({
+
+        "bDeferRender": true,
+        // Restricted data in table to 10 rows, make page load faster
+// Make sure your field names correspond to the column headers in your data file. Also make sure to have default empty values.
+        "aaData": dateDim.top(10),
+
+        "bDestroy": true,
+        "aoColumns": [
+            { "mData": "date", "sDefaultContent": " " },
+            { "mData": "http_200", "sDefaultContent": " " },
+            { "mData": "http_302", "sDefaultContent": " " },
+            { "mData": "total", "sDefaultContent": " " }
+
+
+        ]
+    });
+
+    function RefreshTable(alldata) {
+        datatable.fnClearTable();
+        datatable.fnAddData(alldata);
+        datatable.fnDraw();
+    };
+
+
+
+
+    dc.renderAll();
+
+
+
+
+
+
 
     function print_filter(filter){
         var f=eval(filter);
@@ -71,6 +163,8 @@ $( document ).ready(function() {
 
 
 });
+
+
 
 
 
