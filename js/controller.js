@@ -9,6 +9,8 @@ var datatable;
 var nameDim;
 var designationDim;
 
+var map;
+
 function print_filter(filter){
     var f=eval(filter);
     if (typeof(f.length) != "undefined")
@@ -360,19 +362,36 @@ $( document ).ready(function() {
     nameDim = ndx.dimension(function(d) {return d.name.value;});
     designationDim = ndx.dimension(function(d) {return d.designation.value;});
 
-    var n = nameDim.group().reduceCount();
+    var numDesignations = designationDim.group().reduceCount();
+    var numNames = nameDim.group().reduceCount();
 
 
     var designationChart   = dc.pieChart("#chart-ring-year");
     designationChart
         .width(200).height(200)
+        .dimension(designationDim)
+        .group(numDesignations)
+        .innerRadius(30);
+
+    var nameChart   = dc.pieChart("#chart-ring-name");
+    nameChart
+        .width(200).height(200)
         .dimension(nameDim)
-        .group(n)
+        .group(numNames)
         .innerRadius(30);
 
 
-
     dc.renderAll();
+
+    map = L.map('leafletMap').setView([51.505, -0.09], 13); //use invalidateSize() each time it's widget is moved.
+
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 18
+    }).addTo(map);
+    var geo = sparqlToGeoJSON(data, false);
+    console.log(geo);
+    L.geoJson(geo).addTo(map);
 
 
     //var total_3= nameDim.filter(function(d) { if (d == "Park pri Ihrisku") {return d;} } );

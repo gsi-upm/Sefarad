@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="http://openlayers.org/en/v3.2.0/css/ol.css" type="text/css">
     <!-- dc style -->
     <link rel="stylesheet" type="text/css" href="./css/dc.css" media="screen" />
+    <!-- leaflet style -->
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -49,6 +51,8 @@
     <script type="text/javascript" src="https://rawgithub.com/NickQiZhu/dc.js/master/web/js/crossfilter.js"></script>
     <!--dc.js-->
     <script type="text/javascript" src="js/plugins/dc.js"></script>
+    <!--leaflet.js-->
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 
 
 </head>
@@ -422,11 +426,24 @@
                 <!-- Custom dc widget donnut-->
                 <div id="crossFilterDCTest2" class="box box-solid bg-navy">
                     <div class="box-header">
-                        <h3 class="box-title">CrossFilter + dc.js  2</h3>
+                        <h3 class="box-title">CrossFilter + dc.js : designation filter</h3>
                     </div>
                     <!-- box-body -->
                     <div class="box-body chart-responsive">
                         <div id="chart-ring-year"></div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.Custom dc widget donnut-->
+
+                <!-- Custom dc widget donnut-->
+                <div id="crossFilterDCTest4" class="box box-solid bg-navy">
+                    <div class="box-header">
+                        <h3 class="box-title">CrossFilter + dc.js : name filter</h3>
+                    </div>
+                    <!-- box-body -->
+                    <div class="box-body chart-responsive">
+                        <div id="chart-ring-name"></div>
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -534,6 +551,19 @@
             <!-- /.Left col -->
             <!-- right col (We are only adding the ID to make the widgets sortable)-->
             <section class="col-lg-5 connectedSortable">
+
+                <!-- Custom leaflet map widget-->
+                <div id="leafletMapWidget" class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Leaflet Map</h3>
+                    </div>
+                    <!-- box-body -->
+                    <div class="box-body chart-responsive">
+                        <div id="leafletMap" style="height: 300px"></div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.Custom leaflet map widget-->
 
                 <!-- Custom Faceted Search widget-->
                 <div id="facetedSearchWidget" class="box box-solid bg-aqua-gradient">
