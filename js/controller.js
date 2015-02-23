@@ -11,6 +11,8 @@ var designationDim;
 
 var map;
 
+var filterone;
+
 function print_filter(filter){
     var f=eval(filter);
     if (typeof(f.length) != "undefined")
@@ -358,12 +360,54 @@ $( document ).ready(function() {
 
     var ndx = crossfilter(data);
 
+    var groupname = "Choropleth";
+
+    //add "total" filter as temporal value for cloropleth
+    var idGen = 0
+    data.forEach(function(d) {
+        d.total= 1;
+        d.id = idGen;
+        idGen++;
+    });
 
     nameDim = ndx.dimension(function(d) {return d.name.value;});
     designationDim = ndx.dimension(function(d) {return d.designation.value;});
+    idDim = ndx.dimension(function(d) {return d.id;});
 
     var numDesignations = designationDim.group().reduceCount();
     var numNames = nameDim.group().reduceCount();
+    var numId = idDim.group().reduceCount();
+
+    //filterone = nameDim.filter(function(d) { return d; });
+    //print_filter("filterone");
+
+    //var namesGroup = nameDim.group().reduceSum(function(d) { return d.total;});
+
+
+
+    var leafletchart = dc.leafletChoroplethChart("#leafletMap")
+        .dimension(idDim)
+        .group(numId)
+        .center([42.69,25.42])
+        .zoom(7)
+        .geojson(sparqlToGeoJSON(data, false))
+        .colors(['#fff7f3', '#fde0dd', '#fcc5c0', '#fa9fb5', '#f768a1', '#dd3497', '#ae017e', '#7a0177', '#49006a'])
+        .colorDomain(function() {
+            return [dc.utils.groupMin(this.group(), this.valueAccessor()),
+                dc.utils.groupMax(this.group(), this.valueAccessor())];
+        })
+        .colorAccessor(function(d,i) {
+            return d.value;
+        })
+        .featureKeyAccessor(function(feature) {
+            return feature.properties.id;
+        })
+        .renderPopup(true)
+        .popup(function(d,feature) {
+            return feature.properties.nameEn+" : "+d.value;
+        });
+
+
 
 
     var designationChart   = dc.pieChart("#chart-ring-year");
@@ -383,15 +427,16 @@ $( document ).ready(function() {
 
     dc.renderAll();
 
-    map = L.map('leafletMap').setView([51.505, -0.09], 13); //use invalidateSize() each time it's widget is moved.
 
-    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        maxZoom: 18
-    }).addTo(map);
-    var geo = sparqlToGeoJSON(data, false);
-    console.log(geo);
-    L.geoJson(geo).addTo(map);
+    //map = L.map('leafletMap').setView([51.505, -0.09], 13); //use invalidateSize() each time it's widget is moved.
+    //
+    //L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    //    maxZoom: 18
+    //}).addTo(map);
+    //var geo = sparqlToGeoJSON(data, false);
+    //console.log(geo);
+    //L.geoJson(geo).addTo(map);
 
 
     //var total_3= nameDim.filter(function(d) { if (d == "Park pri Ihrisku") {return d;} } );
