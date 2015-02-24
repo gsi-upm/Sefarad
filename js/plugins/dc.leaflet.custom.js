@@ -638,6 +638,7 @@ dc.leafletChoroplethChart = function (parent, chartGroup) {
                 options.weight = 1.5;
             options.opacity = 0.6;
             options.fillOpacity = 0.4;
+            //_chart.map().closePopup(); //avoid showing the popup (cause it is not selected)
 
             if(v.d.value == 1) //selected by external charts
             {
@@ -646,6 +647,7 @@ dc.leafletChoroplethChart = function (parent, chartGroup) {
                 options.weight = 1.5;
                 options.opacity = 0.5;
                 options.fillOpacity = 0.2;
+                //_chart.map().closePopup(); //avoid showing the popup (cause it is not selected)
             }
             if (_chart.filters().indexOf(v.d.key) !== -1) { //selected in this chart
 
@@ -654,6 +656,8 @@ dc.leafletChoroplethChart = function (parent, chartGroup) {
                 options.weight = 2;
                 options.opacity = 0.6;
                 options.fillOpacity = 0.4;
+
+
             }
         }
         return options;
@@ -664,27 +668,47 @@ dc.leafletChoroplethChart = function (parent, chartGroup) {
     };
 
     _chart._postRender = function () {
+
+        _dataMap = [];
+        _chart._computeOrderedGroups(_chart.data()).forEach(function (d, i) {
+            _dataMap[_chart.keyAccessor()(d)] = {'d': d, 'i': i};
+        });
+
         _geojsonLayer = L.geoJson(_chart.geojson(), {
             style: _chart.featureStyle(),
             onEachFeature: processFeatures
         });
         _chart.map().addLayer(_geojsonLayer);
+        var bounds = _geojsonLayer.getBounds();
+        _chart.map().fitBounds(bounds);
+
+
     };
 
     _chart._doRedraw = function () {
 
         if(_chart.mustReDrawBool()) {
-            _geojsonLayer.clearLayers();
+
+            //IMPORTANT: in the original code each time we used filters, we redrew the entire layer.
+            //for the sake of speed and efficiency, now we just apply a distict style to the layer.
+
+            //_geojsonLayer.clearLayers();
+
             _dataMap = [];
             _chart._computeOrderedGroups(_chart.data()).forEach(function (d, i) {
                 _dataMap[_chart.keyAccessor()(d)] = {'d': d, 'i': i};
             });
-            _geojsonLayer.addData(_chart.geojson());
+            _geojsonLayer.setStyle(_chart.featureStyle());
+
+            //_geojsonLayer.addData(_chart.geojson());
+
         }else
         {
             _chart.mustReDrawBool(true);
             _geojsonLayer.setStyle(_chart.featureStyle());
         }
+
+
 
     };
 
@@ -788,6 +812,9 @@ dc.leafletChoroplethChart = function (parent, chartGroup) {
             _chart.filter(filter);
             if(_chart.filters().indexOf(filter) != -1){
                 _chart.mustReDrawBool(false);
+            }else
+            {
+                _chart.map().closePopup(); //avoid showing the popup, cause we are deselecting.
             }
 
             dc.redrawAll(_chart.chartGroup());
