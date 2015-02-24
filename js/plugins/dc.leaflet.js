@@ -622,15 +622,22 @@ dc.leafletChoroplethChart = function (parent, chartGroup) {
         var v = _dataMap[_chart.featureKeyAccessor()(feature)];
         if (v && v.d) {
             //options.fillColor = _chart.getColor(v.d, v.i);
-            //if (_chart.filters().indexOf(v.d.key) !== -1) {
-            //    options.opacity = 0.8;
-            //    options.fillOpacity = 1;
-            //}
-            if(v.d.value == 1)
+
+            options.color = '#707070'; //grey - unselected
+            options.weight = 3;
+            options.opacity = 0.7;
+
+            if(v.d.value == 1) //selected by external charts
             {
-                options.color = 'red';
-                options.weight = 6;
+                options.color = 'blue';
+                options.weight = 3;
                 options.opacity = 0.7;
+            }
+            if (_chart.filters().indexOf(v.d.key) !== -1) { //selected in this chart
+                options.weight = 5;
+                options.opacity = 0.8;
+                options.fillOpacity = 3;
+                options.color = 'red';
             }
         }
         return options;
@@ -652,7 +659,7 @@ dc.leafletChoroplethChart = function (parent, chartGroup) {
         _geojsonLayer.clearLayers();
         _dataMap = [];
         _chart._computeOrderedGroups(_chart.data()).forEach(function (d, i) {
-            _dataMap[_chart.keyAccessor()(d)] = {'d': d, 'i': d.value};
+            _dataMap[_chart.keyAccessor()(d)] = {'d': d, 'i': i};
         });
         _geojsonLayer.addData(_chart.geojson());
     };
@@ -731,15 +738,15 @@ dc.leafletChoroplethChart = function (parent, chartGroup) {
             return;
         }
 
-        _chart._computeOrderedGroups(_chart.data()).forEach(function (d, i) {
-            if(e.target.key == d.key){
-                d.value = 1;
-            }else
-            {
-                d.value = 0;
-            }
-
-        });
+        //_chart._computeOrderedGroups(_chart.data()).forEach(function (d, i) {
+        //    if(e.target.key == d.key){
+        //        d.value = 1;
+        //    }else
+        //    {
+        //        d.value = 0;
+        //    }
+        //
+        //});
 
         //for (var j = 0; j < _dataMap.length; j++) {
         //    if (j == e.target.key) {
