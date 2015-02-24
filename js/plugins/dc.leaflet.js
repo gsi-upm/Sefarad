@@ -5,6 +5,8 @@ dc.leafletChart = function (_chart) {
 
     var _map;
 
+    var _mustReDrawBool = true;
+
     var _mapOptions = false;
     var _defaultCenter = false;
     var _defaultZoom = false;
@@ -30,6 +32,14 @@ dc.leafletChart = function (_chart) {
 
     _chart._postRender = function () {
         //abstract
+    };
+
+    _chart.mustReDrawBool = function (_) {
+        if (!arguments.length) {
+            return _mustReDrawBool;
+        }
+        _mustReDrawBool = _;
+        return _chart;
     };
 
     _chart.mapOptions = function (_) {
@@ -623,21 +633,27 @@ dc.leafletChoroplethChart = function (parent, chartGroup) {
         if (v && v.d) {
             //options.fillColor = _chart.getColor(v.d, v.i);
 
-            options.color = '#707070'; //grey - unselected
-            options.weight = 3;
-            options.opacity = 0.7;
+            options.color = '#B9A081';
+            options.fillColor = '#B9A081',
+                options.weight = 1.5;
+            options.opacity = 0.6;
+            options.fillOpacity = 0.4;
 
             if(v.d.value == 1) //selected by external charts
             {
                 options.color = 'blue';
-                options.weight = 3;
-                options.opacity = 0.7;
+                options.fillColor = 'blue',
+                options.weight = 1.5;
+                options.opacity = 0.5;
+                options.fillOpacity = 0.2;
             }
             if (_chart.filters().indexOf(v.d.key) !== -1) { //selected in this chart
-                options.weight = 5;
-                options.opacity = 0.8;
-                options.fillOpacity = 3;
-                options.color = 'red';
+
+                options.color = '#FD8F00';
+                options.fillColor = '#FD8F00',
+                options.weight = 2;
+                options.opacity = 0.6;
+                options.fillOpacity = 0.4;
             }
         }
         return options;
@@ -656,12 +672,20 @@ dc.leafletChoroplethChart = function (parent, chartGroup) {
     };
 
     _chart._doRedraw = function () {
-        _geojsonLayer.clearLayers();
-        _dataMap = [];
-        _chart._computeOrderedGroups(_chart.data()).forEach(function (d, i) {
-            _dataMap[_chart.keyAccessor()(d)] = {'d': d, 'i': i};
-        });
-        _geojsonLayer.addData(_chart.geojson());
+
+        if(_chart.mustReDrawBool()) {
+            _geojsonLayer.clearLayers();
+            _dataMap = [];
+            _chart._computeOrderedGroups(_chart.data()).forEach(function (d, i) {
+                _dataMap[_chart.keyAccessor()(d)] = {'d': d, 'i': i};
+            });
+            _geojsonLayer.addData(_chart.geojson());
+        }else
+        {
+            _chart.mustReDrawBool(true);
+            _geojsonLayer.setStyle(_chart.featureStyle());
+        }
+
     };
 
     _chart.geojson = function (_) {
@@ -762,6 +786,10 @@ dc.leafletChoroplethChart = function (parent, chartGroup) {
         dc.events.trigger(function () {
 
             _chart.filter(filter);
+            if(_chart.filters().indexOf(filter) != -1){
+                _chart.mustReDrawBool(false);
+            }
+
             dc.redrawAll(_chart.chartGroup());
         });
     };
