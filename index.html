@@ -4,6 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF8">
     <title>Sefarad 2.0 | Search</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+
+    <!-- Polymer: 1. Load platform support before any code that touches the DOM. -->
+    <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+
+
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"
           type="text/css"/>
@@ -55,6 +60,10 @@
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <!--leaflet-dc.js-->
     <script type="text/javascript" src="js/plugins/dc.leaflet.custom.js"></script>
+
+    <!-- Load polymer components using an HTML Import -->
+    <link rel="import" href="polymer-elements/my-element.html">
+    <link rel="import" href="polymer-elements/dc-element.html">
 
 
 
@@ -406,6 +415,9 @@
 
         <!-- Small boxes (Stat box) -->
         <div class="row">
+
+
+
         </div>
         <!-- /.row -->
 
@@ -418,13 +430,15 @@
 
 
                 <!-- Custom dc widget graph-->
-                <div id="crossFilterDCTest" class="box box-primary">
+                <div id="polymerBasicTest" class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">CrossFilter + dc.js</h3>
+                        <h3 class="box-title">Polymer basic example</h3>
                     </div>
                     <!-- box-body -->
                     <div class="box-body chart-responsive">
-                        <div id="chart-line-hitsperday"></div>
+                        <my-element></my-element>
+                        <my-element></my-element>
+                        <dc-element></dc-element>
                     </div>
                     <!-- /.box-body -->
                 </div>

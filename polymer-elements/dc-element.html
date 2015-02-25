@@ -1,0 +1,85 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+
+
+
+<polymer-element name="dc-element" noscript>
+
+
+  <template>
+      <!-- dc style -->
+      <link rel="stylesheet" type="text/css" href="../css/dc.css" media="screen" />
+      <div id="chart"></div>
+      <div id="chart2"></div>
+
+
+  </template>
+
+    <script>
+        Polymer({
+            data: [
+                {date: "12/27/2012", http_404: 2, http_200: 190, http_302: 100},
+                {date: "12/28/2012", http_404: 2, http_200: 10, http_302: 100},
+                {date: "12/29/2012", http_404: 1, http_200: 300, http_302: 200},
+                {date: "12/30/2012", http_404: 2, http_200: 90, http_302: 0},
+                {date: "12/31/2012", http_404: 2, http_200: 90, http_302: 0},
+                {date: "01/01/2013", http_404: 2, http_200: 90, http_302: 0},
+                {date: "01/02/2013", http_404: 1, http_200: 10, http_302: 1},
+                {date: "01/03/2013", http_404: 2, http_200: 90, http_302: 0},
+                {date: "01/04/2013", http_404: 2, http_200: 90, http_302: 0},
+                {date: "01/05/2013", http_404: 2, http_200: 90, http_302: 0},
+                {date: "01/06/2013", http_404: 2, http_200: 200, http_302: 1},
+                {date: "01/07/2013", http_404: 1, http_200: 200, http_302: 100}
+            ],
+
+            dim: 25,
+            group: "Daniel",
+
+            yearDim: {},
+            yearGroup: {},
+
+
+            ready: function() {
+
+                var ndx = crossfilter(this.data);
+
+                var parseDate = d3.time.format("%m/%d/%Y").parse;
+                this.data.forEach(function(d) {
+                    d.date = parseDate(d.date);
+                    d.total= d.http_404+d.http_200+d.http_302;
+                    d.Year=d.date.getFullYear();
+                });
+
+                this.dim = ndx.dimension(function(d) {return d.date;});
+                this.group = this.dim.group().reduceSum(function(d) {return d.total;});
+
+                this.yearDim  = ndx.dimension(function(d) {return +d.Year;});
+                this.yearGroup = this.yearDim.group().reduceSum(function(d) {return d.total;});
+
+                var minDate = this.dim.bottom(1)[0].date;
+                var maxDate = this.dim.top(1)[0].date;
+
+                var hitslineChart  = dc.lineChart("#chart", "mygroup");
+                hitslineChart
+                        .width(500).height(200)
+                        .dimension(this.dim)
+                        .group(this.group)
+                        .x(d3.time.scale().domain([minDate,maxDate]));
+
+                hitslineChart.root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
+
+                var yearRingChart   = dc.pieChart("#chart2", "mygroup");
+                yearRingChart
+                        .width(150).height(150)
+                        .dimension(this.yearDim)
+                        .group(this.yearGroup)
+                        .innerRadius(30)
+                        .root()[0][0] = this.$.chart2; //we pass explicitly the root div to dc.js
+
+                dc.renderAll("mygroup");
+            }
+        });
+    </script>
+
+
+</polymer-element>
