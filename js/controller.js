@@ -156,6 +156,11 @@ var initializeWidgets = function () {
     openLayersMapWidget.data = rawData; //TO-DO: when filtering is repaired, set this to filteredData
     openLayersMapWidget.init();
 
+
+    //render the loading screen for the three dc widgets:
+    $("#crossFilterDCTest2").append('<div class="overlay"> </div> <div class="loading-img"> </div>');
+    $("#crossFilterDCTest4").append('<div class="overlay"> </div> <div class="loading-img"> </div>');
+    $("#leafletMapWidget").append('<div class="overlay"> </div> <div class="loading-img"> </div>');
 };
 
 var updateWidgets = function () {
@@ -171,6 +176,10 @@ var updateWidgets = function () {
 
 
 var newDataReceived = function () {
+
+    //Delete loading screen
+    $(".overlay").remove();
+    $(".loading-img").remove();
 
     var ndx = crossfilter(rawData);
 
