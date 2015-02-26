@@ -224,26 +224,30 @@ var newDataReceived = function () {
 
 
 
-    var designationChart   = dc.pieChart("#chart-ring-year");
-    designationChart
-        .width(200).height(200)
-        .dimension(designationDim)
-        .group(numDesignations)
-        .innerRadius(30);
+    //var designationChart   = dc.pieChart("#chart-ring-year");
+    //designationChart
+    //    .width(200).height(200)
+    //    .dimension(designationDim)
+    //    .group(numDesignations)
+    //    .innerRadius(30);
 
-    var nameChart   = dc.pieChart("#chart-ring-name");
-    nameChart
-        .width(200).height(200)
-        .dimension(nameDim)
-        .group(numNames)
-        .innerRadius(30);
+    //var nameChart   = dc.pieChart("#chart-ring-name");
+    //nameChart
+    //    .width(200).height(200)
+    //    .dimension(nameDim)
+    //    .group(numNames)
+    //    .innerRadius(30);
+
+
+
+
+    $("dc-element")[0].crossfilterObject = ndx;
+    $("dc-element")[0].dimension = designationDim;
+    $("dc-element")[0].group = numDesignations;
+    $("dc-element")[0].init();
 
 
     dc.renderAll();
-
-
-
-
 
 
 
