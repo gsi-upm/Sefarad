@@ -1,0 +1,15 @@
+{{data-table-bin columns=columnsNotInHeader viewName='binComponent'}}
+<table class="table table-responsive table-hover table-condensed">
+  <thead>
+    {{view dataTableHeader viewName='columnCollection'}}
+  </thead>
+  <tbody>
+    {{#each data}}
+      <tr>
+        {{#each this}}
+          <td>{{this}}</td>
+        {{/each}}
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

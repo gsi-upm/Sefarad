@@ -12,13 +12,6 @@ $( document ).ready(function() {
     //initialize widgets:
     initializeWidgets();
 
-
-
-
-
-
-
-
 });
 
 var initializeWidgets = function () {
@@ -50,18 +43,8 @@ var newDataReceived = function () {
     var idDim2 = ndx.dimension(function(d) {return d.id;});
     var numId2 = idDim.group().reduceCount();
 
-    //These four lines will have to be done attending to the settings section of the object
+    //These lines will have to be done attending to the settings section of the object
     //If not set yet, initialize with default options (first dimension and group of the first crossfilter object)
-
-    //var dcElements = $(".dc-element");
-    //for (var i = 0; i < dcElements.length; i++) {
-    //    dcElements[i].crossfilter = ndx;
-    //    dcElements[i].dimension = designationDim;
-    //    dcElements[i].group = numDesignations;
-    //    dcElements[i].geoJSON = rawData;
-    //    dcElements[i].init();
-    //}
-    // NOT YET
 
     var dcElements = $(".dc-element");
     for (var i = 0; i < dcElements.length; i++) {
@@ -72,6 +55,7 @@ var newDataReceived = function () {
             dcElements[i].dimension = idDim;
             dcElements[i].group = numId;
             dcElements[i].geoJSON = rawData;
+            dcElements[i].init();
         };
         if (dcElements[i].tagName == "PIE-CHART")
         {
@@ -79,34 +63,23 @@ var newDataReceived = function () {
             dcElements[i].dimension = designationDim;
             dcElements[i].group = numDesignations;
             dcElements[i].geoJSON = rawData;
+            dcElements[i].init();
         };
 
-        if (dcElements[i].tagName == "DATA-TABLE")
+        if (dcElements[i].tagName == "SORTABLE-TABLE")
         {
             dcElements[i].crossfilter = ndx;
             dcElements[i].dimension = idDim2;
             dcElements[i].group = numId2;
             dcElements[i].geoJSON = rawData;
 
-            //DataTables is a JQuery plugin that offers problems when used inside Polymer.
-            //This is a common issue and will be solved in future JQuery releases.
-           var  datatable = $("#table").dataTable({
+            //var data = transformData(rawData);
+            //dcElements[i].data = data;
 
-                "bDeferRender": true,
-                // Restricted data in table to 10 rows, make page load faster
-                // Make sure your field names correspond to the column headers in your data file. Also make sure to have default empty values.
-                "aaData": dcElements[i].dimension.top(10),
-
-                "bDestroy": true,
-                "aoColumns": [
-                    { "mData": "name.value", "sDefaultContent": " " },
-                    { "mData": "designation.value", "sDefaultContent": " " }
-                ]
-            });
-
+            dcElements[i].init();
         };
 
-        dcElements[i].init();
+
     }
 
 
@@ -147,4 +120,31 @@ var getPolygonsFromEuro = function () {
         }
     };
     return false;
+};
+
+
+
+var transformData = function (data) {
+    var auxArray = [];
+
+    for (i = 0; i < data.length; i++) {
+        auxArray[i] = {};
+        var j = 0;
+
+        for (prop in data[i]) {
+            if (!data[i].hasOwnProperty(prop)) {
+                //The current property is not a direct property of p
+                continue;
+            }
+            //Do your logic with the property here
+            //Do your logic with the property here
+            if(prop == "name" || prop == "designation"){  //This must be removed. Add a "column selector" control in widget preferences.
+                auxArray[i][prop] = data[i][prop].value;
+            }
+
+            j++;
+        }
+
+    }
+    return auxArray;
 };

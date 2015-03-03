@@ -1,0 +1,68 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+
+<polymer-element name="data-table" class="dc-element">
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+    <template>
+        <table id="table">
+
+        </table>
+    </template>
+
+
+    <script>
+        Polymer({
+
+            crossfilterObject: {},
+            chart: {},
+            dimension: {},
+            group: {},
+            geoJSON: {},
+            data: [],
+
+            columns: [],
+
+            ready: function() {
+                console.log("data-table ready");
+            },
+
+
+
+            init: function () {
+
+                this.data = this.transformData(this.geoJSON);
+
+
+//                this.$.table.append()
+
+
+                //dc.renderAll();
+            },
+
+            transformData: function (data) {
+                var auxArray = [];
+                for (i = 0; i < data.length; i++) {
+                    auxArray[i] = [];
+                    var j = 0;
+
+                    for (prop in data[i]) {
+                        if (!data[i].hasOwnProperty(prop)) {
+                            //The current property is not a direct property of p
+                            continue;
+                        }
+
+                        //Do your logic with the property here
+
+                        auxArray[i][prop] = data[i][prop].value;
+
+                        j++;
+                    }
+
+                }
+                return auxArray;
+            }
+        });
+    </script>
+
+</polymer-element>

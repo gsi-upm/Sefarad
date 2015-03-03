@@ -1,0 +1,7 @@
+<ul class="well well-sm list-unstyled list-inline">
+  {{#each columns}}
+    <li>{{data-table-column content=this}}</li>
+  {{else}}
+    <li><span class="text-muted">No attributes available.</span></li>
+  {{/each}}
+</ul>

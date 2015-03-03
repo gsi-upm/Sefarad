@@ -68,6 +68,10 @@
     <link rel="import" href="polymer-elements/leaflet-map/leaflet-map.html">
     <link rel="import" href="polymer-elements/data-table/data-table.html">
 
+    <link rel="import" href="bower_components/sortable-table/sortable-table.html">
+    <link rel="stylesheet"
+          href="bower_components/sortable-table/css/bootstrap.css" shim-shadowdom>
+
     <!-- ------------------------------- end/ POLYMER COMPONENTS IMPORT ZONE ------------------- -->
 
 
@@ -158,30 +162,16 @@
                     <!-- /.leaflet-map -->
 
                     <!-- Custom dc widget table-->
-                    <div id="crossFilterDCTest3" class="box box-primary">
+                    <div id="crossFilterDCTest3" class="box box-primary widget">
                         <div class="box-header">
-                            <h3 class="box-title">CrossFilter + dc.js (table)</h3>
+                            <h3 class="box-title">Table</h3>
                         </div>
                         <!--box-body -->
                         <div class="box-body chart-responsive">
 
-                            <data-table>
-                                <table id="table" class="table table-hover dc-data-table">
-                                    <thead>
-                                    <tr class="header">
-                                        <th>Name</th>
-                                        <th>Designation</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+                            <sortable-table class="bootstrap dc-element" page="{{page}}" pagesize="8" footertemplate="defaultPager">
 
-                                    </tbody>
-
-                                    <tfoot>
-
-                                    </tfoot>
-                                </table>
-                            </data-table>
+                            </sortable-table>
 
                         </div>
                         <!--/.box-body -->
