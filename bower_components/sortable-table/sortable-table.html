@@ -14,7 +14,7 @@
 <script src="../time-elements/time-elements.js"></script>
 <link rel="import" href="html-echo.html">
 
-<script src="dc.custom.js"></script>
+<script src="dc.custom.table.js"></script>
 
 <polymer-element
 	name="sortable-table"
@@ -464,7 +464,7 @@
 		dataSize: 0,
 		rowEditorTemplate: null,
 		multiRowEdit: false,
-		rowSelection: false,
+		rowSelection: true,
 		rowTemplate: null,
 		selected: null,
 		sortColumn: null,
@@ -482,6 +482,7 @@
 			undoStack: []
 		},
         dcChart: {},
+        crossfilter: {},
         dimension: [],
         group: [],
         init: function () {
@@ -734,6 +735,10 @@
 				}else{
 					if(this.multiSelect) this.multiSelect = false;
 				}
+
+                this.dcChart.filter(val.name); //toggle filter
+
+                dc.redrawAll();
 			}
 		},
 		sortColumnChanged: function(){ if(this.dataSource) this.dataSource.sortColumn = this.sortColumn; },

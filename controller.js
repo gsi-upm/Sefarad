@@ -40,8 +40,8 @@ var newDataReceived = function () {
     var idDim = ndx.dimension(function(d) {return d.id;});
     var numId = idDim.group().reduceCount();
 
-    var idDim2 = ndx.dimension(function(d) {return d.id;});
-    var numId2 = idDim.group().reduceCount();
+    var nameDim = ndx.dimension(function(d) {return d.name.value;});
+    var numNames = nameDim.group().reduceCount();
 
     //These lines will have to be done attending to the settings section of the object
     //If not set yet, initialize with default options (first dimension and group of the first crossfilter object)
@@ -69,8 +69,8 @@ var newDataReceived = function () {
         if (dcElements[i].tagName == "SORTABLE-TABLE")
         {
             dcElements[i].crossfilter = ndx;
-            dcElements[i].dimension = idDim2;
-            dcElements[i].group = numId2;
+            dcElements[i].dimension = nameDim;
+            dcElements[i].group = numNames;
             dcElements[i].geoJSON = rawData;
 
             //var data = transformData(rawData);
