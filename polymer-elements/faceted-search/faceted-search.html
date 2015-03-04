@@ -26,15 +26,15 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <div objectToHide="{{d[0]}}" on-click="{{buttonClick}}">{{d[0]}}</div>
+                            <div objectToHide="{{d[0]}}" on-click="{{headerClick}}">{{d[0]}}</div>
                         </h4>
                     </div>
                     <div id="{{d[0]}}" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav nav-pills nav-stacked">
                                     <template repeat="{{p in d[2]}}">
-                                        <li class="active">
-                                                <span class="label label-primary">{{p[0]}}<span class="badge">{{p[1]}}</span></span>
+                                        <li dimension="{{d[0]}}" on-click="{{valueClick}}" class="active">
+                                                <span class="label label-primary">{{p[0]}}</span><span class="badge">{{p[1]}}</span>
                                         </li>
                                     </template>
                             </ul>
@@ -63,11 +63,37 @@
 
             selected: {},
 
-            buttonClick: function(event, detail, sender) {
+            headerClick: function(event, detail, sender) {
                 //console.log("onclick listened "+ this.$.collapseOne);
 
                 var o = this.shadowRoot.getElementById(sender.getAttribute("objectToHide"));
                 o.classList.toggle("in");
+                //this.$[sender.getAttribute("objectToHide")].classList.toggle("in");
+            },
+
+            valueClick: function(event, detail, sender) {
+                var value = sender.getElementsByTagName("span")[0].innerText;
+                console.log("clicked on "+ value);
+
+                var dim = sender.getAttribute("dimension");
+
+                sender.getElementsByTagName("span")[0].classList.toggle("label-success");
+
+                for (var i= 0; i < this.dimensions.length; i++)
+                {
+
+                    if(this.dimensions[i][0] == dim) {
+                        console.log("filter!");
+                        //this.dimensions[i][1].filter(value);
+                        this.dimensions[i][3].filter(value);
+                        dc.redrawAll();
+                    }
+
+                }
+
+
+//                var o = this.shadowRoot.getElementById(sender.getAttribute("objectToHide"));
+//                o.classList.toggle("in");
                 //this.$[sender.getAttribute("objectToHide")].classList.toggle("in");
             },
 
@@ -89,10 +115,15 @@
                         values.push([val[j].key, val[j].value]);
                     }
 
+                    var chart = dc.customFacetedSearch();
+                    chart.dimension(dim);
+                    chart.group(dim.group().reduceCount());
+
                     var element = [
                         this.params[i],
                         dim,
-                        values
+                        values,
+                        chart
                     ];
 
                     this.dimensions.push(element);
