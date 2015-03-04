@@ -79,6 +79,19 @@ var newDataReceived = function () {
             dcElements[i].init();
         };
 
+        if (dcElements[i].tagName == "FACETED-SEARCH")
+        {
+            dcElements[i].crossfilter = ndx;
+
+            dcElements[i].params = ["designation", "designationScheme"];
+
+
+            //var data = transformData(rawData);
+            //dcElements[i].data = data;
+
+            dcElements[i].init();
+        };
+
 
     }
 

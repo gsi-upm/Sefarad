@@ -1,5 +1,5 @@
 /* global dc, L */
-dc.customChart = function (_chart) {
+dc.customFacetedSearch = function (_chart) {
     "use strict";
 
     _chart = dc.baseChart({});
@@ -31,55 +31,13 @@ dc.customChart = function (_chart) {
         var procData = transformData(_chart.dimension().top(Infinity));
         _chart.elementToUpdate.data = procData;
 
-
-
+        this.elementToUpdate.page = 1;
 
 
 
 
     };
 
-
-
-    //var selectFilter = function (e) {
-    //    if (!e.target) {
-    //        return;
-    //    }
-    //
-    //    //_chart._computeOrderedGroups(_chart.data()).forEach(function (d, i) {
-    //    //    if(e.target.key == d.key){
-    //    //        d.value = 1;
-    //    //    }else
-    //    //    {
-    //    //        d.value = 0;
-    //    //    }
-    //    //
-    //    //});
-    //
-    //    //for (var j = 0; j < _dataMap.length; j++) {
-    //    //    if (j == e.target.key) {
-    //    //        _dataMap[e.target.key].i = 1;
-    //    //    }else
-    //    //    {
-    //    //        _dataMap[j].i = 0;
-    //    //    }
-    //    //}
-    //
-    //
-    //    var filter = e.target.key;
-    //    dc.events.trigger(function () {
-    //
-    //        _chart.filter(filter);
-    //        if(_chart.filters().indexOf(filter) != -1){
-    //            _chart.mustReDrawBool(false);
-    //        }else
-    //        {
-    //            _chart.map().closePopup(); //avoid showing the popup, cause we are deselecting.
-    //        }
-    //
-    //        dc.redrawAll(_chart.chartGroup());
-    //    });
-    //};
 
     var transformData = function (data) {
         var auxArray = [];

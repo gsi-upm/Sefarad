@@ -66,11 +66,12 @@
 
     <link rel="import" href="polymer-elements/pie-chart/pie-chart.html">
     <link rel="import" href="polymer-elements/leaflet-map/leaflet-map.html">
-    <link rel="import" href="polymer-elements/data-table/data-table.html">
 
     <link rel="import" href="bower_components/sortable-table/sortable-table.html">
     <link rel="stylesheet"
           href="bower_components/sortable-table/css/bootstrap.css" shim-shadowdom>
+    <link rel="import" href="polymer-elements/faceted-search/faceted-search.html">
+
 
     <!-- ------------------------------- end/ POLYMER COMPONENTS IMPORT ZONE ------------------- -->
 
@@ -186,13 +187,27 @@
 
                     <!-- pie-chart -->
                     <!--Widgets must have 'widget' class in order to render their loading screen-->
-                    <div id="test" class="box box-primary widget">
+                    <div class="box box-primary widget">
                         <div class="box-header">
                             <h3 class="box-title">Pie chart</h3>
                         </div>
                         <!-- box-body -->
                         <div class="box-body chart-responsive">
                             <pie-chart></pie-chart>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.pie-chart -->
+
+                    <!-- pie-chart -->
+                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                    <div class="box box-primary widget">
+                        <div class="box-header">
+                            <h3 class="box-title">Search</h3>
+                        </div>
+                        <!-- box-body -->
+                        <div class="box-body chart-responsive">
+                            <faceted-search></faceted-search>
                         </div>
                         <!-- /.box-body -->
                     </div>

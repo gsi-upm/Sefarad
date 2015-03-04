@@ -1,63 +1,116 @@
-<link rel="import" href="../polymer/polymer.html">
-<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-<script src="dc.leaflet.custom.js"></script>
-<script src="sparql-geojson.js"></script>
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<script src="dc.custom.facetedSearch.js"></script>
 
-<polymer-element name="leaflet-map" class="dc-element">
+
+
+
+<polymer-element name="faceted-search" class="dc-element">
+
+
 
     <template>
-        <style>
-            :host {
-                display: block;
-                position: relative;
-            }
-            #map {
-                height: 350px;
-            }
-        </style>
-        <link rel="stylesheet" href="leaflet.css" />
 
-        <div id="map"></div>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+        <style>
+            .panel-title { cursor: pointer; }
+            .label { cursor: pointer; }
+        </style>
+
+
+        <div id="accordion" class="panel-group">
+
+            <template repeat="{{d in dimensions}}">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <div objectToHide="{{d[0]}}" on-click="{{buttonClick}}">{{d[0]}}</div>
+                        </h4>
+                    </div>
+                    <div id="{{d[0]}}" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                                    <template repeat="{{p in d[2]}}">
+                                                <span class="label label-primary">{{p}}</span>
+                                    </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+        </div>
+
 
     </template>
 
     <script>
         Polymer({
 
-            crossfilterObject: {},
+            crossfilter: {},
+
             chart: {},
-            dimension: {},
-            group: {},
+            dimensions: [],
+            params: ["loading params"],
+            values: [],
+
             geoJSON: {},
 
-            ready: function() {
-                console.log("leaflet-map ready");
+
+            selected: {},
+
+            buttonClick: function(event, detail, sender) {
+                //console.log("onclick listened "+ this.$.collapseOne);
+
+                var o = this.shadowRoot.getElementById(sender.getAttribute("objectToHide"));
+                o.classList.toggle("in");
+                //this.$[sender.getAttribute("objectToHide")].classList.toggle("in");
             },
 
-            crossfilterObjectChanged : function () {
-                if(this.crossfilterObject){
-                    console.log("leaflet-map hooked to crossfilter object: " + this.crossfilterObject);
-
-                }
+            ready: function() {
+                console.log("faceted-search ready");
             },
 
             init: function () {
 
+                for (var i= 0; i < this.params.length; i++)
+                {
+                    var selectorFunction = new Function ("d", "return d."+ this.params[i] +".value;");
+                    var dim = this.crossfilter.dimension(selectorFunction);
 
-                var leafletchart = dc.leafletChoroplethChart("#map", "", new L.Map( this.$.map))
-                        .root(this.$.map)//IMPORTANT! this has to be set from this point. If not set, the library will try to use jQuery to find the document's root, wich will fail!
-                        .dimension(this.dimension)
-                        .group(this.group)
-                        .center([42.69,25.42])
-                        .zoom(7)
-                        .geojson(sparqlToGeoJSON(this.geoJSON, false))
-                        .featureKeyAccessor(function(feature) {
-                            return feature.properties.id;
-                        })
-                        .renderPopup(true)
-                        .popup(function(d,feature) {
-                            return feature.properties.name.value;
-                        });
+                    var values = [];
+                    var val = dim.group().reduceCount().top(Infinity);
+                    for (var j= 0; j < val.length; j++)
+                    {
+                        values.push(val[j].key);
+                    }
+
+                    var element = [
+                        this.params[i],
+                        dim,
+                        values
+                    ];
+
+                    this.dimensions.push(element);
+
+
+
+                }
+
+
+
+//                //this.classToggler("selected", "in", this.$.collapseOne)
+//                //this.$.collapseOne.addEventListener('click', function () {document.querySelector('#collapseOne').classList.toggle("in")});
+//                this.params = [];
+//                var d1 = this.crossfilter.dimension(function(d) { return d.designation.value; });
+//                var countMeasure = d1.group().reduceCount();
+//                var paramCounter = countMeasure.top(Infinity);
+//
+//                for (var i= 0; i < paramCounter.length; i++)
+//                {
+//                    this.params.push(paramCounter[i].key);
+//                }
+
 
 
 
