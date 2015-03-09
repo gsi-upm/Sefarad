@@ -17,6 +17,27 @@
         <style>
             .panel-title { cursor: pointer; }
             .label { cursor: pointer; }
+
+
+            .badge-danger {
+                background-color: #d43f3a;
+            }
+
+            .badge-warning {
+                background-color: #d58512;
+            }
+
+            .badge-success {
+                background-color: #398439;
+            }
+
+            .badge-info {
+                background-color: #428BCA;
+            }
+
+            .badge-inverse {
+                background-color: #333333;
+            }
         </style>
 
 
@@ -34,7 +55,7 @@
                             <ul class="nav nav-pills nav-stacked">
                                     <template repeat="{{p in d[2]}}">
                                         <li dimension="{{d[0]}}" on-click="{{valueClick}}" class="active">
-                                                <span class="label label-primary">{{p[0]}}</span><span class="badge">{{p[1]}}</span>
+                                                <span class="label label-primary">{{p[0]}}</span><span class="badge badge-info">{{p[1]}}</span>
                                         </li>
                                     </template>
                             </ul>
@@ -77,7 +98,22 @@
 
                 var dim = sender.getAttribute("dimension");
 
-                sender.getElementsByTagName("span")[0].classList.toggle("label-success");
+                if(sender.getElementsByTagName("span")[0].classList.contains("label-primary"))
+                {
+                    sender.getElementsByTagName("span")[0].classList.remove("label-primary");
+                    sender.getElementsByTagName("span")[0].classList.add("label-default");
+
+                    //the badge
+                    sender.getElementsByTagName("span")[0].nextSibling.classList.toggle("badge-info");
+
+                }else
+                {
+                    sender.getElementsByTagName("span")[0].classList.remove("label-default");
+                    sender.getElementsByTagName("span")[0].classList.add("label-primary");
+
+                    //the badge
+                    sender.getElementsByTagName("span")[0].nextSibling.classList.toggle("badge-info");
+                }
 
                 for (var i= 0; i < this.dimensions.length; i++)
                 {
@@ -97,6 +133,30 @@
                 //this.$[sender.getAttribute("objectToHide")].classList.toggle("in");
             },
 
+            chartUpdated: function(dimensionName) {
+
+                //change badges values when data is filtered.
+                //this.dimensions[i]["values"][1] gets updated
+
+                console.log("chartUpdated called");
+                for (var i= 0; i < this.dimensions.length; i++)
+                {
+
+                    if(this.dimensions[i][0] == dimensionName) {
+
+                        var badges = this.dimensions[i][2];
+                        var val = this.dimensions[i][1].group().all();
+                        for (var j= 0; j < badges.length; j++) {
+                            badges[j][1] = val[j].value;
+                        }
+                    }
+
+                }
+
+            },
+
+
+
             ready: function() {
                 console.log("faceted-search ready");
             },
@@ -108,16 +168,23 @@
                     var selectorFunction = new Function ("d", "return d."+ this.params[i] +".value;");
                     var dim = this.crossfilter.dimension(selectorFunction);
 
+                    var chart = dc.customFacetedSearch();
+                    chart.dimension(dim);
+                    chart.group(dim.group().reduceCount());
+                    chart.polymer_element = this;
+                    chart.dimensionName = this.params[i];
+
+
                     var values = [];
                     var val = dim.group().reduceCount().top(Infinity);
                     for (var j= 0; j < val.length; j++)
                     {
                         values.push([val[j].key, val[j].value]);
+                        chart.filter(val[j].key);
                     }
 
-                    var chart = dc.customFacetedSearch();
-                    chart.dimension(dim);
-                    chart.group(dim.group().reduceCount());
+
+
 
                     var element = [
                         this.params[i],

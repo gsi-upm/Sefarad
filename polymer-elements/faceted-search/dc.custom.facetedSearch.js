@@ -7,6 +7,9 @@ dc.customFacetedSearch = function (_chart) {
 
     _chart.elementToUpdate = {};
 
+    _chart.polymer_element = {};
+    _chart.dimensionName = {};
+
 
     _chart._doRender = function () {
 
@@ -32,6 +35,8 @@ dc.customFacetedSearch = function (_chart) {
         _chart.elementToUpdate.data = procData;
 
         this.elementToUpdate.page = 1;
+
+        _chart.polymer_element.chartUpdated(_chart.dimensionName);
 
 
 
