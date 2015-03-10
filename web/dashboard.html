@@ -110,12 +110,15 @@
                         <i class="fa fa-pie-chart"></i> <span>Dashboard</span>
                     </a>
                 </li>
-                <li>
-                    <a href="query.html">
-                        <i class="fa fa-database"></i> <span>SPARQL Editor</span>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-database"></i> <span>Query</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
+                    <ul class="treeview-menu">
+                        <li><a href="query.html"><i class="fa fa-circle-o"></i> SPARQL Editor</a></li>
+                        <li><a href="newquery.html"><i class="fa fa-circle-o"></i> Add Query</a></li>
+                    </ul>
                 </li>
-
 
             </ul>
         </section>
@@ -226,7 +229,9 @@
         <div class="pull-right hidden-xs">
             <b>Version</b> 2.0
         </div>
-        <strong>Sefarad @<a href="http://www.gsi.dit.upm.es/">GSI</a></strong> - Universidad Politécnica de Madrid.
+        <strong>Powered by <a href="https://github.com/gsi-upm/Sefarad-2.0">Sefarad 2.0</a>
+            @<a href="http://www.gsi.dit.upm.es/">Grupo de Sistemas Inteligentes</a></strong>
+        - Universidad Politécnica de Madrid.
     </footer>
 </div>
 <!-- ./wrapper -->

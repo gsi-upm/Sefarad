@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app>
 <head>
     <meta charset="UTF-8">
     <title>Sefarad 2.0 | SPARQL Editor</title>
@@ -7,6 +7,16 @@
 
     <!-- Polymer: Load Polymer platform support before any code that touches the DOM. -->
     <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <!-- Dart Support -->
+    <script src="packages/web_components/dart_support.js"></script>
+
+    <!-- ------------------------------- STYLE LINKS ZONE -------------------------------------- -->
+
+    <link href='//cdn.jsdelivr.net/yasqe/2.3.8/yasqe.min.css' rel='stylesheet' type='text/css'/>
+    <link href='//cdn.jsdelivr.net/yasr/2.4.12/yasr.min.css' rel='stylesheet' type='text/css'/>
+
+
+    <!-- ------------------------------- end/ STYLE LINKS ZONE --------------------------------- -->
 
     <!-- Bootstrap 3.3.2 -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -22,6 +32,8 @@
     <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css"/>
     <!-- iCheck -->
     <link href="plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css"/>
+    <!-- Own Css -->
+    <link href="newquery.css" rel="stylesheet" type="text/css"/>
     <!-- Morris chart -->
     <link href="plugins/morris/morris.css" rel="stylesheet" type="text/css"/>
     <!-- jvectormap -->
@@ -32,15 +44,6 @@
     <link href="plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
     <!-- bootstrap wysihtml5 - text editor -->
     <link href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css"/>
-
-
-    <!-- ------------------------------- STYLE LINKS ZONE -------------------------------------- -->
-
-    <link href='//cdn.jsdelivr.net/yasqe/2.3.8/yasqe.min.css' rel='stylesheet' type='text/css'/>
-    <link href='//cdn.jsdelivr.net/yasr/2.4.12/yasr.min.css' rel='stylesheet' type='text/css'/>
-
-
-    <!-- ------------------------------- end/ STYLE LINKS ZONE --------------------------------- -->
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -99,12 +102,15 @@
                         <i class="fa fa-pie-chart"></i> <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="active">
-                    <a href="query.html">
-                        <i class="fa fa-database"></i> <span>SPARQL Editor</span>
+                <li class="treeview active">
+                    <a href="#">
+                        <i class="fa fa-database"></i> <span>Query</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
+                    <ul class="treeview-menu">
+                        <li><a href="query.html"><i class="fa fa-circle-o"></i> SPARQL Editor</a></li>
+                        <li class="active"><a href="newquery.html"><i class="fa fa-circle-o"></i> Add Query</a></li>
+                    </ul>
                 </li>
-
 
             </ul>
         </section>
@@ -116,12 +122,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Dashboard
-                <small>Control panel</small>
+                Add Query
+                <small>New querys can be created</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"> Home</a></li>
-                <li class="active"><i class="fa fa-database"></i>    Sparql Editor</li>
+                <li class="active"><i class="fa fa-code"></i>    Add Query</li>
             </ol>
         </section>
 
@@ -130,36 +136,19 @@
 
             <div id="queries">
                 <br>
-                <p class="text-light-blue">Select a query template:</p>
-                <select class="form-control" id="querySelector"></select>
-                <br>
-                <p class="text-light-blue">Select parameters to fill the template:</p>
-                <div id="paramSelector"></div>
+                <p class="text-light-blue">Name of query:</p>
+                <input type="text" class="form-control" id="queryNameSelector" ng-model="name">
                 <br>
 
-                <p class="text-light-blue">Edit your query:</p>
+                <p class="text-light-blue">Write your query:</p>
                 <div id="yasqe" style="padding-bottom: 15px"></div>
-
-                <a class="btn btn-app center-block" id="queryButton">
-                    <i class="fa fa-play"></i> Execute Query
-                </a>
-
-                <div class="alert alert-danger alert-dismissable hide" id="queryError">
-                    <i class="fa fa-ban"></i>
-
-                    <b>Query failed</b>
+                <input type="hidden" class="form-control" id="querySelector" ng-model="query">
+                <div class="save_btnGroup">
+                  <button class="save-btn-primary" id="btn_save" ng-click="saveData()">Save</button>
+                  <button class="save-btn-primary" id="btn_clear" ng-click="clearFilters()">Clear</button>
                 </div>
-
-                <div class="alert alert-success alert-dismissable hide" id="querySuccess">
-                    <i class="fa fa-check"></i>
-
-                    <b>Query success</b>
-                </div>
-
-                <div id="yasr"></div>
+                
             </div>
-
-
 
         </section>
         <!-- /.content -->
@@ -169,7 +158,9 @@
         <div class="pull-right hidden-xs">
             <b>Version</b> 2.0
         </div>
-        <strong>Sefarad @<a href="http://www.gsi.dit.upm.es/">GSI</a></strong> - Universidad Politécnica de Madrid.
+        <strong>Powered by <a href="https://github.com/gsi-upm/Sefarad-2.0">Sefarad 2.0</a>
+            @<a href="http://www.gsi.dit.upm.es/">Grupo de Sistemas Inteligentes</a></strong>
+        - Universidad Politécnica de Madrid.
     </footer>
 </div>
 <!-- ./wrapper -->
@@ -184,6 +175,9 @@
 </script>
 <!-- Bootstrap 3.3.2 JS -->
 <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<!-- Dart -->
+<script type="application/dart" src="newquery.dart"></script>
+<script type="text/javascript" src="packages/browser/dart.js"></script>
 <!-- Morris.js charts -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="plugins/morris/morris.min.js" type="text/javascript"></script>
@@ -216,9 +210,7 @@
 <script src="dist/js/demo.js" type="text/javascript"></script>
 
 <script src='//cdn.jsdelivr.net/yasqe/2.3.8/yasqe.bundled.min.js'></script>
-<script src='//cdn.jsdelivr.net/yasr/2.4.12/yasr.bundled.min.js'></script>
 <script src='plugins/papaparse/papaparse.min.js'></script>
-
 
 <script type="text/javascript">
 
@@ -238,17 +230,21 @@ var yasqe = YASQE(document.getElementById("yasqe"), {
         createShareLink: false
     }
 });
-YASR.plugins.table.defaults.datatable.scrollX = true;
-YASR.plugins.table.defaults.datatable.scrollCollapse = true;
-YASR.plugins.table.defaults.datatable.autoWidth = true;
-YASR.plugins.table.defaults.datatable.scrollY = "300px";
-YASR.plugins.rawResponse.defaults.scrollbarStyle = "native";
-var yasr = YASR(document.getElementById("yasr"), {
-    //this way, the URLs in the results are prettified using the defined prefixes in the query
-    getUsedPrefixes: yasqe.getPrefixesFromQuery
-});
 // end of configuration
 
+var myEl = document.getElementById('btn_clear');
+var myEl2 = document.getElementById('querySelector');
+var myEl3 = document.getElementById('btn_save');
+
+myEl.addEventListener('click', function() {
+    var _query = yasqe.getValue();
+    myEl2.value= _query;
+    yasqe.setValue('');
+}, false);
+myEl3.addEventListener('click', function() {
+    var _query = yasqe.getValue();
+    myEl2.value= _query;
+}, false);
 
 //This function parse the csv table to take its data.
 var googleSpreadsheetURI = "" + _csvResource;
@@ -295,59 +291,6 @@ Papa.parse(
             }
         });
 
-$("#queryButton").click(function (e) {
-    e.preventDefault();
-    executeQuery();
-});
-
-//Receives the id of the selector and populate it with the values of the corresponding parameter
-function populateParametersSelector(id, values) {
-
-    values = values.split(",");
-
-    $(id).append('<option value="">choose parameters</option>');
-    for (var i = 0; i < values.length; i++) {
-        $(id).append('<option value="' + values[i].trim() + '">' + values[i].trim() + "</option>");
-    }
-}
-
-var onSelectorChange = function (selectorOrder) {
-    console.log("selectorOnChange for selector with order: " + selectorOrder);
-
-    // update the query template using selected parameters
-    var i = $("#querySelector").val();
-    var query = queries[i];
-    var queryTemplate = query.queryTemplate.trim();
-    var paramNo = query.paramNo;
-    var paramNames = query.paramNames;
-    var pNames = paramNames.trim().split(/\s+/);
-
-    var selectedParameters = "";
-
-    //Now we compose a string with the selected parameters (or the param name if not chosen yet)
-    for (var i = 0; i < paramNo; i++) {
-        if ($("#selector" + i).val() == "") {
-            selectedParameters += "<" + pNames[i] + "> ";
-            console.log("empty parameter");
-
-        }
-        else {
-            console.log("value selected: " + document.getElementById("selector" + i).value);
-            //var values = query['param'+i].split(",");
-
-            selectedParameters += (document.getElementById("selector" + i).value + " ");
-        }
-
-    }
-    console.log(selectedParameters);
-    //selectedParameters = $("#paramSelector").val();
-
-
-    //var paramDefinition = query.paramNames;
-    queryTemplate = populateQueryWithStaticParams(queryTemplate, paramNames, selectedParameters, paramNo);
-    yasqe.setValue(queryTemplate);
-};
-
 //ExecuteQuery function. Still not generalized, it takes "restaurants" info from our endpoint at gsi's alpha
 function executeQuery() {
 
@@ -390,61 +333,6 @@ function executeQuery() {
     };
     return false;
 };
-
-//This function takes a list of parameter names and another list of parameters values.
-//Then looks for every parameter name in the query code and replace it with its parameter value.
-//parameterValues is a string containing all parameters values selected one after another ex:["Salamanca queso barato"]
-function populateQueryWithStaticParams(query, parameterNames, parameterValues) {
-
-    var pValues = parameterValues.trim().split(/\s+/);
-    var pNames = parameterNames.trim().split(/\s+/);
-
-
-    for (i = 0; i < pNames.length; i++) {
-        var re = new RegExp("<" + pNames[i] + ">", "g");
-        query = query.replace(re, pValues[i]);
-    }
-    return query;
-}
-
-
-$("#querySelector").change(function () {
-    // update param list
-    var i = $("#querySelector").val();
-    var query = queries[i];
-    var paramNo = query.paramNo;
-    var description = query.description;
-    var queryTemplate = query.queryTemplate.trim();
-    var paramNames = query.paramNames;
-
-
-    //put template query into the box (without replacing the parameters in the text)
-    yasqe.setValue(queryTemplate);
-    $("#description").text(description);
-
-    //Create as many selectors as params for the selected query
-    $("#paramSelector").empty();
-    for (var i = 0; i < paramNo; i++) {
-        var id = "selector" + i;
-        var selectorAux = $("#paramSelector").append("<select class=form-control id=" + id + ">");
-
-        //populate the selector with its parameter values
-        populateParametersSelector("#selector" + i, query["param" + i]);
-
-        //assign onChange function, we pass the index of the option chosen
-        $("#selector" + i).change(function (handler) {
-            //console.log("selectorOnChange for selector with id: " + handler.srcElement.attributes.id.value);
-            onSelectorChange(handler.currentTarget.attributes.id.value.slice(-1));
-        });
-
-    }
-
-});
-
-
-
-
-
 
 </script>
 
