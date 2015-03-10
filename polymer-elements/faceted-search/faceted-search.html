@@ -147,7 +147,15 @@
                         var badges = this.dimensions[i][2];
                         var val = this.dimensions[i][1].group().all();
                         for (var j= 0; j < badges.length; j++) {
-                            badges[j][1] = val[j].value;
+
+                            for (var k= 0; k < val.length; k++) {
+
+                               if (badges[j][0] == val[k].key) {
+                                   badges[j][1] = val[k].value;
+                               }
+
+                            }
+
                         }
                     }
 
