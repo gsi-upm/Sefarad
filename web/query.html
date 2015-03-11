@@ -132,7 +132,7 @@
             <div id="queries">
                 <br>
                 <p class="text-light-blue">Select a query template:</p>
-                <select class="form-control" id="querySelector"></select>
+                <select style="width: 50%;" class="form-control" id="querySelector"></select>
                 <br>
                 <p class="text-light-blue">Select parameters to fill the template:</p>
                 <div id="paramSelector"></div>
@@ -291,7 +291,7 @@ Papa.parse(
                 for (i = 0; i < queries.length; i++) {
                     queryAux = queries[i];
                     if (queryAux.showInDemo == "yes") {
-                        $("#querySelector").append('<option value="' + i + '">' + queryAux.name + "</option>");
+                        $("#querySelector").append('<option style="width: 50%;" value="' + i + '">' + queryAux.name + "</option>");
                         //$("#queryName").append('<option value="'+i+'">'+ (i+2) +" "+query.name+"</option>");
                     }
                 }
@@ -309,9 +309,9 @@ function populateParametersSelector(id, values) {
 
     values = values.split(",");
 
-    $(id).append('<option value="">choose parameters</option>');
+    //$(id).append('<option value="">choose parameters</option>');
     for (var i = 0; i < values.length; i++) {
-        $(id).append('<option value="' + values[i].trim() + '">' + values[i].trim() + "</option>");
+        $(id).append('<option style="width: 50%" value="' + values[i].trim() + '">' + values[i].trim() + "</option>");
     }
 }
 
@@ -430,7 +430,8 @@ $("#querySelector").change(function () {
     $("#paramSelector").empty();
     for (var i = 0; i < paramNo; i++) {
         var id = "selector" + i;
-        var selectorAux = $("#paramSelector").append("<select class=form-control id=" + id + ">");
+        var selectorAux = $("#paramSelector").append("<select style='width: 50%;' class=form-control id=" + id + ">");
+        $("#selector" + i).append('<option style="width: 50%; font-weight: bold;" value="' + paramNames.split(" ")[i] + '"><strong>' + paramNames.split(" ")[i] + "</strong></option>");
 
         //populate the selector with its parameter values
         populateParametersSelector("#selector" + i, query["param" + i]);
