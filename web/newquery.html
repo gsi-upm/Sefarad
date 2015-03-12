@@ -63,6 +63,7 @@
 
     <!-- ------------------------------- POLYMER COMPONENTS IMPORT ZONE ------------------------ -->
 
+    <link href="polymer-elements/paper-input-decorator.html" rel="import">
 
 
     <!-- ------------------------------- end/ POLYMER COMPONENTS IMPORT ZONE ------------------- -->
@@ -136,8 +137,9 @@
 
             <div id="queries">
                 <br>
-                <p class="text-light-blue">Name of query:</p>
-                <input type="text" class="form-control" id="queryNameSelector" ng-model="name">
+                <paper-input-decorator label="Name of query" floatingLabel>
+                    <input is="core-input" id="queryNameSelector" ng-model="name">
+                </paper-input-decorator>
                 <br>
 
                 <p class="text-light-blue">Write your query:</p>

@@ -11,16 +11,7 @@ class Query {
   String query = '';
   var input = querySelector('#queryNameSelector');
   var myEl2 = querySelector('#querySelector');
-  
-  String toJsonString() {
-      Map data = {"Querys": [
-          {
-              "Name" : name,
-              "Query" : myEl2.value
-          }]};
-      return JSON.encode(data);
-  }
-  
+
   void clearFilters() {
     input.value = "";
     myEl2.value = "";

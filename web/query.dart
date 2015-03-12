@@ -1,7 +1,6 @@
 import 'package:angular/angular.dart';
 import 'package:angular/application_factory.dart';
 import 'dart:html';
-import 'dart:js';
 import 'dart:convert';
 
 @Injectable()
@@ -9,7 +8,7 @@ class Query {
   final String STORAGE_KEY = 'querysSaved';
   String name = '';
   String query = '';
-  List<String> querys = [];
+  List querys = [];
   final SelectElement select = querySelector('#querySelector');
   var myEl = querySelector('#queryOption');
 
@@ -27,7 +26,7 @@ class Query {
 
       for (int i = 0; i < querys.length; i++) {
         OptionElement newQuery = new OptionElement();
-        newQuery.text = querys[i]['name'].toString();
+        newQuery.text = querys[i]['Name'].toString();
         select.children.add(newQuery);
       }
     }

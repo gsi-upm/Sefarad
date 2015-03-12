@@ -411,8 +411,8 @@ $("#querySelector").change(function () {
     var j;
     for(j = 0; j<myEl2.length; j++){
         if(parsedData[j] != undefined ) {
-            if (myEl2.options[myEl2.selectedIndex].text == parsedData[j]["name"]) {
-                yasqe.setValue(parsedData[j].query);
+            if (myEl2.options[myEl2.selectedIndex].text == parsedData[j]["Name"]) {
+                yasqe.setValue(parsedData[j].Query);
                 $("#paramSelector").empty();
                 return;
             }
