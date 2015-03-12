@@ -63,8 +63,8 @@
 
     <!-- ------------------------------- POLYMER COMPONENTS IMPORT ZONE ------------------------ -->
 
-    <link href="polymer-elements/paper-input-decorator.html" rel="import">
-
+    <link href="polymer-elements/paper-input-decorator/paper-input-decorator.html" rel="import">
+    <link href="polymer-elements/paper-button/paper-button.html" rel="import">
 
     <!-- ------------------------------- end/ POLYMER COMPONENTS IMPORT ZONE ------------------- -->
 
@@ -137,7 +137,7 @@
 
             <div id="queries">
                 <br>
-                <paper-input-decorator label="Name of query" floatingLabel>
+                <paper-input-decorator label="Name of query" error="Name is required!" class="custom" autoValidate floatingLabel>
                     <input is="core-input" id="queryNameSelector" ng-model="name">
                 </paper-input-decorator>
                 <br>
@@ -146,8 +146,8 @@
                 <div id="yasqe" style="padding-bottom: 15px"></div>
                 <input type="hidden" class="form-control" id="querySelector" ng-model="query">
                 <div class="save_btnGroup">
-                  <button class="save-btn-primary" id="btn_save" ng-click="saveData()">Save</button>
-                  <button class="save-btn-primary" id="btn_clear" ng-click="clearFilters()">Clear</button>
+                    <paper-button raised class="colored" id="btn_save" ng-click="saveData()">Save</paper-button>
+                    <paper-button raised class="colored" id="btn_clear" ng-click="clearFilters()">Clear</paper-button>
                 </div>
                 
             </div>
