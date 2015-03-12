@@ -134,9 +134,8 @@
             <div id="queries">
                 <br>
                 <p class="text-light-blue">Select a query template:</p>
-                <select class="form-control" id="querySelector"></select>
+                <select style="width: 50%;" class="form-control" id="querySelector"></select>
                 <br>
-                <input type="hidden" class="form-control" id="queryOption">
                 <p class="text-light-blue">Select parameters to fill the template:</p>
                 <div id="paramSelector"></div>
                 <br>
@@ -312,9 +311,9 @@ function populateParametersSelector(id, values) {
 
     values = values.split(",");
 
-    $(id).append('<option value="">choose parameters</option>');
+    //$(id).append('<option value="">choose parameters</option>');
     for (var i = 0; i < values.length; i++) {
-        $(id).append('<option value="' + values[i].trim() + '">' + values[i].trim() + "</option>");
+        $(id).append('<option style="width: 50%" value="' + values[i].trim() + '">' + values[i].trim() + "</option>");
     }
 }
 
@@ -339,6 +338,7 @@ var onSelectorChange = function (selectorOrder) {
             //var values = query['param'+i].split(",");
             selectedParameters += (document.getElementById("selector" + i).value + " ");
         }
+
     }
     console.log(selectedParameters);
     //selectedParameters = $("#paramSelector").val();
@@ -396,12 +396,16 @@ function executeQuery() {
 function populateQueryWithStaticParams(query, parameterNames, parameterValues) {
     var pValues = parameterValues.trim().split(/\s+/);
     var pNames = parameterNames.trim().split(/\s+/);
+
+
     for (i = 0; i < pNames.length; i++) {
         var re = new RegExp("<" + pNames[i] + ">", "g");
         query = query.replace(re, pValues[i]);
     }
     return query;
 }
+
+
 $("#querySelector").change(function () {
     // update param list
     var j;
@@ -420,24 +424,33 @@ $("#querySelector").change(function () {
     var description = query.description;
     var queryTemplate = query.queryTemplate.trim();
     var paramNames = query.paramNames;
+
+
     //put template query into the box (without replacing the parameters in the text)
     yasqe.setValue(queryTemplate);
     $("#description").text(description);
+
     //Create as many selectors as params for the selected query
     $("#paramSelector").empty();
     for (var i = 0; i < paramNo; i++) {
         var id = "selector" + i;
         var selectorAux = $("#paramSelector").append("<select style='width: 50%;' class=form-control id=" + id + ">");
         $("#selector" + i).append('<option style="width: 50%; font-weight: bold;" value="' + paramNames.split(" ")[i] + '"><strong>' + paramNames.split(" ")[i] + "</strong></option>");
+
         //populate the selector with its parameter values
         populateParametersSelector("#selector" + i, query["param" + i]);
+
         //assign onChange function, we pass the index of the option chosen
         $("#selector" + i).change(function (handler) {
             //console.log("selectorOnChange for selector with id: " + handler.srcElement.attributes.id.value);
             onSelectorChange(handler.currentTarget.attributes.id.value.slice(-1));
         });
+
     }
+
 });
+
+
 
 
 
