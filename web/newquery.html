@@ -65,6 +65,7 @@
 
     <link href="polymer-elements/paper-input-decorator/paper-input-decorator.html" rel="import">
     <link href="polymer-elements/paper-button/paper-button.html" rel="import">
+    <link href="polymer-elements/paper-shadow/paper-shadow.html" rel="import">
 
     <!-- ------------------------------- end/ POLYMER COMPONENTS IMPORT ZONE ------------------- -->
 
@@ -136,14 +137,15 @@
         <section class="content">
 
             <div id="queries">
-                <br>
                 <paper-input-decorator label="Name of query" error="Name is required!" class="custom" autoValidate floatingLabel>
                     <input is="core-input" id="queryNameSelector" ng-model="name">
                 </paper-input-decorator>
                 <br>
 
                 <p class="text-light-blue">Write your query:</p>
-                <div id="yasqe" style="padding-bottom: 15px"></div>
+                <paper-shadow class="card" z="3">
+                    <div id="yasqe" style="padding-bottom: 15px"></div>
+                </paper-shadow>
                 <input type="hidden" class="form-control" id="querySelector" ng-model="query">
                 <div class="save_btnGroup">
                     <paper-button raised class="colored" id="btn_save" ng-click="saveData()">Save</paper-button>
