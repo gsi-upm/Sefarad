@@ -65,10 +65,9 @@
 
     <link href="polymer-elements/paper-input-decorator/paper-input-decorator.html" rel="import">
     <link href="polymer-elements/paper-button/paper-button.html" rel="import">
-    <link href="polymer-elements/paper-shadow/paper-shadow.html" rel="import">
+    <link href="polymer-elements/paper-toggle-button/paper-toggle-button.html" rel="import" >
 
     <!-- ------------------------------- end/ POLYMER COMPONENTS IMPORT ZONE ------------------- -->
-
 
 </head>
 <body class="skin-blue">
@@ -138,11 +137,29 @@
         <section class="content">
 
             <div id="queries">
-                <paper-input-decorator label="Name of query" error="Name is required!" class="custom" autoValidate floatingLabel>
+
+                <div center horizontal layout>
+                <paper-input-decorator style="width: 70%; margin-right: 100px" label="Name of query"
+                                       class="custom" floatingLabel>
                     <input is="core-input" id="queryNameSelector" ng-model="name">
                 </paper-input-decorator>
-                <br>
 
+                    <section style="margin-right: 20px; margin-top: 15px">
+                        <div>Advanced</div>
+                        <paper-toggle-button class="toggle"></paper-toggle-button>
+                    </section>
+                </div>
+
+                <div id="params" horizontal layout>
+                    <paper-button id="addParam">
+                        <core-icon icon="add"></core-icon>
+                        <span style="vertical-align:middle;">add parameter</span>
+                    </paper-button>
+                    <div id="paramName" style="margin-left:20px">
+                    </div>
+                </div>
+
+                <br>
                 <p class="text-light-blue">Write your query:</p>
                 <paper-shadow class="card" z="2">
                     <div id="yasqe" style="padding-bottom: 15px"></div>
@@ -338,6 +355,24 @@ function executeQuery() {
     };
     return false;
 };
+
+var toggle = document.querySelector("paper-toggle-button");
+var paramsDiv = document.getElementById('params');
+var paramNewDiv = document.getElementById('paramName');
+var buttonAddParam = document.querySelector('#addParam');
+toggle.addEventListener('change', function () {
+    if (this.checked) {
+        paramsDiv.style.display = 'flex';
+    } else {
+        paramsDiv.style.display = 'none';
+    }
+});
+
+buttonAddParam.addEventListener('click', function() {
+    if(paramNewDiv.innerHTML.trim() == "")
+        paramNewDiv.innerHTML += "<paper-input-decorator style='"+"margin-top: -10px;'"+ "label='Name of parameters'"+  "class='custom'"+"><input is='core-input' id='queryNameParams'"+ " ng-model='params'><"+"/paper-input-decorator>";
+});
+
 
 </script>
 

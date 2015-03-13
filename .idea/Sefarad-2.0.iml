@@ -152,6 +152,8 @@
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/faceted-search/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/leaflet-map/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-button/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-input-decorator/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/pie-chart/packages" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -159,4 +161,3 @@
     <orderEntry type="library" name="Dart SDK" level="application" />
   </component>
 </module>
-

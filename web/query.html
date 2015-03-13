@@ -60,7 +60,7 @@
 
     <!-- ------------------------------- POLYMER COMPONENTS IMPORT ZONE ------------------------ -->
 
-
+    <link href="polymer-elements/paper-shadow/paper-shadow.html" rel="import">
 
     <!-- ------------------------------- end/ POLYMER COMPONENTS IMPORT ZONE ------------------- -->
 
@@ -69,7 +69,7 @@
 <body class="skin-blue">
 <div class="wrapper">
 
-    <header class="main-header">
+    <paper-shadow class="card" z="2"><header class="main-header">
         <!-- Logo -->
         <a href="dashboard.html" class="logo"><b>Sefarad</b>-2.0</a>
         <!-- Header Navbar: style can be found in header.less -->
@@ -85,6 +85,7 @@
             </div>
         </nav>
     </header>
+    </paper-shadow>
     <!-- Left side column. contains the logo and sidebar -->
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
@@ -141,7 +142,10 @@
                 <br>
 
                 <p class="text-light-blue">Edit your query:</p>
-                <div id="yasqe" style="padding-bottom: 15px"></div>
+                <paper-shadow class="card" z="2">
+                    <div id="yasqe" style="padding-bottom: 15px"></div>
+                </paper-shadow>
+                <br>
 
                 <a class="btn btn-app center-block" id="queryButton">
                     <i class="fa fa-play"></i> Execute Query
@@ -159,7 +163,9 @@
                     <b>Query success</b>
                 </div>
 
-                <div id="yasr"></div>
+                <paper-shadow class="card" z="2">
+                    <div id="yasr"></div>
+                </paper-shadow>
             </div>
 
 

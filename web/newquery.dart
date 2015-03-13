@@ -9,6 +9,7 @@ class Query {
   static Storage localStorage = window.localStorage;
   String name = '';
   String query = '';
+  List parameters = [];
   var input = querySelector('#queryNameSelector');
   var myEl2 = querySelector('#querySelector');
 
