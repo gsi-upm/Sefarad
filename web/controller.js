@@ -66,6 +66,15 @@ var newDataReceived = function () {
             dcElements[i].init();
         };
 
+        if (dcElements[i].tagName == "LINE-CHART")
+        {
+            dcElements[i].crossfilter = ndx;
+            dcElements[i].dimension = designationDim;
+            dcElements[i].group = numDesignations;
+            dcElements[i].geoJSON = rawData;
+            dcElements[i].init();
+        };
+
         if (dcElements[i].tagName == "SORTABLE-TABLE")
         {
             dcElements[i].crossfilter = ndx;

@@ -65,6 +65,7 @@
     <!-- ------------------------------- POLYMER COMPONENTS IMPORT ZONE ------------------------ -->
 
     <link rel="import" href="polymer-elements/pie-chart/pie-chart.html">
+    <link rel="import" href="polymer-elements/line-chart/line-chart.html">
     <link rel="import" href="polymer-elements/leaflet-map/leaflet-map.html">
 
     <link rel="import" href="bower_components/sortable-table/sortable-table.html">
@@ -188,6 +189,20 @@
                 <!-- right col (We are only adding the ID to make the widgets sortable)-->
                 <section class="col-lg-5 connectedSortable">
 
+                    <!-- faceted-search -->
+                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                    <div class="box box-primary widget">
+                        <div class="box-header">
+                            <h3 class="box-title">Search</h3>
+                        </div>
+                        <!-- box-body -->
+                        <div class="box-body chart-responsive">
+                            <faceted-search></faceted-search>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.faceted-search -->
+
                     <!-- pie-chart -->
                     <!--Widgets must have 'widget' class in order to render their loading screen-->
                     <div class="box box-primary widget">
@@ -202,19 +217,21 @@
                     </div>
                     <!-- /.pie-chart -->
 
-                    <!-- pie-chart -->
+                    <!-- line-chart -->
                     <!--Widgets must have 'widget' class in order to render their loading screen-->
                     <div class="box box-primary widget">
                         <div class="box-header">
-                            <h3 class="box-title">Search</h3>
+                            <h3 class="box-title">Line chart</h3>
                         </div>
                         <!-- box-body -->
                         <div class="box-body chart-responsive">
-                            <faceted-search></faceted-search>
+                            <line-chart></line-chart>
                         </div>
                         <!-- /.box-body -->
                     </div>
-                    <!-- /.pie-chart -->
+                    <!-- /.line-chart -->
+
+
 
 
                 </section>

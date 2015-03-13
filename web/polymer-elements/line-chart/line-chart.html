@@ -1,0 +1,41 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+
+<polymer-element name="line-chart" class="dc-element">
+
+
+  <template>
+      <!-- dc style -->
+      <link rel="stylesheet" type="text/css" href="dc.css" media="screen" />
+      <div id="chart"></div>
+  </template>
+
+    <script>
+        Polymer({
+
+            crossfilterObject: {},
+            chart: {},
+            dimension: {},
+            group: {},
+
+            ready: function() {
+                console.log("line-chart ready");
+            },
+
+            init: function () {
+
+                this.chart = dc.pieChart("#chart");
+                this.chart
+                        .width(250).height(250)
+                        .dimension(this.dimension)
+                        .group(this.group)
+                        .innerRadius(30)
+                        .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
+                this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart
+
+                //dc.renderAll();
+            }
+        });
+    </script>
+
+</polymer-element>
