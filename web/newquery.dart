@@ -9,15 +9,33 @@ class Query {
   static Storage localStorage = window.localStorage;
   String name = '';
   String query = '';
-  List parameters = [];
+  String params = '';
+  List<String> parameters = [];
   var input = querySelector('#queryNameSelector');
+  var myEl = querySelector('#queryParams');
   var myEl2 = querySelector('#querySelector');
+
+  void saveParams(event){
+    if(event.keyCode == 13) {
+      saveParamsButton();
+    }
+  }
+
+  void saveParamsButton(){
+      parameters.add(params);
+      myEl.value = "";
+  }
+
+  void removeParam(String param){
+    parameters.remove(param);
+  }
 
   void clearFilters() {
     input.value = "";
     myEl2.value = "";
+    parameters.clear();
   }
-  
+
   void saveData(){
     List querys = [];
     if ( window.localStorage.containsKey(STORAGE_KEY)){
@@ -29,16 +47,22 @@ class Query {
     }
 
     var queryVar = {
-      "Name" : name,
-      "Query" : myEl2.value
+        "Name" : name,
+        "Query" : myEl2.value,
+        "Parameters": parameters
     };
     querys.add(queryVar);
     window.localStorage[STORAGE_KEY] = JSON.encode(querys);
   }
 
+  //Necessary to avoid a failure to Dart execution
+  void toggleDialog1(e){
+    return;
+  }
+
 }
 void main() {
   applicationFactory()
-    .rootContextType(Query)
-    .run();
+  .rootContextType(Query)
+  .run();
 }

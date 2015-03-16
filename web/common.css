@@ -1,0 +1,26 @@
+html /deep/ [autofocus] {
+    color: #03a9f4;
+}
+
+html /deep/ .size-position {
+    position: fixed;
+    top: auto;
+    right: auto;
+}
+
+html /deep/ .size-position::shadow #scroller {
+    width: 400px;
+    height: 200px;
+}
+
+.fa-question-circle {
+    background-color: transparent; border: none;
+    margin-top: -3px;
+}
+
+.fa-times {
+    background-color: transparent;
+    border: none;
+    font-size: 1.3em;
+    margin-left: 3px;
+}

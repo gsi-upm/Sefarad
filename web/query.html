@@ -32,6 +32,8 @@
     <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css"/>
     <!-- iCheck -->
     <link href="plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css"/>
+    <!-- Own Css -->
+    <link href="common.css" rel="stylesheet" type="text/css"/>
     <!-- Morris chart -->
     <link href="plugins/morris/morris.css" rel="stylesheet" type="text/css"/>
     <!-- jvectormap -->
@@ -60,7 +62,8 @@
 
     <!-- ------------------------------- POLYMER COMPONENTS IMPORT ZONE ------------------------ -->
 
-    <link href="polymer-elements/paper-shadow/paper-shadow.html" rel="import">
+    <link href="polymer-elements/paper-action-dialog/paper-action-dialog.html" rel="import">
+    <link href="polymer-elements/paper-button/paper-button.html" rel="import">
 
     <!-- ------------------------------- end/ POLYMER COMPONENTS IMPORT ZONE ------------------- -->
 
@@ -119,9 +122,26 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
+            <h1 horizontal layout>
                 Sparql Editor
-                <small>Choose the query and check the result</small>
+                <small horizontal layout style="margin-top: 5px">Choose the query and check the result
+
+                    <template is="auto-binding">
+
+                        <section on-tap="{{toggleDialog1}}">
+
+                            <button class="fa fa-question-circle">
+                            </button>
+
+                            <paper-action-dialog class="size-position" backdrop autoCloseDisabled layered="false">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                                <paper-button affirmative autofocus>Tap me to close</paper-button>
+                            </paper-action-dialog>
+
+                        </section>
+                    </template>
+                </small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"> Home</a></li>
@@ -236,230 +256,256 @@
 
 <script type="text/javascript">
 
-var _csvResource = "./assets/" + "SlovakianDemoSparqlQueries.csv";
-var _editorEndpoint = 'http://demos.gsi.dit.upm.es/fuseki/geo/query?query=';
-var myEl2 = document.getElementById('querySelector');
-var parsedData = JSON.parse(localStorage.getItem("querysSaved")) || {};
+    var _csvResource = "./assets/" + "SlovakianDemoSparqlQueries.csv";
+    var _editorEndpoint = 'http://demos.gsi.dit.upm.es/fuseki/geo/query?query=';
+    var myEl2 = document.getElementById('querySelector');
+    var parsedData = JSON.parse(localStorage.getItem("querysSaved")) || {};
 
-//configuration
-var queries = [];
-var yasqe = YASQE(document.getElementById("yasqe"), {
-    sparql: {
-        showQueryButton: false,
-        callbacks:{
-            success: function(data){
-                console.log("success", data);
-            }
-        },
-        createShareLink: false
-    }
-});
-YASR.plugins.table.defaults.datatable.scrollX = true;
-YASR.plugins.table.defaults.datatable.scrollCollapse = true;
-YASR.plugins.table.defaults.datatable.autoWidth = true;
-YASR.plugins.table.defaults.datatable.scrollY = "300px";
-YASR.plugins.rawResponse.defaults.scrollbarStyle = "native";
-var yasr = YASR(document.getElementById("yasr"), {
-    //this way, the URLs in the results are prettified using the defined prefixes in the query
-    getUsedPrefixes: yasqe.getPrefixesFromQuery
-});
-// end of configuration
-
-//This function parse the csv table to take its data.
-var googleSpreadsheetURI = "" + _csvResource;
-Papa.parse(
-        googleSpreadsheetURI, {
-            download: true,
-            complete: function (json) {
-                // here populate the list from the json data
-                var paramNo;
-                for (var i = 1; i < json.data.length; i++) {
-                    //How many params?
-                    paramNo = 0;
-                    try {
-                        paramNo = parseInt(json.data[i][5], 10);
-                    } catch (e) {
-                    }
-                    queries.push({
-                        linkedResources: json.data[i][0],
-                        showInDemo: json.data[i][1].trim(),
-                        name: json.data[i][2],
-                        queryTemplate: json.data[i][3],
-                        description: json.data[i][4],
-                        paramNo: paramNo,
-                        paramNames: json.data[i][6]
-                    });
-                    //Here we add a variable number of parameter rows, each with its values,
-                    //in the format: param0, param1...
-                    for (var j = 0; j < paramNo; j++) {
-                        queries[i - 1]["param" + j] = json.data[i][7 + j];
-                    }
+    //configuration
+    var queries = [];
+    var yasqe = YASQE(document.getElementById("yasqe"), {
+        sparql: {
+            showQueryButton: false,
+            callbacks:{
+                success: function(data){
+                    console.log("success", data);
                 }
-                //Here we populate the query form selector with query names
-                var queryAux;
-                for (i = 0; i < queries.length; i++) {
-                    queryAux = queries[i];
-                    if (queryAux.showInDemo == "yes") {
-                        $("#querySelector").append('<option style="width: 50%;" value="' + i + '">' + queryAux.name + "</option>");
-                        //$("#queryName").append('<option value="'+i+'">'+ (i+2) +" "+query.name+"</option>");
+            },
+            createShareLink: false
+        }
+    });
+    YASR.plugins.table.defaults.datatable.scrollX = true;
+    YASR.plugins.table.defaults.datatable.scrollCollapse = true;
+    YASR.plugins.table.defaults.datatable.autoWidth = true;
+    YASR.plugins.table.defaults.datatable.scrollY = "300px";
+    YASR.plugins.rawResponse.defaults.scrollbarStyle = "native";
+    var yasr = YASR(document.getElementById("yasr"), {
+        //this way, the URLs in the results are prettified using the defined prefixes in the query
+        getUsedPrefixes: yasqe.getPrefixesFromQuery
+    });
+    // end of configuration
+
+    //This function parse the csv table to take its data.
+    var googleSpreadsheetURI = "" + _csvResource;
+    Papa.parse(
+            googleSpreadsheetURI, {
+                download: true,
+                complete: function (json) {
+                    // here populate the list from the json data
+                    var paramNo;
+                    for (var i = 1; i < json.data.length; i++) {
+                        //How many params?
+                        paramNo = 0;
+                        try {
+                            paramNo = parseInt(json.data[i][5], 10);
+                        } catch (e) {
+                        }
+                        queries.push({
+                            linkedResources: json.data[i][0],
+                            showInDemo: json.data[i][1].trim(),
+                            name: json.data[i][2],
+                            queryTemplate: json.data[i][3],
+                            description: json.data[i][4],
+                            paramNo: paramNo,
+                            paramNames: json.data[i][6]
+                        });
+                        //Here we add a variable number of parameter rows, each with its values,
+                        //in the format: param0, param1...
+                        for (var j = 0; j < paramNo; j++) {
+                            queries[i - 1]["param" + j] = json.data[i][7 + j];
+                        }
                     }
+                    //Here we populate the query form selector with query names
+                    var queryAux;
+                    for (i = 0; i < queries.length; i++) {
+                        queryAux = queries[i];
+                        if (queryAux.showInDemo == "yes") {
+                            $("#querySelector").append('<option style="width: 50%;" value="' + i + '">' + queryAux.name + "</option>");
+                            //$("#queryName").append('<option value="'+i+'">'+ (i+2) +" "+query.name+"</option>");
+                        }
+                    }
+                    $("#querySelector").change();
                 }
-                $("#querySelector").change();
-            }
-        });
-$("#queryButton").click(function (e) {
-    e.preventDefault();
-    executeQuery();
-});
+            });
+    $("#queryButton").click(function (e) {
+        e.preventDefault();
+        executeQuery();
+    });
 
-//Receives the id of the selector and populate it with the values of the corresponding parameter
-function populateParametersSelector(id, values) {
+    //Receives the id of the selector and populate it with the values of the corresponding parameter
+    function populateParametersSelector(id, values) {
 
-    values = values.split(",");
+        values = values.split(",");
 
-    //$(id).append('<option value="">choose parameters</option>');
-    for (var i = 0; i < values.length; i++) {
-        $(id).append('<option style="width: 50%" value="' + values[i].trim() + '">' + values[i].trim() + "</option>");
+        //$(id).append('<option value="">choose parameters</option>');
+        for (var i = 0; i < values.length; i++) {
+            $(id).append('<option style="width: 50%" value="' + values[i].trim() + '">' + values[i].trim() + "</option>");
+        }
     }
-}
 
-var onSelectorChange = function (selectorOrder) {
-    console.log("selectorOnChange for selector with order: " + selectorOrder);
-    // update the query template using selected parameters
-    var i = $("#querySelector").val();
-    var query = queries[i];
-    var queryTemplate = query.queryTemplate.trim();
-    var paramNo = query.paramNo;
-    var paramNames = query.paramNames;
-    var pNames = paramNames.trim().split(/\s+/);
-    var selectedParameters = "";
-    //Now we compose a string with the selected parameters (or the param name if not chosen yet)
-    for (var i = 0; i < paramNo; i++) {
-        if ($("#selector" + i).val() == "") {
-            selectedParameters += "<" + pNames[i] + "> ";
-            console.log("empty parameter");
-        }
-        else {
-            console.log("value selected: " + document.getElementById("selector" + i).value);
-            //var values = query['param'+i].split(",");
-            selectedParameters += (document.getElementById("selector" + i).value + " ");
-        }
-
-    }
-    console.log(selectedParameters);
-    //selectedParameters = $("#paramSelector").val();
-    //var paramDefinition = query.paramNames;
-    queryTemplate = populateQueryWithStaticParams(queryTemplate, paramNames, selectedParameters, paramNo);
-    yasqe.setValue(queryTemplate);
-};
-
-//ExecuteQuery function. Still not generalized, it takes "restaurants" info from our endpoint at gsi's alpha
-function executeQuery() {
-
-    $("#querySuccess").addClass("hide");
-    $("#queryError").addClass("hide");
-
-    var _query = yasqe.getValue().replace(/(\r\n|\n|\r)/gm, "");
-    console.log(_query);
-    var temporal = _editorEndpoint + encodeURIComponent(_query);
-    var req = new XMLHttpRequest();
-    req.open("GET", temporal, true);
-    var params = encodeURIComponent(_query);
-    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    req.setRequestHeader("Accept", "application/sparql-results+json");
-    req.send();
-    req.onreadystatechange = function () {
-        if (req.readyState == 4) {
-            if (req.status == 200) {
-
-                var res = eval("(" + req.responseText + ")");
-                var data = JSON.stringify(res.results.bindings);
-                console.log(data);
-                $("#querySuccess").removeClass('hide');
-                //ko.mapping.fromJSON(data, vm.viewData);
-                //updateWidgets(true);
-                yasr.setResponse({
-                    response: res,
-                    contentType: req.getResponseHeader("Content-Type")
-                });
-
-
-
-
-
-            } else {
-                $("#queryError").removeClass('hide');
-
+    var onSelectorChange = function (selectorOrder) {
+        console.log("selectorOnChange for selector with order: " + selectorOrder);
+        // update the query template using selected parameters
+        var i = $("#querySelector").val();
+        var query = queries[i];
+        var queryTemplate = query.queryTemplate.trim();
+        var paramNo = query.paramNo;
+        var paramNames = query.paramNames;
+        var pNames = paramNames.trim().split(/\s+/);
+        var selectedParameters = "";
+        //Now we compose a string with the selected parameters (or the param name if not chosen yet)
+        for (var i = 0; i < paramNo; i++) {
+            if ($("#selector" + i).val() == "") {
+                selectedParameters += "<" + pNames[i] + "> ";
+                console.log("empty parameter");
             }
+            else {
+                console.log("value selected: " + document.getElementById("selector" + i).value);
+                //var values = query['param'+i].split(",");
+                selectedParameters += (document.getElementById("selector" + i).value + " ");
+            }
+
         }
+        console.log(selectedParameters);
+        //selectedParameters = $("#paramSelector").val();
+        //var paramDefinition = query.paramNames;
+        queryTemplate = populateQueryWithStaticParams(queryTemplate, paramNames, selectedParameters, paramNo);
+        yasqe.setValue(queryTemplate);
     };
-    return false;
-};
 
-//This function takes a list of parameter names and another list of parameters values.
-//Then looks for every parameter name in the query code and replace it with its parameter value.
-//parameterValues is a string containing all parameters values selected one after another ex:["Salamanca queso barato"]
-function populateQueryWithStaticParams(query, parameterNames, parameterValues) {
-    var pValues = parameterValues.trim().split(/\s+/);
-    var pNames = parameterNames.trim().split(/\s+/);
+    //ExecuteQuery function. Still not generalized, it takes "restaurants" info from our endpoint at gsi's alpha
+    function executeQuery() {
+
+        $("#querySuccess").addClass("hide");
+        $("#queryError").addClass("hide");
+
+        var _query = yasqe.getValue().replace(/(\r\n|\n|\r)/gm, "");
+        console.log(_query);
+        var temporal = _editorEndpoint + encodeURIComponent(_query);
+        var req = new XMLHttpRequest();
+        req.open("GET", temporal, true);
+        var params = encodeURIComponent(_query);
+        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        req.setRequestHeader("Accept", "application/sparql-results+json");
+        req.send();
+        req.onreadystatechange = function () {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+
+                    var res = eval("(" + req.responseText + ")");
+                    var data = JSON.stringify(res.results.bindings);
+                    console.log(data);
+                    $("#querySuccess").removeClass('hide');
+                    //ko.mapping.fromJSON(data, vm.viewData);
+                    //updateWidgets(true);
+                    yasr.setResponse({
+                        response: res,
+                        contentType: req.getResponseHeader("Content-Type")
+                    });
 
 
-    for (i = 0; i < pNames.length; i++) {
-        var re = new RegExp("<" + pNames[i] + ">", "g");
-        query = query.replace(re, pValues[i]);
+
+
+
+                } else {
+                    $("#queryError").removeClass('hide');
+
+                }
+            }
+        };
+        return false;
+    };
+
+    //This function takes a list of parameter names and another list of parameters values.
+    //Then looks for every parameter name in the query code and replace it with its parameter value.
+    //parameterValues is a string containing all parameters values selected one after another ex:["Salamanca queso barato"]
+    function populateQueryWithStaticParams(query, parameterNames, parameterValues) {
+        var pValues = parameterValues.trim().split(/\s+/);
+        var pNames = parameterNames.trim().split(/\s+/);
+
+
+        for (i = 0; i < pNames.length; i++) {
+            var re = new RegExp("<" + pNames[i] + ">", "g");
+            query = query.replace(re, pValues[i]);
+        }
+        return query;
     }
-    return query;
-}
 
 
-$("#querySelector").change(function () {
-    // update param list
-    var j;
-    for(j = 0; j<myEl2.length; j++){
-        if(parsedData[j] != undefined ) {
-            if (myEl2.options[myEl2.selectedIndex].text == parsedData[j]["Name"]) {
-                yasqe.setValue(parsedData[j].Query);
-                $("#paramSelector").empty();
-                return;
+    $("#querySelector").change(function () {
+        // update param list
+        var j;
+        for(j = 0; j<myEl2.length; j++){
+            if(parsedData[j] != undefined ) {
+                if (myEl2.options[myEl2.selectedIndex].text == parsedData[j]["Name"]) {
+                    yasqe.setValue(parsedData[j].Query);
+                    $("#paramSelector").empty();
+                    return;
+                }
             }
         }
-    }
-    var i = $("#querySelector").val();
-    var query = queries[i];
-    var paramNo = query.paramNo;
-    var description = query.description;
-    var queryTemplate = query.queryTemplate.trim();
-    var paramNames = query.paramNames;
+        var i = $("#querySelector").val();
+        var query = queries[i];
+        var paramNo = query.paramNo;
+        var description = query.description;
+        var queryTemplate = query.queryTemplate.trim();
+        var paramNames = query.paramNames;
 
 
-    //put template query into the box (without replacing the parameters in the text)
-    yasqe.setValue(queryTemplate);
-    $("#description").text(description);
+        //put template query into the box (without replacing the parameters in the text)
+        yasqe.setValue(queryTemplate);
+        $("#description").text(description);
 
-    //Create as many selectors as params for the selected query
-    $("#paramSelector").empty();
-    for (var i = 0; i < paramNo; i++) {
-        var id = "selector" + i;
-        var selectorAux = $("#paramSelector").append("<select style='width: 50%;' class=form-control id=" + id + ">");
-        $("#selector" + i).append('<option style="width: 50%; font-weight: bold;" value="' + paramNames.split(" ")[i] + '"><strong>' + paramNames.split(" ")[i] + "</strong></option>");
+        //Create as many selectors as params for the selected query
+        $("#paramSelector").empty();
+        for (var i = 0; i < paramNo; i++) {
+            var id = "selector" + i;
+            var selectorAux = $("#paramSelector").append("<select style='width: 50%;' class=form-control id=" + id + ">");
+            $("#selector" + i).append('<option style="width: 50%; font-weight: bold;" value="' + paramNames.split(" ")[i] + '"><strong>' + paramNames.split(" ")[i] + "</strong></option>");
 
-        //populate the selector with its parameter values
-        populateParametersSelector("#selector" + i, query["param" + i]);
+            //populate the selector with its parameter values
+            populateParametersSelector("#selector" + i, query["param" + i]);
 
-        //assign onChange function, we pass the index of the option chosen
-        $("#selector" + i).change(function (handler) {
-            //console.log("selectorOnChange for selector with id: " + handler.srcElement.attributes.id.value);
-            onSelectorChange(handler.currentTarget.attributes.id.value.slice(-1));
-        });
+            //assign onChange function, we pass the index of the option chosen
+            $("#selector" + i).change(function (handler) {
+                //console.log("selectorOnChange for selector with id: " + handler.srcElement.attributes.id.value);
+                onSelectorChange(handler.currentTarget.attributes.id.value.slice(-1));
+            });
 
-    }
+        }
 
-});
-
-
+    });
 
 
 
+    var scope = document.querySelector('template[is=auto-binding]');
+
+    scope.toggleDialog1 = function(e) {
+        if (e.target.localName != 'button') {
+            return;
+        }
+        var d = e.target.nextElementSibling;
+        if (!d) {
+            return;
+        }
+        d.toggle();
+    };
+
+    scope.transitions = [
+        'core-transition-center',
+        'core-transition-top',
+        'core-transition-bottom',
+        'core-transition-left',
+        'core-transition-right'
+    ];
+
+    scope.toggleDialog2 = function(e) {
+        if (e.target.localName != 'button') {
+            return;
+        }
+        scope.transition = e.target.getAttribute('transition');
+        document.getElementById('dialog2').toggle();
+    };
 
 </script>
 

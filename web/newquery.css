@@ -1,53 +1,76 @@
 .save_btnGroup>button:last-child {
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
 }
 
 .save_btnGroup>button:first-child {
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .save_btnGroup button+button {
-  margin-left: -6px;
+    margin-left: -6px;
 }
 .save-btn-primary{
-  color: #333;
-  border: 1px solid transparent;
-  background-color: #fff;
-  border-color: #ccc;
-  border-width: 1px;
-  display: inline-block;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  white-space: nowrap;
-  padding: 6px 12px;
-  border-radius: 4px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: button;
-  overflow: visible;
-  box-sizing: border-box;
+    color: #333;
+    border: 1px solid transparent;
+    background-color: #fff;
+    border-color: #ccc;
+    border-width: 1px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    white-space: nowrap;
+    padding: 6px 12px;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-appearance: button;
+    overflow: visible;
+    box-sizing: border-box;
 }
 
 .save_btnGroup {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 .save-btn-primary:focus {
-  outline: 0;
+    outline: 0;
 }
 
 .save-btn-primary:hover, .save-btn-primary:active {
-  color: #fff;
-  outline: 0;
-  background-color: #337ab7;
-  border-color: #337ab7;
+    color: #fff;
+    outline: 0;
+    background-color: #337ab7;
+    border-color: #337ab7;
 }
 
 #params{
     display: none;
+}
+
+#paramName{
+    display: none;
+}
+
+#paramList{
+    margin-left: 20px;
+    display: none;
+}
+
+.elementList{
+    display: inline;
+    background-color: #ffffff;
+    padding: 5px 0 5px 5px;
+    font-size: 16px;
+    height: auto;
+}
+
+#paramList div {
+    margin-right: 7px;
+    margin-top: 7px;
+    float: left;
 }
