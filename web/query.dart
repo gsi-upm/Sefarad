@@ -6,9 +6,10 @@ import 'dart:convert';
 @Injectable()
 class Query {
   final String STORAGE_KEY = 'querysSaved';
-  String name = '';
+  List names;
   String query = '';
   List querys = [];
+  List params;
   final SelectElement select = querySelector('#querySelector');
   var myEl = querySelector('#queryOption');
 
@@ -23,13 +24,11 @@ class Query {
       //Decoding Error, should not happen
       if (querys == null)
         querys = [];
-
-      for (int i = 0; i < querys.length; i++) {
-        OptionElement newQuery = new OptionElement();
-        newQuery.text = querys[i]['Name'].toString();
-        select.children.add(newQuery);
-      }
     }
+  }
+  //Necessary to avoid a failure to Dart execution
+  void toggleDialog1(e){
+    return;
   }
 
 }
