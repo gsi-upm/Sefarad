@@ -443,6 +443,13 @@
                 if (myEl2.options[myEl2.selectedIndex].text == parsedData[j]["Name"]) {
                     yasqe.setValue(parsedData[j].Query);
                     $("#paramSelector").empty();
+                    if(parsedData[j].Parameters.length != 0) {
+                        var id = "selector";
+                        $("#paramSelector").append("<select style='width: 50%;' class=form-control id=" + id + ">");
+                        for (var i = 0; i < parsedData[j].Parameters.length; i++) {
+                            $("#selector").append('<option style="width: 50%; font-weight: bold;" value="' + parsedData[j].Parameters[i] + '"><strong>' + parsedData[j].Parameters[i] + "</strong></option>");
+                        }
+                    }
                     return;
                 }
             }
