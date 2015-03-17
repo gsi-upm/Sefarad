@@ -51,6 +51,9 @@ class Query {
         "Query" : myEl2.value,
         "Parameters": parameters
     };
+    var path = 'querys.json';
+    //HttpRequest.request(path, method:'POST',requestHeaders: {"content-type": "application/json"},
+        //sendData: JSON.encode(querys));
     querys.add(queryVar);
     window.localStorage[STORAGE_KEY] = JSON.encode(querys);
   }

@@ -157,7 +157,8 @@
 
                 <p class="text-light-blue">Select a query template:</p>
                 <select style="width: 50%;" class="form-control" id="querySelector">
-                    <option ng-repeat="query in querys">{{query['Name']}}</option></select>
+                    <option ng-repeat="query in querys" ng-value="query.Name">{{query.Name}}</option>
+                </select>
                 <br>
                 <p class="text-light-blue">Select parameters to fill the template:</p>
                 <div id="paramSelector"></div>
@@ -477,7 +478,6 @@
         }
 
     });
-
 
 
     var scope = document.querySelector('template[is=auto-binding]');
