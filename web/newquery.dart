@@ -10,7 +10,8 @@ class Query {
   String name = '';
   String query = '';
   String params = '';
-  List<String> parameters = [];
+  String value = '';
+  List parameters = [];
   var input = querySelector('#queryNameSelector');
   var myEl = querySelector('#queryParams');
   var myEl2 = querySelector('#querySelector');

@@ -10,20 +10,23 @@ class Query {
   String query = '';
   List querys = [];
   List params;
-  final SelectElement select = querySelector('#querySelector');
-  var myEl = querySelector('#queryOption');
 
   Query(){
     _loadQuery();
   }
 
   _loadQuery() {
-    if (window.localStorage.containsKey(STORAGE_KEY)) {
-      querys = JSON.decode(window.localStorage[STORAGE_KEY]);
+    var url = "querys.json";
+    var request = HttpRequest.getString(url).then(onDataLoaded);
+  }
 
-      //Decoding Error, should not happen
-      if (querys == null)
-        querys = [];
+  void onDataLoaded(String responseText) {
+    //Decoding Error, should not happen
+    if (querys == null)
+      querys = [];
+    querys = JSON.decode(responseText);
+    if (window.localStorage.containsKey(STORAGE_KEY) && window.localStorage[STORAGE_KEY].length != 0 ) {
+      querys.addAll(JSON.decode(window.localStorage[STORAGE_KEY]));
     }
   }
   //Necessary to avoid a failure to Dart execution

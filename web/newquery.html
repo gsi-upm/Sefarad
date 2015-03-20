@@ -177,7 +177,7 @@
                         <core-icon icon="add"></core-icon>
                         <span style="vertical-align:middle;">add parameter</span>
                     </paper-button>
-                    <div id="paramName" horizontal layout style="margin-left:20px">
+                    <div id="paramName" horizontal layout>
                         <paper-input-decorator style="margin-top: -10px;" label="Name of parameters" class="custom">
                             <input is="core-input" ng-keypress="saveParams($event)" ng-model="params" id="queryParams">
                         </paper-input-decorator>
@@ -187,14 +187,16 @@
 
                 </div>
 
-                <div id="paramList">
+                <div id="paramList" flex>
                     <div ng-repeat="param in parameters">
                         <div id="{{param}}">
-                            <paper-shadow class="elementList" z="1">{{param}}
-                            <button ng-click="removeParam(param)" class="fa fa-times"></button>
+                            <paper-shadow class="elementList" z="1">
+                                 {{param}}
+                                <button ng-click="removeParam(param)" class="fa fa-times"></button>
                             </paper-shadow>
                         </div>
                     </div>
+                    <div class="clearfix"></div>
                 </div>
 
                 <div class="clearfix"></div>
@@ -407,11 +409,14 @@
         } else {
             paramsDiv.style.display = 'none';
             paramList.style.display = 'none';
+            valueList.style.display = 'none';
         }
     });
     addParam.addEventListener('click', function () {
         if (paramNewDiv.style.display != 'flex') {
             paramNewDiv.style.display = 'flex';
+        } else {
+            paramNewDiv.style.display = 'none';
         }
     });
 

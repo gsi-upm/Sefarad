@@ -24,3 +24,8 @@ html /deep/ .size-position::shadow #scroller {
     font-size: 1.3em;
     margin-left: 3px;
 }
+
+#buttonParam{
+    background-color: transparent;
+    border: none;
+}
