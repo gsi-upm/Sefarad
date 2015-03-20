@@ -38,6 +38,9 @@ class Query {
   }
 
   void saveData(){
+
+    //if(!checkParamPattern()){return;}
+
     List querys = [];
     if ( window.localStorage.containsKey(STORAGE_KEY)){
       querys = JSON.decode(window.localStorage[STORAGE_KEY]);
@@ -58,6 +61,17 @@ class Query {
     querys.add(queryVar);
     window.localStorage[STORAGE_KEY] = JSON.encode(querys);
   }
+
+  /*bool checkParamPattern(){
+
+    int start = name.indexOf('<');
+    int end = name.indexOf('>');
+    String compare = name.substring(start, end+1);
+    if(!query.contains(compare))
+      return false;
+    else
+      return true;
+  }*/
 
   //Necessary to avoid a failure to Dart execution
   void toggleDialog1(e){

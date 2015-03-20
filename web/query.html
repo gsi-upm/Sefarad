@@ -264,9 +264,18 @@
     var parsedData = {};
     $.getJSON("querys.json", function (data) {
         parsedData = data;
-        if(localStorage.getItem('querysSaved').length != 0)
-            parsedData.push(JSON.parse(localStorage.getItem('querysSaved')));
+        if(localStorage.getItem('querysSaved') != null )
+            if(localStorage.getItem('querysSaved').length != 0 ) {
+                var jsonLocal = localStorage.getItem("querysSaved");
+                jsonLocal = jsonLocal.substring(1, jsonLocal.length-1);
+                var local = JSON.parse(jsonLocal);
+                parsedData.push(local);
+            }
     });
+    window.onload = function() {
+        if(parsedData[0] != undefined )
+            yasqe.setValue(parsedData[0]["Query"]);
+    };
 
     //configuration
     var yasqe = YASQE(document.getElementById("yasqe"), {
