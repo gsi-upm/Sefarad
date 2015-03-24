@@ -134,8 +134,15 @@
                             </button>
 
                             <paper-action-dialog class="size-position" backdrop autoCloseDisabled layered="false">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-
+                                <h3>Sparql Editor</h3>
+                                <br>
+                                <ol style="font-size: 0.92em">
+                                    <li> Choose a query template in the list </li><br>
+                                    <li> If you have created a parameters list, select values on it </li><br>
+                                    <li> Press "Execute Query" button</li><br>
+                                    <li> If an error occurs, check the query syntax</li><br>
+                                    <li> Below appears the results of data retrieved</li><br>
+                                </ol>
                                 <paper-button affirmative autofocus>Tap me to close</paper-button>
                             </paper-action-dialog>
 
@@ -156,12 +163,16 @@
                 <br>
 
                 <p class="text-light-blue">Select a query template:</p>
-                <select style="width: 50%;" class="form-control" id="querySelector">
+                <select style="width: 65%;" class="form-control" id="querySelector">
                     <option ng-repeat="query in querys" ng-value="query.Name">{{query.Name}}</option>
                 </select>
                 <br>
                 <p class="text-light-blue">Select parameters to fill the template:</p>
-                <div id="paramSelector"></div>
+                <div id="paramSelector0"></div>
+                <div id="paramSelector1"></div>
+                <div id="paramSelector2"></div>
+                <div id="paramSelector3"></div>
+                <div id="paramSelector4"></div>
                 <br>
 
                 <p class="text-light-blue">Edit your query:</p>
@@ -261,20 +272,50 @@
 
     var _editorEndpoint = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query=';
     var myEl2 = document.getElementById('querySelector');
+    var regex = /<(\S+)>/g;
     var parsedData = {};
     $.getJSON("querys.json", function (data) {
         parsedData = data;
         if(localStorage.getItem('querysSaved') != null )
             if(localStorage.getItem('querysSaved').length != 0 ) {
                 var jsonLocal = localStorage.getItem("querysSaved");
-                jsonLocal = jsonLocal.substring(1, jsonLocal.length-1);
-                var local = JSON.parse(jsonLocal);
-                parsedData.push(local);
+                var mylocal = JSON.parse(jsonLocal);
+                var i;
+                for(i = 0; i<mylocal.length; i++) {
+                    parsedData.push(mylocal[i]);
+                }
             }
     });
     window.onload = function() {
-        if(parsedData[0] != undefined )
-            yasqe.setValue(parsedData[0]["Query"]);
+        if(parsedData[0] != undefined ) {
+            var match = parsedData[0]["Name"].match(regex);
+            var query = parsedData[0]["Query"];
+            var k = 0;
+            for(k = 0; k < 5; k++) {
+                $("#paramSelector"+k).empty();
+                if(parsedData[0]["Parameters"+k].length != 0) {
+                    var id = "selector"+k;
+                    $("#paramSelector"+k).append("<select style='width: 65%;' class=form-control id=" + id + ">");
+                    for (var i = 0; i < parsedData[0]["Parameters"+k].length; i++) {
+                        $("#selector"+k).append('<option style="width: 65%; font-weight: bold;" value="' + parsedData[0]["Parameters"+k][i] + '"><strong>' + parsedData[0]["Parameters"+k][i] + "</strong></option>");
+                    }
+                    var selectedParameters = document.getElementById("selector"+k).value;
+                    query = query.replace(match[k], selectedParameters);
+                    match[k] = selectedParameters;
+                    $("#selector"+k).change(function () {
+                        var regex2 = /selector(\S+)/i;
+                        var index = this.id.match(regex2);
+                        var selectedParameters = this.value;
+                        query = query.replace(match[index[1]], selectedParameters);
+                        match[index[1]] = selectedParameters;
+                        yasqe.setValue(query);
+                    });
+                }
+            }
+
+            yasqe.setValue(query);
+            return;
+        }
     };
 
     //configuration
@@ -353,26 +394,30 @@
         for(j = 0; j<myEl2.length; j++){
             if(parsedData[j] != undefined ) {
                 if (myEl2.value == parsedData[j]["Name"]) {
-                    var start = myEl2.value.indexOf("<");
-                    var end = myEl2.value.indexOf(">");
-                    var paramValue = myEl2.value.substring(start, end+1);
+
+                    var match = parsedData[j]["Name"].match(regex);
                     var query = parsedData[j]["Query"];
-                    $("#paramSelector").empty();
-                    if(parsedData[j]["Parameters"].length != 0) {
-                        var id = "selector";
-                        $("#paramSelector").append("<select style='width: 50%;' class=form-control id=" + id + ">");
-                        for (var i = 0; i < parsedData[j]["Parameters"].length; i++) {
-                            $("#selector").append('<option style="width: 50%; font-weight: bold;" value="' + parsedData[j]["Parameters"][i] + '"><strong>' + parsedData[j].Parameters[i] + "</strong></option>");
+                    var k = 0;
+                    for(k = 0; k < 5; k++) {
+                        $("#paramSelector"+k).empty();
+                        if(parsedData[j]["Parameters"+k].length != 0) {
+                            var id = "selector"+k;
+                            $("#paramSelector"+k).append("<select style='width: 65%;' class=form-control id=" + id + ">");
+                            for (var i = 0; i < parsedData[j]["Parameters"+k].length; i++) {
+                                $("#selector"+k).append('<option style="width: 65%; font-weight: bold;" value="' + parsedData[j]["Parameters"+k][i] + '"><strong>' + parsedData[j]["Parameters"+k][i] + "</strong></option>");
+                            }
+                            var selectedParameters = document.getElementById("selector"+k).value;
+                            query = query.replace(match[k], selectedParameters);
+                            match[k] = selectedParameters;
+                            $("#selector"+k).change(function () {
+                                var regex2 = /selector(\S+)/i;
+                                var index = this.id.match(regex2);
+                                var selectedParameters = this.value;
+                                query = query.replace(match[index[1]], selectedParameters);
+                                match[index[1]] = selectedParameters;
+                                yasqe.setValue(query);
+                            });
                         }
-                        var selectedParameters = document.getElementById("selector").value;
-                        query = query.replace(paramValue, selectedParameters);
-                        paramValue = selectedParameters;
-                        $("#selector").change(function () {
-                            var selectedParameters = document.getElementById("selector").value;
-                            query = query.replace(paramValue, selectedParameters);
-                            paramValue = selectedParameters;
-                            yasqe.setValue(query);
-                        });
                     }
 
                     yasqe.setValue(query);

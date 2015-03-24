@@ -52,6 +52,10 @@
     display: none;
 }
 
+#paramSelector{
+    display: none;
+}
+
 #paramName{
     display: none;
     margin-left:20px

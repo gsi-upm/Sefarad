@@ -9,8 +9,8 @@ html /deep/ .size-position {
 }
 
 html /deep/ .size-position::shadow #scroller {
-    width: 400px;
-    height: 200px;
+    width: 500px;
+    height: 260px;
 }
 
 .fa-question-circle {
@@ -28,4 +28,22 @@ html /deep/ .size-position::shadow #scroller {
 #buttonParam{
     background-color: transparent;
     border: none;
+}
+
+.size-position ol {
+    -webkit-padding-start: 10px;
+    -moz-padding-start: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+.size-position li {
+    -webkit-margin-start: 35px;
+    font-size: 1em;
+    font-weight: normal;
+}
+.size-position h3 {
+    margin-top: 0;
+    text-align: center;
 }

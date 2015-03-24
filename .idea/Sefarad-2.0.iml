@@ -149,9 +149,9 @@
       <excludeFolder url="file://$MODULE_DIR$/web/plugins/sparkline/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/plugins/sparql-geojson/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/plugins/timepicker/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/bar-chart/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/faceted-search/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/leaflet-map/packages" />
-      <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/bar-chart/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-action-dialog/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-button/packages" />
