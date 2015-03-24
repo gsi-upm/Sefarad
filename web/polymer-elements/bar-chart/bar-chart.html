@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 
-<polymer-element name="line-chart" class="dc-element">
+<polymer-element name="bar-chart" class="dc-element">
 
 
   <template>
@@ -21,7 +21,7 @@
             xMax: 100,
 
             ready: function() {
-                console.log("line-chart ready");
+                console.log("bar-chart ready");
             },
 
             init: function () {
@@ -52,19 +52,22 @@
 //                var hits = dateDim.group().reduceSum(dc.pluck('total'));
 //                var minDate = dateDim.bottom(1)[0].date;
 //                var maxDate = dateDim.top(1)[0].date;
-                this.chart  = dc.lineChart("#chart");
+                this.chart  = dc.barChart("#chart");
 
                 this.chart
-                        .width(500).height(200)
+                        .width(650).height(200)
                         .dimension(this.dimension)
                         .group(this.group)
                         .x(d3.scale.linear().domain([this.xMin, this.xMax]))
-                        .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
+                        .gap(65)
+
+
+                .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
                 this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart;
 
 
 
-//                this.chart = dc.pieChart("#line-chart");
+//                this.chart = dc.pieChart("#bar-chart");
 //                this.chart
 //                        .width(250).height(250)
 //                        .dimension(this.dimension)

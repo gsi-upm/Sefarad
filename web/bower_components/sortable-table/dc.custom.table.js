@@ -51,9 +51,20 @@ dc.customChart = function (_chart) {
                     //The current property is not a direct property of p
                     continue;
                 }
+
                 //Do your logic with the property here
-                //Do your logic with the property here
-                if(prop == "name" || prop == "designation"){  //This must be removed. Add a "column selector" control in widget preferences.
+
+                //look into the paramSelector to see if we have to push this param into the table
+                var found = false;
+
+
+                for (var j = 0; j < _chart.elementToUpdate.columnSelector.length; j++) {
+                    if (prop == _chart.elementToUpdate.columnSelector[j]) found = true;
+                }
+
+
+
+                if(found == true){  //This must be removed. Add a "column selector" control in widget preferences.
                     auxArray[i][prop] = data[i][prop].value;
                 }
 

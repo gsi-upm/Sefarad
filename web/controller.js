@@ -59,7 +59,7 @@ var newDataReceived = function () {
     });
 
     var areaAproxDim = ndx.dimension(function(d) {return d.aproxArea;});
-    var numArea = areaAproxDim.group();
+    var numArea = areaAproxDim.group().reduceCount(function(d) { return d.aproxArea; });
 
 
     var designationDim = ndx.dimension(function(d) {return d.designation.value;});
@@ -96,7 +96,7 @@ var newDataReceived = function () {
             dcElements[i].init();
         };
 
-        if (dcElements[i].tagName == "LINE-CHART")
+        if (dcElements[i].tagName == "BAR-CHART")
         {
             dcElements[i].crossfilter = ndx;
             dcElements[i].dimension = areaAproxDim;
@@ -109,18 +109,19 @@ var newDataReceived = function () {
             dcElements[i].init();
         };
 
-        //if (dcElements[i].tagName == "SORTABLE-TABLE")
-        //{
-        //    dcElements[i].crossfilter = ndx;
-        //    dcElements[i].dimension = nameDim;
-        //    dcElements[i].group = numNames;
-        //    dcElements[i].geoJSON = rawData;
-        //
-        //    //var data = transformData(rawData);
-        //    //dcElements[i].data = data;
-        //
-        //    dcElements[i].init();
-        //};
+        if (dcElements[i].tagName == "SORTABLE-TABLE")
+        {
+            dcElements[i].columnSelector = ["name", "designation", "area"];
+            dcElements[i].crossfilter = ndx;
+            dcElements[i].dimension = nameDim;
+            dcElements[i].group = numNames;
+            dcElements[i].geoJSON = rawData;
+
+            //var data = transformData(rawData);
+            //dcElements[i].data = data;
+
+            dcElements[i].init();
+        };
 
         if (dcElements[i].tagName == "FACETED-SEARCH")
         {

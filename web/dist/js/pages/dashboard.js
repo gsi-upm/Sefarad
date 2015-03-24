@@ -151,7 +151,7 @@ $(function () {
   //  hideHover: 'auto'
   //});
   //var line = new Morris.Line({
-  //  element: 'line-chart',
+  //  element: 'bar-chart',
   //  resize: true,
   //  data: [
   //    {y: '2011 Q1', item1: 2666},

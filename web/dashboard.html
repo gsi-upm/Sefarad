@@ -65,7 +65,7 @@
     <!-- ------------------------------- POLYMER COMPONENTS IMPORT ZONE ------------------------ -->
 
     <link rel="import" href="polymer-elements/pie-chart/pie-chart.html">
-    <link rel="import" href="polymer-elements/line-chart/line-chart.html">
+    <link rel="import" href="polymer-elements/bar-chart/bar-chart.html">
     <link rel="import" href="polymer-elements/leaflet-map/leaflet-map.html">
 
     <link rel="import" href="bower_components/sortable-table/sortable-table.html">
@@ -166,6 +166,20 @@
                     </div>
                     <!-- /.leaflet-map -->
 
+                    <!-- bar-chart -->
+                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                    <div class="box box-primary widget">
+                        <div class="box-header">
+                            <h3 class="box-title">Bar chart</h3>
+                        </div>
+                        <!-- box-body -->
+                        <div class="box-body chart-responsive">
+                            <bar-chart></bar-chart>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.bar-chart -->
+
                     <!-- Custom dc widget table-->
                     <div id="crossFilterDCTest3" class="box box-primary widget">
                         <div class="box-header">
@@ -217,19 +231,7 @@
                     </div>
                     <!-- /.pie-chart -->
 
-                    <!-- line-chart -->
-                    <!--Widgets must have 'widget' class in order to render their loading screen-->
-                    <div class="box box-primary widget">
-                        <div class="box-header">
-                            <h3 class="box-title">Line chart</h3>
-                        </div>
-                        <!-- box-body -->
-                        <div class="box-body chart-responsive">
-                            <line-chart></line-chart>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.line-chart -->
+
 
 
 
