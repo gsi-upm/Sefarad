@@ -10,7 +10,7 @@ html /deep/ .size-position {
 
 html /deep/ .size-position::shadow #scroller {
     width: 500px;
-    height: 260px;
+    height: 285px;
 }
 
 .fa-question-circle {

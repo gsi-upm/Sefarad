@@ -127,10 +127,10 @@ class Query {
 
     querySelector('#saveError').classes.add("hide");
     querySelector('#saveSuccess').classes.add("hide");
-//    if(!checkParamPattern()){
-//      querySelector('#saveError').classes.remove("hide");
-//      return;
-//    }
+    if(!checkParamPattern()){
+      querySelector('#saveError').classes.remove("hide");
+      return;
+    }
 
     List querys = [];
     if ( window.localStorage.containsKey(STORAGE_KEY)){
@@ -160,27 +160,25 @@ class Query {
 
   bool checkParamPattern(){
 
-    if(name.contains('<') || name.contains('>')) {
-      int start = name.indexOf('<');
-      int end = name.indexOf('>');
-      String compare = name.substring(start, end + 1);
-      if (!myEl2.value.contains(compare))
-        return false;
-      else
-        return true;
+    bool allRight = true;
+    if(parameters.length != 0) {
+      int i = 0;
+      for(i = 0; i < parameters.length; i++) {
+        String compare = "<" + parameters.elementAt(i) + ">";
+        if (!myEl2.value.contains(compare))
+          allRight = false;
+      }
     }
     if(myEl2.value.contains('<') || myEl2.value.contains('>')) {
-      int start = myEl2.value.indexOf('<');
-      int end = myEl2.value.indexOf('>');
-      String compare = myEl2.value.substring(start, end + 1);
-      if (name.contains(compare))
-        return false;
-      else
-        return true;
+      var matches = regex.allMatches(myEl2.value);
+      int i = 0;
+      for(i =0; i<matches.length;i++){
+        String compare = matches.elementAt(i).group(0);
+        if (!name.contains(compare))
+          allRight = false;
+      }
     }
-
-
-    return true;
+    return allRight;
   }
 
   //Necessary to avoid a failure to Dart execution
