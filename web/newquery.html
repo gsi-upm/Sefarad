@@ -143,12 +143,13 @@
                                 <h3>Add Query</h3>
                                 <ol>Standard Users
                                     <li> Give it a name </li>
+                                    <li> Define your web service endpoint (Dbpedia by default)</li>
                                     <li> Write the query in Sparql </li>
                                     <li> Save it*</li>
                                     <br>
                                 Only Advanced Users
                                     <li> Write parameters between "< >" in the name and query </li>
-                                    <li> Active Advanced Toggle </li>
+                                    <li> Activate Advanced Toggle </li>
                                     <li> Set values of the selected parameter
                                         in the form and click the green checked button or press enter</li>
                                 </ol>
@@ -185,19 +186,18 @@
                 </div>
 
                 <div id="params" horizontal layout>
-                    <paper-button id="addParam">
-                        <core-icon icon="add"></core-icon>
-                        <span style="vertical-align:middle;">add values</span>
-                    </paper-button>
-                    <select style="width: 20%;" class="form-control" ng-change="update()" id="paramSelector">
+                    <h5>Parameter: </h5>
+                    <select style="width: 20%; margin-right: 10px; margin-left: 10px" class="form-control" ng-change="update()" id="paramSelector">
                         <option ng-repeat="param in parameters" ng-value="param">{{param}}</option>
                     </select>
                     <div id="paramName" horizontal layout>
-                        <paper-input-decorator style="margin-top: -10px;" label="Name of parameters" class="custom">
+                        <paper-input-decorator style="margin-top: -10px; margin-left: 10px" label="Value" class="custom">
                             <input is="core-input" ng-keypress="saveParams($event)" ng-model="params" id="queryParams">
                         </paper-input-decorator>
-                        <paper-icon-button style="color:#00a65a" icon="done" ng-click="saveParamsButton()" title="add icon">
-                        </paper-icon-button>
+                        <paper-button id="addParam" ng-click="saveParamsButton()">
+                            <core-icon icon="add"></core-icon>
+                            <span style="vertical-align:middle;">add</span>
+                        </paper-button>
                     </div>
 
                 </div>
@@ -217,6 +217,9 @@
                 <div class="clearfix"></div>
                 <br>
                 <p class="text-light-blue">Write your query:</p>
+                <paper-input-decorator style="margin-top: -15px" label="Endpoint URL" class="custom">
+                    <input is="core-input" id="endPointInput" ng-model="endPoint">
+                </paper-input-decorator>
                 <paper-shadow class="card" z="2">
                     <div id="yasqe" style="padding-bottom: 15px"></div>
                 </paper-shadow>
@@ -429,8 +432,6 @@
     var paramsDiv = document.getElementById('params');
     var paramNewDiv = document.getElementById('paramName');
     var paramList = document.getElementById('paramList');
-    var paramSelector = document.getElementById('paramSelector');
-    var addParam = document.querySelector('#addParam');
     toggle.addEventListener('change', function () {
         if (this.checked) {
             paramsDiv.style.display = 'flex';
@@ -438,15 +439,6 @@
         } else {
             paramsDiv.style.display = 'none';
             paramList.style.display = 'none';
-        }
-    });
-    addParam.addEventListener('click', function () {
-        if (paramNewDiv.style.display != 'flex') {
-            paramNewDiv.style.display = 'flex';
-            paramSelector.style.display = 'flex';
-        } else {
-            paramNewDiv.style.display = 'none';
-            paramSelector.style.display = 'none';
         }
     });
 

@@ -290,6 +290,8 @@
         if(parsedData[0] != undefined ) {
             var match = parsedData[0]["Name"].match(regex);
             var query = parsedData[0]["Query"];
+            if(parsedData[0]["Endpoint"] != "")
+                _editorEndpoint = parsedData[0]["Endpoint"];
             var k = 0;
             for(k = 0; k < 5; k++) {
                 $("#paramSelector"+k).empty();
@@ -397,6 +399,8 @@
 
                     var match = parsedData[j]["Name"].match(regex);
                     var query = parsedData[j]["Query"];
+                    if(parsedData[j]["Endpoint"] != "")
+                        _editorEndpoint = parsedData[j]["Endpoint"];
                     var k = 0;
                     for(k = 0; k < 5; k++) {
                         $("#paramSelector"+k).empty();

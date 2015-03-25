@@ -11,6 +11,7 @@ class Query {
   String query = '';
   String params = '';
   String value = '';
+  String endPoint = '';
   List parameters = [];
   List parametersShow = [];
   RegExp regex = new RegExp("<[a-zA-Z0-9._%+-]+\>");
@@ -104,8 +105,9 @@ class Query {
   }
 
   void clearFilters() {
-    input.value = "";
+    name = "";
     myEl2.value = "";
+    endPoint = "";
     parameters.clear();
     parameters0.clear();
     parameters1.clear();
@@ -144,6 +146,7 @@ class Query {
     var queryVar = {
         "Name" : name,
         "Query" : myEl2.value,
+        "Endpoint" : endPoint,
         "Parameters0": parameters0,
         "Parameters1": parameters1,
         "Parameters2": parameters2,
