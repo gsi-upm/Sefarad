@@ -17,6 +17,8 @@ _**IMPORTANT NOTE**: The definition of the dimensions must be done inside each w
 
 But this is not enough to filter information in Sefarad. In top of crossfilter each widget must implement a [dc.js](http://dc-js.github.io/dc.js/) base chart object. dc.js will be in charge of managing the filters of all widgets at once, as the event dispatchment when the data changes.
 
-At the init() function of each widget, it creates a dc.js chart. Inside the code of this dc.js chart we will define a graph behaviour as explained in [dc.js documentation](https://github.com/dc-js/dc.js/blob/master/web/docs/api-1.6.0.md) and overwrite if needed the _chart._doRedraw() function.
+At the init() function of each widget, we create a dc.js chart. Inside the code of this dc.js chart we will define a graph behaviour as explained in [dc.js documentation](https://github.com/dc-js/dc.js/blob/master/web/docs/api-1.6.0.md) and overwrite if needed the _chart._doRedraw() function.
 This is the function called each time the data changes so we will use it to trigger all function in our widget that need to be executed in order to keep it updated.
-Be sure that this chart object keeps a 
+Be sure that this chart object keeps a reference of the Polymer element for this purpose.
+
+Please feel free to take the existing widgets as reference.
