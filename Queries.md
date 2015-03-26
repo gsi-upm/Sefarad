@@ -14,5 +14,5 @@ In section _"Add Query"_, users will find a query creator interface. If you are 
 
 5. Save the query.
 
-Now you will be able to execute the query in the "SPARQL editor" tab and see its results.
+Now you will be able to execute the query in the _"SPARQL editor"_ tab and see its results.
 
