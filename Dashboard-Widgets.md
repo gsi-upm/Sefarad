@@ -1,5 +1,3 @@
-# Dashboard Widgets
-
 Sefarad let the users define their own widgets that can read from common data and filter it.
 
 This widgets are [Polymer](https://www.polymer-project.org/0.5/) web Components pluged inside the main content area (in a sortable div array that allows them to be dragged and dropped).
