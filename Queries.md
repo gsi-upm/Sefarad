@@ -2,8 +2,8 @@ Sefarad allow advanced users to craft queries for different endpoints, execute t
 
 In section _"Add Query"_, users will find a query creator interface. If you are an advanced user and want to create a query with parameters tick the advance selector and follow these steps:
 
-1. Give a name to the query. In the name you have to define which nouns are params. For this purpose, every element that could implement different values must be in bracketts: "<param>"
-**Name example:** _"Nobel laureates in <fieldOfScience> ordered by <order> of birth date"_ where _fieldOfScience_ and _order_ will be params.
+1. Give a name to the query. In the name you have to define which nouns are params. For this purpose, every element that could implement different values must be in bracketts: "\<param>"
+**Name example:** _"Nobel laureates in \<fieldOfScience> ordered by \<order> of birth date"_ where _fieldOfScience_ and _order_ will be params.
 
 2. For each defined parameter, enter their possible values below.
 
