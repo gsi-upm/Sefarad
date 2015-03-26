@@ -1,4 +1,4 @@
-Sefarad allow advanced users to craft queries for different endpoints, execute them and download or visualize their data in various ways.
+Sefarad allows advanced users to craft queries for different endpoints, execute them and download or visualize their data in various ways.
 
 In section _"Add Query"_, users will find a query creator interface. If you are an advanced user and want to create a query with parameters tick the advance selector and follow these steps:
 
