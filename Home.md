@@ -1,4 +1,4 @@
-Welcome to the Sefarad-2.0 wiki.
+## Welcome to the Sefarad-2.0 wiki.
 
 Here you will find details about using and extending the functionality of Sefarad.
 
