@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html ng-app>
 <head>
     <meta charset="UTF-8">
-    <title>Sefarad 2.0 | Dashboard</title>
+    <title>Sefarad 2.0 | SPARQL Editor</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
     <!-- Polymer: Load Polymer platform support before any code that touches the DOM. -->
     <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+
+    <link href="https://www.polymer-project.org/0.5/components/polymer/polymer.html" rel="import">
+    <!-- Dart Support -->
+    <script src="packages/web_components/dart_support.js"></script>
+
+    <!-- ------------------------------- STYLE LINKS ZONE -------------------------------------- -->
+
+    <link href='//cdn.jsdelivr.net/yasqe/2.3.8/yasqe.min.css' rel='stylesheet' type='text/css'/>
+    <link href='//cdn.jsdelivr.net/yasr/2.4.12/yasr.min.css' rel='stylesheet' type='text/css'/>
+
+
+    <!-- ------------------------------- end/ STYLE LINKS ZONE --------------------------------- -->
 
     <!-- Bootstrap 3.3.2 -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -22,6 +34,9 @@
     <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css"/>
     <!-- iCheck -->
     <link href="plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css"/>
+    <!-- Own Css -->
+    <link href="newquery.css" rel="stylesheet" type="text/css"/>
+    <link href="common.css" rel="stylesheet" type="text/css"/>
     <!-- Morris chart -->
     <link href="plugins/morris/morris.css" rel="stylesheet" type="text/css"/>
     <!-- jvectormap -->
@@ -34,12 +49,6 @@
     <link href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css"/>
 
 
-    <!-- ------------------------------- STYLE LINKS ZONE -------------------------------------- -->
-
-
-    <!-- ------------------------------- end/ STYLE LINKS ZONE --------------------------------- -->
-
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -50,32 +59,18 @@
 
     <!-- ------------------------------- SCRIPTS IMPORT ZONE ----------------------------------- -->
 
-    <!--d3.js-->
-    <script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
-    <!--sparql-geojson plugin-->
-    <script src="plugins/sparql-geojson/sparql-geojson.js" charset="utf-8"></script>
-    <!--crossfilter.js-->
-    <script type="text/javascript" src="https://rawgithub.com/NickQiZhu/dc.js/master/web/js/crossfilter.js"></script>
-    <!--dc.js-->
-    <script type="text/javascript" src="plugins/dc/dc.js"></script>
+
 
     <!-- ------------------------------- end/ SCRIPTS IMPORT ZONE ------------------------------ -->
 
 
     <!-- ------------------------------- POLYMER COMPONENTS IMPORT ZONE ------------------------ -->
 
-    <link rel="import" href="polymer-elements/pie-chart/pie-chart.html">
-    <link rel="import" href="polymer-elements/bar-chart/bar-chart.html">
-    <link rel="import" href="polymer-elements/leaflet-map/leaflet-map.html">
-
-    <link rel="import" href="bower_components/sortable-table/sortable-table.html">
-    <link rel="stylesheet"
-          href="bower_components/sortable-table/css/bootstrap.css" shim-shadowdom>
-    <link rel="import" href="polymer-elements/faceted-search/faceted-search.html">
-    <link rel="import" href="polymer-elements/paper-shadow/paper-shadow.html">
+    <link href="polymer-elements/paper-input-decorator/paper-input-decorator.html" rel="import">
+    <link href="polymer-elements/paper-button/paper-button.html" rel="import">
+    <link href="polymer-elements/paper-action-dialog/paper-action-dialog.html" rel="import">
 
     <!-- ------------------------------- end/ POLYMER COMPONENTS IMPORT ZONE ------------------- -->
-
 
 </head>
 <body class="skin-blue">
@@ -107,17 +102,17 @@
             <ul class="sidebar-menu">
                 <li class="header">MAIN NAVIGATION</li>
 
-                <li class="active">
+                <li>
                     <a href="dashboard.html">
                         <i class="fa fa-pie-chart"></i> <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="treeview">
+                <li class="treeview active">
                     <a href="#">
                         <i class="fa fa-database"></i> <span>Query</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="dataset.html"><i class="fa fa-circle-o"></i> Add Dataset</a></li>
+                        <li class="active"><a href="dataset.html"><i class="fa fa-circle-o"></i> Add Dataset</a></li>
                         <li><a href="query.html"><i class="fa fa-circle-o"></i> SPARQL Editor</a></li>
                         <li><a href="newquery.html"><i class="fa fa-circle-o"></i> Add Query</a></li>
                     </ul>
@@ -132,116 +127,94 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                Dashboard
-                <small>Control panel</small>
+            <h1 horizontal layout>
+                Add Dataset
+                <small horizontal layout style="margin-top: 5px">Create your own dataset
+
+                    <template is="auto-binding">
+
+                        <section on-tap="{{toggleDialog1}}">
+
+                            <button class="fa fa-question-circle">
+                            </button>
+
+                            <paper-action-dialog class="size-position" style="height: 320px" backdrop autoCloseDisabled layered="false">
+                                <h3>Add Dataset</h3>
+                                <ol>
+                                    <li> Give it a name </li>
+                                    <br>
+                                    <li> Define your type of dataset (Sparql or MongoDb)</li>
+                                    <br>
+                                    <li> Write the web service endpoint </li>
+                                    <br>
+                                    <li> Save it*</li>
+                                </ol>
+
+                                <h5>*If an error occurs saving data, check chose type of dataset</h5>
+                                <paper-button affirmative autofocus>Tap me to close</paper-button>
+                            </paper-action-dialog>
+
+                        </section>
+                    </template>
+                </small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"> Home</a></li>
-                <li class="active"><i class="fa fa-pie-chart"></i> Dashboard</li>
+                <li class="active"><i class="fa fa-cogs"></i>    Dataset</li>
             </ol>
         </section>
 
         <!-- Main content -->
         <section class="content">
-            <!-- Small boxes (Stat box) -->
-            <div class="row">
+
+            <div id="queries">
+
+                <paper-input-decorator label="Name of dataset"
+                                       class="custom" floatingLabel>
+                    <input is="core-input" id="queryNameSelector" ng-model="name">
+                </paper-input-decorator>
+
+                <br>
+                <p class="text-light-blue">Choose a type of dataset:</p>
+                <select id="typeSelector" class="form-control" ng-change="checkType()" ng-model="type">
+                    <option style="display:none" value="">Select a type</option>
+                    <option selected>Sparql</option>
+                    <option>MongoDb</option>
+                </select>
+
+                <div id="loginUser" style="display: none;" horizontal layout>
+                    <paper-input-decorator style="width: 35%; margin-right: 20px" label="User" class="custom"l>
+                        <input is="core-input" id="userInput" ng-model="user">
+                    </paper-input-decorator>
+                    <paper-input-decorator style="width: 35%;" label="Password" class="custom" >
+                        <input is="core-input" type="password" ng-model="password">
+                    </paper-input-decorator>
+                </div>
+
+                <br>
+                <paper-input-decorator style="margin-top: -15px" label="Endpoint URL" class="custom" floatingLabel>
+                    <input is="core-input" id="endPointInput" ng-model="endPoint">
+                </paper-input-decorator>
+
+                <br>
+                <div class="alert alert-danger alert-dismissable hide" id="saveError">
+                    <i class="fa fa-ban"></i>
+
+                    <b>Save failed</b>
+                </div>
+
+                <div class="alert alert-success alert-dismissable hide" id="saveSuccess">
+                    <i class="fa fa-check"></i>
+
+                    <b>Saved successfully</b>
+                </div>
+                <div class="save_btnGroup">
+                    <paper-button raised class="colored" id="btn_save" ng-click="saveData()">Save</paper-button>
+                    <paper-button raised class="colored" id="btn_clear" ng-click="clearFilters()">Clear</paper-button>
+                </div>
 
             </div>
-            <!-- /.row -->
-            <!-- Main row -->
-            <div class="row">
-                <!-- Left col -->
-                <section class="col-lg-7 connectedSortable">
 
-                    <!-- leaflet-map -->
-                    <!--Widgets must have 'widget' class in order to render their loading screen-->
-                    <div class="box box-primary widget">
-                        <div class="box-header">
-                            <h3 class="box-title">Map</h3>
-                        </div>
-                        <!-- box-body -->
-                        <div class="box-body chart-responsive">
-                            <leaflet-map></leaflet-map>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.leaflet-map -->
-
-                    <!-- bar-chart -->
-                    <!--Widgets must have 'widget' class in order to render their loading screen-->
-                    <div class="box box-primary widget">
-                        <div class="box-header">
-                            <h3 class="box-title">Bar chart</h3>
-                        </div>
-                        <!-- box-body -->
-                        <div class="box-body chart-responsive">
-                            <bar-chart></bar-chart>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.bar-chart -->
-
-                    <!-- Custom dc widget table-->
-                    <div id="crossFilterDCTest3" class="box box-primary widget">
-                        <div class="box-header">
-                            <h3 class="box-title">Table</h3>
-                        </div>
-                        <!--box-body -->
-                        <div class="box-body chart-responsive">
-
-                            <sortable-table class="bootstrap dc-element" page="{{page}}" pagesize="8" footertemplate="defaultPager">
-
-                            </sortable-table>
-
-                        </div>
-                        <!--/.box-body -->
-                    </div>
-                    <!-- /.Custom dc widget table-->
-
-
-                </section>
-                <!-- /.Left col -->
-                <!-- right col (We are only adding the ID to make the widgets sortable)-->
-                <section class="col-lg-5 connectedSortable">
-
-                    <!-- faceted-search -->
-                    <!--Widgets must have 'widget' class in order to render their loading screen-->
-                    <div class="box box-primary widget">
-                        <div class="box-header">
-                            <h3 class="box-title">Search</h3>
-                        </div>
-                        <!-- box-body -->
-                        <div class="box-body chart-responsive">
-                            <faceted-search></faceted-search>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.faceted-search -->
-
-                    <!-- pie-chart -->
-                    <!--Widgets must have 'widget' class in order to render their loading screen-->
-                    <div class="box box-primary widget">
-                        <div class="box-header">
-                            <h3 class="box-title">Pie chart</h3>
-                        </div>
-                        <!-- box-body -->
-                        <div class="box-body chart-responsive">
-                            <pie-chart></pie-chart>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.pie-chart -->
-
-
-
-
-
-
-                </section>
-                <!-- right col -->
-            </div>
-            <!-- /.row (main row) -->
         </section>
         <!-- /.content -->
     </div>
@@ -267,6 +240,9 @@
 </script>
 <!-- Bootstrap 3.3.2 JS -->
 <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<!-- Dart -->
+<script type="application/dart" src="dataset.dart"></script>
+<script type="text/javascript" src="packages/browser/dart.js"></script>
 <!-- Morris.js charts -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="plugins/morris/morris.min.js" type="text/javascript"></script>
@@ -297,13 +273,22 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js" type="text/javascript"></script>
+<script type="text/javascript">
 
-<!-- DATA TABLES SCRIPT -->
-<script src="//datatables.net/release-datatables/media/js/jquery.dataTables.js" type="text/javascript"></script>
-<script src="plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+    var scope = document.querySelector('template[is=auto-binding]');
+
+    scope.toggleDialog1 = function(e) {
+        if (e.target.localName != 'button') {
+            return;
+        }
+        var d = e.target.nextElementSibling;
+        if (!d) {
+            return;
+        }
+        d.toggle();
+    };
 
 
-<script src="controller.js"></script>
-
+</script>
 </body>
 </html>

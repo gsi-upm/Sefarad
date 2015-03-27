@@ -108,6 +108,7 @@
                         <i class="fa fa-database"></i> <span>Query</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
+                        <li><a href="dataset.html"><i class="fa fa-circle-o"></i> Add Dataset</a></li>
                         <li class="active"><a href="query.html"><i class="fa fa-circle-o"></i> SPARQL Editor</a></li>
                         <li><a href="newquery.html"><i class="fa fa-circle-o"></i> Add Query</a></li>
                     </ul>
@@ -332,6 +333,12 @@
             createShareLink: false
         }
     });
+//    var yasgui = function (){
+//        var yasqe = YASQE(document.getElementById("yasqe"));
+//        this.setValue = function (value){
+//            yasqe.setValue(value);
+//        }
+//    }
     YASR.plugins.table.defaults.datatable.scrollX = true;
     YASR.plugins.table.defaults.datatable.scrollCollapse = true;
     YASR.plugins.table.defaults.datatable.autoWidth = true;

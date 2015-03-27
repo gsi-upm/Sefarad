@@ -114,6 +114,7 @@
                         <i class="fa fa-database"></i> <span>Query</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
+                        <li><a href="dataset.html"><i class="fa fa-circle-o"></i> Add Dataset</a></li>
                         <li><a href="query.html"><i class="fa fa-circle-o"></i> SPARQL Editor</a></li>
                         <li class="active"><a href="newquery.html"><i class="fa fa-circle-o"></i> Add Query</a></li>
                     </ul>
@@ -216,14 +217,18 @@
 
                 <div class="clearfix"></div>
                 <br>
-                <p class="text-light-blue">Write your query:</p>
-                <paper-input-decorator style="margin-top: -15px" label="Endpoint URL" class="custom">
-                    <input is="core-input" id="endPointInput" ng-model="endPoint">
-                </paper-input-decorator>
-                <paper-shadow class="card" z="2">
-                    <div id="yasqe" style="padding-bottom: 15px"></div>
-                </paper-shadow>
-                <input type="hidden" class="form-control" id="querySelector" ng-model="query">
+                <select class="form-control" id="typeSelector" ng-change="checkType()">
+                    <option ng-repeat="dataset in datasets">{{dataset.Name}}</option>
+                </select>
+                <br>
+                <div id="divMongodb">Work In Progress</div>
+                <div id="divSparql">
+                    <p class="text-light-blue">Write your query:</p>
+                    <paper-shadow class="card" z="2">
+                        <div id="yasqe" style="padding-bottom: 15px"></div>
+                    </paper-shadow>
+                    <input type="hidden" class="form-control" id="querySelector" ng-model="query">
+                </div>
                 <div class="alert alert-danger alert-dismissable hide" id="saveError">
                     <i class="fa fa-ban"></i>
 
@@ -306,10 +311,11 @@
 
 <script type="text/javascript">
 
-    var _csvResource = "./assets/" + "SlovakianDemoSparqlQueries.csv";
     var _editorEndpoint = 'http://demos.gsi.dit.upm.es/fuseki/geo/query?query=';
+    var myEl = document.getElementById('btn_clear');
+    var myEl2 = document.getElementById('querySelector');
+    var myEl3 = document.getElementById('btn_save');
 
-    //configuration
     var queries = [];
     var yasqe = YASQE(document.getElementById("yasqe"), {
         sparql: {
@@ -324,10 +330,6 @@
     });
     // end of configuration
 
-    var myEl = document.getElementById('btn_clear');
-    var myEl2 = document.getElementById('querySelector');
-    var myEl3 = document.getElementById('btn_save');
-
     myEl.addEventListener('click', function() {
         var _query = yasqe.getValue();
         myEl2.value= _query;
@@ -339,51 +341,6 @@
         var _query = yasqe.getValue();
         myEl2.value= _query;
     }, false);
-
-    //This function parse the csv table to take its data.
-    var googleSpreadsheetURI = "" + _csvResource;
-    Papa.parse(
-            googleSpreadsheetURI, {
-                download: true,
-                complete: function (json) {
-                    // here populate the list from the json data
-                    var paramNo;
-                    for (var i = 1; i < json.data.length; i++) {
-                        //How many params?
-                        paramNo = 0;
-                        try {
-                            paramNo = parseInt(json.data[i][5], 10);
-                        } catch (e) {
-                        }
-
-                        queries.push({
-                            linkedResources: json.data[i][0],
-                            showInDemo: json.data[i][1].trim(),
-                            name: json.data[i][2],
-                            queryTemplate: json.data[i][3],
-                            description: json.data[i][4],
-                            paramNo: paramNo,
-                            paramNames: json.data[i][6]
-                        });
-                        //Here we add a variable number of parameter rows, each with its values,
-                        //in the format: param0, param1...
-                        for (var j = 0; j < paramNo; j++) {
-                            queries[i - 1]["param" + j] = json.data[i][7 + j];
-                        }
-                    }
-
-                    //Here we populate the query form selector with query names
-                    var queryAux;
-                    for (i = 0; i < queries.length; i++) {
-                        queryAux = queries[i];
-                        if (queryAux.showInDemo == "yes") {
-                            $("#querySelector").append('<option value="' + i + '">' + queryAux.name + "</option>");
-                            //$("#queryName").append('<option value="'+i+'">'+ (i+2) +" "+query.name+"</option>");
-                        }
-                    }
-                    $("#querySelector").change();
-                }
-            });
 
     //ExecuteQuery function. Still not generalized, it takes "restaurants" info from our endpoint at gsi's alpha
     function executeQuery() {

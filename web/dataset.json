@@ -1,0 +1,17 @@
+[
+  {
+    "Name":"Dbpedia",
+    "Type":"Sparql",
+    "Endpoint":"http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query="
+  },
+  {
+    "Name":"SlovakianDemo",
+    "Type":"Sparql",
+    "Endpoint":"http://demos.gsi.dit.upm.es/fuseki/geo/query?query="
+  },
+  {
+    "Name":"Dataset MongoDb",
+    "Type":"MongoDb",
+    "Endpoint":"Blabla"
+  }
+]

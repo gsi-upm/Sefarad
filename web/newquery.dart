@@ -6,12 +6,15 @@ import 'dart:convert';
 @Injectable()
 class Query {
   final String STORAGE_KEY = 'querysSaved';
+  final String STORAGE_KEY2 = 'datasetSaved';
   static Storage localStorage = window.localStorage;
+  String type;
   String name = '';
   String query = '';
   String params = '';
   String value = '';
   String endPoint = '';
+  List datasets = [];
   List parameters = [];
   List parametersShow = [];
   RegExp regex = new RegExp("<[a-zA-Z0-9._%+-]+\>");
@@ -24,11 +27,45 @@ class Query {
   var myEl = querySelector('#queryParams');
   var myEl2 = querySelector('#querySelector');
   var myEl3 = querySelector('#paramSelector');
+  var myEl4 = document.getElementById('typeSelector');
 
   void saveParams(event){
     if(event.keyCode == 13) {
       saveParamsButton();
     }
+  }
+
+  String checkType(){
+    int i;
+    for(i = 0; i < datasets.length; i++){
+      if(datasets[i]["Name"] == myEl4.value){
+        type = datasets[i]["Type"];
+        endPoint = datasets[i]["Endpoint"];
+      }
+    }
+    if(type == "Sparql"){
+      querySelector('#divSparql').style.display = "block";
+      querySelector('#divMongodb').style.display = "none";
+    } else {
+      querySelector('#divSparql').style.display = "none";
+      querySelector('#divMongodb').style.display = "block";
+    }
+    return type;
+  }
+
+  void _loadDataset(){
+    HttpRequest.getString('dataset.json').then((myjson) {
+      datasets = JSON.decode(myjson);
+      type = datasets[0]["Type"];
+      endPoint = datasets[0]["Endpoint"];
+      if ( window.localStorage.containsKey(STORAGE_KEY2)) {
+        datasets.addAll(JSON.decode(window.localStorage[STORAGE_KEY2]));
+      }
+    });
+  }
+
+  Query(){
+    _loadDataset();
   }
 
   void saveParamsButton(){
@@ -114,6 +151,8 @@ class Query {
     parameters2.clear();
     parameters3.clear();
     parameters4.clear();
+    querySelector('#saveError').classes.add("hide");
+    querySelector('#saveSuccess').classes.add("hide");
   }
 
   void listParams(){
@@ -129,36 +168,38 @@ class Query {
 
     querySelector('#saveError').classes.add("hide");
     querySelector('#saveSuccess').classes.add("hide");
-    if(!checkParamPattern()){
-      querySelector('#saveError').classes.remove("hide");
-      return;
-    }
-
-    List querys = [];
-    if ( window.localStorage.containsKey(STORAGE_KEY)){
-      querys = JSON.decode(window.localStorage[STORAGE_KEY]);
-
-      if(querys == null) {
-        querys = [];
+    if(type == "Sparql") {
+      if (!checkParamPattern()) {
+        querySelector('#saveError').classes.remove("hide");
+        return;
       }
-    }
 
-    var queryVar = {
-        "Name" : name,
-        "Query" : myEl2.value,
-        "Endpoint" : endPoint,
-        "Parameters0": parameters0,
-        "Parameters1": parameters1,
-        "Parameters2": parameters2,
-        "Parameters3": parameters3,
-        "Parameters4": parameters4,
-    };
-    var path = 'querys.json';
-    //HttpRequest.request(path, method:'POST',requestHeaders: {"content-type": "application/json"},
-        //sendData: JSON.encode(querys));
-    querys.add(queryVar);
-    querySelector('#saveSuccess').classes.remove("hide");
-    window.localStorage[STORAGE_KEY] = JSON.encode(querys);
+      List querys = [];
+      if (window.localStorage.containsKey(STORAGE_KEY)) {
+        querys = JSON.decode(window.localStorage[STORAGE_KEY]);
+
+        if (querys == null) {
+          querys = [];
+        }
+      }
+
+      var queryVar = {
+          "Name" : name,
+          "Query" : myEl2.value,
+          "Endpoint" : endPoint,
+          "Parameters0": parameters0,
+          "Parameters1": parameters1,
+          "Parameters2": parameters2,
+          "Parameters3": parameters3,
+          "Parameters4": parameters4,
+      };
+      querys.add(queryVar);
+      querySelector('#saveSuccess').classes.remove("hide");
+      String jsonData = JSON.encode(querys);
+      window.localStorage[STORAGE_KEY] = jsonData;
+    } else {
+      querySelector('#saveError').classes.remove("hide");
+    }
   }
 
   bool checkParamPattern(){

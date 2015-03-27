@@ -1,6 +1,7 @@
 import 'package:angular/angular.dart';
 import 'package:angular/application_factory.dart';
 import 'dart:html';
+import 'dart:js';
 import 'dart:convert';
 
 @Injectable()
@@ -18,6 +19,7 @@ class Query {
   _loadQuery() {
     var url = "querys.json";
     var request = HttpRequest.getString(url).then(onDataLoaded);
+    //var yasgui = new JsObject(context['yasgui']);
   }
 
   void onDataLoaded(String responseText) {
