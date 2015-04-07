@@ -5,9 +5,6 @@ import 'dart:convert';
 
 @Injectable()
 class Query {
-  final String STORAGE_KEY = 'querysSaved';
-  final String STORAGE_KEY2 = 'datasetSaved';
-  static Storage localStorage = window.localStorage;
   String type;
   String name = '';
   String query = '';
@@ -23,11 +20,8 @@ class Query {
   List parameters2 = [];
   List parameters3 = [];
   List parameters4 = [];
-  var input = querySelector('#queryNameSelector');
-  var myEl = querySelector('#queryParams');
   var myEl2 = querySelector('#querySelector');
   var myEl3 = querySelector('#paramSelector');
-  var myEl4 = document.getElementById('typeSelector');
 
   void saveParams(event){
     if(event.keyCode == 13) {
@@ -36,6 +30,7 @@ class Query {
   }
 
   String checkType(){
+    var myEl4 = document.getElementById('typeSelector');
     int i;
     for(i = 0; i < datasets.length; i++){
       if(datasets[i]["Name"] == myEl4.value){
@@ -58,8 +53,8 @@ class Query {
       datasets = JSON.decode(myjson);
       type = datasets[0]["Type"];
       endPoint = datasets[0]["Endpoint"];
-      if ( window.localStorage.containsKey(STORAGE_KEY2)) {
-        datasets.addAll(JSON.decode(window.localStorage[STORAGE_KEY2]));
+      if ( window.localStorage.containsKey("datasetSaved")) {
+        datasets.addAll(JSON.decode(window.localStorage["datasetSaved"]));
       }
     });
   }
@@ -69,6 +64,7 @@ class Query {
   }
 
   void saveParamsButton(){
+    var myEl = querySelector('#queryParams');
       var indexParam = parameters.indexOf(myEl3.value);
       switch (indexParam) {
         case 0:
@@ -175,8 +171,8 @@ class Query {
       }
 
       List querys = [];
-      if (window.localStorage.containsKey(STORAGE_KEY)) {
-        querys = JSON.decode(window.localStorage[STORAGE_KEY]);
+      if (window.localStorage.containsKey("querysSaved")) {
+        querys = JSON.decode(window.localStorage["querysSaved"]);
 
         if (querys == null) {
           querys = [];
@@ -196,7 +192,7 @@ class Query {
       querys.add(queryVar);
       querySelector('#saveSuccess').classes.remove("hide");
       String jsonData = JSON.encode(querys);
-      window.localStorage[STORAGE_KEY] = jsonData;
+      window.localStorage["querysSaved"] = jsonData;
     } else {
       querySelector('#saveError').classes.remove("hide");
     }

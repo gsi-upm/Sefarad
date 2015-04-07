@@ -12,18 +12,23 @@ class Dataset {
   String endPoint = '';
   String user = '';
   String password = '';
+  String collection = '';
   var typeSelect = querySelector('#typeSelector');
 
   void checkType(){
-    if(typeSelect.value == "MongoDb")
+    if(typeSelect.value == "MongoDb") {
+      querySelector('#collectionSec').style.display = "flex";
       querySelector('#loginUser').style.display = "flex";
-    else
+    } else {
+      querySelector('#collectionSec').style.display = "none";
       querySelector('#loginUser').style.display = "none";
+    }
   }
 
   void clearFilters() {
     name = "";
     endPoint = "";
+    collection = "";
     querySelector('#saveError').classes.add("hide");
     querySelector('#saveSuccess').classes.add("hide");
   }
@@ -50,6 +55,7 @@ class Dataset {
         "Name" : name,
         "Type" : type,
         "Endpoint" : endPoint,
+        "Collection" : collection,
         "User" : user,
         "Password" : password
     };

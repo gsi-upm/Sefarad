@@ -2,16 +2,19 @@
   {
     "Name":"Dbpedia",
     "Type":"Sparql",
-    "Endpoint":"http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query="
+    "Endpoint":"http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query=",
+    "Collection":""
   },
   {
     "Name":"SlovakianDemo",
     "Type":"Sparql",
-    "Endpoint":"http://demos.gsi.dit.upm.es/fuseki/geo/query?query="
+    "Endpoint":"http://demos.gsi.dit.upm.es/fuseki/geo/query?query=",
+    "Collection":""
   },
   {
     "Name":"Dataset MongoDb",
     "Type":"MongoDb",
-    "Endpoint":"Blabla"
+    "Endpoint":"mongodb://127.0.0.1/test_data",
+    "Collection":""
   }
 ]
