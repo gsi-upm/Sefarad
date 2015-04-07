@@ -32,16 +32,16 @@ var newDataReceived = function () {
     //add "total" filter as temporal value for cloropleth
     var idGen = 0;
 
-    var areaDim = ndx.dimension(function(d) {return d.area.value;});
-    var maxArea = areaDim.bottom(1)[0].area.value;
-    var minArea = areaDim.top(1)[0].area.value;
+    //var areaDim = ndx.dimension(function(d) {return d.area.value;});
+    //var maxArea = areaDim.bottom(1)[0].area.value;
+    //var minArea = areaDim.top(1)[0].area.value;
 
-    var limitArray = [];
-    var domain = maxArea - minArea;
-    var step = domain/16;
-    for(i=0; i<17; i++){
-        limitArray[i] = parseFloat(minArea) + i*step;
-    }
+    //var limitArray = [];
+    //var domain = maxArea - minArea;
+    //var step = domain/16;
+    //for(i=0; i<17; i++){
+    //    limitArray[i] = parseFloat(minArea) + i*step;
+    //}
 
 
 
@@ -50,20 +50,34 @@ var newDataReceived = function () {
         d.id = idGen;
         idGen++;
 
-        for(var i=0; i<limitArray.length; i++){
-            if (parseFloat(d.area.value) <= limitArray[i]){
-                d.aproxArea = limitArray[i];
-                break;
-            }
-        }
+        //for(var i=0; i<limitArray.length; i++){
+        //    if (parseFloat(d.area.value) <= limitArray[i]){
+        //        d.aproxArea = limitArray[i];
+        //        break;
+        //    }
+        //}
+
+        //for(var j=0; j< d.habitats.value.length; j++){
+        //    if (parseFloat(d.area.value) <= limitArray[i]){
+        //        d.aproxArea = limitArray[i];
+        //        break;
+        //    }
+        //}
+
+
+
     });
 
-    var areaAproxDim = ndx.dimension(function(d) {return d.aproxArea;});
-    var numArea = areaAproxDim.group().reduceCount(function(d) { return d.aproxArea; });
+    //var areaAproxDim = ndx.dimension(function(d) {return d.aproxArea;});
+    //var numArea = areaAproxDim.group().reduceCount(function(d) { return d.aproxArea; });
 
 
     var designationDim = ndx.dimension(function(d) {return d.designation.value;});
     var numDesignations = designationDim.group().reduceCount();
+
+    var designationSchemeDim = ndx.dimension(function(d) {return d.designationScheme.value;});
+    var numDesignationScheme = designationSchemeDim.group().reduceCount();
+
     var idDim = ndx.dimension(function(d) {return d.id;});
     var numId = idDim.group().reduceCount();
 
@@ -89,29 +103,40 @@ var newDataReceived = function () {
         };
         if (dcElements[i].tagName == "PIE-CHART")
         {
-            dcElements[i].crossfilter = ndx;
-            dcElements[i].dimension = designationDim;
-            dcElements[i].group = numDesignations;
-            dcElements[i].geoJSON = rawData;
-            dcElements[i].init();
+            if (dcElements[i].getAttribute("param") == "designation")
+            {
+                dcElements[i].crossfilter = ndx;
+                dcElements[i].dimension = designationDim;
+                dcElements[i].group = numDesignations;
+                dcElements[i].geoJSON = rawData;
+                dcElements[i].init();
+            }
+            if (dcElements[i].getAttribute("param") == "designationScheme")
+            {
+                dcElements[i].crossfilter = ndx;
+                dcElements[i].dimension = designationSchemeDim;
+                dcElements[i].group = numDesignationScheme;
+                dcElements[i].geoJSON = rawData;
+                dcElements[i].init();
+            }
         };
 
-        if (dcElements[i].tagName == "BAR-CHART")
-        {
-            dcElements[i].crossfilter = ndx;
-            dcElements[i].dimension = areaAproxDim;
-            dcElements[i].group = numArea;
-            dcElements[i].xMax = areaAproxDim.top(1)[0].aproxArea + 1000;
-            dcElements[i].xMin = areaAproxDim.bottom(1)[0].aproxArea;
-
-            dcElements[i].geoJSON = rawData;
-
-            dcElements[i].init();
-        };
+        //if (dcElements[i].tagName == "BAR-CHART")
+        //{
+        //    dcElements[i].crossfilter = ndx;
+        //    dcElements[i].dimension = areaAproxDim;
+        //    dcElements[i].group = numArea;
+        //    dcElements[i].xMax = areaAproxDim.top(1)[0].aproxArea + 1000;
+        //    dcElements[i].xMin = areaAproxDim.bottom(1)[0].aproxArea;
+        //
+        //    dcElements[i].geoJSON = rawData;
+        //
+        //    dcElements[i].init();
+        //};
 
         if (dcElements[i].tagName == "SORTABLE-TABLE")
         {
-            dcElements[i].columnSelector = ["name", "designation", "area"];
+            dcElements[i].columnSelector = ["name", "designation", "designationScheme"];
             dcElements[i].crossfilter = ndx;
             dcElements[i].dimension = nameDim;
             dcElements[i].group = numNames;
@@ -151,7 +176,7 @@ var newDataReceived = function () {
 //Smart Open Data Query
 var getPolygonsFromEuro = function () {
 
-    var polygonsfeuro_query = 'PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX j.0: <http://inspire.jrc.ec.europa.eu/schemas/gn/3.0/> PREFIX j.1: <http://inspire.jrc.ec.europa.eu/schemas/base/3.2/> PREFIX j.2: <http://inspire.jrc.ec.europa.eu/schemas/base/3.3/> PREFIX j.3: <http://www.opengis.net/ont/geosparql#> PREFIX j.4: <http://inspire.jrc.ec.europa.eu/schemas/ps/3.0/> SELECT * WHERE { SERVICE <http://localhost:3030/slovakiarefined/query> { SELECT ?res (group_concat(distinct ?specie ; separator = ",") AS ?species) WHERE { ?res j.2:specie ?specie . } group by ?res } SERVICE <http://localhost:3030/slovakiarefined/query> { SELECT ?res (group_concat(distinct ?habitat ; separator = ",") AS ?habitats) WHERE { ?res j.2:habitat ?habitat . } group by ?res } SERVICE <http://localhost:3030/slovakiarefined/query> { SELECT * WHERE { ?res j.3:hasGeometry ?fGeom . ?fGeom j.3:asWKT ?fWKT . ?res j.4:siteProtectionClassification ?spc . ?res j.4:LegalFoundationDate ?lfd . ?res j.4:LegalFoundationDocument ?lfdoc . ?res j.4:inspireId ?inspire . ?res j.4:siteName ?sitename . ?res j.2:lat ?lat. ?res j.2:long ?long . ?res j.2:site_type ?site_type . ?res j.2:hasfactsheet ?hasfactsheet . ?res j.2:area ?area . ?res j.2:release_id ?release_id . ?sitename j.0:GeographicalName ?gname . ?gname j.0:spelling ?spelling . ?spelling j.0:SpellingOfName ?spellingofname . ?spellingofname j.0:text ?name . ?inspire j.1:namespace ?namespace . ?inspire j.1:localId ?localId . ?res j.4:siteDesignation ?siteDesignation . ?siteDesignation j.4:percentageUnderDesignation ?percentageUnderDesignation . ?siteDesignation j.4:designation ?designation . ?siteDesignation j.4:designationScheme ?designationScheme . } } }';
+    var polygonsfeuro_query = 'PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX j.0: <http://inspire.jrc.ec.europa.eu/schemas/gn/3.0/> PREFIX j.1: <http://inspire.jrc.ec.europa.eu/schemas/ps/3.0/> PREFIX j.2: <http://inspire.jrc.ec.europa.eu/schemas/base/3.2/> PREFIX j.3: <http://www.opengis.net/ont/geosparql#> SELECT * WHERE { SERVICE <http://localhost:3030/slovakia/query> { ?res j.3:hasGeometry ?fGeom . ?fGeom j.3:asWKT ?fWKT . ?res j.1:siteProtectionClassification ?spc . ?res j.1:LegalFoundationDate ?lfd . ?res j.1:LegalFoundationDocument ?lfdoc . ?res j.1:inspireId ?inspire . ?res j.1:siteName ?sitename . ?sitename j.0:GeographicalName ?gname . ?gname j.0:spelling ?spelling . ?spelling j.0:SpellingOfName ?spellingofname . ?spellingofname j.0:text ?name . ?inspire j.2:namespace ?namespace . ?inspire j.2:namespace ?localId . ?res j.1:siteDesignation ?siteDesignation . ?siteDesignation j.1:percentageUnderDesignation ?percentageUnderDesignation . ?siteDesignation j.1:designation ?designation . ?siteDesignation j.1:designationScheme ?designationScheme . } } LIMIT 1000';
     var temporal = queryEndPoint + '?query=' + encodeURIComponent(polygonsfeuro_query);
     var req = new XMLHttpRequest();
     req.open("GET", temporal, true);

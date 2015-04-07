@@ -78,7 +78,7 @@
 
 
 </head>
-<body class="skin-blue">
+<body class="skin-green sidebar-collapse sidebar-open">
 <div class="wrapper">
 
     <paper-shadow class="card" z="2"><header class="main-header">
@@ -152,57 +152,6 @@
             <!-- Main row -->
             <div class="row">
                 <!-- Left col -->
-                <section class="col-lg-7 connectedSortable">
-
-                    <!-- leaflet-map -->
-                    <!--Widgets must have 'widget' class in order to render their loading screen-->
-                    <div class="box box-primary widget">
-                        <div class="box-header">
-                            <h3 class="box-title">Map</h3>
-                        </div>
-                        <!-- box-body -->
-                        <div class="box-body chart-responsive">
-                            <leaflet-map></leaflet-map>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.leaflet-map -->
-
-                    <!-- bar-chart -->
-                    <!--Widgets must have 'widget' class in order to render their loading screen-->
-                    <div class="box box-primary widget">
-                        <div class="box-header">
-                            <h3 class="box-title">Bar chart</h3>
-                        </div>
-                        <!-- box-body -->
-                        <div class="box-body chart-responsive">
-                            <bar-chart></bar-chart>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.bar-chart -->
-
-                    <!-- Custom dc widget table-->
-                    <div id="crossFilterDCTest3" class="box box-primary widget">
-                        <div class="box-header">
-                            <h3 class="box-title">Table</h3>
-                        </div>
-                        <!--box-body -->
-                        <div class="box-body chart-responsive">
-
-                            <sortable-table class="bootstrap dc-element" page="{{page}}" pagesize="8" footertemplate="defaultPager">
-
-                            </sortable-table>
-
-                        </div>
-                        <!--/.box-body -->
-                    </div>
-                    <!-- /.Custom dc widget table-->
-
-
-                </section>
-                <!-- /.Left col -->
-                <!-- right col (We are only adding the ID to make the widgets sortable)-->
                 <section class="col-lg-5 connectedSortable">
 
                     <!-- faceted-search -->
@@ -223,11 +172,25 @@
                     <!--Widgets must have 'widget' class in order to render their loading screen-->
                     <div class="box box-primary widget">
                         <div class="box-header">
-                            <h3 class="box-title">Pie chart</h3>
+                            <h3 class="box-title">Designation</h3>
                         </div>
                         <!-- box-body -->
                         <div class="box-body chart-responsive">
-                            <pie-chart></pie-chart>
+                            <pie-chart param="designation"></pie-chart>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.pie-chart -->
+
+                    <!-- pie-chart -->
+                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                    <div class="box box-primary widget">
+                        <div class="box-header">
+                            <h3 class="box-title">Designation Scheme</h3>
+                        </div>
+                        <!-- box-body -->
+                        <div class="box-body chart-responsive">
+                            <pie-chart param="designationScheme"></pie-chart>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -236,6 +199,58 @@
 
 
 
+
+
+                </section>
+
+                <!-- /.Left col -->
+                <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                <section class="col-lg-7 connectedSortable">
+
+                    <!-- leaflet-map -->
+                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                    <div class="box box-primary widget">
+                        <div class="box-header">
+                            <h3 class="box-title">Map</h3>
+                        </div>
+                        <!-- box-body -->
+                        <div class="box-body chart-responsive">
+                            <leaflet-map></leaflet-map>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.leaflet-map -->
+
+                    <!--&lt;!&ndash; bar-chart &ndash;&gt;-->
+                    <!--&lt;!&ndash;Widgets must have 'widget' class in order to render their loading screen&ndash;&gt;-->
+                    <!--<div class="box box-primary widget">-->
+                    <!--<div class="box-header">-->
+                    <!--<h3 class="box-title">Bar chart</h3>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; box-body &ndash;&gt;-->
+                    <!--<div class="box-body chart-responsive">-->
+                    <!--<bar-chart></bar-chart>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.box-body &ndash;&gt;-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.bar-chart &ndash;&gt;-->
+
+                    <!-- Custom dc widget table-->
+                    <div id="crossFilterDCTest3" class="box box-primary widget">
+                        <div class="box-header">
+                            <h3 class="box-title">Results Table</h3>
+                        </div>
+                        <!--box-body -->
+                        <div class="box-body chart-responsive">
+
+                            <sortable-table class="bootstrap dc-element" page="{{page}}" pagesize="8" footertemplate="defaultPager">
+
+                            </sortable-table>
+
+                        </div>
+                        <!--/.box-body -->
+                    </div>
+                    <!-- /.Custom dc widget table-->
 
 
                 </section>

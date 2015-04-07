@@ -55,12 +55,13 @@
                 this.chart  = dc.barChart("#chart");
 
                 this.chart
-                        .width(650).height(200)
+                        .width(500).height(200)
                         .dimension(this.dimension)
                         .group(this.group)
                         .x(d3.scale.linear().domain([this.xMin, this.xMax]))
                         .gap(65)
-
+                        .yAxisLabel("Number of ocurrences")
+                        .xAxisLabel("Area")
 
                 .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
                 this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart;
