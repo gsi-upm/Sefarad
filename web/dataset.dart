@@ -6,8 +6,6 @@ import 'dart:convert';
 @Injectable()
 class Dataset {
   var host = "127.0.0.1:8080";
-  final String STORAGE_KEY = 'datasetSaved';
-  static Storage localStorage = window.localStorage;
   String name = '';
   String type;
   String endPoint = '';
