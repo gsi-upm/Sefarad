@@ -5,12 +5,14 @@ import 'dart:convert';
 
 @Injectable()
 class Query {
+  var host = "127.0.0.1:8080";
   String type;
   String name = '';
   String query = '';
   String params = '';
   String value = '';
   String endPoint = '';
+  List querys = [];
   List datasets = [];
   List parameters = [];
   List parametersShow = [];
@@ -49,8 +51,11 @@ class Query {
   }
 
   void _loadDataset(){
-    HttpRequest.getString('dataset.json').then((myjson) {
-      datasets = JSON.decode(myjson);
+    var url = "http://$host/dataset";
+
+    // call the web server asynchronously
+    var request = HttpRequest.getString(url).then((responseText){
+      datasets = JSON.decode(responseText);
       type = datasets[0]["Type"];
       endPoint = datasets[0]["Endpoint"];
       if ( window.localStorage.containsKey("datasetSaved")) {
@@ -58,9 +63,18 @@ class Query {
       }
     });
   }
+  void _loadQueries(){
+    var url = "http://$host/queries";
+
+    // call the web server asynchronously
+    var request = HttpRequest.getString(url).then((responseText){
+      querys = JSON.decode(responseText);
+    });
+  }
 
   Query(){
     _loadDataset();
+    _loadQueries();
   }
 
   void saveParamsButton(){
@@ -170,15 +184,6 @@ class Query {
         return;
       }
 
-      List querys = [];
-      if (window.localStorage.containsKey("querysSaved")) {
-        querys = JSON.decode(window.localStorage["querysSaved"]);
-
-        if (querys == null) {
-          querys = [];
-        }
-      }
-
       var queryVar = {
           "Name" : name,
           "Query" : myEl2.value,
@@ -192,7 +197,19 @@ class Query {
       querys.add(queryVar);
       querySelector('#saveSuccess').classes.remove("hide");
       String jsonData = JSON.encode(querys);
-      window.localStorage["querysSaved"] = jsonData;
+
+      var request = new HttpRequest();
+      request.onReadyStateChange.listen((_) {
+        if (request.readyState == HttpRequest.DONE &&
+        (request.status == 200 || request.status == 0)) {
+          // data saved OK.
+          print(" Data saved successfully");
+
+        }
+      });
+      var url = "http://$host/queries";
+      request.open("POST", url);
+      request.send(jsonData);
     } else {
       querySelector('#saveError').classes.remove("hide");
     }

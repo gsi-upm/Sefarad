@@ -17,7 +17,7 @@ class Query {
   }
 
   _loadQuery() {
-    var url = "querys.json";
+    var url = "queries.json";
     var request = HttpRequest.getString(url).then(onDataLoaded);
     //var yasgui = new JsObject(context['yasgui']);
   }
@@ -27,9 +27,6 @@ class Query {
     if (querys == null)
       querys = [];
     querys = JSON.decode(responseText);
-    if (window.localStorage.containsKey(STORAGE_KEY) && window.localStorage[STORAGE_KEY].length != 0 ) {
-      querys.addAll(JSON.decode(window.localStorage[STORAGE_KEY]));
-    }
   }
   //Necessary to avoid a failure to Dart execution
   void toggleDialog1(e){

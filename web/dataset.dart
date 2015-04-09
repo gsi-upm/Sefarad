@@ -5,6 +5,7 @@ import 'dart:convert';
 
 @Injectable()
 class Dataset {
+  var host = "127.0.0.1:8080";
   final String STORAGE_KEY = 'datasetSaved';
   static Storage localStorage = window.localStorage;
   String name = '';
@@ -13,7 +14,21 @@ class Dataset {
   String user = '';
   String password = '';
   String collection = '';
+  List datasets = [];
   var typeSelect = querySelector('#typeSelector');
+
+  Dataset(){
+    _loadDataset();
+  }
+
+  void _loadDataset(){
+    var url = "http://$host/dataset";
+
+    // call the web server asynchronously
+    var request = HttpRequest.getString(url).then((responseText){
+      datasets = JSON.decode(responseText);
+    });
+  }
 
   void checkType(){
     if(typeSelect.value == "MongoDb") {
@@ -42,15 +57,6 @@ class Dataset {
       return;
     }
 
-    List querys = [];
-    if ( window.localStorage.containsKey(STORAGE_KEY)){
-      querys = JSON.decode(window.localStorage[STORAGE_KEY]);
-
-      if(querys == null) {
-        querys = [];
-      }
-    }
-
     var queryVar = {
         "Name" : name,
         "Type" : type,
@@ -59,10 +65,22 @@ class Dataset {
         "User" : user,
         "Password" : password
     };
-    querys.add(queryVar);
+    datasets.add(queryVar);
     querySelector('#saveSuccess').classes.remove("hide");
-    String jsonData = JSON.encode(querys);
-    window.localStorage[STORAGE_KEY] = jsonData;
+    String jsonData = JSON.encode(datasets);
+
+    var request = new HttpRequest();
+    request.onReadyStateChange.listen((_) {
+      if (request.readyState == HttpRequest.DONE &&
+      (request.status == 200 || request.status == 0)) {
+        // data saved OK.
+        print(" Data saved successfully");
+
+      }
+    });
+    var url = "http://$host/dataset";
+    request.open("POST", url);
+    request.send(jsonData);
   }
 
   bool checkParamPattern(){
