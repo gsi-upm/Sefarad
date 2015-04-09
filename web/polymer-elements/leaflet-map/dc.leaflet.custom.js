@@ -789,6 +789,9 @@ dc.leafletChoroplethChart = function (parent, chartGroup, externalMap) {
                 layer.on("click", selectFilter);
             }
         }
+        var polygonCoordinates = feature.geometry.coordinates[0];
+
+
     };
 
     var selectFilter = function (e) {
