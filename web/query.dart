@@ -6,7 +6,6 @@ import 'dart:convert';
 
 @Injectable()
 class Query {
-  final String STORAGE_KEY = 'querysSaved';
   List names;
   String query = '';
   List querys = [];
