@@ -275,7 +275,7 @@
     var myEl2 = document.getElementById('querySelector');
     var regex = /<(\S+)>/g;
     var parsedData = {};
-    $.getJSON("querys.json", function (data) {
+    $.getJSON("queries.json", function (data) {
         parsedData = data;
         if(localStorage.getItem('querysSaved') != null )
             if(localStorage.getItem('querysSaved').length != 0 ) {
