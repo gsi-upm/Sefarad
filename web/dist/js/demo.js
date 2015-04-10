@@ -121,8 +121,8 @@ $(function () {
     }
   });
 
-  $("body").append(demo);
-  $("body").append(demo_settings);
+  //$("body").append(demo);
+  //$("body").append(demo_settings);
 
   setup();
 });
