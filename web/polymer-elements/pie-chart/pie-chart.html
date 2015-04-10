@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 
-<polymer-element name="pie-chart" class="dc-element">
+<polymer-element name="pie-chart" class="dc-element" attributes="param">
 
 
   <template>
@@ -20,6 +20,9 @@
 
             ready: function() {
                 console.log("pie-chart ready");
+                numWidgets = numWidgets - 1;
+
+                console.log("pie chart with param: " + this.param);
 
                 //this.init();
             },
@@ -32,6 +35,14 @@
             },
 
             init: function () {
+
+                var p = this.param;
+
+                this.dimension = this.crossfilter.dimension(function(d) {
+                    return d[p].value;
+                });
+                this.group = this.dimension.group().reduceCount();
+
 
                 this.chart = dc.pieChart("#chart");
                 this.chart

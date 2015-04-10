@@ -176,10 +176,13 @@
 
             ready: function() {
                 console.log("faceted-search ready");
+                numWidgets = numWidgets - 1;
                 //this.init();
             },
 
             init: function () {
+
+                this.params = ["designation", "designationScheme"];
 
                 for (var i= 0; i < this.params.length; i++)
                 {

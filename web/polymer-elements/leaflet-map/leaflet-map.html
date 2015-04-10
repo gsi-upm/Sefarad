@@ -34,6 +34,7 @@
 
        ready: function() {
            console.log("leaflet-map ready");
+           numWidgets = numWidgets - 1;
            //this.init();
        },
 
@@ -46,15 +47,8 @@
 
        init: function () {
 
-//           var baseLayer = L.tileLayer('http://{s}.tiles.mapbox.com/v3/MapID/{z}/{x}/{y}.png', {
-//               attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-//               maxZoom: 18
-//           });
-//
-//           var map = new L.Map( this.$.map , {
-//               zoom: 18,
-//               layers: [baseLayer]
-//           } );
+           this.dimension = this.crossfilter.dimension(function(d) {return d.id;});
+           this.group = this.dimension.group().reduceCount();
 
            var leafletchart = dc.leafletChoroplethChart("#map", "", new L.Map( this.$.map))
                    .root(this.$.map)//IMPORTANT! this has to be set from this point. If not set, the library will try to use jQuery to find the document's root, wich will fail!
