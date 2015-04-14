@@ -112,10 +112,7 @@
                         <i class="fa fa-pie-chart"></i> <span>Dashboard</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="dashboard.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-                    </ul>
-                </li>
+                        <li class="active"><a href="dashboard.html"><i class="fa fa-circle-o"></i> View 1</a></li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-database"></i> <span>Query</span><i class="fa fa-angle-left pull-right"></i>
@@ -166,7 +163,7 @@
                         </div>
                         <!-- box-body -->
                         <div class="box-body chart-responsive">
-                            <faceted-search></faceted-search>
+                            <faceted-search class="dc-element"></faceted-search>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -176,11 +173,11 @@
                     <!--Widgets must have 'widget' class in order to render their loading screen-->
                     <div class="box box-primary widget">
                         <div class="box-header">
-                            <h3 class="box-title">Designation</h3>
+                            <h3 class="box-title" id="here">Designation</h3>
                         </div>
                         <!-- box-body -->
                         <div class="box-body chart-responsive">
-                            <pie-chart param="designation"></pie-chart>
+                            <pie-chart param="designation" class="dc-element"></pie-chart>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -194,7 +191,7 @@
                         </div>
                         <!-- box-body -->
                         <div class="box-body chart-responsive">
-                            <pie-chart param="designationScheme"></pie-chart>
+                            <pie-chart param="designationScheme" class="dc-element"></pie-chart>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -219,7 +216,7 @@
                         </div>
                         <!-- box-body -->
                         <div class="box-body chart-responsive">
-                            <leaflet-map></leaflet-map>
+                            <leaflet-map class="dc-element"></leaflet-map>
                         </div>
                         <!-- /.box-body -->
                     </div>

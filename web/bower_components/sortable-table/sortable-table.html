@@ -490,6 +490,11 @@
 
             console.log("table ready!");
 
+            this.dimension = this.crossfilter.dimension(function(d) {return d.name.value;});
+            this.group = this.dimension.group().reduceCount();
+
+            this.columnSelector = ["name", "designation", "designationScheme"];
+
             this.dcChart = dc.customChart();
             this.dcChart.dimension(this.dimension);
             this.dcChart.group(this.group);
@@ -500,6 +505,9 @@
             //dc.renderAll();
         },
 		ready: function(){
+
+            numWidgets = numWidgets - 1;
+
 			var self = this;
 			var dataSource = this.querySelector('[role="datasource"]');
 			if(dataSource){
