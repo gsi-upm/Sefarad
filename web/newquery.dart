@@ -9,6 +9,7 @@ class Query {
   String type;
   String name = '';
   String query = '';
+  String queryMongo = '';
   String params = '';
   String value = '';
   String endPoint = '';
@@ -155,6 +156,7 @@ class Query {
     name = "";
     myEl2.value = "";
     endPoint = "";
+    queryMongo = "";
     parameters.clear();
     parameters0.clear();
     parameters1.clear();
@@ -176,58 +178,60 @@ class Query {
 
   void saveData(){
 
+    String dataQuery;
     querySelector('#saveError').classes.add("hide");
     querySelector('#saveSuccess').classes.add("hide");
-    if(type == "Sparql") {
-      if (!checkParamPattern()) {
-        querySelector('#saveError').classes.remove("hide");
-        return;
-      }
+    if(type == "Sparql")
+      dataQuery = myEl2.value;
+    else
+      dataQuery = queryMongo;
 
-      var queryVar = {
-          "Name" : name,
-          "Query" : myEl2.value,
-          "Endpoint" : endPoint,
-          "Parameters0": parameters0,
-          "Parameters1": parameters1,
-          "Parameters2": parameters2,
-          "Parameters3": parameters3,
-          "Parameters4": parameters4,
-      };
-      querys.add(queryVar);
-      querySelector('#saveSuccess').classes.remove("hide");
-      String jsonData = JSON.encode(querys);
-
-      var request = new HttpRequest();
-      request.onReadyStateChange.listen((_) {
-        if (request.readyState == HttpRequest.DONE &&
-        (request.status == 200 || request.status == 0)) {
-          // data saved OK.
-          print(" Data saved successfully");
-
-        }
-      });
-      var url = "http://$host/queries";
-      request.open("POST", url);
-      request.send(jsonData);
-    } else {
+    if (!checkParamPattern(dataQuery)) {
       querySelector('#saveError').classes.remove("hide");
+      return;
     }
+    var queryVar = {
+        "Name" : name,
+        "Query" : dataQuery,
+        "Endpoint" : endPoint,
+        "Type" : type,
+        "Parameters0": parameters0,
+        "Parameters1": parameters1,
+        "Parameters2": parameters2,
+        "Parameters3": parameters3,
+        "Parameters4": parameters4,
+    };
+    querys.add(queryVar);
+    querySelector('#saveSuccess').classes.remove("hide");
+    String jsonData = JSON.encode(querys);
+
+    var request = new HttpRequest();
+    request.onReadyStateChange.listen((_) {
+      if (request.readyState == HttpRequest.DONE && (request.status == 200 || request.status == 0)) {
+         // data saved OK.
+        print(" Data saved successfully");
+
+      }
+    });
+    var url = "http://$host/queries";
+    request.open("POST", url);
+    request.send(jsonData);
+
   }
 
-  bool checkParamPattern(){
+  bool checkParamPattern(String value){
 
     bool allRight = true;
     if(parameters.length != 0) {
       int i = 0;
       for(i = 0; i < parameters.length; i++) {
         String compare = "<" + parameters.elementAt(i) + ">";
-        if (!myEl2.value.contains(compare))
+        if (!value.contains(compare))
           allRight = false;
       }
     }
-    if(myEl2.value.contains('<') || myEl2.value.contains('>')) {
-      var matches = regex.allMatches(myEl2.value);
+    if(value.contains('<') || value.contains('>')) {
+      var matches = regex.allMatches(value);
       int i = 0;
       for(i =0; i<matches.length;i++){
         String compare = matches.elementAt(i).group(0);

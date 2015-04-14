@@ -1,5 +1,8 @@
 import 'dart:io';
 import 'package:mongo_dart/mongo_dart.dart';
+import 'dart:convert';
+import 'dart:core';
+
 
 /* A simple web server that responds to **ALL** GET requests by returning
  * the contents of data.json file, and responds to ALL **POST** requests
@@ -46,9 +49,44 @@ void main() {
  */
 void handleGet(HttpRequest req) {
   HttpResponse res = req.response;
+  RegExp regex = new RegExp("[a-zA-Z0-9._%+-][^&]*");
   print("${req.method}: ${req.uri.path}");
   String data_file = url + req.uri.path + ".json";
   addCorsHeaders(res);
+
+  if(req.uri.path == "/mongodbquery"){
+    String queryStr = req.uri.query;
+    var matches = regex.allMatches(queryStr);
+    var collection = matches.elementAt(0).group(0);
+    queryStr = Uri.decodeComponent(queryStr);
+    queryStr = queryStr.substring(collection.length+1, queryStr.length);
+    List mongodb = new List();
+    db.open().then((c){
+      print('connection open');
+      coll = db.collection(collection);
+      res.headers.add(HttpHeaders.CONTENT_TYPE, "application/json");
+      print(JSON.decode(queryStr));
+      Cursor cursor = coll.find(JSON.decode(queryStr));
+      cursor.forEach((Map v) {
+
+        //the mongo-dart ObjectId isn't supported by the JSON.encode()
+        //so we'll just extract it, convert it to a string, and put it back again.
+        var id = v["_id"];
+        v.remove("_id");
+        v["_id"] = id.toString();
+
+        //finally, add the post to the list of mongodb.
+        mongodb.add(v);
+
+      }).then((dummy) {
+        res.write(JSON.encode(mongodb));
+        res.close();
+      });
+      return;
+    });
+
+    return;
+  }
 
   var file = new File(data_file);
   if (file.existsSync()) {
@@ -71,10 +109,26 @@ void handlePost(HttpRequest req) {
   HttpResponse res = req.response;
   print("${req.method}: ${req.uri.path}");
   String data_file = url + req.uri.path + ".json";
+  BytesBuilder builder = new BytesBuilder();
 
   addCorsHeaders(res);
 
   req.listen((List<int> buffer) {
+    builder.add(buffer);
+    if(req.uri.path == "/register"){
+      String jsonString = UTF8.decode(builder.takeBytes());
+      db.open().then((c){
+        print('connection open');
+        coll = db.collection("users");
+        coll.insert(JSON.decode(jsonString));
+      }).then((dummy){
+        db.close();
+      });
+
+      res.add(buffer);
+      res.close();
+      return;
+    }
     var file = new File(data_file);
     var ioSink = file.openWrite(); // save the data to the file
     ioSink.add(buffer);

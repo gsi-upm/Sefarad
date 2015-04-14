@@ -47,3 +47,13 @@ html /deep/ .size-position::shadow #scroller {
     margin-top: 0;
     text-align: center;
 }
+
+#divMongodb{
+    display: none;
+}
+
+#table {
+    background-color: #ffffff;
+    width: 100%;
+    padding: 15px;
+}

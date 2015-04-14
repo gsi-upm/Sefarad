@@ -113,7 +113,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="dataset.html"><i class="fa fa-circle-o"></i> Add Dataset</a></li>
-                        <li class="active"><a href="query.html"><i class="fa fa-circle-o"></i> SPARQL Editor</a></li>
+                        <li class="active"><a href="query.html"><i class="fa fa-circle-o"></i> Query Editor</a></li>
                         <li><a href="newquery.html"><i class="fa fa-circle-o"></i> Add Query</a></li>
                     </ul>
                 </li>
@@ -168,7 +168,7 @@
                 <br>
 
                 <p class="text-light-blue">Select a query template:</p>
-                <select style="width: 65%;" class="form-control" id="querySelector">
+                <select style="width: 65%;" class="form-control" id="querySelector" ng-change="checkType()">
                     <option ng-repeat="query in querys" ng-value="query.Name">{{query.Name}}</option>
                 </select>
                 <br>
@@ -181,30 +181,56 @@
                 <br>
 
                 <p class="text-light-blue">Edit your query:</p>
-                <paper-shadow class="card" z="2">
-                    <div id="yasqe" style="padding-bottom: 15px"></div>
-                </paper-shadow>
-                <br>
 
-                <a class="btn btn-app center-block" id="queryButton">
-                    <i class="fa fa-play"></i> Execute Query
-                </a>
+                <div id="divSparql">
+                    <paper-shadow class="card" z="2">
+                        <div id="yasqe" style="padding-bottom: 15px"></div>
+                    </paper-shadow>
+                    <br>
 
-                <div class="alert alert-danger alert-dismissable hide" id="queryError">
-                    <i class="fa fa-ban"></i>
+                    <a class="btn btn-app center-block" id="queryButton">
+                        <i class="fa fa-play"></i> Execute Query
+                    </a>
 
-                    <b>Query failed</b>
+                    <div class="alert alert-danger alert-dismissable hide" id="queryError">
+                        <i class="fa fa-ban"></i>
+
+                        <b>Query failed</b>
+                    </div>
+
+                    <div class="alert alert-success alert-dismissable hide" id="querySuccess">
+                        <i class="fa fa-check"></i>
+
+                        <b>Query success</b>
+                    </div>
+
+                    <paper-shadow class="card" z="2">
+                        <div id="yasr"></div>
+                    </paper-shadow>
                 </div>
 
-                <div class="alert alert-success alert-dismissable hide" id="querySuccess">
-                    <i class="fa fa-check"></i>
 
-                    <b>Query success</b>
+                <div id="divMongodb">
+                    <paper-shadow class="card" z="2">
+                        <textarea style="width: 100%;" rows="10" id="queryMongo" ng-model="queryMongo"></textarea>
+                    </paper-shadow>
+                    <br>
+                    <a class="btn btn-app center-block" ng-click="executeMongoQuery()">
+                        <i class="fa fa-play"></i> Execute Query
+                    </a>
+                    <div class="alert alert-danger alert-dismissable hide" id="queryError2">
+                        <i class="fa fa-ban"></i>
+
+                        <b>Query failed</b>
+                    </div>
+
+                    <div class="alert alert-success alert-dismissable hide" id="querySuccess2">
+                        <i class="fa fa-check"></i>
+
+                        <b>Query success</b>
+                    </div>
+
                 </div>
-
-                <paper-shadow class="card" z="2">
-                    <div id="yasr"></div>
-                </paper-shadow>
             </div>
 
 
@@ -315,12 +341,18 @@
                         var selectedParameters = this.value;
                         query = query.replace(match[index[1]], selectedParameters);
                         match[index[1]] = selectedParameters;
-                        yasqe.setValue(query);
+                        if(parsedData[0]["Type"] == "Sparql")
+                            yasqe.setValue(query);
+                        else
+                            $("#queryMongo").val(query);
                     });
                 }
             }
 
-            yasqe.setValue(query);
+            if(parsedData[0]["Type"] == "Sparql")
+                yasqe.setValue(query);
+            else
+                $("#queryMongo").val(query);
             return;
         }
     };
@@ -388,10 +420,6 @@
                         contentType: req.getResponseHeader("Content-Type")
                     });
 
-
-
-
-
                 } else {
                     $("#queryError").removeClass('hide');
 
@@ -430,12 +458,18 @@
                                 var selectedParameters = this.value;
                                 query = query.replace(match[index[1]], selectedParameters);
                                 match[index[1]] = selectedParameters;
-                                yasqe.setValue(query);
+                                if(parsedData[j]["Type"] == "Sparql")
+                                    yasqe.setValue(query);
+                                else
+                                    $("#queryMongo").val(query);
                             });
                         }
                     }
 
-                    yasqe.setValue(query);
+                    if(parsedData[j]["Type"] == "Sparql")
+                        yasqe.setValue(query);
+                    else
+                        $("#queryMongo").val(query);
                     return;
                 }
             }
