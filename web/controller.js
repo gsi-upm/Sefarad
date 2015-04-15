@@ -96,6 +96,9 @@ var initializeWidgets = function () {
                     d.price.value = "€21-50";
                 }
 
+                var st = d.d.value;
+                d.name = {};
+                d.name.value = st.substr(st.lastIndexOf('/')+1, st.length).replace(/-/g," ");
 
 
             });
