@@ -42,6 +42,7 @@
 		sortColumn
 		sortDescending
 		userSort
+		params
 	"
 	style="display:block"
 >
@@ -490,10 +491,12 @@
 
             console.log("table ready!");
 
-            this.dimension = this.crossfilter.dimension(function(d) {return d.name.value;});
+            this.dimension = this.crossfilter.dimension(function(d) {return d.id.value;});
             this.group = this.dimension.group().reduceCount();
 
-            this.columnSelector = ["name", "designation", "designationScheme"];
+            this.columnSelector = this.params.replace(/\s+/g, '').split(',');
+
+            //this.columnSelector = ["name", "designation", "designationScheme"];
 
             this.dcChart = dc.customChart();
             this.dcChart.dimension(this.dimension);

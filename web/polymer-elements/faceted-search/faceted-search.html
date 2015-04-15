@@ -4,7 +4,7 @@
 
 
 
-<polymer-element name="faceted-search" class="dc-element">
+<polymer-element name="faceted-search" class="dc-element" attributes="params">
 
 
 
@@ -178,11 +178,13 @@
                 console.log("faceted-search ready");
                 numWidgets = numWidgets - 1;
                 //this.init();
+
+
             },
 
             init: function () {
 
-                this.params = ["designation", "designationScheme"];
+                this.params = this.params.split(',');
 
                 for (var i= 0; i < this.params.length; i++)
                 {
