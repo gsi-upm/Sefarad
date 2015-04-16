@@ -46,7 +46,8 @@
 
                 this.chart = dc.pieChart("#chart");
                 this.chart
-                        .width(250).height(250)
+                        .ordinalColors(["#1E7751","#07A360","#21553F","#25342E"])
+                        .width(175).height(175)
                         .dimension(this.dimension)
                         .group(this.group)
                         .innerRadius(30)

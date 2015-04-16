@@ -31,12 +31,35 @@
                 background-color: #398439;
             }
 
+            .badge {
+                background-color: #808080;
+                position: absolute;
+                right: 20px;
+            }
+
             .badge-info {
                 background-color: #428BCA;
+                position: absolute;
+                right: 20px;
             }
 
             .badge-inverse {
-                background-color: #333333;
+                background-color: #428BCA;
+                position: absolute;
+                right: 20px;
+            }
+
+            .value-primary {
+                color: blue;
+                cursor: pointer;
+            }
+            .value-default {
+                color: #808080;
+                cursor: pointer;
+            }
+
+            li {
+                cursor: pointer;
             }
 
 
@@ -55,9 +78,9 @@
                     <div id="{{d[0]}}" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <ul class="nav nav-pills nav-stacked">
-                                    <template repeat="{{p in d[2]}}">
-                                        <li dimension="{{d[0]}}" on-click="{{valueClick}}" class="active">
-                                                <span class="label label-primary">{{p[0]}}</span><span class="badge badge-info">{{p[1]}}</span>
+                                    <template repeat="{{p in d[2]}}" >
+                                        <li dimension="{{d[0]}}" on-click="{{valueClick}}" class="active" style="width: 250px">
+                                                <span class="value-primary">{{p[0]}}</span><span class="badge badge-info">{{p[1]}}</span>
                                         </li>
                                     </template>
                             </ul>
@@ -100,18 +123,18 @@
 
                 var dim = sender.getAttribute("dimension");
 
-                if(sender.getElementsByTagName("span")[0].classList.contains("label-primary"))
+                if(sender.getElementsByTagName("span")[0].classList.contains("value-primary"))
                 {
-                    sender.getElementsByTagName("span")[0].classList.remove("label-primary");
-                    sender.getElementsByTagName("span")[0].classList.add("label-default");
+                    sender.getElementsByTagName("span")[0].classList.remove("value-primary");
+                    sender.getElementsByTagName("span")[0].classList.add("value-default");
 
                     //the badge
                     sender.getElementsByTagName("span")[0].nextSibling.classList.toggle("badge-info");
 
                 }else
                 {
-                    sender.getElementsByTagName("span")[0].classList.remove("label-default");
-                    sender.getElementsByTagName("span")[0].classList.add("label-primary");
+                    sender.getElementsByTagName("span")[0].classList.remove("value-default");
+                    sender.getElementsByTagName("span")[0].classList.add("value-primary");
 
                     //the badge
                     sender.getElementsByTagName("span")[0].nextSibling.classList.toggle("badge-info");

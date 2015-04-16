@@ -1,0 +1,773 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="da9a7a24-05c9-4f2c-9dc9-58a3aec3e03d" name="Default" comment="Style fixes">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/code_transformers" afterPath="$PROJECT_DIR$/packages/code_transformers" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/path" afterPath="$PROJECT_DIR$/packages/path" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/stack_trace" afterPath="$PROJECT_DIR$/packages/stack_trace" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/polymer-elements/bar-chart/bar-chart.html" afterPath="$PROJECT_DIR$/web/polymer-elements/bar-chart/bar-chart.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboard.html" afterPath="$PROJECT_DIR$/web/dashboard.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboardRestaurants.html" afterPath="$PROJECT_DIR$/web/dashboardRestaurants.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/polymer-elements/faceted-search/faceted-search.html" afterPath="$PROJECT_DIR$/web/polymer-elements/faceted-search/faceted-search.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/polymer-elements/number-chart/number-chart.html" afterPath="$PROJECT_DIR$/web/polymer-elements/number-chart/number-chart.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/polymer-elements/pie-chart/pie-chart.html" afterPath="$PROJECT_DIR$/web/polymer-elements/pie-chart/pie-chart.html" />
+    </list>
+    <ignored path="Sefarad-2.0.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/.pub/" />
+    <ignored path="$PROJECT_DIR$/bin/packages/" />
+    <ignored path="$PROJECT_DIR$/web/assets/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bootstrap/css/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bootstrap/fonts/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bootstrap/js/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bootstrap/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-ajax/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-ajax/test/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-collapse/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-collapse/test/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-component-page/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-dropdown/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-dropdown/test/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-icon-button/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-icon/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-icons/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-iconset-svg/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-iconset/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-meta/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-overlay/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-overlay/tests/html/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-overlay/tests/js/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-overlay/tests/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-resizable/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-resizable/test/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/core-transition/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/data-table/dist/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/data-table/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/data-table/src/data-table-bin/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/data-table/src/data-table-column/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/data-table/src/data-table/header/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/data-table/src/data-table/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/data-table/src/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/json5/lib/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/json5/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/json5/test/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/json5/test/parse-cases/arrays/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/json5/test/parse-cases/comments/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/json5/test/parse-cases/misc/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/json5/test/parse-cases/new-lines/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/json5/test/parse-cases/numbers/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/json5/test/parse-cases/objects/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/json5/test/parse-cases/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/json5/test/parse-cases/strings/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/json5/test/parse-cases/todo/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/polymer/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/sortable-table/css/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/sortable-table/examples/datatables.net/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/sortable-table/examples/extjs/4.2.883/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/sortable-table/examples/extjs/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/sortable-table/examples/flickr_demo/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/sortable-table/examples/issues/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/sortable-table/examples/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/sortable-table/examples/serverside/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/sortable-table/examples/themes/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/sortable-table/img/icons/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/sortable-table/img/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/sortable-table/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/time-elements/packages/" />
+    <ignored path="$PROJECT_DIR$/web/bower_components/webcomponentsjs/packages/" />
+    <ignored path="$PROJECT_DIR$/web/dist/css/packages/" />
+    <ignored path="$PROJECT_DIR$/web/dist/css/skins/packages/" />
+    <ignored path="$PROJECT_DIR$/web/dist/img/credit/packages/" />
+    <ignored path="$PROJECT_DIR$/web/dist/img/packages/" />
+    <ignored path="$PROJECT_DIR$/web/dist/js/packages/" />
+    <ignored path="$PROJECT_DIR$/web/dist/js/pages/packages/" />
+    <ignored path="$PROJECT_DIR$/web/dist/packages/" />
+    <ignored path="$PROJECT_DIR$/web/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/bootstrap-slider/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/bootstrap-wysihtml5/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/chartjs/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/adapters/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/lang/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/a11yhelp/dialogs/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/a11yhelp/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/about/dialogs/hidpi/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/about/dialogs/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/about/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/clipboard/dialogs/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/clipboard/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/dialog/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/fakeobjects/images/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/fakeobjects/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/image/dialogs/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/image/images/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/image/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/link/dialogs/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/link/images/hidpi/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/link/images/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/link/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/magicline/images/hidpi/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/magicline/images/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/magicline/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/pastefromword/filter/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/pastefromword/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/scayt/dialogs/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/scayt/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/specialchar/dialogs/lang/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/specialchar/dialogs/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/specialchar/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/table/dialogs/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/table/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/tabletools/dialogs/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/tabletools/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/wsc/dialogs/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/plugins/wsc/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/skins/moono/images/hidpi/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/skins/moono/images/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/skins/moono/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ckeditor/skins/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/colorpicker/img/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/colorpicker/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/datatables/images/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/datatables/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/datepicker/locales/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/datepicker/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/daterangepicker/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/dc/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/fastclick/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/flot/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/fullcalendar/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/iCheck/flat/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/iCheck/futurico/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/iCheck/line/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/iCheck/minimal/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/iCheck/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/iCheck/polaris/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/iCheck/square/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/input-mask/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/input-mask/phone-codes/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/ionslider/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/jQuery/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/jQueryUI/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/jvectormap/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/knob/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/morris/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/pace/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/papaparse/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/slimScroll/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/sparkline/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/sparql-geojson/packages/" />
+    <ignored path="$PROJECT_DIR$/web/plugins/timepicker/packages/" />
+    <ignored path="$PROJECT_DIR$/web/polymer-elements/bar-chart/packages/" />
+    <ignored path="$PROJECT_DIR$/web/polymer-elements/faceted-search/packages/" />
+    <ignored path="$PROJECT_DIR$/web/polymer-elements/leaflet-map/packages/" />
+    <ignored path="$PROJECT_DIR$/web/polymer-elements/packages/" />
+    <ignored path="$PROJECT_DIR$/web/polymer-elements/paper-action-dialog/packages/" />
+    <ignored path="$PROJECT_DIR$/web/polymer-elements/paper-button/packages/" />
+    <ignored path="$PROJECT_DIR$/web/polymer-elements/paper-icon-button/packages/" />
+    <ignored path="$PROJECT_DIR$/web/polymer-elements/paper-input-decorator/packages/" />
+    <ignored path="$PROJECT_DIR$/web/polymer-elements/paper-shadow/packages/" />
+    <ignored path="$PROJECT_DIR$/web/polymer-elements/paper-toggle-button/packages/" />
+    <ignored path="$PROJECT_DIR$/web/polymer-elements/pie-chart/packages/" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="Sefarad-2.0" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="dashboard.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/dashboard.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-21.875" vertical-offset="2160" max-vertical-offset="5325">
+              <caret line="179" column="67" selection-start-line="179" selection-start-column="67" selection-end-line="179" selection-end-column="67" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dashboardRestaurants.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-14.958333" vertical-offset="4426" max-vertical-offset="6135">
+              <caret line="319" column="72" selection-start-line="319" selection-start-column="28" selection-end-line="319" selection-end-column="72" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="faceted-search.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/polymer-elements/faceted-search/faceted-search.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.58441556" vertical-offset="900" max-vertical-offset="4125">
+              <caret line="81" column="122" selection-start-line="81" selection-start-column="122" selection-end-line="81" selection-end-column="122" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bar-chart.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/polymer-elements/bar-chart/bar-chart.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-15.5" vertical-offset="243" max-vertical-offset="1110">
+              <caret line="41" column="34" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="MERGE" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/web/bower_components/sortable-table/sortable-table.html" />
+        <option value="$PROJECT_DIR$/web/controller.js" />
+        <option value="$PROJECT_DIR$/web/polymer-elements/bar-chart/bar-chart.html" />
+        <option value="$PROJECT_DIR$/web/polymer-elements/number-chart/number-chart.html" />
+        <option value="$PROJECT_DIR$/web/polymer-elements/pie-chart/pie-chart.html" />
+        <option value="$PROJECT_DIR$/web/dashboardRestaurants.html" />
+        <option value="$PROJECT_DIR$/web/polymer-elements/faceted-search/faceted-search.html" />
+        <option value="$PROJECT_DIR$/web/dashboard.html" />
+      </list>
+    </option>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="65" />
+    <option name="y" value="24" />
+    <option name="width" value="1215" />
+    <option name="height" value="1000" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="polymer-elements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="polymer-elements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="faceted-search" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="recentsLimit" value="5" />
+    <property name="FullScreen" value="false" />
+  </component>
+  <component name="RestoreUpdateTree">
+    <UpdateInfo date="Moments ago" ActionInfo="_Update">
+      <UpdatedFiles>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated from server" />
+          <option name="myStatusName" value="Changed on server" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CHANGED_ON_SERVER" />
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Updated" />
+            <option name="myStatusName" value="Changed" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="UPDATED" />
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/bin/server.dart</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/pubspec.yaml</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/common.css</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dashboard.html</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dataset.dart</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dataset.html</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dist/css/skins/_all-skins.min.css</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/newquery.dart</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/queries.json</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/query.dart</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/query.html</PATH>
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Created" />
+            <option name="myStatusName" value="Created" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="CREATED" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Deleted" />
+            <option name="myStatusName" value="Deleted" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="true" />
+            <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Restored" />
+            <option name="myStatusName" value="Will be restored" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="RESTORED" />
+          </FILE-GROUP>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Modified" />
+          <option name="myStatusName" value="Modified" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MODIFIED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Skipped" />
+          <option name="myStatusName" value="Skipped" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SKIPPED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with conflicts" />
+          <option name="myStatusName" value="Will be merged with conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_CONFLICTS" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with tree conflicts" />
+          <option name="myStatusName" value="Merged with tree conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with property conflicts" />
+          <option name="myStatusName" value="Will be merged with property conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged" />
+          <option name="myStatusName" value="Will be merged" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Not in repository" />
+          <option name="myStatusName" value="Not in repository" />
+          <option name="mySupportsDeletion" value="true" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UNKNOWN" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally added" />
+          <option name="myStatusName" value="Locally added" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_ADDED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally removed" />
+          <option name="myStatusName" value="Locally removed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_REMOVED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Switched" />
+          <option name="myStatusName" value="Switched" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SWITCHED" />
+        </FILE-GROUP>
+      </UpdatedFiles>
+    </UpdateInfo>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.dashboardRestaurants.html">
+    <configuration default="false" name="dashboardRestaurants.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Sefarad-2.0/web/dashboardRestaurants.html">
+      <RunnerSettings RunnerId="JavascriptDebugRunner" />
+      <ConfigurationWrapper RunnerId="JavascriptDebugRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="dashboard.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Sefarad-2.0/web/dashboard.html">
+      <RunnerSettings RunnerId="JavascriptDebugRunner" />
+      <ConfigurationWrapper RunnerId="JavascriptDebugRunner" />
+      <method />
+    </configuration>
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.dashboardRestaurants.html" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.dashboard.html" />
+    </list>
+    <recent_temporary>
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.dashboardRestaurants.html" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.dashboard.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="da9a7a24-05c9-4f2c-9dc9-58a3aec3e03d" name="Default" comment="" />
+      <created>1429094714749</created>
+      <option name="number" value="Default" />
+      <updated>1429094714749</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="65" y="24" width="1215" height="1000" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Pub Serve" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32964602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2540633" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+    <MESSAGE value="Slovakian demo fixed&#10;Restaurants table not filter" />
+    <MESSAGE value="Slovakian demo fixed&#10;Restaurants table not filtering" />
+    <MESSAGE value="Style fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Style fixes" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/web/controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3570">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3645" max-vertical-offset="4965">
+          <caret line="266" column="42" selection-start-line="266" selection-start-column="42" selection-end-line="266" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/bower_components/sortable-table/sortable-table.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="7066" max-vertical-offset="15255">
+          <caret line="493" column="82" selection-start-line="493" selection-start-column="82" selection-end-line="493" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/bower_components/sortable-table/dc.custom.table.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="633" max-vertical-offset="1320">
+          <caret line="33" column="19" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="19" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4005" max-vertical-offset="5565">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1380" max-vertical-offset="3990">
+          <caret line="126" column="30" selection-start-line="126" selection-start-column="30" selection-end-line="126" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/polymer-elements/bar-chart/bar-chart.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.5" vertical-offset="243" max-vertical-offset="1110">
+          <caret line="41" column="34" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dist/js/demo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6394316" vertical-offset="1485" max-vertical-offset="2505">
+          <caret line="123" column="23" selection-start-line="123" selection-start-column="23" selection-end-line="123" selection-end-column="23" />
+          <folding>
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1429094705482" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/polymer-elements/pie-chart/pie-chart.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-29.166666" vertical-offset="155" max-vertical-offset="1005">
+          <caret line="57" column="13" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/polymer-elements/number-chart/number-chart.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29891303" vertical-offset="225" max-vertical-offset="1335">
+          <caret line="26" column="28" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/bower_components/sortable-table/dc.custom.table.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="633" max-vertical-offset="1320">
+          <caret line="33" column="19" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="19" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/bower_components/sortable-table/sortable-table.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.708333" vertical-offset="7066" max-vertical-offset="15255">
+          <caret line="493" column="82" selection-start-line="493" selection-start-column="82" selection-end-line="493" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-21.875" vertical-offset="2160" max-vertical-offset="5325">
+          <caret line="179" column="67" selection-start-line="179" selection-start-column="67" selection-end-line="179" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.958333" vertical-offset="4426" max-vertical-offset="6135">
+          <caret line="319" column="72" selection-start-line="319" selection-start-column="28" selection-end-line="319" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/polymer-elements/faceted-search/faceted-search.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.58441556" vertical-offset="900" max-vertical-offset="4125">
+          <caret line="81" column="122" selection-start-line="81" selection-start-column="122" selection-end-line="81" selection-end-column="122" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

@@ -150,11 +150,71 @@
         <section class="content">
             <!-- Small boxes (Stat box) -->
             <div class="row">
+
+                <div class="col-lg-3 col-xs-6">
+
+                    <!--Number chart is just the number in order to take advantage of adminLTE icons-->
+                    <!-- small box -->
+                    <div  class="small-box bg-aqua-gradient">
+                        <div class="inner">
+                            <h3><number-chart param="name" class="dc-element"></number-chart>
+                            </h3>
+                            <p>Number of filtered elements</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <div class="small-box-footer"></div>
+                    </div>
+
+
+                </div><!-- ./col -->
+
+                <div class="col-lg-3 col-xs-6">
+                <!--Number chart is just the number in order to take advantage of adminLTE icons-->
+                <!-- small box -->
+                <div  class="small-box bg-green-gradient">
+                    <div class="inner">
+                        <h3><number-chart param="district" class="dc-element"></number-chart>
+                        </h3>
+                        <p>Number of districts under selection</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <div class="small-box-footer"></div>
+                </div>
+                </div><!-- ./col -->
+
+
+                <div class="col-lg-3 col-xs-6">
+
+                    <!--Number chart is just the number in order to take advantage of adminLTE icons-->
+                    <!-- small box -->
+                    <div  class="small-box bg-yellow-gradient">
+                        <div class="inner">
+                            <h3><number-chart param="newFoodType" class="dc-element"></number-chart>
+                            </h3>
+                            <p>Food types under selection</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <div class="small-box-footer"></div>
+                    </div>
+
+
+                </div><!-- ./col -->
+            </div>
+            <!-- /.row -->
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
                 <div class="col-lg-3 col-xs-6">
                     <!-- pie-chart -->
                     <!--Widgets must have 'widget' class in order to render their loading screen-->
                     <div class="box box-primary widget">
                         <div class="box-header">
+                            <i class="fa fa-inbox"></i>
                             <h3 class="box-title" id="here">Handle Reservations</h3>
                         </div>
                         <!-- box-body -->
@@ -170,6 +230,7 @@
                     <!--Widgets must have 'widget' class in order to render their loading screen-->
                     <div class="box box-primary widget">
                         <div class="box-header">
+                            <i class="glyphicon glyphicon-send"></i>
                             <h3 class="box-title">Food takeout</h3>
                         </div>
                         <!-- box-body -->
@@ -180,12 +241,12 @@
                     </div>
                     <!-- /.pie-chart -->
                 </div><!-- ./col -->
-
                 <div class="col-lg-6 col-xs-6">
-                    <!-- pie-chart -->
+                    <!-- bar-chart -->
                     <!--Widgets must have 'widget' class in order to render their loading screen-->
                     <div class="box box-primary widget">
                         <div class="box-header">
+                            <i class="glyphicon glyphicon-usd"></i>
                             <h3 class="box-title">Price Filter</h3>
                         </div>
                         <!-- box-body -->
@@ -194,21 +255,10 @@
                         </div>
                         <!-- /.box-body -->
                     </div>
-                    <!-- /.pie-chart -->
+                    <!-- /.bar-chart -->
                 </div><!-- ./col -->
-                <div class="col-lg-2 col-xs-6">
-                            <number-chart param="name" title="Number of filtered elements" class="dc-element"></number-chart>
-
-                </div><!-- ./col -->
-                <div class="col-lg-2 col-xs-6">
-
-                        <number-chart param="district" title="Districts under selection" class="dc-element"></number-chart>
 
 
-                </div><!-- ./col -->
-                <div class="col-lg-2 col-xs-6">
-                    <number-chart param="newFoodType" title="Food Type under selection" class="dc-element"></number-chart>
-                </div><!-- ./col -->
             </div>
             <!-- /.row -->
             <!-- Main row -->
@@ -216,10 +266,13 @@
                 <!-- Left col -->
                 <section class="col-lg-5 connectedSortable">
 
+
+
                     <!-- faceted-search -->
                     <!--Widgets must have 'widget' class in order to render their loading screen-->
                     <div class="box box-primary widget">
                         <div class="box-header">
+                            <i class="glyphicon glyphicon-search"></i>
                             <h3 class="box-title">Search</h3>
                         </div>
                         <!-- box-body -->
@@ -264,6 +317,7 @@
                     <!-- Custom dc widget table-->
                     <div id="crossFilterDCTest3" class="box box-primary widget">
                         <div class="box-header">
+                            <i class="glyphicon glyphicon-list-alt"></i>
                             <h3 class="box-title">Results Table</h3>
                         </div>
                         <!--box-body -->
