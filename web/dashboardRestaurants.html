@@ -68,7 +68,7 @@
     <link rel="import" href="polymer-elements/bar-chart/bar-chart.html">
     <link rel="import" href="polymer-elements/leaflet-map/leaflet-map.html">
     <link rel="import" href="polymer-elements/number-chart/number-chart.html">
-
+    <link rel="import" href="polymer-elements/bubble-chart/bubble-chart.html">
 
     <link rel="import" href="bower_components/sortable-table/sortable-table.html">
     <link rel="stylesheet"
@@ -292,6 +292,8 @@
 
 
 
+
+
                 </section>
 
                 <!-- /.Left col -->
@@ -300,19 +302,22 @@
 
 
 
-                    <!--&lt;!&ndash; bar-chart &ndash;&gt;-->
-                    <!--&lt;!&ndash;Widgets must have 'widget' class in order to render their loading screen&ndash;&gt;-->
-                    <!--<div class="box box-primary widget">-->
-                    <!--<div class="box-header">-->
-                    <!--<h3 class="box-title">Bar chart</h3>-->
-                    <!--</div>-->
-                    <!--&lt;!&ndash; box-body &ndash;&gt;-->
-                    <!--<div class="box-body chart-responsive">-->
-                    <!--<bar-chart></bar-chart>-->
-                    <!--</div>-->
-                    <!--&lt;!&ndash; /.box-body &ndash;&gt;-->
-                    <!--</div>-->
-                    <!--&lt;!&ndash; /.bar-chart &ndash;&gt;-->
+
+
+                    <!-- bubble-chart -->
+                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                    <div class="box box-primary widget">
+                        <div class="box-header">
+                            <i class="glyphicon glyphicon-record"></i>
+                            <h3 class="box-title">Bubble chart</h3>
+                        </div>
+                        <!-- box-body -->
+                        <div class="box-body chart-responsive">
+                            <bubble-chart param="newPrice" class="dc-element"></bubble-chart>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.bubble-chart -->
 
                     <!-- Custom dc widget table-->
                     <div id="crossFilterDCTest3" class="box box-primary widget">

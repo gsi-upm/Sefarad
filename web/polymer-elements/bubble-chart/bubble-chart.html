@@ -1,0 +1,79 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+
+<polymer-element name="bubble-chart" class="dc-element" attributes="param">
+
+
+  <template>
+      <!-- dc style -->
+      <link rel="stylesheet" type="text/css" href="dc.css" media="screen" />
+      <div id="chart"></div>
+  </template>
+
+    <script>
+        Polymer({
+
+            crossfilterObject: {},
+            chart: {},
+            dimension: {},
+            group: {},
+
+            ready: function() {
+                console.log("bubble-chart ready");
+                numWidgets = numWidgets - 1;
+
+                console.log("bubble chart with param: " + this.param);
+
+                //this.init();
+            },
+
+
+
+            init: function () {
+
+                var p = this.param;
+
+                this.dimension = this.crossfilter.dimension(function(d) {
+                    return d[p].value;
+                });
+                this.group = this.dimension.group().reduceCount();
+
+
+                this.chart = dc.bubbleChart("#chart");
+                this.chart
+                        .transitionDuration(500)
+                        .margins({top: 10, right: 50, bottom: 30, left: 40})
+                        .width(600).height(200)
+                        .dimension(this.dimension)
+                        .group(this.group)
+                        .colorAccessor(function (d) {
+                            return d.value;
+                        })
+                        .keyAccessor(function (d) {
+                            return d.key;
+                        })
+                        .valueAccessor(function (d) {
+                            return d.value;
+                        })
+                        .radiusValueAccessor(function (d) {
+                            return d.value;
+                        })
+                        .maxBubbleRelativeSize(0.5)
+                        .renderHorizontalGridLines(true) // (optional) render horizontal grid lines, :default=false
+                        .renderVerticalGridLines(true)
+                        .x(d3.scale.linear().domain([0, 100]))
+                        .y(d3.scale.linear().domain([0, 100]))
+                        .r(d3.scale.linear().domain([0, 1000]))
+                        .elasticY(true)
+                        .elasticX(true)
+                        .yAxisPadding(100)
+                        .xAxisPadding(100)
+                        .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
+                this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart
+
+                //dc.renderAll();
+            }
+        });
+    </script>
+
+</polymer-element>
