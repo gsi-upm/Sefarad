@@ -14,9 +14,15 @@ var demo;
 var widgetsReady = false;
 var dataReady = false;
 
-var numWidgets; //each widget will deduct one from this number, until it reaches zero. The all widgets will be ready.
+//var numWidgets; //each widget will deduct one from this number, until it reaches zero. The all widgets will be ready.
 
 var intervalID;
+
+$(document).load()
+{
+    var numWidgets;
+    numWidgets = $(".dc-element").length;
+}
 
 $( document ).ready(function() {
 
@@ -42,7 +48,7 @@ $( document ).ready(function() {
     $(".widget").append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
 
 
-    numWidgets = $(".dc-element").length;
+
 
     //initialize widgets:
     intervalID = setInterval(initializeWidgets, 500);
@@ -99,6 +105,31 @@ var initializeWidgets = function () {
                 var st = d.d.value;
                 d.name = {};
                 d.name.value = st.substr(st.lastIndexOf('/')+1, st.length).replace(/-/g," ");
+
+                var st2 = d.foodtype.value;
+                d.newFoodType = {};
+                d.newFoodType.value = st2.substr(st2.lastIndexOf(',')+1, st.length).trim();
+
+                var st3 = d.price.value.trim();
+                var x = st3.lastIndexOf('€');
+                d.newPrice = {};
+                var rawQuantity = st3.substr(x+1, x+2);
+
+                switch(rawQuantity) {
+                    case "20":
+                        d.newPrice.value = 15;
+                        break;
+                    case "21":
+                        d.newPrice.value = 30;
+                        break;
+                    case "51":
+                        d.newPrice.value = 70;
+                        break;
+                    default:
+                        d.newPrice.value = 20;
+                }
+
+
 
 
             });

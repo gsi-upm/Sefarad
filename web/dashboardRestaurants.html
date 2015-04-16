@@ -67,6 +67,8 @@
     <link rel="import" href="polymer-elements/pie-chart/pie-chart.html">
     <link rel="import" href="polymer-elements/bar-chart/bar-chart.html">
     <link rel="import" href="polymer-elements/leaflet-map/leaflet-map.html">
+    <link rel="import" href="polymer-elements/number-chart/number-chart.html">
+
 
     <link rel="import" href="bower_components/sortable-table/sortable-table.html">
     <link rel="stylesheet"
@@ -149,57 +151,63 @@
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-lg-3 col-xs-6">
-                    <!-- small box -->
-                    <div class="small-box bg-aqua">
-                        <div class="inner">
-                            <h3>150</h3>
-                            <p>New Orders</p>
+                    <!-- pie-chart -->
+                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                    <div class="box box-primary widget">
+                        <div class="box-header">
+                            <h3 class="box-title" id="here">Handle Reservations</h3>
+                        </div>
+                        <!-- box-body -->
+                        <div class="box-body chart-responsive">
+                            <pie-chart param="newReservations" class="dc-element"></pie-chart>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.pie-chart -->
+                </div><!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- pie-chart -->
+                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                    <div class="box box-primary widget">
+                        <div class="box-header">
+                            <h3 class="box-title">Food takeout</h3>
+                        </div>
+                        <!-- box-body -->
+                        <div class="box-body chart-responsive">
+                            <pie-chart param="newTakeout" class="dc-element"></pie-chart>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.pie-chart -->
+                </div><!-- ./col -->
 
+                <div class="col-lg-6 col-xs-6">
+                    <!-- pie-chart -->
+                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                    <div class="box box-primary widget">
+                        <div class="box-header">
+                            <h3 class="box-title">Price Filter</h3>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
+                        <!-- box-body -->
+                        <div class="box-body chart-responsive">
+                            <bar-chart param="newPrice" class="dc-element"></bar-chart>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <!-- /.box-body -->
                     </div>
+                    <!-- /.pie-chart -->
                 </div><!-- ./col -->
-                <div class="col-lg-3 col-xs-6">
-                    <!-- small box -->
-                    <div class="small-box bg-green">
-                        <div class="inner">
-                            <h3>53<sup style="font-size: 20px">%</sup></h3>
-                            <p>Bounce Rate</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                    </div>
+                <div class="col-lg-2 col-xs-6">
+                            <number-chart param="name" title="Number of filtered elements" class="dc-element"></number-chart>
+
                 </div><!-- ./col -->
-                <div class="col-lg-3 col-xs-6">
-                    <!-- small box -->
-                    <div class="small-box bg-yellow">
-                        <div class="inner">
-                            <h3>44</h3>
-                            <p>User Registrations</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                    </div>
+                <div class="col-lg-2 col-xs-6">
+
+                        <number-chart param="district" title="Districts under selection" class="dc-element"></number-chart>
+
+
                 </div><!-- ./col -->
-                <div class="col-lg-3 col-xs-6">
-                    <!-- small box -->
-                    <div class="small-box bg-red">
-                        <div class="inner">
-                            <h3>65</h3>
-                            <p>Unique Visitors</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                    </div>
+                <div class="col-lg-2 col-xs-6">
+                    <number-chart param="newFoodType" title="Food Type under selection" class="dc-element"></number-chart>
                 </div><!-- ./col -->
             </div>
             <!-- /.row -->
@@ -222,33 +230,9 @@
                     </div>
                     <!-- /.faceted-search -->
 
-                    <!-- pie-chart -->
-                    <!--Widgets must have 'widget' class in order to render their loading screen-->
-                    <div class="box box-primary widget">
-                        <div class="box-header">
-                            <h3 class="box-title" id="here">Handle Reservations</h3>
-                        </div>
-                        <!-- box-body -->
-                        <div class="box-body chart-responsive">
-                            <pie-chart param="newReservations" class="dc-element"></pie-chart>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.pie-chart -->
 
-                    <!-- pie-chart -->
-                    <!--Widgets must have 'widget' class in order to render their loading screen-->
-                    <div class="box box-primary widget">
-                        <div class="box-header">
-                            <h3 class="box-title">Food takeout</h3>
-                        </div>
-                        <!-- box-body -->
-                        <div class="box-body chart-responsive">
-                            <pie-chart param="newTakeout" class="dc-element"></pie-chart>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.pie-chart -->
+
+
 
 
 

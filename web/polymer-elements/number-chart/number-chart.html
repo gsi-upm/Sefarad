@@ -1,0 +1,92 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+
+<polymer-element name="number-chart" class="dc-element" attributes="param, title">
+
+
+  <template>
+
+      <!-- dc style -->
+      <link rel="stylesheet" type="text/css" href="dc.css" media="screen" />
+
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+      <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+      <script src="../../dist/js/app.min.js"></script>
+
+
+
+      <style>
+
+
+
+      </style>
+
+      <!-- small box -->
+      <div id="smallBox" class="small-box bg-red">
+          <div class="inner">
+              <h3><div id="chart"></div></h3>
+              <p>{{title}}</p>
+          </div>
+
+          <div class="small-box-footer"></div>
+      </div>
+
+  </template>
+
+    <script>
+        Polymer({
+            applyAuthorStyles: true,
+            crossfilterObject: {},
+            chart: {},
+            dimension: {},
+            group: {},
+
+            ready: function() {
+                console.log("number-chart ready");
+                numWidgets = numWidgets - 1;
+
+                console.log("number chart with param: " + this.param);
+
+                //this.init();
+            },
+
+            init: function () {
+
+                var p = this.param;
+
+                this.dimension = this.crossfilter.dimension(function(d) {
+                    return d[p].value;
+                });
+                this.group = this.dimension.group().reduceCount();
+                var dim = this.dimension;
+                var g = this.group;
+
+                //this.$.smallBox.className = "small-box bg-red";
+
+
+
+                this.chart = dc.numberDisplay("#chart");
+                this.chart
+                        .valueAccessor(function(d) {
+                            var aux = [];
+                            var val = dim.group().all();
+                            for (var k= 0; k < val.length; k++) {
+
+                                if(val[k].value != 0) aux.push(val[k]);
+
+                            }
+                            return aux.length;
+                        })
+                        .group(this.group)
+                        .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
+                this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart
+
+                dc.renderAll();
+            }
+        });
+    </script>
+
+</polymer-element>
