@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 
-<polymer-element name="bar-chart" class="dc-element">
+<polymer-element name="bar-chart" class="dc-element" attributes="param">
 
 
   <template>
@@ -22,47 +22,30 @@
 
             ready: function() {
                 console.log("bar-chart ready");
+                numWidgets = numWidgets - 1;
                 //this.init();
             },
 
             init: function () {
 
-//                var data = [
-//                    {date: "12/27/2012", http_404: 2, http_200: 190, http_302: 100},
-//                    {date: "12/28/2012", http_404: 2, http_200: 10, http_302: 100},
-//                    {date: "12/29/2012", http_404: 1, http_200: 300, http_302: 200},
-//                    {date: "12/30/2012", http_404: 2, http_200: 90, http_302: 0},
-//                    {date: "12/31/2012", http_404: 2, http_200: 90, http_302: 0},
-//                    {date: "01/01/2013", http_404: 2, http_200: 90, http_302: 0},
-//                    {date: "01/02/2013", http_404: 1, http_200: 10, http_302: 1},
-//                    {date: "01/03/2013", http_404: 2, http_200: 90, http_302: 0},
-//                    {date: "01/04/2013", http_404: 2, http_200: 90, http_302: 0},
-//                    {date: "01/05/2013", http_404: 2, http_200: 90, http_302: 0},
-//                    {date: "01/06/2013", http_404: 2, http_200: 200, http_302: 1},
-//                    {date: "01/07/2013", http_404: 1, http_200: 200, http_302: 100}
-//                ];
-//                var ndx = crossfilter(data);
-//                var parseDate = d3.time.format("%m/%d/%Y").parse;
-//                data.forEach(function(d) {
-//                    d.date = parseDate(d.date);
-//                    d.total= d.http_404+d.http_200+d.http_302;
-//                });
-//                //print_filter("data");
-//                var dateDim = ndx.dimension(function(d) {return d.date;});
-//                var hits = dateDim.group().reduceSum(function(d) {return d.total;});
-//                var hits = dateDim.group().reduceSum(dc.pluck('total'));
-//                var minDate = dateDim.bottom(1)[0].date;
-//                var maxDate = dateDim.top(1)[0].date;
+                var p = this.param;
+
+                this.dimension = this.crossfilter.dimension(function(d) {
+                    return d[p].value;
+                });
+                this.group = this.dimension.group().reduceCount();
+
+
                 this.chart  = dc.barChart("#chart");
 
                 this.chart
-                        .width(500).height(200)
+                        .width(600).height(150)
                         .dimension(this.dimension)
                         .group(this.group)
                         .x(d3.scale.linear().domain([this.xMin, this.xMax]))
-                        .gap(65)
-                        .yAxisLabel("Number of ocurrences")
-                        .xAxisLabel("Area")
+                        .gap(0.0005)
+                        .yAxisLabel("")
+                        .xAxisLabel("Price")
 
                 .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
                 this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart;
