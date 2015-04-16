@@ -8,6 +8,9 @@
     <!-- Polymer: Load Polymer platform support before any code that touches the DOM. -->
     <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
 
+    <!-- Dart Support -->
+    <script src="packages/web_components/dart_support.js"></script>
+
     <!-- Bootstrap 3.3.2 -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <!-- FontAwesome 4.3.0 -->
@@ -112,8 +115,7 @@
                         <i class="fa fa-pie-chart"></i> <span>Dashboard</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="dashboard.html"><i class="fa fa-circle-o"></i> View 1</a></li>
-                    </ul>
+                        <li class="active"><a href="dashboard.html"><i class="fa fa-circle-o"></i> View 1</a></li></ul>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-database"></i> <span>Query</span><i class="fa fa-angle-left pull-right"></i>
@@ -197,6 +199,22 @@
                         <!-- /.box-body -->
                     </div>
                     <!-- /.pie-chart -->
+
+                    <!--<button ng-click="addWidgetTest()">click me</button>-->
+
+                    <!--&lt;!&ndash; pie-chart &ndash;&gt;-->
+                    <!--&lt;!&ndash;Widgets must have 'widget' class in order to render their loading screen&ndash;&gt;-->
+                    <!--<div class="box box-primary widget">-->
+                        <!--<div class="box-header">-->
+                            <!--<h3 class="box-title">Test</h3>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash; box-body &ndash;&gt;-->
+                        <!--<div id="div" class="box-body chart-responsive">-->
+
+                        <!--</div>-->
+                        <!--&lt;!&ndash; /.box-body &ndash;&gt;-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.pie-chart &ndash;&gt;-->
 
 
 
@@ -284,6 +302,7 @@
 </script>
 <!-- Bootstrap 3.3.2 JS -->
 <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="packages/browser/dart.js"></script>
 <!-- Morris.js charts -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="plugins/morris/morris.min.js" type="text/javascript"></script>

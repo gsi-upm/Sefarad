@@ -57,3 +57,7 @@ html /deep/ .size-position::shadow #scroller {
     width: 100%;
     padding: 15px;
 }
+
+.user-bar, .user-side {
+    display: none;
+}

@@ -115,6 +115,13 @@ void handlePost(HttpRequest req) {
 
   req.listen((List<int> buffer) {
     builder.add(buffer);
+
+    if(req.uri.path == "/login"){
+      var data = new String.fromCharCodes(buffer);
+      print(data);
+      res.close();
+    }
+
     if(req.uri.path == "/register"){
       String jsonString = UTF8.decode(builder.takeBytes());
       db.open().then((c){

@@ -191,6 +191,9 @@
                     <a class="btn btn-app center-block" id="queryButton">
                         <i class="fa fa-play"></i> Execute Query
                     </a>
+                    <a class="btn btn-app center-block" id="buttonSave2" ng-click="saveResults()" style="display: none;">
+                        <i class="fa fa-save"></i> Save Results
+                    </a>
 
                     <div class="alert alert-danger alert-dismissable hide" id="queryError">
                         <i class="fa fa-ban"></i>
@@ -218,6 +221,10 @@
                     <a class="btn btn-app center-block" ng-click="executeMongoQuery()">
                         <i class="fa fa-play"></i> Execute Query
                     </a>
+                    <a class="btn btn-app center-block" id="buttonSave" ng-click="saveResults()" style="display: none;">
+                        <i class="fa fa-save"></i> Save Results
+                    </a>
+                    <input hidden="hidden" id="hiddenResults" ng-model="result">
                     <div class="alert alert-danger alert-dismissable hide" id="queryError2">
                         <i class="fa fa-ban"></i>
 
@@ -413,8 +420,11 @@
                     var data = JSON.stringify(res.results.bindings);
                     console.log(data);
                     $("#querySuccess").removeClass('hide');
+
+                    document.getElementById("buttonSave2").style.display = "block";
                     //ko.mapping.fromJSON(data, vm.viewData);
                     //updateWidgets(true);
+                    $("#hiddenResults").val(data);
                     yasr.setResponse({
                         response: res,
                         contentType: req.getResponseHeader("Content-Type")

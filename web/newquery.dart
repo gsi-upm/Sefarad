@@ -200,6 +200,7 @@ class Query {
         "Parameters2": parameters2,
         "Parameters3": parameters3,
         "Parameters4": parameters4,
+        "Results": ""
     };
     querys.add(queryVar);
     querySelector('#saveSuccess').classes.remove("hide");

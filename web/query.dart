@@ -13,6 +13,7 @@ class Query {
   String type = '';
   String endPoint = '';
   String collection = '';
+  String result = '';
   List querys = [];
   List params;
   List datasets = [];
@@ -73,6 +74,33 @@ class Query {
     return type;
   }
 
+  void saveResults(){
+    var myEl4 = document.getElementById('querySelector');
+
+    int i = 0;
+    for(i = 0; i < querys.length; i++){
+      if(querys[i]["Name"] == myEl4.value){
+        if(type == "Sparql")
+          result = querySelector("#hiddenResults").value;
+        querys[i]["Results"] = result;
+      }
+    }
+    print(result);
+    String jsonData = JSON.encode(querys);
+
+    var request = new HttpRequest();
+    request.onReadyStateChange.listen((_) {
+      if (request.readyState == HttpRequest.DONE && (request.status == 200 || request.status == 0)) {
+        // data saved OK.
+        print(" Query executed successfully");
+        window.location.reload();
+      }
+    });
+    var url = "http://$host/queries";
+    request.open("POST", url);
+    request.send(jsonData);
+  }
+
   void executeMongoQuery(){
 
     querySelector("#divMongodb").children.remove(querySelector("#table"));
@@ -80,8 +108,10 @@ class Query {
     request.onReadyStateChange.listen((_) {
       if (request.readyState == HttpRequest.DONE && (request.status == 200 || request.status == 0)) {
         // data saved OK.
+        result = request.responseText;
         List post = JSON.decode(request.responseText);
         buildUi(post);
+        querySelector("#buttonSave").style.display = "block";
         querySelector('#querySuccess2').classes.remove("hide");
         print(" Query executed successfully");
       }
