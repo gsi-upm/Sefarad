@@ -2,6 +2,7 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/bin/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/assets/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bootstrap/css/packages" />
@@ -152,6 +153,7 @@
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/bar-chart/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/faceted-search/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/leaflet-map/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/number-chart/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-action-dialog/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-button/packages" />
