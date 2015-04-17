@@ -13,8 +13,8 @@ import 'dart:core';
  * Provides CORS headers, so can be accessed from any other page
  */
 
-final HOST = "127.0.0.1"; // eg: localhost
-final PORT = 8080;
+final HOST = "localhost"; // eg: localhost
+final PORT = 1990;
 String url = "../web";
 Db db = new Db("mongodb://127.0.0.1/test");
 DbCollection coll;

@@ -6,7 +6,7 @@ import 'dart:convert';
 
 @Injectable()
 class Query {
-  var host = "127.0.0.1:8080";
+  var host = "127.0.0.1:1990";
   List names;
   String query = '';
   String queryMongo = '';
