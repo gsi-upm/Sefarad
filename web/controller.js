@@ -40,6 +40,10 @@ $( document ).ready(function() {
     {
         getRestaurantsRawData();
     }
+    if(demo == 'places')
+    {
+        getPlacesRawData();
+    }
 
 
 
@@ -63,14 +67,25 @@ var initializeWidgets = function () {
     {
         console.log("initialising widgets");
 
+        var h = new function () {};
+
         //Delete loading screen
         $(".overlay").remove();
         $(".loading-img").remove();
 
         clearInterval(intervalID);
 
-        ndx = crossfilter(rawData);
+
         var idGen = 0;
+
+        if(demo == 'slovakia')
+        {
+            rawData.forEach(function(d) {
+                d.total= 1;
+                d.id = idGen;
+                idGen++;
+            });
+        }
 
         if(demo == 'restaurants')
         {
@@ -129,18 +144,64 @@ var initializeWidgets = function () {
                         d.newPrice.value = 20;
                 }
 
-
+                rawData.forEach(function(d) {
+                    d.total= 1;
+                    d.id = idGen;
+                    idGen++;
+                });
 
 
             });
         }
 
+        if(demo == 'places')
+        {
+            rawData.forEach(function(d) {
 
-        rawData.forEach(function(d) {
-            d.total= 1;
-            d.id = idGen;
-            idGen++;
-        });
+                var aux;
+
+                aux = d.name;
+                d.name = {};
+                d.name.key = "name";
+                d.name.value = aux;
+
+                aux = d.category;
+                d.category = {};
+                d.category.key = "category";
+                d.category.value = aux;
+
+                aux = d.polarity;
+                if (aux == undefined)
+                {
+                    aux = "not rated"
+                }
+                d.polarity = {};
+                d.polarity.key = "polarity";
+                d.polarity.value = aux;
+
+
+                aux = d.address;
+                if (aux == "")
+                {
+                    aux = "not specified"
+                }
+                d.address = {};
+                d.address.key = "address";
+                d.address.value = aux;
+
+                aux = d.location;
+                d.location = {};
+                d.location.key = "location";
+                d.location.value = aux;
+
+            });
+
+            console.log("parse finished");
+        }
+
+        ndx = crossfilter(rawData);
+
+
 
 
         var dcElements = $(".dc-element");
@@ -231,6 +292,20 @@ var getRestaurantsRawData = function () {
         }
     };
     return false;
+};
+
+
+var getPlacesRawData = function () {
+
+    $.getJSON("assets/AmsterdamBarcelonaBerlinPlaces.json", function(result){
+        console.log("places data picked from local");
+        //var data = JSON.stringify(result);
+        //rawData = JSON.parse(data).results.bindings;
+        rawData = result;
+        dataReady = true;
+
+        //newDataReceived();
+    });
 };
 
 

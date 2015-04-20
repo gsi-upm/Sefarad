@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 
-<polymer-element name="bar-chart" class="dc-element" attributes="param">
+<polymer-element name="bar-chart" class="dc-element" attributes="param xMin xMax width xLabel">
 
 
   <template>
@@ -19,6 +19,7 @@
             group: {},
             xMin: 0,
             xMax: 100,
+
 
             ready: function() {
                 console.log("bar-chart ready");
@@ -38,14 +39,16 @@
 
                 this.chart  = dc.barChart("#chart");
 
+                var _width = parseInt(this.width);
+
                 this.chart
-                        .width(550).height(150)
+                        .width(320).height(150)
                         .dimension(this.dimension)
                         .group(this.group)
                         .x(d3.scale.linear().domain([this.xMin, this.xMax]))
                         .gap(0.0005)
                         .yAxisLabel("")
-                        .xAxisLabel("Price")
+                        .xAxisLabel(this.xLabel)
 
                 .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
                 this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart;

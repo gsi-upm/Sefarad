@@ -50,7 +50,12 @@
                 var p = this.param;
 
                 this.dimension = this.crossfilter.dimension(function(d) {
-                    return d[p].value;
+                    if (d[p].value != undefined){
+                        return d[p].value;
+
+                    } else {
+                        return d[p];
+                    }
                 });
                 this.group = this.dimension.group().reduceCount();
                 var dim = this.dimension;

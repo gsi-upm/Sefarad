@@ -491,7 +491,15 @@
 
             console.log("table ready!");
 
-            this.dimension = this.crossfilter.dimension(function(d) {return d.name.value;});
+            this.dimension = this.crossfilter.dimension(function(d) {
+
+                if (d.name.value != undefined){
+                    return d.name.value;
+
+                } else {
+                    return d.name;
+                }
+            });
             this.group = this.dimension.group().reduceCount();
 
             this.columnSelector = this.params.replace(/\s+/g, '').split(',');
