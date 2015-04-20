@@ -84,6 +84,56 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <div class="user-bar">
+                                <img src="" class="user-image" alt="User Image"/>
+                                <span class="hidden-xs user-name"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header user-div">
+                                <img src="" class="img-circle user-image3" alt="User Image">
+                                <p class="user-name3">
+
+                                    <small>Member since Nov. 2012</small>
+                                </p>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-right">
+                                    <button ng-click="logout()" class="btn btn-default btn-flat">Sign out</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown user user-menu sign">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Sign In
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><div class="login-box-body">
+                                <p class="login-box-msg">Sign in to start your session</p>
+                                <form id="loginForm" role="form" >
+                                    <div class="form-group has-feedback">
+                                        <input type="password" class="form-control" id="password"
+                                               placeholder="Admin Password"/>
+                                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                    </div>
+                                </form>
+
+                                <div class="social-auth-links text-center">
+                                    <button class="btn btn-block btn-social btn-facebook btn-flat">
+                                        <i class="fa fa-facebook"></i> Sign in using Facebook</button>
+                                    <button ng-click="login()"class="btn btn-block btn-social btn-google-plus btn-flat">
+                                        <i class="fa fa-google-plus"></i> Sign in using Google+</button>
+                                </div><!-- /.social-auth-links -->
+
+                            </div><!-- /.login-box-body --></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -93,7 +143,32 @@
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-side">
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="" class="img-circle user-image2" alt="User Image" />
+                    </div>
+                    <div class="pull-left info">
+                        <p class="user-name2"></p>
 
+                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    </div>
+                </div>
+                <!-- search form -->
+                <div class="sidebar-form">
+                    <form action="#" method="get">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Search..."/>
+                         <span class="input-group-btn">
+                             <button type='submit' name='search' id='search-btn'
+                                     class="btn btn-flat"><i class="fa fa-search"></i></button>
+                         </span>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.search form -->
+            </div>
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li class="header">MAIN NAVIGATION</li>
@@ -103,10 +178,10 @@
                         <i class="fa fa-pie-chart"></i> <span>Dashboard</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="dashboard.html"><i class="fa fa-circle-o"></i> Slovakia</a></li>
+                        <li><a href="dashboard.html"><i class="fa fa-circle-o"></i> Slovakia</a></li>
 
-                        <li class="active"><a href="dashboardRestaurants.html"><i class="fa fa-circle-o"></i> Restaurants</a></li></ul>
-                <li class="treeview">
+                        <li><a href="dashboardRestaurants.html"><i class="fa fa-circle-o"></i> Restaurants</a></li></ul>
+                <li class="treeview active">
                     <a href="#">
                         <i class="fa fa-database"></i> <span>Query</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
