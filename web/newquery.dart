@@ -2,9 +2,10 @@ import 'package:angular/angular.dart';
 import 'package:angular/application_factory.dart';
 import 'dart:html';
 import 'dart:convert';
+import 'signGoogle.dart';
 
 @Injectable()
-class Query {
+class Query extends SignGoogle{
   var host = "127.0.0.1:8080";
   String type;
   String name = '';
@@ -178,45 +179,49 @@ class Query {
 
   void saveData(){
 
-    String dataQuery;
-    querySelector('#saveError').classes.add("hide");
-    querySelector('#saveSuccess').classes.add("hide");
-    if(type == "Sparql")
-      dataQuery = myEl2.value;
-    else
-      dataQuery = queryMongo;
+    if(isLogged()) {
+      String dataQuery;
+      querySelector('#saveError').classes.add("hide");
+      querySelector('#saveSuccess').classes.add("hide");
+      if (type == "Sparql")
+        dataQuery = myEl2.value;
+      else
+        dataQuery = queryMongo;
 
-    if (!checkParamPattern(dataQuery)) {
-      querySelector('#saveError').classes.remove("hide");
-      return;
-    }
-    var queryVar = {
-        "Name" : name,
-        "Query" : dataQuery,
-        "Endpoint" : endPoint,
-        "Type" : type,
-        "Parameters0": parameters0,
-        "Parameters1": parameters1,
-        "Parameters2": parameters2,
-        "Parameters3": parameters3,
-        "Parameters4": parameters4,
-        "Results": ""
-    };
-    querys.add(queryVar);
-    querySelector('#saveSuccess').classes.remove("hide");
-    String jsonData = JSON.encode(querys);
-
-    var request = new HttpRequest();
-    request.onReadyStateChange.listen((_) {
-      if (request.readyState == HttpRequest.DONE && (request.status == 200 || request.status == 0)) {
-         // data saved OK.
-        print(" Data saved successfully");
-
+      if (!checkParamPattern(dataQuery)) {
+        querySelector('#saveError').classes.remove("hide");
+        return;
       }
-    });
-    var url = "http://$host/queries";
-    request.open("POST", url);
-    request.send(jsonData);
+      var queryVar = {
+          "Name" : name,
+          "Query" : dataQuery,
+          "Endpoint" : endPoint,
+          "Type" : type,
+          "Parameters0": parameters0,
+          "Parameters1": parameters1,
+          "Parameters2": parameters2,
+          "Parameters3": parameters3,
+          "Parameters4": parameters4,
+          "Results": ""
+      };
+      querys.add(queryVar);
+      querySelector('#saveSuccess').classes.remove("hide");
+      String jsonData = JSON.encode(querys);
+
+      var request = new HttpRequest();
+      request.onReadyStateChange.listen((_) {
+        if (request.readyState == HttpRequest.DONE && (request.status == 200 || request.status == 0)) {
+          // data saved OK.
+          print(" Data saved successfully");
+
+        }
+      });
+      var url = "http://$host/queries";
+      request.open("POST", url);
+      request.send(jsonData);
+    } else {
+      window.alert("Please sign in first. Also it's available a demo to try it on the website of GSI Group.");
+    }
 
   }
 

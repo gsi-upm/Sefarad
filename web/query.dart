@@ -3,9 +3,10 @@ import 'package:angular/application_factory.dart';
 import 'dart:html';
 import 'dart:core';
 import 'dart:convert';
+import 'signGoogle.dart';
 
 @Injectable()
-class Query {
+class Query extends SignGoogle{
   var host = "127.0.0.1:1990";
   List names;
   String query = '';
@@ -75,30 +76,32 @@ class Query {
   }
 
   void saveResults(){
-    var myEl4 = document.getElementById('querySelector');
+    if(isLogged()) {
+      var myEl4 = document.getElementById('querySelector');
 
-    int i = 0;
-    for(i = 0; i < querys.length; i++){
-      if(querys[i]["Name"] == myEl4.value){
-        if(type == "Sparql")
-          result = querySelector("#hiddenResults").value;
-        querys[i]["Results"] = result;
+      int i = 0;
+      for (i = 0; i < querys.length; i++) {
+        if (querys[i]["Name"] == myEl4.value) {
+          if (type == "Sparql")
+            result = querySelector("#hiddenResults").value;
+          querys[i]["Results"] = result;
+        }
       }
+      print(result);
+      String jsonData = JSON.encode(querys);
+
+      var request = new HttpRequest();
+      request.onReadyStateChange.listen((_) {
+        if (request.readyState == HttpRequest.DONE && (request.status == 200 || request.status == 0)) {
+          // data saved OK.
+          print(" Query executed successfully");
+          window.location.reload();
+        }
+      });
+      var url = "http://$host/queries";
+      request.open("POST", url);
+      request.send(jsonData);
     }
-    print(result);
-    String jsonData = JSON.encode(querys);
-
-    var request = new HttpRequest();
-    request.onReadyStateChange.listen((_) {
-      if (request.readyState == HttpRequest.DONE && (request.status == 200 || request.status == 0)) {
-        // data saved OK.
-        print(" Query executed successfully");
-        window.location.reload();
-      }
-    });
-    var url = "http://$host/queries";
-    request.open("POST", url);
-    request.send(jsonData);
   }
 
   void executeMongoQuery(){
