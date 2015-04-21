@@ -1,0 +1,75 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+
+<polymer-element name="row-chart" class="dc-element" attributes="param xMin xMax width xLabel">
+
+
+  <template>
+      <!-- dc style -->
+      <link rel="stylesheet" type="text/css" href="dc.css" media="screen" />
+      <div id="chart"></div>
+  </template>
+
+    <script>
+        Polymer({
+
+            crossfilterObject: {},
+            chart: {},
+            dimension: {},
+            group: {},
+            xMin: 0,
+            xMax: 100,
+
+
+            ready: function() {
+                console.log("row-chart ready");
+                numWidgets = numWidgets - 1;
+                //this.init();
+            },
+
+            init: function () {
+
+                var p = this.param;
+
+                this.dimension = this.crossfilter.dimension(function(d) {
+                    return d[p].value;
+                });
+                this.group = this.dimension.group().reduceCount();
+
+
+                this.chart  = dc.rowChart("#chart");
+
+                var _width = parseInt(this.width);
+
+                this.chart
+                        .width(500).height(300)
+                        .dimension(this.dimension)
+                        .group(this.group)
+                        .ordinalColors(d3.scale.category20().range())
+                        .label(function (d) {
+                            return d.key;
+                        })
+                        .title(function (d) {
+                            return d.value;
+                        })
+                        .elasticX(true)
+                .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
+                this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart;
+
+
+
+//                this.chart = dc.pieChart("#bar-chart");
+//                this.chart
+//                        .width(250).height(250)
+//                        .dimension(this.dimension)
+//                        .group(this.group)
+//                        .innerRadius(30)
+//                        .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
+//                this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart
+
+                //dc.renderAll();
+            }
+        });
+    </script>
+
+</polymer-element>
