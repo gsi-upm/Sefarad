@@ -38,12 +38,6 @@
            //this.init();
        },
 
-       crossfilterObjectChanged : function () {
-           if(this.crossfilterObject){
-               console.log("leaflet-map hooked to crossfilter object: " + this.crossfilterObject);
-
-           }
-       },
 
        init: function () {
 
@@ -64,6 +58,8 @@
                    .popup(function(d,feature) {
                        return feature.properties.name.value;
                    });
+
+
 
 
 
