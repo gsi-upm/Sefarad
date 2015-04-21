@@ -237,69 +237,78 @@
                 <div class="col-lg-3 col-xs-6">
                     <!--Number chart is just the number in order to take advantage of adminLTE icons-->
                     <!-- small box -->
-                    <div  class="small-box bg-red-gradient">
-                        <div class="inner">
-                            <h3><number-chart param="category" type="value" valueToCount="restaurant" class="dc-element"></number-chart>
-                            </h3>
-                            <p>Number of Restaurants</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-map"></i>
-                        </div>
-                        <div class="small-box-footer"></div>
+                    <div class="info-box bg-aqua">
+                        <span class="info-box-icon"><i class="ion ion-android-restaurant"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Restaurants</span>
+                            <span class="info-box-number">
+                                <number-chart param="category" type="value" valueToCount="restaurant" class="dc-element"></number-chart>
+                            </span>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-restaurant" style="width: 50%"></div>
+                            </div>
+                        <span class="progress-description">
+                            <b class="percent-restaurant">50%</b> of Total Obtained </span>
+                        </div><!-- /.info-box-content -->
                     </div>
                 </div><!-- ./col -->
 
                 <div class="col-lg-3 col-xs-6">
                     <!--Number chart is just the number in order to take advantage of adminLTE icons-->
                     <!-- small box -->
-                    <div  class="small-box bg-red-gradient">
-                        <div class="inner">
-                            <h3><number-chart param="category" type="value" valueToCount="poi" class="dc-element"></number-chart>
-                            </h3>
-                            <p>Number of Point of interest</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-map"></i>
-                        </div>
-                        <div class="small-box-footer"></div>
+                    <div class="info-box bg-green">
+                        <span class="info-box-icon"><i class="ion ion-android-locate"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Points of Interest</span>
+                            <span class="info-box-number">
+                                <number-chart param="category" type="value" valueToCount="poi" class="dc-element"></number-chart>
+                            </span>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-poi" style="width: 50%"></div>
+                            </div>
+                            <span class="progress-description">
+                                <b class="percent-poi">50%</b> of Total Obtained</span>
+                        </div><!-- /.info-box-content -->
                     </div>
                 </div><!-- ./col -->
 
                 <div class="col-lg-3 col-xs-6">
                     <!--Number chart is just the number in order to take advantage of adminLTE icons-->
                     <!-- small box -->
-                    <div  class="small-box bg-red-gradient">
-                        <div class="inner">
-                            <h3><number-chart param="category" type="value" valueToCount="attraction" class="dc-element"></number-chart>
-                            </h3>
-                            <p>Number of Attractions</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-map"></i>
-                        </div>
-                        <div class="small-box-footer"></div>
-                    </div>
-                </div><!-- ./col -->
-
+                    <div class="info-box bg-red">
+                        <span class="info-box-icon"><i class="ion ion-android-happy"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Attractions</span>
+                            <span class="info-box-number">
+                                <number-chart param="category" type="value" valueToCount="attraction" class="dc-element"></number-chart>
+                            </span>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-attraction" style="width: 50%"></div>
+                            </div>
+                            <span class="progress-description">
+                                <b class="percent-attraction">50%</b> of Total Obtained </span>
+                        </div><!-- /.info-box-content -->
+                    </div><!-- ./col -->
+                </div>
                 <div class="col-lg-3 col-xs-6">
                     <!--Number chart is just the number in order to take advantage of adminLTE icons-->
                     <!-- small box -->
-                    <div  class="small-box bg-red-gradient">
-                        <div class="inner">
-                            <h3><number-chart param="category" type="value" valueToCount="accommodation" class="dc-element"></number-chart>
-                            </h3>
-                            <p>Number of Accommodations</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-map"></i>
-                        </div>
-                        <div class="small-box-footer"></div>
+                    <div class="info-box bg-yellow">
+                        <span class="info-box-icon"><i class="ion ion-android-home"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Accommodation</span>
+                            <span class="info-box-number">
+                                <number-chart param="category" type="value" valueToCount="accommodation" class="dc-element">
+
+                                </number-chart></span>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-accommodation" style="width: 50%"></div>
+                            </div>
+                            <span class="progress-description">
+                                <b class="percent-accommodation">50%</b> of Total Obtained </span>
+                        </div><!-- /.info-box-content -->
                     </div>
                 </div><!-- ./col -->
-
-
-
             </div>
             <!-- /.row -->
             <!-- Small boxes (Stat box) -->
@@ -349,7 +358,7 @@
                             <h3 class="box-title">Polarity Filter</h3>
                         </div>
                         <!-- box-body -->
-                        <div class="box-body chart-responsive">
+                        <div class="box-body chart-responsive" style="overflow: hidden">
                             <bar-chart param="polarity" xMin="0" xMax="10" width=100 xLabel="Polarity" class="dc-element"></bar-chart>
                         </div>
                         <!-- /.box-body -->
@@ -371,10 +380,15 @@
                         <div class="box-header">
                             <i class="glyphicon glyphicon-usd"></i>
                             <h3 class="box-title">Polarity Filter</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
                         </div>
                         <!-- box-body -->
-                        <div class="box-body chart-responsive">
+                        <div class="box-body chart-responsive" style="overflow: hidden">
                             <row-chart param="category" class="dc-element"></row-chart>
+                            <div class="clearfix"></div>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -390,6 +404,10 @@
                         <div class="box-header">
                             <i class="glyphicon glyphicon-list-alt"></i>
                             <h3 class="box-title">Results Table</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
                         </div>
                         <!--box-body -->
                         <div class="box-body chart-responsive">
