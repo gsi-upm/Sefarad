@@ -61,6 +61,16 @@
                 var dim = this.dimension;
                 var g = this.group;
 
+                var v2 = this.valueToCount;
+                var val = dim.group().all();
+                for (var k= 0; k < val.length; k++) {
+
+                    if(val[k].key == v2) this.MAX = val[k].value;
+
+                }
+
+
+
                 //this.$.smallBox.className = "small-box bg-red";
 
                 this.chart = dc.numberDisplay("#chart");
@@ -82,15 +92,21 @@
                 }
                 if(this.type == "value"){
                     var v = this.valueToCount;
+                    var _MAX = this.MAX;
                     this.chart
+                            .formatNumber(d3.format(",3d"))
                             .valueAccessor(function(d) {
                                 var aux = 0;
-                                var val = dim.group().all();
-                                for (var k= 0; k < val.length; k++) {
+                                var val2 = dim.group().all();
+                                for (var k= 0; k < val2.length; k++) {
 
-                                    if(val[k].key == v) aux = val[k].value;
+                                    if(val2[k].key == v) aux = val2[k].value;
 
                                 }
+                                var percent = (aux/_MAX)*100;
+                                percent = Math.round(percent);
+                                document.querySelector(".percent-"+v).textContent = percent+"%";
+                                document.querySelector(".progress-bar-"+v).style.width = percent+"%";
                                 return aux;
                             })
                             .group(this.group)
