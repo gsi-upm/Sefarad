@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 
-<polymer-element name="number-chart" class="dc-element" attributes="param, title">
+<polymer-element name="number-chart" class="dc-element" attributes="param, title, type, valueToCount">
 
 
   <template>
@@ -63,22 +63,44 @@
 
                 //this.$.smallBox.className = "small-box bg-red";
 
-
-
                 this.chart = dc.numberDisplay("#chart");
-                this.chart
-                        .valueAccessor(function(d) {
-                            var aux = [];
-                            var val = dim.group().all();
-                            for (var k= 0; k < val.length; k++) {
+                if(this.type == "param"){
 
-                                if(val[k].value != 0) aux.push(val[k]);
+                    this.chart
+                            .valueAccessor(function(d) {
+                                var aux = [];
+                                var val = dim.group().all();
+                                for (var k= 0; k < val.length; k++) {
 
-                            }
-                            return aux.length;
-                        })
-                        .group(this.group)
-                        .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
+                                    if(val[k].value != 0) aux.push(val[k]);
+
+                                }
+                                return aux.length;
+                            })
+                            .group(this.group)
+                            .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
+                }
+                if(this.type == "value"){
+                    var v = this.valueToCount;
+                    this.chart
+                            .valueAccessor(function(d) {
+                                var aux = 0;
+                                var val = dim.group().all();
+                                for (var k= 0; k < val.length; k++) {
+
+                                    if(val[k].key == v) aux = val[k].value;
+
+                                }
+                                return aux;
+                            })
+                            .group(this.group)
+                            .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
+
+                }
+
+
+
+
                 this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart
 
                 dc.renderAll();

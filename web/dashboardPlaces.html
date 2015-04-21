@@ -237,14 +237,14 @@
                 <div class="col-lg-3 col-xs-6">
                     <!--Number chart is just the number in order to take advantage of adminLTE icons-->
                     <!-- small box -->
-                    <div  class="small-box bg-aqua-gradient">
+                    <div  class="small-box bg-red-gradient">
                         <div class="inner">
-                            <h3><number-chart param="name" class="dc-element"></number-chart>
+                            <h3><number-chart param="category" type="value" valueToCount="restaurant" class="dc-element"></number-chart>
                             </h3>
-                            <p>Number of filtered elements</p>
+                            <p>Number of Restaurants</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                            <i class="ion ion-map"></i>
                         </div>
                         <div class="small-box-footer"></div>
                     </div>
@@ -255,9 +255,41 @@
                     <!-- small box -->
                     <div  class="small-box bg-red-gradient">
                         <div class="inner">
-                            <h3><number-chart param="name" class="dc-element"></number-chart>
+                            <h3><number-chart param="category" type="value" valueToCount="poi" class="dc-element"></number-chart>
                             </h3>
                             <p>Number of Point of interest</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-map"></i>
+                        </div>
+                        <div class="small-box-footer"></div>
+                    </div>
+                </div><!-- ./col -->
+
+                <div class="col-lg-3 col-xs-6">
+                    <!--Number chart is just the number in order to take advantage of adminLTE icons-->
+                    <!-- small box -->
+                    <div  class="small-box bg-red-gradient">
+                        <div class="inner">
+                            <h3><number-chart param="category" type="value" valueToCount="attraction" class="dc-element"></number-chart>
+                            </h3>
+                            <p>Number of Attractions</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-map"></i>
+                        </div>
+                        <div class="small-box-footer"></div>
+                    </div>
+                </div><!-- ./col -->
+
+                <div class="col-lg-3 col-xs-6">
+                    <!--Number chart is just the number in order to take advantage of adminLTE icons-->
+                    <!-- small box -->
+                    <div  class="small-box bg-red-gradient">
+                        <div class="inner">
+                            <h3><number-chart param="category" type="value" valueToCount="accommodation" class="dc-element"></number-chart>
+                            </h3>
+                            <p>Number of Accommodations</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-map"></i>
