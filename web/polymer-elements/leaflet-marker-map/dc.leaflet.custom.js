@@ -25,7 +25,7 @@ dc.leafletChart = function (_chart, externalMap) {
         if (_defaultCenter && _defaultZoom) {
             _map.setView(_chart.toLocArray(_defaultCenter), _defaultZoom);
         }
-        _chart.tiles()(_map);
+        //_chart.tiles()(_map);
 
         _chart._postRender();
 
@@ -386,13 +386,7 @@ dc.leafletMarkerChart = function (parent, chartGroup, externalMap) {
             _chart.map().on('zoomstart', zoomStart, this);
         }
 
-        if (_cluster) {
-            _layerGroup = new L.MarkerClusterGroup(_clusterOptions ? _clusterOptions : null);
-        }
-        else {
-            _layerGroup = new L.LayerGroup();
-        }
-        _chart.map().addLayer(_layerGroup);
+
     };
 
     _chart._doRedraw = function () {
@@ -407,7 +401,29 @@ dc.leafletMarkerChart = function (parent, chartGroup, externalMap) {
         if (_rebuildMarkers) {
             _markerList = [];
         }
-        _layerGroup.clearLayers();
+
+        _chart.map().removeLayer(_layerGroup);
+
+        var m = _chart.map()
+        var _tiles = function (m) {
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(m);
+        };
+        _chart.tiles()(_chart.map());
+
+        //----------------------------------------------------------------
+        if (_cluster) {
+            _layerGroup = new L.MarkerClusterGroup(_clusterOptions ? _clusterOptions : null);
+        }
+        else {
+            _layerGroup = new L.LayerGroup();
+        }
+        _chart.map().addLayer(_layerGroup);
+        //----------------------------------------------------------------
+
+
+        //_layerGroup.clearLayers();
 
         var addList = [];
         groups.forEach(function (v, i) {
