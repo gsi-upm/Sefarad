@@ -3,11 +3,13 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 <script src="dc.leaflet.custom.js"></script>
+<script src="leaflet.markercluster.js"></script>
 <script src="sparql-geojson.js"></script>
 
-<polymer-element name="leaflet-map" class="dc-element">
+<polymer-element name="leaflet-marker-map" class="dc-element">
 
   <template>
+
     <style>
      :host {
        display: block;
@@ -18,6 +20,8 @@
      }
     </style>
       <link rel="stylesheet" href="leaflet.css" />
+      <link rel="stylesheet" href="MarkerCluster.css" />
+      <link rel="stylesheet" href="MarkerCluster.Default.css" />
 
     <div id="map"></div>
 
@@ -41,25 +45,35 @@
 
        init: function () {
 
-           this.dimension = this.crossfilter.dimension(function(d) {return d.id;});
+           this.dimension = this.crossfilter.dimension(function(d) {return d.geo;});
            this.group = this.dimension.group().reduceCount();
 
-           var leafletchart = dc.leafletChoroplethChart("#map", "", new L.Map( this.$.map))
+//           var leafletchart = dc.leafletChoroplethChart("#map", "", new L.Map( this.$.map))
+//                   .root(this.$.map)//IMPORTANT! this has to be set from this point. If not set, the library will try to use jQuery to find the document's root, wich will fail!
+//                   .dimension(this.dimension)
+//                   .group(this.group)
+//                   .center([42.69,25.42])
+//                   .zoom(7)
+//                   .geojson(sparqlToGeoJSON(this.geoJSON, false))
+//                   .featureKeyAccessor(function(feature) {
+//                       return feature.properties.id;
+//                   })
+//                   .renderPopup(true)
+//                   .popup(function(d,feature) {
+//                       return feature.properties.name.value;
+//                   });
+
+           var leafletchart = dc.leafletMarkerChart("#map","",new L.Map( this.$.map))
                    .root(this.$.map)//IMPORTANT! this has to be set from this point. If not set, the library will try to use jQuery to find the document's root, wich will fail!
+
                    .dimension(this.dimension)
                    .group(this.group)
-                   .center([42.69,25.42])
-                   .zoom(7)
-                   .geojson(sparqlToGeoJSON(this.geoJSON, false))
-                   .featureKeyAccessor(function(feature) {
-                       return feature.properties.id;
-                   })
-                   .renderPopup(true)
-                   .popup(function(d,feature) {
-                       return feature.properties.name.value;
-                   });
-
-
+                   .width(600)
+                   .height(400)
+                   .center([45.5,6])
+                   .zoom(4)
+                   .renderPopup(false)
+                   .cluster(true);
 
 
 

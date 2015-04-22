@@ -80,6 +80,8 @@
     <link rel="import" href="polymer-elements/faceted-search/faceted-search.html">
     <link rel="import" href="polymer-elements/paper-shadow/paper-shadow.html">
 
+    <link rel="import" href="polymer-elements/leaflet-marker-map/leaflet-marker-map.html">
+
     <!-- ------------------------------- end/ POLYMER COMPONENTS IMPORT ZONE ------------------- -->
 
 
@@ -232,9 +234,30 @@
         <!-- Main content -->
         <section class="content">
             <!-- Small boxes (Stat box) -->
+
+            <!-- Small boxes (Stat box) -->
+
             <div class="row">
+                <div class="col-lg-9 col-xs-6">
+
+                    <!-- leaflet-marker-map -->
+                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                    <div class="box box-primary widget">
+                        <div class="box-header">
+                            <i class="fa fa-map-marker"></i>
+                            <h3 class="box-title">Map</h3>
+                        </div>
+                        <!-- box-body -->
+                        <div class="box-body chart-responsive">
+                            <leaflet-marker-map class="dc-element"></leaflet-marker-map>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.leaflet-marker-map -->
+                </div>
 
                 <div class="col-lg-3 col-xs-6">
+
                     <!--Number chart is just the number in order to take advantage of adminLTE icons-->
                     <!-- small box -->
                     <div class="info-box bg-aqua">
@@ -248,12 +271,10 @@
                                 <div class="progress-bar progress-bar-restaurant" style="width: 50%"></div>
                             </div>
                         <span class="progress-description">
-                            <b class="percent-restaurant">50%</b> of Total Obtained </span>
+                            <b class="percent-restaurant">50%</b> of Total Selected </span>
                         </div><!-- /.info-box-content -->
                     </div>
-                </div><!-- ./col -->
 
-                <div class="col-lg-3 col-xs-6">
                     <!--Number chart is just the number in order to take advantage of adminLTE icons-->
                     <!-- small box -->
                     <div class="info-box bg-green">
@@ -267,12 +288,10 @@
                                 <div class="progress-bar progress-bar-poi" style="width: 50%"></div>
                             </div>
                             <span class="progress-description">
-                                <b class="percent-poi">50%</b> of Total Obtained</span>
+                                <b class="percent-poi">50%</b> of Total Selected</span>
                         </div><!-- /.info-box-content -->
                     </div>
-                </div><!-- ./col -->
 
-                <div class="col-lg-3 col-xs-6">
                     <!--Number chart is just the number in order to take advantage of adminLTE icons-->
                     <!-- small box -->
                     <div class="info-box bg-red">
@@ -286,11 +305,10 @@
                                 <div class="progress-bar progress-bar-attraction" style="width: 50%"></div>
                             </div>
                             <span class="progress-description">
-                                <b class="percent-attraction">50%</b> of Total Obtained </span>
+                                <b class="percent-attraction">50%</b> of Total Selected </span>
                         </div><!-- /.info-box-content -->
                     </div><!-- ./col -->
-                </div>
-                <div class="col-lg-3 col-xs-6">
+
                     <!--Number chart is just the number in order to take advantage of adminLTE icons-->
                     <!-- small box -->
                     <div class="info-box bg-yellow">
@@ -305,13 +323,20 @@
                                 <div class="progress-bar progress-bar-accommodation" style="width: 50%"></div>
                             </div>
                             <span class="progress-description">
-                                <b class="percent-accommodation">50%</b> of Total Obtained </span>
+                                <b class="percent-accommodation">50%</b> of Total Selected </span>
                         </div><!-- /.info-box-content -->
                     </div>
-                </div><!-- ./col -->
+
+
+                </div>
+
+
+
+
             </div>
-            <!-- /.row -->
-            <!-- Small boxes (Stat box) -->
+
+
+
             <div class="row">
                 <div class="col-lg-3 col-xs-6">
                     <!-- pie-chart -->
@@ -398,6 +423,8 @@
                 <!-- /.Left col -->
                 <!-- right col (We are only adding the ID to make the widgets sortable)-->
                 <section class="col-lg-7 connectedSortable">
+
+
 
                     <!-- Custom dc widget table-->
                     <div id="crossFilterDCTest3" class="box box-primary widget">

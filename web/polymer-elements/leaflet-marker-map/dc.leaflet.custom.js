@@ -330,9 +330,9 @@ dc.leafletBubbleChart = function (parent, chartGroup) {
 /***********************************
  Markers
  ***********************************/
-dc.leafletMarkerChart = function (parent, chartGroup) {
+dc.leafletMarkerChart = function (parent, chartGroup, externalMap) {
     "use strict";
-    var _chart = dc.leafletChart({});
+    var _chart = dc.leafletChart({}, externalMap);
 
     var _renderPopup = true;
     var _cluster = false; // requires leaflet.markerCluster

@@ -194,6 +194,12 @@ var initializeWidgets = function () {
                 d.location.key = "location";
                 d.location.value = aux;
 
+                var lat = d.lat;
+                var lng = d.lng;
+                d.geo = {};
+                d.geo = lat+','+lng;
+
+
             });
 
             console.log("parse finished");

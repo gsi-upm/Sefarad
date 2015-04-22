@@ -154,6 +154,7 @@
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/bubble-chart/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/faceted-search/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/leaflet-map/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/leaflet-marker-map/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/number-chart/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-action-dialog/packages" />
@@ -163,6 +164,7 @@
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-shadow/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-toggle-button/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/pie-chart/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/row-chart/packages" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
