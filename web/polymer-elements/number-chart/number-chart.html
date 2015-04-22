@@ -34,6 +34,7 @@
             crossfilterObject: {},
             chart: {},
             dimension: {},
+            dimension: {},
             group: {},
 
             ready: function() {
@@ -50,6 +51,7 @@
                 var p = this.param;
 
                 this.dimension = this.crossfilter.dimension(function(d) {
+
                     if (d[p].value != undefined){
                         return d[p].value;
 
@@ -93,20 +95,24 @@
                 if(this.type == "value"){
                     var v = this.valueToCount;
                     var _MAX = this.MAX;
+                    var aux = 0;
                     this.chart
                             .formatNumber(d3.format(",3d"))
                             .valueAccessor(function(d) {
-                                var aux = 0;
+
                                 var val2 = dim.group().all();
                                 for (var k= 0; k < val2.length; k++) {
 
-                                    if(val2[k].key == v) aux = val2[k].value;
+                                    if(val2[k].key == v){
+                                        aux = val2[k].value;
+                                    }
 
                                 }
                                 var percent = (aux/_MAX)*100;
                                 percent = Math.round(percent);
                                 document.querySelector(".percent-"+v).textContent = percent+"%";
                                 document.querySelector(".progress-bar-"+v).style.width = percent+"%";
+
                                 return aux;
                             })
                             .group(this.group)
@@ -116,8 +122,8 @@
 
 
 
-
                 this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart
+
 
                 dc.renderAll();
             }
