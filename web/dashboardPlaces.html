@@ -455,6 +455,32 @@
                 <!-- right col -->
             </div>
             <!-- /.row (main row) -->
+            <!-- Main row -->
+            <div class="row">
+                <div class="col-lg-5" id="reviewElement" style="display: none">
+                    <!-- row-chart -->
+                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                    <div class="box box-primary widget">
+                        <div class="box-header">
+                            <i class="glyphicon glyphicon-star"></i>
+                            <h3 class="box-title">Rewiews</h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <!-- box-body -->
+                        <div class="box-body chart-responsive" style="overflow: hidden">
+                            <div id="reviewsDiv"></div>
+                            <row-chart param="category" class="dc-element"></row-chart>
+                            <div class="clearfix"></div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.row-chart -->
+
+                </div><!-- ./col -->
+            </div>
         </section>
         <!-- /.content -->
     </div>
