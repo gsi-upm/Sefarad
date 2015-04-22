@@ -34,7 +34,7 @@
             crossfilterObject: {},
             chart: {},
             dimension: {},
-            dimension2: {},
+            dimension: {},
             group: {},
 
             ready: function() {
@@ -62,15 +62,6 @@
                 this.group = this.dimension.group().reduceCount();
                 var dim = this.dimension;
                 var g = this.group;
-
-                this.dimension2 = this.crossfilter.dimension(function(d) {
-
-                    if (d.id != undefined){
-                        return d.id;
-
-                    }
-                });
-                var dim2 = this.dimension2;
 
                 var v2 = this.valueToCount;
                 var val = dim.group().all();
@@ -105,27 +96,15 @@
                     var v = this.valueToCount;
                     var _MAX = this.MAX;
                     var aux = 0;
-                    document.querySelector("#reviewElement").style.display = "none";
                     this.chart
                             .formatNumber(d3.format(",3d"))
                             .valueAccessor(function(d) {
 
                                 var val2 = dim.group().all();
-                                var val3 = dim2.group().all();
                                 for (var k= 0; k < val2.length; k++) {
 
                                     if(val2[k].key == v){
                                         aux = val2[k].value;
-
-                                        if(aux == 1) {
-                                            document.querySelector("#reviewElement").style.display = "inherit";
-                                            console.log("http://tour-pedia.org/api/getReviewsByPlaceId?placeId="+val3[k].key);
-                                            $.getJSON("http://tour-pedia.org/api/getReviewsByPlaceId?placeId="+val3[k].key, function (data) {
-
-                                                parsedData = data;
-                                                document.querySelector("#reviewsDiv").innerHTML = data;
-                                            });
-                                        }
                                     }
 
                                 }
