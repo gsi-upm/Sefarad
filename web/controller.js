@@ -173,7 +173,7 @@ var initializeWidgets = function () {
                 aux = d.polarity;
                 if (aux == undefined)
                 {
-                    aux = "not rated"
+                    aux = "not rated";
                 }
                 d.polarity = {};
                 d.polarity.key = "polarity";
