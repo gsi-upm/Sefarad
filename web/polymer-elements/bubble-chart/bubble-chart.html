@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 
-<polymer-element name="bubble-chart" class="dc-element" attributes="param">
+<polymer-element name="bubble-chart" class="dc-element" attributes="param yMax xMax radius">
 
 
   <template>
@@ -43,7 +43,7 @@
                 this.chart
                         .transitionDuration(500)
                         .margins({top: 10, right: 50, bottom: 30, left: 40})
-                        .width(600).height(200)
+                        .width(300).height(200)
                         .dimension(this.dimension)
                         .group(this.group)
                         .colorAccessor(function (d) {
@@ -61,9 +61,9 @@
                         .maxBubbleRelativeSize(0.5)
                         .renderHorizontalGridLines(true) // (optional) render horizontal grid lines, :default=false
                         .renderVerticalGridLines(true)
-                        .x(d3.scale.linear().domain([0, 100]))
-                        .y(d3.scale.linear().domain([0, 100]))
-                        .r(d3.scale.linear().domain([0, 1000]))
+                        .x(d3.scale.linear().domain([0, this.xMax]))
+                        .y(d3.scale.linear().domain([0, this.yMax]))
+                        .r(d3.scale.linear().domain([0, this.radius]))
                         .elasticY(true)
                         .elasticX(true)
                         .yAxisPadding(100)
