@@ -76,7 +76,8 @@
 
                 this.chart = dc.numberDisplay("#chart");
                 if(this.type == "param"){
-
+                    var v = this.param;
+                    var _MAX2 = this.dimension.group().all().length;
                     this.chart
                             .valueAccessor(function(d) {
                                 var aux = [];
@@ -86,6 +87,10 @@
                                     if(val[k].value != 0) aux.push(val[k]);
 
                                 }
+                                var percent = (aux.length/_MAX2)*100;
+                                percent = Math.round(percent);
+                                document.querySelector(".percent-"+v).textContent = percent+"%";
+                                document.querySelector(".progress-bar-"+v).style.width = percent+"%";
                                 return aux.length;
                             })
                             .group(this.group)
