@@ -6,7 +6,7 @@ import 'signGoogle.dart';
 
 @Injectable()
 class Query extends SignGoogle{
-  var host = "127.0.0.1:1990";
+  var host = "";
   String type;
   String name = '';
   String query = '';
@@ -75,6 +75,7 @@ class Query extends SignGoogle{
   }
 
   Query(){
+    host = getHost();
     _loadDataset();
     _loadQueries();
   }

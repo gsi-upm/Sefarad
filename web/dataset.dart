@@ -6,7 +6,7 @@ import 'signGoogle.dart';
 
 @Injectable()
 class Dataset extends SignGoogle{
-  var host = "127.0.0.1:1990";
+  var host = "";
   String name = '';
   String type;
   String endPoint = '';
@@ -18,6 +18,7 @@ class Dataset extends SignGoogle{
   var typeSelect = querySelector('#typeSelector');
 
   Dataset(){
+    host = getHost();
     _loadDataset();
   }
 

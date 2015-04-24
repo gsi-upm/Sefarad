@@ -7,6 +7,7 @@ import 'dart:convert';
 @Injectable()
 class SignGoogle {
   static bool logged = false;
+  static var host = "127.0.0.1:1990";
 
   void login() {
     InputElement ie = querySelector("#password");
@@ -18,6 +19,7 @@ class SignGoogle {
     }
   }
 
+  String getHost() => host;
   bool isLogged() => logged;
 
   void logout() {
