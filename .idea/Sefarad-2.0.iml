@@ -164,6 +164,7 @@
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-shadow/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-toggle-button/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/pie-chart/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/review-widget/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/row-chart/packages" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -171,4 +172,3 @@
     <orderEntry type="library" name="Dart SDK" level="application" />
   </component>
 </module>
-

@@ -303,7 +303,7 @@ var getRestaurantsRawData = function () {
 
 var getPlacesRawData = function () {
 
-    $.getJSON("assets/AmsterdamBarcelonaBerlinPlaces.json", function(result){
+    $.getJSON("assets/totalReducedFinal.json", function(result){
         console.log("places data picked from local");
         //var data = JSON.stringify(result);
         //rawData = JSON.parse(data).results.bindings;
