@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c91c4c5f-92ba-4497-a98e-d764ff70c174" name="Default" comment="leaflet marker map WIP&#10;" />
+    <list default="true" id="c91c4c5f-92ba-4497-a98e-d764ff70c174" name="Default" comment="leaflet marker map WIP&#10;">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboardPlaces.html" afterPath="$PROJECT_DIR$/web/dashboardPlaces.html" />
+    </list>
     <ignored path="Sefarad-2.0.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -25,11 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="dashboardPlaces.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="dashboardPlaces.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/dashboardPlaces.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="6025" max-vertical-offset="8760">
-              <caret line="434" column="30" selection-start-line="434" selection-start-column="30" selection-end-line="434" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.78558224" vertical-offset="3865" max-vertical-offset="8760">
+              <caret line="286" column="75" selection-start-line="286" selection-start-column="75" selection-end-line="286" selection-end-column="75" />
               <folding />
             </state>
           </provider>
@@ -38,8 +40,8 @@
       <file leaf-file-name="dashboardRestaurants.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5127" max-vertical-offset="7275">
-              <caret line="383" column="88" selection-start-line="383" selection-start-column="88" selection-end-line="383" selection-end-column="88" />
+            <state vertical-scroll-proportion="-107.0" vertical-offset="3327" max-vertical-offset="7275">
+              <caret line="393" column="68" selection-start-line="393" selection-start-column="68" selection-end-line="393" selection-end-column="68" />
               <folding />
             </state>
           </provider>
@@ -55,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="controller.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.980531" vertical-offset="2971" max-vertical-offset="4155">
-              <caret line="305" column="39" selection-start-line="305" selection-start-column="39" selection-end-line="305" selection-end-column="39" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2971" max-vertical-offset="4155">
+              <caret line="296" column="13" selection-start-line="296" selection-start-column="13" selection-end-line="296" selection-end-column="13" />
               <folding>
                 <element signature="e#3692#3844#0" expanded="false" />
                 <element signature="e#3888#5919#0" expanded="false" />
@@ -98,6 +100,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/web/controller.js" />
+        <option value="$PROJECT_DIR$/web/dashboardPlaces.html" />
       </list>
     </option>
   </component>
@@ -663,7 +666,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1215" height="1028" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32853982" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Pub Serve" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -677,7 +680,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32743362" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32743362" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32743362" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1097,30 +1100,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2971" max-vertical-offset="4155">
+          <caret line="296" column="13" selection-start-line="296" selection-start-column="13" selection-end-line="296" selection-end-column="13" />
+          <folding>
+            <element signature="e#3692#3844#0" expanded="false" />
+            <element signature="e#3888#5919#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5127" max-vertical-offset="7275">
-          <caret line="383" column="88" selection-start-line="383" selection-start-column="88" selection-end-line="383" selection-end-column="88" />
+        <state vertical-scroll-proportion="-107.0" vertical-offset="3327" max-vertical-offset="7275">
+          <caret line="393" column="68" selection-start-line="393" selection-start-column="68" selection-end-line="393" selection-end-column="68" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/dashboardPlaces.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="6025" max-vertical-offset="8760">
-          <caret line="434" column="30" selection-start-line="434" selection-start-column="30" selection-end-line="434" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.78558224" vertical-offset="3865" max-vertical-offset="8760">
+          <caret line="286" column="75" selection-start-line="286" selection-start-column="75" selection-end-line="286" selection-end-column="75" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.980531" vertical-offset="2971" max-vertical-offset="4155">
-          <caret line="305" column="39" selection-start-line="305" selection-start-column="39" selection-end-line="305" selection-end-column="39" />
-          <folding>
-            <element signature="e#3692#3844#0" expanded="false" />
-            <element signature="e#3888#5919#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
