@@ -1,0 +1,64 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+
+<polymer-element name="heat-map" class="dc-element" attributes="paramX, paramY, type, valueToCount">
+
+
+    <template>
+        <!-- dc style -->
+        <link rel="stylesheet" type="text/css" href="dc.css" media="screen"/>
+
+        <div id="chart"></div>
+
+
+    </template>
+
+    <script>
+        Polymer({
+
+            crossfilterObject: {},
+            chart: {},
+            dimension: {},
+            group: {},
+
+            ready: function () {
+                console.log("review-widget ready");
+                numWidgets = numWidgets - 1;
+
+                //this.init();
+            },
+
+            init: function () {
+
+                var pX = this.paramX;
+                var pY = this.paramY;
+
+                this.dimension = this.crossfilter.dimension(function(d) {
+                    return [d[pX].value, d[pY].value];
+                });
+                this.group = this.dimension.group().reduceCount();
+
+
+                this.chart  = dc.heatMap("#chart");
+
+
+                this.chart
+                        .width(45*10+180).height(45*5+20)
+                        .dimension(this.dimension)
+                        .group(this.group)
+                        .keyAccessor(function(d) {return d.key[0]; })
+                        .valueAccessor(function(d) { return d.key[1]; })
+                        .colorAccessor(function(d) { return d.value; })
+                        .title(function(d) {
+                            return "Polarity:   " + d.key[0] + "\n" +
+                                    "City:  " + d.key[1] + "\n" +
+                                    "Quantity: " + (d.value);})
+                        .colors(["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"])
+                        .calculateColorDomain()
+                        .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
+                this.$.chart.classList.add("dc-chart");
+            }
+        });
+    </script>
+
+</polymer-element>

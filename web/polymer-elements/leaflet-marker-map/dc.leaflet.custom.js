@@ -347,6 +347,7 @@ dc.leafletMarkerChart = function (parent, chartGroup, externalMap) {
     var _layerGroup = false;
     var _markerList = [];
     var _currentGroups = false;
+    L.Icon.Default.imagePath = 'http://api.tiles.mapbox.com/mapbox.js/v1.0.0beta0.0/images';
 
     _chart.renderTitle(true);
 
