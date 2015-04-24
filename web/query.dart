@@ -115,8 +115,12 @@ class Query extends SignGoogle{
         List post = JSON.decode(request.responseText);
         buildUi(post);
         querySelector("#buttonSave").style.display = "block";
+        querySelector('#queryError2').classes.add("hide");
         querySelector('#querySuccess2').classes.remove("hide");
         print(" Query executed successfully");
+      } else {
+        querySelector('#querySuccess2').classes.add("hide");
+        querySelector('#queryError2').classes.remove("hide");
       }
     });
     var url = "http://$host/mongodbquery";

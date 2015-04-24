@@ -65,23 +65,33 @@ void handleGet(HttpRequest req) {
       print('connection open');
       coll = db.collection(collection);
       res.headers.add(HttpHeaders.CONTENT_TYPE, "application/json");
-      print(JSON.decode(queryStr));
-      Cursor cursor = coll.find(JSON.decode(queryStr));
-      cursor.forEach((Map v) {
+      try {
 
-        //the mongo-dart ObjectId isn't supported by the JSON.encode()
-        //so we'll just extract it, convert it to a string, and put it back again.
-        var id = v["_id"];
-        v.remove("_id");
-        v["_id"] = id.toString();
+        print(JSON.decode(queryStr));
+        Cursor cursor = coll.find(JSON.decode(queryStr));
+        cursor.forEach((Map v) {
 
-        //finally, add the post to the list of mongodb.
-        mongodb.add(v);
+          //the mongo-dart ObjectId isn't supported by the JSON.encode()
+          //so we'll just extract it, convert it to a string, and put it back again.
+          var id = v["_id"];
+          v.remove("_id");
+          v["_id"] = id.toString();
 
-      }).then((dummy) {
-        res.write(JSON.encode(mongodb));
+          //finally, add the post to the list of mongodb.
+          mongodb.add(v);
+
+        }).then((dummy) {
+          res.statusCode = HttpStatus.OK;
+          res.write(JSON.encode(mongodb));
+          res.close();
+        });
+      } catch (e){
+        var err = "Error retrieving data from MongoDB";
+        res.statusCode = HttpStatus.NO_CONTENT;
+        res.write(err);
         res.close();
-      });
+        print(err);
+      }
       return;
     });
 
@@ -95,7 +105,7 @@ void handleGet(HttpRequest req) {
   }
   else {
     var err = "Could not find file: $data_file";
-    res.addString(err);
+    res.write(err);
     res.close();
   }
 
@@ -120,21 +130,6 @@ void handlePost(HttpRequest req) {
       var data = new String.fromCharCodes(buffer);
       print(data);
       res.close();
-    }
-
-    if(req.uri.path == "/register"){
-      String jsonString = UTF8.decode(builder.takeBytes());
-      db.open().then((c){
-        print('connection open');
-        coll = db.collection("users");
-        coll.insert(JSON.decode(jsonString));
-      }).then((dummy){
-        db.close();
-      });
-
-      res.add(buffer);
-      res.close();
-      return;
     }
     var file = new File(data_file);
     var ioSink = file.openWrite(); // save the data to the file
@@ -174,7 +169,7 @@ void defaultHandler(HttpRequest req) {
   HttpResponse res = req.response;
   addCorsHeaders(res);
   res.statusCode = HttpStatus.NOT_FOUND;
-  res.addString("Not found: ${req.method}, ${req.uri.path}");
+  res.write("Not found: ${req.method}, ${req.uri.path}");
   res.close();
 }
 
