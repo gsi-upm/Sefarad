@@ -89,8 +89,12 @@
                                 }
                                 var percent = (aux.length/_MAX2)*100;
                                 percent = Math.round(percent);
-                                document.querySelector(".percent-"+v).textContent = percent+"%";
-                                document.querySelector(".progress-bar-"+v).style.width = percent+"%";
+                                try {
+                                    document.querySelector(".percent-" + v).textContent = percent + "%";
+                                    document.querySelector(".progress-bar-" + v).style.width = percent + "%";
+                                } catch (e){
+
+                                }
                                 return aux.length;
                             })
                             .group(this.group)
@@ -114,8 +118,12 @@
                                 }
                                 var percent = (aux/_MAX)*100;
                                 percent = Math.round(percent);
-                                document.querySelector(".percent-"+v).textContent = percent+"%";
-                                document.querySelector(".progress-bar-"+v).style.width = percent+"%";
+                                try {
+                                    document.querySelector(".percent-" + v).textContent = percent + "%";
+                                    document.querySelector(".progress-bar-" + v).style.width = percent + "%";
+                                } catch (e){
+
+                                }
 
                                 return aux;
                             })
