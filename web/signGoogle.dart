@@ -11,7 +11,7 @@ class SignGoogle {
 
   void login() {
     InputElement ie = querySelector("#password");
-    if (ie.value == "admin")
+    if (ie.value == "****")
       googleLogin.login();
     else {
       ie.value = "";

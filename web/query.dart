@@ -26,7 +26,7 @@ class Query extends SignGoogle{
   }
 
   _loadQuery() {
-    var url = "http://$host/queries";
+    var url = "http://$host/web/queries";
 
     // call the web server asynchronously
     var request = HttpRequest.getString(url).then((responseText){
@@ -36,7 +36,7 @@ class Query extends SignGoogle{
   }
 
   void _loadDataset(){
-    var url = "http://$host/dataset";
+    var url = "http://$host/web/dataset";
 
     // call the web server asynchronously
     var request = HttpRequest.getString(url).then((responseText){
@@ -99,7 +99,7 @@ class Query extends SignGoogle{
           window.location.reload();
         }
       });
-      var url = "http://$host/queries";
+      var url = "http://$host/web/queries";
       request.open("POST", url);
       request.send(jsonData);
     }

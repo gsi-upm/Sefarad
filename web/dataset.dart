@@ -23,7 +23,7 @@ class Dataset extends SignGoogle{
   }
 
   void _loadDataset(){
-    var url = "http://$host/dataset";
+    var url = "http://$host/web/dataset";
 
     // call the web server asynchronously
     var request = HttpRequest.getString(url).then((responseText){
@@ -80,7 +80,7 @@ class Dataset extends SignGoogle{
 
         }
       });
-      var url = "http://$host/dataset";
+      var url = "http://$host/web/dataset";
       request.open("POST", url);
       request.send(jsonData);
     } else {
