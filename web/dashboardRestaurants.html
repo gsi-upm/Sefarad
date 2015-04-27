@@ -283,9 +283,26 @@
                         </div>
                         <div class="small-box-footer"></div>
                     </div>
-
-
                 </div><!-- ./col -->
+
+
+                <div class="col-lg-3 col-xs-6">
+                    <!--Number chart is just the number in order to take advantage of adminLTE icons-->
+                    <!-- small box -->
+                    <div  class="small-box bg-red-gradient">
+                        <div class="inner">
+                            <h3><number-chart param="newPrice" type="param" class="dc-element"></number-chart>
+                            </h3>
+                            <p>Prices under selection</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-social-euro"></i>
+                        </div>
+                        <div class="small-box-footer"></div>
+                    </div>
+                </div><!-- ./col -->
+
+
             </div>
             <!-- /.row -->
             <!-- Small boxes (Stat box) -->
@@ -322,7 +339,7 @@
                     </div>
                     <!-- /.pie-chart -->
                 </div><!-- ./col -->
-                <div class="col-lg-6 col-xs-6">
+                <div class="col-lg-3 col-xs-6">
                     <!-- bar-chart -->
                     <!--Widgets must have 'widget' class in order to render their loading screen-->
                     <div class="box box-primary widget">
@@ -340,12 +357,31 @@
                 </div><!-- ./col -->
 
 
+                <div class="col-lg-3 col-xs-6">
+                    <!-- bubble-chart -->
+                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                    <div class="box box-primary widget">
+                        <div class="box-header">
+                            <i class="glyphicon glyphicon-record"></i>
+                            <h3 class="box-title"> Price Bubbles</h3>
+                        </div>
+                        <!-- box-body -->
+                        <div class="box-body chart-responsive">
+                            <bubble-chart param="newPrice" xMax=100 yMax=160 radius=1000 class="dc-element"></bubble-chart>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.bubble-chart -->
+                </div><!-- ./col -->
+
+
+
             </div>
             <!-- /.row -->
             <!-- Main row -->
             <div class="row">
                 <!-- Left col -->
-                <section class="col-lg-5 connectedSortable">
+                <section class="col-lg-3 connectedSortable">
 
 
                     <!-- faceted-search -->
@@ -367,26 +403,13 @@
 
                 <!-- /.Left col -->
                 <!-- right col (We are only adding the ID to make the widgets sortable)-->
-                <section class="col-lg-7 connectedSortable">
+                <section class="col-lg-9 connectedSortable">
 
 
 
 
 
-                    <!-- bubble-chart -->
-                    <!--Widgets must have 'widget' class in order to render their loading screen-->
-                    <div class="box box-primary widget">
-                        <div class="box-header">
-                            <i class="glyphicon glyphicon-record"></i>
-                            <h3 class="box-title">Bubble chart</h3>
-                        </div>
-                        <!-- box-body -->
-                        <div class="box-body chart-responsive">
-                            <bubble-chart param="newPrice" xMax=100 yMax=160 radius=1000 class="dc-element"></bubble-chart>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.bubble-chart -->
+
 
                     <!-- Custom dc widget table-->
                     <div id="crossFilterDCTest3" class="box box-primary widget">

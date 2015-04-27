@@ -194,6 +194,13 @@ var initializeWidgets = function () {
                 d.location.key = "location";
                 d.location.value = aux;
 
+                aux = d.numReviews;
+                d.numReviews = {};
+                d.numReviews.key = "numReviews";
+                if(aux == undefined) aux = 0;
+                d.numReviews.value = aux;
+
+
                 var lat = d.lat;
                 var lng = d.lng;
                 d.geo = {};

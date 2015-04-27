@@ -383,7 +383,7 @@
                     <div class="box box-primary widget">
                         <div class="box-header">
                             <i class="glyphicon glyphicon-signal"></i>
-                            <h3 class="box-title">Polarity</h3>
+                            <h3 class="box-title">Number of Reviews</h3>
                             <div class="box-tools pull-right">
                                 <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                 <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -391,7 +391,7 @@
                         </div>
                         <!-- box-body -->
                         <div class="box-body chart-responsive" style="overflow: hidden">
-                            <bar-chart param="polarity" xMin=0 xMax=10 class="dc-element"></bar-chart>
+                            <bar-chart param="numReviews" xMin=0 xMax=20 class="dc-element"></bar-chart>
                             <div class="clearfix"></div>
                         </div>
                         <!-- /.box-body -->
@@ -405,7 +405,7 @@
                 <div class="box box-primary widget">
                     <div class="box-header">
                         <i class="glyphicon glyphicon-record"></i>
-                        <h3 class="box-title">Bubble chart</h3>
+                        <h3 class="box-title">Polarity</h3>
                     </div>
                     <!-- box-body -->
                     <div class="box-body chart-responsive">
@@ -463,7 +463,7 @@
                         <!--box-body -->
                         <div class="box-body chart-responsive">
 
-                            <sortable-table params="name, polarity, address" class="bootstrap dc-element" page="{{page}}" pagesize="8" footertemplate="defaultPager">
+                            <sortable-table params="name, polarity, address, numReviews" class="bootstrap dc-element" page="{{page}}" pagesize="8" footertemplate="defaultPager">
 
                             </sortable-table>
 
