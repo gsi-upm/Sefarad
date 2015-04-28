@@ -221,6 +221,7 @@
                 Dashboard
                 <small>Control panel</small>
             </h1>
+            <button class="btn" onclick="clearFilter()" id="btn-clear">Clear Filters</button>
             <ol class="breadcrumb">
                 <li><a href="#"> Home</a></li>
                 <li class="active"><i class="fa fa-pie-chart"></i> Dashboard</li>
@@ -348,7 +349,7 @@
                             <h3 class="box-title">Price Filter</h3>
                         </div>
                         <!-- box-body -->
-                        <div class="box-body chart-responsive">
+                        <div class="box-body chart-responsive" style="overflow: hidden">
                             <bar-chart param="newPrice" xLabel="Price" width=200 xMin="0" xMax="100" class="dc-element"></bar-chart>
                         </div>
                         <!-- /.box-body -->

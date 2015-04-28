@@ -42,6 +42,10 @@
            //this.init();
        },
 
+       clearFilter: function () {
+           this.chart.filterAll();
+       },
+
 
        init: function () {
 
@@ -63,7 +67,7 @@
 //                       return feature.properties.name.value;
 //                   });
 
-           var leafletchart = dc.leafletMarkerChart("#map","",new L.Map( this.$.map))
+           this.chart = dc.leafletMarkerChart("#map","",new L.Map( this.$.map))
                    .root(this.$.map)//IMPORTANT! this has to be set from this point. If not set, the library will try to use jQuery to find the document's root, wich will fail!
 
                    .dimension(this.dimension)

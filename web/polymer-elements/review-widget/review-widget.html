@@ -15,7 +15,7 @@
         <link rel="stylesheet" type="text/css" href="dc.css" media="screen"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
-        <div id="tableReview">Select one place</div>
+        <div id="tableReview">Select one option</div>
 
 
     </template>
@@ -33,6 +33,10 @@
                 numWidgets = numWidgets - 1;
 
                 //this.init();
+            },
+
+            clearFilter: function () {
+                this.chart.filterAll();
             },
 
             init: function () {
@@ -61,7 +65,6 @@
                             }
                             if (aux.length == 1) {
                                 var _id = aux[0].key;
-                                console.log("http://tour-pedia.org/api/getReviewsByPlaceId?placeId=" + _id);
 
                                 $.getJSON("http://tour-pedia.org/api/getReviewsByPlaceId?placeId=" + _id, function (data) {
 

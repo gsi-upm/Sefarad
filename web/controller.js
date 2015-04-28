@@ -228,6 +228,18 @@ var initializeWidgets = function () {
     }
 };
 
+function clearFilter(){
+    var dcElements = $(".dc-element");
+    for (var i = 0; i < dcElements.length; i++) {
+        try{
+            dcElements[i].clearFilter();
+        } catch (e){
+
+        }
+    }
+    dc.renderAll();
+}
+
 
 
 //Smart Open Data Query

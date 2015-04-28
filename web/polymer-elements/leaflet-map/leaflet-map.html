@@ -45,12 +45,16 @@
            }
        },
 
+       clearFilter: function () {
+           this.chart.filterAll();
+       },
+
        init: function () {
 
            this.dimension = this.crossfilter.dimension(function(d) {return d.id;});
            this.group = this.dimension.group().reduceCount();
 
-           var leafletchart = dc.leafletChoroplethChart("#map", "", new L.Map( this.$.map))
+           this.chart = dc.leafletChoroplethChart("#map", "", new L.Map( this.$.map))
                    .root(this.$.map)//IMPORTANT! this has to be set from this point. If not set, the library will try to use jQuery to find the document's root, wich will fail!
                    .dimension(this.dimension)
                    .group(this.group)

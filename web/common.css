@@ -61,3 +61,14 @@ html /deep/ .size-position::shadow #scroller {
 .user-bar, .user-side {
     display: none;
 }
+
+#btn-clear{
+    float: right;
+    position: absolute;
+    top: 15px;
+    right: 45%;
+}
+
+#btn_save{
+    display: none;
+}

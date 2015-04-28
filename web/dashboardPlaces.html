@@ -228,6 +228,7 @@
                 Dashboard
                 <small>Control panel</small>
             </h1>
+            <button class="btn colored" onclick="clearFilter()" id="btn-clear">Clear Filters</button>
             <ol class="breadcrumb">
                 <li><a href="#"> Home</a></li>
                 <li class="active"><i class="fa fa-pie-chart"></i> Dashboard</li>
@@ -409,7 +410,7 @@
                     </div>
                     <!-- box-body -->
                     <div class="box-body chart-responsive">
-                        <bubble-chart param="polarity"   xMax=10 yMax=20000 radius=50000 class="dc-element"></bubble-chart>
+                        <bubble-chart param="polarity" xMax=10 yMax=20000 radius=10000 class="dc-element"></bubble-chart>
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -422,7 +423,7 @@
             <!-- Main row -->
             <div class="row">
                 <!-- Left col -->
-                <div class="col-lg-5">
+                <div class="col-lg-6">
                     <!-- row-chart -->
                     <!--Widgets must have 'widget' class in order to render their loading screen-->
                     <div class="box box-primary widget">
@@ -446,7 +447,7 @@
                 </div><!-- ./col -->
                 <!-- /.Left col -->
                 <!-- right col (We are only adding the ID to make the widgets sortable)-->
-                <section class="col-lg-7 connectedSortable">
+                <section class="col-lg-6 connectedSortable">
 
 
 

@@ -60,6 +60,7 @@ class SignGoogle {
     querySelector(".sign").style.display = "inherit";
     querySelector(".user-bar").style.display = "none";
     querySelector(".user-side").style.display = "none";
+    querySelector("#btn_save").style.display = "none";
   }
 
   static void printProfile(profile) {
@@ -71,11 +72,16 @@ class SignGoogle {
     querySelector(".user-image").setAttribute('src', myProfile['image']['url']);
     querySelector(".user-image2").setAttribute('src', myProfile['image']['url']);
     querySelector(".user-image3").setAttribute('src', myProfile['image']['url']);
-    querySelector(".user-div").style.backgroundImage = "url(" + myProfile['cover']['coverPhoto']['url'] + ")";
+    try {
+      querySelector(".user-div").style.backgroundImage = "url(" + myProfile['cover']['coverPhoto']['url'] + ")";
+    } catch (e) {
+      print("No cover photo has been found");
+    }
     querySelector(".user-div").style.backgroundSize = "cover";
     querySelector(".sign").style.display = "none";
     querySelector(".user-bar").style.display = "inherit";
     querySelector(".user-side").style.display = "inherit";
+    querySelector("#btn_save").style.display = "inline-block";
   }
 }
 

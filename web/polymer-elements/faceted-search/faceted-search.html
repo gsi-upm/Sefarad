@@ -194,7 +194,29 @@
 
             },
 
+            clearFilter: function () {
+                for (var j= 0; j < this.dimensions.length; j++) {
+                    this.dimensions[j][3].filterAll();
 
+
+
+                }
+
+                //take all value-default classed spans and highlight them
+                var spans = this.shadowRoot.querySelectorAll('.value-default');
+                for (var j= 0; j < spans.length; j++) {
+                    spans[j].classList.add("value-primary");
+                    spans[j].classList.remove("value-default");
+                }
+                //take all value-default classed badges and highlight them
+                var badges = this.shadowRoot.querySelectorAll('.badge');
+                for (var j= 0; j < badges.length; j++) {
+                    if(!badges[j].classList.contains("badge-info")){
+                        badges[j].classList.add("badge-info");
+                    }
+
+                }
+            },
 
             ready: function() {
                 console.log("faceted-search ready");
