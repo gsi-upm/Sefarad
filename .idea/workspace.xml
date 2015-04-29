@@ -1,7 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c91c4c5f-92ba-4497-a98e-d764ff70c174" name="Default" comment="leaflet marker map WIP&#10;" />
+    <list default="true" id="c91c4c5f-92ba-4497-a98e-d764ff70c174" name="Default" comment="- Clear filters button added and working">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/bson.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/bson_impl.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/bson_type.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/statics.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/array.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/binary.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/boolean.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/date.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/dbpointer.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/dbref.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/double.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/int.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/map.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/min_max_keys.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/null.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/objectid.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/regexp.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/string.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/timestamp.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/json_web_token/json_web_token.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/json_web_token/src/JWT.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/mongo_dart.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/cursor.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/db.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/dbcollection.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/dbcommand.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/error.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/mongo_getmore_message.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/mongo_insert_message.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/mongo_kill_cursors_message.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/mongo_message.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/mongo_query_message.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/mongo_remove_message.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/mongo_reply_message.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/mongo_update_message.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/server_config.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/state.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/gridfs/chunk_handler.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/gridfs/grid_file.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/gridfs/grid_in.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/gridfs/grid_out.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/gridfs/gridfs.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/network/connection.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/network/connection_manager.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/network/message_header.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/network/mongo_message_transformer.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/network/packet_converter.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart_query/mongo_dart_query.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart_query/src/modifier_builder.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart_query/src/selector_builder.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/more/iterable.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/more/src/collection/bimap.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/more/src/collection/bitlist.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/more/src/collection/multiset.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/more/src/collection/range.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/more/src/iterable/empty.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/polymer/src/js/polymer/layout.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/rsa_pkcs/rsa_pkcs.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/rsa_pkcs/src/parser.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/stack_trace/src/trace.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/watcher/src/directory_watcher/windows.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/when/when.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/which/src/candidate_paths.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/which/src/has_permission.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/which/src/is_executable.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/which/src/util.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/which/src/which_impl.dart" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/which/which.dart" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/analyzer" afterPath="$PROJECT_DIR$/packages/analyzer" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/angular" afterPath="$PROJECT_DIR$/packages/angular" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/args" afterPath="$PROJECT_DIR$/packages/args" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/asn1lib" afterPath="$PROJECT_DIR$/packages/asn1lib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/barback" afterPath="$PROJECT_DIR$/packages/barback" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/bignum" afterPath="$PROJECT_DIR$/packages/bignum" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/browser" afterPath="$PROJECT_DIR$/packages/browser" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/bson" afterPath="$PROJECT_DIR$/packages/bson" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/cipher" afterPath="$PROJECT_DIR$/packages/cipher" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/cli_util" afterPath="$PROJECT_DIR$/packages/cli_util" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/code_transformers" afterPath="$PROJECT_DIR$/packages/code_transformers" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/collection" afterPath="$PROJECT_DIR$/packages/collection" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/crypto" afterPath="$PROJECT_DIR$/packages/crypto" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/csslib" afterPath="$PROJECT_DIR$/packages/csslib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/di" afterPath="$PROJECT_DIR$/packages/di" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/fixnum" afterPath="$PROJECT_DIR$/packages/fixnum" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/google_oauth2_client" afterPath="$PROJECT_DIR$/packages/google_oauth2_client" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/html5lib" afterPath="$PROJECT_DIR$/packages/html5lib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/html" afterPath="$PROJECT_DIR$/packages/html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/http" afterPath="$PROJECT_DIR$/packages/http" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/http_parser" afterPath="$PROJECT_DIR$/packages/http_parser" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/http_server" afterPath="$PROJECT_DIR$/packages/http_server" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/initialize" afterPath="$PROJECT_DIR$/packages/initialize" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/intl" afterPath="$PROJECT_DIR$/packages/intl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/json_web_token" afterPath="$PROJECT_DIR$/packages/json_web_token" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/logging" afterPath="$PROJECT_DIR$/packages/logging" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/matcher" afterPath="$PROJECT_DIR$/packages/matcher" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/mime" afterPath="$PROJECT_DIR$/packages/mime" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/mongo_dart" afterPath="$PROJECT_DIR$/packages/mongo_dart" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/mongo_dart_query" afterPath="$PROJECT_DIR$/packages/mongo_dart_query" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/more" afterPath="$PROJECT_DIR$/packages/more" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/oauth2" afterPath="$PROJECT_DIR$/packages/oauth2" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/observe" afterPath="$PROJECT_DIR$/packages/observe" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/path" afterPath="$PROJECT_DIR$/packages/path" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/perf_api" afterPath="$PROJECT_DIR$/packages/perf_api" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/petitparser" afterPath="$PROJECT_DIR$/packages/petitparser" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/polymer" afterPath="$PROJECT_DIR$/packages/polymer" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/polymer_expressions" afterPath="$PROJECT_DIR$/packages/polymer_expressions" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/pool" afterPath="$PROJECT_DIR$/packages/pool" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/route_hierarchical" afterPath="$PROJECT_DIR$/packages/route_hierarchical" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/rsa_pkcs" afterPath="$PROJECT_DIR$/packages/rsa_pkcs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/smoke" afterPath="$PROJECT_DIR$/packages/smoke" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/source_maps" afterPath="$PROJECT_DIR$/packages/source_maps" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/source_span" afterPath="$PROJECT_DIR$/packages/source_span" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/stack_trace" afterPath="$PROJECT_DIR$/packages/stack_trace" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/string_scanner" afterPath="$PROJECT_DIR$/packages/string_scanner" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/template_binding" afterPath="$PROJECT_DIR$/packages/template_binding" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/unittest" afterPath="$PROJECT_DIR$/packages/unittest" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/utf" afterPath="$PROJECT_DIR$/packages/utf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/watcher" afterPath="$PROJECT_DIR$/packages/watcher" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/web_components" afterPath="$PROJECT_DIR$/packages/web_components" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/when" afterPath="$PROJECT_DIR$/packages/when" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/which" afterPath="$PROJECT_DIR$/packages/which" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/yaml" afterPath="$PROJECT_DIR$/packages/yaml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Sefarad-2.0.iml" afterPath="$PROJECT_DIR$/.idea/Sefarad-2.0.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboardRestaurants.html" afterPath="$PROJECT_DIR$/web/dashboardRestaurants.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dataset.json" afterPath="$PROJECT_DIR$/web/dataset.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pubspec.lock" afterPath="$PROJECT_DIR$/pubspec.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/queries.json" afterPath="$PROJECT_DIR$/web/queries.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/signGoogle.dart" afterPath="$PROJECT_DIR$/web/signGoogle.dart" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="Sefarad-2.0.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -25,21 +155,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="dashboardPlaces.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/dashboardPlaces.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.61922365" vertical-offset="5785" max-vertical-offset="8775">
-              <caret line="408" column="26" selection-start-line="408" selection-start-column="26" selection-end-line="408" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="signGoogle.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/signGoogle.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1365">
-              <caret line="21" column="2" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1028" max-vertical-offset="1515">
+              <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -50,42 +170,41 @@
       <file leaf-file-name="dashboardRestaurants.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.541667" vertical-offset="5249" max-vertical-offset="7635">
-              <caret line="370" column="30" selection-start-line="369" selection-start-column="49" selection-end-line="369" selection-end-column="57" />
+            <state vertical-scroll-proportion="98.478264" vertical-offset="3150" max-vertical-offset="7650">
+              <caret line="59" column="25" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sortable-table.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/bower_components/sortable-table/sortable-table.html">
+      <file leaf-file-name="dataset.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/dataset.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="8.125" vertical-offset="7605" max-vertical-offset="15375">
-              <caret line="494" column="0" selection-start-line="494" selection-start-column="0" selection-end-line="494" selection-end-column="0" />
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="90">
+              <caret line="0" column="695" selection-start-line="0" selection-start-column="695" selection-end-line="0" selection-end-column="695" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="controller.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/controller.js">
+      <file leaf-file-name="queries.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/queries.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1441" max-vertical-offset="4260">
-              <caret line="198" column="48" selection-start-line="198" selection-start-column="48" selection-end-line="198" selection-end-column="48" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="464">
+              <caret line="0" column="11917" selection-start-line="0" selection-start-column="11917" selection-end-line="0" selection-end-column="11917" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="server.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bin/server.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2715">
+              <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
               <folding>
-                <element signature="e#3692#3844#0" expanded="false" />
-                <element signature="e#3888#5919#0" expanded="false" />
+                <element signature="e#0#17#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BarcelonaPlaces.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/assets/BarcelonaPlaces.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
-              <caret line="0" column="5" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="6856592" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -109,15 +228,30 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/web/polymer-elements/number-chart/number-chart.html" />
-        <option value="$PROJECT_DIR$/bin/server.dart" />
         <option value="$PROJECT_DIR$/web/query.dart" />
         <option value="$PROJECT_DIR$/web/newquery.dart" />
         <option value="$PROJECT_DIR$/web/dataset.dart" />
-        <option value="$PROJECT_DIR$/web/signGoogle.dart" />
         <option value="$PROJECT_DIR$/web/controller.js" />
-        <option value="$PROJECT_DIR$/web/dashboardRestaurants.html" />
+        <option value="$PROJECT_DIR$/web/polymer-elements/pie-chart/pie-chart.html" />
+        <option value="$PROJECT_DIR$/web/polymer-elements/row-chart/row-chart.html" />
+        <option value="$PROJECT_DIR$/web/polymer-elements/number-chart/number-chart.html" />
+        <option value="$PROJECT_DIR$/web/polymer-elements/heat-map/heat-map.html" />
+        <option value="$PROJECT_DIR$/web/polymer-elements/bubble-chart/bubble-chart.html" />
+        <option value="$PROJECT_DIR$/web/polymer-elements/bar-chart/bar-chart.html" />
+        <option value="$PROJECT_DIR$/web/polymer-elements/review-widget/review-widget.html" />
+        <option value="$PROJECT_DIR$/web/bower_components/sortable-table/sortable-table.html" />
+        <option value="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/leaflet-marker-map.html" />
+        <option value="$PROJECT_DIR$/web/polymer-elements/leaflet-map/leaflet-map.html" />
+        <option value="$PROJECT_DIR$/web/polymer-elements/faceted-search/faceted-search.html" />
+        <option value="$PROJECT_DIR$/web/dist/css/skins/_all-skins.min.css" />
         <option value="$PROJECT_DIR$/web/dashboardPlaces.html" />
+        <option value="$PROJECT_DIR$/web/dashboard.html" />
+        <option value="$PROJECT_DIR$/web/common.css" />
+        <option value="$PROJECT_DIR$/web/dashboardRestaurants.html" />
+        <option value="$PROJECT_DIR$/web/dataset.json" />
+        <option value="$PROJECT_DIR$/web/queries.json" />
+        <option value="$PROJECT_DIR$/web/signGoogle.dart" />
+        <option value="$PROJECT_DIR$/bin/server.dart" />
       </list>
     </option>
   </component>
@@ -128,8 +262,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="65" />
     <option name="y" value="24" />
-    <option name="width" value="1215" />
-    <option name="height" value="1000" />
+    <option name="width" value="1375" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -154,7 +288,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -169,7 +302,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemId" value="SefaradCurrent" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -179,198 +312,17 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemId" value="SefaradCurrent" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="polymer-elements" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="polymer-elements" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="review-widget" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="polymer-elements" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="number-chart" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="polymer-elements" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="leaflet-marker-map" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="polymer-elements" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bubble-chart" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="polymer-elements" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bar-chart" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bower_components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bower_components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sortable-table" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sefarad-2.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -407,124 +359,6 @@
       <recent name="$PROJECT_DIR$/web/assets" />
       <recent name="$PROJECT_DIR$/web/polymer-elements/bubble-chart" />
     </key>
-  </component>
-  <component name="RestoreUpdateTree">
-    <UpdateInfo date="Moments ago" ActionInfo="_Update">
-      <UpdatedFiles>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated from server" />
-          <option name="myStatusName" value="Changed on server" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CHANGED_ON_SERVER" />
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Updated" />
-            <option name="myStatusName" value="Changed" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="UPDATED" />
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dashboard.html</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dashboardPlaces.html</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dashboardRestaurants.html</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dataset.html</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/newquery.html</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/query.html</PATH>
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Created" />
-            <option name="myStatusName" value="Created" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="CREATED" />
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Deleted" />
-            <option name="myStatusName" value="Deleted" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="true" />
-            <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/query(old).html</PATH>
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Restored" />
-            <option name="myStatusName" value="Will be restored" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="RESTORED" />
-          </FILE-GROUP>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Modified" />
-          <option name="myStatusName" value="Modified" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MODIFIED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Skipped" />
-          <option name="myStatusName" value="Skipped" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="SKIPPED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged with conflicts" />
-          <option name="myStatusName" value="Will be merged with conflicts" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED_WITH_CONFLICTS" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged with tree conflicts" />
-          <option name="myStatusName" value="Merged with tree conflicts" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged with property conflicts" />
-          <option name="myStatusName" value="Will be merged with property conflicts" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged" />
-          <option name="myStatusName" value="Will be merged" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Not in repository" />
-          <option name="myStatusName" value="Not in repository" />
-          <option name="mySupportsDeletion" value="true" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UNKNOWN" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Locally added" />
-          <option name="myStatusName" value="Locally added" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="LOCALLY_ADDED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Locally removed" />
-          <option name="myStatusName" value="Locally removed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="LOCALLY_REMOVED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Switched" />
-          <option name="myStatusName" value="Switched" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="SWITCHED" />
-        </FILE-GROUP>
-      </UpdatedFiles>
-    </UpdateInfo>
   </component>
   <component name="RunManager" selected="JavaScript Debug.dashboardRestaurants.html">
     <configuration default="false" name="server.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" temporary="true" nameIsGenerated="true">
@@ -666,7 +500,13 @@
       <option name="project" value="LOCAL" />
       <updated>1429144150924</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="- Clear filters button added and working">
+      <created>1430216318533</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1430216318533</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -690,27 +530,27 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="24" width="1215" height="1000" extended-state="6" />
-    <editor active="false" />
+    <frame x="65" y="24" width="1375" height="876" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32853982" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Pub Serve" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32738853" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32738853" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Pub Serve" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32866243" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28058168" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28807202" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32743362" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32743362" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32611465" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32853982" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -762,183 +602,20 @@
     <MESSAGE value="restaurants demo updated&#10;" />
     <MESSAGE value="demos updated&#10;" />
     <MESSAGE value="leaflet marker map WIP&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="leaflet marker map WIP&#10;" />
+    <MESSAGE value="- Clear filters button added and working" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Clear filters button added and working" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="180">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1078" max-vertical-offset="3990">
-          <caret line="126" column="30" selection-start-line="126" selection-start-column="30" selection-end-line="126" selection-end-column="30" />
-          <folding>
-            <element signature="e#3692#3844#0" expanded="false" />
-            <element signature="e#3888#5919#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1425" max-vertical-offset="5325">
-          <caret line="185" column="30" selection-start-line="185" selection-start-column="30" selection-end-line="185" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4445" max-vertical-offset="6210">
-          <caret line="304" column="0" selection-start-line="304" selection-start-column="0" selection-end-line="304" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/polymer-elements/bar-chart/bar-chart.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="24" max-vertical-offset="1110">
-          <caret line="46" column="37" selection-start-line="46" selection-start-column="37" selection-end-line="46" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/polymer-elements/bubble-chart/bubble-chart.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1260">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/polymer-elements/pie-chart/pie-chart.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="1005">
-          <caret line="23" column="0" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1078" max-vertical-offset="3990">
-          <caret line="126" column="30" selection-start-line="126" selection-start-column="30" selection-end-line="126" selection-end-column="30" />
-          <folding>
-            <element signature="e#3692#3844#0" expanded="false" />
-            <element signature="e#3888#5919#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1350" max-vertical-offset="4965">
-          <caret line="180" column="90" selection-start-line="180" selection-start-column="28" selection-end-line="180" selection-end-column="90" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2431" max-vertical-offset="5325">
-          <caret line="193" column="30" selection-start-line="193" selection-start-column="30" selection-end-line="193" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/polymer-elements/bar-chart/bar-chart.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1110">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/polymer-elements/pie-chart/pie-chart.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="990">
-          <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3615">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3692#3844#0" expanded="false" />
-            <element signature="e#3888#5919#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2025" max-vertical-offset="4965">
-          <caret line="141" column="4" selection-start-line="141" selection-start-column="4" selection-end-line="141" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3192" max-vertical-offset="4755">
-          <caret line="297" column="5" selection-start-line="297" selection-start-column="5" selection-end-line="297" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/bower_components/sortable-table/sortable-table.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="7110" max-vertical-offset="15255">
-          <caret line="493" column="92" selection-start-line="493" selection-start-column="92" selection-end-line="493" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/polymer-elements/faceted-search/faceted-search.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1890" max-vertical-offset="3780">
-          <caret line="186" column="53" selection-start-line="186" selection-start-column="16" selection-end-line="186" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="979" max-vertical-offset="3480">
-          <caret line="95" column="45" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
-          <folding>
-            <element signature="e#3692#3844#0" expanded="false" />
-            <element signature="e#3888#5919#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3192" max-vertical-offset="4755">
-          <caret line="296" column="0" selection-start-line="296" selection-start-column="0" selection-end-line="296" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/bower_components/sortable-table/sortable-table.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="15255">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/polymer-elements/faceted-search/faceted-search.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1890" max-vertical-offset="3780">
-          <caret line="186" column="53" selection-start-line="186" selection-start-column="16" selection-end-line="186" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3180">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#3692#3844#0" expanded="false" />
-            <element signature="e#3888#5919#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -964,31 +641,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/polymer-elements/faceted-search/faceted-search.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.5" vertical-offset="1845" max-vertical-offset="3780">
-          <caret line="159" column="0" selection-start-line="154" selection-start-column="28" selection-end-line="161" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="180">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/newquery.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1440" max-vertical-offset="6450">
-          <caret line="114" column="37" selection-start-line="114" selection-start-column="37" selection-end-line="114" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dataset.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2565" max-vertical-offset="5745">
-          <caret line="188" column="37" selection-start-line="188" selection-start-column="37" selection-end-line="188" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -1011,60 +667,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/polymer-elements/pie-chart/pie-chart.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.5" vertical-offset="318" max-vertical-offset="1095">
-          <caret line="46" column="21" selection-start-line="41" selection-start-column="20" selection-end-line="46" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7074074" vertical-offset="4508" max-vertical-offset="6570">
-          <caret line="326" column="42" selection-start-line="313" selection-start-column="20" selection-end-line="326" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/leaflet-marker-map.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="810" max-vertical-offset="1350">
-          <caret line="72" column="34" selection-start-line="72" selection-start-column="34" selection-end-line="72" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/dc.leaflet.custom.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="12885">
           <caret line="20" column="6" selection-start-line="16" selection-start-column="4" selection-end-line="20" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/polymer-elements/bar-chart/bar-chart.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.875" vertical-offset="0" max-vertical-offset="1155">
-          <caret line="3" column="93" selection-start-line="3" selection-start-column="93" selection-end-line="3" selection-end-column="93" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/polymer-elements/bubble-chart/bubble-chart.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.71005917" vertical-offset="0" max-vertical-offset="1260">
-          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/polymer-elements/review-widget/review-widget.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="1710">
-          <caret line="9" column="29" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/BarcelonaPlaces.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="90">
-          <caret line="0" column="5" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="6856592" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1075,93 +681,337 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bin/server.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2715">
-          <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#17#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/signGoogle.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1365">
-          <caret line="21" column="2" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/dataset.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1710">
           <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/newquery.dart">
+    <entry file="file://$PROJECT_DIR$/web/assets/BarcelonaPlaces.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4005">
-          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="90">
+          <caret line="0" column="5" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="6856592" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/query.dart">
+    <entry file="file://$PROJECT_DIR$/web/polymer-elements/row-chart/row-chart.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39823008" vertical-offset="30" max-vertical-offset="2820">
-          <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
-          <folding />
+        <state vertical-scroll-proportion="0.25157234" vertical-offset="270" max-vertical-offset="1260">
+          <caret line="26" column="30" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/polymer-elements/pie-chart/pie-chart.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3144654" vertical-offset="390" max-vertical-offset="1155">
+          <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="38" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/polymer-elements/number-chart/number-chart.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7523105" vertical-offset="883" max-vertical-offset="2250">
-          <caret line="86" column="39" selection-start-line="86" selection-start-column="39" selection-end-line="86" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.7274633" vertical-offset="388" max-vertical-offset="2310">
+          <caret line="49" column="14" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/polymer-elements/heat-map/heat-map.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5345912" vertical-offset="225" max-vertical-offset="1095">
+          <caret line="32" column="14" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/polymer-elements/bubble-chart/bubble-chart.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27672955" vertical-offset="333" max-vertical-offset="1290">
+          <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/polymer-elements/bar-chart/bar-chart.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9119497" vertical-offset="30" max-vertical-offset="1215">
+          <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/polymer-elements/review-widget/review-widget.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.0323275" vertical-offset="511" max-vertical-offset="1740">
+          <caret line="66" column="53" selection-start-line="66" selection-start-column="53" selection-end-line="66" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/bower_components/sortable-table/sortable-table.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.58189654" vertical-offset="7530" max-vertical-offset="15450">
+          <caret line="520" column="10" selection-start-line="516" selection-start-column="10" selection-end-line="520" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/polymer-elements/leaflet-map/leaflet-map.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38577586" vertical-offset="661" max-vertical-offset="1260">
+          <caret line="56" column="21" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/polymer-elements/faceted-search/faceted-search.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38577586" vertical-offset="2941" max-vertical-offset="4440">
+          <caret line="208" column="30" selection-start-line="208" selection-start-column="30" selection-end-line="208" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/leaflet-marker-map.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.57974136" vertical-offset="766" max-vertical-offset="1410">
+          <caret line="69" column="22" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dist/css/AdminLTE.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18480493" vertical-offset="0" max-vertical-offset="487">
+          <caret line="6" column="56" selection-start-line="6" selection-start-column="56" selection-end-line="6" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/bootstrap/css/bootstrap.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="487">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dist/css/skins/_all-skins.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
+          <caret line="0" column="438" selection-start-line="0" selection-start-column="431" selection-end-line="0" selection-end-column="438" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dataset.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.695652" vertical-offset="4155" max-vertical-offset="5775">
+          <caret line="298" column="66" selection-start-line="298" selection-start-column="66" selection-end-line="298" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/newquery.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.26087" vertical-offset="4646" max-vertical-offset="7605">
+          <caret line="327" column="65" selection-start-line="327" selection-start-column="65" selection-end-line="327" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/common.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.26781002" vertical-offset="427" max-vertical-offset="1185">
+          <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/newquery.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4459103" vertical-offset="82" max-vertical-offset="3945">
+          <caret line="32" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43933055" vertical-offset="0" max-vertical-offset="478">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.lock">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.974052" vertical-offset="2492" max-vertical-offset="3375">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1441" max-vertical-offset="4260">
-          <caret line="198" column="48" selection-start-line="198" selection-start-column="48" selection-end-line="198" selection-end-column="48" />
+        <state vertical-scroll-proportion="0.43032786" vertical-offset="4050" max-vertical-offset="5400">
+          <caret line="290" column="0" selection-start-line="290" selection-start-column="0" selection-end-line="290" selection-end-column="0" />
           <folding>
             <element signature="e#3692#3844#0" expanded="false" />
-            <element signature="e#3888#5919#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/bower_components/sortable-table/sortable-table.html">
+    <entry file="file://$PROJECT_DIR$/web/query.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="8.125" vertical-offset="7605" max-vertical-offset="15375">
-          <caret line="494" column="0" selection-start-line="494" selection-start-column="0" selection-end-line="494" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.541667" vertical-offset="5249" max-vertical-offset="7635">
-          <caret line="370" column="30" selection-start-line="369" selection-start-column="49" selection-end-line="369" selection-end-column="57" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2820">
+          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/dashboardPlaces.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.61922365" vertical-offset="5785" max-vertical-offset="8775">
-          <caret line="408" column="26" selection-start-line="408" selection-start-column="26" selection-end-line="408" selection-end-column="26" />
+        <state vertical-scroll-proportion="1.5591397" vertical-offset="3205" max-vertical-offset="8790">
+          <caret line="262" column="28" selection-start-line="262" selection-start-column="28" selection-end-line="262" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4516129" vertical-offset="3060" max-vertical-offset="6915">
+          <caret line="218" column="45" selection-start-line="218" selection-start-column="45" selection-end-line="218" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/oauth2/src/authorization_code_grant.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33262712" vertical-offset="8" max-vertical-offset="3840">
+          <caret line="18" column="38" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#11023#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/oauth2/src/authorization_exception.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="600">
+          <caret line="0" column="52" selection-start-line="0" selection-start-column="51" selection-end-line="0" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/oauth2/src/client.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6504237" vertical-offset="1703" max-vertical-offset="2175">
+          <caret line="141" column="10" selection-start-line="141" selection-start-column="8" selection-end-line="141" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#6126#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/oauth2/src/expiration_exception.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="500">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#697#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/oauth2/src/credentials.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33262712" vertical-offset="683" max-vertical-offset="2880">
+          <caret line="62" column="57" selection-start-line="62" selection-start-column="55" selection-end-line="62" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#7289#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/oauth2/src/handle_access_token_response.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28601694" vertical-offset="0" max-vertical-offset="2145">
+          <caret line="15" column="25" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#5276#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/oauth2/oauth2.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="500">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#418#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/oauth2/src/utils.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1755">
+          <caret line="10" column="35" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#3864#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/google_oauth2_client/google_oauth2_browser.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="500">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#1317#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/google_oauth2_client/src/browser/google_oauth2.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.332" vertical-offset="1664" max-vertical-offset="4965">
+          <caret line="122" column="7" selection-start-line="122" selection-start-column="7" selection-end-line="122" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/server.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2715">
+          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/signGoogle.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1515">
+          <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="98.478264" vertical-offset="3150" max-vertical-offset="7650">
+          <caret line="59" column="25" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dataset.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="465">
+          <caret line="0" column="695" selection-start-line="0" selection-start-column="695" selection-end-line="0" selection-end-column="695" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/queries.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="464">
+          <caret line="0" column="11917" selection-start-line="0" selection-start-column="11917" selection-end-line="0" selection-end-column="11917" />
           <folding />
         </state>
       </provider>

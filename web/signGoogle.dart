@@ -69,13 +69,17 @@ class SignGoogle {
     querySelector(".user-name2").text = myProfile['displayName'];
     querySelector(".user-name3").text = myProfile['displayName'];
     querySelector(".user-name3").appendHtml('<small>' + myProfile['emails'][0]['value'] + '</small>');
-    querySelector(".user-image").setAttribute('src', myProfile['image']['url']);
-    querySelector(".user-image2").setAttribute('src', myProfile['image']['url']);
-    querySelector(".user-image3").setAttribute('src', myProfile['image']['url']);
-    try {
+    try{
+      querySelector(".user-image").setAttribute('src', myProfile['image']['url']);
+      querySelector(".user-image2").setAttribute('src', myProfile['image']['url']);
+      querySelector(".user-image3").setAttribute('src', myProfile['image']['url']);
       querySelector(".user-div").style.backgroundImage = "url(" + myProfile['cover']['coverPhoto']['url'] + ")";
     } catch (e) {
-      print("No cover photo has been found");
+      querySelector(".user-image").setAttribute('src', 'https://developers.google.com/experts/img/user/user-default.png');
+      querySelector(".user-image2").setAttribute('src', 'https://developers.google.com/experts/img/user/user-default.png');
+      querySelector(".user-image3").setAttribute('src', 'https://developers.google.com/experts/img/user/user-default.png');
+
+      querySelector(".user-div").style.backgroundImage = "url(https://lh3.googleusercontent.com/-cdcbQlyPVI8/UakyURa0m1I/AAAAAAAAANk/hxskk9UrKkc/s630-fcrop64=1,01da0000ff88ffff/google-plus-default.jpg)";
     }
     querySelector(".user-div").style.backgroundSize = "cover";
     querySelector(".sign").style.display = "none";

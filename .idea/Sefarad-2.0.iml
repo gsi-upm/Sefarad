@@ -156,6 +156,7 @@
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/heat-map/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/leaflet-map/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/leaflet-marker-map/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/line-chart/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/number-chart/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-action-dialog/packages" />
