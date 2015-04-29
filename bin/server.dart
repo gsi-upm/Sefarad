@@ -16,9 +16,6 @@ import 'dart:core';
 final HOST = "localhost"; // eg: localhost
 final PORT = 1990;
 String url = "";
-Db db = new Db("mongodb://127.0.0.1/test");
-DbCollection coll;
-ObjectId id;
 
 void main() {
   HttpServer.bind(HOST, PORT).then((server) {
@@ -49,18 +46,27 @@ void main() {
  */
 void handleGet(HttpRequest req) {
   HttpResponse res = req.response;
-  RegExp regex = new RegExp("[a-zA-Z0-9._%+-][^&]*");
+  RegExp regex = new RegExp("([^?=&]+)(=([^&]*))?");
   print("${req.method}: ${req.uri.path}");
   String data_file = req.uri.path.substring(1,req.uri.path.length) + ".json";
   addCorsHeaders(res);
 
   if(req.uri.path == "/mongodbquery"){
+
+
     String queryStr = req.uri.query;
     var matches = regex.allMatches(queryStr);
     var collection = matches.elementAt(0).group(0);
-    queryStr = Uri.decodeComponent(queryStr);
-    queryStr = queryStr.substring(collection.length+1, queryStr.length);
+    collection = collection.substring(collection.indexOf("=")+1);
+    var database = matches.elementAt(1).group(0);
+    database = database.substring(database.indexOf("=")+1);
+    var query = matches.elementAt(2).group(0);
+    queryStr = Uri.decodeComponent(query);
+    queryStr = queryStr.substring(queryStr.indexOf("=")+1);
     List mongodb = new List();
+    Db db = new Db(database);
+    DbCollection coll;
+    ObjectId id;
     db.open().then((c){
       print('connection open');
       coll = db.collection(collection);

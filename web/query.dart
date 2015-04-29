@@ -125,7 +125,8 @@ class Query extends SignGoogle{
       }
     });
     var url = "http://$host/mongodbquery";
-    request.open("GET", url + "?" + collection + "&" + Uri.encodeComponent(querySelector("#queryMongo").value));
+    request.open("GET", url + "?collection=" + collection + "&endpoint=" + endPoint +
+        "&query=" + Uri.encodeComponent(querySelector("#queryMongo").value));
     request.send("");
   }
 

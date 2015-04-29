@@ -1,135 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c91c4c5f-92ba-4497-a98e-d764ff70c174" name="Default" comment="- Clear filters button added and working">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/bson.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/bson_impl.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/bson_type.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/statics.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/array.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/binary.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/boolean.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/date.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/dbpointer.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/dbref.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/double.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/int.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/map.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/min_max_keys.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/null.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/objectid.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/regexp.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/string.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/bson/src/types/timestamp.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/json_web_token/json_web_token.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/json_web_token/src/JWT.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/mongo_dart.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/cursor.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/db.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/dbcollection.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/dbcommand.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/error.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/mongo_getmore_message.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/mongo_insert_message.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/mongo_kill_cursors_message.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/mongo_message.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/mongo_query_message.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/mongo_remove_message.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/mongo_reply_message.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/mongo_update_message.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/server_config.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/database/state.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/gridfs/chunk_handler.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/gridfs/grid_file.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/gridfs/grid_in.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/gridfs/grid_out.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/gridfs/gridfs.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/network/connection.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/network/connection_manager.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/network/message_header.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/network/mongo_message_transformer.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart/src/network/packet_converter.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart_query/mongo_dart_query.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart_query/src/modifier_builder.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/mongo_dart_query/src/selector_builder.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/more/iterable.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/more/src/collection/bimap.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/more/src/collection/bitlist.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/more/src/collection/multiset.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/more/src/collection/range.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/more/src/iterable/empty.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/polymer/src/js/polymer/layout.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/rsa_pkcs/rsa_pkcs.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/rsa_pkcs/src/parser.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/stack_trace/src/trace.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/watcher/src/directory_watcher/windows.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/when/when.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/which/src/candidate_paths.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/which/src/has_permission.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/which/src/is_executable.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/which/src/util.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/which/src/which_impl.dart" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map/packages/which/which.dart" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/analyzer" afterPath="$PROJECT_DIR$/packages/analyzer" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/angular" afterPath="$PROJECT_DIR$/packages/angular" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/args" afterPath="$PROJECT_DIR$/packages/args" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/asn1lib" afterPath="$PROJECT_DIR$/packages/asn1lib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/barback" afterPath="$PROJECT_DIR$/packages/barback" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/bignum" afterPath="$PROJECT_DIR$/packages/bignum" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/browser" afterPath="$PROJECT_DIR$/packages/browser" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/bson" afterPath="$PROJECT_DIR$/packages/bson" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/cipher" afterPath="$PROJECT_DIR$/packages/cipher" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/cli_util" afterPath="$PROJECT_DIR$/packages/cli_util" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/code_transformers" afterPath="$PROJECT_DIR$/packages/code_transformers" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/collection" afterPath="$PROJECT_DIR$/packages/collection" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/crypto" afterPath="$PROJECT_DIR$/packages/crypto" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/csslib" afterPath="$PROJECT_DIR$/packages/csslib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/di" afterPath="$PROJECT_DIR$/packages/di" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/fixnum" afterPath="$PROJECT_DIR$/packages/fixnum" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/google_oauth2_client" afterPath="$PROJECT_DIR$/packages/google_oauth2_client" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/html5lib" afterPath="$PROJECT_DIR$/packages/html5lib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/html" afterPath="$PROJECT_DIR$/packages/html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/http" afterPath="$PROJECT_DIR$/packages/http" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/http_parser" afterPath="$PROJECT_DIR$/packages/http_parser" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/http_server" afterPath="$PROJECT_DIR$/packages/http_server" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/initialize" afterPath="$PROJECT_DIR$/packages/initialize" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/intl" afterPath="$PROJECT_DIR$/packages/intl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/json_web_token" afterPath="$PROJECT_DIR$/packages/json_web_token" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/logging" afterPath="$PROJECT_DIR$/packages/logging" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/matcher" afterPath="$PROJECT_DIR$/packages/matcher" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/mime" afterPath="$PROJECT_DIR$/packages/mime" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/mongo_dart" afterPath="$PROJECT_DIR$/packages/mongo_dart" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/mongo_dart_query" afterPath="$PROJECT_DIR$/packages/mongo_dart_query" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/more" afterPath="$PROJECT_DIR$/packages/more" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/oauth2" afterPath="$PROJECT_DIR$/packages/oauth2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/observe" afterPath="$PROJECT_DIR$/packages/observe" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/path" afterPath="$PROJECT_DIR$/packages/path" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/perf_api" afterPath="$PROJECT_DIR$/packages/perf_api" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/petitparser" afterPath="$PROJECT_DIR$/packages/petitparser" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/polymer" afterPath="$PROJECT_DIR$/packages/polymer" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/polymer_expressions" afterPath="$PROJECT_DIR$/packages/polymer_expressions" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/pool" afterPath="$PROJECT_DIR$/packages/pool" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/route_hierarchical" afterPath="$PROJECT_DIR$/packages/route_hierarchical" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/rsa_pkcs" afterPath="$PROJECT_DIR$/packages/rsa_pkcs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/smoke" afterPath="$PROJECT_DIR$/packages/smoke" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/source_maps" afterPath="$PROJECT_DIR$/packages/source_maps" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/source_span" afterPath="$PROJECT_DIR$/packages/source_span" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/stack_trace" afterPath="$PROJECT_DIR$/packages/stack_trace" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/string_scanner" afterPath="$PROJECT_DIR$/packages/string_scanner" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/template_binding" afterPath="$PROJECT_DIR$/packages/template_binding" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/unittest" afterPath="$PROJECT_DIR$/packages/unittest" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/utf" afterPath="$PROJECT_DIR$/packages/utf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/watcher" afterPath="$PROJECT_DIR$/packages/watcher" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/web_components" afterPath="$PROJECT_DIR$/packages/web_components" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/when" afterPath="$PROJECT_DIR$/packages/when" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/which" afterPath="$PROJECT_DIR$/packages/which" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/yaml" afterPath="$PROJECT_DIR$/packages/yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Sefarad-2.0.iml" afterPath="$PROJECT_DIR$/.idea/Sefarad-2.0.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboardRestaurants.html" afterPath="$PROJECT_DIR$/web/dashboardRestaurants.html" />
+    <list default="true" id="c91c4c5f-92ba-4497-a98e-d764ff70c174" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dataset.json" afterPath="$PROJECT_DIR$/web/dataset.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pubspec.lock" afterPath="$PROJECT_DIR$/pubspec.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/queries.json" afterPath="$PROJECT_DIR$/web/queries.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/signGoogle.dart" afterPath="$PROJECT_DIR$/web/signGoogle.dart" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/query.dart" afterPath="$PROJECT_DIR$/web/query.dart" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/server.dart" afterPath="$PROJECT_DIR$/bin/server.dart" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Sefarad-2.0.iws" />
@@ -158,7 +34,7 @@
       <file leaf-file-name="signGoogle.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/signGoogle.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1028" max-vertical-offset="1515">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1515">
               <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
@@ -167,44 +43,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dashboardRestaurants.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="dashboardRestaurants.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="98.478264" vertical-offset="3150" max-vertical-offset="7650">
+            <state vertical-scroll-proportion="-4.8814654" vertical-offset="3150" max-vertical-offset="7650">
               <caret line="59" column="25" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="25" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dataset.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/dataset.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="90">
-              <caret line="0" column="695" selection-start-line="0" selection-start-column="695" selection-end-line="0" selection-end-column="695" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="queries.json" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/queries.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="464">
-              <caret line="0" column="11917" selection-start-line="0" selection-start-column="11917" selection-end-line="0" selection-end-column="11917" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="server.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bin/server.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2715">
-              <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#17#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -228,7 +72,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/web/query.dart" />
         <option value="$PROJECT_DIR$/web/newquery.dart" />
         <option value="$PROJECT_DIR$/web/dataset.dart" />
         <option value="$PROJECT_DIR$/web/controller.js" />
@@ -248,10 +91,11 @@
         <option value="$PROJECT_DIR$/web/dashboard.html" />
         <option value="$PROJECT_DIR$/web/common.css" />
         <option value="$PROJECT_DIR$/web/dashboardRestaurants.html" />
-        <option value="$PROJECT_DIR$/web/dataset.json" />
-        <option value="$PROJECT_DIR$/web/queries.json" />
         <option value="$PROJECT_DIR$/web/signGoogle.dart" />
+        <option value="$PROJECT_DIR$/web/dataset.json" />
+        <option value="$PROJECT_DIR$/web/query.dart" />
         <option value="$PROJECT_DIR$/bin/server.dart" />
+        <option value="$PROJECT_DIR$/web/queries.json" />
       </list>
     </option>
   </component>
@@ -506,7 +350,13 @@
       <option name="project" value="LOCAL" />
       <updated>1430216318533</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="- Minor changes">
+      <created>1430301147383</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1430301147383</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -603,23 +453,14 @@
     <MESSAGE value="demos updated&#10;" />
     <MESSAGE value="leaflet marker map WIP&#10;" />
     <MESSAGE value="- Clear filters button added and working" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Clear filters button added and working" />
+    <MESSAGE value="- Minor changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Minor changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3180">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3692#3844#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/bootstrap/css/bootstrap.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-754.44446" vertical-offset="0" max-vertical-offset="98580">
@@ -852,14 +693,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/query.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2820">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/dashboardPlaces.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.5591397" vertical-offset="3205" max-vertical-offset="8790">
@@ -881,7 +714,7 @@
         <state vertical-scroll-proportion="0.33262712" vertical-offset="8" max-vertical-offset="3840">
           <caret line="18" column="38" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="38" />
           <folding>
-            <element signature="e#0#11023#0" expanded="true" />
+            <element signature="e#0#11023#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -899,7 +732,7 @@
         <state vertical-scroll-proportion="0.6504237" vertical-offset="1703" max-vertical-offset="2175">
           <caret line="141" column="10" selection-start-line="141" selection-start-column="8" selection-end-line="141" selection-end-column="10" />
           <folding>
-            <element signature="e#0#6126#0" expanded="true" />
+            <element signature="e#0#6126#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -909,7 +742,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="500">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#697#0" expanded="true" />
+            <element signature="e#0#697#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -919,7 +752,7 @@
         <state vertical-scroll-proportion="0.33262712" vertical-offset="683" max-vertical-offset="2880">
           <caret line="62" column="57" selection-start-line="62" selection-start-column="55" selection-end-line="62" selection-end-column="57" />
           <folding>
-            <element signature="e#0#7289#0" expanded="true" />
+            <element signature="e#0#7289#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -929,7 +762,7 @@
         <state vertical-scroll-proportion="0.28601694" vertical-offset="0" max-vertical-offset="2145">
           <caret line="15" column="25" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="25" />
           <folding>
-            <element signature="e#0#5276#0" expanded="true" />
+            <element signature="e#0#5276#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -939,7 +772,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="500">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#418#0" expanded="true" />
+            <element signature="e#0#418#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -949,7 +782,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1755">
           <caret line="10" column="35" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
           <folding>
-            <element signature="e#0#3864#0" expanded="true" />
+            <element signature="e#0#3864#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -959,7 +792,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="500">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#1317#0" expanded="true" />
+            <element signature="e#0#1317#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -969,16 +802,6 @@
         <state vertical-scroll-proportion="0.332" vertical-offset="1664" max-vertical-offset="4965">
           <caret line="122" column="7" selection-start-line="122" selection-start-column="7" selection-end-line="122" selection-end-column="7" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/server.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2715">
-          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -992,18 +815,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
+    <entry file="file://$USER_HOME$/Downloads/dart-sdk/lib/core/regexp.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="98.478264" vertical-offset="3150" max-vertical-offset="7650">
-          <caret line="59" column="25" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dataset.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="465">
-          <caret line="0" column="695" selection-start-line="0" selection-start-column="695" selection-end-line="0" selection-end-column="695" />
+        <state vertical-scroll-proportion="-0.118" vertical-offset="1814" max-vertical-offset="2685">
+          <caret line="119" column="42" selection-start-line="119" selection-start-column="42" selection-end-line="119" selection-end-column="42" />
           <folding />
         </state>
       </provider>
@@ -1011,7 +826,41 @@
     <entry file="file://$PROJECT_DIR$/web/queries.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="464">
-          <caret line="0" column="11917" selection-start-line="0" selection-start-column="11917" selection-end-line="0" selection-end-column="11917" />
+          <caret line="0" column="13667" selection-start-line="0" selection-start-column="13667" selection-end-line="0" selection-end-column="13667" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/server.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.63" vertical-offset="780" max-vertical-offset="2805">
+          <caret line="73" column="11" selection-start-line="73" selection-start-column="11" selection-end-line="73" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dataset.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="90">
+          <caret line="0" column="426" selection-start-line="0" selection-start-column="426" selection-end-line="0" selection-end-column="426" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/query.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.6016427" vertical-offset="900" max-vertical-offset="2835">
+          <caret line="117" column="58" selection-start-line="117" selection-start-column="58" selection-end-line="117" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.8814654" vertical-offset="3150" max-vertical-offset="7650">
+          <caret line="59" column="25" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="25" />
           <folding />
         </state>
       </provider>
