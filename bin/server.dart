@@ -15,7 +15,7 @@ import 'dart:core';
 
 final HOST = "localhost"; // eg: localhost
 final PORT = 1990;
-String url = "";
+String path = "";
 
 void main() {
   HttpServer.bind(HOST, PORT).then((server) {
@@ -48,7 +48,7 @@ void handleGet(HttpRequest req) {
   HttpResponse res = req.response;
   RegExp regex = new RegExp("([^?=&]+)(=([^&]*))?");
   print("${req.method}: ${req.uri.path}");
-  String data_file = req.uri.path.substring(1,req.uri.path.length) + ".json";
+  String data_file = path + req.uri.path.substring(1,req.uri.path.length) + ".json";
   addCorsHeaders(res);
 
   if(req.uri.path == "/mongodbquery"){
@@ -124,7 +124,7 @@ void handleGet(HttpRequest req) {
 void handlePost(HttpRequest req) {
   HttpResponse res = req.response;
   print("${req.method}: ${req.uri.path}");
-  String data_file = req.uri.path.substring(1,req.uri.path.length) + ".json";
+  String data_file = path + req.uri.path.substring(1,req.uri.path.length) + ".json";
   BytesBuilder builder = new BytesBuilder();
 
   addCorsHeaders(res);
