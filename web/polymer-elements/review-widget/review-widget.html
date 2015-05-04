@@ -55,51 +55,49 @@
 
                 this.chart = dc.numberDisplay("#tableReview");
                 this.chart
-                        .valueAccessor(function (d) {
-                            var val = dim.group().all();
-                            var aux = [];
-                            for (var k = 0; k < val.length; k++) {
+                    .valueAccessor(function (d) {
+                        var val = dim.group().all();
+                        var aux = [];
+                        for (var k = 0; k < val.length; k++) {
+                            if (val[k].value != 0) aux.push(val[k]);
+                        }
+                        if (aux.length == 1) {
+                            var _id = aux[0].key;
 
-                                if (val[k].value != 0) aux.push(val[k]);
+                            $.getJSON("http://tour-pedia.org/api/getReviewsByPlaceId?placeId=" + _id, function (data) {
 
-                            }
-                            if (aux.length == 1) {
-                                var _id = aux[0].key;
+                                parsedData = data;
+                                if (parsedData.length == 0) {
+                                    tableDiv.innerHTML = "No reviews of this place";
 
-                                $.getJSON("http://tour-pedia.org/api/getReviewsByPlaceId?placeId=" + _id, function (data) {
-
-                                    parsedData = data;
-                                    if (parsedData.length == 0) {
-                                        tableDiv.innerHTML = "No reviews of this place";
-
-                                    } else {
-                                        tableDiv.innerHTML = "";
-                                        var tbl=document.createElement('table');
-                                        tbl.className += "table table-striped";
-                                        tbl.style.width='100%';
-                                        for(var i = 0; i < parsedData.length; i++){
-                                            var tr = tbl.insertRow();
-                                            var td = tr.insertCell();
-                                            td.appendChild(document.createTextNode(parsedData[i].text));
-                                            td.style.width = "85%";
-                                            td = tr.insertCell();
-                                            td.appendChild(document.createTextNode(parsedData[i].rating));
-                                            var img = document.createElement("img");
-                                            img.src = "https://cdn4.iconfinder.com/data/icons/pretty_office_3/256/Star-Full.png";
-                                            img.style.height = "15px";
-                                            td.style.width = "15%";
-                                            td.style.textAlign = "center";
-                                            td.appendChild(img);
-                                        }
-                                        tableDiv.appendChild(tbl);
+                                } else {
+                                    tableDiv.innerHTML = "";
+                                    var tbl=document.createElement('table');
+                                    tbl.className += "table table-striped";
+                                    tbl.style.width='100%';
+                                    for(var i = 0; i < parsedData.length; i++){
+                                        var tr = tbl.insertRow();
+                                        var td = tr.insertCell();
+                                        td.appendChild(document.createTextNode(parsedData[i].text));
+                                        td.style.width = "85%";
+                                        td = tr.insertCell();
+                                        td.appendChild(document.createTextNode(parsedData[i].rating));
+                                        var img = document.createElement("img");
+                                        img.src = "https://cdn4.iconfinder.com/data/icons/pretty_office_3/256/Star-Full.png";
+                                        img.style.height = "15px";
+                                        td.style.width = "15%";
+                                        td.style.textAlign = "center";
+                                        td.appendChild(img);
                                     }
-                                });
-                            } else {
-                                tableDiv.innerHTML = "Select one place";
-                            }
+                                    tableDiv.appendChild(tbl);
+                                }
+                            });
+                        } else {
+                            tableDiv.innerHTML = "Select one place";
+                        }
 
-                            return 0;
-                        })
+                        return 0;
+                    })
                         .group(this.group)
                         .root()[0][0] = this.$.tableReview; //we pass explicitly the root div to dc.js
 

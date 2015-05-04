@@ -632,45 +632,43 @@ dc.leafletChoroplethChart = function (parent, chartGroup, externalMap) {
 
 
 
-    var _featureStyle = function (feature) {
-        var options = _chart.featureOptions();
-        if (options instanceof Function) {
-            options = options(feature);
-        }
-        options = JSON.parse(JSON.stringify(options));
-        var v = _dataMap[_chart.featureKeyAccessor()(feature)];
-        if (v && v.d) {
-            //options.fillColor = _chart.getColor(v.d, v.i);
+var _featureStyle = function (feature) {
+    var options = _chart.featureOptions();
+    if (options instanceof Function) {
+        options = options(feature);
+    }
+    options = JSON.parse(JSON.stringify(options));
+    var v = _dataMap[_chart.featureKeyAccessor()(feature)];
+    if (v && v.d) {
+        //options.fillColor = _chart.getColor(v.d, v.i);
 
-            options.color = '#B9A081';
-            options.fillColor = '#B9A081',
-                options.weight = 1.5;
+        options.color = '#B9A081';
+        options.fillColor = '#B9A081',
+            options.weight = 1.5;
+        options.opacity = 0.6;
+        options.fillOpacity = 0.4;
+        //_chart.map().closePopup(); //avoid showing the popup (cause it is not selected)
+
+        if(v.d.value == 1) //selected by external charts
+        {
+            options.color = 'blue';
+            options.fillColor = 'blue',
+            options.weight = 1.5;
+            options.opacity = 0.5;
+            options.fillOpacity = 0.2;
+            //_chart.map().closePopup(); //avoid showing the popup (cause it is not selected)
+        }
+        if (_chart.filters().indexOf(v.d.key) !== -1) { //selected in this chart
+
+            options.color = '#FD8F00';
+            options.fillColor = '#FD8F00',
+            options.weight = 2;
             options.opacity = 0.6;
             options.fillOpacity = 0.4;
-            //_chart.map().closePopup(); //avoid showing the popup (cause it is not selected)
-
-            if(v.d.value == 1) //selected by external charts
-            {
-                options.color = 'blue';
-                options.fillColor = 'blue',
-                options.weight = 1.5;
-                options.opacity = 0.5;
-                options.fillOpacity = 0.2;
-                //_chart.map().closePopup(); //avoid showing the popup (cause it is not selected)
-            }
-            if (_chart.filters().indexOf(v.d.key) !== -1) { //selected in this chart
-
-                options.color = '#FD8F00';
-                options.fillColor = '#FD8F00',
-                options.weight = 2;
-                options.opacity = 0.6;
-                options.fillOpacity = 0.4;
-
-
-            }
         }
-        return options;
-    };
+    }
+    return options;
+};
 
     var _popup = function (d, feature) {
         return _chart.title()(d);
@@ -789,35 +787,12 @@ dc.leafletChoroplethChart = function (parent, chartGroup, externalMap) {
                 layer.on("click", selectFilter);
             }
         }
-        var polygonCoordinates = feature.geometry.coordinates[0];
-
-
     };
 
     var selectFilter = function (e) {
         if (!e.target) {
             return;
         }
-
-        //_chart._computeOrderedGroups(_chart.data()).forEach(function (d, i) {
-        //    if(e.target.key == d.key){
-        //        d.value = 1;
-        //    }else
-        //    {
-        //        d.value = 0;
-        //    }
-        //
-        //});
-
-        //for (var j = 0; j < _dataMap.length; j++) {
-        //    if (j == e.target.key) {
-        //        _dataMap[e.target.key].i = 1;
-        //    }else
-        //    {
-        //        _dataMap[j].i = 0;
-        //    }
-        //}
-
 
         var filter = e.target.key;
         dc.events.trigger(function () {
@@ -833,6 +808,5 @@ dc.leafletChoroplethChart = function (parent, chartGroup, externalMap) {
             dc.redrawAll(_chart.chartGroup());
         });
     };
-
     return _chart.anchor(parent, chartGroup);
 };

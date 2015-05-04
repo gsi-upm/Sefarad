@@ -400,8 +400,8 @@
 			<template repeat="{{record in data | sortByKey(sortColumn, sortDescending, columns, selected, pageSize, page, args, editRow, (args || []).length + (selected || []).length + data.length + forceRefresh + forceFilterRefresh)}}">
 				<tr
 					class="{{record.selected ? 'selected-row' : '' }}{{record.editMode ? ' editor-row' : ''}}{{record.dirty ? ' edited-row' : ''}}"
-					on-click="{{rowSelect}}"
-					on-dblclick="{{rowEdit}}"
+					on-click=""
+					on-dblclick="{{rowSelect}}"
 					draggable="{{userSort}}"
 					on-dragstart="{{handleTRDragStart}}"
 					on-dragenter="{{handleTRDragEnter}}"
@@ -421,7 +421,8 @@
 									class="column-{{column.name}}
 										{{sortColumn == column.name && sortDescending ? 'sorted-column-desc' : ''}}
 										{{sortColumn == column.name && !sortDescending ? 'sorted-column-asc' : ''}}"
-								>{{value}}</td>
+								><template if="{{column.name == 'dbpediaLink'}}"><a target="_blank" href="{{value}}">{{value}}</a></template>
+                                    <template if="{{!(column.name == 'dbpediaLink')}}">{{value}}</template></td>
 							</template>
 						</template>
 					</template>

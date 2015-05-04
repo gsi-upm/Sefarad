@@ -66,20 +66,18 @@
                 var dim = this.dimension;
                 var g = this.group;
 
-                var v2 = this.valueToCount;
+
+
+                var vCount = this.valueToCount; //HTML custom tag parameter
                 var val = dim.group().all();
-                for (var k= 0; k < val.length; k++) {
-
-                    if(val[k].key == v2) this.MAX = val[k].value;
-
+                for (var k= 0; k < val.length; k++)
+                {
+                    if(val[k].key == vCount) this.MAX = val[k].value;
                 }
-
-
-
-                //this.$.smallBox.className = "small-box bg-red";
-
                 this.chart = dc.numberDisplay("#chart");
-                if(this.type == "param"){
+
+                if(this.type == "param") //first widget type
+                {
                     var v = this.param;
                     var _MAX2 = this.dimension.group().all().length;
                     this.chart
@@ -97,14 +95,15 @@
                                     document.querySelector(".percent-" + v).textContent = percent + "%";
                                     document.querySelector(".progress-bar-" + v).style.width = percent + "%";
                                 } catch (e){
-
+                                    //no progress bar and percent text found.
                                 }
                                 return aux.length;
                             })
                             .group(this.group)
                             .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
                 }
-                if(this.type == "value"){
+                if(this.type == "value") //second widget type
+                {
                     var v = this.valueToCount;
                     var _MAX = this.MAX;
                     var aux = 0;
@@ -112,13 +111,11 @@
                             .formatNumber(d3.format(",3d"))
                             .valueAccessor(function(d) {
 
-                                var val2 = dim.group().all();
-                                for (var k= 0; k < val2.length; k++) {
-
-                                    if(val2[k].key == v){
-                                        aux = val2[k].value;
+                                var val = dim.group().all();
+                                for (var k= 0; k < val.length; k++) {
+                                    if(val[k].key == v){
+                                        aux = val[k].value;
                                     }
-
                                 }
                                 var percent = (aux/_MAX)*100;
                                 percent = Math.round(percent);
@@ -128,16 +125,11 @@
                                 } catch (e){
 
                                 }
-
                                 return aux;
                             })
                             .group(this.group)
                             .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
-
                 }
-
-
-
                 this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart
 
 
