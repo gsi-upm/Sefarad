@@ -1,72 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c91c4c5f-92ba-4497-a98e-d764ff70c174" name="Default" comment="leaflet marker map WIP&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/web/dataset.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/web/queries.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/analyzer" afterPath="$PROJECT_DIR$/packages/analyzer" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/angular" afterPath="$PROJECT_DIR$/packages/angular" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/args" afterPath="$PROJECT_DIR$/packages/args" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/asn1lib" afterPath="$PROJECT_DIR$/packages/asn1lib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/barback" afterPath="$PROJECT_DIR$/packages/barback" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/bignum" afterPath="$PROJECT_DIR$/packages/bignum" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/browser" afterPath="$PROJECT_DIR$/packages/browser" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/bson" afterPath="$PROJECT_DIR$/packages/bson" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/cipher" afterPath="$PROJECT_DIR$/packages/cipher" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/cli_util" afterPath="$PROJECT_DIR$/packages/cli_util" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/code_transformers" afterPath="$PROJECT_DIR$/packages/code_transformers" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/collection" afterPath="$PROJECT_DIR$/packages/collection" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/crypto" afterPath="$PROJECT_DIR$/packages/crypto" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/csslib" afterPath="$PROJECT_DIR$/packages/csslib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/di" afterPath="$PROJECT_DIR$/packages/di" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/fixnum" afterPath="$PROJECT_DIR$/packages/fixnum" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/google_oauth2_client" afterPath="$PROJECT_DIR$/packages/google_oauth2_client" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/html5lib" afterPath="$PROJECT_DIR$/packages/html5lib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/html" afterPath="$PROJECT_DIR$/packages/html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/http" afterPath="$PROJECT_DIR$/packages/http" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/http_parser" afterPath="$PROJECT_DIR$/packages/http_parser" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/http_server" afterPath="$PROJECT_DIR$/packages/http_server" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/initialize" afterPath="$PROJECT_DIR$/packages/initialize" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/intl" afterPath="$PROJECT_DIR$/packages/intl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/json_web_token" afterPath="$PROJECT_DIR$/packages/json_web_token" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/logging" afterPath="$PROJECT_DIR$/packages/logging" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/matcher" afterPath="$PROJECT_DIR$/packages/matcher" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/mime" afterPath="$PROJECT_DIR$/packages/mime" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/mongo_dart" afterPath="$PROJECT_DIR$/packages/mongo_dart" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/mongo_dart_query" afterPath="$PROJECT_DIR$/packages/mongo_dart_query" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/more" afterPath="$PROJECT_DIR$/packages/more" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/oauth2" afterPath="$PROJECT_DIR$/packages/oauth2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/observe" afterPath="$PROJECT_DIR$/packages/observe" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/path" afterPath="$PROJECT_DIR$/packages/path" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/perf_api" afterPath="$PROJECT_DIR$/packages/perf_api" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/petitparser" afterPath="$PROJECT_DIR$/packages/petitparser" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/polymer" afterPath="$PROJECT_DIR$/packages/polymer" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/polymer_expressions" afterPath="$PROJECT_DIR$/packages/polymer_expressions" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/pool" afterPath="$PROJECT_DIR$/packages/pool" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/route_hierarchical" afterPath="$PROJECT_DIR$/packages/route_hierarchical" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/rsa_pkcs" afterPath="$PROJECT_DIR$/packages/rsa_pkcs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/smoke" afterPath="$PROJECT_DIR$/packages/smoke" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/source_maps" afterPath="$PROJECT_DIR$/packages/source_maps" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/source_span" afterPath="$PROJECT_DIR$/packages/source_span" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/stack_trace" afterPath="$PROJECT_DIR$/packages/stack_trace" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/string_scanner" afterPath="$PROJECT_DIR$/packages/string_scanner" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/template_binding" afterPath="$PROJECT_DIR$/packages/template_binding" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/unittest" afterPath="$PROJECT_DIR$/packages/unittest" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/utf" afterPath="$PROJECT_DIR$/packages/utf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/watcher" afterPath="$PROJECT_DIR$/packages/watcher" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/web_components" afterPath="$PROJECT_DIR$/packages/web_components" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/when" afterPath="$PROJECT_DIR$/packages/when" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/which" afterPath="$PROJECT_DIR$/packages/which" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/yaml" afterPath="$PROJECT_DIR$/packages/yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Sefarad-2.0.iml" afterPath="$PROJECT_DIR$/.idea/Sefarad-2.0.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/controller.js" afterPath="$PROJECT_DIR$/web/controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboardRestaurants.html" afterPath="$PROJECT_DIR$/web/dashboardRestaurants.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/polymer-elements/leaflet-map/dc.leaflet.custom.js" afterPath="$PROJECT_DIR$/web/polymer-elements/leaflet-map/dc.leaflet.custom.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/polymer-elements/number-chart/number-chart.html" afterPath="$PROJECT_DIR$/web/polymer-elements/number-chart/number-chart.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/polymer-elements/review-widget/review-widget.html" afterPath="$PROJECT_DIR$/web/polymer-elements/review-widget/review-widget.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/bower_components/sortable-table/sortable-table.html" afterPath="$PROJECT_DIR$/web/bower_components/sortable-table/sortable-table.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="c91c4c5f-92ba-4497-a98e-d764ff70c174" name="Default" comment="leaflet marker map WIP&#10;" />
     <ignored path="Sefarad-2.0.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -113,21 +48,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dashboardRestaurants.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="dashboardRestaurants.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.916666" vertical-offset="5939" max-vertical-offset="7650">
+            <state vertical-scroll-proportion="5.3450837" vertical-offset="3464" max-vertical-offset="7650">
               <caret line="423" column="122" selection-start-line="423" selection-start-column="122" selection-end-line="423" selection-end-column="122" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sortable-table.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="sortable-table.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/bower_components/sortable-table/sortable-table.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.62795275" vertical-offset="6026" max-vertical-offset="15465">
-              <caret line="423" column="99" selection-start-line="423" selection-start-column="99" selection-end-line="423" selection-end-column="99" />
+            <state vertical-scroll-proportion="-6.3454547" vertical-offset="6026" max-vertical-offset="15465">
+              <caret line="425" column="39" selection-start-line="425" selection-start-column="39" selection-end-line="425" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -1013,14 +948,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.916666" vertical-offset="5939" max-vertical-offset="7650">
-          <caret line="423" column="122" selection-start-line="423" selection-start-column="122" selection-end-line="423" selection-end-column="122" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/bower_components/sortable-table/dc.custom.table.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="82" max-vertical-offset="1320">
@@ -1031,8 +958,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/bower_components/sortable-table/sortable-table.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62795275" vertical-offset="6026" max-vertical-offset="15465">
-          <caret line="423" column="99" selection-start-line="423" selection-start-column="99" selection-end-line="423" selection-end-column="99" />
+        <state vertical-scroll-proportion="-6.3454547" vertical-offset="6026" max-vertical-offset="15465">
+          <caret line="425" column="39" selection-start-line="425" selection-start-column="39" selection-end-line="425" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="5.3450837" vertical-offset="3464" max-vertical-offset="7650">
+          <caret line="423" column="122" selection-start-line="423" selection-start-column="122" selection-end-line="423" selection-end-column="122" />
           <folding />
         </state>
       </provider>
