@@ -75,7 +75,7 @@
 
     <paper-shadow class="card" z="2"><header class="main-header">
         <!-- Logo -->
-        <a href="query.html" class="logo"><b>Sefarad</b>-2.0</a>
+        <a href="queryeditor.html" class="logo"><b>Sefarad</b>-2.0</a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
             <!-- Sidebar toggle button-->
@@ -183,14 +183,24 @@
 
                         <li class=""><a href="dashboardRestaurants.html"><i class="fa fa-circle-o"></i> Restaurants</a></li>
                         <li class=""><a href="dashboardPlaces.html"><i class="fa fa-circle-o"></i> Tourpedia</a></li></ul>
-                <li class="treeview active">
+                <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-database"></i> <span>Query</span><i class="fa fa-angle-left pull-right"></i>
+                        <i class="fa fa-database"></i> <span>Dataset</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="dataset.html"><i class="fa fa-circle-o"></i> Add Dataset</a></li>
-                        <li class="active"><a href="query.html"><i class="fa fa-circle-o"></i> Query Editor</a></li>
+                        <li><a href="newdataset.html"><i class="fa fa-circle-o"></i> Add Dataset</a></li>
+                        <li><a href="dataset.html"><i class="fa fa-circle-o"></i> Dataset List</a></li>
+                    </ul>
+                </li>
+
+                <li class="treeview active">
+                    <a href="#">
+                        <i class="fa fa-code"></i> <span>Query</span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
                         <li><a href="newquery.html"><i class="fa fa-circle-o"></i> Add Query</a></li>
+                        <li class="active"><a href="query.html"><i class="fa fa-circle-o"></i> Query List</a></li>
+                        <li><a href="queryeditor.html"><i class="fa fa-circle-o"></i> Query Editor</a></li>
                     </ul>
                 </li>
 
@@ -204,8 +214,8 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1 horizontal layout>
-                Sparql Editor
-                <small horizontal layout style="margin-top: 5px">Choose the query and check the result
+                Query
+                <small horizontal layout style="margin-top: 5px">List of queries saved
 
                     <template is="auto-binding">
 
@@ -233,90 +243,48 @@
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"> Home</a></li>
-                <li class="active"><i class="fa fa-database"></i>    Sparql Editor</li>
+                <li class="active"><i class="fa fa-code"></i>    Query List</li>
             </ol>
         </section>
 
         <!-- Main content -->
         <section class="content">
 
-            <div id="queries">
-                <br>
+            <div class="box box-pane-right box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Queries</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body" style="display: block;">
+                    <div ng-repeat="query in querys" ng-value="query.Name" style="margin-bottom: 10px;">
+                        <b>{{query.Name}}</b>
 
-                <p class="text-light-blue">Select a query template:</p>
-                <select style="width: 65%;" class="form-control" id="querySelector" ng-change="checkType()">
-                    <option ng-repeat="query in querys" ng-value="query.Name">{{query.Name}}</option>
-                </select>
-                <br>
-                <p class="text-light-blue">Select parameters to fill the template:</p>
-                <div id="paramSelector0"></div>
-                <div id="paramSelector1"></div>
-                <div id="paramSelector2"></div>
-                <div id="paramSelector3"></div>
-                <div id="paramSelector4"></div>
-                <br>
-
-                <p class="text-light-blue">Edit your query:</p>
-
-                <div id="divSparql">
-                    <paper-shadow class="card" z="2">
-                        <div id="yasqe" style="padding-bottom: 15px"></div>
-                    </paper-shadow>
-                    <br>
-
-                    <a class="btn btn-app center-block" id="queryButton">
-                        <i class="fa fa-play"></i> Execute Query
-                    </a>
-                    <a class="btn btn-app center-block" id="buttonSave2" ng-click="saveResults()" style="display: none;">
-                        <i class="fa fa-save"></i> Save Results
-                    </a>
-
-                    <div class="alert alert-danger alert-dismissable hide" id="queryError">
-                        <i class="fa fa-ban"></i>
-
-                        <b>Query failed</b>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" ng-click="view($index)"><i class="ion ion-eye"></i></button>
+                            <button class="btn btn-box-tool" style="display: none" ng-click="save($index)"><i class="fa fa-save"></i></button>
+                            <button class="btn btn-box-tool" ng-click="edit($index)"><i class="ion ion-android-create"></i></button>
+                            <button class="btn btn-box-tool" ng-click="remove($index)"><i class="ion ion-android-delete"></i></button>
+                        </div>
                     </div>
-
-                    <div class="alert alert-success alert-dismissable hide" id="querySuccess">
-                        <i class="fa fa-check"></i>
-
-                        <b>Query success</b>
-                    </div>
-
-                    <paper-shadow class="card" z="2">
-                        <div id="yasr"></div>
-                    </paper-shadow>
-                </div>
-
-
-                <div id="divMongodb">
-                    <paper-shadow class="card" z="2">
-                        <textarea style="width: 100%;" rows="10" id="queryMongo" ng-model="queryMongo"></textarea>
-                    </paper-shadow>
-                    <br>
-                    <a class="btn btn-app center-block" ng-click="executeMongoQuery()">
-                        <i class="fa fa-play"></i> Execute Query
-                    </a>
-                    <a class="btn btn-app center-block" id="buttonSave" ng-click="saveResults()" style="display: none;">
-                        <i class="fa fa-save"></i> Save Results
-                    </a>
-                    <input hidden="hidden" id="hiddenResults" ng-model="result">
-                    <div class="alert alert-danger alert-dismissable hide" id="queryError2">
-                        <i class="fa fa-ban"></i>
-
-                        <b>Query failed</b>
-                    </div>
-
-                    <div class="alert alert-success alert-dismissable hide" id="querySuccess2">
-                        <i class="fa fa-check"></i>
-
-                        <b>Query success</b>
-                    </div>
-
-                </div>
+                </div><!-- /.box-body -->
             </div>
 
+            <div class="alert alert-danger alert-dismissable hide" id="saveError">
+                <i class="fa fa-ban"></i>
 
+                <b>Save failed</b>
+            </div>
+
+            <div class="alert alert-success alert-dismissable hide" id="saveSuccess">
+                <i class="fa fa-check"></i>
+
+                <b>Saved successfully</b>
+            </div>
+            <div class="save_btnGroup">
+                <paper-button raised class="colored" id="btn_save" ng-click="saveData()">Save</paper-button>
+            </div>
 
         </section>
         <!-- /.content -->
@@ -377,210 +345,6 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js" type="text/javascript"></script>
-
-<script src='//cdn.jsdelivr.net/yasqe/2.3.8/yasqe.bundled.min.js'></script>
-<script src='//cdn.jsdelivr.net/yasr/2.4.12/yasr.bundled.min.js'></script>
-<script src='plugins/papaparse/papaparse.min.js'></script>
-
-<script type="text/javascript">
-
-    var _editorEndpoint = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query=';
-    var myEl2 = document.getElementById('querySelector');
-    var regex = /<(\S+)>/g;
-    var parsedData = {};
-    $.getJSON("queries.json", function (data) {
-        parsedData = data;
-        if(localStorage.getItem('querysSaved') != null )
-            if(localStorage.getItem('querysSaved').length != 0 ) {
-                var jsonLocal = localStorage.getItem("querysSaved");
-                var mylocal = JSON.parse(jsonLocal);
-                var i;
-                for(i = 0; i<mylocal.length; i++) {
-                    parsedData.push(mylocal[i]);
-                }
-            }
-    });
-    window.onload = function() {
-        if(parsedData[0] != undefined ) {
-            var match = parsedData[0]["Name"].match(regex);
-            var query = parsedData[0]["Query"];
-            if(parsedData[0]["Endpoint"] != "")
-                _editorEndpoint = parsedData[0]["Endpoint"];
-            var k = 0;
-            for(k = 0; k < 5; k++) {
-                $("#paramSelector"+k).empty();
-                if(parsedData[0]["Parameters"+k].length != 0) {
-                    var id = "selector"+k;
-                    $("#paramSelector"+k).append("<select style='width: 65%;' class=form-control id=" + id + ">");
-                    for (var i = 0; i < parsedData[0]["Parameters"+k].length; i++) {
-                        $("#selector"+k).append('<option style="width: 65%; font-weight: bold;" value="' + parsedData[0]["Parameters"+k][i] + '"><strong>' + parsedData[0]["Parameters"+k][i] + "</strong></option>");
-                    }
-                    var selectedParameters = document.getElementById("selector"+k).value;
-                    query = query.replace(match[k], selectedParameters);
-                    match[k] = selectedParameters;
-                    $("#selector"+k).change(function () {
-                        var regex2 = /selector(\S+)/i;
-                        var index = this.id.match(regex2);
-                        var selectedParameters = this.value;
-                        query = query.replace(match[index[1]], selectedParameters);
-                        match[index[1]] = selectedParameters;
-                        if(parsedData[0]["Type"] == "Sparql")
-                            yasqe.setValue(query);
-                        else
-                            $("#queryMongo").val(query);
-                    });
-                }
-            }
-
-            if(parsedData[0]["Type"] == "Sparql")
-                yasqe.setValue(query);
-            else
-                $("#queryMongo").val(query);
-            return;
-        }
-    };
-
-    //configuration
-    var yasqe = YASQE(document.getElementById("yasqe"), {
-        sparql: {
-            showQueryButton: false,
-            callbacks:{
-                success: function(data){
-                    console.log("success", data);
-                }
-            },
-            createShareLink: false
-        }
-    });
-//    var yasgui = function (){
-//        var yasqe = YASQE(document.getElementById("yasqe"));
-//        this.setValue = function (value){
-//            yasqe.setValue(value);
-//        }
-//    }
-    YASR.plugins.table.defaults.datatable.scrollX = true;
-    YASR.plugins.table.defaults.datatable.scrollCollapse = true;
-    YASR.plugins.table.defaults.datatable.autoWidth = true;
-    YASR.plugins.table.defaults.datatable.scrollY = "300px";
-    YASR.plugins.rawResponse.defaults.scrollbarStyle = "native";
-    var yasr = YASR(document.getElementById("yasr"), {
-        //this way, the URLs in the results are prettified using the defined prefixes in the query
-        getUsedPrefixes: yasqe.getPrefixesFromQuery
-    });
-
-    $("#queryButton").click(function (e) {
-        e.preventDefault();
-        executeQuery();
-    });
-
-    //ExecuteQuery function. Still not generalized, it takes "restaurants" info from our endpoint at gsi's alpha
-    function executeQuery() {
-
-        $("#querySuccess").addClass("hide");
-        $("#queryError").addClass("hide");
-
-        var _query = yasqe.getValue().replace(/(\r\n|\n|\r)/gm, "");
-        console.log(_query);
-        var temporal = _editorEndpoint + encodeURIComponent(_query);
-        var req = new XMLHttpRequest();
-        req.open("GET", temporal, true);
-        var params = encodeURIComponent(_query);
-        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        req.setRequestHeader("Accept", "application/sparql-results+json");
-        req.send();
-        req.onreadystatechange = function () {
-            if (req.readyState == 4) {
-                if (req.status == 200) {
-
-                    var res = eval("(" + req.responseText + ")");
-                    var data = JSON.stringify(res.results.bindings);
-                    console.log(data);
-                    $("#querySuccess").removeClass('hide');
-
-                    document.getElementById("buttonSave2").style.display = "block";
-                    //ko.mapping.fromJSON(data, vm.viewData);
-                    //updateWidgets(true);
-                    $("#hiddenResults").val(data);
-                    yasr.setResponse({
-                        response: res,
-                        contentType: req.getResponseHeader("Content-Type")
-                    });
-
-                } else {
-                    $("#queryError").removeClass('hide');
-
-                }
-            }
-        };
-        return false;
-    };
-
-    function populateQueryWithParams(){
-        // update param list
-        var j;
-        for(j = 0; j<myEl2.length; j++){
-            if(parsedData[j] != undefined ) {
-                if (myEl2.value == parsedData[j]["Name"]) {
-
-                    var match = parsedData[j]["Name"].match(regex);
-                    var query = parsedData[j]["Query"];
-                    if(parsedData[j]["Endpoint"] != "")
-                        _editorEndpoint = parsedData[j]["Endpoint"];
-                    var k = 0;
-                    for(k = 0; k < 5; k++) {
-                        $("#paramSelector"+k).empty();
-                        if(parsedData[j]["Parameters"+k].length != 0) {
-                            var id = "selector"+k;
-                            $("#paramSelector"+k).append("<select style='width: 65%;' class=form-control id=" + id + ">");
-                            for (var i = 0; i < parsedData[j]["Parameters"+k].length; i++) {
-                                $("#selector"+k).append('<option style="width: 65%; font-weight: bold;" value="' + parsedData[j]["Parameters"+k][i] + '"><strong>' + parsedData[j]["Parameters"+k][i] + "</strong></option>");
-                            }
-                            var selectedParameters = document.getElementById("selector"+k).value;
-                            query = query.replace(match[k], selectedParameters);
-                            match[k] = selectedParameters;
-                            $("#selector"+k).change(function () {
-                                var regex2 = /selector(\S+)/i;
-                                var index = this.id.match(regex2);
-                                var selectedParameters = this.value;
-                                query = query.replace(match[index[1]], selectedParameters);
-                                match[index[1]] = selectedParameters;
-                                if(parsedData[j]["Type"] == "Sparql")
-                                    yasqe.setValue(query);
-                                else
-                                    $("#queryMongo").val(query);
-                            });
-                        }
-                    }
-
-                    if(parsedData[j]["Type"] == "Sparql")
-                        yasqe.setValue(query);
-                    else
-                        $("#queryMongo").val(query);
-                    return;
-                }
-            }
-        }
-    }
-
-    $("#querySelector").change(function () {
-        populateQueryWithParams();
-    });
-
-
-    var scope = document.querySelector('template[is=auto-binding]');
-
-    scope.toggleDialog1 = function(e) {
-        if (e.target.localName != 'button') {
-            return;
-        }
-        var d = e.target.nextElementSibling;
-        if (!d) {
-            return;
-        }
-        d.toggle();
-    };
-
-</script>
 
 </body>
 </html>

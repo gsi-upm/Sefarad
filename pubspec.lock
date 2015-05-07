@@ -116,7 +116,7 @@ packages:
   mongo_dart:
     description: mongo_dart
     source: hosted
-    version: "0.1.46"
+    version: "0.1.47"
   mongo_dart_query:
     description: mongo_dart_query
     source: hosted

@@ -74,7 +74,6 @@
     <link rel="import" href="polymer-elements/leaflet-map/leaflet-map.html">
     <link rel="import" href="polymer-elements/number-chart/number-chart.html">
     <link rel="import" href="polymer-elements/bubble-chart/bubble-chart.html">
-
     <link rel="import" href="bower_components/sortable-table/sortable-table.html">
     <link rel="stylesheet"
           href="bower_components/sortable-table/css/bootstrap.css" shim-shadowdom>
@@ -83,16 +82,16 @@
 
     <link rel="import" href="polymer-elements/leaflet-marker-map/leaflet-marker-map.html">
     <link rel="import" href="polymer-elements/review-widget/review-widget.html">
+    <link rel="import" href="polymer-elements/paper-tab/paper-tabs.html">
 
 
     <!-- ------------------------------- end/ POLYMER COMPONENTS IMPORT ZONE ------------------- -->
-
 
 </head>
 <body demo="places" class="skin-green sidebar-collapse sidebar-open">
 <div class="wrapper">
 
-    <paper-shadow class="card" z="2"><header class="main-header">
+    <header class="main-header">
         <!-- Logo -->
         <a href="dashboardPlaces.html" class="logo"><b>TourPedia</b></a>
         <!-- Header Navbar: style can be found in header.less -->
@@ -104,6 +103,21 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+                    <!-- Notifications: style can be found in dropdown.less -->
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-warning">
+                                <number-chart param="name" type="param" class="dc-element"></number-chart>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">
+                                <number-chart param="name" type="param" class="dc-element" style="float: left;"></number-chart>
+                                &nbsp Elements have been filtered</li>
+                            <li class="footer"><button class="btn" style="width: 100%;" onclick="clearFilter()" >Clear Filters</button></li>
+                        </ul>
+                    </li>
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -158,7 +172,6 @@
             </div>
         </nav>
     </header>
-    </paper-shadow>
     <!-- Left side column. contains the logo and sidebar -->
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
@@ -206,12 +219,22 @@
 
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-database"></i> <span>Query</span><i class="fa fa-angle-left pull-right"></i>
+                        <i class="fa fa-database"></i> <span>Dataset</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="dataset.html"><i class="fa fa-circle-o"></i> Add Dataset</a></li>
-                        <li><a href="query.html"><i class="fa fa-circle-o"></i> Query Editor</a></li>
+                        <li><a href="newdataset.html"><i class="fa fa-circle-o"></i> Add Dataset</a></li>
+                        <li><a href="dataset.html"><i class="fa fa-circle-o"></i> Dataset List</a></li>
+                    </ul>
+                </li>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-code"></i> <span>Query</span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
                         <li><a href="newquery.html"><i class="fa fa-circle-o"></i> Add Query</a></li>
+                        <li><a href="query.html"><i class="fa fa-circle-o"></i> Query List</a></li>
+                        <li><a href="queryeditor.html"><i class="fa fa-circle-o"></i> Query Editor</a></li>
                     </ul>
                 </li>
 
@@ -222,13 +245,24 @@
 
     <!-- Right side column. Contains the navbar and content of the page -->
     <div class="content-wrapper">
+        <paper-shadow class="card" z="2">
+        <div class="top">
+
+            <paper-tabs selected="0">
+
+                <paper-tab>Dashboard</paper-tab>
+                <paper-tab>Query Editor</paper-tab>
+
+            </paper-tabs>
+
+        </div>
+        </paper-shadow>
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
                 Dashboard
                 <small>Control panel</small>
             </h1>
-            <button class="btn colored" onclick="clearFilter()" id="btn-clear">Clear Filters</button>
             <ol class="breadcrumb">
                 <li><a href="#"> Home</a></li>
                 <li class="active"><i class="fa fa-pie-chart"></i> Dashboard</li>

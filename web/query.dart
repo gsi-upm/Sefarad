@@ -1,28 +1,23 @@
 import 'package:angular/angular.dart';
 import 'package:angular/application_factory.dart';
 import 'dart:html';
-import 'dart:core';
 import 'dart:convert';
 import 'signGoogle.dart';
 
 @Injectable()
-class Query extends SignGoogle{
+class QueryList extends SignGoogle{
   var host = "";
-  List names;
-  String query = '';
-  String queryMongo = '';
-  String type = '';
-  String endPoint = '';
-  String collection = '';
-  String result = '';
   List querys = [];
   List params;
-  List datasets = [];
+  bool altered = false;
 
-  Query(){
+  QueryList(){
     host = getHost();
     _loadQuery();
-    _loadDataset();
+    window.onBeforeUnload.listen((BeforeUnloadEvent e) {
+      if(altered)
+        e.returnValue = "Modifications haven't been saved";
+    });
   }
 
   _loadQuery() {
@@ -35,144 +30,189 @@ class Query extends SignGoogle{
     //var yasgui = new JsObject(context['yasgui']);
   }
 
-  void _loadDataset(){
-    var url = "http://$host/web/dataset";
+  void view (int index){
 
-    // call the web server asynchronously
-    var request = HttpRequest.getString(url).then((responseText){
-      datasets = JSON.decode(responseText);
-      type = datasets[0]["Type"];
-      endPoint = datasets[0]["Endpoint"];
-      if ( window.localStorage.containsKey("datasetSaved")) {
-        datasets.addAll(JSON.decode(window.localStorage["datasetSaved"]));
-      }
-    });
-  }
-
-  String checkType(){
-    var myEl4 = document.getElementById('querySelector');
-    int i,j;
-    int index;
-    for(i = 0; i < querys.length; i++){
-      if(querys[i]["Name"] == myEl4.value){
-        for(j = 0; j < datasets.length; j++){
-          if(querys[i]["Endpoint"] == datasets[j]["Endpoint"]){
-            index = i;
-            type = datasets[j]["Type"];
-            endPoint = datasets[j]["Endpoint"];
-            collection = datasets[j]["Collection"];
-          }
-        }
+    int elementIndex = 0;
+    bool showed = false;
+    for(int i = 0; i<querySelector('.box-body').children[index].children.length; i++){
+      if(querySelector('.box-body').children[index].children.elementAt(i).toString() == "table") {
+        elementIndex = i;
+        showed = true;
       }
     }
-    if(type == "Sparql"){
-      querySelector('#divSparql').style.display = "block";
-      querySelector('#divMongodb').style.display = "none";
+    if(!showed) {
+      String el = '''
+    <table class="table table-striped" style="width:80%; margin:auto;">
+
+      <tbody>
+        <tr>
+          <td style="width: 50%"> Name </td>
+          <td style="width: 50%">''' + querys[index]["Name"] + ''' </td>
+        </tr>
+        <tr>
+          <td style="width: 50%"> Type </td>
+          <td style="width: 50%">''' + querys[index]["Type"] + ''' </td>
+        </tr>
+        <tr>
+          <td style="width: 50%"> Endpoint </td>
+          <td style="width: 50%">''' + querys[index]["Endpoint"] + ''' </td>
+        </tr>
+        <tr>
+          <td style="width: 50%"> Parameters 0 </td>
+          <td style="width: 50%">''' + querys[index]["Parameters0"].toString() + ''' </td>
+        </tr>
+        <tr>
+          <td style="width: 50%"> Parameters 1 </td>
+          <td style="width: 50%">''' + querys[index]["Parameters1"].toString() + ''' </td>
+        </tr>
+        <tr>
+          <td style="width: 50%"> Parameters 2 </td>
+          <td style="width: 50%">''' + querys[index]["Parameters2"].toString() + ''' </td>
+        </tr>
+        <tr>
+          <td style="width: 50%"> Parameters 3 </td>
+          <td style="width: 50%">''' + querys[index]["Parameters3"].toString() + ''' </td>
+        </tr>
+        <tr>
+          <td style="width: 50%"> Parameters 4 </td>
+          <td style="width: 50%">''' + querys[index]["Parameters4"].toString() + ''' </td>
+        </tr>
+      </tbody>
+    </table>
+    ''';
+      querySelector('.box-body').children[index].appendHtml(el);
     } else {
-      queryMongo = querys[index]["Query"];
-      querySelector('#divSparql').style.display = "none";
-      querySelector('#divMongodb').style.display = "block";
+      querySelector('.box-body').children[index].children.removeAt(elementIndex);
     }
-    return type;
   }
 
-  void saveResults(){
-    if(isLogged()) {
-      var myEl4 = document.getElementById('querySelector');
-
-      int i = 0;
-      for (i = 0; i < querys.length; i++) {
-        if (querys[i]["Name"] == myEl4.value) {
-          if (type == "Sparql")
-            result = querySelector("#hiddenResults").value;
-          querys[i]["Results"] = result;
-        }
+  void edit (int index){
+    int elementIndex = 0;
+    bool showed = false;
+    for(int i = 0; i<querySelector('.box-body').children[index].children.length; i++){
+      if(querySelector('.box-body').children[index].children.elementAt(i).toString() == "table") {
+        elementIndex = i;
+        showed = true;
       }
-      print(result);
+    }
+    if(!showed) {
+      String el = '''
+    <table class="table table-striped" style="width:80%; margin:auto;">
+
+      <tbody>
+        <tr>
+          <td style="width: 50%; vertical-align: middle"> Name </td>
+          <td style="width: 50%">
+            <input class="form-control" id="queryName" placeholder="Enter name" value="'''+ querys[index]["Name"] +'''">
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 50%; vertical-align: middle"> Type </td>
+          <td style="width: 50%">
+            <select id="queryType" class="form-control">
+              <option style="display:none" value="">Select a type</option>
+              <option ''';
+      if(querys[index]["Type"]=="Sparql")
+        el += '''selected>Sparql</option>
+              <option>MongoDb</option>''';
+      else
+        el += '''>Sparql</option>
+              <option selected>MongoDb</option>''';
+      el += '''
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 50%; vertical-align: middle"> Endpoint </td>
+          <td style="width: 50%">
+            <input class="form-control" id="queryEndpoint" placeholder="Enter endpoint" value="'''+ querys[index]["Endpoint"] +'''">
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 50%; vertical-align: middle"> Parameters 0 </td>
+          <td style="width: 50%">
+            <input class="form-control" id="queryParam0" placeholder="Enter value" value="'''+ querys[index]["Parameters0"].toString() +'''">
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 50%; vertical-align: middle"> Parameters 1 </td>
+          <td style="width: 50%">
+            <input class="form-control" id="queryParam1" placeholder="Enter value" value="'''+ querys[index]["Parameters1"].toString() +'''">
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 50%; vertical-align: middle"> Parameters 2 </td>
+          <td style="width: 50%">
+            <input class="form-control" id="queryParam2" placeholder="Enter value" value="'''+ querys[index]["Parameters2"].toString() +'''">
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 50%; vertical-align: middle"> Parameters 3 </td>
+          <td style="width: 50%">
+            <input class="form-control" id="queryParam3" placeholder="Enter value" value="'''+ querys[index]["Parameters3"].toString() +'''">
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 50%; vertical-align: middle"> Parameters 4 </td>
+          <td style="width: 50%">
+            <input class="form-control" id="queryParam4" placeholder="Enter value" value="'''+ querys[index]["Parameters4"].toString() +'''">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    ''';
+      querySelector('.box-body').children[index].children[1].children[1].style.display = 'initial';
+      querySelector('.box-body').children[index].appendHtml(el);
+    } else {
+      querySelector('.box-body').children[index].children.removeAt(elementIndex);
+      querySelector('.box-body').children[index].children[1].children[1].style.display = 'none';
+    }
+  }
+
+  void save (int index){
+    var queryVar = {
+        "Name" : querySelector('#queryName').value,
+        "Query" : querys.elementAt(index)["Query"],
+        "Endpoint" : querySelector('#queryEndpoint').value,
+        "Type" : querySelector('#queryType').value,
+        "Parameters0": querySelector('#queryParam0').value,
+        "Parameters1": querySelector('#queryParam1').value,
+        "Parameters2": querySelector('#queryParam2').value,
+        "Parameters3": querySelector('#queryParam3').value,
+        "Parameters4": querySelector('#queryParam4').value,
+        "Results": ""
+    };
+    querys.removeAt(index);
+    querys.insert(index, queryVar);
+    altered = true;
+  }
+
+  void remove(int index){
+    querys.removeAt(index);
+    altered = true;
+  }
+
+  void saveData(){
+
+    if(isLogged()) {
+      querySelector('#saveError').classes.add("hide");
+      querySelector('#saveSuccess').classes.add("hide");
       String jsonData = JSON.encode(querys);
 
       var request = new HttpRequest();
       request.onReadyStateChange.listen((_) {
         if (request.readyState == HttpRequest.DONE && (request.status == 200 || request.status == 0)) {
           // data saved OK.
-          print(" Query executed successfully");
-          window.location.reload();
+          print(" Data saved successfully");
+          querySelector('#saveSuccess').classes.remove("hide");
         }
       });
       var url = "http://$host/web/queries";
       request.open("POST", url);
       request.send(jsonData);
+    } else {
+      window.alert("Please sign in first. Also it's available a demo to try it on the website of GSI Group.");
     }
-  }
-
-  void executeMongoQuery(){
-
-    querySelector("#divMongodb").children.remove(querySelector("#table"));
-    var request = new HttpRequest();
-    request.onReadyStateChange.listen((_) {
-      if (request.readyState == HttpRequest.DONE && (request.status == 200 || request.status == 0)) {
-        // data saved OK.
-        result = request.responseText;
-        List post = JSON.decode(request.responseText);
-        buildUi(post);
-        querySelector("#buttonSave").style.display = "block";
-        querySelector('#queryError2').classes.add("hide");
-        querySelector('#querySuccess2').classes.remove("hide");
-        print(" Query executed successfully");
-      } else {
-        querySelector('#querySuccess2').classes.add("hide");
-        querySelector('#queryError2').classes.remove("hide");
-      }
-    });
-    var url = "http://$host/mongodbquery";
-    request.open("GET", url + "?collection=" + collection + "&endpoint=" + endPoint +
-        "&query=" + Uri.encodeComponent(querySelector("#queryMongo").value));
-    request.send("");
-  }
-
-  void buildUi(List list) {
-
-    List matchList = [];
-    String s = list[0].toString().replaceAll(" ","");
-    RegExp regex = new RegExp("[a-zA-Z0-9._%+-]+:");
-    var matches = regex.allMatches(s);
-    int i = 0;
-    for(i =0; i<matches.length;i++){
-      matchList.add(matches.elementAt(i).group(0).substring(0,matches.elementAt(i).group(0).length-1));
-    }
-
-    DivElement div = querySelector("#divMongodb");
-    DivElement a = new Element.tag("div");
-    a.id = "table";
-    div.nodes.add(a);
-
-    TableElement table = new TableElement();
-    table.classes.add("google-visualization-table-table");
-    table.style.width = "100%";
-    table.id = "dataTable";
-    Element head = table.createTHead();
-    head.classes.add("google-visualization-table-tr-head");
-
-    TableRowElement th = table.tHead.insertRow(-1);
-    Element cell;
-    TableSectionElement tBody = table.createTBody();
-    int j = 0;
-    for(i = 0; i < matchList.length; i++){
-      cell = new Element.tag('th');
-      cell.classes.add("google-visualization-table-th gradient unsorted");
-      cell.text = matchList[i];
-      th.insertAdjacentElement('beforeend', cell);
-    };
-    for(i = 0; i < list.length; i++){
-      TableRowElement tRow = tBody.insertRow(i);
-      tRow.classes.add("google-visualization-table-td");
-      for(j = 0; j < matchList.length; j++){
-        TableCellElement tCell = tRow.insertCell(j);
-        tCell.text = list[i][matchList[j]];
-      }
-    }
-
-    document.querySelector('#table').nodes.add(table);
   }
 
   //Necessary to avoid a failure to Dart execution
@@ -181,8 +221,9 @@ class Query extends SignGoogle{
   }
 
 }
+
 void main() {
   applicationFactory()
-  .rootContextType(Query)
+  .rootContextType(QueryList)
   .run();
 }

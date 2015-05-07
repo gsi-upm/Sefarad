@@ -9,7 +9,6 @@
     <!-- Polymer: Load Polymer platform support before any code that touches the DOM. -->
     <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
 
-    <link href="https://www.polymer-project.org/0.5/components/polymer/polymer.html" rel="import">
     <!-- Dart Support -->
     <script src="packages/web_components/dart_support.js"></script>
 
@@ -189,14 +188,24 @@
 
                         <li class=""><a href="dashboardRestaurants.html"><i class="fa fa-circle-o"></i> Restaurants</a></li>
                         <li class=""><a href="dashboardPlaces.html"><i class="fa fa-circle-o"></i> Tourpedia</a></li></ul>
-                <li class="treeview active">
+                <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-database"></i> <span>Query</span><i class="fa fa-angle-left pull-right"></i>
+                        <i class="fa fa-database"></i> <span>Dataset</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="dataset.html"><i class="fa fa-circle-o"></i> Add Dataset</a></li>
-                        <li><a href="query.html"><i class="fa fa-circle-o"></i> Query Editor</a></li>
+                        <li><a href="newdataset.html"><i class="fa fa-circle-o"></i> Add Dataset</a></li>
+                        <li><a href="dataset.html"><i class="fa fa-circle-o"></i> Dataset List</a></li>
+                    </ul>
+                </li>
+
+                <li class="treeview active">
+                    <a href="#">
+                        <i class="fa fa-code"></i> <span>Query</span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
                         <li class="active"><a href="newquery.html"><i class="fa fa-circle-o"></i> Add Query</a></li>
+                        <li><a href="query.html"><i class="fa fa-circle-o"></i> Query List</a></li>
+                        <li><a href="queryeditor.html"><i class="fa fa-circle-o"></i> Query Editor</a></li>
                     </ul>
                 </li>
 

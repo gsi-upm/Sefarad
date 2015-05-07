@@ -5,48 +5,171 @@ import 'dart:convert';
 import 'signGoogle.dart';
 
 @Injectable()
-class Dataset extends SignGoogle{
+class DatasetList extends SignGoogle{
   var host = "";
-  String name = '';
-  String type;
-  String endPoint = '';
-  String user = '';
-  String password = '';
-  String collection = '';
-  String email = '';
   List datasets = [];
-  var typeSelect = querySelector('#typeSelector');
+  bool altered = false;
 
-  Dataset(){
+  DatasetList(){
     host = getHost();
     _loadDataset();
+    window.onBeforeUnload.listen((BeforeUnloadEvent e) {
+      if(altered)
+        e.returnValue = "Modifications haven't been saved";
+    });
   }
 
-  void _loadDataset(){
+  _loadDataset() {
     var url = "http://$host/web/dataset";
 
     // call the web server asynchronously
     var request = HttpRequest.getString(url).then((responseText){
       datasets = JSON.decode(responseText);
     });
+    //var yasgui = new JsObject(context['yasgui']);
   }
 
-  void checkType(){
-    if(typeSelect.value == "MongoDb") {
-      querySelector('#collectionSec').style.display = "flex";
-      querySelector('#loginUser').style.display = "flex";
+  void view (int index){
+
+    int elementIndex = 0;
+    bool showed = false;
+    for(int i = 0; i<querySelector('.box-body').children[index].children.length; i++){
+      if(querySelector('.box-body').children[index].children.elementAt(i).toString() == "table") {
+        elementIndex = i;
+        showed = true;
+      }
+    }
+    if(!showed) {
+      String el = '''
+    <table class="table table-striped" style="width:80%; margin:auto;">
+
+      <tbody>
+        <tr>
+          <td style="width: 50%"> Name </td>
+          <td style="width: 50%">''' + datasets[index]["Name"] + ''' </td>
+        </tr>
+        <tr>
+          <td style="width: 50%"> Type </td>
+          <td style="width: 50%">''' + datasets[index]["Type"] + ''' </td>
+        </tr>
+        <tr>
+          <td style="width: 50%"> Endpoint </td>
+          <td style="width: 50%">''' + datasets[index]["Endpoint"] + ''' </td>
+        </tr>
+        <tr>
+          <td style="width: 50%"> Collection </td>
+          <td style="width: 50%">''' + datasets[index]["Collection"] + ''' </td>
+        </tr>
+      </tbody>
+    </table>
+    ''';
+      querySelector('.box-body').children[index].appendHtml(el);
     } else {
-      querySelector('#collectionSec').style.display = "none";
-      querySelector('#loginUser').style.display = "none";
+      querySelector('.box-body').children[index].children.removeAt(elementIndex);
     }
   }
 
-  void clearFilters() {
-    name = "";
-    endPoint = "";
-    collection = "";
-    querySelector('#saveError').classes.add("hide");
-    querySelector('#saveSuccess').classes.add("hide");
+  void edit (int index){
+    int elementIndex = 0;
+    bool showed = false;
+    for(int i = 0; i<querySelector('.box-body').children[index].children.length; i++){
+      if(querySelector('.box-body').children[index].children.elementAt(i).toString() == "table") {
+        elementIndex = i;
+        showed = true;
+      }
+    }
+    if(!showed) {
+      String el = '''
+    <table class="table table-striped" style="width:80%; margin:auto;">
+
+      <tbody>
+        <tr>
+          <td style="width: 50%; vertical-align: middle"> Name </td>
+          <td style="width: 50%">
+            <input class="form-control" id="datasetName" placeholder="Enter name" value="'''+ datasets[index]["Name"] +'''">
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 50%; vertical-align: middle"> Type </td>
+          <td style="width: 50%">
+            <select id="datasetType" class="form-control">
+              <option style="display:none" value="">Select a type</option>
+              <option ''';
+      if(datasets[index]["Type"]=="Sparql")
+        el += '''selected>Sparql</option>
+              <option>MongoDb</option>''';
+      else
+        el += '''>Sparql</option>
+              <option selected>MongoDb</option>''';
+      el += '''
+            </select>
+          </td>
+        </tr>
+        <tr''';
+      if(!(datasets[index]["Type"]=="MongoDb"))
+        el += '''
+        style="display: none"''';
+      el += '''>
+          <td style="width: 50%; vertical-align: middle"> User </td>
+          <td style="width: 50%">
+            <input class="form-control" id="datasetUser" placeholder="Enter user" value="'''+ datasets[index]["User"] +'''">
+          </td>
+        </tr>
+        <tr''';
+      if(!(datasets[index]["Type"]=="MongoDb"))
+        el += '''
+        style="display: none"''';
+      el += '''>
+          <td style="width: 50%; vertical-align: middle"> Password </td>
+          <td style="width: 50%">
+            <input type="password" class="form-control" id="datasetPassword" placeholder="Enter password" value="'''+ datasets[index]["Password"] +'''">
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 50%; vertical-align: middle"> Endpoint </td>
+          <td style="width: 50%">
+            <input class="form-control" id="datasetEndpoint" placeholder="Enter endpoint" value="'''+ datasets[index]["Endpoint"] +'''">
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 50%; vertical-align: middle"> Collection </td>
+          <td style="width: 50%">
+            <input class="form-control" id="datasetCollection" placeholder="Enter collection" value="'''+ datasets[index]["Collection"] +'''">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    ''';
+      querySelector('.box-body').children[index].children[1].children[2].style.display = 'initial';
+      querySelector('.box-body').children[index].appendHtml(el);
+    } else {
+      querySelector('.box-body').children[index].children.removeAt(elementIndex);
+      querySelector('.box-body').children[index].children[1].children[2].style.display = 'none';
+    }
+  }
+
+  void save (int index){
+    var datasetVar = {
+        "Name" : querySelector('#datasetName').value,
+        "Type" : querySelector('#datasetType').value,
+        "Endpoint" : querySelector('#datasetEndpoint').value,
+        "Collection" : querySelector('#datasetCollection').value,
+        "User" : querySelector('#datasetUser').value,
+        "Password" : querySelector('#datasetPassword').value
+    };
+    datasets.removeAt(index);
+    datasets.insert(index, datasetVar);
+    altered = true;
+  }
+
+  void browse (int index){
+    Uri endpoint = Uri.parse(datasets.elementAt(index)["Endpoint"]);
+    print(endpoint.origin);
+  }
+
+  void remove(int index){
+    datasets.removeAt(index);
+    altered = true;
   }
 
   void saveData(){
@@ -54,30 +177,14 @@ class Dataset extends SignGoogle{
     if(isLogged()) {
       querySelector('#saveError').classes.add("hide");
       querySelector('#saveSuccess').classes.add("hide");
-      if (!checkParamPattern()) {
-        querySelector('#saveError').classes.remove("hide");
-        return;
-      }
-
-      var queryVar = {
-          "Name" : name,
-          "Type" : type,
-          "Endpoint" : endPoint,
-          "Collection" : collection,
-          "User" : user,
-          "Password" : password
-      };
-      datasets.add(queryVar);
-      querySelector('#saveSuccess').classes.remove("hide");
       String jsonData = JSON.encode(datasets);
 
       var request = new HttpRequest();
       request.onReadyStateChange.listen((_) {
-        if (request.readyState == HttpRequest.DONE &&
-        (request.status == 200 || request.status == 0)) {
+        if (request.readyState == HttpRequest.DONE && (request.status == 200 || request.status == 0)) {
           // data saved OK.
           print(" Data saved successfully");
-
+          querySelector('#saveSuccess').classes.remove("hide");
         }
       });
       var url = "http://$host/web/dataset";
@@ -88,22 +195,15 @@ class Dataset extends SignGoogle{
     }
   }
 
-  bool checkParamPattern() {
-
-    bool allRight = true;
-    if(typeSelect.value == "")
-      allRight = false;
-    return allRight;
-  }
-
   //Necessary to avoid a failure to Dart execution
   void toggleDialog1(e){
     return;
   }
 
 }
+
 void main() {
   applicationFactory()
-  .rootContextType(Dataset)
+  .rootContextType(DatasetList)
   .run();
 }

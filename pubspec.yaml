@@ -7,7 +7,7 @@ dependencies:
   google_oauth2_client: '>=0.4.1 <0.5.0'
   http_server: '>=0.9.3 <0.10.0'
   web_components: '>=0.8.0 <0.11.0'
-  mongo_dart: any
+  mongo_dart: '0.1.47'
 dev_dependencies:
   unittest: '>=0.11.0+5 <0.13.0'
 transformers:
