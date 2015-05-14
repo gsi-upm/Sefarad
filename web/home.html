@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <link rel="icon" type="image/png" href="dist/img/favicon.png">
+    <script type="text/javascript">var sessionDetails;</script>
+    <title>Sefarad 2.0 | Home</title>
+    <link href="//fonts.googleapis.com/css?family=Roboto:400,300,100" rel="stylesheet">
+    <link href="home.css" rel="stylesheet">
+    <script src="https://www.google.com/events/io/js/vendor/modernizr/modernizr.js"></script>
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"
+          type="text/css"/>
+    <link rel="import" href="polymer-elements/google-youtube-api/google-youtube.html">
+    <link rel="import" href="polymer-elements/paper-fab/paper-fab.html">
+    <link href="bower_components/core-icons/core-icons.html" rel="import">
+</head>
+
+<body>
+<div class="details js-details -hide">
+    <div class="details__dismiss js-scrim-dismiss-main">&nbsp;</div>
+    <div class="details__card js-details-card">&nbsp;</div>
+</div>
+
+
+<div style="  position: absolute;top: 170px;right: 0;z-index: 10;">
+    <a href="https://github.com/gsi-upm/Sefarad-2.0">
+    <paper-fab class="white" title="Github" src="http://kevineger.me/assets/GitHub-Logo.png"
+               role="button" tabindex="0" aria-label="event"></paper-fab>
+    </a>
+</div>
+
+<div class="toggle-basement js-basement" data-toggle-name="basement" data-direction="left">
+    <div class="basement js-toggle-content--basement">
+        <nav class="nav -mobile">
+            <a class="nav__item -mobile -logo" href="http://www.gsi.dit.upm.es/"><span class="icon -io">GSI</span></a>
+
+            <a class="nav__item -mobile -sandbox active" href="">Home</a>
+            <a class="nav__item -mobile -sandbox" href="http://www.gsi.dit.upm.es/">GSI Group</a>
+            <a class="nav__item -desktop -sandbox hide-for-small-only" href="query.html">Demo</a>
+            <a class="nav__item -mobile -io-extended" href="https://github.com/gsi-upm/Sefarad-2.0/wiki">Documentation</a>
+            <a class="nav__item -mobile -logistics" href="https://www.gsi.dit.upm.es/index.php/es/tecnologia/demos.html">Other Projects</a>
+        </nav>
+    </div>
+
+    <!--[if lt IE 9]>
+    <div class="butter-bar g-bg-baby-blue -secondary-padding v-align text-center">
+        <h1 class="h1 g-color-blue -padding-sides text-right">:(</h1>
+
+        <p class="g-color-charcoal text-left">
+            Your current browser can't handle this site.
+            <br>
+            It may be time to <a class="g-color-blue" href="http://whatbrowser.org" target="_blank">upgrade</a>.
+        </p>
+    </div>
+    <![endif]-->
+
+    <div class="wrapper js-basement-sibling">
+        <header class="header hide-for-x-large -lighter post-keynote-header js-nav">
+            <nav class="nav -desktop" style="float: left">
+                <a class="nav__item -desktop -logo" href="home.html"><span class="icon -io">GSI</span></a>
+                <a class="nav__item -desktop -videos hide-for-small-only active" href="">Home</a>
+                <a class="nav__item -desktop -home hide-for-small-only" href="http://www.gsi.dit.upm.es/">GSI Group</a>
+                <a class="nav__item -desktop -sandbox hide-for-small-only" href="query.html">Demo</a>
+                <a class="nav__item -desktop -io-extended hide-for-small-only" href="https://github.com/gsi-upm/Sefarad-2.0/wiki">Documentation</a>
+            </nav>
+
+            <div style="position: absolute; right: 0; margin: 29px 42px 0">
+                <a class="nav__item -desktop -logo" href="">Sign In</a>
+            </div>
+        </header>
+
+        <div class="bucket -shorter g-bg-white experiment-partial -home -static js-header" style="background-color: #00a9e0">
+            <div class="v-align -whole">
+                <div class="v-align__element -bottom">
+                    <h1 class="bucket__headline -sub -width-2-3 h1 g-color-charcoal">
+                        <b>Sefarad</b><span class="g-lighter-grey -inline">-2.0</span>
+                    </h1>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="width: 100%; height: 675px"><div class="recap-video -width-whole g-bg-black">
+            <a href="#" class="video-player__close js-close-player" style="visibility: hidden; opacity: 0;">
+                <span class="icon -close-white -middle"></span>
+            </a>
+
+            <div class="recap-video__wrapper">
+                <div class="recap-video__content">
+
+                    <google-youtube id="googleYouTube"
+                                    style="display:none"
+                                    videoid="2RAsNDxmk-E"
+                                    width="100%"
+                                    height="675px"
+                                    rel="0"
+                                    autoplay="0"
+                                    chromeless>
+                    </google-youtube>
+
+                    <div class="bucket__photo -fade js-responsive-image js-responsive-image-mobile loaded" data-src="/events/io/images/photos/recap-poster.jpg" data-hasretina="true" data-lazyload="true" data-breakpoints="360,480,568,768,1024,1200,1400,1600" style="background-image: url(dist/img/demo-screenshot-rotated.png);"></div>
+
+                    <div class="recap-video__pre-load v-align -whole">
+                        <div class="v-align__element -middle text-center">
+                            <h1 class="h1 -thin g-color-white" style="color: #0c5d8c">
+                                <span class="icon -play-large-white -text-bottom"></span>
+                                Watch the Video
+                            </h1>
+                        </div>
+                    </div>
+                    <a href="" id="video-player" class="-actionable -block js-video" style="opacity: 0;"></a>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+        <div class="-padding-sides -last-padding">
+
+
+            <div class="cd-fixed-bg cd-bg-1">
+                <h2 class="bucket__headline h2 g-color-white -mobile-g-color-off-black">
+                    Check our featured projects made by our group
+                </h2>
+
+                <p class="bucket__description g-color-white -width-1-2 hide-for-small-only">
+                    Drop by anytime to check out the latest interactive experiences built on the Sefarad tool&nbsp;platform.
+                </p>
+            </div>
+            <div class="demos">
+                <div class="js-card-intro">
+                    <div class="demos__card card -width-1-4 -medium-only-width-1-3 -mobile-width-1-2 initially-hidden js-card-expand js-card" style="transform: matrix(1, 0, 0, 1, 0, 0); opacity: 1;">
+                        <div class="card__content -gutterless">
+                            <div class="demo">
+                                <div class="demo__logo">
+                                    <img class="-fade js-lazy-load loaded" style="width: 140px; height: 120px; margin: auto" src="http://www.gsi.dit.upm.es/ontologies/marl/img/eurosentiment_logo.png" data-src="/events/io/images/partners/allofthecooks.png" alt="Allthecooks">
+                                </div>
+                            </div>
+
+                            <div class="card__banner with-hover hide-for-small-only js-card-banner js-card-toggler" style="cursor: pointer; -webkit-user-select: none; touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: matrix(1, 0, 0, 1, 0, 0);">
+                                <span class="left">Eurosentiment</span>
+                                <span class="icon -more-grey right"></span>
+                            </div>
+
+                            <div class="demo__content js-card-content" style="transform: matrix(1, 0, 0, 1, 0, 269); margin-top: 68px;">
+                                Marl is a standardised data schema designed to annotate and describe subjective opinions expressed on the web or in particular Information Systems.
+                                <br><a class="nav__item -desktop -schedule hide-for-small-only"
+                                       href="#" style="text-decoration: line-through;">Soon Available</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="demos__card card -width-1-4 -medium-only-width-1-3 -mobile-width-1-2 initially-hidden js-card-expand js-card" style="transform: matrix(1, 0, 0, 1, 0, 0); opacity: 1;">
+                        <div class="card__content -gutterless">
+                            <div class="demo">
+                                <div class="demo__logo">
+                                    <img class="-fade js-lazy-load loaded" style="width: 160px; height: 140px; margin: auto"
+                                         src="dist/img/smartopendata.png" data-src="/events/io/images/partners/colopl.png" alt="COLOPL">
+                                </div>
+                            </div>
+
+                            <div class="card__banner with-hover hide-for-small-only js-card-banner js-card-toggler" style="cursor: pointer; -webkit-user-select: none; touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                <span class="left">SmartOpenData</span>
+                                <span class="icon -more-grey right"></span>
+                            </div>
+
+                            <div class="demo__content js-card-content" style="transform: matrix(1, 0, 0, 1, 0, 269); margin-top: 68px;">
+                                SmartOpenData will create a Linked Open Data infrastructure fed by public and freely available data resources, existing sources for biodiversity and environment protection and research in European National Parks.
+                                <br><a class="nav__item -desktop -schedule hide-for-small-only"
+                                       href="http://lab.gsi.dit.upm.es/Sefarad2.0/build/web/dashboart.html">Demo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="demos__card card -width-1-4 -medium-only-width-1-3 -mobile-width-1-2 initially-hidden js-card-expand js-card" style="transform: matrix(1, 0, 0, 1, 0, 0); opacity: 1;">
+                        <div class="card__content -gutterless">
+                            <div class="demo">
+                                <div class="demo__logo">
+                                    <img class="-fade js-lazy-load loaded" style="width: 180px; height: 60px; margin: auto"
+                                         src="dist/img/tourpedia.png" data-src="/events/io/images/partners/duolingo.png" alt="Duolingo">
+                                </div>
+                            </div>
+
+                            <div class="card__banner with-hover hide-for-small-only js-card-banner js-card-toggler" style="cursor: pointer; -webkit-user-select: none; touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                <span class="left">TourPedia</span>
+                                <span class="icon -more-grey right"></span>
+                            </div>
+
+                            <div class="demo__content js-card-content" style="transform: matrix(1, 0, 0, 1, 0, 269); margin-top: 68px;">
+                                TourPedia is the Wikipedia of Tourism. It contains information about accommodations, restaurants, points of interest and attractions of different places in Europe.
+                                <br><a class="nav__item -desktop -schedule hide-for-small-only"
+                                       href="http://lab.gsi.dit.upm.es/Sefarad2.0/build/web/dashboartPlaces.html">Demo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="demos__card card -width-1-4 -medium-only-width-1-3 -mobile-width-1-2 initially-hidden js-card-expand js-card" style="transform: matrix(1, 0, 0, 1, 0, 0); opacity: 1;">
+                        <div class="card__content -gutterless">
+                            <div class="demo">
+                                <div class="demo__logo">
+                                    <img class="-fade js-lazy-load loaded" style="width: 160px; height: 100px; margin: auto"
+                                         src="http://upload.wikimedia.org/wikipedia/commons/thumb/7/73/DBpediaLogo.svg/2000px-DBpediaLogo.svg.png" data-src="/events/io/images/partners/eat24.png" alt="Eat24">
+                                </div>
+                            </div>
+
+                            <div class="card__banner with-hover hide-for-small-only js-card-banner js-card-toggler" style="cursor: pointer; -webkit-user-select: none; touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                <span class="left">DBPedia</span>
+                                <span class="icon -more-grey right"></span>
+                            </div>
+
+                            <div class="demo__content js-card-content" style="transform: matrix(1, 0, 0, 1, 0, 269); margin-top: 68px;">
+                                DBpedia is a crowd-sourced community effort to extract structured information from Wikipedia and make this information available on the Web.
+                                <br><a class="nav__item -desktop -schedule hide-for-small-only"
+                                       href="http://lab.gsi.dit.upm.es/Sefarad2.0/build/web/dashboartRestaurants.html">Demo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="u-buffer-point js-card-point"></div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="bucket -icon-headline g-bg-slate-grey -no-bottom page0 js-photo-stream">
+            <div class="row -gutterless">
+                <h3 class="bucket__headline h3 left -with-icon -width-1-2 -mobile-width-1-2 -mobile-larger g-color-white">
+              <span class="fixed-left-fluid-right -with-icon">
+                <span class="fluid-right">
+                  See the GSI Group action
+                </span>
+
+                <span class="fixed-left">
+                  <span class="icon -photos-white -sub"></span>
+                </span>
+              </span>
+                </h3>
+
+                <div class="col -width-1-2 -mobile-width-1-2 right photo-stream__controls">
+
+                    <div class="photo-stream__arrows">
+                        <div class="photo-stream__prev js-photo-stream-prev icon -chevron-white-left disabled">Previous</div>
+                        <div class="photo-stream__next js-photo-stream-next icon -chevron-white-right disabled">Next</div>
+                    </div>
+
+                    <a class="view-google-plus g-color-blue hide-for-small-only right" href="https://github.com/gsi-upm/">View on Github</a>
+                </div>
+            </div>
+            <div class="row -gutterless -extra-bottom-padding">
+                <p class="-shifted -width-3-4 -no-buffer -mobile-whole g-color-light-blue">
+                    Check out the current projects from GSI Group.
+                </p>
+            </div>
+        </div>
+
+        <footer class="section footer g-bg-light-grey -border-top">
+            <div class="row">
+                <div class="col -width-whole">
+
+                    <div class="footer__links -top-buffer">
+                        <div class="footer__link">
+                            <a href="https://www.google.com/events/io/help">Help</a>
+                        </div>
+
+                        <div class="footer__link">
+                            <a href="//www.google.com/policies/" target="_blank">Privacy &amp; Terms</a>
+                        </div>
+
+                        <div class="footer__link">
+                            <a href="//googledevelopers.blogspot.com/" target="_blank">Google Developers Blog</a>
+                        </div>
+
+                        <div class="footer__link">
+                            <a href="//developers.google.com/" target="_blank">Google Developers</a>
+                        </div>
+
+                        <div class="footer__link">
+                            <a href="//plus.google.com/+GoogleDevelopers/posts" target="_blank">+Google Developers</a>
+                        </div>
+
+                        <div class="footer__link">
+                            <a href="//developers.google.com/events/io" target="_blank">Google I/O 2013</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script src="https://www.google.com/events/io/js/libs.min.js"></script>
+<script src="https://www.google.com/events/io/js/site.min.js"></script>
+<script>
+    io.init('sandbox');
+</script>
+<script src="//www.google.com/js/gweb/analytics/autotrack.js"></script>
+<script>new gweb.analytics.AutoTrack({ profile: 'UA-48929034-1'});</script>
+<script type="text/javascript">
+    window.___gcfg = { parsetags: 'explicit' };
+    (function() {
+        var po = document.createElement('script');
+        po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://plus.google.com/js/client:plusone.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(po, s);
+    })();
+</script>
+
+<script src="https://www.google.com/events/io/js/partials.min.js"></script><iframe name="oauth2relay424513133" id="oauth2relay424513133" src="https://accounts.google.com/o/oauth2/postmessageRelay?parent=https%3A%2F%2Fwww.google.com#rpctoken=904176252&amp;forcesecure=1" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><div class="hud-renderer" style="overflow: hidden; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; width: 103px; height: 103px; position: absolute; right: 0px; bottom: 0px; -webkit-perspective: 124.331998462214px; perspective: 124.331998462214px;"><div style="-webkit-transform-style: preserve-3d; transform-style: preserve-3d; width: 103px; height: 103px; -webkit-transform: translate3d(0px, 0px, 124.331998462214px) matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, -182, 1) translate3d(51.5px, 51.5px, 0px); transform: translate3d(0px, 0px, 124.331998462214px) matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, -182, 1) translate3d(51.5px, 51.5px, 0px);"><svg class="entity" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" width="40.5" height="80" viewBox="0 0 28 56" style="display: block; overflow: hidden; width: 40.5px; height: 80px; position: absolute; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); touch-action: none; -webkit-transform: translate3d(-50%, -50%, 0px) matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, -20, 0, 0, 1); transform: translate3d(-50%, -50%, 0px) matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, -20, 0, 0, 1);"><circle cx="28" cy="28" r="28" fill="#c0c0c0"></circle></svg><svg class="entity" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" width="40.5" height="80" viewBox="028 0 28 56" style="display: block; overflow: hidden; width: 40.5px; height: 80px; position: absolute; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); touch-action: none; -webkit-transform: translate3d(-50%, -50%, 0px) matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 20, 0, 0, 1); transform: translate3d(-50%, -50%, 0px) matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 20, 0, 0, 1);"><circle cx="28" cy="28" r="28" fill="#c0c0c0"></circle></svg></div></div>
+
+</body>
+</html>

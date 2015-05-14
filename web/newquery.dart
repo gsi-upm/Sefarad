@@ -194,9 +194,9 @@ class Query extends SignGoogle{
         return;
       }
       var queryVar = {
-          "Name" : name,
-          "Query" : dataQuery,
-          "Endpoint" : endPoint,
+          "Name" : name.trim(),
+          "Query" : dataQuery.trim(),
+          "Endpoint" : endPoint.trim(),
           "Type" : type,
           "Parameters0": parameters0,
           "Parameters1": parameters1,

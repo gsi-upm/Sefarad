@@ -51,6 +51,7 @@ class Query extends SignGoogle{
 
   String checkType(){
     var myEl4 = document.getElementById('querySelector');
+
     int i,j;
     int index;
     for(i = 0; i < querys.length; i++){

@@ -3,7 +3,7 @@ $(function () {
   /* For demo purposes */
   var demo = $("<div />").css({
     position: "fixed",
-    top: "70px",
+    top: "50px",
     right: "0",
     background: "#fff",
     "border-radius": "5px 0px 0px 5px",
@@ -18,7 +18,7 @@ $(function () {
   var demo_settings = $("<div />").css({
     "padding": "10px",
     position: "fixed",
-    top: "70px",
+    top: "50px",
     right: "-250px",
     background: "#fff",
     border: "0px solid #ddd",
@@ -121,8 +121,8 @@ $(function () {
     }
   });
 
-  //$("body").append(demo);
-  //$("body").append(demo_settings);
+  $("body").append(demo);
+  $("body").append(demo_settings);
 
   setup();
 });

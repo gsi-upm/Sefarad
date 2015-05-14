@@ -60,12 +60,12 @@ class Dataset extends SignGoogle{
       }
 
       var queryVar = {
-          "Name" : name,
-          "Type" : type,
-          "Endpoint" : endPoint,
-          "Collection" : collection,
-          "User" : user,
-          "Password" : password
+          "Name" : name.trim(),
+          "Type" : type.trim(),
+          "Endpoint" : endPoint.trim(),
+          "Collection" : collection.trim(),
+          "User" : user.trim(),
+          "Password" : password.trim()
       };
       datasets.add(queryVar);
       querySelector('#saveSuccess').classes.remove("hide");
