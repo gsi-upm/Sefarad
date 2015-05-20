@@ -11,6 +11,7 @@
       <excludeFolder url="file://$MODULE_DIR$/web/bootstrap/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-ajax/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-ajax/test/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-animation/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-collapse/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-collapse/test/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-component-page/packages" />
@@ -21,6 +22,7 @@
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-icons/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-iconset-svg/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-iconset/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-localstorage/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-meta/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-overlay/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-overlay/tests/html/packages" />
@@ -29,6 +31,8 @@
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-pages/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-resizable/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-resizable/test/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-shared-lib/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-signals/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/core-transition/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/data-table/dist/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/data-table/packages" />
@@ -37,6 +41,8 @@
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/data-table/src/data-table/header/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/data-table/src/data-table/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/data-table/src/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/bower_components/font-roboto/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/bower_components/google-apis/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/json5/lib/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/json5/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/bower_components/json5/test/packages" />
@@ -154,6 +160,7 @@
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/bar-chart/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/bubble-chart/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/faceted-search/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/google-signin/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/google-youtube-api/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/heat-map/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/leaflet-map/packages" />
@@ -163,10 +170,12 @@
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-action-dialog/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-button/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-dropdown/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-fab/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-fab/test/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-icon-button/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-input-decorator/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-menu-button/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-shadow/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-tab/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/paper-toggle-button/packages" />

@@ -87,6 +87,7 @@
     <link rel="import" href="polymer-elements/faceted-search/faceted-search.html">
     <link rel="import" href="polymer-elements/paper-shadow/paper-shadow.html">
     <link rel="import" href="polymer-elements/paper-tab/paper-tabs.html">
+    <link rel="import" href="polymer-elements/google-signin/google-signin.html">
     <link rel="import" href="bower_components/core-pages/core-pages.html">
 
     <!-- ------------------------------- end/ POLYMER COMPONENTS IMPORT ZONE ------------------- -->
@@ -125,54 +126,11 @@
                         </ul>
                     </li>
                     <!-- User Account: style can be found in dropdown.less -->
-                    <li class="dropdown user user-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <div class="user-bar">
-                                <img src="" class="user-image" alt="User Image"/>
-                                <span class="hidden-xs user-name"></span>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <!-- User image -->
-                            <li class="user-header user-div">
-                                <img src="" class="img-circle user-image3" alt="User Image">
-                                <p class="user-name3">
-
-                                    <small>Member since Nov. 2012</small>
-                                </p>
-                            </li>
-                            <!-- Menu Footer-->
-                            <li class="user-footer">
-                                <div class="pull-right">
-                                    <button ng-click="logout()" class="btn btn-default btn-flat">Sign out</button>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown user user-menu sign">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Sign In
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><div class="login-box-body">
-                                <p class="login-box-msg">Sign in to start your session</p>
-                                <form id="loginForm" role="form" >
-                                    <div class="form-group has-feedback">
-                                        <input type="password" class="form-control" id="password"
-                                               placeholder="Admin Password"/>
-                                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                                    </div>
-                                </form>
-
-                                <div class="social-auth-links text-center">
-                                    <button class="btn btn-block btn-social btn-facebook btn-flat">
-                                        <i class="fa fa-facebook"></i> Sign in using Facebook</button>
-                                    <button ng-click="login()"class="btn btn-block btn-social btn-google-plus btn-flat">
-                                        <i class="fa fa-google-plus"></i> Sign in using Google+</button>
-                                </div><!-- /.social-auth-links -->
-
-                            </div><!-- /.login-box-body --></li>
-                        </ul>
+                    <li style="margin: 7px 10px auto 10px" class="user user-menu">
+                        <div>
+                            <google-signin clientId="675126827387-jrvg34sf52dni2o8o5kjgthc3abm8s0u.apps.googleusercontent.com"
+                                           scopes="https://www.googleapis.com/auth/drive.appfolder"></google-signin>
+                        </div>
                     </li>
                 </ul>
             </div>

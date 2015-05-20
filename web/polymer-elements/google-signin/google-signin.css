@@ -57,9 +57,45 @@ core-icon {
 }
 
 .buttonText {
-  display: inline-block;
-  vertical-align: middle;
-  padding-right: .8em;
+    color: #000;
+    color: rgba(0,0,0,0.3);
+    display: inline-block;
+    float: left;
+    height: 35px;
+    font-weight: 400;
+    font-size: 16px;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    line-height: 35px;
+    padding: 0 16px 0 0;
+    width: auto;
+    -webkit-transition: color 260ms ease-out;
+    -moz-transition: color 260ms ease-out;
+    -o-transition: color 260ms ease-out;
+    transition: color 260ms ease-out;
+}
+.profilepic{height:32px;width:32px;border-radius:50%;margin-right:0;margin-top: 2px}
+
+.buttonText:hover {
+    color: white;
+    -webkit-transition: color 260ms ease-out;
+    -moz-transition: color 260ms ease-out;
+    -o-transition: color 260ms ease-out;
+    transition: color 260ms ease-out;
+}
+
+html /deep/ [autofocus] {
+    color: #03a9f4;
+}
+
+html /deep/ .size-position {
+    position: fixed;
+    top: auto;
+    right: auto;
+}
+
+html /deep/ .size-position::shadow #scroller {
+    width: 500px;
+    height: 305px;
 }
 
 /*

@@ -10,8 +10,12 @@
 <link rel="import" href="../paper-button/paper-button-base.html">
 <link rel="import" href="../paper-tab/paper-ripple.html">
 <link rel="import" href="../paper-shadow/paper-shadow.html">
+<link rel="import" href="../paper-input-decorator/paper-input-decorator.html">
 <link rel="import" href="google-icons.html">
+<link rel="import" href="../paper-action-dialog/paper-action-dialog.html">
 
+<link rel="stylesheet" href="../../home.css" >
+<link rel="stylesheet" href="google-signin.css" >
 <!--
 Copyright (c) 2014 Google Inc. All rights reserved.
 
@@ -81,8 +85,8 @@ any apps you're building. See the Google Developers Console
 <polymer-element name="google-signin" extends="paper-button-base" role="button">
   <template>
     <google-js-api on-js-api-load="{{loadAuth}}"></google-js-api>
-    <link rel="stylesheet" href="google-signin.css" >
       <link rel="stylesheet" href="../../home.css" >
+      <link rel="stylesheet" href="google-signin.css" >
 
     <core-signals on-core-signal-google-auth-request="{{authRequestScopes}}"></core-signals>
     <core-signals on-core-signal-google-auth-user="{{authUserChange}}"></core-signals>
@@ -99,16 +103,17 @@ any apps you're building. See the Google Developers Console
       <div relative layout horizontal center-center>
         <template if="{{ !signedIn }}">
           <div class="button-content signIn" tabindex="0"
-              on-click="{{signIn}}" on-keydown="{{signInKeyPress}}">
+              on-click="{{popSignIn}}" on-keydown="{{signInKeyPress}}">
             <span class="icon"><core-icon icon="google:{{brand}}"></core-icon></span>
             <span class="buttonText">{{labelSignin}}</span>
           </div>
+
         </template>
         <template if="{{ signedIn && !additionalAuth }}">
           <div layout horizontal flex>
               <img _src="{{photo}}" class="profilepic">
               <paper-menu-button>
-                  <paper-icon-button icon="more-vert" aria-label="Settings"></paper-icon-button>
+                  <paper-icon-button icon="more-vert" style="color: #ffffff; margin-top: -2px" aria-label="Settings"></paper-icon-button>
                   <paper-dropdown id="signin-settings-panel" class="dropdown" halign="right" valign="top"
                                   on-core-overlay-open="{{getNotificationState}}"
                                   duration="200">
@@ -152,6 +157,17 @@ any apps you're building. See the Google Developers Console
         </template>
       </div>
     </div>
+
+      <paper-action-dialog id="dialog" class="size-position" backdrop autoCloseDisabled>
+          <h3>Please Enter Admin Password</h3>
+          <br>
+          <paper-input-decorator isInvalid="{{passError}}" label="Enter Password" floatingLabel error="{{error}}" flex self-center>
+                  <input is="core-input" id="passSource" required>
+              </paper-input-decorator>
+          </br>
+
+          <paper-button class="colored" on-click="{{signIn}}" autofocus>Sign In</paper-button>
+      </paper-action-dialog>
   </template>
 
   <script>
@@ -312,10 +328,11 @@ any apps you're building. See the Google Developers Console
          * Handles a change to the authenticated user.
          */
         authUserChange: function(e, result) {
-            console.log(result.user.G);
-            this.photo = result.user.G.getImageUrl();
-            this.nameL = result.user.G.getName();
-            this.email = result.user.G.getEmail();
+            try {
+                this.photo = result.user.G.getImageUrl();
+                this.nameL = result.user.G.getName();
+                this.email = result.user.G.getEmail();
+            } catch (e){}
           this.signedIn = result.user.isSignedIn();
 
           if (this.signedIn) {
@@ -586,25 +603,44 @@ any apps you're building. See the Google Developers Console
         },
 
         signIn: function () {
-          var params = {
-            'scope': mergeExtraScopes(this.scopes)
-          };
+            if(this.$.passSource.value === "****") {
+                var params = {
+                    'scope': mergeExtraScopes(this.scopes)
+                };
 
-          // Proxy specific attributes through to the signIn options.
-          Object.keys(ProxyLoginAttributes).forEach(function(key) {
-            if (this[key] && this[key] !== '') {
-              params[ProxyLoginAttributes[key]] = this[key];
+                // Proxy specific attributes through to the signIn options.
+                Object.keys(ProxyLoginAttributes).forEach(function (key) {
+                    if (this[key] && this[key] !== '') {
+                        params[ProxyLoginAttributes[key]] = this[key];
+                    }
+                }, this);
+
+                auth.signIn(params).then(function (newUser) {
+                    // Let the current user listener trigger the changes.
+                }, function (error) {
+                    console.error(error);
+                });
+
+                this.$.dialog.toggle();
+                this.passError = false;
+            } else if (this.$.passSource.value === ''){
+                this.error = "A Password is required";
+                this.passError = true;
+            } else {
+                this.error = "The Password is incorrect";
+                this.passError = true;
             }
-          }, this);
-
-          auth.signIn(params).then(function(newUser) {
-            // Let the current user listener trigger the changes.
-          }, function(error) {
-            console.error(error);
-          });
         },
 
+        popSignIn: function() {
+            this.$.dialog.toggle();
+        },
+
+        error: '',
+
         signedIn: false,
+
+        passError: false,
 
         signInKeyPress: function (e) {
           if (e.which == 13 || e.keyCode == 13 || e.which == 32 || e.keyCode == 32) {
