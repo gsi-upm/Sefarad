@@ -1,12 +1,14 @@
 import 'package:angular/angular.dart';
 import 'package:angular/application_factory.dart';
 import 'dart:html';
+import 'dart:js';
 import 'dart:convert';
-import 'signGoogle.dart';
+import 'authParam.dart';
 
 @Injectable()
-class Dashboard extends SignGoogle{
+class Dashboard extends AuthParam{
 
+  var googleSign = new JsObject(context['loggead']);
   var host = "";
   List names;
   String query = '';
@@ -55,7 +57,7 @@ class Dashboard extends SignGoogle{
   }
 
   void saveResults(){
-    if(isLogged()) {
+    if(googleSign.callMethod('isLoggead')) {
     }
   }
 

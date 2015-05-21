@@ -125,8 +125,9 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li style="margin: 7px 10px auto 10px" class="user user-menu">
                         <div>
-                            <google-signin clientId="675126827387-jrvg34sf52dni2o8o5kjgthc3abm8s0u.apps.googleusercontent.com"
-                                           scopes="https://www.googleapis.com/auth/drive.appfolder"></google-signin>
+                            <google-signin
+                                    clientId="675126827387-jrvg34sf52dni2o8o5kjgthc3abm8s0u.apps.googleusercontent.com"
+                                    scopes="https://www.googleapis.com/auth/drive.appfolder"></google-signin>
                         </div>
                     </li>
                 </ul>
@@ -517,9 +518,17 @@
 <script>
     var tabs = document.querySelector('paper-tabs');
     var pages = document.querySelector('core-pages');
+    var logged = document.querySelector('google-signin');
+
+    var loggead = function() {
+        this.isLoggead = function(){
+            return logged.isSigned;
+        }
+    };
 
     tabs.addEventListener('core-select',function(){
         pages.selected = tabs.selected;
+        console.log(logged.isSigned);
     });
 
     var _editorEndpoint = 'http://demos.gsi.dit.upm.es/fuseki/geo/query?query=';

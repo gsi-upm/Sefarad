@@ -352,6 +352,13 @@
 <script src='plugins/papaparse/papaparse.min.js'></script>
 
 <script type="text/javascript">
+    var logged = document.querySelector('google-signin');
+
+    var loggead = function() {
+        this.isLoggead = function(){
+            return logged.isSigned;
+        }
+    };
 
     var _editorEndpoint = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query=';
     var myEl2 = document.getElementById('querySelector');

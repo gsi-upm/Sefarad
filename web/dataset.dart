@@ -1,17 +1,21 @@
 import 'package:angular/angular.dart';
 import 'package:angular/application_factory.dart';
 import 'dart:html';
+import 'dart:js';
 import 'dart:convert';
-import 'signGoogle.dart';
+import 'authParam.dart';
 
 @Injectable()
-class DatasetList extends SignGoogle{
+class DatasetList extends AuthParam{
+
+  var googleSign = new JsObject(context['loggead']);
   var host = "";
   List datasets = [];
   bool altered = false;
 
   DatasetList(){
     host = getHost();
+    print(host);
     _loadDataset();
     window.onBeforeUnload.listen((BeforeUnloadEvent e) {
       if(altered)
@@ -174,7 +178,7 @@ class DatasetList extends SignGoogle{
 
   void saveData(){
 
-    if(isLogged()) {
+    if(googleSign.callMethod('isLoggead')) {
       querySelector('#saveError').classes.add("hide");
       querySelector('#saveSuccess').classes.add("hide");
       String jsonData = JSON.encode(datasets);

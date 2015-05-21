@@ -362,6 +362,14 @@
 
 <script type="text/javascript">
 
+    var logged = document.querySelector('google-signin');
+
+    var loggead = function() {
+        this.isLoggead = function(){
+            return logged.isSigned;
+        }
+    };
+
     var _editorEndpoint = 'http://demos.gsi.dit.upm.es/fuseki/geo/query?query=';
     var myEl = document.getElementById('btn_clear');
     var myEl2 = document.getElementById('querySelector');

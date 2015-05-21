@@ -98,6 +98,16 @@ html /deep/ .size-position::shadow #scroller {
     height: 305px;
 }
 
+.more-button{
+    color: #ffffff;
+    margin-top: -2px;
+}
+
+.skin-black .more-button{
+    color: #000;
+    margin-top: -2px;
+}
+
 /*
  * Dark Theme
  */

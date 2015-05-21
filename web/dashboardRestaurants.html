@@ -570,6 +570,13 @@
 <script>
     var tabs = document.querySelector('paper-tabs');
     var pages = document.querySelector('core-pages');
+    var logged = document.querySelector('google-signin');
+
+    var loggead = function() {
+        this.isLoggead = function(){
+            return logged.isSigned;
+        }
+    };
 
     tabs.addEventListener('core-select',function(){
         pages.selected = tabs.selected;

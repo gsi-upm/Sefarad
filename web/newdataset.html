@@ -331,6 +331,14 @@
 <script src="dist/js/demo.js" type="text/javascript"></script>
 <script type="text/javascript">
 
+    var logged = document.querySelector('google-signin');
+
+    var loggead = function() {
+        this.isLoggead = function(){
+            return logged.isSigned;
+        }
+    };
+
     var scope = document.querySelector('template[is=auto-binding]');
 
     scope.toggleDialog1 = function(e) {

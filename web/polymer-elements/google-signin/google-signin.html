@@ -14,7 +14,6 @@
 <link rel="import" href="google-icons.html">
 <link rel="import" href="../paper-action-dialog/paper-action-dialog.html">
 
-<link rel="stylesheet" href="../../home.css" >
 <link rel="stylesheet" href="google-signin.css" >
 <!--
 Copyright (c) 2014 Google Inc. All rights reserved.
@@ -82,7 +81,7 @@ any apps you're building. See the Google Developers Console
 @homepage https://googlewebcomponents.github.io/google-signin
 -->
 
-<polymer-element name="google-signin" extends="paper-button-base" role="button">
+<polymer-element name="google-signin" extends="paper-button-base" role="button" attributes="signedIn">
   <template>
     <google-js-api on-js-api-load="{{loadAuth}}"></google-js-api>
       <link rel="stylesheet" href="../../home.css" >
@@ -103,7 +102,7 @@ any apps you're building. See the Google Developers Console
       <div relative layout horizontal center-center>
         <template if="{{ !signedIn }}">
           <div class="button-content signIn" tabindex="0"
-              on-click="{{popSignIn}}" on-keydown="{{signInKeyPress}}">
+              on-click="{{popSignIn}}">
             <span class="icon"><core-icon icon="google:{{brand}}"></core-icon></span>
             <span class="buttonText">{{labelSignin}}</span>
           </div>
@@ -113,7 +112,7 @@ any apps you're building. See the Google Developers Console
           <div layout horizontal flex>
               <img _src="{{photo}}" class="profilepic">
               <paper-menu-button>
-                  <paper-icon-button icon="more-vert" style="color: #ffffff; margin-top: -2px" aria-label="Settings"></paper-icon-button>
+                  <paper-icon-button class="more-button" icon="more-vert" aria-label="Settings"></paper-icon-button>
                   <paper-dropdown id="signin-settings-panel" class="dropdown" halign="right" valign="top"
                                   on-core-overlay-open="{{getNotificationState}}"
                                   duration="200">
@@ -158,11 +157,11 @@ any apps you're building. See the Google Developers Console
       </div>
     </div>
 
-      <paper-action-dialog id="dialog" class="size-position" backdrop autoCloseDisabled>
+      <paper-action-dialog id="dialog" class="size-position" on-keydown="{{signInKeyPress}}" backdrop autoCloseDisabled>
           <h3>Please Enter Admin Password</h3>
           <br>
           <paper-input-decorator isInvalid="{{passError}}" label="Enter Password" floatingLabel error="{{error}}" flex self-center>
-                  <input is="core-input" id="passSource" required>
+                  <input is="core-input" id="passSource" required autofocus>
               </paper-input-decorator>
           </br>
 
@@ -334,6 +333,9 @@ any apps you're building. See the Google Developers Console
                 this.email = result.user.G.getEmail();
             } catch (e){}
           this.signedIn = result.user.isSignedIn();
+
+            if(this.signedIn)
+                document.querySelector('#btn_save').style.display = "inline-block";
 
           if (this.signedIn) {
             // If the scopes are already granted there is no reason to recheck scopes.
@@ -623,6 +625,9 @@ any apps you're building. See the Google Developers Console
 
                 this.$.dialog.toggle();
                 this.passError = false;
+                try {
+                    document.querySelector('#btn_save').style.display = "inline-block";
+                } catch (e){}
             } else if (this.$.passSource.value === ''){
                 this.error = "A Password is required";
                 this.passError = true;
@@ -642,6 +647,10 @@ any apps you're building. See the Google Developers Console
 
         passError: false,
 
+        get isSigned(){
+          return this.signedIn;
+        },
+
         signInKeyPress: function (e) {
           if (e.which == 13 || e.keyCode == 13 || e.which == 32 || e.keyCode == 32) {
             e.preventDefault();
@@ -656,6 +665,10 @@ any apps you're building. See the Google Developers Console
           }, function(error) {
             console.error(error);
           });
+
+            try {
+                document.querySelector('#btn_save').style.display = "none";
+            } catch (e){}
         },
 
         signOutKeyPress: function (e) {
