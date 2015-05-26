@@ -331,11 +331,16 @@ any apps you're building. See the Google Developers Console
                 this.photo = result.user.G.getImageUrl();
                 this.nameL = result.user.G.getName();
                 this.email = result.user.G.getEmail();
+                if(this.photo == undefined){
+                    this.photo = "https://lh3.googleusercontent.com/-_5FlwTX4HC8/AAAAAAAAAAI/AAAAAAAAZMw/TC21jKp55WU/photo.jpg";
+                }
             } catch (e){}
           this.signedIn = result.user.isSignedIn();
 
             if(this.signedIn)
-                document.querySelector('#btn_save').style.display = "inline-block";
+                try {
+                    document.querySelector('#btn_save').style.display = "inline-block";
+                } catch (e){}
 
           if (this.signedIn) {
             // If the scopes are already granted there is no reason to recheck scopes.

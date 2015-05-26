@@ -263,8 +263,8 @@
                             <a class="btn btn-app center-block" id="queryButton">
                                 <i class="fa fa-play"></i> Execute Query
                             </a>
-                            <a class="btn btn-app center-block" id="buttonSave2" ng-click="saveResults()" style="display: none;">
-                                <i class="fa fa-save"></i> Save Results
+                            <a class="btn btn-app center-block" id="buttonShow" ng-click="showInDashboard()" style="display: none;">
+                                <i class="fa fa-refresh"></i> Show in Dashboard
                             </a>
 
                             <div class="alert alert-danger alert-dismissable hide" id="queryError">
@@ -526,9 +526,15 @@
         }
     };
 
+    var jsYasqe = function() {
+
+        this.getQuery = function(){
+            return yasqe.getValue();
+        }
+    };
+
     tabs.addEventListener('core-select',function(){
         pages.selected = tabs.selected;
-        console.log(logged.isSigned);
     });
 
     var _editorEndpoint = 'http://demos.gsi.dit.upm.es/fuseki/geo/query?query=';
@@ -640,7 +646,7 @@
                     console.log(data);
                     $("#querySuccess").removeClass('hide');
 
-                    document.getElementById("buttonSave2").style.display = "block";
+                    document.getElementById("buttonShow").style.display = "block";
                     //ko.mapping.fromJSON(data, vm.viewData);
                     //updateWidgets(true);
                     $("#hiddenResults").val(data);
@@ -656,7 +662,7 @@
             }
         };
         return false;
-    };
+    }
 
     function populateQueryWithParams(){
         // update param list

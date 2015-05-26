@@ -185,16 +185,17 @@
                             <button class="fa fa-question-circle">
                             </button>
 
-                            <paper-action-dialog class="size-position" backdrop autoCloseDisabled layered="false">
-                                <h3>Sparql Editor</h3>
+                            <paper-action-dialog class="size-position" style="height: 280px" backdrop autoCloseDisabled layered="false">
+                                <h3>Dataset List</h3>
                                 <br>
-                                <ol style="font-size: 0.92em">
-                                    <li> Choose a query template in the list </li><br>
-                                    <li> If you have created a parameters list, select values on it </li><br>
-                                    <li> Press "Execute Query" button</li><br>
-                                    <li> If an error occurs, check the query syntax</li><br>
-                                    <li> Below appears the results of data retrieved</li><br>
-                                </ol>
+                                <br>
+                                <ul>
+                                    <li> View properties of dataset </li><br>
+                                    <li> Edit properties of dataset </li><br>
+                                    <li> Delete selected dataset *</li><br>
+                                </ul>
+
+                                <h5>*When you delete a dataset, query attached to it doesn't be deleted </h5>
                                 <paper-button affirmative autofocus>Tap me to close</paper-button>
                             </paper-action-dialog>
 
@@ -224,7 +225,6 @@
 
                         <div class="box-tools pull-right">
                             <button class="btn btn-box-tool" ng-click="view($index)"><i class="ion ion-eye"></i></button>
-                            <button class="btn btn-box-tool" ng-click="browse($index)"><i class="ion ion-android-globe"></i></button>
                             <button class="btn btn-box-tool" style="display: none" ng-click="save($index)"><i class="fa fa-save"></i></button>
                             <button class="btn btn-box-tool" ng-click="edit($index)"><i class="ion ion-android-create"></i></button>
                             <button class="btn btn-box-tool" ng-click="remove($index)"><i class="ion ion-android-delete"></i></button>
@@ -315,6 +315,19 @@
         this.isLoggead = function(){
             return logged.isSigned;
         }
+    };
+
+    var scope = document.querySelector('template[is=auto-binding]');
+
+    scope.toggleDialog1 = function(e) {
+        if (e.target.localName != 'button') {
+            return;
+        }
+        var d = e.target.nextElementSibling;
+        if (!d) {
+            return;
+        }
+        d.toggle();
     };
 </script>
 

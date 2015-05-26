@@ -9,6 +9,7 @@ import 'authParam.dart';
 class DashboardRestaurants extends AuthParam{
 
   var googleSign = new JsObject(context['loggead']);
+  var yasqe = new JsObject(context['jsYasqe']);
   var host = "";
   List names;
   String query = '';
@@ -18,7 +19,7 @@ class DashboardRestaurants extends AuthParam{
   String collection = '';
   String result = '';
   List querys = [];
-  List params;
+  List results;
   List aux = [];
   List datasets = [];
 
@@ -26,7 +27,7 @@ class DashboardRestaurants extends AuthParam{
     host = getHost();
     _loadQuery();
     _loadDataset();
-
+    _loadResults();
   }
 
   _loadQuery() {
@@ -56,8 +57,40 @@ class DashboardRestaurants extends AuthParam{
     });
   }
 
-  void saveResults(){
+  void _loadResults(){
+    var url = "http://$host/web/results";
+
+    // call the web server asynchronously
+    var request = HttpRequest.getString(url).then((responseText){
+      results = JSON.decode(responseText);
+    });
+  }
+
+  void showInDashboard(){
     if(googleSign.callMethod('isLoggead')) {
+      var data = yasqe.callMethod('getQuery');
+      var resultVar = {
+          "Type" : "Restaurants",
+          "Query": data
+      };
+      for(int i = 0; i < results.length; i++){
+        if(results[i]["Type"] == "Restaurants")
+          results.removeAt(i);
+      }
+      results.add(resultVar);
+      String jsonData = JSON.encode(results);
+
+      var request = new HttpRequest();
+      request.onReadyStateChange.listen((_) {
+        if (request.readyState == HttpRequest.DONE && (request.status == 200 || request.status == 0)) {
+          // data saved OK.
+          print(" Data saved successfully");
+          window.location.reload();
+        }
+      });
+      var url = "http://$host/web/results";
+      request.open("POST", url);
+      request.send(jsonData);
     }
   }
 }

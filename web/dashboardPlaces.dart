@@ -9,6 +9,7 @@ import 'authParam.dart';
 class DashboardPlaces extends AuthParam{
 
   var googleSign = new JsObject(context['loggead']);
+  var yasqe = new JsObject(context['jsYasqe']);
   var host = "";
   List names;
   String query = '';
@@ -18,7 +19,7 @@ class DashboardPlaces extends AuthParam{
   String collection = '';
   String result = '';
   List querys = [];
-  List params;
+  List results;
   List aux = [];
   List datasets = [];
 
@@ -26,7 +27,7 @@ class DashboardPlaces extends AuthParam{
     host = getHost();
     _loadQuery();
     _loadDataset();
-
+    _loadResults();
   }
 
   _loadQuery() {
@@ -36,7 +37,7 @@ class DashboardPlaces extends AuthParam{
     var request = HttpRequest.getString(url).then((responseText){
       aux = JSON.decode(responseText);
       for(int i = 0; i < aux.length; i++){
-        if(aux[i]["Endpoint"] == "http://tour-pedia.org/sparql?query=")
+        if(aux[i]["Endpoint"] == "http://lab.gsi.dit.upm.es:5050/tourpedia/query?query=")
           querys.add(aux[i]);
       }
     });
@@ -56,8 +57,40 @@ class DashboardPlaces extends AuthParam{
     });
   }
 
-  void saveResults(){
+  void _loadResults(){
+    var url = "http://$host/web/results";
+
+    // call the web server asynchronously
+    var request = HttpRequest.getString(url).then((responseText){
+      results = JSON.decode(responseText);
+    });
+  }
+
+  void showInDashboard(){
     if(googleSign.callMethod('isLoggead')) {
+      var data = yasqe.callMethod('getQuery');
+      var resultVar = {
+          "Type" : "Places",
+          "Query": data
+      };
+      for(int i = 0; i < results.length; i++){
+        if(results[i]["Type"] == "Places")
+          results.removeAt(i);
+      }
+      results.add(resultVar);
+      String jsonData = JSON.encode(results);
+
+      var request = new HttpRequest();
+      request.onReadyStateChange.listen((_) {
+        if (request.readyState == HttpRequest.DONE && (request.status == 200 || request.status == 0)) {
+          // data saved OK.
+          print(" Data saved successfully");
+          window.location.reload();
+        }
+      });
+      var url = "http://$host/web/results";
+      request.open("POST", url);
+      request.send(jsonData);
     }
   }
 

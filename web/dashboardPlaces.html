@@ -268,8 +268,8 @@
                             <a class="btn btn-app center-block" id="queryButton">
                                 <i class="fa fa-play"></i> Execute Query
                             </a>
-                            <a class="btn btn-app center-block" id="buttonSave2" ng-click="saveResults()" style="display: none;">
-                                <i class="fa fa-save"></i> Save Results
+                            <a class="btn btn-app center-block" id="buttonShow" ng-click="showInDashboard()" style="display: none;">
+                                <i class="fa fa-refresh"></i> Show in Dashboard
                             </a>
 
                             <div class="alert alert-danger alert-dismissable hide" id="queryError">
@@ -651,18 +651,26 @@
             return logged.isSigned;
         }
     };
+
+    var jsYasqe = function() {
+
+        this.getQuery = function(){
+            return yasqe.getValue();
+        }
+    };
+
     tabs.addEventListener('core-select',function(){
         pages.selected = tabs.selected;
     });
 
-    var _editorEndpoint = 'http://tour-pedia.org/sparql?query=';
+    var _editorEndpoint = 'http://lab.gsi.dit.upm.es:5050/tourpedia/query?query=';
     var myEl2 = document.getElementById('querySelector');
     var regex = /<(\S+)>/g;
     var parsedData = [];
     $.getJSON("queries.json", function (data) {
 
         for(i = 0; i < data.length; i++){
-            if(data[i]["Endpoint"] == "http://tour-pedia.org/sparql?query=") {
+            if(data[i]["Endpoint"] == "http://lab.gsi.dit.upm.es:5050/tourpedia/query?query=") {
                 parsedData.push(data[i]);
             }
         }
@@ -764,7 +772,7 @@
                     console.log(data);
                     $("#querySuccess").removeClass('hide');
 
-                    document.getElementById("buttonSave2").style.display = "block";
+                    document.getElementById("buttonShow").style.display = "block";
                     //ko.mapping.fromJSON(data, vm.viewData);
                     //updateWidgets(true);
                     $("#hiddenResults").val(data);
