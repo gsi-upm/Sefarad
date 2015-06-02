@@ -56,7 +56,7 @@ class Query extends AuthParam{
   }
 
   void _loadDataset(){
-    var url = "http://$host/web/dataset";
+    var url = "http://$host/web/dataset.json";
 
     // call the web server asynchronously
     var request = HttpRequest.getString(url).then((responseText){
@@ -69,7 +69,7 @@ class Query extends AuthParam{
     });
   }
   void _loadQueries(){
-    var url = "http://$host/web/queries";
+    var url = "http://$host/web/queries.json";
 
     // call the web server asynchronously
     var request = HttpRequest.getString(url).then((responseText){
@@ -220,7 +220,7 @@ class Query extends AuthParam{
 
         }
       });
-      var url = "http://$host/web/queries";
+      var url = "http://$host/web/queries.json";
       request.open("POST", url);
       request.send(jsonData);
     } else {

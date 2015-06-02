@@ -2,78 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c91c4c5f-92ba-4497-a98e-d764ff70c174" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/bower_components/core-animation/packages" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/bower_components/core-localstorage/packages" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/bower_components/core-pages/packages" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/bower_components/core-shared-lib/packages" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/bower_components/core-signals/packages" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/bower_components/font-roboto/packages" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/bower_components/google-apis/packages" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/polymer-elements/google-signin/packages" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/polymer-elements/google-youtube-api/packages" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/polymer-elements/paper-dropdown/packages" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/polymer-elements/paper-fab/packages" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/polymer-elements/paper-fab/test/packages" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/polymer-elements/paper-menu-button/packages" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/polymer-elements/paper-tab/packages" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/analyzer" afterPath="$PROJECT_DIR$/packages/analyzer" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/angular" afterPath="$PROJECT_DIR$/packages/angular" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/args" afterPath="$PROJECT_DIR$/packages/args" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/asn1lib" afterPath="$PROJECT_DIR$/packages/asn1lib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/barback" afterPath="$PROJECT_DIR$/packages/barback" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/bignum" afterPath="$PROJECT_DIR$/packages/bignum" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/browser" afterPath="$PROJECT_DIR$/packages/browser" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/bson" afterPath="$PROJECT_DIR$/packages/bson" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/cipher" afterPath="$PROJECT_DIR$/packages/cipher" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/cli_util" afterPath="$PROJECT_DIR$/packages/cli_util" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/code_transformers" afterPath="$PROJECT_DIR$/packages/code_transformers" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/collection" afterPath="$PROJECT_DIR$/packages/collection" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/crypto" afterPath="$PROJECT_DIR$/packages/crypto" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/csslib" afterPath="$PROJECT_DIR$/packages/csslib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/di" afterPath="$PROJECT_DIR$/packages/di" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/fixnum" afterPath="$PROJECT_DIR$/packages/fixnum" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/google_oauth2_client" afterPath="$PROJECT_DIR$/packages/google_oauth2_client" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/html5lib" afterPath="$PROJECT_DIR$/packages/html5lib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/html" afterPath="$PROJECT_DIR$/packages/html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/http" afterPath="$PROJECT_DIR$/packages/http" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/http_parser" afterPath="$PROJECT_DIR$/packages/http_parser" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/http_server" afterPath="$PROJECT_DIR$/packages/http_server" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/initialize" afterPath="$PROJECT_DIR$/packages/initialize" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/intl" afterPath="$PROJECT_DIR$/packages/intl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/json_web_token" afterPath="$PROJECT_DIR$/packages/json_web_token" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/logging" afterPath="$PROJECT_DIR$/packages/logging" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/matcher" afterPath="$PROJECT_DIR$/packages/matcher" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/mime" afterPath="$PROJECT_DIR$/packages/mime" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/mongo_dart" afterPath="$PROJECT_DIR$/packages/mongo_dart" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/mongo_dart_query" afterPath="$PROJECT_DIR$/packages/mongo_dart_query" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/more" afterPath="$PROJECT_DIR$/packages/more" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/oauth2" afterPath="$PROJECT_DIR$/packages/oauth2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/observe" afterPath="$PROJECT_DIR$/packages/observe" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/path" afterPath="$PROJECT_DIR$/packages/path" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/perf_api" afterPath="$PROJECT_DIR$/packages/perf_api" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/petitparser" afterPath="$PROJECT_DIR$/packages/petitparser" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/polymer" afterPath="$PROJECT_DIR$/packages/polymer" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/polymer_expressions" afterPath="$PROJECT_DIR$/packages/polymer_expressions" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/pool" afterPath="$PROJECT_DIR$/packages/pool" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/route_hierarchical" afterPath="$PROJECT_DIR$/packages/route_hierarchical" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/rsa_pkcs" afterPath="$PROJECT_DIR$/packages/rsa_pkcs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/smoke" afterPath="$PROJECT_DIR$/packages/smoke" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/source_maps" afterPath="$PROJECT_DIR$/packages/source_maps" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/source_span" afterPath="$PROJECT_DIR$/packages/source_span" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/stack_trace" afterPath="$PROJECT_DIR$/packages/stack_trace" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/string_scanner" afterPath="$PROJECT_DIR$/packages/string_scanner" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/template_binding" afterPath="$PROJECT_DIR$/packages/template_binding" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/unittest" afterPath="$PROJECT_DIR$/packages/unittest" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/utf" afterPath="$PROJECT_DIR$/packages/utf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/watcher" afterPath="$PROJECT_DIR$/packages/watcher" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/web_components" afterPath="$PROJECT_DIR$/packages/web_components" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/when" afterPath="$PROJECT_DIR$/packages/when" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/which" afterPath="$PROJECT_DIR$/packages/which" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/yaml" afterPath="$PROJECT_DIR$/packages/yaml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/polymer-elements/empty.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Sefarad-2.0.iml" afterPath="$PROJECT_DIR$/.idea/Sefarad-2.0.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/authParam.dart" afterPath="$PROJECT_DIR$/web/authParam.dart" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboard.dart" afterPath="$PROJECT_DIR$/web/dashboard.dart" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboardPlaces.dart" afterPath="$PROJECT_DIR$/web/dashboardPlaces.dart" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboardRestaurants.dart" afterPath="$PROJECT_DIR$/web/dashboardRestaurants.dart" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dataset.dart" afterPath="$PROJECT_DIR$/web/dataset.dart" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/newdataset.dart" afterPath="$PROJECT_DIR$/web/newdataset.dart" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/newquery.dart" afterPath="$PROJECT_DIR$/web/newquery.dart" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/query.dart" afterPath="$PROJECT_DIR$/web/query.dart" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/queryeditor.dart" afterPath="$PROJECT_DIR$/web/queryeditor.dart" />
     </list>
     <ignored path="Sefarad-2.0.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -104,34 +41,82 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="controller.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/controller.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4401" max-vertical-offset="6195">
-              <caret line="313" column="13" selection-start-line="313" selection-start-column="13" selection-end-line="313" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="dashboard.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/dashboard.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="810" max-vertical-offset="1545">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1545">
               <caret line="86" column="44" selection-start-line="86" selection-start-column="44" selection-end-line="86" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dashboard.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/dashboard.html">
+      <file leaf-file-name="dataset.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/dataset.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.39096266" vertical-offset="1331" max-vertical-offset="10905">
-              <caret line="102" column="16" selection-start-line="99" selection-start-column="12" selection-end-line="102" selection-end-column="16" />
-              <folding>
-                <element signature="n#style#0;n#li#1;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="-7.888889" vertical-offset="2607" max-vertical-offset="3195">
+              <caret line="193" column="48" selection-start-line="193" selection-start-column="48" selection-end-line="193" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="newdataset.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/newdataset.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1065" max-vertical-offset="1680">
+              <caret line="85" column="46" selection-start-line="85" selection-start-column="46" selection-end-line="85" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="queryeditor.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/queryeditor.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="65.44444" vertical-offset="2292" max-vertical-offset="2880">
+              <caret line="41" column="36" selection-start-line="41" selection-start-column="36" selection-end-line="41" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dashboardPlaces.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/dashboardPlaces.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.2727275" vertical-offset="985" max-vertical-offset="1545">
+              <caret line="90" column="46" selection-start-line="90" selection-start-column="46" selection-end-line="90" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dashboardRestaurants.dart" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.80487806" vertical-offset="780" max-vertical-offset="1530">
+              <caret line="90" column="46" selection-start-line="90" selection-start-column="46" selection-end-line="90" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="query.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/query.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-9.0" vertical-offset="2892" max-vertical-offset="3480">
+              <caret line="214" column="27" selection-start-line="214" selection-start-column="23" selection-end-line="214" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="newquery.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/newquery.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.814815" vertical-offset="584" max-vertical-offset="3975">
+              <caret line="58" column="44" selection-start-line="58" selection-start-column="44" selection-end-line="58" selection-end-column="44" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -146,33 +131,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="results.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/results.json">
+      <file leaf-file-name="dataset.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/dataset.json">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="90">
-              <caret line="0" column="26" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dashboardPlaces.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/dashboardPlaces.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="9890" max-vertical-offset="12780">
-              <caret line="672" column="39" selection-start-line="672" selection-start-column="39" selection-end-line="672" selection-end-column="85" />
-              <folding>
-                <element signature="n#style#0;n#a#1;n#div#5;n#div#0;n#section#0;n#div#0;n#core-pages#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dashboardPlaces.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/dashboardPlaces.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="1545">
-              <caret line="39" column="87" selection-start-line="39" selection-start-column="87" selection-end-line="39" selection-end-column="87" />
+              <caret line="0" column="496" selection-start-line="0" selection-start-column="496" selection-end-line="0" selection-end-column="549" />
               <folding />
             </state>
           </provider>
@@ -227,14 +190,8 @@
         <option value="$PROJECT_DIR$/web/dist/css/skins/_all-skins.min.css" />
         <option value="$PROJECT_DIR$/web/newdataset.html" />
         <option value="$PROJECT_DIR$/web/newquery.html" />
-        <option value="$PROJECT_DIR$/web/newdataset.dart" />
-        <option value="$PROJECT_DIR$/web/newquery.dart" />
-        <option value="$PROJECT_DIR$/web/query.dart" />
-        <option value="$PROJECT_DIR$/web/queryeditor.dart" />
         <option value="$PROJECT_DIR$/web/signGoogle.dart" />
-        <option value="$PROJECT_DIR$/web/dataset.dart" />
         <option value="$PROJECT_DIR$/web/results.json" />
-        <option value="$PROJECT_DIR$/web/dashboardRestaurants.dart" />
         <option value="$PROJECT_DIR$/web/dashboardRestaurants.html" />
         <option value="$PROJECT_DIR$/web/controller.js" />
         <option value="$PROJECT_DIR$/web/polymer-elements/google-signin/google-signin.html" />
@@ -242,12 +199,18 @@
         <option value="$PROJECT_DIR$/web/query.html" />
         <option value="$PROJECT_DIR$/web/queryeditor.html" />
         <option value="$PROJECT_DIR$/web/dataset.json" />
-        <option value="$PROJECT_DIR$/web/dashboardPlaces.dart" />
         <option value="$PROJECT_DIR$/web/dashboardPlaces.html" />
         <option value="$PROJECT_DIR$/web/queries.json" />
         <option value="$PROJECT_DIR$/web/authParam.dart" />
         <option value="$PROJECT_DIR$/web/dashboard.dart" />
         <option value="$PROJECT_DIR$/web/dashboard.html" />
+        <option value="$PROJECT_DIR$/web/dataset.dart" />
+        <option value="$PROJECT_DIR$/web/newdataset.dart" />
+        <option value="$PROJECT_DIR$/web/queryeditor.dart" />
+        <option value="$PROJECT_DIR$/web/query.dart" />
+        <option value="$PROJECT_DIR$/web/newquery.dart" />
+        <option value="$PROJECT_DIR$/web/dashboardPlaces.dart" />
+        <option value="$PROJECT_DIR$/web/dashboardRestaurants.dart" />
       </list>
     </option>
   </component>
@@ -258,8 +221,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="65" />
     <option name="y" value="24" />
-    <option name="width" value="1215" />
-    <option name="height" value="1000" />
+    <option name="width" value="1855" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -390,10 +353,10 @@
       <ConfigurationWrapper RunnerId="JavascriptDebugRunner" />
       <method />
     </configuration>
-    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <method />
     </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <method />
     </configuration>
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -413,9 +376,6 @@
       <BehatRunner />
       <method />
     </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
-      <method />
-    </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
       <node-options />
       <gulpfile />
@@ -423,6 +383,9 @@
       <arguments />
       <pass-parent-envs>true</pass-parent-envs>
       <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <configuration default="false" name="phpServer" type="PhpBuiltInWebServerConfigurationType" factoryName="PHP Built-in Web Server" document_root="$PROJECT_DIR$" port="2015">
@@ -561,19 +524,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="24" width="1215" height="1000" extended-state="6" />
+    <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32853982" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Pub Serve" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32853982" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Pub Serve" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.328125" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32933232" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34901625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32743362" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35323384" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32743362" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -581,8 +542,10 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299363" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32738853" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32743362" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
@@ -604,9 +567,9 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1509121" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32916668" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -640,7 +603,9 @@
     <option name="LAST_COMMIT_MESSAGE" value="- Google-Signin Component full implemented" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -805,13 +770,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/queryeditor.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2970">
-          <caret line="9" column="29" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/newquery.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.22853185" vertical-offset="5280" max-vertical-offset="7245">
@@ -819,32 +777,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/newdataset.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15831135" vertical-offset="0" max-vertical-offset="1755">
-          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bin/server.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.09" vertical-offset="45" max-vertical-offset="2805">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/query.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.036961" vertical-offset="2498" max-vertical-offset="3480">
-          <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/newquery.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.63" vertical-offset="0" max-vertical-offset="3975">
-          <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -883,41 +819,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/dataset.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.9281313" vertical-offset="2708" max-vertical-offset="3195">
-          <caret line="58" column="12" selection-start-line="58" selection-start-column="12" selection-end-line="58" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/newdataset.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.42456895" vertical-offset="2668" max-vertical-offset="5445">
           <caret line="191" column="70" selection-start-line="191" selection-start-column="70" selection-end-line="191" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dataset.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="464">
-          <caret line="0" column="496" selection-start-line="0" selection-start-column="496" selection-end-line="0" selection-end-column="549" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.18" vertical-offset="240" max-vertical-offset="1530">
-          <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboardPlaces.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="1545">
-          <caret line="39" column="87" selection-start-line="39" selection-start-column="87" selection-end-line="39" selection-end-column="87" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -954,7 +859,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="9890" max-vertical-offset="12780">
           <caret line="672" column="39" selection-start-line="672" selection-start-column="39" selection-end-line="672" selection-end-column="85" />
           <folding>
-            <element signature="n#style#0;n#a#1;n#div#5;n#div#0;n#section#0;n#div#0;n#core-pages#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#1;n#div#5;n#div#0;n#section#0;n#div#0;n#core-pages#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -963,7 +868,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="436">
           <caret line="0" column="16985" selection-start-line="0" selection-start-column="16985" selection-end-line="0" selection-end-column="16985" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -972,6 +876,16 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="4401" max-vertical-offset="6195">
           <caret line="313" column="13" selection-start-line="313" selection-start-column="13" selection-end-line="313" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.291667" vertical-offset="1331" max-vertical-offset="10905">
+          <caret line="102" column="16" selection-start-line="99" selection-start-column="12" selection-end-line="102" selection-end-column="16" />
+          <folding>
+            <element signature="n#style#0;n#li#1;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -991,6 +905,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/dataset.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
+          <caret line="0" column="496" selection-start-line="0" selection-start-column="496" selection-end-line="0" selection-end-column="549" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dataset.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.888889" vertical-offset="2607" max-vertical-offset="3195">
+          <caret line="193" column="48" selection-start-line="193" selection-start-column="48" selection-end-line="193" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/newdataset.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1065" max-vertical-offset="1680">
+          <caret line="85" column="46" selection-start-line="85" selection-start-column="46" selection-end-line="85" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/queryeditor.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="65.44444" vertical-offset="2292" max-vertical-offset="2880">
+          <caret line="41" column="36" selection-start-line="41" selection-start-column="36" selection-end-line="41" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/query.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.0" vertical-offset="2892" max-vertical-offset="3480">
+          <caret line="214" column="27" selection-start-line="214" selection-start-column="23" selection-end-line="214" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/newquery.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.814815" vertical-offset="584" max-vertical-offset="3975">
+          <caret line="58" column="44" selection-start-line="58" selection-start-column="44" selection-end-line="58" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/dashboard.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="810" max-vertical-offset="1545">
@@ -999,13 +961,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboard.html">
+    <entry file="file://$PROJECT_DIR$/web/dashboardPlaces.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39096266" vertical-offset="1331" max-vertical-offset="10905">
-          <caret line="102" column="16" selection-start-line="99" selection-start-column="12" selection-end-line="102" selection-end-column="16" />
-          <folding>
-            <element signature="n#style#0;n#li#1;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-5.2727275" vertical-offset="985" max-vertical-offset="1545">
+          <caret line="90" column="46" selection-start-line="90" selection-start-column="46" selection-end-line="90" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.80487806" vertical-offset="780" max-vertical-offset="1530">
+          <caret line="90" column="46" selection-start-line="90" selection-start-column="46" selection-end-line="90" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>

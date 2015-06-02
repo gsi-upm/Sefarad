@@ -24,7 +24,7 @@ class DatasetList extends AuthParam{
   }
 
   _loadDataset() {
-    var url = "http://$host/web/dataset";
+    var url = "http://$host/web/dataset.json";
 
     // call the web server asynchronously
     var request = HttpRequest.getString(url).then((responseText){
@@ -191,7 +191,7 @@ class DatasetList extends AuthParam{
           querySelector('#saveSuccess').classes.remove("hide");
         }
       });
-      var url = "http://$host/web/dataset";
+      var url = "http://$host/web/dataset.json";
       request.open("POST", url);
       request.send(jsonData);
     } else {

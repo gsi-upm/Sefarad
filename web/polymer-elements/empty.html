@@ -1,0 +1,38 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<polymer-element name="bubble-chart" class="dc-element" attributes="param">
+
+  <template>
+      <!-- css style -->
+      <!-- HTML content -->
+
+  </template>
+
+    <script>
+        Polymer({
+
+            crossfilter: {},
+            chart: {},
+            dimension: {},
+            group: {},
+
+            ready: function() {
+                console.log("generic-chart ready");
+                numWidgets = numWidgets - 1; //here we reduce the widgets counter
+            },
+
+            init: function () {
+
+var p = this.param; //set the params from the HTML tag
+this.dimension = this.crossfilter.dimension(function(d) {
+    return d[p].value;
+});
+this.group = this.dimension.group().reduceCount();
+
+                //Widget specific initialization code
+
+            }
+        });
+    </script>
+
+</polymer-element>
