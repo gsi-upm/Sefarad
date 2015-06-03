@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'authParam.dart';
 
 @Injectable()
-class DashboardRestaurants extends AuthParam{
+class DashboardTweet extends AuthParam{
 
   var googleSign = new JsObject(context['loggead']);
   var yasqe = new JsObject(context['jsYasqe']);
@@ -19,11 +19,11 @@ class DashboardRestaurants extends AuthParam{
   String collection = '';
   String result = '';
   List querys = [];
-  List results;
+  List results = [];
   List aux = [];
   List datasets = [];
 
-  DashboardRestaurants(){
+  DashboardTweet(){
     host = getHost();
     _loadQuery();
     _loadDataset();
@@ -37,14 +37,14 @@ class DashboardRestaurants extends AuthParam{
     var request = HttpRequest.getString(url).then((responseText){
       aux = JSON.decode(responseText);
       for(int i = 0; i < aux.length; i++){
-        if(aux[i]["Endpoint"] == "http://demos.gsi.dit.upm.es/fuseki/restaurants/query?query=")
+        if(aux[i]["Endpoint"] == "http://demos.gsi.dit.upm.es/fuseki/tweets/query?query=")
           querys.add(aux[i]);
       }
     });
     //var yasgui = new JsObject(context['yasgui']);
   }
   void _loadDataset(){
-    var url = "http://$host/web/dataset.json";
+    var url = "http://$host/web/dataset";
 
     // call the web server asynchronously
     var request = HttpRequest.getString(url).then((responseText){
@@ -70,11 +70,11 @@ class DashboardRestaurants extends AuthParam{
     if(googleSign.callMethod('isLoggead')) {
       var data = yasqe.callMethod('getQuery');
       var resultVar = {
-          "Type" : "Restaurants",
+          "Type" : "Tweets",
           "Query": data
       };
       for(int i = 0; i < results.length; i++){
-        if(results[i]["Type"] == "Restaurants")
+        if(results[i]["Type"] == "Tweets")
           results.removeAt(i);
       }
       results.add(resultVar);
@@ -93,10 +93,11 @@ class DashboardRestaurants extends AuthParam{
       request.send(jsonData);
     }
   }
+
 }
 
 void main() {
   applicationFactory()
-  .rootContextType(DashboardRestaurants)
+  .rootContextType(DashboardTweet)
   .run();
 }

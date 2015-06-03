@@ -84,7 +84,7 @@ any apps you're building. See the Google Developers Console
 <polymer-element name="google-signin" extends="paper-button-base" role="button" attributes="signedIn">
   <template>
     <google-js-api on-js-api-load="{{loadAuth}}"></google-js-api>
-      <link rel="stylesheet" href="../../home.css" >
+      <link rel="stylesheet" href="../../index.css" >
       <link rel="stylesheet" href="google-signin.css" >
 
     <core-signals on-core-signal-google-auth-request="{{authRequestScopes}}"></core-signals>
@@ -161,7 +161,7 @@ any apps you're building. See the Google Developers Console
           <h3>Please Enter Admin Password</h3>
           <br>
           <paper-input-decorator isInvalid="{{passError}}" label="Enter Password" floatingLabel error="{{error}}" flex self-center>
-                  <input is="core-input" id="passSource" required autofocus>
+                  <input is="core-input" name="j_password" type="password" value="{{j_password}}" id="passSource"  required autofocus>
               </paper-input-decorator>
           </br>
 

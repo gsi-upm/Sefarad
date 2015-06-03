@@ -26,7 +26,7 @@ class Dataset extends AuthParam{
   }
 
   void _loadDataset(){
-    var url = "http://$host/web/dataset.json";
+    var url = "http://$host/web/dataset";
 
     // call the web server asynchronously
     var request = HttpRequest.getString(url).then((responseText){
@@ -83,7 +83,7 @@ class Dataset extends AuthParam{
 
         }
       });
-      var url = "http://$host/web/dataset.json";
+      var url = "http://$host/web/dataset";
       request.open("POST", url);
       request.send(jsonData);
     } else {

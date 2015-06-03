@@ -31,7 +31,7 @@ class Dashboard extends AuthParam{
   }
 
   _loadQuery() {
-    var url = "http://$host/web/queries.json";
+    var url = "http://$host/web/queries";
 
     // call the web server asynchronously
     var request = HttpRequest.getString(url).then((responseText){
@@ -44,7 +44,7 @@ class Dashboard extends AuthParam{
     //var yasgui = new JsObject(context['yasgui']);
   }
   void _loadDataset(){
-    var url = "http://$host/web/dataset.json";
+    var url = "http://$host/web/dataset";
 
     // call the web server asynchronously
     var request = HttpRequest.getString(url).then((responseText){
@@ -58,7 +58,7 @@ class Dashboard extends AuthParam{
   }
 
   void _loadResults(){
-    var url = "http://$host/web/results.json";
+    var url = "http://$host/web/results";
 
     // call the web server asynchronously
     var request = HttpRequest.getString(url).then((responseText){
@@ -88,7 +88,7 @@ class Dashboard extends AuthParam{
           window.location.reload();
         }
       });
-      var url = "http://$host/web/results.json";
+      var url = "http://$host/web/results";
       request.open("POST", url);
       request.send(jsonData);
     }

@@ -24,7 +24,7 @@ class QueryList extends AuthParam{
   }
 
   _loadQuery() {
-    var url = "http://$host/web/queries.json";
+    var url = "http://$host/web/queries";
 
     // call the web server asynchronously
     var request = HttpRequest.getString(url).then((responseText){
@@ -210,7 +210,7 @@ class QueryList extends AuthParam{
           querySelector('#saveSuccess').classes.remove("hide");
         }
       });
-      var url = "http://$host/web/queries.json";
+      var url = "http://$host/web/queries";
       request.open("POST", url);
       request.send(jsonData);
     } else {

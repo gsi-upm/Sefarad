@@ -3,7 +3,7 @@ import 'package:angular/application_factory.dart';
 
 @Injectable()
 class AuthParam {
-  var hostServer = "localhost:63342/Sefarad-2.0";
+  var hostServer = "localhost:1990";
 
   String getHost() => hostServer;
 }
