@@ -66,6 +66,28 @@ class DashboardTweet extends AuthParam{
     });
   }
 
+  void showDefault(){
+    if(googleSign.callMethod('isLoggead')) {
+      for(int i = 0; i < results.length; i++){
+        if(results[i]["Type"] == "Tweets")
+          results.removeAt(i);
+      }
+      String jsonData = JSON.encode(results);
+
+      var request = new HttpRequest();
+      request.onReadyStateChange.listen((_) {
+        if (request.readyState == HttpRequest.DONE && (request.status == 200 || request.status == 0)) {
+          // data saved OK.
+          print(" Data saved successfully");
+          window.location.reload();
+        }
+      });
+      var url = "http://$host/web/results";
+      request.open("POST", url);
+      request.send(jsonData);
+    }
+  }
+
   void showInDashboard(){
     if(googleSign.callMethod('isLoggead')) {
       var data = yasqe.callMethod('getQuery');
