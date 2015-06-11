@@ -2,76 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c91c4c5f-92ba-4497-a98e-d764ff70c174" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/packages/matcher" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/packages/petitparser" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/analyzer" afterPath="$PROJECT_DIR$/packages/analyzer" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/angular" afterPath="$PROJECT_DIR$/packages/angular" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/args" afterPath="$PROJECT_DIR$/packages/args" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/asn1lib" afterPath="$PROJECT_DIR$/packages/asn1lib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/barback" afterPath="$PROJECT_DIR$/packages/barback" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/bignum" afterPath="$PROJECT_DIR$/packages/bignum" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/browser" afterPath="$PROJECT_DIR$/packages/browser" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/bson" afterPath="$PROJECT_DIR$/packages/bson" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/cipher" afterPath="$PROJECT_DIR$/packages/cipher" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/cli_util" afterPath="$PROJECT_DIR$/packages/cli_util" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/code_transformers" afterPath="$PROJECT_DIR$/packages/code_transformers" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/collection" afterPath="$PROJECT_DIR$/packages/collection" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/crypto" afterPath="$PROJECT_DIR$/packages/crypto" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/csslib" afterPath="$PROJECT_DIR$/packages/csslib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/di" afterPath="$PROJECT_DIR$/packages/di" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/fixnum" afterPath="$PROJECT_DIR$/packages/fixnum" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/google_oauth2_client" afterPath="$PROJECT_DIR$/packages/google_oauth2_client" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/html5lib" afterPath="$PROJECT_DIR$/packages/html5lib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/html" afterPath="$PROJECT_DIR$/packages/html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/http" afterPath="$PROJECT_DIR$/packages/http" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/http_parser" afterPath="$PROJECT_DIR$/packages/http_parser" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/http_server" afterPath="$PROJECT_DIR$/packages/http_server" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/initialize" afterPath="$PROJECT_DIR$/packages/initialize" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/intl" afterPath="$PROJECT_DIR$/packages/intl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/json_web_token" afterPath="$PROJECT_DIR$/packages/json_web_token" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/logging" afterPath="$PROJECT_DIR$/packages/logging" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/mime" afterPath="$PROJECT_DIR$/packages/mime" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/mongo_dart" afterPath="$PROJECT_DIR$/packages/mongo_dart" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/mongo_dart_query" afterPath="$PROJECT_DIR$/packages/mongo_dart_query" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/more" afterPath="$PROJECT_DIR$/packages/more" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/oauth2" afterPath="$PROJECT_DIR$/packages/oauth2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/observe" afterPath="$PROJECT_DIR$/packages/observe" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/path" afterPath="$PROJECT_DIR$/packages/path" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/perf_api" afterPath="$PROJECT_DIR$/packages/perf_api" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/polymer" afterPath="$PROJECT_DIR$/packages/polymer" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/polymer_expressions" afterPath="$PROJECT_DIR$/packages/polymer_expressions" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/pool" afterPath="$PROJECT_DIR$/packages/pool" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/route_hierarchical" afterPath="$PROJECT_DIR$/packages/route_hierarchical" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/rsa_pkcs" afterPath="$PROJECT_DIR$/packages/rsa_pkcs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/smoke" afterPath="$PROJECT_DIR$/packages/smoke" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/source_maps" afterPath="$PROJECT_DIR$/packages/source_maps" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/source_span" afterPath="$PROJECT_DIR$/packages/source_span" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/stack_trace" afterPath="$PROJECT_DIR$/packages/stack_trace" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/string_scanner" afterPath="$PROJECT_DIR$/packages/string_scanner" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/template_binding" afterPath="$PROJECT_DIR$/packages/template_binding" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/unittest" afterPath="$PROJECT_DIR$/packages/unittest" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/utf" afterPath="$PROJECT_DIR$/packages/utf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/watcher" afterPath="$PROJECT_DIR$/packages/watcher" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/web_components" afterPath="$PROJECT_DIR$/packages/web_components" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/when" afterPath="$PROJECT_DIR$/packages/when" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/which" afterPath="$PROJECT_DIR$/packages/which" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/yaml" afterPath="$PROJECT_DIR$/packages/yaml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/tweets-formato.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/AmsterdamPlacesReduced.json" afterPath="$PROJECT_DIR$/web/assets/AmsterdamPlacesReduced.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Sefarad-2.0.iml" afterPath="$PROJECT_DIR$/.idea/Sefarad-2.0.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboard.dart" afterPath="$PROJECT_DIR$/web/dashboard.dart" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboard.html" afterPath="$PROJECT_DIR$/web/dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboardPlaces.dart" afterPath="$PROJECT_DIR$/web/dashboardPlaces.dart" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboardPlaces.html" afterPath="$PROJECT_DIR$/web/dashboardPlaces.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboardRestaurants.dart" afterPath="$PROJECT_DIR$/web/dashboardRestaurants.dart" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboardRestaurants.html" afterPath="$PROJECT_DIR$/web/dashboardRestaurants.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboardTweet.dart" afterPath="$PROJECT_DIR$/web/dashboardTweet.dart" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboardTweet.html" afterPath="$PROJECT_DIR$/web/dashboardTweet.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dataset.html" afterPath="$PROJECT_DIR$/web/dataset.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/index.html" afterPath="$PROJECT_DIR$/web/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/newdataset.html" afterPath="$PROJECT_DIR$/web/newdataset.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/newquery.html" afterPath="$PROJECT_DIR$/web/newquery.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/query.html" afterPath="$PROJECT_DIR$/web/query.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/queryeditor.html" afterPath="$PROJECT_DIR$/web/queryeditor.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/results.json" afterPath="$PROJECT_DIR$/web/results.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Sefarad-2.0.iws" />
@@ -97,6 +31,26 @@
     <option name="SORT_CHILDREN" value="false" />
     <option name="SHOW_TABLE_CONSTRAINTS" value="true" />
   </component>
+  <component name="DockManager">
+    <window id="2">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="AmsterdamPlacesReduced.json" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/web/assets/AmsterdamPlacesReduced.json">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state vertical-scroll-proportion="-866.2852" vertical-offset="473858" max-vertical-offset="474405">
+                    <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="Sefarad-2.0" />
@@ -106,10 +60,63 @@
       <file leaf-file-name="dashboard.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/dashboard.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.173913" vertical-offset="2505" max-vertical-offset="10920">
-              <caret line="178" column="124" selection-start-line="178" selection-start-column="124" selection-end-line="178" selection-end-column="124" />
+            <state vertical-scroll-proportion="-21.25" vertical-offset="945" max-vertical-offset="10980">
+              <caret line="97" column="22" selection-start-line="93" selection-start-column="6" selection-end-line="93" selection-end-column="22" />
               <folding>
-                <element signature="n#style#0;n#button#0;n#li#1;n#ul#0;n#li#0;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#i#0;n#a#0;n#li#0;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#number-chart#0;n#li#0;n#ul#0;n#li#1;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#button#0;n#li#1;n#ul#0;n#li#1;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#button#0;n#li#2;n#ul#0;n#li#1;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#li#2;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dashboardTweet.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/dashboardTweet.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-12.25" vertical-offset="4401" max-vertical-offset="9435">
+              <caret line="313" column="30" selection-start-line="313" selection-start-column="30" selection-end-line="313" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="controller.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6195">
+              <caret line="313" column="13" selection-start-line="313" selection-start-column="13" selection-end-line="313" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tweets-formato.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/assets/tweets-formato.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.52102375" vertical-offset="0" max-vertical-offset="547">
+              <caret line="2589" column="1" selection-start-line="2589" selection-start-column="1" selection-end-line="2589" selection-end-column="1" />
+              <folding>
+                <element signature="e#4#2851#0" expanded="false" />
+                <element signature="e#2855#7855#0" expanded="false" />
+                <element signature="e#7859#11865#0" expanded="false" />
+                <element signature="e#11869#16500#0" expanded="false" />
+                <element signature="e#16504#22353#0" expanded="false" />
+                <element signature="e#22357#26137#0" expanded="false" />
+                <element signature="e#26141#29907#0" expanded="false" />
+                <element signature="e#29911#35823#0" expanded="false" />
+                <element signature="e#35827#39699#0" expanded="false" />
+                <element signature="e#39703#44136#0" expanded="false" />
+                <element signature="e#44140#48340#0" expanded="false" />
+                <element signature="e#48344#52517#0" expanded="false" />
+                <element signature="e#52521#55294#0" expanded="false" />
+                <element signature="e#55298#59842#0" expanded="false" />
+                <element signature="e#59846#64153#0" expanded="false" />
+                <element signature="e#64157#69019#0" expanded="false" />
+                <element signature="e#69023#72889#0" expanded="false" />
+                <element signature="e#72893#81346#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -118,8 +125,8 @@
       <file leaf-file-name="newdataset.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/newdataset.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.9565215" vertical-offset="2038" max-vertical-offset="5430">
-              <caret line="145" column="124" selection-start-line="145" selection-start-column="124" selection-end-line="145" selection-end-column="124" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2098" max-vertical-offset="5490">
+              <caret line="149" column="123" selection-start-line="149" selection-start-column="123" selection-end-line="149" selection-end-column="123" />
               <folding />
             </state>
           </provider>
@@ -128,8 +135,8 @@
       <file leaf-file-name="newquery.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/newquery.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.521739" vertical-offset="1948" max-vertical-offset="7230">
-              <caret line="146" column="124" selection-start-line="146" selection-start-column="124" selection-end-line="146" selection-end-column="124" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2008" max-vertical-offset="7290">
+              <caret line="150" column="123" selection-start-line="150" selection-start-column="123" selection-end-line="150" selection-end-column="123" />
               <folding />
             </state>
           </provider>
@@ -138,44 +145,19 @@
       <file leaf-file-name="query.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/query.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.2608696" vertical-offset="2086" max-vertical-offset="5055">
-              <caret line="141" column="124" selection-start-line="141" selection-start-column="124" selection-end-line="141" selection-end-column="124" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2146" max-vertical-offset="5115">
+              <caret line="145" column="123" selection-start-line="145" selection-start-column="123" selection-end-line="145" selection-end-column="123" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="queryeditor.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="queryeditor.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/queryeditor.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.43404254" vertical-offset="1911" max-vertical-offset="8355">
-              <caret line="141" column="124" selection-start-line="141" selection-start-column="124" selection-end-line="141" selection-end-column="124" />
+            <state vertical-scroll-proportion="-8.5" vertical-offset="1971" max-vertical-offset="8325">
+              <caret line="145" column="123" selection-start-line="145" selection-start-column="123" selection-end-line="145" selection-end-column="123" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dashboardPlaces.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/dashboardPlaces.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.2173915" vertical-offset="2625" max-vertical-offset="12765">
-              <caret line="183" column="124" selection-start-line="183" selection-start-column="124" selection-end-line="183" selection-end-column="124" />
-              <folding>
-                <element signature="n#style#0;n#button#0;n#li#1;n#ul#0;n#li#0;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#li#2;n#ul#0;n#li#0;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dashboardRestaurants.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.043478" vertical-offset="2385" max-vertical-offset="11670">
-              <caret line="179" column="130" selection-start-line="179" selection-start-column="130" selection-end-line="179" selection-end-column="130" />
-              <folding>
-                <element signature="n#style#0;n#button#0;n#li#1;n#ul#0;n#li#0;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -183,8 +165,8 @@
       <file leaf-file-name="dataset.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/dataset.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.5652175" vertical-offset="2071" max-vertical-offset="5085">
-              <caret line="142" column="124" selection-start-line="142" selection-start-column="124" selection-end-line="142" selection-end-column="124" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2131" max-vertical-offset="5145">
+              <caret line="146" column="123" selection-start-line="146" selection-start-column="123" selection-end-line="146" selection-end-column="123" />
               <folding />
             </state>
           </provider>
@@ -209,8 +191,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/web/dist/js/demo.js" />
-        <option value="$PROJECT_DIR$/web/element.html" />
         <option value="$PROJECT_DIR$/web/elements.js" />
         <option value="$PROJECT_DIR$/web/elements.html" />
         <option value="$PROJECT_DIR$/web/polymer-elements/google-youtube-api/google-youtube-api.html" />
@@ -251,7 +231,6 @@
         <option value="$PROJECT_DIR$/web/dashboardPlaces.dart" />
         <option value="$PROJECT_DIR$/web/dashboardRestaurants.dart" />
         <option value="$PROJECT_DIR$/web/dashboardTweet.dart" />
-        <option value="$PROJECT_DIR$/web/dashboardTweet.html" />
         <option value="$PROJECT_DIR$/web/dashboard.html" />
         <option value="$PROJECT_DIR$/web/dashboardPlaces.html" />
         <option value="$PROJECT_DIR$/web/dashboardRestaurants.html" />
@@ -260,6 +239,9 @@
         <option value="$PROJECT_DIR$/web/newquery.html" />
         <option value="$PROJECT_DIR$/web/query.html" />
         <option value="$PROJECT_DIR$/web/queryeditor.html" />
+        <option value="$PROJECT_DIR$/web/dashboardTweet.html" />
+        <option value="$PROJECT_DIR$/web/assets/AmsterdamPlacesReduced.json" />
+        <option value="$PROJECT_DIR$/web/assets/tweets-formato.json" />
       </list>
     </option>
   </component>
@@ -269,9 +251,9 @@
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP 5.5" />
   <component name="ProjectFrameBounds">
     <option name="x" value="65" />
-    <option name="y" value="-4" />
-    <option name="width" value="1375" />
-    <option name="height" value="904" />
+    <option name="y" value="24" />
+    <option name="width" value="1215" />
+    <option name="height" value="1000" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -280,7 +262,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
@@ -296,6 +278,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -310,7 +293,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="SefaradCurrent" />
+              <option name="myItemId" value="Sefarad-2.0" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -320,7 +303,57 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="SefaradCurrent" />
+              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sefarad-2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -330,7 +363,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -361,20 +393,149 @@
     <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="DART_PUB_BUILD_MODE" value="release" />
+    <property name="LayoutCode.rearrangeEntriesJSON" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/web/assets" />
       <recent name="$PROJECT_DIR$/bin/web" />
       <recent name="$PROJECT_DIR$/web/polymer-elements/leaflet-marker-map" />
       <recent name="$PROJECT_DIR$/web/polymer-elements" />
       <recent name="$PROJECT_DIR$/web" />
-      <recent name="$PROJECT_DIR$/web/assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/web/bower_components/core-localstorage" />
       <recent name="$PROJECT_DIR$/web/bower_components/core-shared-lib" />
       <recent name="$PROJECT_DIR$/web/polymer-elements/paper-action-dialog" />
     </key>
+  </component>
+  <component name="RestoreUpdateTree">
+    <UpdateInfo date="Moments ago" ActionInfo="_Update">
+      <UpdatedFiles>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated from server" />
+          <option name="myStatusName" value="Changed on server" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CHANGED_ON_SERVER" />
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Updated" />
+            <option name="myStatusName" value="Changed" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="UPDATED" />
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dashboard.html</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dashboardPlaces.dart</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dashboardPlaces.html</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dashboardRestaurants.dart</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dashboardRestaurants.html</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dashboardTweet.html</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dataset.dart</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dataset.html</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/dataset.json</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/index.html</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/newdataset.html</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/newquery.html</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/queries.json</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/query.dart</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/query.html</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/queryeditor.dart</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/web/queryeditor.html</PATH>
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Created" />
+            <option name="myStatusName" value="Created" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="CREATED" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Deleted" />
+            <option name="myStatusName" value="Deleted" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="true" />
+            <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Restored" />
+            <option name="myStatusName" value="Will be restored" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="RESTORED" />
+          </FILE-GROUP>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Modified" />
+          <option name="myStatusName" value="Modified" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MODIFIED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Skipped" />
+          <option name="myStatusName" value="Skipped" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SKIPPED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with conflicts" />
+          <option name="myStatusName" value="Will be merged with conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_CONFLICTS" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with tree conflicts" />
+          <option name="myStatusName" value="Merged with tree conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with property conflicts" />
+          <option name="myStatusName" value="Will be merged with property conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged" />
+          <option name="myStatusName" value="Will be merged" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Not in repository" />
+          <option name="myStatusName" value="Not in repository" />
+          <option name="mySupportsDeletion" value="true" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UNKNOWN" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally added" />
+          <option name="myStatusName" value="Locally added" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_ADDED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally removed" />
+          <option name="myStatusName" value="Locally removed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_REMOVED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Switched" />
+          <option name="myStatusName" value="Switched" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SWITCHED" />
+        </FILE-GROUP>
+      </UpdatedFiles>
+    </UpdateInfo>
   </component>
   <component name="RunManager" selected="JavaScript Debug.dashboard.html">
     <configuration default="false" name="dashboardPlaces.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Sefarad-2.0/web/dashboardPlaces.html">
@@ -579,30 +740,30 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1375" height="904" extended-state="6" />
-    <editor active="true" />
+    <frame x="65" y="24" width="1215" height="1000" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32853982" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Pub Serve" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3210191" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Pub Serve" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32079646" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32866243" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32933232" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22730683" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29255775" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32743362" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299363" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32738853" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32743362" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -665,20 +826,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/polymer-elements/paper-menu-button/paper-menu-button.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.0976254" vertical-offset="832" max-vertical-offset="1590">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/polymer-elements/paper-menu-button/paper-menu-button.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43945578" vertical-offset="157" max-vertical-offset="1275">
-          <caret line="32" column="16" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/polymer-elements/paper-dropdown/paper-dropdown-transition.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="758">
@@ -837,13 +984,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4401" max-vertical-offset="6195">
-          <caret line="313" column="13" selection-start-line="313" selection-start-column="13" selection-end-line="313" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/results.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="90">
@@ -904,7 +1044,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.20958084" vertical-offset="0" max-vertical-offset="501">
           <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -912,7 +1051,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="810">
           <caret line="0" column="8524" selection-start-line="0" selection-start-column="8482" selection-end-line="0" selection-end-column="8524" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -936,19 +1074,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.08102767" vertical-offset="1024" max-vertical-offset="1950">
           <caret line="71" column="40" selection-start-line="71" selection-start-column="40" selection-end-line="71" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboardTweet.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15957446" vertical-offset="1860" max-vertical-offset="12780">
-          <caret line="129" column="145" selection-start-line="129" selection-start-column="145" selection-end-line="129" selection-end-column="145" />
-          <folding>
-            <element signature="n#style#0;n#button#0;n#li#1;n#ul#0;n#li#0;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -962,29 +1087,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/dashboardPlaces.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.2173915" vertical-offset="2625" max-vertical-offset="12765">
-          <caret line="183" column="124" selection-start-line="183" selection-start-column="124" selection-end-line="183" selection-end-column="124" />
-          <folding>
-            <element signature="n#style#0;n#button#0;n#li#1;n#ul#0;n#li#0;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#li#2;n#ul#0;n#li#0;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="2685" max-vertical-offset="12825">
+          <caret line="187" column="123" selection-start-line="187" selection-start-column="123" selection-end-line="187" selection-end-column="123" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/dashboardRestaurants.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.043478" vertical-offset="2385" max-vertical-offset="11670">
-          <caret line="179" column="130" selection-start-line="179" selection-start-column="130" selection-end-line="179" selection-end-column="130" />
-          <folding>
-            <element signature="n#style#0;n#button#0;n#li#1;n#ul#0;n#li#0;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="5625" max-vertical-offset="11730">
+          <caret line="395" column="68" selection-start-line="395" selection-start-column="68" selection-end-line="395" selection-end-column="68" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/dataset.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.5652175" vertical-offset="2071" max-vertical-offset="5085">
-          <caret line="142" column="124" selection-start-line="142" selection-start-column="124" selection-end-line="142" selection-end-column="124" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2131" max-vertical-offset="5145">
+          <caret line="146" column="123" selection-start-line="146" selection-start-column="123" selection-end-line="146" selection-end-column="123" />
           <folding />
         </state>
       </provider>
@@ -993,54 +1113,103 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5744681" vertical-offset="1065" max-vertical-offset="4230">
           <caret line="89" column="63" selection-start-line="89" selection-start-column="63" selection-end-line="89" selection-end-column="63" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#header#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1433750599955" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1433750599955" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.173913" vertical-offset="2505" max-vertical-offset="10920">
-          <caret line="178" column="124" selection-start-line="178" selection-start-column="124" selection-end-line="178" selection-end-column="124" />
-          <folding>
-            <element signature="n#style#0;n#button#0;n#li#1;n#ul#0;n#li#0;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/newdataset.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.9565215" vertical-offset="2038" max-vertical-offset="5430">
-          <caret line="145" column="124" selection-start-line="145" selection-start-column="124" selection-end-line="145" selection-end-column="124" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2098" max-vertical-offset="5490">
+          <caret line="149" column="123" selection-start-line="149" selection-start-column="123" selection-end-line="149" selection-end-column="123" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/newquery.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.521739" vertical-offset="1948" max-vertical-offset="7230">
-          <caret line="146" column="124" selection-start-line="146" selection-start-column="124" selection-end-line="146" selection-end-column="124" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2008" max-vertical-offset="7290">
+          <caret line="150" column="123" selection-start-line="150" selection-start-column="123" selection-end-line="150" selection-end-column="123" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/query.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.2608696" vertical-offset="2086" max-vertical-offset="5055">
-          <caret line="141" column="124" selection-start-line="141" selection-start-column="124" selection-end-line="141" selection-end-column="124" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2146" max-vertical-offset="5115">
+          <caret line="145" column="123" selection-start-line="145" selection-start-column="123" selection-end-line="145" selection-end-column="123" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/queryeditor.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43404254" vertical-offset="1911" max-vertical-offset="8355">
-          <caret line="141" column="124" selection-start-line="141" selection-start-column="124" selection-end-line="141" selection-end-column="124" />
+        <state vertical-scroll-proportion="-8.5" vertical-offset="1971" max-vertical-offset="8325">
+          <caret line="145" column="123" selection-start-line="145" selection-start-column="123" selection-end-line="145" selection-end-column="123" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6195">
+          <caret line="313" column="13" selection-start-line="313" selection-start-column="13" selection-end-line="313" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dashboardTweet.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.25" vertical-offset="4401" max-vertical-offset="9435">
+          <caret line="313" column="30" selection-start-line="313" selection-start-column="30" selection-end-line="313" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-21.25" vertical-offset="945" max-vertical-offset="10980">
+          <caret line="97" column="22" selection-start-line="93" selection-start-column="6" selection-end-line="93" selection-end-column="22" />
+          <folding>
+            <element signature="n#style#0;n#i#0;n#a#0;n#li#0;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#number-chart#0;n#li#0;n#ul#0;n#li#1;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#li#1;n#ul#0;n#li#1;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#li#2;n#ul#0;n#li#1;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#2;n#ul#0;n#div#0;n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/AmsterdamPlacesReduced.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-866.2852" vertical-offset="473858" max-vertical-offset="474405">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/tweets-formato.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.52102375" vertical-offset="0" max-vertical-offset="547">
+          <caret line="2589" column="1" selection-start-line="2589" selection-start-column="1" selection-end-line="2589" selection-end-column="1" />
+          <folding>
+            <element signature="e#4#2851#0" expanded="false" />
+            <element signature="e#2855#7855#0" expanded="false" />
+            <element signature="e#7859#11865#0" expanded="false" />
+            <element signature="e#11869#16500#0" expanded="false" />
+            <element signature="e#16504#22353#0" expanded="false" />
+            <element signature="e#22357#26137#0" expanded="false" />
+            <element signature="e#26141#29907#0" expanded="false" />
+            <element signature="e#29911#35823#0" expanded="false" />
+            <element signature="e#35827#39699#0" expanded="false" />
+            <element signature="e#39703#44136#0" expanded="false" />
+            <element signature="e#44140#48340#0" expanded="false" />
+            <element signature="e#48344#52517#0" expanded="false" />
+            <element signature="e#52521#55294#0" expanded="false" />
+            <element signature="e#55298#59842#0" expanded="false" />
+            <element signature="e#59846#64153#0" expanded="false" />
+            <element signature="e#64157#69019#0" expanded="false" />
+            <element signature="e#69023#72889#0" expanded="false" />
+            <element signature="e#72893#81346#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
