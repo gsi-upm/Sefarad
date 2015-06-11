@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c91c4c5f-92ba-4497-a98e-d764ff70c174" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/tweets-formato.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/AmsterdamPlacesReduced.json" afterPath="$PROJECT_DIR$/web/assets/AmsterdamPlacesReduced.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Sefarad-2.0.iml" afterPath="$PROJECT_DIR$/.idea/Sefarad-2.0.iml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/web/assets/tweets-formato.json" afterPath="$PROJECT_DIR$/web/assets/tweets.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/controller.js" afterPath="$PROJECT_DIR$/web/controller.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/dashboardTweet.html" afterPath="$PROJECT_DIR$/web/dashboardTweet.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -31,26 +30,6 @@
     <option name="SORT_CHILDREN" value="false" />
     <option name="SHOW_TABLE_CONSTRAINTS" value="true" />
   </component>
-  <component name="DockManager">
-    <window id="2">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file leaf-file-name="AmsterdamPlacesReduced.json" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/web/assets/AmsterdamPlacesReduced.json">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="-866.2852" vertical-offset="473858" max-vertical-offset="474405">
-                    <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                    <folding />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="Sefarad-2.0" />
@@ -76,27 +55,27 @@
       <file leaf-file-name="dashboardTweet.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/dashboardTweet.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.25" vertical-offset="4401" max-vertical-offset="9435">
-              <caret line="313" column="30" selection-start-line="313" selection-start-column="30" selection-end-line="313" selection-end-column="30" />
+            <state vertical-scroll-proportion="-15.625" vertical-offset="1125" max-vertical-offset="9435">
+              <caret line="100" column="18" selection-start-line="100" selection-start-column="18" selection-end-line="100" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="controller.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="controller.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6195">
-              <caret line="313" column="13" selection-start-line="313" selection-start-column="13" selection-end-line="313" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.6987741" vertical-offset="5526" max-vertical-offset="6450">
+              <caret line="395" column="0" selection-start-line="395" selection-start-column="0" selection-end-line="395" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tweets-formato.json" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/assets/tweets-formato.json">
+      <file leaf-file-name="tweets.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/assets/tweets.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.52102375" vertical-offset="0" max-vertical-offset="547">
+            <state vertical-scroll-proportion="-11.875" vertical-offset="0" max-vertical-offset="375">
               <caret line="2589" column="1" selection-start-line="2589" selection-start-column="1" selection-end-line="2589" selection-end-column="1" />
               <folding>
                 <element signature="e#4#2851#0" expanded="false" />
@@ -165,8 +144,8 @@
       <file leaf-file-name="dataset.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/dataset.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2131" max-vertical-offset="5145">
-              <caret line="146" column="123" selection-start-line="146" selection-start-column="123" selection-end-line="146" selection-end-column="123" />
+            <state vertical-scroll-proportion="-1.2083334" vertical-offset="2446" max-vertical-offset="5145">
+              <caret line="165" column="28" selection-start-line="165" selection-start-column="28" selection-end-line="165" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -215,7 +194,6 @@
         <option value="$PROJECT_DIR$/web/dist/css/skins/_all-skins.min.css" />
         <option value="$PROJECT_DIR$/web/signGoogle.dart" />
         <option value="$PROJECT_DIR$/web/results.json" />
-        <option value="$PROJECT_DIR$/web/controller.js" />
         <option value="$PROJECT_DIR$/web/polymer-elements/google-signin/google-signin.html" />
         <option value="$PROJECT_DIR$/web/dataset.json" />
         <option value="$PROJECT_DIR$/web/queries.json" />
@@ -239,9 +217,10 @@
         <option value="$PROJECT_DIR$/web/newquery.html" />
         <option value="$PROJECT_DIR$/web/query.html" />
         <option value="$PROJECT_DIR$/web/queryeditor.html" />
-        <option value="$PROJECT_DIR$/web/dashboardTweet.html" />
         <option value="$PROJECT_DIR$/web/assets/AmsterdamPlacesReduced.json" />
         <option value="$PROJECT_DIR$/web/assets/tweets-formato.json" />
+        <option value="$PROJECT_DIR$/web/dashboardTweet.html" />
+        <option value="$PROJECT_DIR$/web/controller.js" />
       </list>
     </option>
   </component>
@@ -1101,14 +1080,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/dataset.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2131" max-vertical-offset="5145">
-          <caret line="146" column="123" selection-start-line="146" selection-start-column="123" selection-end-line="146" selection-end-column="123" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5744681" vertical-offset="1065" max-vertical-offset="4230">
@@ -1148,22 +1119,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6195">
-          <caret line="313" column="13" selection-start-line="313" selection-start-column="13" selection-end-line="313" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dashboardTweet.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.25" vertical-offset="4401" max-vertical-offset="9435">
-          <caret line="313" column="30" selection-start-line="313" selection-start-column="30" selection-end-line="313" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/dashboard.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-21.25" vertical-offset="945" max-vertical-offset="10980">
@@ -1178,17 +1133,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/AmsterdamPlacesReduced.json">
+    <entry file="file://$PROJECT_DIR$/web/assets/tweets.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-866.2852" vertical-offset="473858" max-vertical-offset="474405">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/tweets-formato.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52102375" vertical-offset="0" max-vertical-offset="547">
+        <state vertical-scroll-proportion="-11.875" vertical-offset="0" max-vertical-offset="375">
           <caret line="2589" column="1" selection-start-line="2589" selection-start-column="1" selection-end-line="2589" selection-end-column="1" />
           <folding>
             <element signature="e#4#2851#0" expanded="false" />
@@ -1210,6 +1157,38 @@
             <element signature="e#69023#72889#0" expanded="false" />
             <element signature="e#72893#81346#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dashboardTweet.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.625" vertical-offset="1125" max-vertical-offset="9435">
+          <caret line="100" column="18" selection-start-line="100" selection-start-column="18" selection-end-line="100" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/AmsterdamPlacesReduced.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-866.24133" vertical-offset="473834" max-vertical-offset="474405">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dataset.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.2083334" vertical-offset="2446" max-vertical-offset="5145">
+          <caret line="165" column="28" selection-start-line="165" selection-start-column="28" selection-end-line="165" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6987741" vertical-offset="5526" max-vertical-offset="6450">
+          <caret line="395" column="0" selection-start-line="395" selection-start-column="0" selection-end-line="395" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

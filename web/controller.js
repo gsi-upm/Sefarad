@@ -44,6 +44,10 @@ $( document ).ready(function() {
     {
         getPlacesRawData();
     }
+    if(demo == 'tweets')
+    {
+        getTweetsData();
+    }
 
 
 
@@ -380,6 +384,19 @@ var getPlacesRawData = function () {
     });
 };
 
+
+var getTweetsData = function () {
+
+    $.getJSON("assets/tweets.json", function(result){
+        console.log("tweets data picked from local");
+        //var data = JSON.stringify(result);
+        //rawData = JSON.parse(data).results.bindings;
+        rawData = result;
+        dataReady = true;
+
+        //newDataReceived();
+    });
+};
 
 
 var transformData = function (data) {
