@@ -188,6 +188,7 @@ class DatasetList extends AuthParam{
         if (request.readyState == HttpRequest.DONE && (request.status == 200 || request.status == 0)) {
           // data saved OK.
           print(" Data saved successfully");
+          altered = false;
           querySelector('#saveSuccess').classes.remove("hide");
         }
       });

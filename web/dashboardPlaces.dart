@@ -19,7 +19,7 @@ class DashboardPlaces extends AuthParam{
   String collection = '';
   String result = '';
   List querys = [];
-  List results;
+  List results = [];
   List aux = [];
   List datasets = [];
 

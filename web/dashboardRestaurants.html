@@ -106,11 +106,14 @@
             </a>
 
             <!-- Logo -->
-            <a href="dashboardRestaurants.html" class="logo"><b>DBPedia</b></a>
+            <a href="dashboardRestaurants.html" class="logo"><b>Restaurants</b></a>
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Notifications: style can be found in dropdown.less -->
+                    <li>
+                        <a href="index.html"><i class="ion-android-home" style="font-size: 20px"></i></a>
+                    </li>
                     <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                             <i class="fa fa-bell-o"></i>
@@ -178,6 +181,7 @@
                     <ul class="treeview-menu">
                         <li class=""><a href="dashboard.html"><i class="fa fa-circle-o"></i> Slovakia</a></li>
                         <li class="active"><a href="dashboardRestaurants.html"><i class="fa fa-circle-o"></i> Restaurants</a></li>
+                        <li class=""><a href="dashboardTweet.html"><i class="fa fa-circle-o"></i> Tweets Sentiment</a></li>
                         <li class=""><a href="dashboardPlaces.html"><i class="fa fa-circle-o"></i> Tourpedia</a></li></ul>
 
                 <li class="treeview">
@@ -211,10 +215,10 @@
         <paper-shadow class="card" z="2">
             <div class="top">
 
-                <paper-tabs selected="1">
+                <paper-tabs selected="0">
 
-                    <paper-tab>QUERY EDITOR</paper-tab>
                     <paper-tab>DASHBOARD</paper-tab>
+                    <paper-tab>QUERY EDITOR</paper-tab>
 
                 </paper-tabs>
 
@@ -227,12 +231,224 @@
                 <small>Control panel</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"> Home</a></li>
+                <li><a href="index.html"> Home</a></li>
                 <li class="active"><i class="fa fa-pie-chart"></i> Dashboard</li>
             </ol>
         </section>
 
-        <core-pages selected="1">
+        <core-pages selected="0">
+
+            <div id="content0">
+                <!-- Main content -->
+                <section class="content">
+                    <!-- Small boxes (Stat box) -->
+                    <div class="row">
+
+                        <div class="col-lg-3 col-xs-6">
+
+                            <!--Number chart is just the number in order to take advantage of adminLTE icons-->
+                            <!-- small box -->
+                            <div  class="small-box bg-aqua-gradient">
+                                <div class="inner">
+                                    <h3><number-chart param="name" type="param" class="dc-element"></number-chart>
+                                    </h3>
+                                    <p>Number of filtered elements</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-stats-bars"></i>
+                                </div>
+                                <div class="small-box-footer"></div>
+                            </div>
+
+
+                        </div><!-- ./col -->
+
+                        <div class="col-lg-3 col-xs-6">
+                            <!--Number chart is just the number in order to take advantage of adminLTE icons-->
+                            <!-- small box -->
+                            <div  class="small-box bg-green-gradient">
+                                <div class="inner">
+                                    <h3><number-chart param="district" type="param" class="dc-element"></number-chart>
+                                    </h3>
+                                    <p>Number of districts under selection</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-android-pin"></i>
+                                </div>
+                                <div class="small-box-footer"></div>
+                            </div>
+                        </div><!-- ./col -->
+
+
+                        <div class="col-lg-3 col-xs-6">
+
+                            <!--Number chart is just the number in order to take advantage of adminLTE icons-->
+                            <!-- small box -->
+                            <div  class="small-box bg-yellow-gradient">
+                                <div class="inner">
+                                    <h3><number-chart param="newFoodType" type="param" class="dc-element"></number-chart>
+                                    </h3>
+                                    <p>Food types under selection</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-android-restaurant"></i>
+                                </div>
+                                <div class="small-box-footer"></div>
+                            </div>
+                        </div><!-- ./col -->
+
+
+                        <div class="col-lg-3 col-xs-6">
+                            <!--Number chart is just the number in order to take advantage of adminLTE icons-->
+                            <!-- small box -->
+                            <div  class="small-box bg-red-gradient">
+                                <div class="inner">
+                                    <h3><number-chart param="newPrice" type="param" class="dc-element"></number-chart>
+                                    </h3>
+                                    <p>Prices under selection</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-social-euro"></i>
+                                </div>
+                                <div class="small-box-footer"></div>
+                            </div>
+                        </div><!-- ./col -->
+
+
+                    </div>
+                    <!-- /.row -->
+                    <!-- Small boxes (Stat box) -->
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-6">
+                            <!-- pie-chart -->
+                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="fa fa-inbox"></i>
+                                    <h3 class="box-title" id="here">Handle Reservations</h3>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive">
+                                    <pie-chart param="newReservations" class="dc-element"></pie-chart>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.pie-chart -->
+                        </div><!-- ./col -->
+                        <div class="col-lg-3 col-xs-6">
+                            <!-- pie-chart -->
+                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-send"></i>
+                                    <h3 class="box-title">Food takeout</h3>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive">
+                                    <pie-chart param="newTakeout" class="dc-element"></pie-chart>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.pie-chart -->
+                        </div><!-- ./col -->
+                        <div class="col-lg-3 col-xs-6">
+                            <!-- bar-chart -->
+                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-usd"></i>
+                                    <h3 class="box-title">Price Filter</h3>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive" style="overflow: hidden">
+                                    <bar-chart param="newPrice" xLabel="Price" width=200 xMin="0" xMax="100" class="dc-element"></bar-chart>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.bar-chart -->
+                        </div><!-- ./col -->
+
+
+                        <div class="col-lg-3 col-xs-6">
+                            <!-- bubble-chart -->
+                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-record"></i>
+                                    <h3 class="box-title"> Price Bubbles</h3>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive" style="overflow: hidden">
+                                    <bubble-chart param="newPrice" xMax=100 yMax=160 radius=1000 class="dc-element"></bubble-chart>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.bubble-chart -->
+                        </div><!-- ./col -->
+
+
+
+                    </div>
+                    <!-- /.row -->
+                    <!-- Main row -->
+                    <div class="row">
+                        <!-- Left col -->
+                        <section class="col-lg-3 connectedSortable">
+
+
+                            <!-- faceted-search -->
+                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                    <h3 class="box-title">Search</h3>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive">
+                                    <faceted-search params="district, stars" class="dc-element"></faceted-search>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.faceted-search -->
+
+                        </section>
+
+                        <!-- /.Left col -->
+                        <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                        <section class="col-lg-9 connectedSortable">
+
+
+
+
+
+
+
+                            <!-- Custom dc widget table-->
+                            <div id="crossFilterDCTest3" class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-list-alt"></i>
+                                    <h3 class="box-title">Results Table</h3>
+                                </div>
+                                <!--box-body -->
+                                <div class="box-body chart-responsive">
+
+                                    <sortable-table params="name, stars, price, newReservations, newTakeout, newFoodType, dbpediaLink" class="bootstrap dc-element" page="{{page}}" pagesize="8" footertemplate="defaultPager">
+
+                                    </sortable-table>
+
+                                </div>
+                                <!--/.box-body -->
+                            </div>
+                            <!-- /.Custom dc widget table-->
+
+
+                        </section>
+                        <!-- right col -->
+                    </div>
+                    <!-- /.row (main row) -->
+                </section>
+                <!-- /.content -->
+            </div>
             <div id="content1">
                 <section class="content">
 
@@ -286,218 +502,6 @@
                     </div>
 
                 </section>
-            </div>
-
-            <div id="content0">
-                <!-- Main content -->
-                <section class="content">
-                    <!-- Small boxes (Stat box) -->
-                    <div class="row">
-
-                    <div class="col-lg-3 col-xs-6">
-
-                    <!--Number chart is just the number in order to take advantage of adminLTE icons-->
-                    <!-- small box -->
-                    <div  class="small-box bg-aqua-gradient">
-                        <div class="inner">
-                            <h3><number-chart param="name" type="param" class="dc-element"></number-chart>
-                            </h3>
-                            <p>Number of filtered elements</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
-                        </div>
-                        <div class="small-box-footer"></div>
-                    </div>
-
-
-                </div><!-- ./col -->
-
-                <div class="col-lg-3 col-xs-6">
-                <!--Number chart is just the number in order to take advantage of adminLTE icons-->
-                <!-- small box -->
-                <div  class="small-box bg-green-gradient">
-                    <div class="inner">
-                        <h3><number-chart param="district" type="param" class="dc-element"></number-chart>
-                        </h3>
-                        <p>Number of districts under selection</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-android-pin"></i>
-                    </div>
-                    <div class="small-box-footer"></div>
-                </div>
-                </div><!-- ./col -->
-
-
-                <div class="col-lg-3 col-xs-6">
-
-                    <!--Number chart is just the number in order to take advantage of adminLTE icons-->
-                    <!-- small box -->
-                    <div  class="small-box bg-yellow-gradient">
-                        <div class="inner">
-                            <h3><number-chart param="newFoodType" type="param" class="dc-element"></number-chart>
-                            </h3>
-                            <p>Food types under selection</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-android-restaurant"></i>
-                        </div>
-                        <div class="small-box-footer"></div>
-                    </div>
-                </div><!-- ./col -->
-
-
-                <div class="col-lg-3 col-xs-6">
-                    <!--Number chart is just the number in order to take advantage of adminLTE icons-->
-                    <!-- small box -->
-                    <div  class="small-box bg-red-gradient">
-                        <div class="inner">
-                            <h3><number-chart param="newPrice" type="param" class="dc-element"></number-chart>
-                            </h3>
-                            <p>Prices under selection</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-social-euro"></i>
-                        </div>
-                        <div class="small-box-footer"></div>
-                    </div>
-                </div><!-- ./col -->
-
-
-            </div>
-            <!-- /.row -->
-            <!-- Small boxes (Stat box) -->
-            <div class="row">
-                <div class="col-lg-3 col-xs-6">
-                    <!-- pie-chart -->
-                    <!--Widgets must have 'widget' class in order to render their loading screen-->
-                    <div class="box box-primary widget">
-                        <div class="box-header">
-                            <i class="fa fa-inbox"></i>
-                            <h3 class="box-title" id="here">Handle Reservations</h3>
-                        </div>
-                        <!-- box-body -->
-                        <div class="box-body chart-responsive">
-                            <pie-chart param="newReservations" class="dc-element"></pie-chart>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.pie-chart -->
-                </div><!-- ./col -->
-                <div class="col-lg-3 col-xs-6">
-                    <!-- pie-chart -->
-                    <!--Widgets must have 'widget' class in order to render their loading screen-->
-                    <div class="box box-primary widget">
-                        <div class="box-header">
-                            <i class="glyphicon glyphicon-send"></i>
-                            <h3 class="box-title">Food takeout</h3>
-                        </div>
-                        <!-- box-body -->
-                        <div class="box-body chart-responsive">
-                            <pie-chart param="newTakeout" class="dc-element"></pie-chart>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.pie-chart -->
-                </div><!-- ./col -->
-                <div class="col-lg-3 col-xs-6">
-                    <!-- bar-chart -->
-                    <!--Widgets must have 'widget' class in order to render their loading screen-->
-                    <div class="box box-primary widget">
-                        <div class="box-header">
-                            <i class="glyphicon glyphicon-usd"></i>
-                            <h3 class="box-title">Price Filter</h3>
-                        </div>
-                        <!-- box-body -->
-                        <div class="box-body chart-responsive" style="overflow: hidden">
-                            <bar-chart param="newPrice" xLabel="Price" width=200 xMin="0" xMax="100" class="dc-element"></bar-chart>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.bar-chart -->
-                </div><!-- ./col -->
-
-
-                <div class="col-lg-3 col-xs-6">
-                    <!-- bubble-chart -->
-                    <!--Widgets must have 'widget' class in order to render their loading screen-->
-                    <div class="box box-primary widget">
-                        <div class="box-header">
-                            <i class="glyphicon glyphicon-record"></i>
-                            <h3 class="box-title"> Price Bubbles</h3>
-                        </div>
-                        <!-- box-body -->
-                        <div class="box-body chart-responsive" style="overflow: hidden">
-                            <bubble-chart param="newPrice" xMax=100 yMax=160 radius=1000 class="dc-element"></bubble-chart>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.bubble-chart -->
-                </div><!-- ./col -->
-
-
-
-            </div>
-            <!-- /.row -->
-            <!-- Main row -->
-            <div class="row">
-                <!-- Left col -->
-                <section class="col-lg-3 connectedSortable">
-
-
-                    <!-- faceted-search -->
-                    <!--Widgets must have 'widget' class in order to render their loading screen-->
-                    <div class="box box-primary widget">
-                        <div class="box-header">
-                            <i class="glyphicon glyphicon-search"></i>
-                            <h3 class="box-title">Search</h3>
-                        </div>
-                        <!-- box-body -->
-                        <div class="box-body chart-responsive">
-                            <faceted-search params="district, stars" class="dc-element"></faceted-search>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.faceted-search -->
-
-                </section>
-
-                <!-- /.Left col -->
-                <!-- right col (We are only adding the ID to make the widgets sortable)-->
-                <section class="col-lg-9 connectedSortable">
-
-
-
-
-
-
-
-                    <!-- Custom dc widget table-->
-                    <div id="crossFilterDCTest3" class="box box-primary widget">
-                        <div class="box-header">
-                            <i class="glyphicon glyphicon-list-alt"></i>
-                            <h3 class="box-title">Results Table</h3>
-                        </div>
-                        <!--box-body -->
-                        <div class="box-body chart-responsive">
-
-                            <sortable-table params="name, stars, price, newReservations, newTakeout, newFoodType, dbpediaLink" class="bootstrap dc-element" page="{{page}}" pagesize="8" footertemplate="defaultPager">
-
-                            </sortable-table>
-
-                        </div>
-                        <!--/.box-body -->
-                    </div>
-                    <!-- /.Custom dc widget table-->
-
-
-                    </section>
-                <!-- right col -->
-                </div>
-            <!-- /.row (main row) -->
-            </section>
-            <!-- /.content -->
             </div>
         </core-pages>
     </div>

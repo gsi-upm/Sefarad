@@ -19,7 +19,7 @@ class DashboardRestaurants extends AuthParam{
   String collection = '';
   String result = '';
   List querys = [];
-  List results;
+  List results = [];
   List aux = [];
   List datasets = [];
 
@@ -44,7 +44,7 @@ class DashboardRestaurants extends AuthParam{
     //var yasgui = new JsObject(context['yasgui']);
   }
   void _loadDataset(){
-    var url = "http://$host/web/dataset.json";
+    var url = "http://$host/web/dataset";
 
     // call the web server asynchronously
     var request = HttpRequest.getString(url).then((responseText){
