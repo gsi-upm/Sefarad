@@ -1,0 +1,2590 @@
+[
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "El profesor de electronica no sabe encender el proyector #ETSIT",
+    "in_reply_to_status_id": null,
+    "id": 565878953714651136,
+    "favorite_count": 0,
+    "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+    "retweeted": false,
+    "coordinates": null,
+    "entities": {
+      "symbols": [],
+      "user_mentions": [],
+      "hashtags": [
+        {
+          "indices": [
+            57,
+            63
+          ],
+          "text": "ETSIT"
+        }
+      ],
+      "urls": []
+    },
+    "in_reply_to_screen_name": null,
+    "in_reply_to_user_id": null,
+    "retweet_count": 0,
+    "id_str": "565878953714651136",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "id": 849355916,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/554257719843373056/b1Jz4ZPg_normal.jpeg",
+      "profile_sidebar_fill_color": "DDEEF6",
+      "is_translator": false,
+      "geo_enabled": true,
+      "entities": {"description": {"urls": []}},
+      "followers_count": 235,
+      "protected": false,
+      "location": "detras de ti",
+      "default_profile_image": false,
+      "id_str": "849355916",
+      "lang": "es",
+      "utc_offset": null,
+      "statuses_count": 2686,
+      "description": "deja para ma\u00f1ana lo que puedas hacer hoy",
+      "friends_count": 305,
+      "profile_link_color": "0084B4",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/554257719843373056/b1Jz4ZPg_normal.jpeg",
+      "notifications": null,
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_color": "C0DEED",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/849355916/1363209231",
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "screen_name": "EmilioEspejo2",
+      "is_translation_enabled": false,
+      "profile_background_tile": false,
+      "favourites_count": 1161,
+      "name": "Emilio Espejo",
+      "url": null,
+      "created_at": {"$date": 1348756171000},
+      "contributors_enabled": false,
+      "time_zone": null,
+      "profile_sidebar_border_color": "C0DEED",
+      "default_profile": true,
+      "following": null,
+      "listed_count": 2
+    },
+    "geo": null,
+    "in_reply_to_user_id_str": null,
+    "lang": "es",
+    "created_at": {"$date": 1423751030000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": null,
+    "place": null,
+    "_id": {"$oid": "54e3587bab17ddc7dad61e17"},
+    "sentiment": "negativo"
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "Ciudad Universitaria al atardecer es arte. http://t.co/vgisMXvqqh",
+    "in_reply_to_status_id": null,
+    "id": 567011394235924480,
+    "favorite_count": 1,
+    "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+    "retweeted": false,
+    "coordinates": {
+      "type": "Point",
+      "coordinates": [
+        -3.7265452,
+        40.4519228
+      ]
+    },
+    "entities": {
+      "symbols": [],
+      "user_mentions": [],
+      "hashtags": [],
+      "urls": [],
+      "media": [
+        {
+          "expanded_url": "http://twitter.com/MyFireBrigade/status/567011394235924480/photo/1",
+          "sizes": {
+            "small": {
+              "h": 191,
+              "w": 340,
+              "resize": "fit"
+            },
+            "large": {
+              "h": 576,
+              "w": 1024,
+              "resize": "fit"
+            },
+            "medium": {
+              "h": 337,
+              "w": 600,
+              "resize": "fit"
+            },
+            "thumb": {
+              "h": 150,
+              "w": 150,
+              "resize": "crop"
+            }
+          },
+          "url": "http://t.co/vgisMXvqqh",
+          "media_url_https": "https://pbs.twimg.com/media/B95trIrIIAAbvf3.jpg",
+          "id_str": "567011190925434880",
+          "indices": [
+            43,
+            65
+          ],
+          "media_url": "http://pbs.twimg.com/media/B95trIrIIAAbvf3.jpg",
+          "type": "photo",
+          "id": 567011190925434880,
+          "display_url": "pic.twitter.com/vgisMXvqqh"
+        }
+      ]
+    },
+    "in_reply_to_screen_name": null,
+    "in_reply_to_user_id": null,
+    "retweet_count": 0,
+    "id_str": "567011394235924480",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "id": 339370749,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/566720077748502528/ULT3LQSu_normal.jpeg",
+      "profile_sidebar_fill_color": "F6F6F6",
+      "is_translator": false,
+      "geo_enabled": true,
+      "entities": {"description": {"urls": []}},
+      "followers_count": 974,
+      "protected": false,
+      "location": "ETSI Aeron\u00e1utica y del espacio",
+      "default_profile_image": false,
+      "id_str": "339370749",
+      "lang": "es",
+      "utc_offset": -36000,
+      "statuses_count": 30214,
+      "description": "18. Polaco. Green Day & Kings of Leon. Estudiante de Ingenier\u00eda Aeroespacial en la UPM. Existen las monta\u00f1as, lo s\u00e9. Pero yo no he venido a ver el cielo. -C-",
+      "friends_count": 224,
+      "profile_link_color": "038543",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/566720077748502528/ULT3LQSu_normal.jpeg",
+      "notifications": null,
+      "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/378800000160677073/SOuBGGIa.png",
+      "profile_background_color": "ACDED6",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/339370749/1424041850",
+      "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/378800000160677073/SOuBGGIa.png",
+      "screen_name": "MyFireBrigade",
+      "is_translation_enabled": false,
+      "profile_background_tile": false,
+      "favourites_count": 9159,
+      "name": " Norwegian Wood",
+      "url": null,
+      "created_at": {"$date": 1311208738000},
+      "contributors_enabled": false,
+      "time_zone": "Hawaii",
+      "profile_sidebar_border_color": "FFFFFF",
+      "default_profile": false,
+      "following": null,
+      "listed_count": 16
+    },
+    "geo": {
+      "type": "Point",
+      "coordinates": [
+        40.4519228,
+        -3.7265452
+      ]
+    },
+    "in_reply_to_user_id_str": null,
+    "possibly_sensitive": false,
+    "lang": "es",
+    "created_at": {"$date": 1424021025000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": null,
+    "place": {
+      "full_name": "Madrid, Comunidad de Madrid",
+      "url": "https://api.twitter.com/1.1/geo/id/206c436ce43a43a3.json",
+      "country": "Espa\u00f1a",
+      "place_type": "city",
+      "bounding_box": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -3.8890049,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.6435181
+            ],
+            [
+              -3.8890049,
+              40.6435181
+            ]
+          ]
+        ]
+      },
+      "contained_within": [],
+      "country_code": "ES",
+      "attributes": {},
+      "id": "206c436ce43a43a3",
+      "name": "Madrid"
+    },
+    "_id": {"$oid": "54e21b0ad27d989b030421c4"},
+    "sentiment": "positivo"
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "Hay que ser muy muy retrasado para no pillar la metafora de @Albert_Rivera, pero oye, asi va Espa\u00f1a dicen",
+    "in_reply_to_status_id": null,
+    "id": 566980118229561344,
+    "favorite_count": 0,
+    "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+    "retweeted": false,
+    "coordinates": {
+      "type": "Point",
+      "coordinates": [
+        -3.7259093,
+        40.4519836
+      ]
+    },
+    "entities": {
+      "symbols": [],
+      "user_mentions": [
+        {
+          "indices": [
+            60,
+            74
+          ],
+          "screen_name": "Albert_Rivera",
+          "id": 108994652,
+          "name": "Albert Rivera",
+          "id_str": "108994652"
+        }
+      ],
+      "hashtags": [],
+      "urls": []
+    },
+    "in_reply_to_screen_name": null,
+    "in_reply_to_user_id": null,
+    "retweet_count": 0,
+    "id_str": "566980118229561344",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "id": 206590327,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/516870436303691776/C30ZwCVi_normal.jpeg",
+      "profile_sidebar_fill_color": "DDEEF6",
+      "is_translator": false,
+      "geo_enabled": true,
+      "entities": {"description": {"urls": []}},
+      "followers_count": 259,
+      "protected": false,
+      "location": "Vigo-Madrid",
+      "default_profile_image": false,
+      "id_str": "206590327",
+      "lang": "es",
+      "utc_offset": 7200,
+      "statuses_count": 4665,
+      "description": "Generacion del 95. Estudiante de Ing.Aeroespacial en la UPM. Colegial del Jaime del Amo.",
+      "friends_count": 581,
+      "profile_link_color": "3B94D9",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/516870436303691776/C30ZwCVi_normal.jpeg",
+      "notifications": null,
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_color": "C0DEED",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/206590327/1422794117",
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "screen_name": "YagoRodNog",
+      "is_translation_enabled": false,
+      "profile_background_tile": false,
+      "favourites_count": 263,
+      "name": "Yago Rodr\u00edguez",
+      "url": null,
+      "created_at": {"$date": 1287822850000},
+      "contributors_enabled": false,
+      "time_zone": "Athens",
+      "profile_sidebar_border_color": "FFFFFF",
+      "default_profile": false,
+      "following": null,
+      "listed_count": 1
+    },
+    "geo": {
+      "type": "Point",
+      "coordinates": [
+        40.4519836,
+        -3.7259093
+      ]
+    },
+    "in_reply_to_user_id_str": null,
+    "lang": "es",
+    "created_at": {"$date": 1424013568000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": null,
+    "place": {
+      "full_name": "Madrid, Comunidad de Madrid",
+      "url": "https://api.twitter.com/1.1/geo/id/206c436ce43a43a3.json",
+      "country": "Espa\u00f1a",
+      "place_type": "city",
+      "bounding_box": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -3.8890049,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.6435181
+            ],
+            [
+              -3.8890049,
+              40.6435181
+            ]
+          ]
+        ]
+      },
+      "contained_within": [],
+      "country_code": "ES",
+      "attributes": {},
+      "id": "206c436ce43a43a3",
+      "name": "Madrid"
+    },
+    "_id": {"$oid": "54e21b0ad27d989b030421c5"},
+    "sentiment": "negativo"
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "Mola buscar historias muy heavys!!mientras en el coche suena @xavimartinez #DiaMundialdelaRadio",
+    "in_reply_to_status_id": null,
+    "id": 566317420542185473,
+    "favorite_count": 3,
+    "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+    "retweeted": false,
+    "coordinates": {
+      "type": "Point",
+      "coordinates": [
+        -3.72717508,
+        40.45195135
+      ]
+    },
+    "entities": {
+      "symbols": [],
+      "user_mentions": [
+        {
+          "indices": [
+            61,
+            74
+          ],
+          "screen_name": "xavimartinez",
+          "id": 16033623,
+          "name": "Xavi Mart\u00ednez",
+          "id_str": "16033623"
+        }
+      ],
+      "hashtags": [
+        {
+          "indices": [
+            75,
+            95
+          ],
+          "text": "DiaMundialdelaRadio"
+        }
+      ],
+      "urls": []
+    },
+    "in_reply_to_screen_name": null,
+    "in_reply_to_user_id": null,
+    "retweet_count": 0,
+    "id_str": "566317420542185473",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "id": 133469927,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/519612548031578112/Y5hunv9W_normal.jpeg",
+      "profile_sidebar_fill_color": "F3F3F3",
+      "is_translator": false,
+      "geo_enabled": true,
+      "entities": {
+        "url": {
+          "urls": [
+            {
+              "url": "http://t.co/6tMorFzeAW",
+              "indices": [
+                0,
+                22
+              ],
+              "expanded_url": "http://www.antena3.com/programas/espejo-publico/",
+              "display_url": "antena3.com/programas/espe\u2026"
+            }
+          ]
+        },
+        "description": {"urls": []}
+      },
+      "followers_count": 1613,
+      "protected": false,
+      "location": "Madrid, Mallorca Spain",
+      "default_profile_image": false,
+      "id_str": "133469927",
+      "lang": "es",
+      "utc_offset": 3600,
+      "statuses_count": 4119,
+      "description": "Periodista, Publicista, Presentador de Radio y Tv en @EspejoPublico @Antena3com \nBreaking News!! \n@los40_spain @notecortes40 \n#RadioShow",
+      "friends_count": 661,
+      "profile_link_color": "990000",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/519612548031578112/Y5hunv9W_normal.jpeg",
+      "notifications": null,
+      "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/141244171/diego_02.jpg",
+      "profile_background_color": "EBEBEB",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/133469927/1411690448",
+      "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/141244171/diego_02.jpg",
+      "screen_name": "DiegoRevuelta",
+      "is_translation_enabled": false,
+      "profile_background_tile": true,
+      "favourites_count": 344,
+      "name": "Diego Revuelta",
+      "url": "http://t.co/6tMorFzeAW",
+      "created_at": {"$date": 1271368887000},
+      "contributors_enabled": false,
+      "time_zone": "Madrid",
+      "profile_sidebar_border_color": "DFDFDF",
+      "default_profile": false,
+      "following": null,
+      "listed_count": 35
+    },
+    "geo": {
+      "type": "Point",
+      "coordinates": [
+        40.45195135,
+        -3.72717508
+      ]
+    },
+    "in_reply_to_user_id_str": null,
+    "lang": "es",
+    "created_at": {"$date": 1423855569000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": null,
+    "place": {
+      "full_name": "Madrid, Comunidad de Madrid",
+      "url": "https://api.twitter.com/1.1/geo/id/206c436ce43a43a3.json",
+      "country": "Espa\u00f1a",
+      "place_type": "city",
+      "bounding_box": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -3.8890049,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.6435181
+            ],
+            [
+              -3.8890049,
+              40.6435181
+            ]
+          ]
+        ]
+      },
+      "contained_within": [],
+      "country_code": "ES",
+      "attributes": {},
+      "id": "206c436ce43a43a3",
+      "name": "Madrid"
+    },
+    "_id": {"$oid": "54e21b0ad27d989b030421c6"},
+    "sentiment": "positivo"
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "@alhambracultura presentando en @TagCloudProject  la planificaci\u00f3n del trial para validar esta innovadora aplicaci\u00f3n http://t.co/FY3FRkBEpl",
+    "in_reply_to_status_id": null,
+    "id": 566162559397806080,
+    "favorite_count": 1,
+    "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+    "retweeted": false,
+    "coordinates": {
+      "type": "Point",
+      "coordinates": [
+        -3.7266302,
+        40.45337681
+      ]
+    },
+    "entities": {
+      "symbols": [],
+      "user_mentions": [
+        {
+          "indices": [
+            0,
+            16
+          ],
+          "screen_name": "alhambracultura",
+          "id": 147924806,
+          "name": "Alhambra de Granada",
+          "id_str": "147924806"
+        },
+        {
+          "indices": [
+            32,
+            48
+          ],
+          "screen_name": "TagCloudProject",
+          "id": 1172575622,
+          "name": "TagCloud Project",
+          "id_str": "1172575622"
+        }
+      ],
+      "hashtags": [],
+      "urls": [],
+      "media": [
+        {
+          "expanded_url": "http://twitter.com/bpradosp/status/566162559397806080/photo/1",
+          "sizes": {
+            "small": {
+              "h": 455,
+              "w": 340,
+              "resize": "fit"
+            },
+            "large": {
+              "h": 1024,
+              "w": 764,
+              "resize": "fit"
+            },
+            "medium": {
+              "h": 804,
+              "w": 600,
+              "resize": "fit"
+            },
+            "thumb": {
+              "h": 150,
+              "w": 150,
+              "resize": "crop"
+            }
+          },
+          "url": "http://t.co/FY3FRkBEpl",
+          "media_url_https": "https://pbs.twimg.com/media/B9tp1hSIEAAv9_h.jpg",
+          "id_str": "566162546353508352",
+          "indices": [
+            117,
+            139
+          ],
+          "media_url": "http://pbs.twimg.com/media/B9tp1hSIEAAv9_h.jpg",
+          "type": "photo",
+          "id": 566162546353508352,
+          "display_url": "pic.twitter.com/FY3FRkBEpl"
+        }
+      ]
+    },
+    "in_reply_to_screen_name": "alhambracultura",
+    "in_reply_to_user_id": 147924806,
+    "retweet_count": 1,
+    "id_str": "566162559397806080",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "id": 138329816,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/3697726668/2dee65284cf2d160251ce35891d2d72b_normal.jpeg",
+      "profile_sidebar_fill_color": "DDEEF6",
+      "is_translator": false,
+      "geo_enabled": true,
+      "entities": {
+        "url": {
+          "urls": [
+            {
+              "url": "http://t.co/ll5PypsnQq",
+              "indices": [
+                0,
+                22
+              ],
+              "expanded_url": "http://www.wonderbrand.es",
+              "display_url": "wonderbrand.es"
+            }
+          ]
+        },
+        "description": {"urls": []}
+      },
+      "followers_count": 288,
+      "protected": false,
+      "location": "",
+      "default_profile_image": false,
+      "id_str": "138329816",
+      "lang": "en",
+      "utc_offset": -10800,
+      "statuses_count": 1247,
+      "description": "Aprender es el reto y la aventura de mi vida. Tecnolog\u00eda y marketing otras pasiones. Profesora de la UGR. Nos vemos en @carmenblancoFRA y @alhambracultura .",
+      "friends_count": 326,
+      "profile_link_color": "0084B4",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/3697726668/2dee65284cf2d160251ce35891d2d72b_normal.jpeg",
+      "notifications": null,
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_color": "C0DEED",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/138329816/1369589601",
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "screen_name": "bpradosp",
+      "is_translation_enabled": false,
+      "profile_background_tile": false,
+      "favourites_count": 369,
+      "name": "belen prados",
+      "url": "http://t.co/ll5PypsnQq",
+      "created_at": {"$date": 1272525420000},
+      "contributors_enabled": false,
+      "time_zone": "Greenland",
+      "profile_sidebar_border_color": "C0DEED",
+      "default_profile": true,
+      "following": null,
+      "listed_count": 9
+    },
+    "geo": {
+      "type": "Point",
+      "coordinates": [
+        40.45337681,
+        -3.7266302
+      ]
+    },
+    "in_reply_to_user_id_str": "147924806",
+    "possibly_sensitive": false,
+    "lang": "es",
+    "created_at": {"$date": 1423818647000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": null,
+    "place": {
+      "full_name": "Madrid, Comunidad de Madrid",
+      "url": "https://api.twitter.com/1.1/geo/id/206c436ce43a43a3.json",
+      "country": "Espa\u00f1a",
+      "place_type": "city",
+      "bounding_box": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -3.8890049,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.6435181
+            ],
+            [
+              -3.8890049,
+              40.6435181
+            ]
+          ]
+        ]
+      },
+      "contained_within": [],
+      "country_code": "ES",
+      "attributes": {},
+      "id": "206c436ce43a43a3",
+      "name": "Madrid"
+    },
+    "_id": {"$oid": "54e21b0ad27d989b030421c7"},
+    "sentiment": "positivo"
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "No renta acistarse a las 5 para levantarse a laz 7",
+    "in_reply_to_status_id": null,
+    "id": 566141616076099585,
+    "favorite_count": 0,
+    "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+    "retweeted": false,
+    "coordinates": {
+      "type": "Point",
+      "coordinates": [
+        -3.7277877,
+        40.451367
+      ]
+    },
+    "entities": {
+      "symbols": [],
+      "user_mentions": [],
+      "hashtags": [],
+      "urls": []
+    },
+    "in_reply_to_screen_name": null,
+    "in_reply_to_user_id": null,
+    "retweet_count": 0,
+    "id_str": "566141616076099585",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "id": 385444596,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/497056581432131584/Xjrubwqx_normal.jpeg",
+      "profile_sidebar_fill_color": "A0C5C7",
+      "is_translator": false,
+      "geo_enabled": true,
+      "entities": {"description": {"urls": []}},
+      "followers_count": 312,
+      "protected": false,
+      "location": "EN CANCIONES DE AYER",
+      "default_profile_image": false,
+      "id_str": "385444596",
+      "lang": "es",
+      "utc_offset": 7200,
+      "statuses_count": 5754,
+      "description": "18. Futura ingeniera de telecomunicaciones en la UPM dicen... Cause life is too short.",
+      "friends_count": 417,
+      "profile_link_color": "E01919",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/497056581432131584/Xjrubwqx_normal.jpeg",
+      "notifications": null,
+      "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/657595089/noedalru0yv8bsgs41hx.jpeg",
+      "profile_background_color": "EDECE9",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/385444596/1382791085",
+      "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/657595089/noedalru0yv8bsgs41hx.jpeg",
+      "screen_name": "Irener_10",
+      "is_translation_enabled": false,
+      "profile_background_tile": true,
+      "favourites_count": 351,
+      "name": "IRENE \u222c",
+      "url": null,
+      "created_at": {"$date": 1317824662000},
+      "contributors_enabled": false,
+      "time_zone": "Athens",
+      "profile_sidebar_border_color": "FFFFFF",
+      "default_profile": false,
+      "following": null,
+      "listed_count": 2
+    },
+    "geo": {
+      "type": "Point",
+      "coordinates": [
+        40.451367,
+        -3.7277877
+      ]
+    },
+    "in_reply_to_user_id_str": null,
+    "lang": "es",
+    "created_at": {"$date": 1423813654000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": null,
+    "place": {
+      "full_name": "Madrid, Comunidad de Madrid",
+      "url": "https://api.twitter.com/1.1/geo/id/206c436ce43a43a3.json",
+      "country": "Espa\u00f1a",
+      "place_type": "city",
+      "bounding_box": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -3.8890049,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.6435181
+            ],
+            [
+              -3.8890049,
+              40.6435181
+            ]
+          ]
+        ]
+      },
+      "contained_within": [],
+      "country_code": "ES",
+      "attributes": {},
+      "id": "206c436ce43a43a3",
+      "name": "Madrid"
+    },
+    "_id": {"$oid": "54e21b0ad27d989b030421c9"},
+    "sentiment": "negativo"
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "Me muero de sue\u00f1ooooooooooooooo",
+    "in_reply_to_status_id": null,
+    "id": 566141503194816512,
+    "favorite_count": 0,
+    "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+    "retweeted": false,
+    "coordinates": {
+      "type": "Point",
+      "coordinates": [
+        -3.7277877,
+        40.451367
+      ]
+    },
+    "entities": {
+      "symbols": [],
+      "user_mentions": [],
+      "hashtags": [],
+      "urls": []
+    },
+    "in_reply_to_screen_name": null,
+    "in_reply_to_user_id": null,
+    "retweet_count": 0,
+    "id_str": "566141503194816512",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "id": 385444596,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/497056581432131584/Xjrubwqx_normal.jpeg",
+      "profile_sidebar_fill_color": "A0C5C7",
+      "is_translator": false,
+      "geo_enabled": true,
+      "entities": {"description": {"urls": []}},
+      "followers_count": 312,
+      "protected": false,
+      "location": "EN CANCIONES DE AYER",
+      "default_profile_image": false,
+      "id_str": "385444596",
+      "lang": "es",
+      "utc_offset": 7200,
+      "statuses_count": 5754,
+      "description": "18. Futura ingeniera de telecomunicaciones en la UPM dicen... Cause life is too short.",
+      "friends_count": 417,
+      "profile_link_color": "E01919",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/497056581432131584/Xjrubwqx_normal.jpeg",
+      "notifications": null,
+      "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/657595089/noedalru0yv8bsgs41hx.jpeg",
+      "profile_background_color": "EDECE9",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/385444596/1382791085",
+      "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/657595089/noedalru0yv8bsgs41hx.jpeg",
+      "screen_name": "Irener_10",
+      "is_translation_enabled": false,
+      "profile_background_tile": true,
+      "favourites_count": 351,
+      "name": "IRENE \u222c",
+      "url": null,
+      "created_at": {"$date": 1317824662000},
+      "contributors_enabled": false,
+      "time_zone": "Athens",
+      "profile_sidebar_border_color": "FFFFFF",
+      "default_profile": false,
+      "following": null,
+      "listed_count": 2
+    },
+    "geo": {
+      "type": "Point",
+      "coordinates": [
+        40.451367,
+        -3.7277877
+      ]
+    },
+    "in_reply_to_user_id_str": null,
+    "lang": "es",
+    "created_at": {"$date": 1423813627000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": null,
+    "place": {
+      "full_name": "Madrid, Comunidad de Madrid",
+      "url": "https://api.twitter.com/1.1/geo/id/206c436ce43a43a3.json",
+      "country": "Espa\u00f1a",
+      "place_type": "city",
+      "bounding_box": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -3.8890049,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.6435181
+            ],
+            [
+              -3.8890049,
+              40.6435181
+            ]
+          ]
+        ]
+      },
+      "contained_within": [],
+      "country_code": "ES",
+      "attributes": {},
+      "id": "206c436ce43a43a3",
+      "name": "Madrid"
+    },
+    "_id": {"$oid": "54e21b0ad27d989b030421ca"},
+    "sentiment": "negativo"
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "En plena sesi\u00f3n @TagCloudProject con @alhambracultura innovaci\u00f3n para #Alhambra http://t.co/IS3hy280eT",
+    "in_reply_to_status_id": null,
+    "id": 565888590375579648,
+    "favorite_count": 1,
+    "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+    "retweeted": false,
+    "coordinates": {
+      "type": "Point",
+      "coordinates": [
+        -3.72661304,
+        40.45338137
+      ]
+    },
+    "entities": {
+      "symbols": [],
+      "user_mentions": [
+        {
+          "indices": [
+            16,
+            32
+          ],
+          "screen_name": "TagCloudProject",
+          "id": 1172575622,
+          "name": "TagCloud Project",
+          "id_str": "1172575622"
+        },
+        {
+          "indices": [
+            37,
+            53
+          ],
+          "screen_name": "alhambracultura",
+          "id": 147924806,
+          "name": "Alhambra de Granada",
+          "id_str": "147924806"
+        }
+      ],
+      "hashtags": [
+        {
+          "indices": [
+            70,
+            79
+          ],
+          "text": "Alhambra"
+        }
+      ],
+      "urls": [],
+      "media": [
+        {
+          "expanded_url": "http://twitter.com/bpradosp/status/565888590375579648/photo/1",
+          "sizes": {
+            "small": {
+              "h": 455,
+              "w": 340,
+              "resize": "fit"
+            },
+            "large": {
+              "h": 1024,
+              "w": 764,
+              "resize": "fit"
+            },
+            "medium": {
+              "h": 804,
+              "w": 600,
+              "resize": "fit"
+            },
+            "thumb": {
+              "h": 150,
+              "w": 150,
+              "resize": "crop"
+            }
+          },
+          "url": "http://t.co/IS3hy280eT",
+          "media_url_https": "https://pbs.twimg.com/media/B9pwqo7IIAAVJS2.jpg",
+          "id_str": "565888581030649856",
+          "indices": [
+            80,
+            102
+          ],
+          "media_url": "http://pbs.twimg.com/media/B9pwqo7IIAAVJS2.jpg",
+          "type": "photo",
+          "id": 565888581030649856,
+          "display_url": "pic.twitter.com/IS3hy280eT"
+        }
+      ]
+    },
+    "in_reply_to_screen_name": null,
+    "in_reply_to_user_id": null,
+    "retweet_count": 2,
+    "id_str": "565888590375579648",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "id": 138329816,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/3697726668/2dee65284cf2d160251ce35891d2d72b_normal.jpeg",
+      "profile_sidebar_fill_color": "DDEEF6",
+      "is_translator": false,
+      "geo_enabled": true,
+      "entities": {
+        "url": {
+          "urls": [
+            {
+              "url": "http://t.co/ll5PypsnQq",
+              "indices": [
+                0,
+                22
+              ],
+              "expanded_url": "http://www.wonderbrand.es",
+              "display_url": "wonderbrand.es"
+            }
+          ]
+        },
+        "description": {"urls": []}
+      },
+      "followers_count": 288,
+      "protected": false,
+      "location": "",
+      "default_profile_image": false,
+      "id_str": "138329816",
+      "lang": "en",
+      "utc_offset": -10800,
+      "statuses_count": 1247,
+      "description": "Aprender es el reto y la aventura de mi vida. Tecnolog\u00eda y marketing otras pasiones. Profesora de la UGR. Nos vemos en @carmenblancoFRA y @alhambracultura .",
+      "friends_count": 326,
+      "profile_link_color": "0084B4",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/3697726668/2dee65284cf2d160251ce35891d2d72b_normal.jpeg",
+      "notifications": null,
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_color": "C0DEED",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/138329816/1369589601",
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "screen_name": "bpradosp",
+      "is_translation_enabled": false,
+      "profile_background_tile": false,
+      "favourites_count": 369,
+      "name": "belen prados",
+      "url": "http://t.co/ll5PypsnQq",
+      "created_at": {"$date": 1272525420000},
+      "contributors_enabled": false,
+      "time_zone": "Greenland",
+      "profile_sidebar_border_color": "C0DEED",
+      "default_profile": true,
+      "following": null,
+      "listed_count": 9
+    },
+    "geo": {
+      "type": "Point",
+      "coordinates": [
+        40.45338137,
+        -3.72661304
+      ]
+    },
+    "in_reply_to_user_id_str": null,
+    "possibly_sensitive": false,
+    "lang": "es",
+    "created_at": {"$date": 1423753328000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": null,
+    "place": {
+      "full_name": "Madrid, Comunidad de Madrid",
+      "url": "https://api.twitter.com/1.1/geo/id/206c436ce43a43a3.json",
+      "country": "Espa\u00f1a",
+      "place_type": "city",
+      "bounding_box": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -3.8890049,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.6435181
+            ],
+            [
+              -3.8890049,
+              40.6435181
+            ]
+          ]
+        ]
+      },
+      "contained_within": [],
+      "country_code": "ES",
+      "attributes": {},
+      "id": "206c436ce43a43a3",
+      "name": "Madrid"
+    },
+    "_id": {"$oid": "54e21b0ad27d989b030421cb"},
+    "sentiment": "positivo"
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "Fiesta con cuarto oscuro esta noche en mi casa, interesados habladme por MD",
+    "in_reply_to_status_id": null,
+    "id": 565836146824200192,
+    "favorite_count": 2,
+    "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+    "retweeted": false,
+    "coordinates": {
+      "type": "Point",
+      "coordinates": [
+        -3.72677686,
+        40.45351984
+      ]
+    },
+    "entities": {
+      "symbols": [],
+      "user_mentions": [],
+      "hashtags": [],
+      "urls": []
+    },
+    "in_reply_to_screen_name": null,
+    "in_reply_to_user_id": null,
+    "retweet_count": 2,
+    "id_str": "565836146824200192",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "23B2DD",
+      "id": 418364631,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/524302111584952321/49r9BHcs_normal.jpeg",
+      "profile_sidebar_fill_color": "A723DD",
+      "is_translator": false,
+      "geo_enabled": true,
+      "entities": {"description": {"urls": []}},
+      "followers_count": 298,
+      "protected": false,
+      "location": "",
+      "default_profile_image": false,
+      "id_str": "418364631",
+      "lang": "es",
+      "utc_offset": -18000,
+      "statuses_count": 1199,
+      "description": "Don't let small minds convice you that your Dreams are too BIG.\nIngeniero 1. Mago 18. \n#TeamIphone\n\nMade in Madrid.",
+      "friends_count": 236,
+      "profile_link_color": "57DD53",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/524302111584952321/49r9BHcs_normal.jpeg",
+      "notifications": null,
+      "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/552273666/xb248b986df7a71e267d573fed497d80.png",
+      "profile_background_color": "DCDD23",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/418364631/1409081350",
+      "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/552273666/xb248b986df7a71e267d573fed497d80.png",
+      "screen_name": "enrique_esp8",
+      "is_translation_enabled": false,
+      "profile_background_tile": false,
+      "favourites_count": 624,
+      "name": "Enrique \uf8ff",
+      "url": null,
+      "created_at": {"$date": 1321930195000},
+      "contributors_enabled": false,
+      "time_zone": "Eastern Time (US & Canada)",
+      "profile_sidebar_border_color": "FF8853",
+      "default_profile": false,
+      "following": null,
+      "listed_count": 0
+    },
+    "geo": {
+      "type": "Point",
+      "coordinates": [
+        40.45351984,
+        -3.72677686
+      ]
+    },
+    "in_reply_to_user_id_str": null,
+    "lang": "es",
+    "created_at": {"$date": 1423740824000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": null,
+    "place": {
+      "full_name": "Madrid, Comunidad de Madrid",
+      "url": "https://api.twitter.com/1.1/geo/id/206c436ce43a43a3.json",
+      "country": "Espa\u00f1a",
+      "place_type": "city",
+      "bounding_box": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -3.8890049,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.6435181
+            ],
+            [
+              -3.8890049,
+              40.6435181
+            ]
+          ]
+        ]
+      },
+      "contained_within": [],
+      "country_code": "ES",
+      "attributes": {},
+      "id": "206c436ce43a43a3",
+      "name": "Madrid"
+    },
+    "_id": {"$oid": "54e21b0ad27d989b030421cc"},
+    "sentiment": "positivo"
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "@Carol_0596 @JuankiDT96 Esto es un acoso infrahumano y muy denigrante :( En la uni todos se rien de mi :( Creoq escribire un blog sobre ello",
+    "in_reply_to_status_id": 565445123522453504,
+    "id": 565446494820773888,
+    "favorite_count": 0,
+    "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+    "retweeted": false,
+    "coordinates": {
+      "type": "Point",
+      "coordinates": [
+        -3.7265278,
+        40.4519726
+      ]
+    },
+    "entities": {
+      "symbols": [],
+      "user_mentions": [
+        {
+          "indices": [
+            0,
+            11
+          ],
+          "screen_name": "Carol_0596",
+          "id": 56731129,
+          "name": "Oath",
+          "id_str": "56731129"
+        },
+        {
+          "indices": [
+            12,
+            23
+          ],
+          "screen_name": "JuankiDT96",
+          "id": 2388434914,
+          "name": "Juan Carlos D\u00edaz ",
+          "id_str": "2388434914"
+        }
+      ],
+      "hashtags": [],
+      "urls": []
+    },
+    "in_reply_to_screen_name": "Carol_0596",
+    "in_reply_to_user_id": 56731129,
+    "retweet_count": 0,
+    "id_str": "565446494820773888",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "id": 1335036715,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/499866923577139200/1wOupvvD_normal.jpeg",
+      "profile_sidebar_fill_color": "DDEEF6",
+      "is_translator": false,
+      "geo_enabled": true,
+      "entities": {"description": {"urls": []}},
+      "followers_count": 175,
+      "protected": false,
+      "location": "",
+      "default_profile_image": false,
+      "id_str": "1335036715",
+      "lang": "es",
+      "utc_offset": null,
+      "statuses_count": 1604,
+      "description": "pesimo estudiante, peor persona :D\r\nguitarrista profesional, y amante del baloncesto... pero sin cansarme demasiado :P porque por las tardes me saco el graduado",
+      "friends_count": 290,
+      "profile_link_color": "0900FF",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/499866923577139200/1wOupvvD_normal.jpeg",
+      "notifications": null,
+      "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/836800758/59da7fd313738a32eb9b29ba23538e1f.jpeg",
+      "profile_background_color": "070721",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/1335036715/1368544543",
+      "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/836800758/59da7fd313738a32eb9b29ba23538e1f.jpeg",
+      "screen_name": "jorgeubeda",
+      "is_translation_enabled": false,
+      "profile_background_tile": true,
+      "favourites_count": 441,
+      "name": "Modesty Blaise ",
+      "url": null,
+      "created_at": {"$date": 1365366545000},
+      "contributors_enabled": false,
+      "time_zone": null,
+      "profile_sidebar_border_color": "000000",
+      "default_profile": false,
+      "following": null,
+      "listed_count": 1
+    },
+    "geo": {
+      "type": "Point",
+      "coordinates": [
+        40.4519726,
+        -3.7265278
+      ]
+    },
+    "in_reply_to_user_id_str": "56731129",
+    "lang": "es",
+    "created_at": {"$date": 1423647924000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": "565445123522453504",
+    "place": {
+      "full_name": "Madrid, Comunidad de Madrid",
+      "url": "https://api.twitter.com/1.1/geo/id/206c436ce43a43a3.json",
+      "country": "Espa\u00f1a",
+      "place_type": "city",
+      "bounding_box": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -3.8890049,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.6435181
+            ],
+            [
+              -3.8890049,
+              40.6435181
+            ]
+          ]
+        ]
+      },
+      "contained_within": [],
+      "country_code": "ES",
+      "attributes": {},
+      "id": "206c436ce43a43a3",
+      "name": "Madrid"
+    },
+    "_id": {
+      "$oid": "54e21b0ad27d989b030421cd"
+    }
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "@Carol_0596 En mi defensa dire que me arrebataron el movil cuando atendiaa arduamente a la profe de analisis vevtorial :D.",
+    "in_reply_to_status_id": 565442676905222145,
+    "id": 565444486084714498,
+    "favorite_count": 0,
+    "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+    "retweeted": false,
+    "coordinates": {
+      "type": "Point",
+      "coordinates": [
+        -3.7265305,
+        40.4520097
+      ]
+    },
+    "entities": {
+      "symbols": [],
+      "user_mentions": [
+        {
+          "indices": [
+            0,
+            11
+          ],
+          "screen_name": "Carol_0596",
+          "id": 56731129,
+          "name": "Oath",
+          "id_str": "56731129"
+        }
+      ],
+      "hashtags": [],
+      "urls": []
+    },
+    "in_reply_to_screen_name": "Carol_0596",
+    "in_reply_to_user_id": 56731129,
+    "retweet_count": 0,
+    "id_str": "565444486084714498",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "id": 1335036715,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/499866923577139200/1wOupvvD_normal.jpeg",
+      "profile_sidebar_fill_color": "DDEEF6",
+      "is_translator": false,
+      "geo_enabled": true,
+      "entities": {"description": {"urls": []}},
+      "followers_count": 175,
+      "protected": false,
+      "location": "",
+      "default_profile_image": false,
+      "id_str": "1335036715",
+      "lang": "es",
+      "utc_offset": null,
+      "statuses_count": 1604,
+      "description": "pesimo estudiante, peor persona :D\r\nguitarrista profesional, y amante del baloncesto... pero sin cansarme demasiado :P porque por las tardes me saco el graduado",
+      "friends_count": 290,
+      "profile_link_color": "0900FF",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/499866923577139200/1wOupvvD_normal.jpeg",
+      "notifications": null,
+      "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/836800758/59da7fd313738a32eb9b29ba23538e1f.jpeg",
+      "profile_background_color": "070721",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/1335036715/1368544543",
+      "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/836800758/59da7fd313738a32eb9b29ba23538e1f.jpeg",
+      "screen_name": "jorgeubeda",
+      "is_translation_enabled": false,
+      "profile_background_tile": true,
+      "favourites_count": 441,
+      "name": "Modesty Blaise ",
+      "url": null,
+      "created_at": {"$date": 1365366545000},
+      "contributors_enabled": false,
+      "time_zone": null,
+      "profile_sidebar_border_color": "000000",
+      "default_profile": false,
+      "following": null,
+      "listed_count": 1
+    },
+    "geo": {
+      "type": "Point",
+      "coordinates": [
+        40.4520097,
+        -3.7265305
+      ]
+    },
+    "in_reply_to_user_id_str": "56731129",
+    "lang": "es",
+    "created_at": {"$date": 1423647445000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": "565442676905222145",
+    "place": {
+      "full_name": "Madrid, Comunidad de Madrid",
+      "url": "https://api.twitter.com/1.1/geo/id/206c436ce43a43a3.json",
+      "country": "Espa\u00f1a",
+      "place_type": "city",
+      "bounding_box": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -3.8890049,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.6435181
+            ],
+            [
+              -3.8890049,
+              40.6435181
+            ]
+          ]
+        ]
+      },
+      "contained_within": [],
+      "country_code": "ES",
+      "attributes": {},
+      "id": "206c436ce43a43a3",
+      "name": "Madrid"
+    },
+    "_id": {"$oid": "54e21b0ad27d989b030421ce"},
+    "sentiment": "negativo"
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "Dije 45 min? Ya van 1:15h. Ahora parece que puedo escribir y todo.",
+    "in_reply_to_status_id": null,
+    "id": 565423862599655424,
+    "favorite_count": 1,
+    "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+    "retweeted": false,
+    "coordinates": {
+      "type": "Point",
+      "coordinates": [
+        -3.7259157,
+        40.4520386
+      ]
+    },
+    "entities": {
+      "symbols": [],
+      "user_mentions": [],
+      "hashtags": [],
+      "urls": []
+    },
+    "in_reply_to_screen_name": null,
+    "in_reply_to_user_id": null,
+    "retweet_count": 1,
+    "id_str": "565423862599655424",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "000000",
+      "id": 340900568,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2606811344/hi98vuq176qh8sxnmk0u_normal.gif",
+      "profile_sidebar_fill_color": "FFFFFF",
+      "is_translator": false,
+      "geo_enabled": true,
+      "entities": {
+        "description": {
+          "urls": [
+            {
+              "url": "http://t.co/hPj",
+              "indices": [
+                101,
+                116
+              ],
+              "expanded_url": null,
+              "display_url": "t.co/hPj"
+            }
+          ]
+        }
+      },
+      "followers_count": 565,
+      "protected": false,
+      "location": "Nowhere Land (Madrid y Gran\u00e1h)",
+      "default_profile_image": false,
+      "id_str": "340900568",
+      "lang": "es",
+      "utc_offset": 3600,
+      "statuses_count": 36412,
+      "description": "Intento de M\u00fasico y futuro Ingeniero de Teleco (sonido).\nEn la ETSIT.\n Del 96.\nBassman en @MuzakProg\nhttp://t.co/hPj",
+      "friends_count": 865,
+      "profile_link_color": "000000",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/2606811344/hi98vuq176qh8sxnmk0u_normal.gif",
+      "notifications": null,
+      "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/378800000062920606/77f03fa92dd1c8392e9399dfe9d29ad2.jpeg",
+      "profile_background_color": "332F33",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/340900568/1348166841",
+      "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/378800000062920606/77f03fa92dd1c8392e9399dfe9d29ad2.jpeg",
+      "screen_name": "Infraser28",
+      "is_translation_enabled": false,
+      "profile_background_tile": false,
+      "favourites_count": 5199,
+      "name": "Luis",
+      "url": null,
+      "created_at": {"$date": 1311427952000},
+      "contributors_enabled": false,
+      "time_zone": "Madrid",
+      "profile_sidebar_border_color": "FFFFFF",
+      "default_profile": false,
+      "following": null,
+      "listed_count": 8
+    },
+    "geo": {
+      "type": "Point",
+      "coordinates": [
+        40.4520386,
+        -3.7259157
+      ]
+    },
+    "in_reply_to_user_id_str": null,
+    "lang": "es",
+    "created_at": {"$date": 1423642528000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": null,
+    "place": {
+      "full_name": "Madrid, Comunidad de Madrid",
+      "url": "https://api.twitter.com/1.1/geo/id/ea520f3528c9b3e4.json",
+      "country": "Espa\u00f1a",
+      "place_type": "admin",
+      "bounding_box": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -4.5791745,
+              39.8845366
+            ],
+            [
+              -3.0531322,
+              39.8845366
+            ],
+            [
+              -3.0531322,
+              41.1649106
+            ],
+            [
+              -4.5791745,
+              41.1649106
+            ]
+          ]
+        ]
+      },
+      "contained_within": [],
+      "country_code": "ES",
+      "attributes": {},
+      "id": "ea520f3528c9b3e4",
+      "name": "Madrid"
+    },
+    "_id": {"$oid": "54e21b0ad27d989b030421cf"},
+    "sentiment": "negativo"
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "Oh, oh, Conciertazo en la ETSIT de la upm: el cuarteto para el fin de los tiempos de Messiaen con Lina Tur Bonet al viol\u00edn!",
+    "in_reply_to_status_id": null,
+    "id": 565999908306427905,
+    "favorite_count": 0,
+    "source": "<a href=\"http://mexico.cnn.com/\" rel=\"nofollow\">MicromEx</a>",
+    "retweeted": false,
+    "coordinates": null,
+    "entities": {
+      "symbols": [],
+      "user_mentions": [],
+      "hashtags": [],
+      "urls": []
+    },
+    "in_reply_to_screen_name": null,
+    "in_reply_to_user_id": null,
+    "retweet_count": 0,
+    "id_str": "565999908306427905",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "id": 2910370403,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/558029617194217472/9MbvCbvL_normal.png",
+      "profile_sidebar_fill_color": "DDEEF6",
+      "is_translator": false,
+      "geo_enabled": false,
+      "entities": {"description": {"urls": []}},
+      "followers_count": 7,
+      "protected": false,
+      "location": "",
+      "default_profile_image": false,
+      "id_str": "2910370403",
+      "lang": "es",
+      "utc_offset": null,
+      "statuses_count": 101,
+      "description": "Conservador, defensor de la pol\u00edtica de seguridad Hincha de",
+      "friends_count": 68,
+      "profile_link_color": "0084B4",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/558029617194217472/9MbvCbvL_normal.png",
+      "notifications": null,
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_color": "C0DEED",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/2910370403/1422889552",
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "screen_name": "israel_rutgaby5",
+      "is_translation_enabled": false,
+      "profile_background_tile": false,
+      "favourites_count": 17,
+      "name": "Israel Suarez",
+      "url": null,
+      "created_at": {"$date": 1418010725000},
+      "contributors_enabled": false,
+      "time_zone": null,
+      "profile_sidebar_border_color": "C0DEED",
+      "default_profile": true,
+      "following": null,
+      "listed_count": 0
+    },
+    "geo": null,
+    "in_reply_to_user_id_str": null,
+    "lang": "es",
+    "created_at": {"$date": 1423779868000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": null,
+    "place": null,
+    "_id": {"$oid": "54e21b3ed27d989b030421fe"},
+    "sentiment": "positivo"
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "@Mrs_DarkDonado si. Pero es el primer laboratorio y no hab\u00edan avisado de que el RTT con el servidor del departamento era de varios a\u00f1os.",
+    "in_reply_to_status_id": 565420370032078849,
+    "id": 565421152299143169,
+    "favorite_count": 1,
+    "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+    "retweeted": false,
+    "coordinates": {
+      "type": "Point",
+      "coordinates": [
+        -3.7259184,
+        40.4520635
+      ]
+    },
+    "entities": {
+      "symbols": [],
+      "user_mentions": [
+        {
+          "indices": [
+            0,
+            15
+          ],
+          "screen_name": "Mrs_DarkDonado",
+          "id": 182307309,
+          "name": "No longer invisible!",
+          "id_str": "182307309"
+        }
+      ],
+      "hashtags": [],
+      "urls": []
+    },
+    "in_reply_to_screen_name": "Mrs_DarkDonado",
+    "in_reply_to_user_id": 182307309,
+    "retweet_count": 0,
+    "id_str": "565421152299143169",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "000000",
+      "id": 340900568,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2606811344/hi98vuq176qh8sxnmk0u_normal.gif",
+      "profile_sidebar_fill_color": "FFFFFF",
+      "is_translator": false,
+      "geo_enabled": true,
+      "entities": {
+        "description": {
+          "urls": [
+            {
+              "url": "http://t.co/hPj",
+              "indices": [
+                101,
+                116
+              ],
+              "expanded_url": null,
+              "display_url": "t.co/hPj"
+            }
+          ]
+        }
+      },
+      "followers_count": 565,
+      "protected": false,
+      "location": "Nowhere Land (Madrid y Gran\u00e1h)",
+      "default_profile_image": false,
+      "id_str": "340900568",
+      "lang": "es",
+      "utc_offset": 3600,
+      "statuses_count": 36412,
+      "description": "Intento de M\u00fasico y futuro Ingeniero de Teleco (sonido).\nEn la ETSIT.\n Del 96.\nBassman en @MuzakProg\nhttp://t.co/hPj",
+      "friends_count": 865,
+      "profile_link_color": "000000",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/2606811344/hi98vuq176qh8sxnmk0u_normal.gif",
+      "notifications": null,
+      "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/378800000062920606/77f03fa92dd1c8392e9399dfe9d29ad2.jpeg",
+      "profile_background_color": "332F33",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/340900568/1348166841",
+      "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/378800000062920606/77f03fa92dd1c8392e9399dfe9d29ad2.jpeg",
+      "screen_name": "Infraser28",
+      "is_translation_enabled": false,
+      "profile_background_tile": false,
+      "favourites_count": 5199,
+      "name": "Luis",
+      "url": null,
+      "created_at": {"$date": 1311427952000},
+      "contributors_enabled": false,
+      "time_zone": "Madrid",
+      "profile_sidebar_border_color": "FFFFFF",
+      "default_profile": false,
+      "following": null,
+      "listed_count": 8
+    },
+    "geo": {
+      "type": "Point",
+      "coordinates": [
+        40.4520635,
+        -3.7259184
+      ]
+    },
+    "in_reply_to_user_id_str": "182307309",
+    "lang": "es",
+    "created_at": {"$date": 1423641882000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": "565420370032078849",
+    "place": {
+      "full_name": "Madrid, Comunidad de Madrid",
+      "url": "https://api.twitter.com/1.1/geo/id/ea520f3528c9b3e4.json",
+      "country": "Espa\u00f1a",
+      "place_type": "admin",
+      "bounding_box": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -4.5791745,
+              39.8845366
+            ],
+            [
+              -3.0531322,
+              39.8845366
+            ],
+            [
+              -3.0531322,
+              41.1649106
+            ],
+            [
+              -4.5791745,
+              41.1649106
+            ]
+          ]
+        ]
+      },
+      "contained_within": [],
+      "country_code": "ES",
+      "attributes": {},
+      "id": "ea520f3528c9b3e4",
+      "name": "Madrid"
+    },
+    "_id": {"$oid": "54e21b0ad27d989b030421d0"},
+    "sentiment": "negativo"
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "Putas hamburguesas que me destrozan el est\u00f3mago \ud83c\udf54 \ud83d\ude16",
+    "in_reply_to_status_id": null,
+    "id": 564740594313228288,
+    "favorite_count": 0,
+    "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+    "retweeted": false,
+    "coordinates": {
+      "type": "Point",
+      "coordinates": [
+        -3.7284722,
+        40.4515656
+      ]
+    },
+    "entities": {
+      "symbols": [],
+      "user_mentions": [],
+      "hashtags": [],
+      "urls": []
+    },
+    "in_reply_to_screen_name": null,
+    "in_reply_to_user_id": null,
+    "retweet_count": 0,
+    "id_str": "564740594313228288",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "3D1957",
+      "id": 113120126,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/514376360090169344/VNnuReHO_normal.jpeg",
+      "profile_sidebar_fill_color": "7AC3EE",
+      "is_translator": false,
+      "geo_enabled": true,
+      "entities": {
+        "url": {
+          "urls": [
+            {
+              "url": "http://t.co/BUn7hpG3aa",
+              "indices": [
+                0,
+                22
+              ],
+              "expanded_url": "http://instagram.com/k3t0",
+              "display_url": "instagram.com/k3t0"
+            }
+          ]
+        },
+        "description": {"urls": []}
+      },
+      "followers_count": 648,
+      "protected": false,
+      "location": "a veces aqu\u00ed, a veces all\u00e1",
+      "default_profile_image": false,
+      "id_str": "113120126",
+      "lang": "es",
+      "utc_offset": 3600,
+      "statuses_count": 17047,
+      "description": "Del 89 \u2642 T\u00e9cnico Inform\u00e1tico y (casi) Ingeniero de Computadores UCM. A\u00fan me quedan unos cuantos objetivos. Vivo la vida. @PRayistaBUSUNO @DelegacionFDI @ritsi",
+      "friends_count": 538,
+      "profile_link_color": "EF0000",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/514376360090169344/VNnuReHO_normal.jpeg",
+      "notifications": null,
+      "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/833161627/8b5ecba96d1ab5096b4cd4e02440e0b6.jpeg",
+      "profile_background_color": "642D8B",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/113120126/1407714074",
+      "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/833161627/8b5ecba96d1ab5096b4cd4e02440e0b6.jpeg",
+      "screen_name": "K3T0",
+      "is_translation_enabled": false,
+      "profile_background_tile": true,
+      "favourites_count": 2716,
+      "name": "KeTo Ugedo \u25b2",
+      "url": "http://t.co/BUn7hpG3aa",
+      "created_at": {"$date": 1265830457000},
+      "contributors_enabled": false,
+      "time_zone": "Madrid",
+      "profile_sidebar_border_color": "000000",
+      "default_profile": false,
+      "following": null,
+      "listed_count": 13
+    },
+    "geo": {
+      "type": "Point",
+      "coordinates": [
+        40.4515656,
+        -3.7284722
+      ]
+    },
+    "in_reply_to_user_id_str": null,
+    "lang": "es",
+    "created_at": {"$date": 1423479624000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": null,
+    "place": {
+      "full_name": "Madrid, Comunidad de Madrid",
+      "url": "https://api.twitter.com/1.1/geo/id/206c436ce43a43a3.json",
+      "country": "Espa\u00f1a",
+      "place_type": "city",
+      "bounding_box": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -3.8890049,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.6435181
+            ],
+            [
+              -3.8890049,
+              40.6435181
+            ]
+          ]
+        ]
+      },
+      "contained_within": [],
+      "country_code": "ES",
+      "attributes": {},
+      "id": "206c436ce43a43a3",
+      "name": "Madrid"
+    },
+    "_id": {"$oid": "54e21b0ad27d989b030421d1"},
+    "sentiment": "negativo"
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "Me mola ir mazo petada en el bussssi!\ud83d\udc4d http://t.co/fbjZx4KqT5",
+    "in_reply_to_status_id": null,
+    "id": 564690149687455744,
+    "favorite_count": 0,
+    "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+    "retweeted": false,
+    "coordinates": {
+      "type": "Point",
+      "coordinates": [
+        -3.7287085,
+        40.4519073
+      ]
+    },
+    "entities": {
+      "symbols": [],
+      "user_mentions": [],
+      "hashtags": [],
+      "urls": [],
+      "media": [
+        {
+          "expanded_url": "http://twitter.com/KrisDonatelowi/status/564690149687455744/photo/1",
+          "sizes": {
+            "large": {
+              "h": 800,
+              "w": 600,
+              "resize": "fit"
+            },
+            "small": {
+              "h": 453,
+              "w": 340,
+              "resize": "fit"
+            },
+            "medium": {
+              "h": 800,
+              "w": 600,
+              "resize": "fit"
+            },
+            "thumb": {
+              "h": 150,
+              "w": 150,
+              "resize": "crop"
+            }
+          },
+          "url": "http://t.co/fbjZx4KqT5",
+          "media_url_https": "https://pbs.twimg.com/media/B9YusQnIYAE3_KY.jpg",
+          "id_str": "564690141189791745",
+          "indices": [
+            39,
+            61
+          ],
+          "media_url": "http://pbs.twimg.com/media/B9YusQnIYAE3_KY.jpg",
+          "type": "photo",
+          "id": 564690141189791745,
+          "display_url": "pic.twitter.com/fbjZx4KqT5"
+        }
+      ]
+    },
+    "in_reply_to_screen_name": null,
+    "in_reply_to_user_id": null,
+    "retweet_count": 0,
+    "id_str": "564690149687455744",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "id": 331833239,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/508627013687869440/XkCXyarK_normal.jpeg",
+      "profile_sidebar_fill_color": "EFEFEF",
+      "is_translator": false,
+      "geo_enabled": true,
+      "entities": {"description": {"urls": []}},
+      "followers_count": 601,
+      "protected": false,
+      "location": "Tres Cantos, Madrid",
+      "default_profile_image": false,
+      "id_str": "331833239",
+      "lang": "es",
+      "utc_offset": null,
+      "statuses_count": 12791,
+      "description": "Hay un cierto placer en la locura que solo un loco conoce. XIV \u2764",
+      "friends_count": 454,
+      "profile_link_color": "009999",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/508627013687869440/XkCXyarK_normal.jpeg",
+      "notifications": null,
+      "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/400832866/imagen__81_.jpg",
+      "profile_background_color": "131516",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/331833239/1410101061",
+      "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/400832866/imagen__81_.jpg",
+      "screen_name": "KrisDonatelowi",
+      "is_translation_enabled": false,
+      "profile_background_tile": true,
+      "favourites_count": 4052,
+      "name": "Crisiiia",
+      "url": null,
+      "created_at": {"$date": 1310154758000},
+      "contributors_enabled": false,
+      "time_zone": null,
+      "profile_sidebar_border_color": "EEEEEE",
+      "default_profile": false,
+      "following": null,
+      "listed_count": 6
+    },
+    "geo": {
+      "type": "Point",
+      "coordinates": [
+        40.4519073,
+        -3.7287085
+      ]
+    },
+    "in_reply_to_user_id_str": null,
+    "possibly_sensitive": false,
+    "lang": "es",
+    "created_at": {"$date": 1423467597000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": null,
+    "place": {
+      "full_name": "Madrid, Comunidad de Madrid",
+      "url": "https://api.twitter.com/1.1/geo/id/206c436ce43a43a3.json",
+      "country": "Espa\u00f1a",
+      "place_type": "city",
+      "bounding_box": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -3.8890049,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.3120713
+            ],
+            [
+              -3.5180102,
+              40.6435181
+            ],
+            [
+              -3.8890049,
+              40.6435181
+            ]
+          ]
+        ]
+      },
+      "contained_within": [],
+      "country_code": "ES",
+      "attributes": {},
+      "id": "206c436ce43a43a3",
+      "name": "Madrid"
+    },
+    "_id": {"$oid": "54e21b0ad27d989b030421d2"},
+    "sentiment": "positivo"
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "@Leticiatilla Hola Leticia. El enlace a los horarios y ex\u00e1menes del plan 94 est\u00e1n en el enlace http://t.co/8cagPYvQ2c Gracias.",
+    "in_reply_to_status_id": 567292304294428672,
+    "id": 567301465191243777,
+    "favorite_count": 0,
+    "source": "<a href=\"http://twitter.com\" rel=\"nofollow\">Twitter Web Client</a>",
+    "retweeted": false,
+    "coordinates": null,
+    "entities": {
+      "symbols": [],
+      "user_mentions": [
+        {
+          "indices": [
+            0,
+            13
+          ],
+          "screen_name": "Leticiatilla",
+          "id": 187829001,
+          "name": "Leticia Rodr\u00edguez",
+          "id_str": "187829001"
+        }
+      ],
+      "hashtags": [],
+      "urls": [
+        {
+          "url": "http://t.co/8cagPYvQ2c",
+          "indices": [
+            95,
+            117
+          ],
+          "expanded_url": "http://tinyurl.com/jwmsnz8",
+          "display_url": "tinyurl.com/jwmsnz8"
+        }
+      ]
+    },
+    "in_reply_to_screen_name": "Leticiatilla",
+    "in_reply_to_user_id": 187829001,
+    "retweet_count": 0,
+    "id_str": "567301465191243777",
+    "favorited": false,
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "004882",
+      "id": 136222587,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1237345091/ETSIT_UPM_media-_3__normal.png",
+      "profile_sidebar_fill_color": "EFEFEF",
+      "is_translator": false,
+      "geo_enabled": true,
+      "entities": {
+        "url": {
+          "urls": [
+            {
+              "url": "http://t.co/P6FlDzmqDU",
+              "indices": [
+                0,
+                22
+              ],
+              "expanded_url": "http://www.etsit.upm.es",
+              "display_url": "etsit.upm.es"
+            }
+          ]
+        },
+        "description": {"urls": []}
+      },
+      "followers_count": 3154,
+      "protected": false,
+      "location": "Avenida Complutense 30, Madrid",
+      "default_profile_image": false,
+      "id_str": "136222587",
+      "lang": "es",
+      "utc_offset": 3600,
+      "statuses_count": 1747,
+      "description": "Twitter oficial de la Escuela T\u00e9cnica Superior de Ingenieros de Telecomunicaci\u00f3n. Universidad Polit\u00e9cnica de Madrid (ETSIT-UPM)",
+      "friends_count": 189,
+      "profile_link_color": "FF9741",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/1237345091/ETSIT_UPM_media-_3__normal.png",
+      "notifications": null,
+      "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/94926085/TwitterETSIT.jpg",
+      "profile_background_color": "C0DEED",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/136222587/1354619734",
+      "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/94926085/TwitterETSIT.jpg",
+      "screen_name": "telecoupm",
+      "is_translation_enabled": false,
+      "profile_background_tile": false,
+      "favourites_count": 18,
+      "name": "ETSIT - UPM",
+      "url": "http://t.co/P6FlDzmqDU",
+      "created_at": {"$date": 1272017521000},
+      "contributors_enabled": false,
+      "time_zone": "Madrid",
+      "profile_sidebar_border_color": "A6BAD1",
+      "default_profile": false,
+      "following": null,
+      "listed_count": 112
+    },
+    "geo": null,
+    "in_reply_to_user_id_str": "187829001",
+    "possibly_sensitive": false,
+    "lang": "es",
+    "created_at": {"$date": 1424090183000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": "567292304294428672",
+    "place": null,
+    "_id": {"$oid": "54e21b3ed27d989b030421d4"},
+    "sentiment": "negativo"
+  },
+  {
+    "contributors": null,
+    "truncated": false,
+    "text": "RT @dan1t0: Dejo por aqu\u00ed las diapos de mi charla del evento de @ieeesb que se celebro en la Polit\u00e9cnica de Madrid http://t.co/h95LLvk6mc",
+    "in_reply_to_status_id": null,
+    "id": 567300240731283456,
+    "favorite_count": 0,
+    "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+    "retweeted": false,
+    "coordinates": null,
+    "entities": {
+      "symbols": [],
+      "user_mentions": [
+        {
+          "indices": [
+            3,
+            10
+          ],
+          "screen_name": "dan1t0",
+          "id": 87074930,
+          "name": "\u2620 Dani Martinez \u2620",
+          "id_str": "87074930"
+        },
+        {
+          "indices": [
+            64,
+            71
+          ],
+          "screen_name": "ieeesb",
+          "id": 16404507,
+          "name": "IEEEsb Madrid - UPM",
+          "id_str": "16404507"
+        }
+      ],
+      "hashtags": [],
+      "urls": [
+        {
+          "url": "http://t.co/h95LLvk6mc",
+          "indices": [
+            115,
+            137
+          ],
+          "expanded_url": "http://zion.ieeesb.etsit.upm.es/web/new/Los-Martes-de-la-Ciberseguridad-I51.html",
+          "display_url": "zion.ieeesb.etsit.upm.es/web/new/Los-Ma\u2026"
+        }
+      ]
+    },
+    "in_reply_to_screen_name": null,
+    "in_reply_to_user_id": null,
+    "retweet_count": 7,
+    "id_str": "567300240731283456",
+    "favorited": false,
+    "retweeted_status": {
+      "contributors": null,
+      "truncated": false,
+      "text": "Dejo por aqu\u00ed las diapos de mi charla del evento de @ieeesb que se celebro en la Polit\u00e9cnica de Madrid http://t.co/h95LLvk6mc",
+      "in_reply_to_status_id": null,
+      "id": 567279039451115520,
+      "favorite_count": 4,
+      "source": "<a href=\"http://twitter.com\" rel=\"nofollow\">Twitter Web Client</a>",
+      "retweeted": false,
+      "coordinates": null,
+      "entities": {
+        "symbols": [],
+        "user_mentions": [
+          {
+            "indices": [
+              52,
+              59
+            ],
+            "screen_name": "ieeesb",
+            "id": 16404507,
+            "name": "IEEEsb Madrid - UPM",
+            "id_str": "16404507"
+          }
+        ],
+        "hashtags": [],
+        "urls": [
+          {
+            "url": "http://t.co/h95LLvk6mc",
+            "indices": [
+              103,
+              125
+            ],
+            "expanded_url": "http://zion.ieeesb.etsit.upm.es/web/new/Los-Martes-de-la-Ciberseguridad-I51.html",
+            "display_url": "zion.ieeesb.etsit.upm.es/web/new/Los-Ma\u2026"
+          }
+        ]
+      },
+      "in_reply_to_screen_name": null,
+      "in_reply_to_user_id": null,
+      "retweet_count": 7,
+      "id_str": "567279039451115520",
+      "favorited": false,
+      "user": {
+        "follow_request_sent": null,
+        "profile_use_background_image": true,
+        "profile_text_color": "333333",
+        "id": 87074930,
+        "verified": false,
+        "profile_location": null,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/378800000848670384/b8671e2505c270cc9982fc9c4313e76e_normal.jpeg",
+        "profile_sidebar_fill_color": "DDEEF6",
+        "is_translator": false,
+        "geo_enabled": false,
+        "entities": {
+          "url": {
+            "urls": [
+              {
+                "url": "http://t.co/WktqWmaWQc",
+                "indices": [
+                  0,
+                  22
+                ],
+                "expanded_url": "http://dan1t0.wordpress.com/",
+                "display_url": "dan1t0.wordpress.com"
+              }
+            ]
+          },
+          "description": {"urls": []}
+        },
+        "followers_count": 1494,
+        "protected": false,
+        "location": "Tierra Media",
+        "default_profile_image": false,
+        "id_str": "87074930",
+        "lang": "es",
+        "utc_offset": 3600,
+        "statuses_count": 13433,
+        "description": "Entusiasta de la (in)seguridad tecnol\u00f3gica y Software Libre. 100Kg de 1's y 0's. Rugby Player. Iba para notario, pero me qued\u00e9 en notas. Tambi\u00e9n hago camisetas",
+        "friends_count": 1221,
+        "profile_link_color": "2713C2",
+        "profile_image_url": "http://pbs.twimg.com/profile_images/378800000848670384/b8671e2505c270cc9982fc9c4313e76e_normal.jpeg",
+        "notifications": null,
+        "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/378800000002557601/6edf3cf4a9fc04979c3cc81763849a2f.jpeg",
+        "profile_background_color": "000305",
+        "profile_banner_url": "https://pbs.twimg.com/profile_banners/87074930/1401415428",
+        "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/378800000002557601/6edf3cf4a9fc04979c3cc81763849a2f.jpeg",
+        "screen_name": "dan1t0",
+        "is_translation_enabled": false,
+        "profile_background_tile": true,
+        "favourites_count": 948,
+        "name": "\u2620 Dani Martinez \u2620",
+        "url": "http://t.co/WktqWmaWQc",
+        "created_at": "Tue Nov 03 01:00:39 +0000 2009",
+        "contributors_enabled": false,
+        "time_zone": "Madrid",
+        "profile_sidebar_border_color": "000000",
+        "default_profile": false,
+        "following": null,
+        "listed_count": 41
+      },
+      "geo": null,
+      "in_reply_to_user_id_str": null,
+      "possibly_sensitive": false,
+      "lang": "es",
+      "created_at": "Mon Feb 16 11:07:17 +0000 2015",
+      "in_reply_to_status_id_str": null,
+      "place": null,
+      "metadata": {
+        "iso_language_code": "es",
+        "result_type": "recent"
+      }
+    },
+    "user": {
+      "follow_request_sent": null,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "id": 593075308,
+      "verified": false,
+      "profile_location": null,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/554065154166386688/hbJV1MmY_normal.jpeg",
+      "profile_sidebar_fill_color": "EFEFEF",
+      "is_translator": false,
+      "geo_enabled": false,
+      "entities": {
+        "url": {
+          "urls": [
+            {
+              "url": "http://t.co/r2PscwHATf",
+              "indices": [
+                0,
+                22
+              ],
+              "expanded_url": "http://www.servicopias.es",
+              "display_url": "servicopias.es"
+            }
+          ]
+        },
+        "description": {"urls": []}
+      },
+      "followers_count": 189,
+      "protected": false,
+      "location": "Toledo (Espa\u00f1a)",
+      "default_profile_image": false,
+      "id_str": "593075308",
+      "lang": "es",
+      "utc_offset": 3600,
+      "statuses_count": 1072,
+      "description": "T\u00e9cnico en SI y T\u00e9cnico Superior en Desarrollo de Aplicaciones, Programador #Java & #Python, apasionado con la [In]Seguridad Inform\u00e1tica-Distribuidor Oficial BQ",
+      "friends_count": 203,
+      "profile_link_color": "3B94D9",
+      "profile_image_url": "http://pbs.twimg.com/profile_images/554065154166386688/hbJV1MmY_normal.jpeg",
+      "notifications": null,
+      "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/378800000073344030/1d4f1e2cce4da83c5864da787076be89.jpeg",
+      "profile_background_color": "131516",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/593075308/1379077738",
+      "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/378800000073344030/1d4f1e2cce4da83c5864da787076be89.jpeg",
+      "screen_name": "JJavierOlmedo",
+      "is_translation_enabled": false,
+      "profile_background_tile": false,
+      "favourites_count": 171,
+      "name": "Javier Olmedo\u262d",
+      "url": "http://t.co/r2PscwHATf",
+      "created_at": {"$date": 1338239883000},
+      "contributors_enabled": false,
+      "time_zone": "Madrid",
+      "profile_sidebar_border_color": "FFFFFF",
+      "default_profile": false,
+      "following": null,
+      "listed_count": 5
+    },
+    "geo": null,
+    "in_reply_to_user_id_str": null,
+    "possibly_sensitive": false,
+    "lang": "es",
+    "created_at": {"$date": 1424089891000},
+    "metadata": {
+      "iso_language_code": "es",
+      "result_type": "recent"
+    },
+    "in_reply_to_status_id_str": null,
+    "place": null,
+    "_id": {"$oid": "54e21b3ed27d989b030421d5"},
+    "sentiment": "positivo"
+  }
+]
