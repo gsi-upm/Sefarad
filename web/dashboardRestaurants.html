@@ -456,9 +456,7 @@
                         <br>
 
                         <p class="text-light-blue">Select a query template:</p>
-                        <select style="width: 65%;" class="form-control" id="querySelector">
-                            <option ng-repeat="query in querys" ng-value="query.Name">{{query.Name}}</option>
-                        </select>
+                        <div id="paramQuerySelector"></div>
                         <br>
                         <p class="text-light-blue">Select parameters to fill the template:</p>
                         <div id="paramSelector0"></div>
@@ -594,7 +592,6 @@
     });
 
     var _editorEndpoint = 'http://demos.gsi.dit.upm.es/fuseki/restaurants/query?query=';
-    var myEl2 = document.getElementById('querySelector');
     var regex = /<(\S+)>/g;
     var parsedData = [];
     $.getJSON("queries.json", function (data) {
@@ -611,6 +608,12 @@
             var query = parsedData[0]["Query"];
             if(parsedData[0]["Endpoint"] != "")
                 _editorEndpoint = parsedData[0]["Endpoint"];
+
+            $("#paramQuerySelector").append('<select style="width: 65%;" class="form-control" id="querySelector"'+'>');
+            var j = 0;
+            for (j = 0; j < parsedData.length; j++) {
+                $("#querySelector").append('<option value="' + parsedData[j]["Name"] + '">' + parsedData[j]["Name"].replace(/>/g,'&gt').replace(/</g,'&lt') + '</option>');
+            }
             var k = 0;
             for(k = 0; k < 5; k++) {
                 $("#paramSelector"+k).empty();
@@ -636,6 +639,10 @@
                     });
                 }
             }
+
+            $("#querySelector").change(function () {
+                populateQueryWithParams();
+            });
 
             if(parsedData[0]["Type"] == "Sparql")
                 yasqe.setValue(query);
@@ -722,6 +729,8 @@
 
     function populateQueryWithParams(){
         // update param list
+
+        var myEl2 = document.getElementById('querySelector');
         var j;
         for(j = 0; j<myEl2.length; j++){
             if(parsedData[j] != undefined ) {
@@ -766,10 +775,6 @@
             }
         }
     }
-
-    $("#querySelector").change(function () {
-        populateQueryWithParams();
-    });
 
 </script>
 

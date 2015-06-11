@@ -214,10 +214,10 @@
         <paper-shadow class="card" z="2">
             <div class="top">
 
-                <paper-tabs selected="1">
+                <paper-tabs selected="0">
 
-                    <paper-tab>QUERY EDITOR</paper-tab>
                     <paper-tab>DASHBOARD</paper-tab>
+                    <paper-tab>QUERY EDITOR</paper-tab>
 
                 </paper-tabs>
 
@@ -237,61 +237,7 @@
 
         <!-- Main content -->
 
-        <core-pages selected="1">
-            <div id="content1">
-                <section class="content">
-
-                    <div id="queries">
-                        <br>
-
-                        <p class="text-light-blue">Select a query template:</p>
-                        <select style="width: 65%;" class="form-control" id="querySelector">
-                            <option ng-repeat="query in querys" ng-value="query.Name">{{query.Name}}</option>
-                        </select>
-                        <br>
-                        <p class="text-light-blue">Select parameters to fill the template:</p>
-                        <div id="paramSelector0"></div>
-                        <div id="paramSelector1"></div>
-                        <div id="paramSelector2"></div>
-                        <div id="paramSelector3"></div>
-                        <div id="paramSelector4"></div>
-                        <br>
-
-                        <p class="text-light-blue">Edit your query:</p>
-
-                        <div id="divSparql">
-                            <paper-shadow class="card" z="2">
-                                <div id="yasqe" style="padding-bottom: 15px"></div>
-                            </paper-shadow>
-                            <br>
-
-                            <a class="btn btn-app center-block" id="queryButton">
-                                <i class="fa fa-play"></i> Execute Query
-                            </a>
-                            <a class="btn btn-app center-block" id="buttonShow" ng-click="showInDashboard()" style="display: none;">
-                                <i class="fa fa-refresh"></i> Show in Dashboard
-                            </a>
-
-                            <div class="alert alert-danger alert-dismissable hide" id="queryError">
-                                <i class="fa fa-ban"></i>
-
-                                <b>Query failed</b>
-                            </div>
-
-                            <div class="alert alert-success alert-dismissable hide" id="querySuccess">
-                                <i class="fa fa-check"></i>
-
-                                <b>Query success</b>
-                            </div>
-
-                            <paper-shadow class="card" z="2">
-                                <div id="yasr"></div>
-                            </paper-shadow>
-                        </div>
-                    </div>
-
-                </section>
-            </div>
+        <core-pages selected="0">
             <div id="content0">
                 <section class="content">
                     <!-- Small boxes (Stat box) -->
@@ -430,6 +376,59 @@
                     <!-- /.row (main row) -->
                 </section>
             </div>
+            <div id="content1">
+                <section class="content">
+
+                    <div id="queries">
+                        <br>
+
+                        <p class="text-light-blue">Select a query template:</p>
+
+                        <div id="paramQuerySelector"></div>
+                        <br>
+                        <p class="text-light-blue">Select parameters to fill the template:</p>
+                        <div id="paramSelector0"></div>
+                        <div id="paramSelector1"></div>
+                        <div id="paramSelector2"></div>
+                        <div id="paramSelector3"></div>
+                        <div id="paramSelector4"></div>
+                        <br>
+
+                        <p class="text-light-blue">Edit your query:</p>
+
+                        <div id="divSparql">
+                            <paper-shadow class="card" z="2">
+                                <div id="yasqe" style="padding-bottom: 15px"></div>
+                            </paper-shadow>
+                            <br>
+
+                            <a class="btn btn-app center-block" id="queryButton">
+                                <i class="fa fa-play"></i> Execute Query
+                            </a>
+                            <a class="btn btn-app center-block" id="buttonShow" ng-click="showInDashboard()" style="display: none;">
+                                <i class="fa fa-refresh"></i> Show in Dashboard
+                            </a>
+
+                            <div class="alert alert-danger alert-dismissable hide" id="queryError">
+                                <i class="fa fa-ban"></i>
+
+                                <b>Query failed</b>
+                            </div>
+
+                            <div class="alert alert-success alert-dismissable hide" id="querySuccess">
+                                <i class="fa fa-check"></i>
+
+                                <b>Query success</b>
+                            </div>
+
+                            <paper-shadow class="card" z="2">
+                                <div id="yasr"></div>
+                            </paper-shadow>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
         </core-pages>
         <!-- /.content -->
     </div>
@@ -543,7 +542,6 @@
     });
 
     var _editorEndpoint = 'http://demos.gsi.dit.upm.es/fuseki/geo/query?query=';
-    var myEl2 = document.getElementById('querySelector');
     var regex = /<(\S+)>/g;
     var parsedData = [];
     $.getJSON("queries.json", function (data) {
@@ -560,6 +558,11 @@
             var query = parsedData[0]["Query"];
             if(parsedData[0]["Endpoint"] != "")
                 _editorEndpoint = parsedData[0]["Endpoint"];
+            $("#paramQuerySelector").append('<select style="width: 65%;" class="form-control" id="querySelector"'+'>');
+            var j = 0;
+            for (j = 0; j < parsedData.length; j++) {
+                $("#querySelector").append('<option value="' + parsedData[j]["Name"] + '">' + parsedData[j]["Name"].replace(/>/g,'&gt').replace(/</g,'&lt') + '</option>');
+            }
             var k = 0;
             for(k = 0; k < 5; k++) {
                 $("#paramSelector"+k).empty();
@@ -585,6 +588,10 @@
                     });
                 }
             }
+
+            $("#querySelector").change(function () {
+                populateQueryWithParams();
+            });
 
             if(parsedData[0]["Type"] == "Sparql")
                 yasqe.setValue(query);
@@ -671,6 +678,7 @@
 
     function populateQueryWithParams(){
         // update param list
+        var myEl2 = document.getElementById('querySelector');
         var j;
         for(j = 0; j<myEl2.length; j++){
             if(parsedData[j] != undefined ) {
@@ -715,10 +723,6 @@
             }
         }
     }
-
-    $("#querySelector").change(function () {
-        populateQueryWithParams();
-    });
 
 
 </script>
