@@ -98,7 +98,7 @@
     <!-- ------------------------------- end/ POLYMER COMPONENTS IMPORT ZONE ------------------- -->
 
 </head>
-<body demo="tweets" class="skin-blue sidebar-collapse sidebar-open">
+<body unresolved demo="tweets" class="skin-blue sidebar-collapse sidebar-open">
 <div class="wrapper">
 
     <header class="main-header">
@@ -259,12 +259,12 @@
                             <!--Widgets must have 'widget' class in order to render their loading screen-->
                             <div class="box box-primary widget">
                                 <div class="box-header">
-                                    <i class="glyphicon glyphicon-send"></i>
+                                    <i class="glyphicon glyphicon-fire"></i>
                                     <h3 class="box-title">Sentiment</h3>
                                 </div>
                                 <!-- box-body -->
                                 <div class="box-body chart-responsive">
-                                    <pie-chart param="sentiment" class="dc-element"></pie-chart>
+                                    <pie-chart param="sentiment" type="param" class="dc-element"></pie-chart>
                                 </div>
                                 <!-- /.box-body -->
                             </div>
@@ -274,7 +274,7 @@
                             <!--Widgets must have 'widget' class in order to render their loading screen-->
                             <div class="box box-primary widget">
                                 <div class="box-header">
-                                    <i class="glyphicon glyphicon-usd"></i>
+                                    <i class="glyphicon glyphicon-star"></i>
                                     <h3 class="box-title">Favourites</h3>
                                 </div>
                                 <!-- box-body -->
@@ -289,7 +289,7 @@
                             <!--Widgets must have 'widget' class in order to render their loading screen-->
                             <div class="box box-primary widget">
                                 <div class="box-header">
-                                    <i class="glyphicon glyphicon-usd"></i>
+                                    <i class="glyphicon glyphicon-retweet"></i>
                                     <h3 class="box-title">Retweets</h3>
                                 </div>
                                 <!-- box-body -->
@@ -305,11 +305,11 @@
                             <div class="box box-primary widget">
                                 <div class="box-header">
                                     <i class="glyphicon glyphicon-search"></i>
-                                    <h3 class="box-title">Search</h3>
+                                    <h3 class="box-title">Search in February</h3>
                                 </div>
                                 <!-- box-body -->
                                 <div class="box-body chart-responsive">
-                                    <faceted-search params="district, stars" class="dc-element"></faceted-search>
+                                    <bar-chart param="created_at" xLabel="time" width=400 xMin="0" xMax="10" gap="1" class="dc-element"></bar-chart>
                                 </div>
                                 <!-- /.box-body -->
                             </div>

@@ -107,7 +107,10 @@ var initializeWidgets = function () {
                 d.retweet_count.key = "retweet_count";
                 d.retweet_count.value = aux;
 
-
+                aux = d.created_at.$date;
+                d.created_at = {};
+                d.created_at.key = "created_at";
+                d.created_at.value = aux;
 
                 idGen++;
             });

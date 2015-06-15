@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 
-<polymer-element name="bar-chart" class="dc-element" attributes="param xMin xMax width xLabel gap">
+<polymer-element name="bar-chart" class="dc-element" attributes="param type xMin xMax width xLabel gap">
 
 
   <template>
@@ -35,9 +35,15 @@
 
                 var p = this.param;
 
-                this.dimension = this.crossfilter.dimension(function(d) {
-                    return d[p].value;
-                });
+                if (this.type == "param") {
+                    this.dimension = this.crossfilter.dimension(function (d) {
+                        return d[p];
+                    });
+                } else {
+                        this.dimension = this.crossfilter.dimension(function (d) {
+                        return d[p].value;
+                    });
+                }
                 this.group = this.dimension.group().reduceCount();
 
 
@@ -47,18 +53,33 @@
 
                 if(this.gap == undefined) gap = 0.0005;
 
-                this.chart
-                        .width(320).height(150)
-                        .dimension(this.dimension)
-                        .group(this.group)
-                        .x(d3.scale.linear().domain([this.xMin, this.xMax]))
-                        .gap(this.gap)
-                        .yAxisLabel("")
-                        .xAxisLabel(this.xLabel)
+                if (this.param == "created_at"){
+                    this.chart
+                            .width(320).height(150)
+                            .dimension(this.dimension)
+                            .group(this.group)
+                            .x(d3.time.scale().domain([new Date(this.dimension.bottom(1)[0][p].value), new Date(this.dimension.top(1)[0][p].value)]))
+                            .xUnits(d3.time.day)
+                            .gap(this.gap)
+                            .yAxisLabel("")
+                            .xAxisLabel(this.xLabel)
 
-                .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
-                this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart;
+                            .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
+                    this.$.chart.classList.add("dc-chart");
+                } else {
 
+                    this.chart
+                            .width(320).height(150)
+                            .dimension(this.dimension)
+                            .group(this.group)
+                            .x(d3.scale.linear().domain([this.xMin, this.xMax]))
+                            .gap(this.gap)
+                            .yAxisLabel("")
+                            .xAxisLabel(this.xLabel)
+
+                            .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
+                    this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart;
+                }
 
 
 //                this.chart = dc.pieChart("#bar-chart");

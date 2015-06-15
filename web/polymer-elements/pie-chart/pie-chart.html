@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 
-<polymer-element name="pie-chart" class="dc-element" attributes="param">
+<polymer-element name="pie-chart" class="dc-element" attributes="param, type">
 
 
   <template>
@@ -42,29 +42,37 @@
 
                 var p = this.param;
 
-                this.dimension = this.crossfilter.dimension(function(d) {
-                    if (d[p].value != undefined){
-                        return d[p].value;
+                if (this.type == "param") {
 
-                    } else {
+                    this.dimension = this.crossfilter.dimension(function (d) {
                         return d[p];
-                    }
+                    });
+                } else {
 
-                });
+                    this.dimension = this.crossfilter.dimension(function (d) {
+                        if (d[p].value != undefined) {
+                            return d[p].value;
+
+                        } else {
+                            return d[p];
+                        }
+
+                    });
+                }
+
                 this.group = this.dimension.group().reduceCount();
-
 
                 this.chart = dc.pieChart("#chart");
                 this.chart
-                        .ordinalColors(["#1E7751","#07A360","#21553F","#25342E"])
-                        .width(175).height(175)
+                        .ordinalColors(["#1E7751", "#07A360", "#21553F", "#25342E"])
+                        .width(175).height(200)
                         .dimension(this.dimension)
                         .group(this.group)
                         .innerRadius(30)
                         .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
                 this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart
 
-                //dc.renderAll();
+                    //dc.renderAll();
             }
         });
     </script>
