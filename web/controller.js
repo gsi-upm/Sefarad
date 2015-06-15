@@ -111,6 +111,20 @@ var initializeWidgets = function () {
                 d.created_at = {};
                 d.created_at.key = "created_at";
                 d.created_at.value = aux;
+                aux = d.entities.hashtags;
+                d.hashtags = {};
+                d.hashtags.key = "hashtags";
+                if (aux[0]!= undefined)
+                {
+                    d.hashtags.value = aux[0].text;
+                }
+                else
+                {
+                    d.hashtags.value = "ninguno";
+                }
+
+
+
 
                 idGen++;
             });
