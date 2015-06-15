@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 
-<polymer-element name="bar-chart" class="dc-element" attributes="param xMin xMax width xLabel">
+<polymer-element name="bar-chart" class="dc-element" attributes="param xMin xMax width xLabel gap">
 
 
   <template>
@@ -45,12 +45,14 @@
 
                 var _width = parseInt(this.width);
 
+                if(this.gap == undefined) gap = 0.0005;
+
                 this.chart
                         .width(320).height(150)
                         .dimension(this.dimension)
                         .group(this.group)
                         .x(d3.scale.linear().domain([this.xMin, this.xMax]))
-                        .gap(0.0005)
+                        .gap(this.gap)
                         .yAxisLabel("")
                         .xAxisLabel(this.xLabel)
 

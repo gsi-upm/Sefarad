@@ -91,6 +91,28 @@ var initializeWidgets = function () {
             });
         }
 
+        if(demo == 'tweets')
+        {
+            rawData.forEach(function(d) {
+                d.id = idGen;
+                if (d.sentiment == undefined) d.sentiment = "negativo";
+
+                aux = d.favorite_count;
+                d.favorite_count = {};
+                d.favorite_count.key = "favorite_count";
+                d.favorite_count.value = aux;
+
+                aux = d.retweet_count;
+                d.retweet_count = {};
+                d.retweet_count.key = "retweet_count";
+                d.retweet_count.value = aux;
+
+
+
+                idGen++;
+            });
+        }
+
         if(demo == 'restaurants')
         {
             rawData.forEach(function(d) {
@@ -217,9 +239,6 @@ var initializeWidgets = function () {
         }
 
         ndx = crossfilter(rawData);
-
-
-
 
         var dcElements = $(".dc-element");
         for (var i = 0; i < dcElements.length; i++) {

@@ -122,12 +122,12 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                             <i class="fa fa-bell-o"></i>
                             <span class="label label-warning">
-                                <number-chart param="name" type="param" class="dc-element"></number-chart>
+                                <number-chart param="id" type="param" class="dc-element"></number-chart>
                             </span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="header">
-                                <number-chart param="name" type="param" class="dc-element" style="float: left;"></number-chart>
+                                <number-chart param="id" type="param" class="dc-element" style="float: left;"></number-chart>
                                 &nbsp Elements have been filtered</li>
                             <li class="footer"><button class="btn" style="width: 100%;" onclick="clearFilter()" >Clear Filters</button></li>
                             <li class="footer"><button class="btn" style="width: 100%;" ng-click="showDefault()" >Load Default Data</button></li>
@@ -253,8 +253,67 @@
                     <!-- Main row -->
                     <div class="row">
                         <!-- Left col -->
-                        <div class="col-lg-6">
+                        <div class="col-lg-3">
 
+                            <!-- pie-chart -->
+                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-send"></i>
+                                    <h3 class="box-title">Sentiment</h3>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive">
+                                    <pie-chart param="sentiment" class="dc-element"></pie-chart>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.pie-chart -->
+
+                            <!-- bar-chart -->
+                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-usd"></i>
+                                    <h3 class="box-title">Favourites</h3>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive" style="overflow: hidden">
+                                    <bar-chart param="favorite_count" xLabel="favourites count" width=400 xMin="0" xMax="10" gap="1" class="dc-element"></bar-chart>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.bar-chart -->
+
+                            <!-- bar-chart -->
+                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-usd"></i>
+                                    <h3 class="box-title">Retweets</h3>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive" style="overflow: hidden">
+                                    <bar-chart param="retweet_count" xLabel="retweets count" width=400 xMin="0" xMax="10" gap="1" class="dc-element"></bar-chart>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.bar-chart -->
+
+                            <!-- faceted-search -->
+                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                    <h3 class="box-title">Search</h3>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive">
+                                    <faceted-search params="district, stars" class="dc-element"></faceted-search>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.faceted-search -->
 
                         </div>
                         <!-- /.Left col -->
