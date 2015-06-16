@@ -1,0 +1,79 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../paper-shadow/paper-shadow.html">
+
+
+<polymer-element name="user-panel" class="dc-element">
+
+
+    <template>
+
+        <style>
+            .number-display {
+                visibility: hidden;
+            }
+        </style>
+        <!-- dc style -->
+        <link rel="stylesheet" type="text/css" href="dc.css" media="screen"/>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+        <div id="tableUser" style="height: 400px; overflow-y: scroll;">
+            <template repeat="{{u in users}}">
+
+                <paper-shadow class="card" z="2" style="padding: 20px; margin-top: 10px; margin-bottom: 10px;">
+                    <div class="user" horizontal layout style="align-content: center; vertical-align: middle; display: table-cell;">
+                        <object style="border-radius: 50%; float: left; margin-right: 20px; margin-top: auto; margin-bottom: auto" data="{{u.profile_image_url_https}}" type="image/png">
+                            <img src="http://www.anagard.com/blog/wp-content/uploads/2014/02/2011-03-12-twitter-egg.png" style="border-radius: 50%; float: left; width: 48px; margin-top: auto; margin-bottom: auto">
+                        </object>
+                        <span class="name" style="float: left; font-size: 15px; font-weight: bold; margin-right: 4px; margin-top: 10px">{{u.name}} </span>
+                        <span class="screen-name" style="float: left; font-size: 14px; margin-top: 11px; color: #A4A4A4">@{{u.screen_name}}</span>
+                    </div>
+                </paper-shadow>
+            </template>
+        </div>
+
+
+    </template>
+
+    <script>
+        Polymer('user-panel',{
+
+            crossfilterObject: {},
+            chart: {},
+            dimension: {},
+            users: [],
+            group: {},
+
+            ready: function () {
+                console.log("user-panel ready");
+                numWidgets = numWidgets - 1;
+
+                //this.init();
+            },
+
+            clearFilter: function () {
+                this.chart.filterAll();
+            },
+
+            init: function () {
+                console.log("user-panel init");
+
+                this.dimension = this.crossfilter.dimension(function (d) {
+
+                    if (d["user"] != undefined) {
+                        return d["user"];
+
+                    }
+                });
+                var dim = this.dimension;
+
+                this.group = this.dimension.group().reduceCount();
+
+                var val = dim.group().all();
+                for (var k = 0; k < val[0].value; k++) {
+                    this.users.push(dim.bottom(val[0].value)[k].user);
+                }
+            }
+        });
+    </script>
+
+</polymer-element>

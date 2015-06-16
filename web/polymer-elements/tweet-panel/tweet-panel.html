@@ -1,0 +1,94 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../paper-shadow/paper-shadow.html">
+
+
+
+
+<polymer-element name="tweet-panel" class="dc-element">
+
+    <template>
+
+        <!-- dc style -->
+        <link href="tweet-panel.css" rel="stylesheet" shim-shadowdom>
+        <link rel="stylesheet" type="text/css" href="dc.css" media="screen"/>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+        <div id="tableUser" style="height: 400px; overflow-y: scroll;">
+            <template repeat="{{t in tweets}}">
+
+                <paper-shadow class="card" z="2" class="shadow_div">
+                    <div class="tweet" horizontal layout>
+                        <div class="img_user">
+                        <object class="object_img" data="{{t.user.profile_image_url_https}}" type="image/png">
+                            <img src="http://www.anagard.com/blog/wp-content/uploads/2014/02/2011-03-12-twitter-egg.png" class="img_tweet">
+                        </object>
+                        </div>
+                        <div class="tweet_div">
+                            <div horizontal layout>
+                                <span class="name">{{t.user.name}} </span>
+                                <span class="screen-name">@{{t.user.screen_name}}</span>
+                            </div>
+                            {{t.text}}
+                            <br>
+                            <div class="count_tweet" horizontal layout>
+                                <span class="icon_tweet" horizontal layout>
+                                    <i class="glyphicon glyphicon-star" style="margin-right: 5px"></i>
+                                    {{t.retweet_count.value}}
+                                </span>
+                                <span  class="icon_tweet" horizontal layout>
+                                    <i class="glyphicon glyphicon-retweet" style="margin-right: 5px"></i>
+                                    {{t.favorite_count.value}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </paper-shadow>
+            </template>
+        </div>
+
+
+    </template>
+
+    <script>
+        Polymer('tweet-panel',{
+
+            crossfilterObject: {},
+            chart: {},
+            dimension: {},
+            tweets: [],
+            group: {},
+
+            ready: function () {
+                console.log("tweet-panel ready");
+                numWidgets = numWidgets - 1;
+
+                //this.init();
+            },
+
+            clearFilter: function () {
+                this.chart.filterAll();
+            },
+
+            init: function () {
+                console.log("tweet-panel init");
+
+                this.dimension = this.crossfilter.dimension(function (d) {
+
+                    if (d["user"] != undefined) {
+                        return d["user"];
+
+                    }
+                });
+                var dim = this.dimension;
+
+                this.group = this.dimension.group().reduceCount();
+
+                var val = dim.group().all();
+                for (var k = 0; k < val[0].value; k++) {
+                    this.tweets.push(dim.bottom(val[0].value)[k]);
+                }
+            }
+        });
+    </script>
+
+</polymer-element>

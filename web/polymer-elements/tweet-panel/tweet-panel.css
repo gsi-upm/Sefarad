@@ -1,0 +1,56 @@
+.tweet {
+    padding: 20px;
+}
+
+.img_user {
+    width: 15%;
+    float: left;
+}
+
+.shadow_div {
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.object_img {
+    border-radius: 50%;
+    float: left;
+    margin-right: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.img_tweet {
+    border-radius: 50%;
+    float: left;
+    width: 48px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.tweet_div {
+    float: left;
+    width: 80%;
+}
+
+.name {
+    font-size: 15px;
+    font-weight: bold;
+    margin-right: 4px;
+}
+
+.screen-name {
+    font-size: 14px;
+    color: #A4A4A4;
+}
+
+.count_tweet {
+    margin-top: 10px;
+    float: right;
+}
+
+.icon_tweet {
+    margin-right: 5px;
+    margin-left: 5px;
+}

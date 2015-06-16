@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Sefarad 2.0 | Dashboard</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta name="theme-color" content="#467DDC">
     <link rel="icon" type="image/png" href="dist/img/favicon.png">
 
     <!-- ------------------------------- STYLE LINKS ZONE -------------------------------------- -->
@@ -90,7 +91,8 @@
     <link rel="import" href="polymer-elements/google-signin/google-signin.html">
 
     <link rel="import" href="polymer-elements/heat-map/heat-map.html">
-    <link rel="import" href="polymer-elements/review-widget/review-widget.html">
+    <link rel="import" href="polymer-elements/user-panel/user-panel.html">
+    <link rel="import" href="polymer-elements/tweet-panel/tweet-panel.html">
     <link rel="import" href="polymer-elements/paper-tab/paper-tabs.html">
     <link rel="import" href="bower_components/core-pages/core-pages.html">
 
@@ -304,8 +306,8 @@
                             <!--Widgets must have 'widget' class in order to render their loading screen-->
                             <div class="box box-primary widget">
                                 <div class="box-header">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                    <h3 class="box-title">Search in February</h3>
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                    <h3 class="box-title">February</h3>
                                 </div>
                                 <!-- box-body -->
                                 <div class="box-body chart-responsive">
@@ -337,7 +339,28 @@
 
                         <!-- right col -->
                         <section class="col-lg-6 connectedSortable">
-
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-user" style="font-size: 19px; margin-right: 5px"></i>
+                                    <h3 class="box-title">Users</h3>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive" style="padding: 0">
+                                    <user-panel class="dc-element"></user-panel>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="ion-social-twitter" style="font-size: 19px; margin-right: 5px"></i>
+                                    <h3 class="box-title">Tweets</h3>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive" style="padding: 0">
+                                    <tweet-panel class="dc-element"></tweet-panel>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
                         </section>
                         <!-- right col -->
 
