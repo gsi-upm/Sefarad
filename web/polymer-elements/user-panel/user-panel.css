@@ -1,0 +1,47 @@
+#tableUser {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.shadow_div {
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.user {
+    align-content: center;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.object_img {
+    border-radius: 50%;
+    float: left;
+    margin-right: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.img_tweet {
+    border-radius: 50%;
+    float: left;
+    width: 48px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.name {
+    float: left;
+    font-size: 15px;
+    font-weight: bold;
+    margin-right: 4px;
+    margin-top: 10px;
+}
+
+.screen-name {
+    float: left;
+    font-size: 14px;
+    margin-top: 11px;
+    color: #A4A4A4;
+}
