@@ -1,8 +1,10 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../paper-shadow/paper-shadow.html">
 
+<script src="dc.users.js"></script>
 
-<polymer-element name="user-panel" class="dc-element">
+
+<polymer-element name="user-panel" class="dc-element" attributes="stream">
 
 
     <template>
@@ -57,21 +59,19 @@
             init: function () {
                 console.log("user-panel init");
 
-                this.dimension = this.crossfilter.dimension(function (d) {
-
-                    if (d["user"] != undefined) {
-                        return d["user"];
-
-                    }
+                this.dimension = this.crossfilter.dimension(function(d) {
+                    return d.name;
                 });
+
                 var dim = this.dimension;
 
                 this.group = this.dimension.group().reduceCount();
 
-                var val = dim.group().all();
-                for (var k = 0; k < val[0].value; k++) {
-                    this.users.push(dim.bottom(val[0].value)[k].user);
-                }
+                this.dcChart = dc.customChartUsers();
+                this.dcChart.dimension(this.dimension);
+                this.dcChart.group(this.group);
+                this.dcChart.elementToUpdate = this;
+
             }
         });
     </script>

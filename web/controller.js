@@ -5,16 +5,22 @@
 var usersData = [];
 
 var rawData = [];
+var rawData2 = [];
+
 var queryEndPoint = 'http://demos.gsi.dit.upm.es/fuseki/geo/query?query=';
 var currentQuery = 'PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX j.0: <http://inspire.jrc.ec.europa.eu/schemas/gn/3.0/> PREFIX j.1: <http://inspire.jrc.ec.europa.eu/schemas/ps/3.0/> PREFIX j.2: <http://inspire.jrc.ec.europa.eu/schemas/base/3.2/> PREFIX j.3: <http://www.opengis.net/ont/geosparql#> SELECT * WHERE { SERVICE <http://localhost:3030/slovakia/query> { ?res j.3:hasGeometry ?fGeom . ?fGeom j.3:asWKT ?fWKT . ?res j.1:siteProtectionClassification ?spc . ?res j.1:LegalFoundationDate ?lfd . ?res j.1:LegalFoundationDocument ?lfdoc . ?res j.1:inspireId ?inspire . ?res j.1:siteName ?sitename . ?sitename j.0:GeographicalName ?gname . ?gname j.0:spelling ?spelling . ?spelling j.0:SpellingOfName ?spellingofname . ?spellingofname j.0:text ?name . ?inspire j.2:namespace ?namespace . ?inspire j.2:namespace ?localId . ?res j.1:siteDesignation ?siteDesignation . ?siteDesignation j.1:percentageUnderDesignation ?percentageUnderDesignation . ?siteDesignation j.1:designation ?designation . ?siteDesignation j.1:designationScheme ?designationScheme . } } LIMIT 1000';
 
 var lastQuery = 'PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX j.0: <http://inspire.jrc.ec.europa.eu/schemas/gn/3.0/> PREFIX j.1: <http://inspire.jrc.ec.europa.eu/schemas/ps/3.0/> PREFIX j.2: <http://inspire.jrc.ec.europa.eu/schemas/base/3.2/> PREFIX j.3: <http://www.opengis.net/ont/geosparql#> SELECT * WHERE { SERVICE <http://localhost:3030/slovakia/query> { ?res j.3:hasGeometry ?fGeom . ?fGeom j.3:asWKT ?fWKT . ?res j.1:siteProtectionClassification ?spc . ?res j.1:LegalFoundationDate ?lfd . ?res j.1:LegalFoundationDocument ?lfdoc . ?res j.1:inspireId ?inspire . ?res j.1:siteName ?sitename . ?sitename j.0:GeographicalName ?gname . ?gname j.0:spelling ?spelling . ?spelling j.0:SpellingOfName ?spellingofname . ?spellingofname j.0:text ?name . ?inspire j.2:namespace ?namespace . ?inspire j.2:namespace ?localId . ?res j.1:siteDesignation ?siteDesignation . ?siteDesignation j.1:percentageUnderDesignation ?percentageUnderDesignation . ?siteDesignation j.1:designation ?designation . ?siteDesignation j.1:designationScheme ?designationScheme . } } LIMIT 100';
 
 var ndx;
+var ndx2;
 var demo;
 
 var widgetsReady = false;
 var dataReady = false;
+
+var tweetsReady = false;
+var usersReady = false;
 
 //var numWidgets; //each widget will deduct one from this number, until it reaches zero. The all widgets will be ready.
 
@@ -96,7 +102,6 @@ var initializeWidgets = function () {
         if(demo == 'tweets')
         {
 
-
             rawData.forEach(function(d) {
                 d.id = idGen;
                 if (d.sentiment == undefined) d.sentiment = "negativo";
@@ -127,12 +132,24 @@ var initializeWidgets = function () {
                     d.hashtags.value = "ninguno";
                 }
 
-
-                usersData.push(d.user);
-
-
-
                 idGen++;
+            });
+
+            rawData2.forEach(function(d) {
+                aux = d.followers_count;
+                d.followers_count = {};
+                d.followers_count.key = "followers_count";
+                d.followers_count.value = aux;
+
+                aux = d.friends_count;
+                d.friends_count = {};
+                d.friends_count.key = "friends_count";
+                d.friends_count.value = aux;
+
+                aux = d.favourites_count;
+                d.favourites_count = {};
+                d.favourites_count.key = "favourites_count";
+                d.favourites_count.value = aux;
             });
         }
 
@@ -261,13 +278,29 @@ var initializeWidgets = function () {
             console.log("parse finished");
         }
 
+        if (rawData2.length != 0)
+        {
+            ndx2 = crossfilter(rawData2);
+
+            var dcElements = $(".dc-element");
+            for (var i = 0; i < dcElements.length; i++) {
+                if(dcElements[i].stream == 2){
+                    dcElements[i].crossfilter = ndx2;
+                    dcElements[i].geoJSON = rawData2;
+                    dcElements[i].init();
+                }
+            }
+        }
+
         ndx = crossfilter(rawData);
 
         var dcElements = $(".dc-element");
         for (var i = 0; i < dcElements.length; i++) {
-            dcElements[i].crossfilter = ndx;
-            dcElements[i].geoJSON = rawData;
-            dcElements[i].init();
+            if(dcElements[i].stream != 2) {
+                dcElements[i].crossfilter = ndx;
+                dcElements[i].geoJSON = rawData;
+                dcElements[i].init();
+            }
         }
 
         dc.renderAll();
@@ -434,7 +467,21 @@ var getTweetsData = function () {
         //var data = JSON.stringify(result);
         //rawData = JSON.parse(data).results.bindings;
         rawData = result;
-        dataReady = true;
+        tweetsReady = true;
+
+        if(tweetsReady && usersReady) dataReady = true;
+
+
+        //newDataReceived();
+    });
+    $.getJSON("assets/users.json", function(result){
+        console.log("tweets data picked from local");
+        //var data = JSON.stringify(result);
+        //rawData = JSON.parse(data).results.bindings;
+        rawData2 = result;
+        usersReady = true;
+
+        if(tweetsReady && usersReady) dataReady = true;
 
         //newDataReceived();
     });
