@@ -8,7 +8,6 @@
 }
 
 .shadow_div {
-    padding: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -53,4 +52,9 @@
 .icon_tweet {
     margin-right: 5px;
     margin-left: 5px;
+}
+
+#tableUser {
+    height: 400px;
+    overflow-y: scroll;
 }

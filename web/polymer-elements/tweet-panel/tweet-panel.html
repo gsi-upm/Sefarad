@@ -15,10 +15,10 @@
         <link rel="stylesheet" type="text/css" href="dc.css" media="screen"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
-        <div id="tableUser" style="height: 400px; overflow-y: scroll;">
+        <div id="tableUser">
             <template repeat="{{t in tweets}}">
 
-                <paper-shadow class="card" z="2" class="shadow_div">
+                <paper-shadow class="card shadow_div" z="2">
                     <div class="tweet" horizontal layout>
                         <div class="img_user">
                         <object class="object_img" data="{{t.user.profile_image_url_https}}" type="image/png">
