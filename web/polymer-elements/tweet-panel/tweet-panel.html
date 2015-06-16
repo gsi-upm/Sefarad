@@ -1,6 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../paper-shadow/paper-shadow.html">
 
+<script src="dc.custom.tweets.js"></script>
+
 
 
 
@@ -72,21 +74,20 @@
             init: function () {
                 console.log("tweet-panel init");
 
-                this.dimension = this.crossfilter.dimension(function (d) {
-
-                    if (d["user"] != undefined) {
-                        return d["user"];
-
-                    }
+                this.dimension = this.crossfilter.dimension(function(d) {
+                        return d.id;
                 });
-                var dim = this.dimension;
-
                 this.group = this.dimension.group().reduceCount();
 
-                var val = dim.group().all();
-                for (var k = 0; k < val[0].value; k++) {
-                    this.tweets.push(dim.bottom(val[0].value)[k]);
-                }
+                this.dcChart = dc.customChart();
+                this.dcChart.dimension(this.dimension);
+                this.dcChart.group(this.group);
+                this.dcChart.elementToUpdate = this;
+
+
+//                for (var k = 0; k < val[0].value; k++) {
+//                    this.tweets.push(dim.bottom(val[0].value)[k]);
+//                }
             }
         });
     </script>
