@@ -120,6 +120,33 @@ var initializeWidgets = function () {
                 d.created_at = {};
                 d.created_at.key = "created_at";
                 d.created_at.value = aux;
+                switch (new Date(aux).getDay()){
+                    case 0:
+                        aux = "Sun";
+                        break;
+                    case 1:
+                        aux = "Mon";
+                        break;
+                    case 2:
+                        aux = "Tue";
+                        break;
+                    case 3:
+                        aux = "Wed";
+                        break;
+                    case 4:
+                        aux = "Thu";
+                        break;
+                    case 5:
+                        aux = "Fri";
+                        break;
+                    case 6:
+                        aux = "Sat";
+                        break;
+                }
+                d.dayOfWeek = {};
+                d.dayOfWeek.key = "dayOfWeek";
+                d.dayOfWeek.value = aux;
+
                 aux = d.entities.hashtags;
                 d.hashtags = {};
                 d.hashtags.key = "hashtags";

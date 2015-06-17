@@ -364,6 +364,20 @@
                                 </div>
 
                                 <div class="col-lg-6">
+                                    <!-- row-chart -->
+                                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                                    <div class="box box-primary widget">
+                                        <div class="box-header">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                            <h3 class="box-title">Days of Week</h3>
+                                        <!-- box-body -->
+                                        <div class="box-body chart-responsive" style="overflow: hidden">
+                                            <row-chart param="dayOfWeek" xLabel="Tweets" width=300 xMin="0" xMax="10" gap="1" class="dc-element"></row-chart>
+                                        </div>
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                    <!-- /.row-chart -->
                                 </div>
 
                             </div>
