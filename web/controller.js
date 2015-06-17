@@ -71,6 +71,29 @@ $( document ).ready(function() {
 
 });
 
+
+function calculateBounds (array)
+{
+    var Max = 0;
+    var Min = Infinity;
+
+    array.forEach(function(d) {
+        if (d > Max) Max = d;
+        if (d < Min) Min = d;
+    });
+
+    var intervalNumber = Math.ceil((Max - Min)/(24*3600*1000));
+    var interval = (Max - Min)/intervalNumber;
+
+};
+
+Date.prototype.getWeekNumber = function(){
+    var d = new Date(+this);
+    d.setHours(0,0,0);
+    d.setDate(d.getDate()+4-(d.getDay()||7));
+    return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
+};
+
 var initializeWidgets = function () {
 
     console.log("trying to initialize widgets");
@@ -101,6 +124,12 @@ var initializeWidgets = function () {
 
         if(demo == 'tweets')
         {
+            //var dates = [];
+            //rawData.forEach(function(d) {
+            //    dates.push(d.created_at.$date);
+            //});
+            //
+            //calculateBounds(dates);
 
             rawData.forEach(function(d) {
                 d.id = idGen;
@@ -119,7 +148,15 @@ var initializeWidgets = function () {
                 aux = d.created_at.$date;
                 d.created_at = {};
                 d.created_at.key = "created_at";
-                d.created_at.value = aux;
+
+                var date = new Date (aux);
+                date.setHours(0,0,0,0);
+
+                d.created_at.value = date.getTime();
+
+
+
+
                 aux = d.entities.hashtags;
                 d.hashtags = {};
                 d.hashtags.key = "hashtags";
