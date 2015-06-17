@@ -251,105 +251,11 @@
 
                     <!-- Small boxes (Stat box) -->
 
-
-                    <!-- Main row -->
                     <div class="row">
+
                         <!-- Left col -->
-                        <div class="col-lg-3">
+                        <div class="col-lg-6">
 
-                            <!-- pie-chart -->
-                            <!--Widgets must have 'widget' class in order to render their loading screen-->
-                            <div class="box box-primary widget">
-                                <div class="box-header">
-                                    <i class="glyphicon glyphicon-fire"></i>
-                                    <h3 class="box-title">Sentiment</h3>
-                                </div>
-                                <!-- box-body -->
-                                <div class="box-body chart-responsive">
-                                    <pie-chart param="sentiment" type="param" class="dc-element"></pie-chart>
-                                </div>
-                                <!-- /.box-body -->
-                            </div>
-                            <!-- /.pie-chart -->
-
-                            <!-- bar-chart -->
-                            <!--Widgets must have 'widget' class in order to render their loading screen-->
-                            <div class="box box-primary widget">
-                                <div class="box-header">
-                                    <i class="glyphicon glyphicon-star"></i>
-                                    <h3 class="box-title">Favourites</h3>
-                                </div>
-                                <!-- box-body -->
-                                <div class="box-body chart-responsive" style="overflow: hidden">
-                                    <bar-chart param="favorite_count" xLabel="favourites count" width=400 xMin="0" xMax="10" gap="1" class="dc-element"></bar-chart>
-                                </div>
-                                <!-- /.box-body -->
-                            </div>
-                            <!-- /.bar-chart -->
-
-                            <!-- bar-chart -->
-                            <!--Widgets must have 'widget' class in order to render their loading screen-->
-                            <div class="box box-primary widget">
-                                <div class="box-header">
-                                    <i class="glyphicon glyphicon-retweet"></i>
-                                    <h3 class="box-title">Retweets</h3>
-                                </div>
-                                <!-- box-body -->
-                                <div class="box-body chart-responsive" style="overflow: hidden">
-                                    <bar-chart param="retweet_count" xLabel="retweets count" width=400 xMin="0" xMax="10" gap="1" class="dc-element"></bar-chart>
-                                </div>
-                                <!-- /.box-body -->
-                            </div>
-                            <!-- /.bar-chart -->
-
-                            <!-- bar-chart -->
-                            <!--Widgets must have 'widget' class in order to render their loading screen-->
-                            <div class="box box-primary widget">
-                                <div class="box-header">
-                                    <i class="glyphicon glyphicon-calendar"></i>
-                                    <h3 class="box-title">February</h3>
-                                </div>
-                                <!-- box-body -->
-                                <div class="box-body chart-responsive">
-                                    <bar-chart param="created_at" xLabel="time" width=400 xMin="0" xMax="10" gap="1" class="dc-element"></bar-chart>
-                                </div>
-                                <!-- /.box-body -->
-                            </div>
-                            <!-- /.bar-chart -->
-
-                            <!-- faceted-search -->
-                            <!--Widgets must have 'widget' class in order to render their loading screen-->
-                            <div class="box box-primary widget">
-                                <div class="box-header">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                    <h3 class="box-title">Search</h3>
-                                </div>
-                                <!-- box-body -->
-                                <div class="box-body chart-responsive">
-                                    <faceted-search params="hashtags" class="dc-element"></faceted-search>
-                                </div>
-                                <!-- /.box-body -->
-                            </div>
-                            <!-- /.faceted-search -->
-                            
-                            
-
-                        </div>
-                        <!-- /.Left col -->
-
-                        <!-- right col -->
-                        <section class="col-lg-6 connectedSortable">
-                            <div class="box box-primary widget">
-                                <div class="box-header">
-                                    <i class="glyphicon glyphicon-user" style="font-size: 19px; margin-right: 5px"></i>
-                                    <h3 class="box-title">Users</h3>
-                                </div>
-                                <!-- box-body -->
-                                <div class="box-body chart-responsive" style="padding: 0">
-                                    <user-panel stream="2" class="dc-element"></user-panel>
-                                </div>
-                                <!-- /.box-body -->
-                            </div>
                             <div class="box box-primary widget">
                                 <div class="box-header">
                                     <i class="ion-social-twitter" style="font-size: 19px; margin-right: 5px"></i>
@@ -361,59 +267,195 @@
                                 </div>
                                 <!-- /.box-body -->
                             </div>
-                        </section>
-                        <!-- right col -->
 
-                        <section class="col-lg-3 connectedSortable">
+                            <div class="row">
 
-                            <!-- bar-chart -->
-                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                                <div class="col-lg-6">
+                                <!-- pie-chart -->
+                                <!--Widgets must have 'widget' class in order to render their loading screen-->
+                                <div class="box box-primary widget">
+                                    <div class="box-header">
+                                        <i class="glyphicon glyphicon-fire"></i>
+                                        <h3 class="box-title">Sentiment</h3>
+                                    </div>
+                                    <!-- box-body -->
+                                    <div class="box-body chart-responsive">
+                                        <pie-chart param="sentiment" type="param" class="dc-element"></pie-chart>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.pie-chart -->
+                                </div>
+
+                                <div class="col-lg-6">
+                                <!-- bar-chart -->
+                                <!--Widgets must have 'widget' class in order to render their loading screen-->
+                                <div class="box box-primary widget">
+                                    <div class="box-header">
+                                        <i class="glyphicon glyphicon-star"></i>
+                                        <h3 class="box-title">Favourites</h3>
+                                    </div>
+                                    <!-- box-body -->
+                                    <div class="box-body chart-responsive" style="overflow: hidden">
+                                        <bar-chart param="favorite_count" xLabel="favourites count" width=400 xMin="0" xMax="10" gap="1" class="dc-element"></bar-chart>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.bar-chart -->
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-lg-6">
+                                    <!-- bar-chart -->
+                                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                                    <div class="box box-primary widget">
+                                        <div class="box-header">
+                                            <i class="glyphicon glyphicon-retweet"></i>
+                                            <h3 class="box-title">Retweets</h3>
+                                        </div>
+                                        <!-- box-body -->
+                                        <div class="box-body chart-responsive" style="overflow: hidden">
+                                            <bar-chart param="retweet_count" xLabel="retweets count" width=400 xMin="0" xMax="10" gap="1" class="dc-element"></bar-chart>
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                    <!-- /.bar-chart -->
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <!-- bar-chart -->
+                                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                                    <div class="box box-primary widget">
+                                        <div class="box-header">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                            <h3 class="box-title">February</h3>
+                                        </div>
+                                        <!-- box-body -->
+                                        <div class="box-body chart-responsive">
+                                            <bar-chart param="created_at" xLabel="time" width=400 xMin="0" xMax="10" gap="1" class="dc-element"></bar-chart>
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                    <!-- /.bar-chart -->
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-lg-6">
+                                    <!-- faceted-search -->
+                                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                                    <div class="box box-primary widget">
+                                        <div class="box-header">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                            <h3 class="box-title">Search</h3>
+                                        </div>
+                                        <!-- box-body -->
+                                        <div class="box-body chart-responsive">
+                                            <faceted-search params="hashtags" class="dc-element"></faceted-search>
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                    <!-- /.faceted-search -->
+                                </div>
+
+                                <div class="col-lg-6">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Right col -->
+                        <div class="col-lg-6">
+
                             <div class="box box-primary widget">
                                 <div class="box-header">
-                                    <i class="glyphicon glyphicon-star"></i>
-                                    <h3 class="box-title">Followers</h3>
+                                    <i class="glyphicon glyphicon-user" style="font-size: 19px; margin-right: 5px"></i>
+                                    <h3 class="box-title">Users</h3>
                                 </div>
                                 <!-- box-body -->
-                                <div class="box-body chart-responsive" style="overflow: hidden">
-                                    <bar-chart stream="2" param="followers_count" xLabel="followers count" width=400 xMin="0" xMax="50" gap="1" class="dc-element"></bar-chart>
+                                <div class="box-body chart-responsive" style="padding: 0">
+                                    <user-panel stream="2" class="dc-element"></user-panel>
                                 </div>
                                 <!-- /.box-body -->
                             </div>
-                            <!-- /.bar-chart -->
 
-                            <!-- bar-chart -->
-                            <!--Widgets must have 'widget' class in order to render their loading screen-->
-                            <div class="box box-primary widget">
-                                <div class="box-header">
-                                    <i class="glyphicon glyphicon-star"></i>
-                                    <h3 class="box-title">Friends</h3>
+                            <div class="row">
+
+                                <div class="col-lg-6">
+                                    <!-- bar-chart -->
+                                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                                    <div class="box box-primary widget">
+                                        <div class="box-header">
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <h3 class="box-title">Followers</h3>
+                                        </div>
+                                        <!-- box-body -->
+                                        <div class="box-body chart-responsive" style="overflow: hidden">
+                                            <bar-chart stream="2" param="followers_count" xLabel="followers count" width=400 xMin="0" xMax="3000" gap="1" class="dc-element"></bar-chart>
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                    <!-- /.bar-chart -->
                                 </div>
-                                <!-- box-body -->
-                                <div class="box-body chart-responsive" style="overflow: hidden">
-                                    <bar-chart stream="2" param="friends_count" xLabel="friends count" width=400 xMin="0" xMax="500" gap="0.01" class="dc-element"></bar-chart>
+
+                                <div class="col-lg-6">
+                                    <!-- bar-chart -->
+                                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                                    <div class="box box-primary widget">
+                                        <div class="box-header">
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <h3 class="box-title">Friends</h3>
+                                        </div>
+                                        <!-- box-body -->
+                                        <div class="box-body chart-responsive" style="overflow: hidden">
+                                            <bar-chart stream="2" param="friends_count" xLabel="friends count" width=400 xMin="0" xMax="500" gap="0.01" class="dc-element"></bar-chart>
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                    <!-- /.bar-chart -->
                                 </div>
-                                <!-- /.box-body -->
+
                             </div>
-                            <!-- /.bar-chart -->
 
-                            <!-- bar-chart -->
-                            <!--Widgets must have 'widget' class in order to render their loading screen-->
-                            <div class="box box-primary widget">
-                                <div class="box-header">
-                                    <i class="glyphicon glyphicon-star"></i>
-                                    <h3 class="box-title">Favourites</h3>
+                            <div class="row">
+
+                                <div class="col-lg-6">
+                                    <!-- bar-chart -->
+                                    <!--Widgets must have 'widget' class in order to render their loading screen-->
+                                    <div class="box box-primary widget">
+                                        <div class="box-header">
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <h3 class="box-title">Favourites</h3>
+                                        </div>
+                                        <!-- box-body -->
+                                        <div class="box-body chart-responsive" style="overflow: hidden">
+                                            <bar-chart stream="2" param="favourites_count" xLabel="favourites count" width=400 xMin="0" xMax="500" gap="0.01" class="dc-element"></bar-chart>
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                    <!-- /.bar-chart -->
                                 </div>
-                                <!-- box-body -->
-                                <div class="box-body chart-responsive" style="overflow: hidden">
-                                    <bar-chart stream="2" param="favourites_count" xLabel="favourites count" width=400 xMin="0" xMax="500" gap="0.01" class="dc-element"></bar-chart>
+
+                                <div class="col-lg-6">
                                 </div>
-                                <!-- /.box-body -->
+
                             </div>
-                            <!-- /.bar-chart -->
 
-                        </section>
+
+
+
+                        </div>
 
                     </div>
+
+
+
 
 
                 </section>

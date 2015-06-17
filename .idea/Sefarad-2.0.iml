@@ -181,6 +181,8 @@
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/pie-chart/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/review-widget/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/row-chart/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/tweet-panel/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/user-panel/packages" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

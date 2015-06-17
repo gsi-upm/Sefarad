@@ -25,7 +25,7 @@
                             <img src="http://www.anagard.com/blog/wp-content/uploads/2014/02/2011-03-12-twitter-egg.png" class="img_tweet">
                         </object>
                         </div>
-                        <div class="tweet_div">
+                        <div class="tweet_div" on-click="{{click}}" tweetId="{{t.id}}">
                             <div horizontal layout>
                                 <span class="name">{{t.user.name}} </span>
                                 <span class="screen-name">@{{t.user.screen_name}}</span>
@@ -34,11 +34,11 @@
                             <br>
                             <div class="count_tweet" horizontal layout>
                                 <span class="icon_tweet" horizontal layout>
-                                    <i class="glyphicon glyphicon-star" style="margin-right: 5px"></i>
+                                    <i class="glyphicon glyphicon-retweet" style="margin-right: 5px"></i>
                                     {{t.retweet_count.value}}
                                 </span>
                                 <span  class="icon_tweet" horizontal layout>
-                                    <i class="glyphicon glyphicon-retweet" style="margin-right: 5px"></i>
+                                    <i class="glyphicon glyphicon-star" style="margin-right: 5px"></i>
                                     {{t.favorite_count.value}}
                                 </span>
                             </div>
@@ -88,6 +88,13 @@
 //                for (var k = 0; k < val[0].value; k++) {
 //                    this.tweets.push(dim.bottom(val[0].value)[k]);
 //                }
+            },
+
+            click: function (event, detail, sender) {
+
+
+                this.dcChart.filter(event.currentTarget.getAttribute("tweetId")); //toggle filter
+                dc.redrawAll();
             }
         });
     </script>

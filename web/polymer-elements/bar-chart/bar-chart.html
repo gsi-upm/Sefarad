@@ -56,7 +56,7 @@
 
                 if (this.param == "created_at"){
                     this.chart
-                            .width(320).height(150)
+                            .width(320).height(200)
                             .dimension(this.dimension)
                             .group(this.group)
                             .x(d3.time.scale().domain([new Date(this.dimension.bottom(1)[0][p].value), new Date(this.dimension.top(1)[0][p].value)]))
@@ -70,7 +70,7 @@
                 } else {
 
                     this.chart
-                            .width(320).height(150)
+                            .width(320).height(200)
                             .dimension(this.dimension)
                             .group(this.group)
                             .x(d3.scale.linear().domain([this.xMin, this.xMax]))

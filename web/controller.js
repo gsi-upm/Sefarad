@@ -133,6 +133,20 @@ var initializeWidgets = function () {
                 }
 
                 idGen++;
+
+                //var found = false;
+                //
+                //usersData.forEach(function(k) {
+                //
+                //    if (k.name == d.user.name)
+                //    {
+                //        found = true;
+                //    }
+                //});
+                //
+                //if(found == false) usersData.push(d.user);
+
+
             });
 
             rawData2.forEach(function(d) {
