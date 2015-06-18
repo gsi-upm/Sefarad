@@ -1,0 +1,95 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+
+<polymer-element name="composite-line-chart" class="dc-element" attributes="param">
+
+
+  <template>
+      <!-- dc style -->
+      <link rel="stylesheet" type="text/css" href="dc.css" media="screen" />
+      <div id="chart"></div>
+  </template>
+
+    <script>
+        Polymer('composite-line-chart',{
+
+            crossfilterObject: {},
+            chart: {},
+            dimension: {},
+            group: {},
+            group2: {},
+
+            ready: function() {
+                console.log("composite-line-chart ready");
+                numWidgets = numWidgets - 1;
+
+                console.log("composite-line-chart with param: " + this.param);
+
+                //this.init();
+            },
+
+            clearFilter: function () {
+                this.chart.filterAll();
+            },
+
+            init: function () {
+
+                var p = this.param;
+
+                this.dimension = this.crossfilter.dimension(function(d) {
+                        return d[p].value;
+                });
+
+                this.group2 = this.dimension.group().reduceSum( function (d) {
+                    if (d.sentiment === "negativo") {
+                        return 1;
+                    } else
+                        return 0;
+                });
+                this.group = this.dimension.group().reduceSum( function (d) {
+                    if (d.sentiment === "positivo") {
+                        return 1;
+                    } else
+                        return 0;
+                });
+
+                this.chart = dc.compositeChart("#chart");
+                this.chart.compose([
+                        dc.lineChart(this.chart)
+                                .group(this.group)
+                                .renderArea(true)
+                                .transitionDuration(1000)
+                                .group(this.group, "Positive sentiment"),
+                        dc.lineChart(this.chart)
+                                .group(this.group2)
+                                .renderArea(true)
+                                .ordinalColors(["#EB8B57","#E064CD","#F8B700","#78CC00","#7B71C5"])
+                                .transitionDuration(1000)
+                                .group(this.group2, "Negative sentiment")
+                ]);
+                this.chart
+                        .width(990)
+                        .height(200)
+                        .margins({top: 30, right: 50, bottom: 25, left: 40})
+                        .dimension(this.dimension)
+                        .mouseZoomable(true)
+                        .x(d3.time.scale().domain([new Date(2015, 1, 1), new Date(2015, 1, 28)]))
+                        .round(d3.time.month.round)
+                        .xUnits(d3.time.months)
+                        .elasticY(true)
+                        .renderHorizontalGridLines(true)
+                        .legend(dc.legend().x(800).y(10).itemHeight(13).gap(5))
+                        .brushOn(false)
+                    // Add the base layer of the stack with group. The second parameter specifies a series name for use in the
+                    // legend
+                    // The `.valueAccessor` will be used for the base layer
+                        .group(this.group)
+                        .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
+                this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart
+
+                //dc.renderAll();
+            }
+        });
+    </script>
+
+</polymer-element>

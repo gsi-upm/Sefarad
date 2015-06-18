@@ -92,6 +92,7 @@
 
     <link rel="import" href="polymer-elements/heat-map/heat-map.html">
     <link rel="import" href="polymer-elements/user-panel/user-panel.html">
+    <link rel="import" href="polymer-elements/composite-line-chart/composite-line-chart.html">
     <link rel="import" href="polymer-elements/tweet-panel/tweet-panel.html">
     <link rel="import" href="polymer-elements/paper-tab/paper-tabs.html">
     <link rel="import" href="bower_components/core-pages/core-pages.html">
@@ -466,6 +467,22 @@
 
                         </div>
 
+                    </div>
+                    <div class="row">
+                        <!-- bar-chart -->
+                        <!--Widgets must have 'widget' class in order to render their loading screen-->
+                        <div class="box box-primary widget">
+                            <div class="box-header">
+                                <i class="glyphicon glyphicon-star"></i>
+                                <h3 class="box-title">Favourites</h3>
+                            </div>
+                            <!-- box-body -->
+                            <div class="box-body chart-responsive" style="overflow: hidden">
+                                <composite-line-chart param="created_at" class="dc-element"></composite-line-chart>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.bar-chart -->
                     </div>
 
 
