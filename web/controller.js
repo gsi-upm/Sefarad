@@ -517,7 +517,7 @@ var getPlacesRawData = function () {
 
 var getTweetsData = function () {
 
-    $.getJSON("assets/tweets.json", function(result){
+    $.getJSON("assets/tweets-visual.json", function(result){
         console.log("tweets data picked from local");
         //var data = JSON.stringify(result);
         //rawData = JSON.parse(data).results.bindings;
