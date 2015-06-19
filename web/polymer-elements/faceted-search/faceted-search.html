@@ -81,7 +81,7 @@
                             <ul class="nav nav-pills nav-stacked">
                                     <template repeat="{{p in d[2]}}" >
                                         <li dimension="{{d[0]}}" on-click="{{valueClick}}" class="active">
-                                                <span class="value-primary">{{p[0]}}</span><span class="badge badge-info">{{p[1]}}</span>
+                                                <span class="value-default">{{p[0]}}</span><span class="badge ">{{p[1]}}</span>
                                         </li>
                                     </template>
                             </ul>
@@ -249,7 +249,7 @@
                     for (var j= 0; j < val.length; j++)
                     {
                         values.push([val[j].key, val[j].value]);
-                        chart.filter(val[j].key);
+                        //chart.filter(val[j].key);
                     }
 
 
