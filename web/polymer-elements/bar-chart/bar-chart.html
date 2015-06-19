@@ -62,6 +62,7 @@
                             .x(d3.time.scale().domain([new Date(this.dimension.bottom(1)[0][p].value), new Date(this.dimension.top(1)[0][p].value)]))
                             .xUnits(d3.time.format("%Y"))
                             .gap(this.gap)
+                            .elasticY(true)
                             .yAxisLabel("")
                             .xAxisLabel(this.xLabel)
 
@@ -75,6 +76,7 @@
                             .group(this.group)
                             .x(d3.scale.linear().domain([this.xMin, this.xMax]))
                             .gap(this.gap)
+                            .elasticY(true)
                             .yAxisLabel("")
                             .xAxisLabel(this.xLabel)
 

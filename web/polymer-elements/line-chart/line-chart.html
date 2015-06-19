@@ -1,0 +1,70 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+
+<polymer-element name="line-chart" class="dc-element" attributes="param width height msg">
+
+
+  <template>
+      <style>
+          #chart .axis.y {
+              opacity: 0.0;
+          }
+      </style>
+      <!-- dc style -->
+      <link rel="stylesheet" type="text/css" href="dc.css" media="screen" />
+      <div id="chart"></div>
+  </template>
+
+    <script>
+        Polymer('line-chart',{
+
+            crossfilterObject: {},
+            chart: {},
+            dimension: {},
+            group: {},
+
+            ready: function() {
+                console.log("line-chart ready");
+                numWidgets = numWidgets - 1;
+
+                console.log("line-chart with param: " + this.param);
+
+                //this.init();
+            },
+
+            clearFilter: function () {
+                this.chart.filterAll();
+            },
+
+            init: function () {
+
+                var p = this.param;
+
+                this.dimension = this.crossfilter.dimension(function(d) {
+                        return d[p].value;
+                });
+
+                this.group = this.dimension.group().reduceCount();
+
+                this.chart = dc.lineChart("#chart");
+                this.chart
+                        .renderArea(true)
+                        .transitionDuration(1000)
+                        .group(this.group)
+                        .width(this.width)
+                        .height(this.height)
+                        .dimension(this.dimension)
+                        .elasticY(true)
+                        .x(d3.time.scale().domain([new Date(2015, 1, 1), new Date(2015, 1, 28)]))
+                    // Add the base layer of the stack with group. The second parameter specifies a series name for use in the
+                    // legend
+                    // The `.valueAccessor` will be used for the base layer
+                        .root()[0][0] = this.$.chart; //we pass explicitly the root div to dc.js
+                this.$.chart.classList.add("dc-chart"); //add the dc-chart to allow dc.js to style the chart
+
+                //dc.renderAll();
+            }
+        });
+    </script>
+
+</polymer-element>

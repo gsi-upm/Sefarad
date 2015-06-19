@@ -133,7 +133,7 @@ var initializeWidgets = function () {
 
             rawData.forEach(function(d) {
                 d.id = idGen;
-                if (d.sentiment == undefined) d.sentiment = "negativo";
+                if (d.sentiment == undefined) d.sentiment = "neutral";
 
                 aux = d.favorite_count;
                 d.favorite_count = {};

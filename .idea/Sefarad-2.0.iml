@@ -159,6 +159,7 @@
       <excludeFolder url="file://$MODULE_DIR$/web/plugins/timepicker/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/bar-chart/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/bubble-chart/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/composite-line-chart/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/faceted-search/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/google-signin/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/polymer-elements/google-youtube-api/packages" />

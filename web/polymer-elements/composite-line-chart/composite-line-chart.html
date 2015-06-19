@@ -18,6 +18,7 @@
             dimension: {},
             group: {},
             group2: {},
+            group3: {},
 
             ready: function() {
                 console.log("composite-line-chart ready");
@@ -40,14 +41,20 @@
                         return d[p].value;
                 });
 
+                this.group3 = this.dimension.group().reduceSum( function (d) {
+                    if (d.sentiment === "neutral") {
+                        return 1;
+                    } else
+                        return 0;
+                });
                 this.group2 = this.dimension.group().reduceSum( function (d) {
-                    if (d.sentiment === "negativo") {
+                    if (d.sentiment === "negative") {
                         return 1;
                     } else
                         return 0;
                 });
                 this.group = this.dimension.group().reduceSum( function (d) {
-                    if (d.sentiment === "positivo") {
+                    if (d.sentiment === "positive") {
                         return 1;
                     } else
                         return 0;
@@ -65,21 +72,24 @@
                                 .renderArea(true)
                                 .ordinalColors(["#EB8B57","#E064CD","#F8B700","#78CC00","#7B71C5"])
                                 .transitionDuration(1000)
-                                .group(this.group2, "Negative sentiment")
+                                .group(this.group2, "Negative sentiment"),
+                        dc.lineChart(this.chart)
+                                .group(this.group3)
+                                .renderArea(true)
+                                .ordinalColors(["#78CC00","#E064CD","#F8B700","#EB8B57","#7B71C5"])
+                                .transitionDuration(1000)
+                                .group(this.group3, "Neutral sentiment")
                 ]);
                 this.chart
                         .width(990)
                         .height(200)
-                        .margins({top: 30, right: 50, bottom: 25, left: 40})
                         .dimension(this.dimension)
-                        .mouseZoomable(true)
-                        .x(d3.time.scale().domain([new Date(2015, 1, 1), new Date(2015, 1, 28)]))
+                        .x(d3.time.scale().domain([new Date(2015, 1, 1), new Date()]))
                         .round(d3.time.month.round)
                         .xUnits(d3.time.months)
                         .elasticY(true)
                         .renderHorizontalGridLines(true)
                         .legend(dc.legend().x(800).y(10).itemHeight(13).gap(5))
-                        .brushOn(false)
                     // Add the base layer of the stack with group. The second parameter specifies a series name for use in the
                     // legend
                     // The `.valueAccessor` will be used for the base layer
