@@ -72,3 +72,8 @@ html /deep/ .size-position::shadow #scroller {
 #btn_save{
     display: none;
 }
+
+#svg {
+    display: block;
+    margin: auto;
+}

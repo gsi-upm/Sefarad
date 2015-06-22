@@ -71,6 +71,8 @@
     <script type="text/javascript" src="https://rawgithub.com/NickQiZhu/dc.js/master/web/js/crossfilter.js"></script>
     <!--dc.js-->
     <script type="text/javascript" src="plugins/dc/dc.js"></script>
+    <!--tag-cloud.js-->
+    <script type="text/javascript" src="d3.layout.cloud.js"></script>
 
     <!-- ------------------------------- end/ SCRIPTS IMPORT ZONE ------------------------------ -->
 
@@ -392,6 +394,23 @@
                             <!-- /.composite-line-chart -->
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- composite-line-chart -->
+                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-cloud"></i>
+                                    <h3 class="box-title">Hastags Cloud</h3>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive" style="overflow: hidden" id="tag-cloud">
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.composite-line-chart -->
+                        </div>
+                    </div>
 
                 </section>
             </div>
@@ -461,24 +480,8 @@
         <div id="acknowledgements" style="text-align: center">
             <hr>
             <div style="display:inline">
-                    <span style="max-width:200px; word-wrap:break-word;">
-                        <p>These data have been retrieved thanks to the collaboration of project Tourpedia
-                            and the team of people that form</p>
-                        <p>Provide a set of ready to use tools to perform some natural language processing tasks, free
-                            and easy to adapt for Academia, Research and Small and Medium Enterprise to integrate them
-                            in their workflow</p>
-                        <br>
-                    </span>
                 <a href="http://gsi.dit.upm.es/" target="_blank">
                     <img style="height: 50px; width: 50px;" src="dist/img/logo_gsi.png" alt="GSI-UPM">
-                </a>
-
-                <img src="dist/img/seventh_logo.png" alt="European Union" style="height: 50px; width: 70px;">
-                <a href="http://www.opener-project.eu/">
-                    <img src="dist/img/opener_logo.png" style="height: 50px; width: 155px;" alt="OpeNER">
-                </a>
-                <a href="http://tour-pedia.org/about/">
-                    <img src="dist/img/tourpedia.png" style="height: 50px; width: 175px;" alt="Paradigma Tecnológico">
                 </a>
             </div>
         </div>
@@ -745,6 +748,7 @@
             }
         }
     }
+
 
 </script>
 

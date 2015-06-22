@@ -131,6 +131,7 @@ var initializeWidgets = function () {
             //
             //calculateBounds(dates);
 
+            var hastags = [];
             rawData.forEach(function(d) {
                 d.id = idGen;
                 if (d.sentiment == undefined) d.sentiment = "neutral";
@@ -173,6 +174,8 @@ var initializeWidgets = function () {
                     d.hashtags.value = "ninguno";
                 }
 
+                if(hastags.indexOf(d.hashtags.value) == -1)
+                    hastags.push(d.hashtags.value);
                 idGen++;
 
                 //var found = false;
@@ -189,6 +192,37 @@ var initializeWidgets = function () {
 
 
             });
+
+            var fill = d3.scale.category20();
+            cloud().size([1200, 300])
+                .words(hastags.map(function(d) {
+                    return {text: d, size: 10 + Math.random() * 30};
+                }))
+                .padding(5)
+                .rotate(function() { return ~~(Math.random() * 2) * 90; })
+                .font("Impact")
+                .fontSize(function(d) { return d.size; })
+                .on("end", draw)
+                .start();
+            function draw(words) {
+                d3.select("#tag-cloud").append("svg")
+                    .attr("width", 1200)
+                    .attr("height", 300)
+                    .attr("id", "svg")
+                    .append("g")
+                    .attr("transform", "translate(600,150)")
+                    .selectAll("text")
+                    .data(words)
+                    .enter().append("text")
+                    .style("font-size", function(d) { return d.size + "px"; })
+                    .style("font-family", "Impact")
+                    .style("fill", function(d, i) { return fill(i); })
+                    .attr("text-anchor", "middle")
+                    .attr("transform", function(d) {
+                        return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                    })
+                    .text(function(d) { return d.text; });
+            }
 
             rawData2.forEach(function(d) {
                 aux = d.followers_count;
