@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <title>Sefarad 2.0 | Dashboard</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="icon" type="image/png" href="dist/img/favicon.png">
+
+    <!-- ------------------------------- STYLE LINKS ZONE -------------------------------------- -->
+
+    <link href='//cdn.jsdelivr.net/yasqe/2.3.8/yasqe.min.css' rel='stylesheet' type='text/css'/>
+    <link href='//cdn.jsdelivr.net/yasr/2.4.12/yasr.min.css' rel='stylesheet' type='text/css'/>
+
+
+    <!-- ------------------------------- end/ STYLE LINKS ZONE --------------------------------- -->
+
+    <!-- Polymer: Load Polymer platform support before any code that touches the DOM. -->
+    <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+
+    <!-- Bootstrap 3.3.2 -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"
+          type="text/css"/>
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css"/>
+    <!-- Theme style -->
+    <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
+    <!-- AdminLTE Skins. Choose a skin from the css/skins 
+         folder instead of downloading all of them to reduce the load. -->
+    <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css"/>
+    <!-- iCheck -->
+    <link href="plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css"/>
+    <!-- Own Css -->
+    <link href="common.css" rel="stylesheet" type="text/css"/>
+    <!-- Morris chart -->
+    <link href="plugins/morris/morris.css" rel="stylesheet" type="text/css"/>
+    <!-- jvectormap -->
+    <link href="plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css"/>
+    <!-- Date Picker -->
+    <link href="plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css"/>
+    <!-- Daterange picker -->
+    <link href="plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css"/>
+
+
+    <!-- ------------------------------- STYLE LINKS ZONE -------------------------------------- -->
+
+
+    <!-- ------------------------------- end/ STYLE LINKS ZONE --------------------------------- -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+
+    <!-- ------------------------------- SCRIPTS IMPORT ZONE ----------------------------------- -->
+
+    <!--d3.js-->
+    <script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
+    <!--sparql-geojson plugin-->
+    <script src="plugins/sparql-geojson/sparql-geojson.js" charset="utf-8"></script>
+    <!--crossfilter.js-->
+    <script type="text/javascript" src="https://rawgithub.com/NickQiZhu/dc.js/master/web/js/crossfilter.js"></script>
+    <!--dc.js-->
+    <script type="text/javascript" src="plugins/dc/dc.js"></script>
+
+    <!-- ------------------------------- end/ SCRIPTS IMPORT ZONE ------------------------------ -->
+
+
+    <!-- ------------------------------- POLYMER COMPONENTS IMPORT ZONE ------------------------ -->
+
+    <link rel="import" href="polymer-elements/pie-chart/pie-chart.html">
+    <link rel="import" href="polymer-elements/bar-chart/bar-chart.html">
+    <link rel="import" href="polymer-elements/row-chart/row-chart.html">
+    <link rel="import" href="polymer-elements/leaflet-map/leaflet-map.html">
+    <link rel="import" href="polymer-elements/number-chart/number-chart.html">
+    <link rel="import" href="polymer-elements/bubble-chart/bubble-chart.html">
+    <link rel="import" href="bower_components/sortable-table/sortable-table.html">
+    <link rel="stylesheet"
+          href="bower_components/sortable-table/css/bootstrap.css" shim-shadowdom>
+    <link rel="import" href="polymer-elements/faceted-search/faceted-search.html">
+    <link rel="import" href="polymer-elements/paper-shadow/paper-shadow.html">
+    <link rel="import" href="polymer-elements/google-signin/google-signin.html">
+
+    <link rel="import" href="polymer-elements/leaflet-marker-map/leaflet-marker-map.html">
+    <link rel="import" href="polymer-elements/review-widget/review-widget.html">
+    <link rel="import" href="polymer-elements/paper-tab/paper-tabs.html">
+    <link rel="import" href="bower_components/core-pages/core-pages.html">
+
+
+    <!-- ------------------------------- end/ POLYMER COMPONENTS IMPORT ZONE ------------------- -->
+
+</head>
+<body unresolved demo="places" class="skin-blue sidebar-collapse sidebar-open">
+<div class="wrapper">
+
+    <header class="main-header">
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+
+            <!-- Logo -->
+            <a href="dashboardPlaces.html" class="logo"><b>TourPedia</b></a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Notifications: style can be found in dropdown.less -->
+                    <li>
+                        <a href="index.html"><i class="ion-android-home" style="font-size: 20px"></i></a>
+                    </li>
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-warning">
+                                <number-chart param="name" type="param" class="dc-element"></number-chart>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">
+                                <number-chart param="name" type="param" class="dc-element" style="float: left;"></number-chart>
+                                &nbsp Elements have been filtered</li>
+                            <li class="footer"><button class="btn" style="width: 100%;" onclick="clearFilter()" >Clear Filters</button></li>
+                            <li class="footer"><button class="btn" style="width: 100%;" ng-click="showDefault()" >Load Default Data</button></li>
+                        </ul>
+                    </li>
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li style="margin: 7px 10px auto 10px" class="user user-menu">
+                        <div>
+                            <google-signin clientId="675126827387-jrvg34sf52dni2o8o5kjgthc3abm8s0u.apps.googleusercontent.com"
+                                           scopes="https://www.googleapis.com/auth/drive.appfolder"></google-signin>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-side">
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="" class="img-circle user-image2" alt="User Image" />
+                    </div>
+                    <div class="pull-left info">
+                        <p class="user-name2"></p>
+
+                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    </div>
+                </div>
+                <!-- search form -->
+                <div class="sidebar-form">
+                    <form action="#" method="get">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Search..."/>
+                         <span class="input-group-btn">
+                             <button type='submit' name='search' id='search-btn'
+                                     class="btn btn-flat"><i class="fa fa-search"></i></button>
+                         </span>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.search form -->
+            </div>
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li class="header">MAIN NAVIGATION</li>
+
+                <li class="treeview active">
+                    <a href="#">
+                        <i class="fa fa-pie-chart"></i> <span>Dashboard</span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class=""><a href="dashboard.html"><i class="fa fa-circle-o"></i> Slovakia</a></li>
+                        <li class=""><a href="dashboardRestaurants.html"><i class="fa fa-circle-o"></i> Restaurants</a></li>
+                        <li class=""><a href="dashboardTweet.html"><i class="fa fa-circle-o"></i> Tweets Sentiment</a></li>
+                        <li class="active"><a href="dashboardPlaces.html"><i class="fa fa-circle-o"></i> Tourpedia</a></li></ul>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-database"></i> <span>Dataset</span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="newdataset.html"><i class="fa fa-circle-o"></i> Add Dataset</a></li>
+                        <li><a href="dataset.html"><i class="fa fa-circle-o"></i> Dataset List</a></li>
+                    </ul>
+                </li>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-code"></i> <span>Query</span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="newquery.html"><i class="fa fa-circle-o"></i> Add Query</a></li>
+                        <li><a href="query.html"><i class="fa fa-circle-o"></i> Query List</a></li>
+                        <li><a href="queryeditor.html"><i class="fa fa-circle-o"></i> Query Editor</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Right side column. Contains the navbar and content of the page -->
+    <div class="content-wrapper">
+        <paper-shadow class="card" z="2">
+            <div class="top">
+
+                <paper-tabs selected="0">
+
+                    <paper-tab>DASHBOARD</paper-tab>
+                    <paper-tab>QUERY EDITOR</paper-tab>
+
+                </paper-tabs>
+
+            </div>
+        </paper-shadow>
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Dashboard
+                <small>Control panel</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="index.html"> Home</a></li>
+                <li class="active"><i class="fa fa-pie-chart"></i> Dashboard</li>
+            </ol>
+        </section>
+
+        <core-pages selected="0">
+
+            <div id="content0">
+                <!-- Main content -->
+                <section class="content">
+                    <!-- Small boxes (Stat box) -->
+
+                    <!-- Small boxes (Stat box) -->
+
+                    <div class="row">
+                        <div class="col-lg-9 col-xs-6">
+
+                            <!-- leaflet-marker-map -->
+                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="fa fa-map-marker"></i>
+                                    <h3 class="box-title">Map</h3>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive">
+                                    <leaflet-marker-map class="dc-element"></leaflet-marker-map>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.leaflet-marker-map -->
+                        </div>
+
+                        <div class="col-lg-3 col-xs-6">
+
+                            <!--Number chart is just the number in order to take advantage of adminLTE icons-->
+                            <!-- small box -->
+                            <div class="info-box bg-aqua">
+                                <span class="info-box-icon"><i class="glyphicon glyphicon-info-sign"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Elements selected</span>
+                            <span class="info-box-number">
+                                <number-chart param="name" type="param"  class="dc-element"></number-chart>
+                            </span>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-name" style="width: 50%"></div>
+                                    </div>
+                        <span class="progress-description">
+                            <b class="percent-name">50%</b> of Total Selected </span>
+                                </div><!-- /.info-box-content -->
+                            </div>
+
+                            <!--Number chart is just the number in order to take advantage of adminLTE icons-->
+                            <!-- small box -->
+                            <div class="info-box bg-green">
+                                <span class="info-box-icon"><i class="ion ion-android-locate"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Polarities under selection</span>
+                            <span class="info-box-number">
+                                <number-chart param="polarity" type="param" class="dc-element"></number-chart>
+                            </span>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-polarity" style="width: 50%"></div>
+                                    </div>
+                            <span class="progress-description">
+                                <b class="percent-polarity">50%</b> of Total Selected</span>
+                                </div><!-- /.info-box-content -->
+                            </div>
+
+                            <!--Number chart is just the number in order to take advantage of adminLTE icons-->
+                            <!-- small box -->
+                            <div class="info-box bg-red">
+                                <span class="info-box-icon"><i class="ion ion-android-happy"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Attractions</span>
+                            <span class="info-box-number">
+                                <number-chart param="category" type="value" valueToCount="attraction" class="dc-element"></number-chart>
+                            </span>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-attraction" style="width: 50%"></div>
+                                    </div>
+                            <span class="progress-description">
+                                <b class="percent-attraction">50%</b> of Total Selected </span>
+                                </div><!-- /.info-box-content -->
+                            </div><!-- ./col -->
+
+                            <!--Number chart is just the number in order to take advantage of adminLTE icons-->
+                            <!-- small box -->
+                            <div class="info-box bg-yellow">
+                                <span class="info-box-icon"><i class="ion ion-android-home"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Accommodation</span>
+                            <span class="info-box-number">
+                                <number-chart param="category" type="value" valueToCount="accommodation" class="dc-element">
+
+                                </number-chart></span>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-accommodation" style="width: 50%"></div>
+                                    </div>
+                            <span class="progress-description">
+                                <b class="percent-accommodation">50%</b> of Total Selected </span>
+                                </div><!-- /.info-box-content -->
+                            </div>
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-6">
+                            <!-- pie-chart -->
+                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-filter"></i>
+                                    <h3 class="box-title" id="here">Category</h3>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive" style="overflow: hidden">
+                                    <pie-chart param="category" class="dc-element"></pie-chart>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.pie-chart -->
+
+                        </div><!-- ./col -->
+                        <div class="col-lg-3 col-xs-6">
+                            <!-- pie-chart -->
+                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-filter"></i>
+                                    <h3 class="box-title" id="here">City</h3>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive" style="overflow: hidden">
+                                    <pie-chart param="location" class="dc-element"></pie-chart>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.pie-chart -->
+
+                        </div><!-- ./col -->
+
+
+                        <div class="col-lg-3 col-xs-6">
+                            <!-- row-chart -->
+                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-signal"></i>
+                                    <h3 class="box-title">Number of Reviews</h3>
+                                    <div class="box-tools pull-right">
+                                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive" style="overflow: hidden">
+                                    <bar-chart param="numReviews" xMin=0 xMax=20 class="dc-element"></bar-chart>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.row-chart -->
+                        </div><!-- ./col -->
+
+                        <div class="col-lg-3 col-xs-6">
+                            <!-- bubble-chart -->
+                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-record"></i>
+                                    <h3 class="box-title">Polarity</h3>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive" style="overflow: hidden">
+                                    <bubble-chart param="polarity" xMax=10 yMax=20000 radius=10000 class="dc-element"></bubble-chart>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.bubble-chart -->
+                        </div><!-- ./col -->
+
+                    </div>
+                    <!-- /.row -->
+
+                    <!-- Main row -->
+                    <div class="row">
+                        <!-- Left col -->
+                        <div class="col-lg-6">
+                            <!-- row-chart -->
+                            <!--Widgets must have 'widget' class in order to render their loading screen-->
+                            <div class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-star"></i>
+                                    <h3 class="box-title">Reviews</h3>
+                                    <div class="box-tools pull-right">
+                                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+                                <!-- box-body -->
+                                <div class="box-body chart-responsive" style="overflow: hidden">
+                                    <review-widget class="dc-element"></review-widget>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.row-chart -->
+
+                        </div><!-- ./col -->
+                        <!-- /.Left col -->
+                        <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                        <section class="col-lg-6 connectedSortable">
+
+
+
+                            <!-- Custom dc widget table-->
+                            <div id="crossFilterDCTest3" class="box box-primary widget">
+                                <div class="box-header">
+                                    <i class="glyphicon glyphicon-list-alt"></i>
+                                    <h3 class="box-title">Results Table</h3>
+                                    <div class="box-tools pull-right">
+                                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+                                <!--box-body -->
+                                <div class="box-body chart-responsive">
+
+                                    <sortable-table params="name, polarity, address, numReviews" class="bootstrap dc-element" page="{{page}}" pagesize="8" footertemplate="defaultPager">
+
+                                    </sortable-table>
+
+                                </div>
+                                <!--/.box-body -->
+                            </div>
+                            <!-- /.Custom dc widget table-->
+
+
+
+
+                        </section>
+                        <!-- right col -->
+                    </div>
+                    <!-- /.row (main row) -->
+                    <!-- Main row -->
+                    <div class="row">
+                        <div class="col-lg-5">
+
+
+                        </div><!-- ./col -->
+                    </div>
+                </section>
+            </div>
+            <div id="content1">
+                <section class="content">
+
+                    <div id="queries">
+                        <br>
+
+                        <p class="text-light-blue">Select a query template:</p>
+                        <div id="paramQuerySelector"></div>
+                        <br>
+                        <p class="text-light-blue">Select parameters to fill the template:</p>
+                        <div id="paramSelector0"></div>
+                        <div id="paramSelector1"></div>
+                        <div id="paramSelector2"></div>
+                        <div id="paramSelector3"></div>
+                        <div id="paramSelector4"></div>
+                        <br>
+
+                        <p class="text-light-blue">Edit your query:</p>
+
+                        <div id="divSparql">
+                            <paper-shadow class="card" z="2">
+                                <div id="yasqe" style="padding-bottom: 15px"></div>
+                            </paper-shadow>
+                            <br>
+
+                            <a class="btn btn-app center-block" id="queryButton">
+                                <i class="fa fa-play"></i> Execute Query
+                            </a>
+                            <a class="btn btn-app center-block" id="buttonShow" ng-click="showInDashboard()" style="display: none;">
+                                <i class="fa fa-refresh"></i> Show in Dashboard
+                            </a>
+
+                            <div class="alert alert-danger alert-dismissable hide" id="queryError">
+                                <i class="fa fa-ban"></i>
+
+                                <b>Query failed</b>
+                            </div>
+
+                            <div class="alert alert-success alert-dismissable hide" id="querySuccess">
+                                <i class="fa fa-check"></i>
+
+                                <b>Query success</b>
+                            </div>
+
+                            <paper-shadow class="card" z="2">
+                                <div id="yasr"></div>
+                            </paper-shadow>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </core-pages>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 2.0
+        </div>
+        <strong>Powered by <a href="https://github.com/gsi-upm/Sefarad-2.0">Sefarad 2.0</a>
+            @<a href="http://www.gsi.dit.upm.es/">Grupo de Sistemas Inteligentes</a></strong>
+        - Universidad Politécnica de Madrid.
+        <div id="acknowledgements" style="text-align: center">
+            <hr>
+            <div style="display:inline">
+                    <span style="max-width:200px; word-wrap:break-word;">
+                        <p>These data have been retrieved thanks to the collaboration of project Tourpedia
+                            and the team of people that form</p>
+                        <p>Provide a set of ready to use tools to perform some natural language processing tasks, free
+                            and easy to adapt for Academia, Research and Small and Medium Enterprise to integrate them
+                            in their workflow</p>
+                        <br>
+                    </span>
+                <a href="http://gsi.dit.upm.es/" target="_blank">
+                    <img style="height: 50px; width: 50px;" src="dist/img/logo_gsi.png" alt="GSI-UPM">
+                </a>
+
+                <img src="dist/img/seventh_logo.png" alt="European Union" style="height: 50px; width: 70px;">
+                <a href="http://www.opener-project.eu/">
+                    <img src="dist/img/opener_logo.png" style="height: 50px; width: 155px;" alt="OpeNER">
+                </a>
+                <a href="http://tour-pedia.org/about/">
+                    <img src="dist/img/tourpedia.png" style="height: 50px; width: 175px;" alt="Paradigma Tecnológico">
+                </a>
+            </div>
+        </div>
+    </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.1.3 -->
+<script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>
+<!-- jQuery UI 1.11.2 -->
+<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.2 JS -->
+<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<!-- Dart -->
+<script type="application/dart" src="dashboardPlaces.dart"></script>
+<script type="text/javascript" src="packages/browser/dart.js"></script>
+<!-- Morris.js charts -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="plugins/morris/morris.min.js" type="text/javascript"></script>
+<!-- Sparkline -->
+<script src="plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
+<!-- jvectormap -->
+<script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js" type="text/javascript"></script>
+<script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
+<!-- jQuery Knob Chart -->
+<script src="plugins/knob/jquery.knob.js" type="text/javascript"></script>
+<!-- daterangepicker -->
+<script src="plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<!-- datepicker -->
+<script src="plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
+<!-- iCheck -->
+<script src="plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+<!-- Slimscroll -->
+<script src="plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<!-- FastClick -->
+<script src='plugins/fastclick/fastclick.min.js'></script>
+<!-- AdminLTE App -->
+<script src="dist/js/app.min.js" type="text/javascript"></script>
+
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="dist/js/pages/dashboard.js" type="text/javascript"></script>
+
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js" type="text/javascript"></script>
+
+<!-- DATA TABLES SCRIPT -->
+<script src="//datatables.net/release-datatables/media/js/jquery.dataTables.js" type="text/javascript"></script>
+<script src="plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+
+<script src='//cdn.jsdelivr.net/yasqe/2.3.8/yasqe.bundled.min.js'></script>
+<script src='//cdn.jsdelivr.net/yasr/2.4.12/yasr.bundled.min.js'></script>
+<script src='plugins/papaparse/papaparse.min.js'></script>
+
+<script src="controller.js"></script>
+
+<script>
+    var tabs = document.querySelector('paper-tabs');
+    var pages = document.querySelector('core-pages');
+    var logged = document.querySelector('google-signin');
+
+    var loggead = function() {
+        this.isLoggead = function(){
+            return logged.isSigned;
+        }
+    };
+
+    var jsYasqe = function() {
+
+        this.getQuery = function(){
+            return yasqe.getValue();
+        }
+    };
+
+    tabs.addEventListener('core-select',function(){
+        pages.selected = tabs.selected;
+    });
+
+    var _editorEndpoint = 'http://lab.gsi.dit.upm.es:5050/tourpedia/query?query=';
+    var regex = /<(\S+)>/g;
+    var parsedData = [];
+    $.getJSON("queries.json", function (data) {
+
+        for(i = 0; i < data.length; i++){
+            if(data[i]["Endpoint"] == "http://lab.gsi.dit.upm.es:5050/tourpedia/query?query=") {
+                parsedData.push(data[i]);
+            }
+        }
+    });
+    window.onload = function() {
+        if(parsedData[0] != undefined ) {
+            var match = parsedData[0]["Name"].match(regex);
+            var query = parsedData[0]["Query"];
+            if(parsedData[0]["Endpoint"] != "")
+                _editorEndpoint = parsedData[0]["Endpoint"];
+
+            $("#paramQuerySelector").append('<select style="width: 65%;" class="form-control" id="querySelector"'+'>');
+            var j = 0;
+            for (j = 0; j < parsedData.length; j++) {
+                $("#querySelector").append('<option value="' + parsedData[j]["Name"] + '">' + parsedData[j]["Name"].replace(/>/g,'&gt').replace(/</g,'&lt') + '</option>');
+            }
+            var k = 0;
+            for(k = 0; k < 5; k++) {
+                $("#paramSelector"+k).empty();
+                if(parsedData[0]["Parameters"+k].length != 0) {
+                    var id = "selector"+k;
+                    $("#paramSelector"+k).append("<select style='width: 65%;' class=form-control id=" + id + ">");
+                    for (var i = 0; i < parsedData[0]["Parameters"+k].length; i++) {
+                        $("#selector"+k).append('<option style="width: 65%; font-weight: bold;" value="' + parsedData[0]["Parameters"+k][i] + '"><strong>' + parsedData[0]["Parameters"+k][i] + "</strong></option>");
+                    }
+                    var selectedParameters = document.getElementById("selector"+k).value;
+                    query = query.replace(match[k], selectedParameters);
+                    match[k] = selectedParameters;
+                    $("#selector"+k).change(function () {
+                        var regex2 = /selector(\S+)/i;
+                        var index = this.id.match(regex2);
+                        var selectedParameters = this.value;
+                        query = query.replace(match[index[1]], selectedParameters);
+                        match[index[1]] = selectedParameters;
+                        if(parsedData[0]["Type"] == "Sparql")
+                            yasqe.setValue(query);
+                        else
+                            $("#queryMongo").val(query);
+                    });
+                }
+            }
+
+            $("#querySelector").change(function () {
+                populateQueryWithParams();
+            });
+
+            if(parsedData[0]["Type"] == "Sparql")
+                yasqe.setValue(query);
+            else
+                $("#queryMongo").val(query);
+            return;
+        }
+    };
+
+    //configuration
+    var yasqe = YASQE(document.getElementById("yasqe"), {
+        sparql: {
+            showQueryButton: false,
+            callbacks:{
+                success: function(data){
+                    console.log("success", data);
+                }
+            },
+            createShareLink: false
+        }
+    });
+    //    var yasgui = function (){
+    //        var yasqe = YASQE(document.getElementById("yasqe"));
+    //        this.setValue = function (value){
+    //            yasqe.setValue(value);
+    //        }
+    //    }
+    YASR.plugins.table.defaults.datatable.scrollX = true;
+    YASR.plugins.table.defaults.datatable.scrollCollapse = true;
+    YASR.plugins.table.defaults.datatable.autoWidth = true;
+    YASR.plugins.table.defaults.datatable.scrollY = "300px";
+    YASR.plugins.rawResponse.defaults.scrollbarStyle = "native";
+    var yasr = YASR(document.getElementById("yasr"), {
+        //this way, the URLs in the results are prettified using the defined prefixes in the query
+        getUsedPrefixes: yasqe.getPrefixesFromQuery
+    });
+
+    $("#queryButton").click(function (e) {
+        e.preventDefault();
+        executeQuery();
+    });
+
+    //ExecuteQuery function. Still not generalized, it takes "restaurants" info from our endpoint at gsi's alpha
+    function executeQuery() {
+
+        $("#querySuccess").addClass("hide");
+        $("#queryError").addClass("hide");
+
+        var _query = yasqe.getValue().replace(/(\r\n|\n|\r)/gm, "");
+        console.log(_query);
+        var temporal = _editorEndpoint + encodeURIComponent(_query);
+        var req = new XMLHttpRequest();
+        req.open("GET", temporal, true);
+        var params = encodeURIComponent(_query);
+        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        req.setRequestHeader("Accept", "application/sparql-results+json");
+        req.send();
+        req.onreadystatechange = function () {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+
+                    var res = eval("(" + req.responseText + ")");
+                    var data = JSON.stringify(res.results.bindings);
+                    console.log(data);
+                    $("#querySuccess").removeClass('hide');
+
+                    document.getElementById("buttonShow").style.display = "block";
+                    //ko.mapping.fromJSON(data, vm.viewData);
+                    //updateWidgets(true);
+                    $("#hiddenResults").val(data);
+                    yasr.setResponse({
+                        response: res,
+                        contentType: req.getResponseHeader("Content-Type")
+                    });
+
+                } else {
+                    $("#queryError").removeClass('hide');
+
+                }
+            }
+        };
+        return false;
+    };
+
+    function populateQueryWithParams(){
+        var myEl2 = document.getElementById('querySelector');
+        // update param list
+        var j;
+        for(j = 0; j<myEl2.length; j++){
+            if(parsedData[j] != undefined ) {
+                if (myEl2.value == parsedData[j]["Name"]) {
+
+                    var match = parsedData[j]["Name"].match(regex);
+                    var query = parsedData[j]["Query"];
+                    if(parsedData[j]["Endpoint"] != "")
+                        _editorEndpoint = parsedData[j]["Endpoint"];
+                    var k = 0;
+                    for(k = 0; k < 5; k++) {
+                        $("#paramSelector"+k).empty();
+                        if(parsedData[j]["Parameters"+k].length != 0) {
+                            var id = "selector"+k;
+                            $("#paramSelector"+k).append("<select style='width: 65%;' class=form-control id=" + id + ">");
+                            for (var i = 0; i < parsedData[j]["Parameters"+k].length; i++) {
+                                $("#selector"+k).append('<option style="width: 65%; font-weight: bold;" value="' + parsedData[j]["Parameters"+k][i] + '"><strong>' + parsedData[j]["Parameters"+k][i] + "</strong></option>");
+                            }
+                            var selectedParameters = document.getElementById("selector"+k).value;
+                            query = query.replace(match[k], selectedParameters);
+                            match[k] = selectedParameters;
+                            $("#selector"+k).change(function () {
+                                var regex2 = /selector(\S+)/i;
+                                var index = this.id.match(regex2);
+                                var selectedParameters = this.value;
+                                query = query.replace(match[index[1]], selectedParameters);
+                                match[index[1]] = selectedParameters;
+                                if(parsedData[j]["Type"] == "Sparql")
+                                    yasqe.setValue(query);
+                                else
+                                    $("#queryMongo").val(query);
+                            });
+                        }
+                    }
+
+                    if(parsedData[j]["Type"] == "Sparql")
+                        yasqe.setValue(query);
+                    else
+                        $("#queryMongo").val(query);
+                    return;
+                }
+            }
+        }
+    }
+
+</script>
+
+</body>
+</html>
