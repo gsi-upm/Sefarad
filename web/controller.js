@@ -7,6 +7,8 @@ var usersData = [];
 var rawData = [];
 var rawData2 = [];
 
+var fragmentsRawData = [];
+
 var queryEndPoint = 'http://demos.gsi.dit.upm.es/fuseki/geo/query?query=';
 var currentQuery = 'PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX j.0: <http://inspire.jrc.ec.europa.eu/schemas/gn/3.0/> PREFIX j.1: <http://inspire.jrc.ec.europa.eu/schemas/ps/3.0/> PREFIX j.2: <http://inspire.jrc.ec.europa.eu/schemas/base/3.2/> PREFIX j.3: <http://www.opengis.net/ont/geosparql#> SELECT * WHERE { SERVICE <http://localhost:3030/slovakia/query> { ?res j.3:hasGeometry ?fGeom . ?fGeom j.3:asWKT ?fWKT . ?res j.1:siteProtectionClassification ?spc . ?res j.1:LegalFoundationDate ?lfd . ?res j.1:LegalFoundationDocument ?lfdoc . ?res j.1:inspireId ?inspire . ?res j.1:siteName ?sitename . ?sitename j.0:GeographicalName ?gname . ?gname j.0:spelling ?spelling . ?spelling j.0:SpellingOfName ?spellingofname . ?spellingofname j.0:text ?name . ?inspire j.2:namespace ?namespace . ?inspire j.2:namespace ?localId . ?res j.1:siteDesignation ?siteDesignation . ?siteDesignation j.1:percentageUnderDesignation ?percentageUnderDesignation . ?siteDesignation j.1:designation ?designation . ?siteDesignation j.1:designationScheme ?designationScheme . } } LIMIT 1000';
 
@@ -55,6 +57,11 @@ $( document ).ready(function() {
     if(demo == 'tweets')
     {
         getTweetsData();
+    }
+
+    if(demo == 'dbpedia')
+    {
+        getDbpediaData();
     }
 
 
@@ -439,6 +446,8 @@ var getPolygonsFromEuro = function () {
 
                     rawData = JSON.parse(data);
 
+                    rawData = processPolygons(JSON.parse(data));
+
                     dataReady = true;
                     //newDataReceived();
 
@@ -457,7 +466,8 @@ var getPolygonsFromEuro = function () {
                                 var res = eval("(" + req.responseText + ")");
                                 var data = JSON.stringify(res.results.bindings);
 
-                                rawData = JSON.parse(data);
+                                //rawData = JSON.parse(data);
+                                rawData = processPolygons(JSON.parse(data));
 
                                 dataReady = true;
 
@@ -576,6 +586,23 @@ var getTweetsData = function () {
     });
 };
 
+var getDbpediaData = function () {
+
+    var fragmentsClient = new ldf.FragmentsClient('http://fragments.dbpedia.org/2014/en');
+
+    var query = 'SELECT * { ?s ?p <http://dbpedia.org/resource/Belgium>. ?s ?p ?o } LIMIT 100',
+        results = new ldf.SparqlIterator(query, { fragmentsClient: fragmentsClient });
+    //results.on('data', console.log);
+    results.on('data', fragmentReceived);
+};
+
+function fragmentReceived (data)
+{
+    fragmentsRawData.push(data);
+    console.log("fragment received");
+
+};
+
 
 var transformData = function (data) {
     var auxArray = [];
@@ -600,4 +627,24 @@ var transformData = function (data) {
 
     }
     return auxArray;
+};
+
+
+
+function processPolygons (inData)
+{
+    var outData = [];
+
+    inData.forEach(function(d)
+    {
+        d.lat = d.fWKT.value.substring(15, d.fWKT.value.indexOf(',')-17);
+        d.long = d.fWKT.value.substring(33, d.fWKT.value.indexOf(','));
+        d.fWKT = {};
+
+        outData.push(d);
+    });
+
+
+
+    return outData;
 };

@@ -74,7 +74,7 @@
                             .width(320).height(200)
                             .dimension(this.dimension)
                             .group(this.group)
-                            .x(d3.scale.linear().domain([this.xMin, this.xMax]))
+                            .x(d3.scale.linear().domain([this.dimension.bottom(1)[0][p].value, this.dimension.top(1)[0][p].value]))
                             .gap(this.gap)
                             .elasticY(true)
                             .yAxisLabel("")
