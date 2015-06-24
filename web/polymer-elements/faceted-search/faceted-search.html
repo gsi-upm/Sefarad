@@ -76,7 +76,7 @@
                             <div objectToHide="{{d[0]}}" on-click="{{headerClick}}">{{d[0]}}  <span class="badge">{{d[4]}}</span></div>
                         </h4>
                     </div>
-                    <div id="{{d[0]}}" class="panel-collapse collapse in" style="overflow-y: scroll; height: 425px">
+                    <div id="{{d[0]}}" class="panel-collapse collapse in" style="overflow-y: scroll; max-height: 425px; min-height: 50px">
                         <div class="panel-body">
                             <ul class="nav nav-pills nav-stacked">
                                     <template repeat="{{p in d[2]}}" >

@@ -58,6 +58,7 @@ class Dashboard extends AuthParam{
   }
 
   void showInDashboard(){
+    print(googleSign.callMethod('isLoggead'));
     if(googleSign.callMethod('isLoggead')) {
       var data = yasqe.callMethod('getQuery');
       var resultVar = {
