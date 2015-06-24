@@ -10,7 +10,7 @@ var rawData2 = [];
 var fragmentsRawData = [];
 
 var queryEndPoint = 'http://demos.gsi.dit.upm.es/fuseki/geo/query?query=';
-var currentQuery = 'PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX j.0: <http://inspire.jrc.ec.europa.eu/schemas/gn/3.0/> PREFIX j.1: <http://inspire.jrc.ec.europa.eu/schemas/ps/3.0/> PREFIX j.2: <http://inspire.jrc.ec.europa.eu/schemas/base/3.2/> PREFIX j.3: <http://www.opengis.net/ont/geosparql#> SELECT * WHERE { SERVICE <http://localhost:3030/slovakia/query> { ?res j.1:siteProtectionClassification ?spc . ?res j.1:LegalFoundationDate ?lfd . ?res j.1:LegalFoundationDocument ?lfdoc . ?res j.1:inspireId ?inspire . ?res j.1:siteName ?sitename . ?sitename j.0:GeographicalName ?gname . ?gname j.0:spelling ?spelling . ?spelling j.0:SpellingOfName ?spellingofname . ?spellingofname j.0:text ?name . ?inspire j.2:namespace ?namespace . ?inspire j.2:namespace ?localId . ?res j.1:siteDesignation ?siteDesignation . ?siteDesignation j.1:percentageUnderDesignation ?percentageUnderDesignation . ?siteDesignation j.1:designation ?designation . ?siteDesignation j.1:designationScheme ?designationScheme . } } LIMIT 1000';
+var currentQuery = 'PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX j.0: <http://inspire.jrc.ec.europa.eu/schemas/gn/3.0/> PREFIX j.1: <http://inspire.jrc.ec.europa.eu/schemas/ps/3.0/> PREFIX j.2: <http://inspire.jrc.ec.europa.eu/schemas/base/3.2/> PREFIX j.3: <http://www.opengis.net/ont/geosparql#> SELECT * WHERE { SERVICE <http://localhost:3030/slovakia/query> { ?res j.3:hasGeometry ?fGeom . ?fGeom j.3:asWKT ?fWKT . ?res j.1:siteProtectionClassification ?spc . ?res j.1:LegalFoundationDate ?lfd . ?res j.1:LegalFoundationDocument ?lfdoc . ?res j.1:inspireId ?inspire . ?res j.1:siteName ?sitename . ?sitename j.0:GeographicalName ?gname . ?gname j.0:spelling ?spelling . ?spelling j.0:SpellingOfName ?spellingofname . ?spellingofname j.0:text ?name . ?inspire j.2:namespace ?namespace . ?inspire j.2:namespace ?localId . ?res j.1:siteDesignation ?siteDesignation . ?siteDesignation j.1:percentageUnderDesignation ?percentageUnderDesignation . ?siteDesignation j.1:designation ?designation . ?siteDesignation j.1:designationScheme ?designationScheme . } } LIMIT 1000';
 
 var lastQuery = 'PREFIX drf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX j.0: <http://inspire.jrc.ec.europa.eu/schemas/gn/3.0/> PREFIX j.1: <http://inspire.jrc.ec.europa.eu/schemas/ps/3.0/> PREFIX j.2: <http://inspire.jrc.ec.europa.eu/schemas/base/3.2/> PREFIX j.3: <http://www.opengis.net/ont/geosparql#> SELECT * WHERE { SERVICE <http://localhost:3030/slovakia/query> { ?res j.1:siteProtectionClassification ?spc . ?res j.1:LegalFoundationDate ?lfd . ?res j.1:LegalFoundationDocument ?lfdoc . ?res j.1:inspireId ?inspire . ?res j.1:siteName ?sitename . ?sitename j.0:GeographicalName ?gname . ?gname j.0:spelling ?spelling . ?spelling j.0:SpellingOfName ?spellingofname . ?spellingofname j.0:text ?name . ?inspire j.2:namespace ?namespace . ?inspire j.2:namespace ?localId . ?res j.1:siteDesignation ?siteDesignation . ?siteDesignation j.1:percentageUnderDesignation ?percentageUnderDesignation . ?siteDesignation j.1:designation ?designation . ?siteDesignation j.1:designationScheme ?designationScheme . } } LIMIT 100';
 
@@ -422,36 +422,46 @@ var getPolygonsFromEuro = function () {
 
     if (currentQuery != lastQuery) {
 
-        var polygonsfeuro_query = currentQuery;
-        var temporal = queryEndPoint + encodeURIComponent(polygonsfeuro_query);
-        var req = new XMLHttpRequest();
-        req.open("GET", temporal, true);
-        var params = encodeURIComponent(polygonsfeuro_query);
-        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        req.setRequestHeader("Accept", "application/sparql-results+json");
-        //req.setRequestHeader("Content-length", params.length);
-        //req.setRequestHeader("Connection", "close");
-        req.send();
-        console.log("polygons query sent");
-        req.onreadystatechange = function () {
-            if (req.readyState == 4) {
-                if (req.status == 200) {
-                    console.log("polygons query response received");
-                    var res = eval("(" + req.responseText + ")");
-                    var data = JSON.stringify(res.results.bindings);
+        //var polygonsfeuro_query = currentQuery;
+        //var temporal = queryEndPoint + encodeURIComponent(polygonsfeuro_query);
+        //var req = new XMLHttpRequest();
+        //req.open("GET", temporal, true);
+        //var params = encodeURIComponent(polygonsfeuro_query);
+        //req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        //req.setRequestHeader("Accept", "application/sparql-results+json");
+        ////req.setRequestHeader("Content-length", params.length);
+        ////req.setRequestHeader("Connection", "close");
+        //req.send();
+        //console.log("polygons query sent");
+        //req.onreadystatechange = function () {
+        //    if (req.readyState == 4) {
+        //        if (req.status == 200) {
+        //            console.log("polygons query response received");
+        //            var res = eval("(" + req.responseText + ")");
+        //            var data = JSON.stringify(res.results.bindings);
+        //
+        //            //rawData = JSON.parse(data);
+        //
+        //            rawData = processPolygons(JSON.parse(data));
+        //
+        //            dataReady = true;
+        //            //newDataReceived();
+        //
+        //        } else {
+        //        }
+        //    }
+        //};
+        //return false;
+        $.getJSON("assets/slovakia.json", function(result){
+            console.log("polygons query response picked from local");
+            var data = JSON.stringify(result);
+            rawData = JSON.parse(data);
+            dataReady = true;
 
-                    rawData = JSON.parse(data);
+            //newDataReceived();
+        });
 
-                    rawData = processPolygons(JSON.parse(data));
 
-                    dataReady = true;
-                    //newDataReceived();
-
-                } else {
-                }
-            }
-        };
-        return false;
     }else
     {
         $.getJSON("assets/cache.json", function(result){
@@ -591,6 +601,8 @@ function processPolygons (inData)
         d.lat = d.fWKT.value.substring(15, d.fWKT.value.indexOf(',')-17);
         d.long = d.fWKT.value.substring(33, d.fWKT.value.indexOf(','));
         d.fWKT = {};
+
+        d.geo = d.long + " ,"+ d.lat;
 
         outData.push(d);
     });
