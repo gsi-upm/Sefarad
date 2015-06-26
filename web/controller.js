@@ -422,44 +422,45 @@ var getPolygonsFromEuro = function () {
 
     if (currentQuery != lastQuery) {
 
-        //var polygonsfeuro_query = currentQuery;
-        //var temporal = queryEndPoint + encodeURIComponent(polygonsfeuro_query);
-        //var req = new XMLHttpRequest();
-        //req.open("GET", temporal, true);
-        //var params = encodeURIComponent(polygonsfeuro_query);
-        //req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        //req.setRequestHeader("Accept", "application/sparql-results+json");
-        ////req.setRequestHeader("Content-length", params.length);
-        ////req.setRequestHeader("Connection", "close");
-        //req.send();
-        //console.log("polygons query sent");
-        //req.onreadystatechange = function () {
-        //    if (req.readyState == 4) {
-        //        if (req.status == 200) {
-        //            console.log("polygons query response received");
-        //            var res = eval("(" + req.responseText + ")");
-        //            var data = JSON.stringify(res.results.bindings);
-        //
-        //            //rawData = JSON.parse(data);
-        //
-        //            rawData = processPolygons(JSON.parse(data));
-        //
-        //            dataReady = true;
-        //            //newDataReceived();
-        //
-        //        } else {
-        //        }
-        //    }
-        //};
-        //return false;
-        $.getJSON("assets/slovakia.json", function(result){
-            console.log("polygons query response picked from local");
-            var data = JSON.stringify(result);
-            rawData = JSON.parse(data);
-            dataReady = true;
+        var polygonsfeuro_query = currentQuery;
+        var temporal = queryEndPoint + encodeURIComponent(polygonsfeuro_query);
+        var req = new XMLHttpRequest();
+        req.open("GET", temporal, true);
+        var params = encodeURIComponent(polygonsfeuro_query);
+        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        req.setRequestHeader("Accept", "application/sparql-results+json");
+        //req.setRequestHeader("Content-length", params.length);
+        //req.setRequestHeader("Connection", "close");
+        req.send();
+        console.log("polygons query sent");
+        req.onreadystatechange = function () {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    console.log("polygons query response received");
+                    var res = eval("(" + req.responseText + ")");
+                    var data = JSON.stringify(res.results.bindings);
 
-            //newDataReceived();
-        });
+                    //rawData = JSON.parse(data);
+
+                    rawData = processPolygons(JSON.parse(data));
+
+                    dataReady = true;
+                    //newDataReceived();
+
+                } else {
+                }
+            }
+        };
+        return false;
+
+        //$.getJSON("assets/slovakia.json", function(result){
+        //    console.log("polygons query response picked from local");
+        //    var data = JSON.stringify(result);
+        //    rawData = JSON.parse(data);
+        //    dataReady = true;
+        //
+        //    //newDataReceived();
+        //});
 
 
     }else
@@ -600,6 +601,10 @@ function processPolygons (inData)
     {
         d.lat = d.fWKT.value.substring(15, d.fWKT.value.indexOf(',')-17);
         d.long = d.fWKT.value.substring(33, d.fWKT.value.indexOf(','));
+
+        d.lat = d.lat.replace(/\s/g, '');
+        d.long = d.long.replace(/\s/g, '');
+
         d.fWKT = {};
 
         d.geo = d.long + " ,"+ d.lat;
