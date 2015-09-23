@@ -1,0 +1,71 @@
+<!--
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at https://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at https://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at https://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at https://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../google-youtube/google-youtube.html">
+<link rel="import" href="../chart-line/chart-line.html">
+
+<dom-module id="sentiment-chart">
+  <style>
+  </style>
+
+  <template>
+    	<div>
+    		<p>Playback Progress: <span>{{currentTimeFormatted}}</span> / <span>{{durationFormatted}}</span></p>
+   	</div>
+
+    	<google-youtube video-id="yRbOSdAe_JU"
+              width="{{width}}"
+              height="{{height}}"
+              currenttimeformatted="{{currentTimeFormatted}}"
+              duration="{{duration}}"
+              durationformatted="{{durationFormatted}}"
+              thumbnail="//www.polymer-project.org/images/logos/p-logo.svg">
+    	</google-youtube>
+	<br>
+	<d3-chart-line segundo="{{currentTimeFormatted}}"></d3-chart-line>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'sentiment-chart',
+    properties: {  /**
+       * Sets the height of the player on the page.
+       * Accepts anything valid for a CSS measurement, e.g. '200px' or '50%'.
+       * If the unit of measurement is left off, 'px' is assumed.
+       */
+      height: {
+        type: String,
+        value: '270px'
+      },
+      /**
+       * Sets the width of the player on the page.
+       * Accepts anything valid for a CSS measurement, e.g. '200px' or '50%'.
+       * If the unit of measurement is left off, 'px' is assumed.
+       */
+      width: {
+        type: String,
+        value:'620px'
+      }
+    },
+    ready: function() {
+      if (this.hasAttribute('fluid')) {
+        var ratio = parseInt(this.height, 10) / parseInt(this.width, 10);
+        if (isNaN(ratio)) {
+          ratio = 9/16;
+        }
+        ratio *= 100;
+        this.width = '100%';
+        this.height = 'auto';
+        this.style['padding-top'] = ratio + '%';
+      }
+    }
+  });
+</script>

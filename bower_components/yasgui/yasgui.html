@@ -1,0 +1,57 @@
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at https://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at https://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at https://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at https://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="yasgui-ui">
+  
+  <template>
+
+     <style>
+      .yasgui {
+        z-index: 0;
+      }
+    </style>
+    
+    <div id="yasqe"></div>
+    <div id="yasr"></div>
+
+  </template>
+
+<script>
+  var yasr; 
+  var yasqe;
+  Polymer({
+      is: 'yasgui-ui',
+      properties: {
+        query: {
+          type: String,
+          observer: '_queryChanged'
+        }
+      },
+      ready: function() {
+        yasqe = YASQE(this.$.yasqe, {
+          sparql: {
+            showQueryButton: true, 
+            callbacks:{
+              success: function(data){
+              console.log("success", data);
+              }
+            }
+          }
+        });
+        yasr = YASR(this.$.yasr);
+        console.log(yasr);
+      },
+      _queryChanged: function(){
+
+      }
+    });
+</script>
+</dom-module>

@@ -1,0 +1,165 @@
+<!--
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at https://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at https://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at https://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at https://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="d3-chart-line">
+  <style>
+	.axis path,
+	.axis line {
+  		fill: none;
+  		stroke: #000;
+  		shape-rendering: crispEdges;
+	}
+
+	.x.axis path {
+  		display: none;
+	}
+  </style>
+
+  <template>
+	
+	<div id="chart"></div>
+  <div id="ensegundos">{{segundo}}</div>
+	
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'd3-chart-line',
+    properties: {  /**
+       * Sets the height of the player on the page.
+       * Accepts anything valid for a CSS measurement, e.g. '200px' or '50%'.
+       * If the unit of measurement is left off, 'px' is assumed.
+       */
+      height: {
+        type: Number,
+        value: 220
+      },
+      segundo: {
+        type: Number,
+        value: 220,
+        observer: '_observersec'
+      },
+      /**
+       * Sets the width of the player on the page.
+       * Accepts anything valid for a CSS measurement, e.g. '200px' or '50%'.
+       * If the unit of measurement is left off, 'px' is assumed.
+       */
+      width: {
+        type: Number,
+        value: 620
+      }
+    },
+      _observersec: function(){
+        console.log(this.segundo);
+      },
+    ready: function() {
+      var margin = {top: 20, right: 20, bottom: 30, left: 50},
+      width = this.width - margin.left - margin.right,
+      height = this.height - margin.top - margin.bottom;
+
+	var parseDate = d3.time.format("%M:%S").parse;
+
+	var x = d3.time.scale()
+    	.range([0, width]);
+
+	var y = d3.scale.linear()
+    	.range([height, 0]);
+
+	var xAxis = d3.svg.axis()
+    	.scale(x)
+    	.orient("bottom");
+
+	var yAxis = d3.svg.axis()
+    	.scale(y)
+    	.orient("left");
+
+	var line = d3.svg.line()
+    	.x(function(d) { return x(d.date); })
+    	.y(function(d) { return y(d.close); });
+
+	var svg = d3.select(this.$.chart).append("svg")
+    	.attr("width", width + margin.left + margin.right)
+    	.attr("height", height + margin.top + margin.bottom)
+  	.append("g")
+   	 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+data = [
+{date:"00:01",close:58.13},
+{date:"00:02",close:53.98},
+{date:"00:03",close:67.00},
+{date:"00:04",close:89.70},
+{date:"00:05",close:99.00},
+{date:"00:06",close:130.28},
+{date:"00:07",close:166.70},
+{date:"00:08",close:234.98},
+{date:"00:09",close:345.44},
+{date:"00:10",close:443.34},
+{date:"00:11",close:543.70},
+{date:"00:12",close:580.13},
+{date:"00:13",close:605.23},
+{date:"00:14",close:622.77},
+{date:"00:15",close:626.20},
+{date:"00:16",close:628.44},
+{date:"00:17",close:636.23},
+{date:"00:18",close:633.68},
+{date:"00:19",close:53.98},
+{date:"00:20",close:67.00},
+{date:"00:21",close:89.70},
+{date:"00:22",close:99.00},
+{date:"00:23",close:130.28},
+{date:"00:24",close:166.70},
+{date:"00:25",close:234.98},
+{date:"00:26",close:345.44},
+{date:"00:27",close:443.34},
+{date:"00:28",close:543.70},
+{date:"00:29",close:580.13},
+{date:"00:30",close:605.23},
+{date:"00:31",close:622.77},
+{date:"00:32",close:626.20},
+{date:"00:33",close:628.44},
+{date:"00:34",close:636.23},
+{date:"00:35",close:633.68},
+{date:"00:36",close:606.98}
+];
+	//d3.tsv("data.tsv", function(error, data) {
+  		//if (error) throw error;
+      
+      data.push({date:"00:37",close:200});
+
+  			data.forEach(function(d) {
+    			d.date = parseDate(d.date);
+    			d.close = +d.close;
+  		});
+
+  		x.domain(d3.extent(data, function(d) { return d.date; }));
+  		y.domain(d3.extent(data, function(d) { return d.close; }));
+
+  		svg.append("g")
+     		 .attr("class", "x axis")
+         .attr("style", "fill: none;stroke: #333;shape-rendering: crispEdges;stroke-width: 1px;")
+     		 .attr("transform", "translate(0," + height + ")")
+      		.call(xAxis);
+
+ 		svg.append("g")
+      		 .attr("class", "y axis")
+         .attr("style", "fill: none;stroke: #333;shape-rendering: crispEdges;stroke-width: 1px;")
+     		 .call(yAxis)
+
+ 		svg.append("path")
+   		   .datum(data)
+   		   .attr("class", "line")
+         .attr("style","fill: none;stroke: #03A9F4;stroke-width: 1px;")
+    		   .attr("d", line);
+		//});
+   	}
+  });
+</script>
