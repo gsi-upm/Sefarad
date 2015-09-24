@@ -46,14 +46,3 @@ client.search({
 }, function (error) {
   console.trace(error.message);
 });*/
-
-  var yasqe = YASQE(document.getElementById("showcase"), {
-    sparql: {
-      showQueryButton: true, 
-      callbacks:{
-        success: function(data){
-          console.log("success", data);
-        }
-      }
-    }
-  });

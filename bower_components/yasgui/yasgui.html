@@ -8,49 +8,106 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
 -->
 
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
 
 <dom-module id="yasgui-ui">
   
   <template>
 
      <style>
-      .yasgui {
+      .yasqe {
         z-index: 0;
       }
+      .yasr, .yasr_header *{
+        z-index: 0;
+      }
+      paper-menu {
+        display: block;
+      }
+      paper-dropdown-menu {
+        text-align: left;
+        margin: auto;
+        width: 100%;
+      }
+      paper-menu-button {
+        width: 100%;
+      }
+      .horizontal-section {
+        text-align: center;
+      }
     </style>
-    
+    <paper-dropdown-menu label="Select your query">
+            <paper-menu class="dropdown-content" on-iron-select="_itemSelected">
+              <template is="dom-repeat" items="{{queries}}" as="query">
+                <paper-item>[[query.name]]</paper-item>
+              </template>
+            </paper-menu>
+          </paper-dropdown-menu>
     <div id="yasqe"></div>
     <div id="yasr"></div>
 
   </template>
 
 <script>
-  var yasr; 
-  var yasqe;
+
+  var yasr, yasqe = {};
   Polymer({
       is: 'yasgui-ui',
       properties: {
         query: {
           type: String,
-          observer: '_queryChanged'
+          observer: '_queryValueChanged'
+        },
+        endpoint: {
+          type: String,
+          observer: '_endpointChanged'
+        },
+        queries: {
+          type: Array,
+          value: [
+            {name:'All landlocked countries with a population greater than 15 million.', val:'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  \nPREFIX type: <http://dbpedia.org/class/yago/> \nPREFIX prop: <http://dbpedia.org/property/> \n\nSELECT ?country_name ?population WHERE { \n   ?country a type:LandlockedCountries ; \n   rdfs:label ?country_name ; \n   prop:populationEstimate ?population . \n   FILTER (?population > 15000000) .\n}'},
+            {name:'Population and abstract of New York', val:'PREFIX schema: <http://schema.org/> \nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbpedia-owl: <http://dbpedia.org/ontology/> \nPREFIX dbpprop: <http://dbpedia.org/property/>\nSELECT DISTINCT ?city ?abstract ?pop\n\nWHERE {\n   ?city rdf:type schema:City ; \n     rdfs:label ?label ; \n     dbpedia-owl:abstract ?abstract ; \n     dbpedia-owl:country ?country ; \n     dbpedia-owl:populationTotal ?pop . \n   ?country dbpprop:countryCode "USA"@en . \n   FILTER ( lang(?abstract) = "en" && regex(?label, "New York City")) \n }'}
+          ]
         }
       },
       ready: function() {
-        yasqe = YASQE(this.$.yasqe, {
-          sparql: {
-            showQueryButton: true, 
-            callbacks:{
-              success: function(data){
-              console.log("success", data);
-              }
-            }
-          }
-        });
-        yasr = YASR(this.$.yasr);
-        console.log(yasr);
-      },
-      _queryChanged: function(){
+        YASQE.defaults.value = "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"+
+              "PREFIX dbpedia: <http://dbpedia.org/resource/>\n"+
+              "SELECT DISTINCT ?person WHERE {\n"+
+              "  ?person a foaf:Person .\n"+
+              "}\n"+
+              "LIMIT 10";
 
+        yasr = YASR(this.$.yasr);
+        yasqe = YASQE(this.$.yasqe, {
+        sparql: {
+          showQueryButton: true,
+          endpoint: 'http://dbpedia.org/sparql'
+        } 
+        });
+        /**
+        * Set some of the hooks to link YASR and YASQE
+        */
+        yasr.options.getUsedPrefixes = yasqe.getPrefixesFromQuery;
+        yasqe.options.sparql.callbacks.complete = yasr.setResponse;
+
+        if (!yasr.storage.get("yasr_showcase_results"))  yasqe.query();
+      },
+      /**
+      * Change the query value when it has chan
+      */
+      _itemSelected: function(e){
+        for(var i = 0; i < this.queries.length; i++){
+          if(this.queries[i].name == e.target.selectedItem.innerText){
+            this.query = this.queries[i].val
+          }
+        }
+      },
+      _queryValueChanged: function(){
+        yasqe.setValue(this.query)
+      },
+      _endpointChanged: function(){
+        //Structure build
       }
     });
 </script>
