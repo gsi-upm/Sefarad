@@ -134,6 +134,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                 <paper-fab icon="add"></paper-fab>
               </paper-material>
+              <paper-material elevation="2">
+              <ldf-client
+        id="ldf-client-streaming"
+        response-format="streaming"
+        query="SELECT DISTINCT ?frag WHERE {
+                 ?a a &lt;http://advene.org/ns/cinelab/ld#Annotation&gt; ;
+                   &lt;http://advene.org/ns/cinelab/ld#hasFragment&gt; ?frag ;
+                   &lt;http://advene.org/ns/cinelab/ld#taggedWith&gt;
+                     [ &lt;http://purl.org/dc/elements/1.1/title&gt; 'personnages: Margaret'],
+                     [ &lt;http://purl.org/dc/elements/1.1/title&gt; 'personnages: Grand Papa Pollitt'];
+                   .
+               }"
+        start-fragment="http://spectacleenlignes.fr/ldf/spectacle_en_lignes">
+    </ldf-client>
+
+    <table><tr><td id="td2"></td></tr></table>
+              </paper-material>
             </section>
 
             <section data-route="video">
