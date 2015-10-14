@@ -1,0 +1,125 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../iron-icons/av-icons.html">
+
+<dom-module id="material-search">
+
+  <style>
+    :host([active]) {
+      display: block;
+    }
+    paper-menu {
+      margin-left: 0;
+      margin-right: 0;
+      overflow: auto;
+    }
+    paper-toolbar {
+      background-color: white;
+      border-radius: 3px;
+    }
+    paper-icon-button {
+      background-color: transparent;
+    }
+    input {
+      border: none;
+      background: transparent;
+      font: inherit;
+      font-size: 16px;
+      outline: none;
+    }
+    @media (min-width: 600px) {
+      paper-menu {
+        max-width: 50%;
+        margin: 0 auto;
+        max-height: 50vh;
+      }
+    }
+    :host {
+      --paper-icon-button: {
+        color: var(--paper-grey-500);
+      };
+    }
+    paper-item iron-icon {
+      margin-right: 24px !important;
+    }
+    .span {
+      width: 100%;
+      display: flex;
+    }
+  </style>
+
+  <template>
+    <paper-material elevation="1">
+      <paper-toolbar class$="{{_computeHeaderClass(narrow)}}">
+        <paper-icon-button icon="search" on-tap="toggle"></paper-icon-button>
+        <div hidden$="{{!active}}" class="span">
+          <input id="searchbox" placeholder="Search Field" class="flex"
+                 value="{{searchValue::input}}">
+          <paper-icon-button icon="av:mic" on-tap="getSpeechInput"></paper-icon-button>
+        </div>
+      </paper-toolbar>
+    </paper-material>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'material-search',
+
+      properties: {
+        previousSearches: {
+          type: Array,
+          value: function() { return []; },
+          notify: true
+        },
+        narrow: {
+          type: Boolean,
+          value: false
+        },
+        active: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true,
+          notify: true
+        },
+        searchValue: {
+          type: String,
+          notify: true
+        }
+      },
+
+      onSelect: function(e, detail) {
+        this.async(function() {
+          this.searchValue = detail.item.dataset.value;
+        }, 250); // Introduce small delay so user sees ripple.
+      },
+
+      toggle: function() {
+        this.active = !this.active;
+        if (this.active) {
+          this.$.searchbox.focus();
+        }
+      },
+
+      getSpeechInput: function(e) {
+        var recognition = 'SpeechRecognition' in window ? new SpeechRecognition() :
+                          'webkitSpeechRecognition' in window ? new webkitSpeechRecognition() :
+                          null;
+        if (recognition) {
+          recognition.continuous = false;
+          recognition.interimResults = false;
+          recognition.onresult = function(e) {
+            var result = e.results[0][0].transcript;
+            this.searchValue = result;
+          }.bind(this);
+          recognition.start();
+        }
+      },
+
+      _computeHeaderClass: function(narrow) {
+        return narrow ? 'core-narrow' : '';
+      }
+    });
+  </script>
+
+</dom-module>

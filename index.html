@@ -90,6 +90,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>Demo Video</span>
           </a>
 
+          <a data-route="dashelk" href="/dashelk">
+            <iron-icon icon="dashboard"></iron-icon>
+            <span>Dashboard ELK</span>
+          </a>
+
           <a data-route="editor" href="/editor">
             <iron-icon icon="cloud-download"></iron-icon>
             <span>Sparql Editor</span>
@@ -107,7 +112,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <!-- Toolbar icons -->
           <paper-icon-button icon="refresh" onclick="window.location.reload()"></paper-icon-button>
-          <paper-icon-button icon="search"></paper-icon-button>
 
           <!-- Application name -->
           <div class="middle middle-container center horizontal layout">
@@ -126,45 +130,54 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <iron-pages attr-for-selected="data-route" selected="{{route}}">
 
             <section data-route="home">
+              <material-search></material-search>
               <paper-material elevation="1">
-                <my-greeting></my-greeting>
+                <google-chart
+                  id='pie-chart'
+                  type='pie'
+                  options='{"title": "Count of tweets with up to 5 RTs"}'
+                  cols='[{"label": "Retweets", "type": "string"},{"label": "Days", "type": "number"}]'
+                  rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
+                </google-chart>
 
-                <p class="paper-font-subhead">You now have:</p>
-                <my-list></my-list>
+                <ldf-client
+                    id="ldf-client-streaming"
+                    response-format="streaming"
+                    query="PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+                            PREFIX dbpedia: <http://dbpedia.org/resource/>
+                            PREFIX dbpprop: <http://dbpedia.org/property/>
+                            PREFIX dbpedia-owl: <http://dbpedia.org/ontology/> 
+                                    SELECT DISTINCT ?performer ?name WHERE {
+                              ?work dbpedia-owl:writer dbpedia:Michael_Jackson;
+                                    dbpedia-owl:musicalArtist ?performer.
+                              OPTIONAL {
+                                ?performer rdfs:label ?name.
+                                FILTER LANGMATCHES(LANG(?name), 'EN')
+                              }
+                            }"
+                    start-fragment="http://fragments.dbpedia.org/2015/en">
+                </ldf-client>
 
-                <paper-fab icon="add"></paper-fab>
-              </paper-material>
-              <paper-material elevation="2">
-              <ldf-client
-        id="ldf-client-streaming"
-        response-format="streaming"
-        query="SELECT DISTINCT ?frag WHERE {
-                 ?a a &lt;http://advene.org/ns/cinelab/ld#Annotation&gt; ;
-                   &lt;http://advene.org/ns/cinelab/ld#hasFragment&gt; ?frag ;
-                   &lt;http://advene.org/ns/cinelab/ld#taggedWith&gt;
-                     [ &lt;http://purl.org/dc/elements/1.1/title&gt; 'personnages: Margaret'],
-                     [ &lt;http://purl.org/dc/elements/1.1/title&gt; 'personnages: Grand Papa Pollitt'];
-                   .
-               }"
-        start-fragment="http://spectacleenlignes.fr/ldf/spectacle_en_lignes">
-    </ldf-client>
-
-    <table><tr><td id="td2"></td></tr></table>
+                <div style="overflow: hidden"><table><tr><td id="td2"></td></tr></table></div>
               </paper-material>
             </section>
 
             <section data-route="video">
               <paper-material elevation="1">
                 <h2 class="paper-font-display2">Demo Video</h2>
-		<sentiment-chart width="620px" height="350px"></sentiment-chart>
+		            <sentiment-chart width="620px" height="350px"></sentiment-chart>
               </paper-material>
             </section>
 
+            <section data-route="dashelk">
+              <dashboard-elk></dashboard-elk>
+            </section>
+
             <section data-route="editor">
-		<paper-material elevation="1">
-	                <h2 class="paper-font-display2">Sparql Editor</h2>
-			<yasgui-ui></yasgui-ui>
-		</paper-material>		
+          		<paper-material elevation="1">
+          	    <h2 class="paper-font-display2">Sparql Editor</h2>
+          			<yasgui-ui></yasgui-ui>
+          		</paper-material>		
             </section>
 
           </iron-pages>

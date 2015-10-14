@@ -72,6 +72,9 @@ respectively.
         box-sizing: border-box;
         cursor: pointer;
       };
+      --paper-dropdown-menu-ripple: {
+        color: #B3E5FC;
+      };
       @apply(--paper-dropdown-menu);
     }
     :host([disabled]) {
@@ -121,7 +124,7 @@ respectively.
           always-float-label="[[alwaysFloatLabel]]"
           no-label-float="[[noLabelFloat]]"
           label="[[label]]">
-          <iron-icon icon="arrow-drop-down" suffix></iron-icon>
+          <iron-icon icon="arrow-drop-down"></iron-icon>
         </paper-input>
       </div>
       <content id="content" select=".dropdown-content"></content>

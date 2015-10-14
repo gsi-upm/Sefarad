@@ -1,0 +1,320 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/material-search/material-search.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/google-chart-elk/google-chart.html">
+
+<dom-module id="dashboard-elk">
+
+  <style>
+    paper-material{
+      background: white;
+    }
+
+  </style>
+
+  <template>
+
+    <material-search search-value="{{query}}"></material-search>
+    <br>
+    <paper-material elevation="1">
+      <div style="display: inline-block; width: 100%">
+        <google-chart
+            style='float:left'
+            id='pie-chart1'
+            type='pie'
+            options='{"title": "Count of tweets with diferent sentiments"}'
+            cols='[{"label": "Retweets", "type": "string"},{"label": "Days", "type": "number"}]'
+            rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
+        </google-chart>
+        <google-chart
+            id='pie-chart2'
+            type='pie'
+            options='{"title": "Count of tweets at diferent places"}'
+            cols='[{"label": "Retweets", "type": "string"},{"label": "Days", "type": "number"}]'
+            rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
+        </google-chart>
+      </div>
+      <div style="display: inline-block; width: 100%">
+        <google-chart
+            style='float:left'
+            id='bar-chart1'
+            type='bar'
+            options='{"title": "Count of RTs"}'
+            cols='[{"label": "RTs", "type": "number"},{"label": "Count", "type": "number"}]'
+            rows='[[0, 31],[1, 28],[2, 31],[3, 30],[4, 31],[5, 30]]'>
+        </google-chart>
+        <google-chart
+            id='bar-chart2'
+            type='bar'
+            options='{"title": "Time zone of tweets"}'
+            cols='[{"label": "Time zone", "type": "string"},{"label": "TWs", "type": "number"}]'
+            rows='[["greenland", 31],["madrid", 28],["amsterdam", 31],["berlin", 30],["london", 31],["hawaii", 30]]'>
+        </google-chart>
+      </div>
+      <div style="display: inline-block; width: 100%; margin-left: ">
+        <div style='width: 400px;'>
+          <google-chart
+              id='table-chart1'
+              style='width: 50%; margin: 0 auto'
+              type="table"
+              options='{"title": "Inventory"}'
+              data='[ ["Year", "Things", "Stuff"],
+                     ["2004", 1000, 400],
+                     ["2005", 1170, 460],
+                     ["2006", 660, 1120],
+                     ["2007", 1030, 540] ]'>
+          </google-chart>
+        </div>
+      </div>
+    </paper-material>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'dashboard-elk',
+
+      properties: {
+          query: {
+            type: String,
+            observer: '_queryChanged'
+          },
+          lastName: String
+      },
+
+      ready: function() {
+        this.queryDefault();
+      },
+
+      queryChange: function(value) {
+        var client = new $.es.Client({
+          hosts: 'localhost:9200'
+        });
+
+        client.search({
+          // undocumented params are appended to the query string
+          index: 'sentiment',
+          type: 'tweet',
+          body: {
+            size: 10,
+            query: {
+              multi_match:{
+                query: this.query,
+                fields: ["time_zone","place.name","sentiment","entities.hashtags.text"]
+              }
+            },
+            aggs: {
+              rest1: {
+                terms: {
+                  field: 'sentiment',
+                  size: 5,
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              },
+              rest2: {
+                terms: {
+                  field: 'place.name',
+                  size: 5,
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              },
+              rest3: {
+                terms: {
+                  field: 'retweet_count',
+                  size: 5,
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              },
+              rest4: {
+                terms: {
+                  field: 'time_zone',
+                  size: 5,
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              },
+              rest5: {
+                terms: {
+                  field: 'entities.hashtags.text',
+                  size: 5,
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              }
+            }
+          }
+        }).then(function (resp) {
+          var hits = resp.aggregations.rest1.buckets;
+          var data = [];
+          hits.forEach(function(entry) {
+            data.push([entry.key, entry.doc_count]);
+          });
+          var chart = document.getElementById('pie-chart1');
+          chart.rows = data;
+
+          hits = resp.aggregations.rest2.buckets;
+          data = [];
+          hits.forEach(function(entry) {
+            data.push([entry.key, entry.doc_count]);
+          });
+          chart = document.getElementById('pie-chart2');
+          chart.rows = data;
+
+          hits = resp.aggregations.rest3.buckets;
+          data = [];
+          hits.forEach(function(entry) {
+            data.push([entry.key, entry.doc_count]);
+          });
+          chart = document.getElementById('bar-chart1');
+          chart.rows = data;
+
+          hits = resp.aggregations.rest4.buckets;
+          data = [];
+          hits.forEach(function(entry) {
+            data.push([entry.key, entry.doc_count]);
+          });
+          chart = document.getElementById('bar-chart2');
+          chart.rows = data;
+
+          hits = resp.aggregations.rest5.buckets;
+          data = [];
+          data.push(["Hashtags", "Count"])
+          hits.forEach(function(entry) {
+            data.push([entry.key, entry.doc_count]);
+          });
+          chart = document.getElementById('table-chart1');
+          chart.data = data;
+        });
+    },
+
+    queryDefault: function() {
+      var client = new $.es.Client({
+          hosts: 'localhost:9200'
+        });
+
+      client.search({
+        // undocumented params are appended to the query string
+        index: 'sentiment',
+          type: 'tweet',
+        body: {
+          size: 10,
+          query: {
+            match_all: {}
+          },
+          aggs: {
+            rest1: {
+              terms: {
+                field: 'sentiment',
+                size: 5,
+                order: {
+                  _count: "desc"
+                }
+              }
+            },
+            rest2: {
+              terms: {
+                field: 'place.name',
+                size: 5,
+                order: {
+                  _count: "desc"
+                }
+              }
+            },
+            rest3: {
+              terms: {
+                field: 'retweet_count',
+                size: 5,
+                order: {
+                  _count: "desc"
+                }
+              }
+            },
+            rest4: {
+              terms: {
+                field: 'time_zone',
+                size: 5,
+                order: {
+                  _count: "desc"
+                }
+              }
+            },
+            rest5: {
+              terms: {
+                field: 'entities.hashtags.text',
+                size: 5,
+                order: {
+                  _count: "desc"
+                }
+              }
+            }
+          }
+        }
+      }).then(function (resp) {
+        var hits = resp.aggregations.rest1.buckets;
+          var data = [];
+          hits.forEach(function(entry) {
+            data.push([entry.key, entry.doc_count]);
+          });
+          var chart = document.getElementById('pie-chart1');
+          chart.rows = data;
+
+          hits = resp.aggregations.rest2.buckets;
+          data = [];
+          hits.forEach(function(entry) {
+            data.push([entry.key, entry.doc_count]);
+          });
+          chart = document.getElementById('pie-chart2');
+          chart.rows = data;
+
+          hits = resp.aggregations.rest3.buckets;
+          data = [];
+          hits.forEach(function(entry) {
+            data.push([entry.key, entry.doc_count]);
+          });
+          chart = document.getElementById('bar-chart1');
+          chart.rows = data;
+
+          hits = resp.aggregations.rest4.buckets;
+          data = [];
+          hits.forEach(function(entry) {
+            data.push([entry.key, entry.doc_count]);
+          });
+          console.log(data)
+          chart = document.getElementById('bar-chart2');
+          chart.rows = data;
+
+          hits = resp.aggregations.rest5.buckets;
+          data = [];
+          data.push(["Hashtags", "Count"])
+          hits.forEach(function(entry) {
+            data.push([entry.key, entry.doc_count]);
+          });
+          chart = document.getElementById('table-chart1');
+          chart.data = data;
+      });
+    },
+
+    /** Fired when a search is made.
+       *
+       * @event search-change
+       * @param {Object} detail
+       * @param {Object} detail.searchValue The search string.
+       */
+    _queryChanged: function() {
+      if (this.query) {
+        this.queryChange(this.query);
+      } else {
+        this.queryDefault();
+      }
+    }
+    });
+  </script>
+
+</dom-module>

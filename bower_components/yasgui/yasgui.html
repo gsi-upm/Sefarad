@@ -23,21 +23,24 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
       }
       paper-menu {
         display: block;
+        color: blue;
       }
       paper-dropdown-menu {
         text-align: left;
         margin: auto;
         width: 100%;
+        color: blue;
+      }
+      paper-dropdown-menu.letters {
+        width: 90px;
+        color: blue;
       }
       paper-menu-button {
         width: 100%;
       }
-      .horizontal-section {
-        text-align: center;
-      }
     </style>
     <paper-dropdown-menu label="Select your query">
-            <paper-menu class="dropdown-content" on-iron-select="_itemSelected">
+            <paper-menu class="dropdown-content" on-iron-select="_itemSelected" selected="1">
               <template is="dom-repeat" items="{{queries}}" as="query">
                 <paper-item>[[query.name]]</paper-item>
               </template>
@@ -71,12 +74,7 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
         }
       },
       ready: function() {
-        YASQE.defaults.value = "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"+
-              "PREFIX dbpedia: <http://dbpedia.org/resource/>\n"+
-              "SELECT DISTINCT ?person WHERE {\n"+
-              "  ?person a foaf:Person .\n"+
-              "}\n"+
-              "LIMIT 10";
+        YASQE.defaults.value = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  \nPREFIX type: <http://dbpedia.org/class/yago/> \nPREFIX prop: <http://dbpedia.org/property/> \n\nSELECT ?country_name ?population WHERE { \n   ?country a type:LandlockedCountries ; \n   rdfs:label ?country_name ; \n   prop:populationEstimate ?population . \n   FILTER (?population > 15000000) .\n}";
 
         yasr = YASR(this.$.yasr);
         yasqe = YASQE(this.$.yasqe, {
