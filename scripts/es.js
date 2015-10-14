@@ -1,24 +1,3 @@
-var client = new $.es.Client({
-  hosts: 'localhost:9200'
-});
-
-client.search({
-  // undocumented params are appended to the query string
-  index: 'twitter',
-  type: 'tweet',
-  body: {
-    query: { 
-  "match_all": {
-     } 
-    }
-  }
-}).then(function (resp) {
-  var hits = resp.hits.hits;
-  hits.forEach(function(entry) {
-    console.log(entry._source.text);
-  });
-});
-
 document.addEventListener('WebComponentsReady', function() {
         
         var ldfClientStreaming = document.querySelector('#ldf-client-streaming');
