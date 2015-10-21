@@ -10,310 +10,120 @@
       background: white;
     }
 
+    google-chart {
+      margin: 0 auto;
+    }
+
+    .chart_container {
+      width: 49%;
+      margin-bottom: 20px; 
+    }
+
   </style>
 
   <template>
-
     <material-search search-value="{{query}}"></material-search>
     <br>
-    <paper-material elevation="1">
-      <div style="display: inline-block; width: 100%">
+    <div style="width: 100%; display: inline-block">
+      <div class="chart_container" style="left: 0; float: left">
         <google-chart
-            style='float:left'
-            id='pie-chart1'
-            type='pie'
-            options='{"title": "Count of tweets with diferent sentiments"}'
-            cols='[{"label": "Retweets", "type": "string"},{"label": "Days", "type": "number"}]'
-            rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
-        </google-chart>
-        <google-chart
-            id='pie-chart2'
-            type='pie'
-            options='{"title": "Count of tweets at diferent places"}'
-            cols='[{"label": "Retweets", "type": "string"},{"label": "Days", "type": "number"}]'
-            rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
-        </google-chart>
-      </div>
-      <div style="display: inline-block; width: 100%">
-        <google-chart
-            style='float:left'
-            id='bar-chart1'
-            type='bar'
-            options='{"title": "Count of RTs"}'
-            cols='[{"label": "RTs", "type": "number"},{"label": "Count", "type": "number"}]'
-            rows='[[0, 31],[1, 28],[2, 31],[3, 30],[4, 31],[5, 30]]'>
-        </google-chart>
-        <google-chart
-            id='bar-chart2'
-            type='bar'
-            options='{"title": "Time zone of tweets"}'
-            cols='[{"label": "Time zone", "type": "string"},{"label": "TWs", "type": "number"}]'
-            rows='[["greenland", 31],["madrid", 28],["amsterdam", 31],["berlin", 30],["london", 31],["hawaii", 30]]'>
+          query="{{query}}"
+          index="sentiment"
+          subindex="tweet"
+          field="sentiment"
+          fields='["time_zone","place.name","sentiment"]'
+          host='localhost:9200'
+          id='pie-chart1'
+          extra-id='pie-chart1'
+          type='pie'
+          icon='face'
+          param="{{param}}"
+          options='{"title": "Count of tweets with different sentiments"}'
+          cols='[{"label": "Sentiment", "type": "string"},{"label": "Count", "type": "number"}]'
+          rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
         </google-chart>
       </div>
-      <div style="display: inline-block; width: 100%; margin-left: ">
-        <div style='width: 400px;'>
+      <div class="chart_container" style="right: 0; float: right">
+        <google-chart
+          query="{{query}}"
+          index="sentiment"
+          subindex="tweet"
+          field="place.name"
+          fields='["time_zone","place.name","sentiment"]'
+          host='localhost:9200'
+          id='pie-chart2'
+          extra-id='pie-chart2'
+          type='pie'
+          icon='offline-pin'
+          param='{{param}}'
+          options='{"title": "Count of tweets at different places"}'
+          cols='[{"label": "Place", "type": "string"},{"label": "Count", "type": "number"}]'
+          rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
+        </google-chart>
+      </div>
+    </div>
+    <div style="width: 100%">
+      <div class="chart_container" style="left: 0; float: left">
+       <google-chart
+          query="{{query}}"
+          index="sentiment"
+          subindex="tweet"
+          field="retweet_count"
+          fields='["time_zone","place.name","sentiment"]'
+          host='localhost:9200'
+          id='bar-chart1'
+          extra-id='bar-chart1'
+          type='bar'
+          icon='refresh'
+          param='{{param}}'
+          options='{"title": "Count of tweets with certain RTs"}'
+          cols='[{"label": "Retweets", "type": "number"},{"label": "Tweets", "type": "number"}]'
+          rows='[ [0, 31],[1, 28],[2, 31],[3, 30],[4, 30],[5, 31],[6, 30] ]'>
+        </google-chart>
+      </div>
+      <div class="chart_container" style="right: 0; float: right">
+        <google-chart
+          query="{{query}}"
+          index="sentiment"
+          subindex="tweet"
+          field="time_zone"
+          fields='["time_zone","place.name","sentiment"]'
+          host='localhost:9200'
+          id='bar-chart2'
+          extra-id='bar-chart2'
+          type='bar'
+          icon='flag'
+          param='{{param}}'
+          options='{"title": "Count of tweets in different time zones"}'
+          cols='[{"label": "Time Zone", "type": "string"},{"label": "Tweets", "type": "number"}]'
+          rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
+        </google-chart>
+      </div>
+      <div style="width: 100%">
+        <div class="chart_container" style="left: 0; float: left">
           <google-chart
-              id='table-chart1'
-              style='width: 50%; margin: 0 auto'
-              type="table"
-              options='{"title": "Inventory"}'
-              data='[ ["Year", "Things", "Stuff"],
-                     ["2004", 1000, 400],
-                     ["2005", 1170, 460],
-                     ["2006", 660, 1120],
-                     ["2007", 1030, 540] ]'>
+            query="{{query}}"
+            index="sentiment"
+            subindex="tweet"
+            field="entities.hashtags.text"
+            fields='["time_zone","place.name","sentiment"]'
+            host='localhost:9200'
+            id='table-chart1'
+            extra-id='table-chart1'
+            type='table'
+            icon='search'
+            param='{{param}}'
+            options='{"title": "Count of tweets with certain RTs"}'
+            cols='[{"label": "Retweets", "type": "string"},{"label": "Tweets", "type": "number"}]'
+            rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
           </google-chart>
         </div>
       </div>
-    </paper-material>
   </template>
 
   <script>
     Polymer({
-      is: 'dashboard-elk',
-
-      properties: {
-          query: {
-            type: String,
-            observer: '_queryChanged'
-          },
-          lastName: String
-      },
-
-      ready: function() {
-        this.queryDefault();
-      },
-
-      queryChange: function(value) {
-        var client = new $.es.Client({
-          hosts: 'localhost:9200'
-        });
-
-        client.search({
-          // undocumented params are appended to the query string
-          index: 'sentiment',
-          type: 'tweet',
-          body: {
-            size: 10,
-            query: {
-              multi_match:{
-                query: this.query,
-                fields: ["time_zone","place.name","sentiment","entities.hashtags.text"]
-              }
-            },
-            aggs: {
-              rest1: {
-                terms: {
-                  field: 'sentiment',
-                  size: 5,
-                  order: {
-                    _count: "desc"
-                  }
-                }
-              },
-              rest2: {
-                terms: {
-                  field: 'place.name',
-                  size: 5,
-                  order: {
-                    _count: "desc"
-                  }
-                }
-              },
-              rest3: {
-                terms: {
-                  field: 'retweet_count',
-                  size: 5,
-                  order: {
-                    _count: "desc"
-                  }
-                }
-              },
-              rest4: {
-                terms: {
-                  field: 'time_zone',
-                  size: 5,
-                  order: {
-                    _count: "desc"
-                  }
-                }
-              },
-              rest5: {
-                terms: {
-                  field: 'entities.hashtags.text',
-                  size: 5,
-                  order: {
-                    _count: "desc"
-                  }
-                }
-              }
-            }
-          }
-        }).then(function (resp) {
-          var hits = resp.aggregations.rest1.buckets;
-          var data = [];
-          hits.forEach(function(entry) {
-            data.push([entry.key, entry.doc_count]);
-          });
-          var chart = document.getElementById('pie-chart1');
-          chart.rows = data;
-
-          hits = resp.aggregations.rest2.buckets;
-          data = [];
-          hits.forEach(function(entry) {
-            data.push([entry.key, entry.doc_count]);
-          });
-          chart = document.getElementById('pie-chart2');
-          chart.rows = data;
-
-          hits = resp.aggregations.rest3.buckets;
-          data = [];
-          hits.forEach(function(entry) {
-            data.push([entry.key, entry.doc_count]);
-          });
-          chart = document.getElementById('bar-chart1');
-          chart.rows = data;
-
-          hits = resp.aggregations.rest4.buckets;
-          data = [];
-          hits.forEach(function(entry) {
-            data.push([entry.key, entry.doc_count]);
-          });
-          chart = document.getElementById('bar-chart2');
-          chart.rows = data;
-
-          hits = resp.aggregations.rest5.buckets;
-          data = [];
-          data.push(["Hashtags", "Count"])
-          hits.forEach(function(entry) {
-            data.push([entry.key, entry.doc_count]);
-          });
-          chart = document.getElementById('table-chart1');
-          chart.data = data;
-        });
-    },
-
-    queryDefault: function() {
-      var client = new $.es.Client({
-          hosts: 'localhost:9200'
-        });
-
-      client.search({
-        // undocumented params are appended to the query string
-        index: 'sentiment',
-          type: 'tweet',
-        body: {
-          size: 10,
-          query: {
-            match_all: {}
-          },
-          aggs: {
-            rest1: {
-              terms: {
-                field: 'sentiment',
-                size: 5,
-                order: {
-                  _count: "desc"
-                }
-              }
-            },
-            rest2: {
-              terms: {
-                field: 'place.name',
-                size: 5,
-                order: {
-                  _count: "desc"
-                }
-              }
-            },
-            rest3: {
-              terms: {
-                field: 'retweet_count',
-                size: 5,
-                order: {
-                  _count: "desc"
-                }
-              }
-            },
-            rest4: {
-              terms: {
-                field: 'time_zone',
-                size: 5,
-                order: {
-                  _count: "desc"
-                }
-              }
-            },
-            rest5: {
-              terms: {
-                field: 'entities.hashtags.text',
-                size: 5,
-                order: {
-                  _count: "desc"
-                }
-              }
-            }
-          }
-        }
-      }).then(function (resp) {
-        var hits = resp.aggregations.rest1.buckets;
-          var data = [];
-          hits.forEach(function(entry) {
-            data.push([entry.key, entry.doc_count]);
-          });
-          var chart = document.getElementById('pie-chart1');
-          chart.rows = data;
-
-          hits = resp.aggregations.rest2.buckets;
-          data = [];
-          hits.forEach(function(entry) {
-            data.push([entry.key, entry.doc_count]);
-          });
-          chart = document.getElementById('pie-chart2');
-          chart.rows = data;
-
-          hits = resp.aggregations.rest3.buckets;
-          data = [];
-          hits.forEach(function(entry) {
-            data.push([entry.key, entry.doc_count]);
-          });
-          chart = document.getElementById('bar-chart1');
-          chart.rows = data;
-
-          hits = resp.aggregations.rest4.buckets;
-          data = [];
-          hits.forEach(function(entry) {
-            data.push([entry.key, entry.doc_count]);
-          });
-          console.log(data)
-          chart = document.getElementById('bar-chart2');
-          chart.rows = data;
-
-          hits = resp.aggregations.rest5.buckets;
-          data = [];
-          data.push(["Hashtags", "Count"])
-          hits.forEach(function(entry) {
-            data.push([entry.key, entry.doc_count]);
-          });
-          chart = document.getElementById('table-chart1');
-          chart.data = data;
-      });
-    },
-
-    /** Fired when a search is made.
-       *
-       * @event search-change
-       * @param {Object} detail
-       * @param {Object} detail.searchValue The search string.
-       */
-    _queryChanged: function() {
-      if (this.query) {
-        this.queryChange(this.query);
-      } else {
-        this.queryDefault();
-      }
-    }
+      is: 'dashboard-elk'
     });
   </script>
 

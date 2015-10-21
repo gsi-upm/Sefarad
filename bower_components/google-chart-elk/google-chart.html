@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../google-apis/google-legacy-loader.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 
 <!--
 `google-chart` encapsulates Google Charts as a web component, allowing you to easily visualize
@@ -29,16 +30,22 @@ Data can be provided in one of three ways:
 @demo
 -->
 <dom-module id="google-chart">
+  <style is="custom-style">
+    @import url("../../styles/app-theme.html");
+  </style>
   <link rel="import" type="css" href="google-chart.css">
   <template>
-    <iron-ajax id="ajax" handle-as="json" url="{{data}}"
-      on-response="_externalDataLoaded"></iron-ajax>
-    <div id="chartdiv"></div>
-    <google-legacy-loader on-api-load="_readyForAction"></google-legacy-loader>
+    <paper-material elevation="1">
+      <div class="top-bar"><iron-icon icon="{{icon}}"></iron-icon><span>{{options.title}}</span></div>
+      <iron-ajax id="ajax" handle-as="json" url="{{data}}"
+        on-response="_externalDataLoaded"></iron-ajax>
+      <div id="chartdiv"></div>
+      <google-legacy-loader on-api-load="_readyForAction"></google-legacy-loader>
   </template>
 </dom-module>
 
 <script>
+var filtered = false;
 (function() {
   "use strict";
   Polymer({
@@ -173,6 +180,46 @@ Data can be provided in one of three ways:
         type: Array,
         value: function() { return []; },
         observer: '_selectionChanged'
+      },
+
+      query: {
+        type: String,
+        observer: '_queryChanged'
+      },
+
+      index: {
+        type: String
+      },
+
+      subindex: {
+        type: String
+      },
+
+      extraId: {
+        type: String
+      },
+
+      fields: {
+        type: Array,
+        value: function() { return []; }
+      },
+
+      field: {
+        type: String
+      },
+
+      host: {
+        type: String
+      },
+
+      icon: {
+        type: String
+      },
+
+      param: {
+        type: String,
+        notify: true,
+        observer: '_filterWithParam'
       }
     },
 
@@ -205,8 +252,23 @@ Data can be provided in one of three ways:
     },
 
     _selectionChanged: function() {
+      if(this.selection.length != 0){
+        var arr = this.rows;
+        var sel = this.selection[0].row
+        this.param = arr[sel][0]
+      } else {
+        if (filtered) {
+          this.param = '';
+        }
+      }
       if (this._chartObject && this.setSelection) {
         this._chartObject.setSelection(this.selection);
+      }
+    },
+
+    ready: function() {
+      if(this.field) {
+        this.queryDefault();
       }
     },
 
@@ -241,7 +303,7 @@ Data can be provided in one of three ways:
                   this.fire('google-chart-select',
                       { selection: this._chartObject.getSelection() });
               }.bind(this));
-          this._chartObject.draw(this._dataTable, this.options);
+          this._chartObject.draw(this._dataTable);
           if (this._chartObject.setSelection){
             this._chartObject.setSelection(this.selection);
           }
@@ -347,6 +409,174 @@ Data can be provided in one of three ways:
         }
       }
       return dataTable;
+    },
+
+    queryChange: function(value) {
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+
+      var id = this.extraId;
+        client.search({
+          // undocumented params are appended to the query string
+          index: this.index,
+          type: this.subindex,
+          body: {
+            size: 10,
+            query: {
+              multi_match:{
+                query: this.query,
+                fields: this.fields
+              }
+            },
+            aggs: {
+              rest: {
+                terms: {
+                  field: this.field,
+                  size: 5,
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              }
+            }
+          }
+        }).then(function (resp) {
+          var hits = resp.aggregations.rest.buckets;
+          var data = [];
+          hits.forEach(function(entry) {
+            data.push([entry.key, entry.doc_count]);
+          });
+          var chart = document.getElementById(id);
+          chart.rows = data;
+        });
+    },
+
+    queryDefault: function() {
+      var client = new $.es.Client({
+          hosts: this.host
+        });
+      var id = this.extraId;
+      client.search({
+        // undocumented params are appended to the query string
+        index: this.index,
+        type: this.subindex,
+        body: {
+          size: 10,
+          query: {
+            match_all: {}
+          },
+          aggs: {
+            rest: {
+              terms: {
+                field: this.field,
+                size: 5,
+                order: {
+                  _count: "desc"
+                }
+              }
+            }
+          }
+        }
+      }).then(function (resp) {
+        var hits = resp.aggregations.rest.buckets;
+        var data = [];
+        hits.forEach(function(entry) {
+          data.push([entry.key, entry.doc_count]);
+        });
+        var chart = document.getElementById(id);
+        chart.rows = data;
+      });
+    },
+
+    /** Fired when a search is made.
+       *
+       * @event query-change
+       * @param {Object} detail
+       * @param {Object} detail.query The search string.
+       */
+    _queryChanged: function() {
+      if (this.query) {
+        this.queryChange(this.query);
+      } else {
+        this.queryDefault();
+      }
+    },
+
+    _filterWithParam: function() {
+      var client = new $.es.Client({
+          hosts: this.host
+        });
+
+      var id = this.extraId;
+      if(this.param){
+        client.search({
+          // undocumented params are appended to the query string
+          index: this.index,
+          type: this.subindex,
+          body: {
+            size: 10,
+            query: {
+              multi_match:{
+                query: this.param,
+                fields: this.fields
+              }
+            },
+            aggs: {
+              rest: {
+                terms: {
+                  field: this.field,
+                  size: 5,
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              }
+            }
+          }
+        }).then(function (resp) {
+          var hits = resp.aggregations.rest.buckets;
+          var data = [];
+          hits.forEach(function(entry) {
+            data.push([entry.key, entry.doc_count]);
+          });
+          var chart = document.getElementById(id);
+          chart.rows = data;
+          filtered = true;
+        });
+      } else {
+        client.search({
+        // undocumented params are appended to the query string
+        index: this.index,
+        type: this.subindex,
+        body: {
+          size: 10,
+          query: {
+            match_all: {}
+          },
+          aggs: {
+            rest: {
+              terms: {
+                field: this.field,
+                size: 5,
+                order: {
+                  _count: "desc"
+                }
+              }
+            }
+          }
+        }
+      }).then(function (resp) {
+        var hits = resp.aggregations.rest.buckets;
+        var data = [];
+        hits.forEach(function(entry) {
+          data.push([entry.key, entry.doc_count]);
+        });
+        var chart = document.getElementById(id);
+        chart.rows = data;
+          filtered = true;
+      });
+      }
     }
   });
 })();
