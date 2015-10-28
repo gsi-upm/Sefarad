@@ -14,3 +14,43 @@ document.addEventListener('WebComponentsReady', function() {
           alert('Received all data');
         });
       });
+
+var array = [];
+array.push({ term: {'sentiment': 'negative'}})
+console.log(array)
+
+var client = new $.es.Client({
+          hosts: 'localhost:9200'
+        });
+
+      var id = this.extraId;
+        client.search({
+          // undocumented params are appended to the query string
+          index: 'sentiment',
+          type: 'tweet',
+          body: {
+            size: 10,
+            query: {
+              filtered: {
+                filter: {
+                  bool: {
+                    should: array,
+                  }
+                }
+              }
+            },
+            aggs: {
+              rest: {
+                terms: {
+                  field: 'sentiment',
+                  size: 5,
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              }
+            }
+          }
+        }).then(function (resp) {
+          console.log(resp)
+        });
