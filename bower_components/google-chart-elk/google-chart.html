@@ -2,6 +2,8 @@
 <link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../google-apis/google-legacy-loader.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icons/maps-icons.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
 
 <!--
 `google-chart` encapsulates Google Charts as a web component, allowing you to easily visualize
@@ -30,26 +32,36 @@ Data can be provided in one of three ways:
 @demo
 -->
 <dom-module id="google-chart">
-  <style is="custom-style">
-    @import url("../../styles/app-theme.html");
-  </style>
-  <link rel="import" type="css" href="google-chart.css">
-  <template>
-    <paper-material elevation="1">
-      <div class="top-bar"><iron-icon icon="{{icon}}"></iron-icon><span>{{options.title}}</span></div>
-      <iron-ajax id="ajax" handle-as="json" url="{{data}}"
-        on-response="_externalDataLoaded"></iron-ajax>
-      <div id="chartdiv"></div>
-      <google-legacy-loader on-api-load="_readyForAction"></google-legacy-loader>
-  </template>
+<style is="custom-style">
+  @import url("../../styles/app-theme.html");
+</style>
+<link rel="import" type="css" href="google-chart.css">
+<template>
+  <paper-material elevation="1">
+    <div class="top-bar">
+      <iron-icon icon="{{icon}}"></iron-icon>
+      <span>{{options.title}}</span>
+    </div>
+    <iron-ajax id="ajax" handle-as="json" url="{{data}}"
+    on-response="_externalDataLoaded"></iron-ajax>
+    <div id="chartdiv"></div>
+    <google-legacy-loader on-api-load="_readyForAction"></google-legacy-loader>
+
+    <div style="float:right">
+      <small>Clear Filters</small>
+      <paper-icon-button icon="delete" alt="menu" class="green" on-tap="removeFilters"></paper-icon-button>
+    </div>
+    <div style="width:100%; clear: both"></div>
+  </paper-material>
+</template>
 </dom-module>
 
 <script>
-var filtered = false;
-(function() {
-  "use strict";
-  Polymer({
-    is: 'google-chart',
+  var filtered = false;
+  (function() {
+    "use strict";
+    Polymer({
+      is: 'google-chart',
     /**
      * Fired when the graph is displayed.
      *
@@ -62,7 +74,7 @@ var filtered = false;
      * @param {object} detail
      *   @param {array} detail.selection The user-defined selection.
      */
-    properties: {
+     properties: {
       /**
        * Sets the type of the chart.
        *
@@ -73,7 +85,7 @@ var filtered = false;
        * See <a href="https://google-developers.appspot.com/chart/interactive/docs/gallery">Google Visualization API reference (Chart Gallery)</a> for details.
        *
        */
-      type: {
+       type: {
         type: String,
         value: 'column',
         observer: '_typeChanged'
@@ -92,7 +104,11 @@ var filtered = false;
        * for the options available to each chart type.
        *
        */
-      options: {
+       options: {
+        type: Object,
+        value: function() { return {}; }
+      },
+      optionsbi: {
         type: Object,
         value: function() { return {}; }
       },
@@ -111,7 +127,7 @@ var filtered = false;
        * @attribute cols
        * @type array
        */
-      cols: {
+       cols: {
         type: Array,
         value: function() { return []; }
       },
@@ -130,7 +146,7 @@ var filtered = false;
        * @attribute rows
        * @type array
        */
-      rows: {
+       rows: {
         type: Array,
         value: function() { return []; }
       },
@@ -154,7 +170,7 @@ var filtered = false;
        * @attribute data
        * @type array, object, or string
        */
-      data: {
+       data: {
         type: Object, // or array, or object
         value: function() { return []; }
       },
@@ -176,7 +192,7 @@ var filtered = false;
        * @attribute selection
        * @type array
        */
-      selection: {
+       selection: {
         type: Array,
         value: function() { return []; },
         observer: '_selectionChanged'
@@ -218,13 +234,19 @@ var filtered = false;
 
       param: {
         type: String,
+        notify: true
+      },
+
+      filters: {
+        type: Array,
         notify: true,
-        observer: '_filterWithParam'
+        value: function() { return []; }
       }
     },
 
     observers: [
-      '_loadData(rows, cols, data)'
+    '_loadData(rows, cols, data)',
+    '_filtersChange(filters.*)'
     ],
 
     _packages: null,
@@ -256,10 +278,13 @@ var filtered = false;
         var arr = this.rows;
         var sel = this.selection[0].row
         this.param = arr[sel][0]
+        var param = this.param
+        var field = this.field
+        var term1 = {};
+        term1[field] = param;
+        this.push('filters', { term: term1})
       } else {
-        if (filtered) {
-          this.param = '';
-        }
+        filtered ? this.queryDefault() : undefined
       }
       if (this._chartObject && this.setSelection) {
         this._chartObject.setSelection(this.selection);
@@ -267,9 +292,12 @@ var filtered = false;
     },
 
     ready: function() {
-      if(this.field) {
-        this.queryDefault();
-      }
+      this.field ? this.queryDefault() : undefined
+      this.type == 'table' ? this.$.chartdiv.style.margin = '2% 0 2% 33%' : undefined
+    },
+
+    removeFilters: function(){
+      this.filters = [];
     },
 
     /**
@@ -281,7 +309,7 @@ var filtered = false;
      * @method drawChart
      * @return {Object} Returns null.
      */
-    drawChart: function() {
+     drawChart: function() {
       if (this._canDraw) {
         if (!this.options) {
           this.options = {};
@@ -294,16 +322,16 @@ var filtered = false;
         }
         if (this._chartObject) {
           google.visualization.events.addOneTimeListener(this._chartObject,
-              'ready', function() {
-                  this.fire('google-chart-render');
-              }.bind(this));
+            'ready', function() {
+              this.fire('google-chart-render');
+            }.bind(this));
           google.visualization.events.addListener(this._chartObject,
-              'select', function() {
-                  this.selection = this._chartObject.getSelection();
-                  this.fire('google-chart-select',
-                      { selection: this._chartObject.getSelection() });
-              }.bind(this));
-          this._chartObject.draw(this._dataTable);
+            'select', function() {
+              this.selection = this._chartObject.getSelection();
+              this.fire('google-chart-select',
+                { selection: this._chartObject.getSelection() });
+            }.bind(this));
+          this._chartObject.draw(this._dataTable, this.optionsbi);
           if (this._chartObject.setSelection){
             this._chartObject.setSelection(this.selection);
           }
@@ -390,15 +418,15 @@ var filtered = false;
       if (!data)
         data = [];
       if (this.rows && this.rows.length > 0 && this.cols &&
-          this.cols.length > 0) {
+        this.cols.length > 0) {
         // Create the data table from cols and rows.
-        dataTable = new google.visualization.DataTable();
-        dataTable.cols = this.cols;
-        for (var i = 0; i < this.cols.length; i++) {
-          dataTable.addColumn(this.cols[i]);
-        }
-        dataTable.addRows(this.rows);
-      } else {
+      dataTable = new google.visualization.DataTable();
+      dataTable.cols = this.cols;
+      for (var i = 0; i < this.cols.length; i++) {
+        dataTable.addColumn(this.cols[i]);
+      }
+      dataTable.addRows(this.rows);
+    } else {
         // Create dataTable from the passed data or the data attribute.
         // Data can be in the form of raw DataTable data or a two
         // dimensional array.
@@ -412,12 +440,12 @@ var filtered = false;
     },
 
     queryChange: function(value) {
-        var client = new $.es.Client({
-          hosts: this.host
-        });
+      var client = new $.es.Client({
+        hosts: this.host
+      });
 
       var id = this.extraId;
-        client.search({
+      client.search({
           // undocumented params are appended to the query string
           index: this.index,
           type: this.subindex,
@@ -450,14 +478,14 @@ var filtered = false;
           var chart = document.getElementById(id);
           chart.rows = data;
         });
-    },
+      },
 
-    queryDefault: function() {
-      var client = new $.es.Client({
+      queryDefault: function() {
+        var client = new $.es.Client({
           hosts: this.host
         });
-      var id = this.extraId;
-      client.search({
+        var id = this.extraId;
+        client.search({
         // undocumented params are appended to the query string
         index: this.index,
         type: this.subindex,
@@ -486,6 +514,7 @@ var filtered = false;
         });
         var chart = document.getElementById(id);
         chart.rows = data;
+        filtered = true;
       });
     },
 
@@ -495,31 +524,30 @@ var filtered = false;
        * @param {Object} detail
        * @param {Object} detail.query The search string.
        */
-    _queryChanged: function() {
-      if (this.query) {
-        this.queryChange(this.query);
-      } else {
-        this.queryDefault();
-      }
-    },
+       _queryChanged: function() {
+        this.query ? this.queryChange(this.query) : this.queryDefault();
+      },
 
-    _filterWithParam: function() {
-      var client = new $.es.Client({
-          hosts: this.host
-        });
+      _filtersChange: function() {
+        if(filtered){
+          var client = new $.es.Client({
+            hosts: this.host
+          });
 
-      var id = this.extraId;
-      if(this.param){
-        client.search({
+          var id = this.extraId;
+          client.search({
           // undocumented params are appended to the query string
           index: this.index,
           type: this.subindex,
           body: {
             size: 10,
             query: {
-              multi_match:{
-                query: this.param,
-                fields: this.fields
+              filtered: {
+                filter: {
+                  bool: {
+                    must: this.filters,
+                  }
+                }
               }
             },
             aggs: {
@@ -542,40 +570,7 @@ var filtered = false;
           });
           var chart = document.getElementById(id);
           chart.rows = data;
-          filtered = true;
         });
-      } else {
-        client.search({
-        // undocumented params are appended to the query string
-        index: this.index,
-        type: this.subindex,
-        body: {
-          size: 10,
-          query: {
-            match_all: {}
-          },
-          aggs: {
-            rest: {
-              terms: {
-                field: this.field,
-                size: 5,
-                order: {
-                  _count: "desc"
-                }
-              }
-            }
-          }
-        }
-      }).then(function (resp) {
-        var hits = resp.aggregations.rest.buckets;
-        var data = [];
-        hits.forEach(function(entry) {
-          data.push([entry.key, entry.doc_count]);
-        });
-        var chart = document.getElementById(id);
-        chart.rows = data;
-          filtered = true;
-      });
       }
     }
   });

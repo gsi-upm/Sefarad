@@ -22,7 +22,6 @@ console.log(array)
 var client = new $.es.Client({
           hosts: 'localhost:9200'
         });
-
       var id = this.extraId;
         client.search({
           // undocumented params are appended to the query string
@@ -34,7 +33,9 @@ var client = new $.es.Client({
               filtered: {
                 filter: {
                   bool: {
-                    should: array,
+                    should: [
+                      { term: {"sentiment": "positve"}}
+                    ]
                   }
                 }
               }
@@ -42,10 +43,10 @@ var client = new $.es.Client({
             aggs: {
               rest: {
                 terms: {
-                  field: 'sentiment',
-                  size: 5,
-                  order: {
-                    _count: "desc"
+                  field:"sentiment",
+                  size:5,
+                  order:{
+                    _count:"desc"
                   }
                 }
               }
