@@ -20,7 +20,12 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
   </style>
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   <link rel="import" type="css" href="reviews-table.css">
-  <template>
+  <template>  
+
+            <paper-button id="buttonMap" on-click="change"> on a map</paper-button>
+          <template is="dom-repeat" items="[[getIds(ids.*)]]" as="id"> 
+            <span>{{id}}</span>
+          </template>
 
     <paper-material elevation="1">
       <div class="top-bar">
@@ -90,6 +95,17 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
         }
       },
       ready: function() {
+      },
+      getIds: function(f) {
+        return f.base;
+      },
+      change: function() {
+        this.set('ids', this.ids.concat("142"))
+        console.log("hola")
+        this.ids.push('142')
+        this.ids.push('143')
+        this.ids.push('144')
+        this.ids.push('145')
       },
 
       checkSource: function(source) {
