@@ -1,0 +1,19 @@
+.top-bar{
+  width: 100%; 
+  background-color: var(--dark-primary-color); 
+  border-radius: 5px 5px 0 0; 
+  color: white; 
+  text-align: center; 
+  height: 35px; 
+  line-height: 35px;
+}
+
+.top-bar span {
+  vertical-align: middle;
+}
+
+iron-icon {
+  margin-right: 8px;
+  width: 21px;
+  height: 21px;
+}

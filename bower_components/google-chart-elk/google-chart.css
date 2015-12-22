@@ -42,3 +42,7 @@ paper-icon-button.green:hover {
   background: var(--paper-green-50);
   border-radius: 50%;
 }
+
+paper-material {
+  background-color: #ffffff
+}

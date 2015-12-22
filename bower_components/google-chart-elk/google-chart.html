@@ -241,6 +241,10 @@ Data can be provided in one of three ways:
         type: Array,
         notify: true,
         value: function() { return []; }
+      }, 
+      isSelected: {
+        type: Boolean,
+        value: false
       }
     },
 
@@ -282,8 +286,25 @@ Data can be provided in one of three ways:
         var field = this.field
         var term1 = {};
         term1[field] = param;
-        this.push('filters', { term: term1})
+        var object = {term: term1}
+        var isInside = -1
+        for(var i = 0; i < this.filters.length; i++){
+          if(JSON.stringify(this.filters[i].term) === JSON.stringify(term1))
+              isInside = i
+        }
+        if(isInside == -1){
+          this.push('filters', { term: term1})
+          this.isSelected = true
+        }
+        console.log(this.filters)
       } else {
+        if(this.isSelected)
+          for(var i = 0; i < this.filters.length; i++){
+            if(Object.keys(this.filters[i].term)[0] === this.field){
+              this.filters.splice(i,1)
+              this.isSelected = false
+            }
+          }
         filtered ? this.queryDefault() : undefined
       }
       if (this._chartObject && this.setSelection) {

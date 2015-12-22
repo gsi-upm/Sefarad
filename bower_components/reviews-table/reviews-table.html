@@ -1,0 +1,170 @@
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at https://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at https://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at https://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at https://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="ajax-review.html">
+
+<dom-module id="reviews-table">
+  
+  <style is="custom-style">
+   @import url("../../styles/app-theme.html");
+  </style>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="import" type="css" href="reviews-table.css">
+  <template>
+
+    <paper-material elevation="1">
+      <div class="top-bar">
+        <iron-icon icon="{{icon}}"></iron-icon>
+        <span>Some Reviews</span>
+      </div>
+      <table class="table table-striped">
+        <tr>
+          <th style="width: 10%; text-align: center">Source</th>
+          <th style="width: 8%0; text-align: center">Opinion</th>
+          <th style="width: 10%; text-align: center">Rating</th>
+        </tr>
+      </table>
+        <iron-pages id="pages" selected="0">
+          <template is="dom-repeat" items="{{ids}}" as="id"> 
+            <ajax-review id="{{id}}"></ajax-review> 
+          </template>
+        </iron-pages>
+      </table>
+    <div style="text-align:center; margin: 0 auto">
+      <paper-button on-click="previousPage">&lt;&lt;</paper-button>
+      <span style="color: blue">{{actual}}</span>
+      <paper-button on-click="nextPage">&gt;&gt;</paper-button>
+    </div>
+    </paper-material>
+  </template>
+
+<script>
+
+  Polymer({
+      is: 'reviews-table',
+      properties: {
+        reviews: {
+          type: Array
+        },
+
+        icon: {
+          type: String
+        },
+
+        actual: {
+          type: String,
+          value: "1"
+        },
+
+        ids:{
+          type: Array,
+          value: ["481","482","32512","32420","91963","96677","160677","131425","322429","322612"]
+        },
+
+        fields: {
+          type: Array,
+          value: function() { return []; }
+        },
+
+        index: {
+          type: String
+        },
+
+        subindex: {
+          type: String
+        },
+
+        query: {
+          type: String,
+          observer: '_queryChanged'
+        }
+      },
+      ready: function() {
+      },
+
+      checkSource: function(source) {
+        if(source == "Foursquare")
+          return "https://playfoursquare.s3.amazonaws.com/press/2014/foursquare-logomark.png"
+        else if(source == "GooglePlaces")
+          return "http://www.reynoldsam.com/wordpress/wp-content/themes/ram/_images/locations/gpluslocal.png"
+        else if(source == "Facebook")
+          return "http://96bda424cfcc34d9dd1a-0a7f10f87519dba22d2dbc6233a731e5.r41.cf2.rackcdn.com/bikramyogaroslyn/1024px-Facebook_Home_svg.png"
+      },
+
+      checkText: function(text) {
+        if(text)
+          return text
+        else
+          return "No Review"
+      },
+
+      checkRating: function(rating) {
+        if(rating)
+          return rating
+        else
+          return "0"
+      },
+
+      checkIndex: function(index) {
+        if(index < 10)
+          return true
+        else
+          return false
+      },
+
+      previousPage: function() {
+        this.$.pages.selectPrevious()
+        this.actual = 1 + this.$.pages.selected
+      },
+
+      nextPage: function() {
+        this.$.pages.selectNext()
+        this.actual = 1 + this.$.pages.selected
+      },
+
+      getIdURL: function(index) {
+        return "http://tour-pedia.org/api/getReviewsByPlaceId?placeId="+this.ids[index]
+      },
+
+      _queryChanged: function(value) {
+      var client = new $.es.Client({
+        hosts: this.host
+      });
+
+      var id = this.extraId;
+      client.search({
+          // undocumented params are appended to the query string
+          index: this.index,
+          type: this.subindex,
+          body: {
+            size: 10,
+            query: {
+              multi_match:{
+                query: this.query,
+                fields: this.fields
+              }
+            }
+          }
+        }).then(function (resp) {
+          console.log(resp)
+          var hits = resp.hits.hits;
+          var data = [];
+          hits.forEach(function(entry) {
+            data.push(entry._id);
+          });
+          this.ids = data;
+        });
+      },
+    }); 
+</script>
+</dom-module>

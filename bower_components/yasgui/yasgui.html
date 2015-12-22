@@ -40,7 +40,7 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
       }
     </style>
     <paper-dropdown-menu label="Select your query">
-            <paper-menu class="dropdown-content" on-iron-select="_itemSelected" selected="1">
+            <paper-menu class="dropdown-content" on-iron-select="_itemSelected" selected="{{selected}}">
               <template is="dom-repeat" items="{{queries}}" as="query">
                 <paper-item>[[query.name]]</paper-item>
               </template>
@@ -53,7 +53,6 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
 
 <script>
 
-  var yasr, yasqe = {};
   Polymer({
       is: 'yasgui-ui',
       properties: {
@@ -63,33 +62,36 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
         },
         endpoint: {
           type: String,
+          value: 'http://dbpedia.org/sparql',
           observer: '_endpointChanged'
         },
+        selected: {
+          type: Number,
+          value: 0
+        },
         queries: {
-          type: Array,
-          value: [
-            {name:'All landlocked countries with a population greater than 15 million.', val:'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  \nPREFIX type: <http://dbpedia.org/class/yago/> \nPREFIX prop: <http://dbpedia.org/property/> \n\nSELECT ?country_name ?population WHERE { \n   ?country a type:LandlockedCountries ; \n   rdfs:label ?country_name ; \n   prop:populationEstimate ?population . \n   FILTER (?population > 15000000) .\n}'},
-            {name:'Population and abstract of New York', val:'PREFIX schema: <http://schema.org/> \nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbpedia-owl: <http://dbpedia.org/ontology/> \nPREFIX dbpprop: <http://dbpedia.org/property/>\nSELECT DISTINCT ?city ?abstract ?pop\n\nWHERE {\n   ?city rdf:type schema:City ; \n     rdfs:label ?label ; \n     dbpedia-owl:abstract ?abstract ; \n     dbpedia-owl:country ?country ; \n     dbpedia-owl:populationTotal ?pop . \n   ?country dbpprop:countryCode "USA"@en . \n   FILTER ( lang(?abstract) = "en" && regex(?label, "New York City")) \n }'}
-          ]
-        }
+          type: Array
+        },
+        yasqe: Object,
+        yasr: Object
       },
       ready: function() {
         YASQE.defaults.value = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  \nPREFIX type: <http://dbpedia.org/class/yago/> \nPREFIX prop: <http://dbpedia.org/property/> \n\nSELECT ?country_name ?population WHERE { \n   ?country a type:LandlockedCountries ; \n   rdfs:label ?country_name ; \n   prop:populationEstimate ?population . \n   FILTER (?population > 15000000) .\n}";
 
-        yasr = YASR(this.$.yasr);
-        yasqe = YASQE(this.$.yasqe, {
-        sparql: {
-          showQueryButton: true,
-          endpoint: 'http://dbpedia.org/sparql'
-        } 
+        this.yasr = YASR(this.$.yasr);
+        this.yasqe = YASQE(this.$.yasqe, {
+          sparql: {
+            showQueryButton: true,
+            endpoint: this.endpoint
+          } 
         });
         /**
         * Set some of the hooks to link YASR and YASQE
         */
-        yasr.options.getUsedPrefixes = yasqe.getPrefixesFromQuery;
-        yasqe.options.sparql.callbacks.complete = yasr.setResponse;
+        this.yasr.options.getUsedPrefixes = this.yasqe.getPrefixesFromQuery;
+        this.yasqe.options.sparql.callbacks.complete = this.yasr.setResponse;
 
-        if (!yasr.storage.get("yasr_showcase_results"))  yasqe.query();
+        if (!this.yasr.storage.get("yasr_showcase_results"))  this.yasqe.query();
       },
       /**
       * Change the query value when it has chan
@@ -102,7 +104,7 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
         }
       },
       _queryValueChanged: function(){
-        yasqe.setValue(this.query)
+        this.yasqe.setValue(this.query)
       },
       _endpointChanged: function(){
         //Structure build

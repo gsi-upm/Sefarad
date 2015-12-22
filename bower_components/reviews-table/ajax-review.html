@@ -1,0 +1,78 @@
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at https://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at https://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at https://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at https://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="ajax-review">
+  <template>
+    <div>
+      <iron-ajax auto
+        url="{{getIdURL(id)}}"
+        handle-as="json"
+        last-response="{{reviews}}"></iron-ajax>
+      <template is="dom-repeat" items="{{reviews}}" as="review">
+        <template is="dom-if" if="{{checkIndex(index)}}">
+          <div style="display: inline-block; width: 100%">
+            <div style="width: 10%; text-align: center; float: left"><img src={{checkSource(review.source)}} style="height: 20px"></div>
+            <div style="width: 80%; float: left">{{checkText(review.text)}}</div>
+            <div style="width: 10%; text-align: center; float: right">{{checkRating(review.rating)}}<img src="https://cdn4.iconfinder.com/data/icons/pretty_office_3/256/Star-Full.png" style="height: 15px; margin-left: 5px" /></div>
+            <div style="clear:both"></br></div>
+          </div>
+        </template>
+      </template>
+    </div>
+  </template>
+
+<script>
+
+  Polymer({
+      is: 'ajax-review',
+      properties: {
+        reviews: {
+          type: Array
+        },
+
+        id: {
+          type: String
+        }
+      },
+      ready: function() {
+      },
+      checkSource: function(source) {
+        if(source == "Foursquare")
+          return "https://playfoursquare.s3.amazonaws.com/press/2014/foursquare-logomark.png"
+        else if(source == "GooglePlaces")
+          return "http://www.reynoldsam.com/wordpress/wp-content/themes/ram/_images/locations/gpluslocal.png"
+        else if(source == "Facebook")
+          return "http://96bda424cfcc34d9dd1a-0a7f10f87519dba22d2dbc6233a731e5.r41.cf2.rackcdn.com/bikramyogaroslyn/1024px-Facebook_Home_svg.png"
+      },
+      checkText: function(text) {
+        if(text)
+          return text
+        else
+          return "No Review"
+      },
+      checkRating: function(rating) {
+        if(rating)
+          return rating
+        else
+          return "0"
+      },
+      checkIndex: function(index) {
+        if(index < 10)
+          return true
+        else
+          return false
+      },
+      getIdURL: function(id) {
+        return "http://tour-pedia.org/api/getReviewsByPlaceId?placeId=" + id
+      }
+    }); 
+</script>
+</dom-module>

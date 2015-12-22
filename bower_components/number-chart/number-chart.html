@@ -1,0 +1,335 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/maps-icons.html">
+<link rel="import" href="../iron-icons/social-icons.html">
+
+<dom-module id="number-chart">
+  <link rel="import" type="css" href="number-chart.css">
+  <template>
+      <div class="info-box">
+        <div class$="{{stylebg}}">
+          <span class="info-box-icon"><iron-icon icon="{{icon}}"></iron-icon></span>
+          <div class="info-box-content">
+            <span class="info-box-text">{{title}}</span>
+            <span class="info-box-number">
+              <span id="number">{{numberCalc}}</span>
+            </span>
+            <div class="progress">
+              <div class="progress-bar progress-bar-name" id="barprogress" style="width: 50%"></div>
+            </div>
+            <span class="progress-description">Total Selected</span>
+          </div>
+        </div>
+      </div>
+
+  </template>
+
+    <script>
+      var numberMax = 0;
+      var filtered = false;
+        Polymer({
+            is: 'number-chart',
+            properties: {
+              number: {
+                type: Number,
+                value: 0
+              },
+              stylebg: {
+                type: String,
+                value: 'bg-yellow'
+              },
+              title: {
+                type: String,
+                value: 'Elements selected'
+              },
+              icon: {
+                type: String,
+                value: 'delete'
+              },
+              numberCalc: {
+                type: Number,
+                value: 0
+              },
+              query: {
+                type: String,
+                observer: '_queryChanged'
+              },
+              index: {
+                type: String
+              },
+
+              subindex: {
+                type: String
+              },
+
+              fields: {
+                type: Array,
+                value: function() { return []; }
+              },
+
+              field: {
+                type: String
+              },
+
+              object: {
+                type: String
+              },
+
+              isAggregated: {
+                type: Boolean,
+                value: false
+              },
+
+              filters: {
+                type: Array,
+                notify: true,
+                value: function() { return []; }
+              }
+            },
+
+            observers: [
+            '_filtersChange(filters.*)'
+            ],  
+
+            ready: function(){
+              this.isAggregated ? this.queryDefaultAgg() : this.queryDefault();        
+            },
+
+            kFormatter: function(num){
+              return num > 999 ? (num/1000).toFixed(1) + 'k' : num
+            },
+
+            _queryChanged: function() {
+              if(!this.isAggregated)
+                this.query ? this.queryChange(this.query) : this.queryDefault();
+              else 
+                this.query ? this.queryChangeAgg(this.query) : this.queryDefaultAgg();
+            },
+
+            queryChange: function(value) {
+              var client = new $.es.Client({
+                hosts: this.host
+              });
+              var idNum = this.$.number;
+              var idBar = this.$.barprogress;
+              client.search({
+                  // undocumented params are appended to the query string
+                  index: this.index,
+                  type: this.subindex,
+                  body: {
+                    size: 10,
+                    query: {
+                      multi_match:{
+                        query: this.query,
+                        fields: this.fields
+                      }
+                    }
+                  }
+                }).then(function (resp) {
+                  var num = resp.hits.total > 999 ? (resp.hits.total/1000).toFixed(1) + 'k' : resp.hits.total
+                  idNum.innerHTML = num;
+                  var percent = resp.hits.total/numberMax *100;
+                  percent = Math.round(percent *100)/100
+                  idBar.style.width = percent + "%";
+                });
+              },
+
+            queryChangeAgg: function(value) {
+              var client = new $.es.Client({
+                hosts: this.host
+              });
+
+              var idNum = this.$.number;
+              var idBar = this.$.barprogress;
+              var object = this.object;
+              client.search({
+                  // undocumented params are appended to the query string
+                  index: this.index,
+                  type: this.subindex,
+                  body: {
+                    size: 10,
+                    query: {
+                      multi_match:{
+                        query: this.query,
+                        fields: this.fields
+                      }
+                    },
+                    aggs: {
+                      rest: {
+                        terms: {
+                          field: this.field,
+                          size: 5,
+                          order: {
+                            _count: "desc"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }).then(function (resp) {
+                  var num = 0;
+                  var hits = resp.aggregations.rest.buckets;
+                  hits.forEach(function(entry) {
+                    if(entry.key == object)
+                      num = entry.doc_count;
+                  });
+                  var aux = num > 999 ? (num/1000).toFixed(1) + 'k' : num
+                  idNum.innerHTML = aux;
+                  var percent = num/numberMax *100;
+                  percent = Math.round(percent *100)/100
+                  idBar.style.width = percent + "%";
+                });
+              },
+
+            queryDefault: function() {
+              var client = new $.es.Client({
+                hosts: this.host
+              });
+              var idNum = this.$.number;
+              var idBar = this.$.barprogress;
+              client.search({
+                // undocumented params are appended to the query string
+                index: this.index,
+                type: this.subindex,
+                body: {
+                  size: 10,
+                  query: {
+                    match_all: {}
+                  }
+                }
+              }).then(function (resp) {
+                numberMax = resp.hits.total;
+                var num = resp.hits.total > 999 ? (resp.hits.total/1000).toFixed(1) + 'k' : resp.hits.total
+                idNum.innerHTML = num;
+                idBar.style.width = "100%";
+                filtered = true;
+              });
+            },
+
+            queryDefaultAgg: function() {
+              var client = new $.es.Client({
+                hosts: this.host
+              });
+              var idNum = this.$.number;
+              var idBar = this.$.barprogress;
+              var object = this.object;
+              client.search({
+                // undocumented params are appended to the query string
+                index: this.index,
+                type: this.subindex,
+                body: {
+                  size: 10,
+                  query: {
+                    match_all: {}
+                  },
+                  aggs: {
+                    rest: {
+                      terms: {
+                        field: this.field,
+                        size: 5,
+                        order: {
+                          _count: "desc"
+                        }
+                      }
+                    }
+                  }
+                }
+              }).then(function (resp) {
+                  var hits = resp.aggregations.rest.buckets;
+                  hits.forEach(function(entry) {
+                    if(entry.key == object)
+                      numberMax = entry.doc_count;
+                  });
+                  var aux = numberMax > 999 ? (numberMax/1000).toFixed(1) + 'k' : numberMax
+                  idNum.innerHTML = aux;
+                  idBar.style.width = "100%";
+                  filtered = true;
+              });
+            },
+
+            _filtersChange: function() {
+              if(filtered && this.isAggregated){
+                var client = new $.es.Client({
+                  hosts: this.host
+                });
+  
+                var idNum = this.$.number;
+                var idBar = this.$.barprogress;
+                var object = this.object;
+                client.search({
+                // undocumented params are appended to the query string
+                index: this.index,
+                type: this.subindex,
+                body: {
+                  size: 10,
+                  query: {
+                    filtered: {
+                      filter: {
+                        bool: {
+                          must: this.filters,
+                        }
+                      }
+                    }
+                  },
+                  aggs: {
+                    rest: {
+                      terms: {
+                        field: this.field,
+                        size: 5,
+                        order: {
+                          _count: "desc"
+                        }
+                      }
+                    }
+                  }
+                }
+              }).then(function (resp) {
+                  var num = 0;
+                  var hits = resp.aggregations.rest.buckets;
+                  hits.forEach(function(entry) {
+                    if(entry.key == object)
+                      num = entry.doc_count;
+                  });
+                  var aux = num > 999 ? (num/1000).toFixed(1) + 'k' : num
+                  idNum.innerHTML = aux;
+                  var percent = num/numberMax *100;
+                  percent = Math.round(percent *100)/100
+                  idBar.style.width = percent + "%";
+              });
+            } else if(filtered && !this.isAggregated){
+              var client = new $.es.Client({
+                  hosts: this.host
+                });
+  
+                var idNum = this.$.number;
+                var idBar = this.$.barprogress;
+                client.search({
+                // undocumented params are appended to the query string
+                index: this.index,
+                type: this.subindex,
+                body: {
+                  size: 10,
+                  query: {
+                    filtered: {
+                      filter: {
+                        bool: {
+                          must: this.filters,
+                        }
+                      }
+                    }
+                  }
+                }
+              }).then(function (resp) {
+                  var num = resp.hits.total > 999 ? (resp.hits.total/1000).toFixed(1) + 'k' : resp.hits.total
+                  idNum.innerHTML = num;
+                  var percent = resp.hits.total/numberMax *100;
+                  percent = Math.round(percent *100)/100
+                  idBar.style.width = percent + "%";
+              });
+            }
+          }
+        });
+    </script>
+
+</dom-module>
