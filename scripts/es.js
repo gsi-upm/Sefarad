@@ -25,31 +25,11 @@ var client = new $.es.Client({
       var id = this.extraId;
         client.search({
           // undocumented params are appended to the query string
-          index: 'sentiment',
-          type: 'tweet',
+          index: 'tourpedia',
+          type: 'places',
           body: {
-            size: 10,
-            query: {
-              filtered: {
-                filter: {
-                  bool: {
-                    should: [
-                      { term: {"sentiment": "positve"}}
-                    ]
-                  }
-                }
-              }
-            },
-            aggs: {
-              rest: {
-                terms: {
-                  field:"sentiment",
-                  size:5,
-                  order:{
-                    _count:"desc"
-                  }
-                }
-              }
+            query : {
+              match_all : {}
             }
           }
         }).then(function (resp) {

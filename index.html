@@ -75,7 +75,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <!-- Drawer Toolbar -->
         <paper-toolbar id="drawerToolbar">
-          <img src="https://pbs.twimg.com/profile_images/1583052634/logo_gsi_400x400.png" style="height: 50px">
+          <img src="http://demos.gsi.dit.upm.es/ftt/img/logo_gsi.png" style="height: 50px">
         </paper-toolbar>
 
         <!-- Drawer Content -->
@@ -100,9 +100,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>Dashboard Tourpedia</span>
           </a>
 
-          <a data-route="editor" href="/editor">
-            <iron-icon icon="cloud-download"></iron-icon>
-            <span>Sparql Editor</span>
+          <a data-route="dashslovakia" href="/dashslovakia">
+            <iron-icon icon="social:public"></iron-icon>
+            <span>Dashboard Slovakia</span>
           </a>
         </paper-menu>
       </paper-scroll-header-panel>
@@ -120,7 +120,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <!-- Application name -->
           <div class="middle middle-container center horizontal layout">
-            <div class="app-name">Mixed Emotions</div>
+            <div class="app-name"><b>Sefarad </b><small>3.0</small></div>
           </div>
 
           <!-- Application sub title -->
@@ -175,11 +175,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <dashboard-tourpedia></dashboard-tourpedia>
             </section>
 
-            <section data-route="editor">
-          		<paper-material elevation="1">
-          	    <h2 class="paper-font-display2">Sparql Editor</h2>
-          			<yasgui-ui></yasgui-ui>
-          		</paper-material>		
+            <section data-route="dashslovakia">
+              <dashboard-slovakia></dashboard-slovakia>
             </section>
 
           </iron-pages>

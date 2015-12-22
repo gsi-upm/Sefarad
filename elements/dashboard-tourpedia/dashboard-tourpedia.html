@@ -2,11 +2,25 @@
 <link rel="import" href="../../bower_components/material-search/material-search.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/google-chart-elk/google-chart.html">
-
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/yasgui/yasgui.html">
+<link rel="import" href="../../bower_components/reviews-table/reviews-table.html">
+<link rel="import" href="../../bower_components/number-chart/number-chart.html">
+<link rel="import" href="../../bower_components/leaflet-map/leaflet-map.html">
 
 <dom-module id="dashboard-tourpedia">
 
+  <style is="custom-style">
+    @import url("../../styles/app-theme.html");
+  </style>
   <style>
+
+    :root {
+      --paper-tab-ink: var(--accent-color);
+
+      --paper-tabs-selection-bar-color: var(--accent-color);
+    } 
+
     paper-material{
       background: white;
     }
@@ -20,97 +34,312 @@
       margin-bottom: 20px; 
     }
 
+    /* Tablet+ */
+    @media (min-width: 601px) {
+      paper-tabs, paper-toolbar {
+        margin-top: -48px;
+        margin-bottom: 48px;
+        margin-left: -62px;
+        margin-right: -62px;
+      }
+    }
+
+    paper-tabs, paper-toolbar {
+      background-color: var(--default-primary-color); 
+      color: #fff;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    paper-tabs[noink][no-bar] paper-tab.iron-selected {
+      color: var(--accent-color);
+    }
+      #content, .announcement {
+        max-width: 790px;
+        background-color: #FFF;
+        padding: 1em;
+        margin: 0 auto;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+      }
+      
+      .announcement {
+        margin: 1em auto;
+        border: 2px solid #0A0;
+      }
+      
+      h2 {
+        font-size: 1.8em;
+        margin: 1.5em 0 0.5em -2px;
+        font-weight: bold;
+        padding: .2em .5em;
+        background: #edeeef;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        color: #fff;
+        background-color: #b0de5c;
+        background-image: -moz-linear-gradient(top, #b0de5c, #82cb00);
+        background-image: -o-linear-gradient(top, #b0de5c, #82cb00);
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#b0de5c), to(#82cb00));
+        background-image: -webkit-linear-gradient(top, #b0de5c, #82cb00);
+        background-image: linear-gradient(top, #b0de5c, #82cb00);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#b0de5c', EndColorStr='#82cb00');
+        border-radius: 5px;
+        text-shadow: 0 -1px 1px rgba(0,0,0,0.35);
+        box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+      }
+      .nav {
+        color: #000;
+        text-decoration: none;
+        border-bottom: 1px dashed #000;
+        display: inline-block;
+        padding: 3px;
+      }
+      .nav:hover {
+        background-color: #DDF;
+      }
+      
+      leaflet-map,
+      geolocation-sample {
+        max-width: 100%;
+        height: 30em;
+        border: 1px solid #aaa;
+      }
+      geolocation-sample {
+        height: 21em;
+      }
+      pre {
+        font-size: large;
+        padding: 0.5em 1em;
+        background-color: #DDD;
+        clear: all;
+      }
+      .i {
+        color: #00D
+      }
+      .a {
+        color: #008;
+      }
+      .v {
+        color: #800;
+      }
+      .c {
+        color: #080;
+      }
+
   </style>
 
   <template>
-    <material-search search-value="{{query}}"></material-search>
-    <br>
-    <div style="width: 100%; display: inline-block">
-      <div class="chart_container" style="left: 0; float: left">
-        <google-chart
-          query="{{query}}"
-          index="tourpedia"
-          subindex="places"
-          field="category"
-          fields='["category", "location"]'
-          host='localhost:9200'
-          id='pie-chart3'
-          extra-id='pie-chart3'
-          type='pie'
-          filters="{{filters}}"
-          icon='room'
-          param="{{param}}"
-          options='{"title": "Different types of places"}'
-          cols='[{"label": "Sentiment", "type": "string"},{"label": "Count", "type": "number"}]'
-          rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
-        </google-chart>
+    <iron-ajax auto
+        url="queries.json"
+        handle-as="json"
+        last-response="{{queries}}"></iron-ajax>
+    <paper-tabs selected="{{selected}}">
+      <paper-tab>Dashboard</paper-tab>
+      <paper-tab>Sparql Editor</paper-tab>
+    </paper-tabs>
+
+    <iron-pages selected="{{selected}}">
+      <div>
+        <material-search search-value="{{query}}"></material-search>
+        <br>
+        <div style="width: 100%; display: inline-block">
+          <div style="width: 23%; margin-right: 2.6%; float: left">
+            <number-chart 
+              index="tourpedia"
+              subindex="places"
+              fields='["category"]'
+              query="{{query}}"
+              icon="info"
+              filters="{{filters}}"
+              stylebg="bg-red">
+            </number-chart>
+          </div>
+          <div style="width: 23%; margin-right: 2.6%; float: left">
+            <number-chart 
+              index="tourpedia"
+              subindex="places"
+              fields='["category"]'
+              query="{{query}}"
+              is-aggregated
+              field="category"
+              object="restaurant"
+              title="Restaurants"
+              filters="{{filters}}"
+              icon="maps:local-dining"
+              stylebg="bg-yellow">
+            </number-chart>
+          </div>
+          <div style="width: 23%; margin-right: 2.6%; float: left">
+            <number-chart 
+              index="tourpedia"
+              subindex="places"
+              fields='["category"]'
+              query="{{query}}"
+              is-aggregated
+              field="category"
+              object="poi"
+              title="POIs"
+              filters="{{filters}}"
+              icon="social:whatshot"
+              stylebg="bg-green">
+            </number-chart>
+          </div>
+          <div style="width: 23%; float: left">
+            <number-chart 
+              index="tourpedia"
+              subindex="places"
+              fields='["category"]'
+              query="{{query}}"
+              icon="maps:hotel"
+              is-aggregated
+              field="category"
+              filters="{{filters}}"
+              title="Accommodations"
+              object="accommodation"
+              stylebg="bg-aqua">
+            </number-chart>
+          </div>
+        </div>
+        <div style="width: 100%; display: inline-block">
+          <div class="chart_container" style="left: 0; float: left">
+            <google-chart
+              query="{{query}}"
+              index="tourpedia"
+              subindex="places"
+              field="category"
+              fields='["category", "location"]'
+              host='localhost:9200'
+              id='pie-chart3'
+              extra-id='pie-chart3'
+              type='pie'
+              filters="{{filters}}"
+              icon='room'
+              param="{{param}}"
+              options='{"title": "Different types of places"}'
+              cols='[{"label": "Sentiment", "type": "string"},{"label": "Count", "type": "number"}]'
+              rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
+            </google-chart>
+          </div>
+          <div class="chart_container" style="right: 0; float: right">
+            <google-chart
+              query="{{query}}"
+              index="tourpedia"
+              subindex="places"
+              field="location"
+              fields='["category", "location"]'
+              host='localhost:9200'
+              id='pie-chart4'
+              extra-id='pie-chart4'
+              type='pie'
+              filters="{{filters}}"
+              icon='maps:my-location'
+              param='{{param}}'
+              options='{"title": "Places at different cities"}'
+              cols='[{"label": "Place", "type": "string"},{"label": "Count", "type": "number"}]'
+              rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
+            </google-chart>
+          </div>
+        </div>
+        <div style="width: 100%">
+          <div class="chart_container" style="left: 0; float: left">
+           <google-chart
+              query="{{query}}"
+              index="tourpedia"
+              subindex="places"
+              field="numReviews"
+              fields='["category", "location"]'
+              host='localhost:9200'
+              id='column-chart1'
+              extra-id='column-chart1'
+              type='column'
+              filters="{{filters}}"
+              icon='maps:rate-review'
+              param='{{param}}'
+              optionsbi='{"legend": "none"}'
+              options='{"title": "Count of number of reviews"}'
+              cols='[{"label": "Reviews", "type": "number"},{"label": "Count", "type": "number"}]'
+              rows='[ [0, 31],[1, 28],[2, 31],[3, 30],[4, 30],[5, 31],[6, 30] ]'>
+            </google-chart>
+          </div>
+          <div class="chart_container" style="right: 0; float: right">
+            <google-chart
+              query="{{query}}"
+              index="tourpedia"
+              subindex="places"
+              field="polarity"
+              fields='["category", "location"]'
+              host='localhost:9200'
+              id='bar-chart3'
+              extra-id='bar-chart3'
+              type='bar'
+              filters="{{filters}}"
+              icon='maps:local-play'
+              param='{{param}}'
+              optionsbi='{"legend": "none"}'
+              options='{"title": "Count of different polarities"}'
+              cols='[{"label": "Polarity", "type": "number"},{"label": "Count", "type": "number"}]'
+              rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
+            </google-chart>
+          </div>
+            <div style="clear: both"></div>
+        </div>
+        <div style="width: 100%">
+          <div class="chart_container" style="left: 0; float: left">
+            <reviews-table 
+                index="tourpedia"
+                subindex="places"
+                query="{{query}}"
+                fields='["category", "location"]'
+                icon='social:people'>
+            </reviews-table>
+          </div>
+          <div class="chart_container" style="right: 0; float: right"> 
+            <paper-button id="buttonMap" on-click="openMap">See on a map</paper-button>
+            <template is="dom-if" if="{{bool}}">
+            <leaflet-map fit-to-markers>      
+              <template is="dom-repeat" items="{{places}}" as="place">      
+                <leaflet-marker latitude="{{place.lat}}" longitude="{{place.long}}" title="{{place.name}}"> 
+                    <b>Name:</b>
+                    <span>{{place.name}}</span>
+                </leaflet-marker>
+              </template>
+            </leaflet-map>
+            </template>
+          </div>
+          <div style="clear: both"></div>
+        </div>
       </div>
-      <div class="chart_container" style="right: 0; float: right">
-        <google-chart
-          query="{{query}}"
-          index="tourpedia"
-          subindex="places"
-          field="location"
-          fields='["category", "location"]'
-          host='localhost:9200'
-          id='pie-chart4'
-          extra-id='pie-chart4'
-          type='pie'
-          filters="{{filters}}"
-          icon='maps:my-location'
-          param='{{param}}'
-          options='{"title": "Places at different cities"}'
-          cols='[{"label": "Place", "type": "string"},{"label": "Count", "type": "number"}]'
-          rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
-        </google-chart>
+      <div>
+        <yasgui-ui
+            endpoint="http://localhost/tourpedia/sparql"
+            queries="{{queries}}">
+        </yasgui-ui>
       </div>
-    </div>
-    <div style="width: 100%">
-      <div class="chart_container" style="left: 0; float: left">
-       <google-chart
-          query="{{query}}"
-          index="tourpedia"
-          subindex="places"
-          field="numReviews"
-          fields='["category", "location"]'
-          host='localhost:9200'
-          id='column-chart1'
-          extra-id='column-chart1'
-          type='column'
-          filters="{{filters}}"
-          icon='maps:rate-review'
-          param='{{param}}'
-          optionsbi='{"legend": "none"}'
-          options='{"title": "Count of number of reviews"}'
-          cols='[{"label": "Reviews", "type": "number"},{"label": "Count", "type": "number"}]'
-          rows='[ [0, 31],[1, 28],[2, 31],[3, 30],[4, 30],[5, 31],[6, 30] ]'>
-        </google-chart>
-      </div>
-      <div class="chart_container" style="right: 0; float: right">
-        <google-chart
-          query="{{query}}"
-          index="tourpedia"
-          subindex="places"
-          field="polarity"
-          fields='["category", "location"]'
-          host='localhost:9200'
-          id='bar-chart3'
-          extra-id='bar-chart3'
-          type='bar'
-          filters="{{filters}}"
-          icon='maps:local-play'
-          param='{{param}}'
-          optionsbi='{"legend": "none"}'
-          options='{"title": "Count of different polarities"}'
-          cols='[{"label": "Polarity", "type": "number"},{"label": "Count", "type": "number"}]'
-          rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
-        </google-chart>
-      </div>
+    </iron-pages>
   </template>
 
   <script>
     Polymer({
-      is: 'dashboard-tourpedia'
+      is: 'dashboard-tourpedia',
+      properties: {
+        selected: {
+          type: Number,
+          value: 0
+        }, 
+        places: {
+          type: Array,
+          notify: true,
+          value: [{'lat':41.908899,'long':12.479041,'name':'Edy'},{'lat':41.90059,'long':12.474898,'name':'Margherita'},
+          {'lat':52.357974741256,'long':4.9006604030728,'name':'Ibis styles Amsterdam City'},{'lat':52.352212775572,'long':4.8916602507234,'name':'EasyHotel Amsterda'},{'lat':52.547617,'long':13.353173,'name':'Hotel Arcos Appartement House'},{'lat':52.532396478847,'long':13.380556404591,'name':'Baxpax Mitte Hostel'},{'lat':41.386084311622,'long':2.1677023172379,'name':'St Christopher\'s Inn'},{'lat':41.38985943707,'long':2.1471921354532,'name':'Sunotel Junior'},{'lat':48.827534,'long':2.370932,'name':'Boulangerie de Tolbiac'},{'lat':48.822176,'long':2.361568,'name':'Long Hoa'}]
+        },
+        bool: {
+          type: Boolean,
+          value: false
+        }
+      },
+      openMap: function() {
+        this.bool = true
+        this.$.buttonMap.style.display = "none"
+      }
     });
   </script>
 
