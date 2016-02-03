@@ -16,11 +16,19 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
         url="{{getIdURL(id)}}"
         handle-as="json"
         last-response="{{reviews}}"></iron-ajax>
+      <iron-ajax auto 
+        url="{{getName(id)}}"
+        handle-as="json"
+        last-response="{{places}}"></iron-ajax>
       <template is="dom-repeat" items="{{reviews}}" as="review">
+        <template is="dom-if" if="{{isOpen()}}">
+          <div style="width: 100%; text-align: center;">Place Name: <span>{{getNameIndex(index)}}</span></div>
+          </br>
+        </template>
         <template is="dom-if" if="{{checkIndex(index)}}">
           <div style="display: inline-block; width: 100%">
             <div style="width: 10%; text-align: center; float: left"><img src={{checkSource(review.source)}} style="height: 20px"></div>
-            <div style="width: 80%; float: left">{{checkText(review.text)}}</div>
+            <div style="width: 80%; float: left; overflow: hidden">{{checkText(review.text)}}</div>
             <div style="width: 10%; text-align: center; float: right">{{checkRating(review.rating)}}<img src="https://cdn4.iconfinder.com/data/icons/pretty_office_3/256/Star-Full.png" style="height: 15px; margin-left: 5px" /></div>
             <div style="clear:both"></br></div>
           </div>
@@ -38,11 +46,27 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
           type: Array
         },
 
+        places: {
+          type: Array
+        },
+
         id: {
           type: String
+        },
+
+        isShowed: {
+          type: Boolean,
+          value: false
         }
       },
       ready: function() {
+      },
+      isOpen: function() {
+        if(!this.isShowed){
+          this.isShowed = true
+          return true
+        }
+        return false
       },
       checkSource: function(source) {
         if(source == "Foursquare")
@@ -69,6 +93,16 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
           return true
         else
           return false
+      },
+      getNameIndex: function(index) {
+        console.log(this.places)
+        if(this.places != undefined) 
+          return this.places.name
+        else 
+          return "Undefined"
+      },
+      getName: function(id) {
+        return "http://tour-pedia.org/api/getPlaceDetails?id=" + id
       },
       getIdURL: function(id) {
         return "http://tour-pedia.org/api/getReviewsByPlaceId?placeId=" + id

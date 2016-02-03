@@ -22,11 +22,6 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
   <link rel="import" type="css" href="reviews-table.css">
   <template>  
 
-            <paper-button id="buttonMap" on-click="change"> on a map</paper-button>
-          <template is="dom-repeat" items="[[getIds(ids.*)]]" as="id"> 
-            <span>{{id}}</span>
-          </template>
-
     <paper-material elevation="1">
       <div class="top-bar">
         <iron-icon icon="{{icon}}"></iron-icon>
@@ -35,7 +30,7 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
       <table class="table table-striped">
         <tr>
           <th style="width: 10%; text-align: center">Source</th>
-          <th style="width: 8%0; text-align: center">Opinion</th>
+          <th style="width: 80%; text-align: center">Opinion</th>
           <th style="width: 10%; text-align: center">Rating</th>
         </tr>
       </table>
@@ -55,6 +50,7 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
 
 <script>
 
+  var filtered = false;
   Polymer({
       is: 'reviews-table',
       properties: {
@@ -92,20 +88,20 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
         query: {
           type: String,
           observer: '_queryChanged'
+        },
+
+        filters: {
+          type: Array,
+          notify: true,
+          value: function() { return []; }
         }
       },
+    
+      observers: [
+      '_filtersChange(filters.*)'
+      ],
+
       ready: function() {
-      },
-      getIds: function(f) {
-        return f.base;
-      },
-      change: function() {
-        this.set('ids', this.ids.concat("142"))
-        console.log("hola")
-        this.ids.push('142')
-        this.ids.push('143')
-        this.ids.push('144')
-        this.ids.push('145')
       },
 
       checkSource: function(source) {
@@ -152,13 +148,18 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
         return "http://tour-pedia.org/api/getReviewsByPlaceId?placeId="+this.ids[index]
       },
 
-      _queryChanged: function(value) {
-      var client = new $.es.Client({
-        hosts: this.host
-      });
+      _queryChanged: function() {
+        this.query ? this.queryChange(this.query) : this.queryDefault();
+      },
 
-      var id = this.extraId;
-      client.search({
+      queryChange: function(value) {
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+
+        var id = this.extraId;
+        var doc = this;
+        client.search({
           // undocumented params are appended to the query string
           index: this.index,
           type: this.subindex,
@@ -172,15 +173,73 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
             }
           }
         }).then(function (resp) {
-          console.log(resp)
           var hits = resp.hits.hits;
-          var data = [];
+          doc.ids = [];
           hits.forEach(function(entry) {
-            data.push(entry._id);
+            doc.push('ids',entry._id)
           });
-          this.ids = data;
         });
       },
+
+      queryDefault: function() {
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+
+        var id = this.extraId;
+        var doc = this;
+        client.search({
+          // undocumented params are appended to the query string
+          index: this.index,
+          type: this.subindex,
+          body: {
+            size: 10,
+            query: {
+              match_all: {}
+            }
+          }
+        }).then(function (resp) {
+          var hits = resp.hits.hits;
+          doc.ids = [];
+          hits.forEach(function(entry) {
+            doc.push('ids',entry._id)
+          });
+        });
+      },
+
+      _filtersChange: function() {
+        if(filtered){
+          var client = new $.es.Client({
+            hosts: this.host
+          });
+
+          var id = this.extraId;
+          var doc = this;
+          client.search({
+            // undocumented params are appended to the query string
+            index: this.index,
+            type: this.subindex,
+            body: {
+              size: 10,
+              query: {
+                filtered: {
+                  filter: {
+                    bool: {
+                      must: this.filters,
+                    }
+                  }
+                }
+              }
+            }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            doc.ids = [];
+            hits.forEach(function(entry) {
+              doc.push('ids',entry._id)
+            });
+          });
+        }
+      }
     }); 
 </script>
 </dom-module>
