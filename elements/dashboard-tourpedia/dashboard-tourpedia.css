@@ -1,0 +1,109 @@
+:root {
+      --paper-tab-ink: var(--accent-color);
+
+      --paper-tabs-selection-bar-color: var(--accent-color);
+    } 
+
+    paper-material{
+      background: white;
+    }
+
+    google-chart {
+      margin: 0 auto;
+    }
+
+    .chart_container {
+      width: 49%;
+      margin-bottom: 20px; 
+    }
+
+    /* Tablet+ */
+    @media (min-width: 601px) {
+      paper-tabs, paper-toolbar {
+        margin-top: -48px;
+        margin-bottom: 48px;
+        margin-left: -62px;
+        margin-right: -62px;
+      }
+    }
+
+    paper-tabs, paper-toolbar {
+      background-color: var(--default-primary-color); 
+      color: #fff;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    paper-tabs[noink][no-bar] paper-tab.iron-selected {
+      color: var(--accent-color);
+    }
+      #content, .announcement {
+        max-width: 790px;
+        background-color: #FFF;
+        padding: 1em;
+        margin: 0 auto;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+      }
+      
+      .announcement {
+        margin: 1em auto;
+        border: 2px solid #0A0;
+      }
+      
+      h2 {
+        font-size: 1.8em;
+        margin: 1.5em 0 0.5em -2px;
+        font-weight: bold;
+        padding: .2em .5em;
+        background: #edeeef;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        color: #fff;
+        background-color: #b0de5c;
+        background-image: -moz-linear-gradient(top, #b0de5c, #82cb00);
+        background-image: -o-linear-gradient(top, #b0de5c, #82cb00);
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#b0de5c), to(#82cb00));
+        background-image: -webkit-linear-gradient(top, #b0de5c, #82cb00);
+        background-image: linear-gradient(top, #b0de5c, #82cb00);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#b0de5c', EndColorStr='#82cb00');
+        border-radius: 5px;
+        text-shadow: 0 -1px 1px rgba(0,0,0,0.35);
+        box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+      }
+      .nav {
+        color: #000;
+        text-decoration: none;
+        border-bottom: 1px dashed #000;
+        display: inline-block;
+        padding: 3px;
+      }
+      .nav:hover {
+        background-color: #DDF;
+      }
+      
+      leaflet-map,
+      geolocation-sample {
+        max-width: 100%;
+        height: 30em;
+        border: 1px solid #aaa;
+      }
+      geolocation-sample {
+        height: 21em;
+      }
+      pre {
+        font-size: large;
+        padding: 0.5em 1em;
+        background-color: #DDD;
+        clear: all;
+      }
+      .i {
+        color: #00D
+      }
+      .a {
+        color: #008;
+      }
+      .v {
+        color: #800;
+      }
+      .c {
+        color: #080;
+      }
