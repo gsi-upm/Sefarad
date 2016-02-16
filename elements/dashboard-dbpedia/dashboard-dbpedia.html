@@ -1,0 +1,191 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/material-search/material-search.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/google-chart-elk/google-chart.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/yasgui/yasgui.html">
+<link rel="import" href="../../bower_components/reviews-table/reviews-table.html">
+<link rel="import" href="../../bower_components/number-chart/number-chart.html">
+<link rel="import" href="../../bower_components/leaflet-map/leaflet-map.html">
+
+<dom-module id="dashboard-dbpedia">
+
+  <style is="custom-style">
+    @import url("../../styles/app-theme.html");
+  </style>
+  <link rel="import" type="css" href="dashboard-dbpedia.css">
+
+  <template>
+    <iron-ajax auto
+        url="queries.json"
+        handle-as="json"
+        last-response="{{queries}}"></iron-ajax>
+    <template is="dom-repeat" items="{{ids}}" as="id"> 
+      <iron-ajax auto 
+        url="{{getName(id)}}"
+        handle-as="json"
+        on-response="addPlace"></iron-ajax>
+    </template>
+
+      <div>
+        <yasgui-ui
+            endpoint="http://dbpedia.org/sparql"
+            queries="{{queries}}">
+        </yasgui-ui>
+      </div>
+  </template>
+
+  <script>
+  var filtered = false;
+    Polymer({
+      is: 'dashboard-dbpedia',
+      properties: {
+        selected: {
+          type: Number,
+          value: 0
+        }, 
+
+        ids:{
+          type: Array,
+          value: ["481","482","32512","32420","91963","96677","160677","131425","322429","322612"]
+        },
+
+        query: {
+          type: String,
+          observer: '_queryChanged'
+        },
+
+        fields: {
+          type: Array,
+          value: function() { return []; }
+        },
+
+        places: {
+          type: Array,
+          notify: true,
+          value: []
+        },
+
+        filters: {
+          type: Array,
+          notify: true,
+          value: function() { return []; }
+        }
+      },
+    
+      observers: [
+      '_filtersChange(filters.*)'
+      ],
+      
+      addPlace: function(event) {
+        this.set('places', this.places.concat(event.detail.response))
+      },
+      
+      getName: function(id) {
+        return "http://tour-pedia.org/api/getPlaceDetails?id=" + id
+      },
+      
+      getPoints: function(f) {
+        return f.base;
+      },
+
+      _queryChanged: function() {
+        this.query ? this.queryChange(this.query) : this.queryDefault();
+      },
+
+      queryChange: function(value) {
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+
+        var id = this.extraId;
+        var doc = this;
+        client.search({
+          // undocumented params are appended to the query string
+          index: "tourpedia",
+          type: "places",
+          body: {
+            size: 10,
+            query: {
+              multi_match:{
+                query: this.query,
+                fields: ["category", "location"]
+              }
+            }
+          }
+        }).then(function (resp) {
+          var hits = resp.hits.hits;
+          doc.ids = [];
+          doc.places = [];
+          hits.forEach(function(entry) {
+            doc.push('ids',entry._id)
+          });
+        });
+      },
+
+      queryDefault: function() {
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+
+        var id = this.extraId;
+        var doc = this;
+        client.search({
+          // undocumented params are appended to the query string
+          index: "tourpedia",
+          type: "places",
+          body: {
+            size: 10,
+            query: {
+              match_all: {}
+            }
+          }
+        }).then(function (resp) {
+          var hits = resp.hits.hits;
+          doc.ids = [];
+          doc.places = [];
+          hits.forEach(function(entry) {
+            doc.push('ids',entry._id)
+          });
+          filtered = true;
+        });
+      },
+
+      _filtersChange: function() {
+        if(filtered){
+          var client = new $.es.Client({
+            hosts: this.host
+          });
+
+          var id = this.extraId;
+          var doc = this;
+          client.search({
+            // undocumented params are appended to the query string
+            index: this.index,
+            type: this.subindex,
+            body: {
+              size: 10,
+              query: {
+                filtered: {
+                  filter: {
+                    bool: {
+                      must: this.filters,
+                    }
+                  }
+                }
+              }
+            }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            doc.ids = [];
+            doc.places = [];
+            hits.forEach(function(entry) {
+              doc.push('ids',entry._id)
+            });
+          });
+        }
+      }
+    });
+  </script>
+
+</dom-module>

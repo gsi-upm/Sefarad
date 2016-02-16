@@ -54,7 +54,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
   paper-scroll-header-panel {
-    height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+
+    --paper-scroll-header-panel-full-header: {
+      background-image: url(/images/top-photo.jpg);
+    };
+    
+    /* background for toolbar when it is condensed */
+    --paper-scroll-header-panel-condensed-header: {
+      background-color: var(--default-primary-color);
+    };
   }
 
   paper-material {
@@ -95,6 +109,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     line-height: 24px;
     min-height: 48px;
     padding: 0 16px;
+  }
+  
+  #mainToolbar {
+      /* custom toolbar height */
+      height: 190px;
+      background-color: transparent;
+      overflow: visible;
   }
 
   paper-toolbar.tall .app-name {

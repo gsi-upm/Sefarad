@@ -1,0 +1,288 @@
+:host {
+      display: block;
+    }
+
+    .title {
+      color: #555;
+      font-weight: bold;
+      font-size: 42px
+    }
+
+    .small {
+      color: #999;
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      h1.paper-font-display1 {
+        font-size: 24px;
+      }
+    }
+    .cd-fixed-bg.cd-bg-1 {
+      background-image: url(/images/wallpaper.jpg);
+      background-size: cover;
+      height: 550px;
+      padding: 50px;
+      margin-top: -48px;
+      margin-left: -62px;
+      margin-right: -62px;
+      color: white;
+      text-align: center;
+    }
+
+    .cd-fixed-bg {
+      min-height: 100%;
+      background-size: cover;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+
+    .title-blue {
+      font-size: 70px;
+      font-weight: bold;
+      margin-top: 100px;
+    }
+
+    .content {
+      height:600px;
+      width: 100%;
+      text-align: center
+    }
+
+    .circletag1 {
+      height: 100px;
+      width: 100px;
+      background-image: url(/images/dashboard.png);
+      background-size: cover;
+      border-radius: 70px;
+      margin: 2px auto;
+      z-index: 0
+    }
+
+    .circletag2 {
+      height: 100px;
+      width: 100px;
+      background-image: url(/images/chart.png);
+      background-size: cover;
+      border-radius: 70px;
+      margin: 2px auto;
+      z-index: 0
+    }
+
+    .circletag3 {
+      height: 100px;
+      width: 100px;
+      background-image: url(/images/map.png);
+      background-size: cover;
+      border-radius: 70px;
+      margin: 2px auto;
+      z-index: 0
+    }
+
+    .circletag4 {
+      height: 100px;
+      width: 100px;
+      background-image: url(/images/speed.jpeg);
+      background-size: cover;
+      border-radius: 70px;
+      margin: 2px auto;
+      z-index: 0
+    }
+
+    .ring {
+      width: 120px;
+      height: 120px;
+      -moz-border-radius: 100%;
+      -webkit-border-radius: 100%;
+      border-radius: 100%;
+      background: transparent;
+      border: 8px solid #ccc;
+      z-index: 0;
+      margin: 0 auto;
+    }
+
+    .ring-blue:hover {
+      border: 8px solid #2196F3;
+    }
+
+    .ring-teal:hover {
+      border: 8px solid #009688;
+    }
+
+    .ring-ambar:hover {
+      border: 8px solid #FFA000;
+    }
+
+    .ring-grey:hover {
+      border: 8px solid #607D8B;
+    }
+
+    h5 {
+      margin-top: 15px;
+      margin-bottom: 15px;
+      color: #404040;
+      position: relative;
+      display: inline-block;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      font-weight: bold;
+      font-size: 17px;
+      float: none;
+      width: auto;
+      background: none;
+    }
+
+    .blue-border-bottom:before {
+      position: absolute;
+      margin: auto;
+      z-index: 1;
+      content: "";
+      width: 75%;
+      height: 2px;
+      background: #2196F3;
+      bottom: -9px;
+      left: 12.5%;
+    }
+
+    .teal-border-bottom:before {
+      position: absolute;
+      margin: auto;
+      z-index: 1;
+      content: "";
+      width: 75%;
+      height: 2px;
+      background: #009688;
+      bottom: -9px;
+      left: 12.5%;
+    }
+
+    .ambar-border-bottom:before {
+      position: absolute;
+      margin: auto;
+      z-index: 1;
+      content: "";
+      width: 75%;
+      height: 2px;
+      background: #FFA000;
+      bottom: -9px;
+      left: 12.5%;
+    }
+
+    .grey-border-bottom:before {
+      position: absolute;
+      margin: auto;
+      z-index: 1;
+      content: "";
+      width: 75%;
+      height: 2px;
+      background: #607D8B;
+      bottom: -9px;
+      left: 12.5%;
+    }
+
+    .element {
+      width: 18%;
+      margin-left: 3%;
+      margin-right: 3%;
+      display: inline-block;
+    }
+
+    .row{
+      margin-top: 40px;
+    }
+
+    .button-span {
+      background-color: rgba(0, 0, 0, .5);;
+      width: 140px;
+      height: 45px;
+      border-radius: 4px;
+      border-color: white;
+      color: white;
+      margin: 10px;
+    }
+
+    .button-span:hover {
+      background-color: #00BCD4;
+      -webkit-transition: background-color 500ms linear;
+      -moz-transition: background-color 500ms linear;
+      -o-transition: background-color 500ms linear;
+      -ms-transition: background-color 500ms linear;
+      transition: background-color 500ms linear;
+    }
+
+    a {
+      font-weight: bold;
+    }
+
+    a:link {
+      text-decoration: none;
+      color: white;
+    }
+
+    a:hover {
+      text-decoration: none;
+      color: white;
+    }
+
+    a:visited {
+      text-decoration: none;
+      color: white;
+    }
+
+    .g-bg-slate-grey {
+      background-color: #36474F;
+    }
+
+    .bucket {
+      color: white;
+      margin: 0;
+      max-width: 1440px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      position: relative;
+      z-index: 10;
+    }
+
+    .bucket.-icon-headline {
+      padding-left: 32px;
+      padding-right: 32px;
+      padding-top: 31px;
+    }
+
+    .bucket.-no-bottom {
+      margin-bottom: -48px;
+      margin-left: -62px;
+      margin-right: -62px;
+    }
+
+    .footer {
+      padding: 32px 0;
+      background-color: white;
+    }
+
+    .copyright {
+      float: right;
+      margin: 0 30px 0 20px;
+      font-size: 13px;
+      color: #595959;
+    }
+
+    .little-text {
+      float: left; 
+      padding-left: 56px; 
+      margin-bottom: 40px;
+      color: #90A4AE; 
+    }
+
+    .git {
+      float: right;  
+      font-size: 14px; 
+      padding-right: 46px
+    }
+
+    .gsi-title {
+      float: left; 
+      padding-left: 56px;
+    }
