@@ -20,6 +20,10 @@
         url="queries.json"
         handle-as="json"
         last-response="{{queries}}"></iron-ajax>
+    <iron-ajax auto
+        url="/endpoint.json"
+        handle-as="json"
+        last-response="{{endpoint}}"></iron-ajax>
     <template is="dom-repeat" items="{{ids}}" as="id"> 
       <iron-ajax auto 
         url="{{getName(id)}}"
@@ -102,7 +106,7 @@
               subindex="places"
               field="category"
               fields='["category", "location"]'
-              host='localhost:9200'
+              host='{{endpoint}}'
               id='pie-chart3'
               extra-id='pie-chart3'
               type='pie'
@@ -121,7 +125,7 @@
               subindex="places"
               field="location"
               fields='["category", "location"]'
-              host='localhost:9200'
+              host='{{endpoint}}'
               id='pie-chart4'
               extra-id='pie-chart4'
               type='pie'
@@ -142,7 +146,7 @@
               subindex="places"
               field="numReviews"
               fields='["category", "location"]'
-              host='localhost:9200'
+              host='{{endpoint}}'
               id='column-chart1'
               extra-id='column-chart1'
               type='column'
@@ -162,7 +166,7 @@
               subindex="places"
               field="polarity"
               fields='["category", "location"]'
-              host='localhost:9200'
+              host='{{endpoint}}'
               id='bar-chart3'
               extra-id='bar-chart3'
               type='bar'
@@ -203,7 +207,7 @@
       </div>
       <div>
         <yasgui-ui
-            endpoint="http://localhost/tourpedia/sparql"
+            endpoint="http://lab.gsi.dit.upm.es:5050/tourpedia/sparql"
             queries="{{queries}}">
         </yasgui-ui>
       </div>
