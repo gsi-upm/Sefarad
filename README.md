@@ -1,0 +1,18 @@
+![GSI Logo](http://www.gsi.dit.upm.es/templates/jgsi/images/logo.png)
+![Sefarad Logo](./images/logo3.png)
+==================================
+
+##Introduction
+Sefarad is an application developed to explore data by making SPARQL queries to the endpoint you choose without writing more code. You can also create your own cores if you have a big collection of data ([LMF](https://code.google.com/p/lmf/) required). To view your data you can customize your own widgets and visualize it through them.
+
+##Getting Started 
+If you want to easy try Sefarad, just download this repository (cloning it to your computer or downloading it as a .zip) and open the main folder `sefarad-3.0/` in the bash console and run a simple server such as the python one `python -m SimpleHTTPServer <port>` and open the web browser with `localhost:<port>` in the url field and explore data.
+
+To serve data for analysing, we use ElasticSearch and recover data using API REST petitions, injecting those data in widgets based on Web Components (Polymer) Technologies.
+
+##Polymer - Web Components Technology
+![Polymer logo](http://carlosortiz.co.uk/wp-content/uploads/2015/09/polymer-logo.jpg)
+ 
+Polymer is a technology based on web components, so we could make a new component with diferent estructures of html, styles with css, and give some dinamic functions using Javascript.
+
+Those components will be reusable only importing the tag `<component-tag></component-tag>` and they could share information using data binding among them.
