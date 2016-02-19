@@ -1,0 +1,143 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/material-search/material-search.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/google-chart-elk/google-chart.html">
+
+
+<dom-module id="dashboard-ftt">
+
+  <style>
+    paper-material{
+      background: white;
+    }
+
+    google-chart {
+      margin: 0 auto;
+    }
+
+    .chart_container {
+      width: 49%;
+      margin-bottom: 20px; 
+    }
+
+  </style>
+
+  <template>
+    <iron-ajax auto
+        url="/endpoint.json"
+        handle-as="json"
+        last-response="{{endpoint}}"></iron-ajax>
+    <material-search search-value="{{query}}"></material-search>
+    <br>
+    <div style="width: 100%; display: inline-block">
+      <div class="chart_container" style="left: 0; float: left">
+        <google-chart
+          query="{{query}}"
+          index="sentiment"
+          subindex="tweet"
+          field="sentiment"
+          fields='["time_zone","place.name","sentiment"]'
+          host='{{endpoint}}'
+          id='pie-chart1'
+          extra-id='pie-chart1'
+          type='pie'
+          filters="{{filters}}"
+          icon='face'
+          param="{{param}}"
+          options='{"title": "Count of tweets with different sentiments"}'
+          cols='[{"label": "Sentiment", "type": "string"},{"label": "Count", "type": "number"}]'
+          rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
+        </google-chart>
+      </div>
+      <div class="chart_container" style="right: 0; float: right">
+        <google-chart
+          query="{{query}}"
+          index="sentiment"
+          subindex="tweet"
+          field="place.name"
+          fields='["time_zone","place.name","sentiment"]'
+          host='{{endpoint}}'
+          id='pie-chart2'
+          extra-id='pie-chart2'
+          type='pie'
+          filters="{{filters}}"
+          icon='offline-pin'
+          param='{{param}}'
+          options='{"title": "Count of tweets at different places"}'
+          cols='[{"label": "Place", "type": "string"},{"label": "Count", "type": "number"}]'
+          rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
+        </google-chart>
+      </div>
+    </div>
+    <div style="width: 100%">
+      <div class="chart_container" style="left: 0; float: left">
+       <google-chart
+          query="{{query}}"
+          index="sentiment"
+          subindex="tweet"
+          field="retweet_count"
+          fields='["time_zone","place.name","sentiment"]'
+          host='{{endpoint}}'
+          id='bar-chart1'
+          extra-id='bar-chart1'
+          type='bar'
+          filters="{{filters}}"
+          icon='refresh'
+          param='{{param}}'
+          optionsbi='{"legend": "none"}'
+          options='{"title": "Count of tweets with certain RTs"}'
+          cols='[{"label": "Retweets", "type": "number"},{"label": "Tweets", "type": "number"}]'
+          rows='[ [0, 31],[1, 28],[2, 31],[3, 30],[4, 30],[5, 31],[6, 30] ]'>
+        </google-chart>
+      </div>
+      <div class="chart_container" style="right: 0; float: right">
+        <google-chart
+          query="{{query}}"
+          index="sentiment"
+          subindex="tweet"
+          field="time_zone"
+          fields='["time_zone","place.name","sentiment"]'
+          host='{{endpoint}}'
+          id='bar-chart2'
+          extra-id='bar-chart2'
+          type='bar'
+          filters="{{filters}}"
+          icon='flag'
+          param='{{param}}'
+          optionsbi='{"legend": "none"}'
+          options='{"title": "Count of tweets in different time zones"}'
+          cols='[{"label": "Time Zone", "type": "string"},{"label": "Tweets", "type": "number"}]'
+          rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
+        </google-chart>
+      </div>
+      <div style="width: 100%">
+        <div class="chart_container" style="left: 0; float: left">
+          <google-chart
+            query="{{query}}"
+            index="sentiment"
+            subindex="tweet"
+            field="entities.hashtags.text"
+            fields='["time_zone","place.name","sentiment"]'
+            host='{{endpoint}}'
+            id='table-chart1'
+            extra-id='table-chart1'
+            type='table'
+            filters="{{filters}}"
+            icon='search'
+            param='{{param}}'
+            options='{"title": "Count of tweets with certain RTs"}'
+            optionsbi='{"width": 100;}'
+            cols='[{"label": "Retweets", "type": "string"},{"label": "Tweets", "type": "number"}]'
+            rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
+          </google-chart>
+        </div>
+      </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'dashboard-ftt'
+    });
+  </script>
+
+</dom-module>
