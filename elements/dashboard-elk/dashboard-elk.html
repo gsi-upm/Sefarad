@@ -22,6 +22,10 @@
   </style>
 
   <template>
+    <iron-ajax auto
+        url="/endpoint.json"
+        handle-as="json"
+        last-response="{{endpoint}}"></iron-ajax>
     <material-search search-value="{{query}}"></material-search>
     <br>
     <div style="width: 100%; display: inline-block">
@@ -32,7 +36,7 @@
           subindex="tweet"
           field="sentiment"
           fields='["time_zone","place.name","sentiment"]'
-          host='localhost:9200'
+          host='{{endpoint}}'
           id='pie-chart1'
           extra-id='pie-chart1'
           type='pie'
@@ -50,7 +54,7 @@
           subindex="tweet"
           field="place.name"
           fields='["time_zone","place.name","sentiment"]'
-          host='localhost:9200'
+          host='{{endpoint}}'
           id='pie-chart2'
           extra-id='pie-chart2'
           type='pie'
@@ -70,7 +74,7 @@
           subindex="tweet"
           field="retweet_count"
           fields='["time_zone","place.name","sentiment"]'
-          host='localhost:9200'
+          host='{{endpoint}}'
           id='bar-chart1'
           extra-id='bar-chart1'
           type='bar'
@@ -88,7 +92,7 @@
           subindex="tweet"
           field="time_zone"
           fields='["time_zone","place.name","sentiment"]'
-          host='localhost:9200'
+          host='{{endpoint}}'
           id='bar-chart2'
           extra-id='bar-chart2'
           type='bar'
@@ -107,7 +111,7 @@
             subindex="tweet"
             field="entities.hashtags.text"
             fields='["time_zone","place.name","sentiment"]'
-            host='localhost:9200'
+            host='{{endpoint}}'
             id='table-chart1'
             extra-id='table-chart1'
             type='table'
