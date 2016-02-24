@@ -16,3 +16,13 @@ To serve data for analysing, we use ElasticSearch and recover data using API RES
 Polymer is a technology based on web components, so we could make a new component with diferent estructures of html, styles with css, and give some dinamic functions using Javascript.
 
 Those components will be reusable only importing the tag `<component-tag></component-tag>` and they could share information using data binding among them.
+
+
+##Deploying in Dokku
+
+To deploy in dokku, there are two parts:
+
+      1 - Elasticsearch-docker
+      2 - Sefarad 3.0
+For the first one, the only thing we have to do is deploy the service directly in dokku.
+For the second one, as sefarad is build on JavaScript, it can't access to elasticsearch without making a proxy, for that reason it needs to lauch a Apache service and you have to make a proxy inside it listening the URL of JavaScript and redirecting to Elasticsearch. 
