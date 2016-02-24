@@ -1,0 +1,3 @@
+[submodule "elasticsearch/elasticsearch-docker"]
+	path = elasticsearch/elasticsearch-docker
+	url = git@github.com:enriquecs/elasticsearch-docker.git
