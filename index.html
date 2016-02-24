@@ -40,6 +40,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta name="apple-mobile-web-app-title" content="Polymer Starter Kit">
   <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
 
+  <!-- D3.js for drawing charts -->
+  <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+  <script type="text/javascript" src="https://raw.githubusercontent.com/gsi-upm/financial-twitter-tracker/master/sefarad/src/js/widgets/d3/widgetChernoff.js"></script>
+
   <!-- Tile icon for Win8 (144x144) -->
   <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
 
@@ -56,6 +60,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
   <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <script type="text/javascript" src="http://www.larsko.org/v/d3.min.js"></script>
+  <script type="text/javascript" src="http://www.larsko.org/v/hpi/chernoff.js"></script>
   <!-- endbuild -->
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
@@ -105,10 +111,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>Dashboard Tourpedia</span>
           </a>
 
-          <!--<a data-route="dashftt" href="/dashftt">
+          <a data-route="dashftt" href="/dashftt">
             <iron-icon icon="face"></iron-icon>
             <span>Dashboard FTT</span>
-          </a>-->
+          </a>
 
           <!--<a data-route="dashslovakia" href="/dashslovakia">
             <iron-icon icon="social:public"></iron-icon>

@@ -31415,7 +31415,7 @@ function Client(config) {
     }
 
     if (!config.hosts && !config.host) {
-      config.host = 'http://sefarad-3-elasticsearch.demos.gsi.dit.upm.es';
+      config.host = 'http://localhost:9200';
     }
 
     this.close = function () {
