@@ -1,0 +1,144 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+<dom-module id="entities-chart">
+
+<style is="custom-style">
+  @import url("../../styles/app-theme.html");
+</style>
+<link rel="import" type="css" href="entities-chart.css">
+
+  <template>
+
+    <style type="text/css">
+
+      #chart {
+        width: 100%;
+      }
+
+      .number {
+        padding: 1px 3px;
+        border: 1px solid #9e5c26;
+        border-radius: 5px;
+        box-shadow: inset 0 1px 0 #f5bf8c;
+        background-color: #ed943f;
+        margin-left: 7px;
+        color: white;
+        background-image: linear-gradient(bottom, rgb(211,95,32) 0%, rgb(223,131,45) 100%);
+        background-image: -o-linear-gradient(bottom, rgb(211,95,32) 0%, rgb(223,131,45) 100%);
+        background-image: -moz-linear-gradient(bottom, rgb(211,95,32) 0%, rgb(223,131,45) 100%);
+        background-image: -webkit-linear-gradient(bottom, rgb(211,95,32) 0%, rgb(223,131,45) 100%);
+        background-image: -ms-linear-gradient(bottom, rgb(211,95,32) 0%, rgb(223,131,45) 100%);
+      }
+
+      .tag {
+        display: inline-block;
+        margin: 0 0 7px 20px;
+        position: relative;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 0.9em;
+        font-weight: bold;
+        text-decoration: none;
+        text-shadow: 0px 2px 0px rgba(255,255,255,.4);
+        height: 2em;
+        line-height: 2em;
+        padding: 0 0.5em 0 1em;
+        border-top: 0.0625em solid #d99d38;
+        border-right: 0.0625em solid #d99d38;
+        border-bottom: 0.0625em solid #d99d38;
+        -webkit-border-radius: 0 0.25em 0.25em 0;
+        -moz-border-radius: 0 0.25em 0.25em 0;
+        border-radius: 0 0.25em 0.25em 0;
+        background-image: -webkit-linear-gradient(top, rgb(254, 218, 113), rgb(254, 186, 71));
+        background-image: -moz-linear-gradient(top, rgb(254, 218, 113), rgb(254, 186, 71));
+        background-image: -o-linear-gradient(top, rgb(254, 218, 113), rgb(254, 186, 71));
+        background-image: -ms-linear-gradient(top, rgb(254, 218, 113), rgb(254, 186, 71));
+        background-image: linear-gradient(top, rgb(254, 218, 113), rgb(254, 186, 71));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#feda71', EndColorStr='#feba47');
+        -webkit-box-shadow: inset 0 1px 0 #faeaba, 0 1px 1px rgba(0,0,0,.1);
+        -moz-box-shadow: inset 0 1px 0 #faeaba, 0 1px 1px rgba(0,0,0,.1);
+        box-shadow: inset 0 1px 0 #faeaba, 0 1px 1px rgba(0,0,0,.1);
+      }
+
+      .tag:before {
+        content: '';
+        width: 1.4584em;
+        height: 1.4584em;
+        background-image: -webkit-linear-gradient(left top, rgb(254, 218, 113), rgb(254, 186, 71));
+        background-image: -moz-linear-gradient(left top, rgb(254, 218, 113), rgb(254, 186, 71));
+        background-image: -o-linear-gradient(left top, rgb(254, 218, 113), rgb(254, 186, 71));
+        background-image: -ms-linear-gradient(left top, rgb(254, 218, 113), rgb(254, 186, 71));
+        background-image: linear-gradient(left top, rgb(254, 218, 113), rgb(254, 186, 71));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1,StartColorStr='#feda71', EndColorStr='#feba47');
+        position: absolute;
+        left: 0em;
+        top: -0.0625em;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+        -webkit-transform-origin: 0 0;
+        -moz-transform-origin: 0 0;
+        -o-transform-origin: 0 0;
+        transform-origin: 0 0;
+        border-left: 0.0625em solid #d99d38;
+        border-bottom: 0.0625em solid #d99d38;
+        -webkit-border-radius: 0 0 0 0.25em;
+        -moz-border-radius: 0 0 0 0.25em;
+        border-radius: 0 0 0 0.25em;
+      }
+
+      #tag-wrapper {
+        margin: 10px 10px 10px 20px;
+      }
+
+    </style>
+
+    <!-- Shadow DOM -->
+    <paper-material elevation="1">
+      <div class="top-bar">
+        <iron-icon icon="{{icon}}"></iron-icon>
+        <span>{{title}}</span>
+      </div>
+      <div id="tag-wrapper">
+        <template is="dom-repeat" items="{{data}}" as="entity">
+          <div class="tag"><span>{{entity.name}}</span><span class="number">{{entity.reviews}}</span></div>
+        </template>
+      </div>
+      <div id="chart"></div>
+    </paper-material>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'entities-chart',
+
+      properties: {
+
+        data: {
+            type: Array,
+            value: [{"name":"Amazon", "reviews":11},{"name":"Vodafone", "reviews":35}, {"name":"Google", "reviews":72}, {"name":"Santander", "reviews":9}, {"name":"Apple", "reviews":10}] //default value for data array.
+        },
+
+        icon: {
+          type: String,
+          value: "toc"
+        },
+
+        title: {
+          type: String,
+          value: "Entities Chart"
+        }
+      },
+
+      ready: function() {   
+          
+      }
+
+    });
+  </script>
+
+</dom-module>

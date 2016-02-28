@@ -42,8 +42,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <!-- D3.js for drawing charts -->
   <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
-  <script type="text/javascript" src="https://raw.githubusercontent.com/gsi-upm/financial-twitter-tracker/master/sefarad/src/js/widgets/d3/widgetChernoff.js"></script>
-
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+  
   <!-- Tile icon for Win8 (144x144) -->
   <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
 
@@ -60,8 +60,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
   <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <script type="text/javascript" src="http://www.larsko.org/v/d3.min.js"></script>
-  <script type="text/javascript" src="http://www.larsko.org/v/hpi/chernoff.js"></script>
   <!-- endbuild -->
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
@@ -175,7 +173,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             <section data-route="dashftt">
               <dashboard-ftt></dashboard-ftt>
-            </section>
+              <canvas id="chernoff"></canvas>
+	          </section>
 
             <section data-route="dashslovakia">
               <dashboard-slovakia></dashboard-slovakia>
@@ -213,6 +212,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script src="scripts/elasticsearch.jquery.js"></script>
   <!-- endbuild-->
   <script src="scripts/es.js"></script>
+  <script src="scripts/chernoff.js"></script>
   <script src='//cdn.jsdelivr.net/yasqe/2.6.2/yasqe.bundled.min.js'></script>
   <script src='//cdn.jsdelivr.net/yasr/2.6.1/yasr.bundled.min.js'></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>

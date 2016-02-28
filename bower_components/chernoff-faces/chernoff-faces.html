@@ -1,25 +1,48 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 
 <dom-module id="chernoff-faces">
 
+<style is="custom-style">
+  @import url("../../styles/app-theme.html");
+</style>
+<link rel="import" type="css" href="chernoff-faces.css">
+
   <template>
 
-    <style type="text/css">
-        div.bar {
-          display: inline-block;
-          width: 50px;
-          height: 75px;
-          background: teal;
-          margin-right: 5px;
-        }
-    </style>
-
     <!-- Shadow DOM -->
-    <div id="holder"></div>
+    <paper-material elevation="1">
+      <div class="top-bar">
+        <iron-icon icon="{{icon}}"></iron-icon>
+        <span>{{title}}</span>
+      </div>
+      <canvas id="chernoff"></canvas>
+      <span id="brand">{{brand}}</span>
+    </paper-material>
 
   </template>
 
   <script>
+
+    function drawChernoffFace(el, widthP, hlE, pE, aE, cM) {
+      console.log(widthP, hlE, pE, aE, cM)
+      var width = widthP;
+      var height = widthP;
+      half_length_of_eyes_ratio = hlE;
+      position_of_eyes_ratio = pE;
+      angle_of_eyebrow_ratio = aE;
+      curvature_of_mouth_ratio = cM;
+      var c2 = el;
+      c2.width = width;
+      c2.height = height;
+      $(el).chernoff({
+        canvas: c2,
+        half_length_of_eyes_ratio: half_length_of_eyes_ratio,
+        position_of_eyes_ratio: position_of_eyes_ratio,
+        angle_of_eyebrow_ratio: angle_of_eyebrow_ratio,
+        curvature_of_mouth_ratio: curvature_of_mouth_ratio
+      });
+    }
 
     Polymer({
 
@@ -30,16 +53,65 @@
         data: {
             type: Array,
             value: [11, 35, 72, 9, 10] //default value for data array.
+        },
+
+        icon: {
+          type: String,
+          value: "face"
+        },
+
+        title: {
+          type: String,
+          value: "Chernoff Faces Chart"
+        },
+
+        brand: {
+          type: String,
+          value: "Undefined"
+        },
+
+        width: {
+          type: Number,
+          value: 200
+        },
+
+        height: {
+          type: Number,
+          value: 200
+        }, 
+
+        /* Half Length of Eyes Ratio */
+        hlE: {
+          type: String,
+          value: "0.9",
+          observer: 'algo'
+        },
+
+        /* Position of Eyes Ratio */
+        pE: {
+          type: String,
+          value: "0.9"
+        },
+
+        /* Angle of Eyebrow Ratio */
+        aE: {
+          type: String,
+          value: "0.9"
+        },
+
+        /* Curvature of Mouth Ratio */
+        cM: {
+          type: String,
+          value: "0.9"
         }
       },
 
       ready: function() {   
-          var dataset = this.data;
-          //d3 chart rendering code
-          d3.select(this.$.holder).selectAll('div').data(dataset).enter().append('div').attr('class','bar').style("height", function(d)  {
-            return d*2 + "px";
-          });
+          drawChernoffFace(this.$.chernoff, this.width, this.hlE, this.pE, this.aE, this.cM)
       },
+      algo: function() {
+        console.log(this.hlE)
+      }
 
     });
   </script>

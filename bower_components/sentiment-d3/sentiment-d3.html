@@ -1,0 +1,179 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+<dom-module id="sentiment-d3">
+
+<style is="custom-style">
+  @import url("../../styles/app-theme.html");
+</style>
+<link rel="import" type="css" href="sentiment-d3.css">
+
+  <template>
+
+    <style type="text/css">
+
+      #chart {
+        width: 100%;
+      }
+
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+
+      .x.axis path {
+        display: none;
+      }
+
+      .line {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+      }
+
+    </style>
+
+    <!-- Shadow DOM -->
+    <paper-material elevation="1">
+      <div class="top-bar">
+        <iron-icon icon="{{icon}}"></iron-icon>
+        <span>{{title}}</span>
+      </div>
+      <div id="chart"></div>
+    </paper-material>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'sentiment-d3',
+
+      properties: {
+
+        data: {
+            type: Array,
+            value: [11, 35, 72, 9, 10] //default value for data array.
+        },
+
+        icon: {
+          type: String,
+          value: "trending-up"
+        },
+
+        title: {
+          type: String,
+          value: "Line Chart"
+        },
+
+        width: {
+          type: Number,
+          value:920
+        },
+
+        height: {
+          type: Number,
+          value:300
+        }
+      },
+
+      ready: function() {   
+          var margin = {top: 20, right: 80, bottom: 30, left: 50},
+              width = this.width - margin.left - margin.right,
+              height = this.height - margin.top - margin.bottom;
+
+          var parseDate = d3.time.format("%Y%m%d").parse;
+
+          var x = d3.time.scale()
+              .range([0, width]);
+
+          var y = d3.scale.linear()
+              .range([height, 0]);
+
+          var color = d3.scale.category10();
+
+          var xAxis = d3.svg.axis()
+              .scale(x)
+              .orient("bottom");
+
+          var yAxis = d3.svg.axis()
+              .scale(y)
+              .orient("left");
+
+          var line = d3.svg.line()
+              .interpolate("basis")
+              .x(function(d) { return x(d.date); })
+              .y(function(d) { return y(d.temperature); });
+
+          var svg = d3.select(this.$.chart).append("svg")
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+          d3.tsv("data.tsv", function(error, data) {
+            if (error) throw error;
+
+            color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
+
+            data.forEach(function(d) {
+              d.date = parseDate(d.date);
+            });
+
+            var cities = color.domain().map(function(name) {
+              return {
+                name: name,
+                values: data.map(function(d) {
+                  return {date: d.date, temperature: +d[name]};
+                })
+              };
+            });
+
+            x.domain(d3.extent(data, function(d) { return d.date; }));
+
+            y.domain([
+              d3.min(cities, function(c) { return d3.min(c.values, function(v) { return v.temperature; }); }),
+              d3.max(cities, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); })
+            ]);
+
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+              .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Temperature (ºF)");
+
+            var city = svg.selectAll(".city")
+                .data(cities)
+              .enter().append("g")
+                .attr("class", "city");
+
+            city.append("path")
+                .attr("class", "line")
+                .attr("d", function(d) { return line(d.values); })
+                .style("stroke", function(d) { return color(d.name); });
+
+            city.append("text")
+                .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+                .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
+                .attr("x", 3)
+                .attr("dy", ".35em")
+                .text(function(d) { return d.name; });
+          });
+      }
+
+    });
+  </script>
+
+</dom-module>
