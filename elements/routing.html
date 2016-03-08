@@ -43,6 +43,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.route = 'dashslovakia';
     });
 
+    page('/help', function () {
+      app.route = 'help';
+    });
+
+    page('/admin', function () {
+      app.route = 'admin';
+    });
+
     // add #! before urls
     page({
       hashbang: true

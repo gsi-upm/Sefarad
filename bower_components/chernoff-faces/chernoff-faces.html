@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
 
 <dom-module id="chernoff-faces">
 
@@ -12,12 +13,22 @@
 
     <!-- Shadow DOM -->
     <paper-material elevation="1">
-      <div class="top-bar">
-        <iron-icon icon="{{icon}}"></iron-icon>
-        <span>{{title}}</span>
-      </div>
-      <canvas id="chernoff"></canvas>
-      <span id="brand">{{brand}}</span>
+        <div class="top-bar">
+            <iron-icon icon="{{icon}}"></iron-icon>
+            <span>{{title}}</span>
+        </div>
+        <canvas id="chernoff"></canvas>
+        <span id="brand">{{brand}}</span>
+        <div style="width:100%; clear: both"></div>
+        <div style="float:left">  
+            <paper-icon-button icon="info" data-dialog="animated" alt="info" id="button" on-tap="showDialog"></paper-icon-button>
+            <paper-dialog id="animated" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+              <h2>Chernoff Faces</h2>
+              </br>
+              <p>Chernoff faces, invented by Herman Chernoff, display multivariate data in the shape of a human face. The individual parts, such as eyes, ears, mouth and nose represent values of the variables by their shape, size, placement and orientation. The idea behind using faces is that humans easily recognize faces and notice small changes without difficulty. Chernoff faces handle each variable differently. Because the features of the faces vary in perceived importance, the way in which variables are mapped to the features should be carefully chosen (e.g. eye size and eyebrow-slant have been found to carry significant weight).</p>
+            </paper-dialog>
+        </div>
+        <div style="width:100%; clear: both"></div>
     </paper-material>
 
   </template>
@@ -84,7 +95,7 @@
         hlE: {
           type: String,
           value: "0.9",
-          observer: 'algo'
+          notify: true
         },
 
         /* Position of Eyes Ratio */
@@ -109,8 +120,19 @@
       ready: function() {   
           drawChernoffFace(this.$.chernoff, this.width, this.hlE, this.pE, this.aE, this.cM)
       },
-      algo: function() {
-        console.log(this.hlE)
+      showDialog: function(e) {
+        var button = this.$.button;
+          while (!button.hasAttribute('data-dialog') && button !== document.body) {
+            button = button.parentElement;
+          }
+          if (!button.hasAttribute('data-dialog')) {
+            return;
+          }
+          var id = button.getAttribute('data-dialog');
+          var dialog = document.getElementById(id);
+          if (dialog) {
+            dialog.open();
+          }
       }
 
     });

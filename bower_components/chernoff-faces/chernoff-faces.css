@@ -16,6 +16,16 @@
   line-height: 35px;
 }
 
+paper-dialog {
+  background-color: white;
+  color: black;
+  max-height: 200px;
+}
+
+paper-icon-button {
+  color: gray;
+}
+
 .top-bar span {
   vertical-align: middle;
 }

@@ -1,0 +1,74 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<dom-module id="admin-console">
+    
+  <style is="custom-style">
+    @import url("../../styles/app-theme.html");
+  </style>
+  <link rel="import" type="css" href="admin-console.css">
+
+  <template>
+    <div class="content">
+      <h2 class="title">ADMIN CONSOLE</h2>
+      <span class="small">Useful tools to create data analysed and create dashboards</span>
+      </br></br>
+      <paper-material class="tool" elevation="2">
+        <a href="http://localhost:5601" target="_blank">
+          <div class="head">
+            <h2>Kibana</h2>
+            <small>Data Analysis</small>
+          </div>
+          <div class="logo">
+            <img src="kibana.jpg" alt="logo kibana" class="imglogo">
+          </div>
+          <div style="width:100%; clear: both"></div>
+        </a>
+      </paper-material>
+      <paper-material class="tool" elevation="2">
+        <a href="http://localhost:8082" target="_blank">
+          <div class="head">
+            <h2>Luigi</h2>
+            <small>Handling Tasks</small>
+          </div>
+          <div class="logo">
+            <img src="luigi.png" alt="logo luigi" class="imglogo">
+          </div>
+          <div style="width:100%; clear: both"></div>
+        </a>
+      </paper-material>
+      <paper-material class="tool" elevation="2">
+        <a href="http://localhost:3000" target="_blank">
+          <div class="head">
+            <h2>Sefarad</h2>
+            <small>Analysis web</small>
+          </div>
+          <div class="logo">
+            <img src="/images/Sefarad_Logo.png" alt="logo sefarad" class="imglogo">
+          </div>
+          <div style="width:100%; clear: both"></div>
+        </a>
+      </paper-material>
+    </div>
+
+  </template>
+
+  <script>
+    (function() {
+      Polymer({
+        is: 'admin-console',
+
+        properties: {
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

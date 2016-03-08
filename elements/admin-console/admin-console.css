@@ -1,0 +1,50 @@
+:host {
+      display: block;
+    }
+
+    .title {
+      color: #555;
+      font-weight: bold;
+      font-size: 42px
+    }
+
+    .small {
+      color: #999;
+      font-size: 12px;
+    }    
+
+    .content {
+      width: 100%;
+      text-align: center
+    }
+
+    .logo {
+      float: right;
+      width: 49%;
+      height: 100%;
+    }
+
+    .head {
+      float: right;
+      width: 49%;
+      height: 100%;
+      color: #666;
+      font-weight: bold;
+      border-left: 1px solid #C6C6C6;
+    }
+
+    .head small {
+      font-weight: normal;
+    }
+
+    .tool {
+      float: left;
+      width: 25%;
+      height: 120px;
+      margin: 10px 3%;
+    }
+
+    .imglogo {
+      width: 100%;
+      height: 100%;
+    }
