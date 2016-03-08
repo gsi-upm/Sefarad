@@ -114,10 +114,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>Dashboard FTT</span>
           </a>
 
+          <a data-route="admin" href="/admin">
+            <iron-icon icon="extension"></iron-icon>
+            <span>Admin Console</span>
+          </a>
+
           <!--<a data-route="dashslovakia" href="/dashslovakia">
             <iron-icon icon="social:public"></iron-icon>
             <span>Dashboard Slovakia</span>
           </a>-->
+
+          <a data-route="help" href="/help">
+            <iron-icon icon="info"></iron-icon>
+            <span>Help</span>
+          </a>
         </paper-menu>
       </paper-scroll-header-panel>
 
@@ -130,16 +140,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <span class="flex"></span>
 
           <!-- Toolbar icons -->
-          <paper-icon-button icon="refresh" onclick="window.location.reload()"></paper-icon-button>
+          <paper-icon-button icon="refresh" style="color: #2196F3" onclick="window.location.reload()"></paper-icon-button>
 
           <!-- Application name -->
-          <div class="middle middle-container center horizontal layout">
-            <div class="app-name"><b>Sefarad </b><small>3.0</small></div>
+          <div class="middle middle-container center horizontal layout" style="margin-left: 0">
+            <div class="app-name"><img src="images/Sefarad_Logo.png" style="width: 400px;"></div></div>
           </div>
 
           <!-- Application sub title -->
           <div class="bottom bottom-container center horizontal layout">
-            <div class="bottom-title paper-font-subhead">The future of the web today</div>
           </div>
 
         </paper-toolbar>
@@ -178,6 +187,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             <section data-route="dashslovakia">
               <dashboard-slovakia></dashboard-slovakia>
+            </section>
+
+            <section data-route="admin">
+              <admin-console></admin-console>
+            </section>
+
+            <section data-route="help">
+              <help-panel></help-panel>
             </section>
 
           </iron-pages>

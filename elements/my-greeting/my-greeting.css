@@ -136,7 +136,7 @@
     .blue-border-bottom:before {
       position: absolute;
       margin: auto;
-      z-index: 1;
+      z-index: 0;
       content: "";
       width: 75%;
       height: 2px;
@@ -148,7 +148,7 @@
     .teal-border-bottom:before {
       position: absolute;
       margin: auto;
-      z-index: 1;
+      z-index: 0;
       content: "";
       width: 75%;
       height: 2px;
@@ -160,7 +160,7 @@
     .ambar-border-bottom:before {
       position: absolute;
       margin: auto;
-      z-index: 1;
+      z-index: 0;
       content: "";
       width: 75%;
       height: 2px;
@@ -172,7 +172,7 @@
     .grey-border-bottom:before {
       position: absolute;
       margin: auto;
-      z-index: 1;
+      z-index: 0;
       content: "";
       width: 75%;
       height: 2px;
