@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-button/paper-button.html">
 
 <dom-module id="entities-chart">
 
@@ -21,14 +22,26 @@
         border: 1px solid #9e5c26;
         border-radius: 5px;
         box-shadow: inset 0 1px 0 #f5bf8c;
-        background-color: #ed943f;
         margin-left: 7px;
         color: white;
+      }
+
+      .active .number {
+        background-color: #ed943f;
         background-image: linear-gradient(bottom, rgb(211,95,32) 0%, rgb(223,131,45) 100%);
         background-image: -o-linear-gradient(bottom, rgb(211,95,32) 0%, rgb(223,131,45) 100%);
         background-image: -moz-linear-gradient(bottom, rgb(211,95,32) 0%, rgb(223,131,45) 100%);
         background-image: -webkit-linear-gradient(bottom, rgb(211,95,32) 0%, rgb(223,131,45) 100%);
         background-image: -ms-linear-gradient(bottom, rgb(211,95,32) 0%, rgb(223,131,45) 100%);
+      }
+
+      .idle .number {
+        background-color: #666;
+        background-image: linear-gradient(bottom, rgb(102,102,102) 0%, rgb(123,123,123) 100%);
+        background-image: -o-linear-gradient(bottom, rgb(102,102,102) 0%, rgb(123,123,123) 100%);
+        background-image: -moz-linear-gradient(bottom, rgb(102,102,102) 0%, rgb(123,123,123) 100%);
+        background-image: -webkit-linear-gradient(bottom, rgb(102,102,102) 0%, rgb(123,123,123) 100%);
+        background-image: -ms-linear-gradient(bottom, rgb(102,102,102) 0%, rgb(123,123,123) 100%);
       }
 
       .tag {
@@ -92,6 +105,10 @@
         margin: 10px 10px 10px 20px;
       }
 
+      .content.paper-button {
+          padding: 0 0.57em;
+      }
+
     </style>
 
     <!-- Shadow DOM -->
@@ -102,10 +119,14 @@
       </div>
       <div id="tag-wrapper">
         <template is="dom-repeat" items="{{data}}" as="entity">
-          <div class="tag"><span>{{entity.name}}</span><span class="number">{{entity.reviews}}</span></div>
+          <paper-button class="tag active" on-tap="filter"><span>{{entity.0}}</span><span class="number">{{entity.1}}</span></paper-button>
         </template>
       </div>
-      <div id="chart"></div>
+      <div style="float:right">
+        <small>Clear Filters</small>
+        <paper-icon-button icon="delete" alt="menu" class="green" on-tap="removeFilters"></paper-icon-button>
+      </div>
+      <div style="width:100%; clear: both"></div>
     </paper-material>
 
   </template>
@@ -121,21 +142,98 @@
         data: {
             type: Array,
             value: [{"name":"Amazon", "reviews":11},{"name":"Vodafone", "reviews":35}, {"name":"Google", "reviews":72}, {"name":"Santander", "reviews":9}, {"name":"Apple", "reviews":10}] //default value for data array.
-        },
+        }, 
 
         icon: {
-          type: String,
-          value: "toc"
+          type: String
         },
 
         title: {
           type: String,
           value: "Entities Chart"
+        },
+
+        query: {
+          type: String,
+          observer: '_queryChanged'
+        },
+
+        index: {
+          type: String
+        },
+
+        subindex: {
+          type: String
+        },
+
+        fields: {
+          type: Array,
+          value: function() { return []; }
+        },
+
+        field: {
+          type: String
+        },
+
+        host: {
+          type: String
+        },
+
+        param: {
+          type: String,
+          notify: true
+        },
+
+        filters: {
+          type: Array,
+          notify: true,
+          value: function() { return []; }
         }
       },
 
-      ready: function() {   
-          
+      ready: function() {
+        this.field ? this.queryDefault() : undefined
+      },      
+
+      removeFilters: function(){
+        this.filters = [];
+      },
+
+      queryDefault: function() {
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+        var that = this
+        client.search({
+        // undocumented params are appended to the query string
+        index: this.index,
+        type: this.subindex,
+        body: {
+          size: 10,
+          query: {
+            match_all: {}
+          },
+          aggs: {
+            rest: {
+              terms: {
+                field: this.field,
+                size: 10,
+                order: {
+                  _count: "desc"
+                }
+              }
+            }
+          }
+        }
+        }).then(function (resp) {
+          console.log(resp)
+          var hits = resp.aggregations.rest.buckets;
+          var results = []
+          hits.forEach(function(entry) {
+            results.push([entry.key, entry.doc_count]);
+          });
+          that.data = results
+        });
       }
 
     });

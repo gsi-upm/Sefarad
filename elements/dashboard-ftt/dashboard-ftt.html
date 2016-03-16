@@ -40,21 +40,39 @@
       <div class="chart_container" style="left: 0; float: left">
         <wheel-chart
           title="Wheel Chart Sentiment"
-          icon="toll"></wheel-chart>
+          icon="toll"
+          query="{{query}}"
+          index="gsi"
+          subindex="ftt"
+          field="entities.*.sentiment"
+          fields=''
+          filters="{{filters}}"
+          param="{{param}}"
+          host='{{endpoint}}'></wheel-chart>
       </div>
       <div class="chart_container" style="right: 0; float: right">
         <entities-chart
+            query="{{query}}"
+            index="ftt"
+            subindex="entities"
+            field="name"
+            fields=''
+            host='{{endpoint}}'
             title="Entities"
-            icon="toc"></entities-chart>
+            icon="toc"
+            entities="{{entities}}"
+            param="{{param}}"
+            id="entity-chart"
+            filters="{{filters}}"></entities-chart>
       </div>
     </div>
     <div class="chart_container" style="right: 0; float: right">
       <google-chart
           query="{{query}}"
-          index="sentiment"
-          subindex="tweet"
+          index="gsi"
+          subindex="ftt"
           field="sentiment"
-          fields='["time_zone","place.name","sentiment"]'
+          fields=''
           host='{{endpoint}}'
           id='pie-chart1'
           extra-id='pie-chart1'
@@ -82,7 +100,14 @@
 
   <script>
     Polymer({
-      is: 'dashboard-ftt'
+      is: 'dashboard-ftt',
+      properties: {
+
+      },
+
+      ready: function () {
+        
+      }
     });
   </script>
 

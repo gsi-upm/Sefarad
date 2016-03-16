@@ -32,6 +32,55 @@
         json: {
             type: String,
             value: "wheel.json" //default value for data array.
+        },   
+
+        query: {
+          type: String,
+          observer: '_queryChanged'
+        },
+
+        index: {
+          type: String
+        },
+
+        subindex: {
+          type: String
+        },
+
+        extraId: {
+          type: String
+        },
+
+        fields: {
+          type: Array,
+          value: function() { return []; }
+        },
+
+        field: {
+          type: String
+        },
+
+        host: {
+          type: String
+        },
+
+        icon: {
+          type: String
+        },
+
+        param: {
+          type: String,
+          notify: true
+        },
+
+        filters: {
+          type: Array,
+          notify: true,
+          value: function() { return []; }
+        }, 
+        isSelected: {
+          type: Boolean,
+          value: false
         },
 
         icon: {
@@ -46,7 +95,7 @@
 
         width: {
           type: Number,
-          value:420
+          value:300
         },
 
         height: {
@@ -55,7 +104,9 @@
         }
       },
 
-      ready: function() {   
+      ready: function() {  
+          this.queryDefault();
+          
           var width = this.width,
               height = this.height,
               radius = Math.min(width, height) / 2;
@@ -158,7 +209,45 @@
                   : function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); return arc(d); };
             };
           }
-      }
+      },
+
+      queryDefault: function() {
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+        var id = this.extraId;
+        client.search({
+        // undocumented params are appended to the query string
+        index: this.index,
+        type: this.subindex,
+        body: {
+          size: 10,
+          query: {
+            match_all: {}
+          },
+          aggs: {
+            rest: {
+              terms: {
+                field: this.field,
+                size: 5,
+                order: {
+                  _count: "desc"
+                }
+              }
+            }
+          }
+        }
+      }).then(function (resp) {
+        var hits = resp.aggregations.rest.buckets;
+        var data = [];
+        hits.forEach(function(entry) {
+          data.push([entry.key, entry.doc_count]);
+        });
+        var chart = document.getElementById(id);
+        chart.rows = data;
+        filtered = true;
+      });
+    },
 
     });
   </script>

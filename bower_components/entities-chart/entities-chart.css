@@ -18,3 +18,12 @@
 .top-bar span {
   vertical-align: middle;
 }
+
+paper-icon-button.green {
+  color: var(--paper-green-500);
+}
+
+paper-icon-button.green:hover {
+  background: var(--paper-green-50);
+  border-radius: 50%;
+}
