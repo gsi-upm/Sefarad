@@ -29,13 +29,3 @@ paper-icon-button {
 .top-bar span {
   vertical-align: middle;
 }
-
-#chernoff {
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}

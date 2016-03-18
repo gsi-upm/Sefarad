@@ -38,17 +38,15 @@
     </div>
     <div style="width: 100%;">
       <div class="chart_container" style="left: 0; float: left">
-        <wheel-chart
-          title="Wheel Chart Sentiment"
-          icon="toll"
-          query="{{query}}"
-          index="gsi"
-          subindex="ftt"
-          field="entities.*.sentiment"
-          fields=''
-          filters="{{filters}}"
-          param="{{param}}"
-          host='{{endpoint}}'></wheel-chart>
+        <chernoff-faces 
+            query="{{query}}"
+            index="ftt"
+            subindex="entities"
+            field=""
+            fields=''
+            filters="{{filters}}"
+            param="{{param}}"
+            host='{{endpoint}}'></chernoff-faces>
       </div>
       <div class="chart_container" style="right: 0; float: right">
         <entities-chart
@@ -66,34 +64,55 @@
             filters="{{filters}}"></entities-chart>
       </div>
     </div>
-    <div class="chart_container" style="right: 0; float: right">
-      <google-chart
+    <div style="width: 100%;">
+      <div class="chart_container" style="left: 0; float: left">
+        <wheel-chart
+          title="Wheel Chart Sentiment"
+          icon="toll"
           query="{{query}}"
           index="gsi"
           subindex="ftt"
-          field="sentiment"
+          field="entities.*.sentiment"
           fields=''
-          host='{{endpoint}}'
-          id='pie-chart1'
-          extra-id='pie-chart1'
-          type='pie'
           filters="{{filters}}"
-          icon='face'
           param="{{param}}"
-          options='{"title": "Count of tweets with different sentiments"}'
-          cols='[{"label": "Sentiment", "type": "string"},{"label": "Count", "type": "number"}]'
-          rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
-        </google-chart>
-    </div>  
+          host='{{endpoint}}'></wheel-chart>
+      </div>
+      <div class="chart_container" style="right: 0; float: right">
+        <google-chart
+            query="{{query}}"
+            index="ftt"
+            subindex="entities"
+            field="sentiment"
+            fields=''
+            host='{{endpoint}}'
+            id='pie-chart1'
+            extra-id='pie-chart1'
+            type='pie'
+            filters="{{filters}}"
+            icon='face'
+            param="{{param}}"
+            options='{"title": "Count of tweets with different sentiments"}'
+            cols='[{"label": "Sentiment", "type": "string"},{"label": "Count", "type": "number"}]'
+            rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'>
+          </google-chart>
+      </div>  
+    </div>
     <div style="width: 100%;">
-      <div class="chart_container" style="left: 0; float: left">
-        <chernoff-faces 
-            width="100"
-            brand="Amazon"
-            hl-e="0.1"
-            p-e="0.5"
-            a-e="0.5"
-            c-m="0.1"></chernoff-faces>
+      <div class="chart_container" style="left: 0; float: right">
+        <tweet-chart
+            query="{{query}}"
+            index="ftt"
+            subindex="entities"
+            field="text"
+            fields=''
+            host='{{endpoint}}'
+            id='pie-chart1'
+            extra-id='pie-chart1'
+            type='pie'
+            filters="{{filters}}"
+            icon='face'
+            param="{{param}}"></tweet-chart>
       </div>
     </div>
   </template>

@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="chernoff-face.html">
 
 <dom-module id="chernoff-faces">
 
@@ -17,43 +18,15 @@
             <iron-icon icon="{{icon}}"></iron-icon>
             <span>{{title}}</span>
         </div>
-        <canvas id="chernoff"></canvas>
-        <span id="brand">{{brand}}</span>
-        <div style="width:100%; clear: both"></div>
-        <div style="float:left">  
-            <paper-icon-button icon="info" data-dialog="animated" alt="info" id="button" on-tap="showDialog"></paper-icon-button>
-            <paper-dialog id="animated" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
-              <h2>Chernoff Faces</h2>
-              </br>
-              <p>Chernoff faces, invented by Herman Chernoff, display multivariate data in the shape of a human face. The individual parts, such as eyes, ears, mouth and nose represent values of the variables by their shape, size, placement and orientation. The idea behind using faces is that humans easily recognize faces and notice small changes without difficulty. Chernoff faces handle each variable differently. Because the features of the faces vary in perceived importance, the way in which variables are mapped to the features should be carefully chosen (e.g. eye size and eyebrow-slant have been found to carry significant weight).</p>
-            </paper-dialog>
-        </div>
+        <template is="dom-repeat" items="{{data}}" as="face">
+          <chernoff-face sentiment="{{face.sentiment}}" brand="{{face.brand}}" width=125 height=125 style="float: left; margin: 10px; margin-left: 30px;"></chernoff-face>
+        </template>
         <div style="width:100%; clear: both"></div>
     </paper-material>
 
   </template>
 
   <script>
-
-    function drawChernoffFace(el, widthP, hlE, pE, aE, cM) {
-      console.log(widthP, hlE, pE, aE, cM)
-      var width = widthP;
-      var height = widthP;
-      half_length_of_eyes_ratio = hlE;
-      position_of_eyes_ratio = pE;
-      angle_of_eyebrow_ratio = aE;
-      curvature_of_mouth_ratio = cM;
-      var c2 = el;
-      c2.width = width;
-      c2.height = height;
-      $(el).chernoff({
-        canvas: c2,
-        half_length_of_eyes_ratio: half_length_of_eyes_ratio,
-        position_of_eyes_ratio: position_of_eyes_ratio,
-        angle_of_eyebrow_ratio: angle_of_eyebrow_ratio,
-        curvature_of_mouth_ratio: curvature_of_mouth_ratio
-      });
-    }
 
     Polymer({
 
@@ -63,7 +36,7 @@
 
         data: {
             type: Array,
-            value: [11, 35, 72, 9, 10] //default value for data array.
+            value: [{"sentiment":"Positive", "brand": "Amazon"},{"sentiment":"Neutral", "brand": "Google"},{"sentiment":"Negative", "brand": "Apple"}] //default value for data array.
         },
 
         icon: {
@@ -76,63 +49,124 @@
           value: "Chernoff Faces Chart"
         },
 
-        brand: {
+        query: {
           type: String,
-          value: "Undefined"
+          observer: '_queryChanged'
         },
 
-        width: {
-          type: Number,
-          value: 200
+        index: {
+          type: String
         },
 
-        height: {
-          type: Number,
-          value: 200
-        }, 
+        subindex: {
+          type: String
+        },
 
-        /* Half Length of Eyes Ratio */
-        hlE: {
+        fields: {
+          type: Array,
+          value: function() { return []; }
+        },
+
+        field: {
+          type: String
+        },
+
+        host: {
+          type: String
+        },
+
+        param: {
           type: String,
-          value: "0.9",
           notify: true
         },
 
-        /* Position of Eyes Ratio */
-        pE: {
-          type: String,
-          value: "0.9"
-        },
-
-        /* Angle of Eyebrow Ratio */
-        aE: {
-          type: String,
-          value: "0.9"
-        },
-
-        /* Curvature of Mouth Ratio */
-        cM: {
-          type: String,
-          value: "0.9"
+        filters: {
+          type: Array,
+          notify: true,
+          value: function() { return []; }
         }
       },
 
       ready: function() {   
-          drawChernoffFace(this.$.chernoff, this.width, this.hlE, this.pE, this.aE, this.cM)
+          this.queryDefault()
       },
-      showDialog: function(e) {
-        var button = this.$.button;
-          while (!button.hasAttribute('data-dialog') && button !== document.body) {
-            button = button.parentElement;
+
+      queryDefault: function() {
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+        var that = this
+        client.search({
+        // undocumented params are appended to the query string
+        index: this.index,
+        type: this.subindex,
+        body: {
+          size: 10000,
+          query: {
+            match_all: {}
           }
-          if (!button.hasAttribute('data-dialog')) {
-            return;
+        }
+        }).then(function (resp) {
+          console.log(resp)
+          var hits = resp.hits.hits;
+          var results = [];
+          var aparitions = [];
+          var aux = [];
+          hits.forEach(function(entry) {
+            if(results[entry._source.name] == undefined){
+              results[entry._source.name] = 0
+              aparitions[entry._source.name] = 1
+              if (entry._source.sentiment == "Positive")
+                 results[entry._source.name] = 1
+              if (entry._source.sentiment == "Negative")
+                 results[entry._source.name] = 1
+            } else {
+              aparitions[entry._source.name] ++
+              if (entry._source.sentiment == "Positive")
+                 results[entry._source.name] += 1
+              if (entry._source.sentiment == "Negative")
+                 results[entry._source.name] -= 1
+            }
+          });
+          for (key in results) {
+            if (results[key] > 1)
+              aux.push({"brand": key, "sentiment": "Positive"})
+            else if (results[key] == 0)
+              aux.push({"brand": key, "sentiment": "Neutral"})
+            else 
+              aux.push({"brand": key, "sentiment": "Negative"})
           }
-          var id = button.getAttribute('data-dialog');
-          var dialog = document.getElementById(id);
-          if (dialog) {
-            dialog.open();
+          var tuples = [];
+
+          for (var key in aparitions) tuples.push([key, aparitions[key]]);
+
+          tuples.sort(function(a, b) {
+              a = a[1];
+              b = b[1];
+
+              return a > b ? -1 : (a < b ? 1 : 0);
+          });
+          aparitions = []
+          for (var i = 0; i < tuples.length; i++) {
+              var key = tuples[i][0];
+              var value = tuples[i][1];
+              aparitions[i] = key
+              // do something with key and value
           }
+          aparitions = aparitions.splice(0,3)
+          results = []
+          var cnt = 0
+          aux.forEach(function(entry) {
+            if(cnt != 4) {
+              if(entry.brand == aparitions[cnt]){
+                results.push({"brand": entry.brand, "sentiment": entry.sentiment})
+                cnt++
+              }
+            } else
+              return
+          })
+          that.data = results
+        });
       }
 
     });

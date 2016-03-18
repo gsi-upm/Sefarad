@@ -1,0 +1,155 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+
+<dom-module id="tweet-chart">
+
+<style is="custom-style">
+  @import url("../../styles/app-theme.html");
+</style>
+
+<link rel="import" type="css" href="tweet-chart.css">
+
+  <template>
+
+    <!-- Shadow DOM -->
+    <paper-material elevation="1">
+        <div class="top-bar">
+            <iron-icon icon="{{icon}}"></iron-icon>
+            <span>{{title}}</span>
+        </div>
+        <template is="dom-repeat" items="{{data}}" as="tweet"> 
+          <div class$="{{checkSentiment(tweet.sentiment)}}">
+            <img src={{checkSource(tweet.name)}} style="width: 60px"></br>
+            <span class="text">{{tweet.text}}</span></br>
+            <span style="font-weight: bold">{{tweet.name}}</span></br>
+            <span>{{tweet.user}}</span></br>
+          </div>
+        </template>
+        <div style="width:100%; clear: both"></div>
+    </paper-material>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'tweet-chart',
+
+      properties: {
+
+        data: {
+            type: Array,
+            value: [] //default value for data array.
+        },
+
+        icon: {
+          type: String,
+          value: "face"
+        },
+
+        title: {
+          type: String,
+          value: "Chernoff Faces Chart"
+        },
+
+        brand: {
+          type: String,
+          value: "Undefined"
+        },
+
+        query: {
+          type: String,
+          observer: '_queryChanged'
+        },
+
+        index: {
+          type: String
+        },
+
+        subindex: {
+          type: String
+        },
+
+        fields: {
+          type: Array,
+          value: function() { return []; }
+        },
+
+        field: {
+          type: String
+        },
+
+        host: {
+          type: String
+        },
+
+        param: {
+          type: String,
+          notify: true
+        },
+
+        filters: {
+          type: Array,
+          notify: true,
+          value: function() { return []; }
+        }
+      },
+
+      ready: function() {   
+          this.queryDefault()
+      },
+
+      queryDefault: function() {
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+        var that = this
+        client.search({
+        // undocumented params are appended to the query string
+        index: this.index,
+        type: this.subindex,
+        body: {
+          size: 10,
+          query: {
+            match_all: {}
+          }
+        }
+        }).then(function (resp) {
+          console.log(resp)
+          var hits = resp.hits.hits;
+          var results = []
+          hits.forEach(function(entry) {
+            results.push(entry._source);
+          });
+          that.data = results
+        });
+      },
+
+      checkSentiment: function(sentiment) {
+        if (sentiment == "Positive")
+          return "tweet positive"
+        else if (sentiment == "Negative")
+          return "tweet negative"
+        else 
+          return "tweet neutral"
+      },
+
+      checkSource: function(source) {
+        if(source == "Vodafone")
+          return "http://www.vodafone.com/etc/vodafone-simplicity/img/vodafone-logo.png"
+        else if(source == "Santander")
+          return "http://www.feebpr.org.br/images/SantanderLogo241013.gif"
+        else if(source == "Telefónica" || source == "Movistar Arena")
+          return "https://www.telefonica.com/telefonica-theme/images/dFront/modules/mod_footer/logo_telefonica_azul.png"
+        else if (source == "Ono")
+          return "http://www.tadproducciones.com/images/portfolio/ono-logo.png"
+        else
+          return "http://vignette2.wikia.nocookie.net/logopedia/images/5/59/Empty.png/revision/latest?cb=20100412122939"
+      }
+
+    });
+  </script>
+
+</dom-module>

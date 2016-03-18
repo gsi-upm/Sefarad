@@ -1,0 +1,133 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+
+<dom-module id="chernoff-face">
+
+<style is="custom-style">
+  @import url("../../styles/app-theme.html");
+</style>
+
+  <style type="text/css">
+
+  #chernoff {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  </style>
+
+  <template>
+
+    <canvas id="chernoff"></canvas>
+    <span id="brand">{{brand}}</span>
+
+  </template>
+
+  <script>
+
+    function drawChernoffFace(el, widthP, hlE, pE, aE, cM) {
+      console.log(widthP, hlE, pE, aE, cM)
+      var width = widthP;
+      var height = widthP;
+      half_length_of_eyes_ratio = hlE;
+      position_of_eyes_ratio = pE;
+      angle_of_eyebrow_ratio = aE;
+      curvature_of_mouth_ratio = cM;
+      var c2 = el;
+      c2.width = width;
+      c2.height = height;
+      $(el).chernoff({
+        canvas: c2,
+        half_length_of_eyes_ratio: half_length_of_eyes_ratio,
+        position_of_eyes_ratio: position_of_eyes_ratio,
+        angle_of_eyebrow_ratio: angle_of_eyebrow_ratio,
+        curvature_of_mouth_ratio: curvature_of_mouth_ratio
+      });
+    }
+
+    Polymer({
+
+      is: 'chernoff-face',
+
+      properties: {
+
+        brand: {
+          type: String,
+          value: "Undefined"
+        },
+
+        sentiment: {
+          type: String,
+          value: "Neutral"
+        },
+
+        width: {
+          type: Number,
+          value: 200
+        },
+
+        height: {
+          type: Number,
+          value: 200
+        }, 
+
+        /* Half Length of Eyes Ratio */
+        hlE: {
+          type: String,
+          value: "0.9",
+          notify: true
+        },
+
+        /* Position of Eyes Ratio */
+        pE: {
+          type: String,
+          value: "0.9"
+        },
+
+        /* Angle of Eyebrow Ratio */
+        aE: {
+          type: String,
+          value: "0.9"
+        },
+
+        /* Curvature of Mouth Ratio */
+        cM: {
+          type: String,
+          value: "0.9"
+        }
+      },
+
+      ready: function() {
+          this.checkSentiment();   
+          drawChernoffFace(this.$.chernoff, this.width, this.hlE, this.pE, this.aE, this.cM)
+      },
+
+      checkSentiment: function() {
+        if (this.sentiment == "Positive") {
+          this.hlE = 0.1;
+          this.pE = 0.3;
+          this.aE = 0.2;
+          this.cM = 0.2;
+        } else if (this.sentiment == "Negative") {
+          this.hlE = 0.9;
+          this.pE = 0.7;
+          this.aE = 0.8;
+          this.cM = 0.9;
+        } else {
+          this.hlE = 0.6;
+          this.pE = 0.4;
+          this.aE = 0.5;
+          this.cM = 0.5;
+        }
+      }
+
+    });
+  </script>
+
+</dom-module>
