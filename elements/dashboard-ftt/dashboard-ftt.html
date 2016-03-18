@@ -21,6 +21,14 @@
       margin-bottom: 20px; 
     }
 
+    .footer {
+      clear: both;
+    position: relative;
+    z-index: 10;
+    height: 2em;
+    margin-top: -2em;
+    }
+
   </style>
 
   <template>
@@ -115,6 +123,23 @@
             param="{{param}}"></tweet-chart>
       </div>
     </div>
+      <div class="footer">
+        <hr>
+        <br>
+        <div style="display:inline">
+          <!--<img src="img/logo2.png" style="float: right;"/>-->
+          <a href="http://gsi.dit.upm.es/" target="_blank">
+            <img height="100px" src="http://demos.gsi.dit.upm.es/ftt/img/logo_gsi.png" alt="GSI-UPM">
+            <!--
+              <div class="gsiLogo" title="Grupo de Sistemas Inteligentes" ></div>
+              -->
+          </a>
+          <img src="http://demos.gsi.dit.upm.es/ftt/img/logoAvanza.png" alt="Plan Avanza 2">
+          <a href="http://www.paradigmatecnologico.com/">
+          <img src="http://demos.gsi.dit.upm.es/ftt/img/paradigma.jpg" alt="Paradigma Tecnológico">
+          </a>
+        </div>
+      </div>
   </template>
 
   <script>
