@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-spinner/paper-spinner.html">
 
 <dom-module id="wheel-chart">
 
@@ -16,12 +17,17 @@
         <iron-icon icon="{{icon}}"></iron-icon>
         <span>{{title}}</span>
       </div>
+      <div id="spin">
+        <paper-spinner class="multi" active></paper-spinner>
+      </div>
       <div id="chart"></div>
+      <div id="text">{{text}}</div>
     </paper-material>
 
   </template>
 
   <script>
+    var filtered = false;
 
     Polymer({
 
@@ -33,6 +39,11 @@
             type: String,
             value: "wheel.json" //default value for data array.
         },   
+
+        data: {
+            type: Array,
+            value: [] //default value for data array.
+        },
 
         query: {
           type: String,
@@ -78,6 +89,7 @@
           notify: true,
           value: function() { return []; }
         }, 
+
         isSelected: {
           type: Boolean,
           value: false
@@ -100,13 +112,248 @@
 
         height: {
           type: Number,
-          value:300
+          value:320
+        },
+
+        text: {
+          type: String,
+          value: "No text"
         }
       },
 
+      observers: [
+      '_filtersChange(filters.*)'
+      ],
+
       ready: function() {  
-          this.queryDefault();
-          
+        this.queryDefault()
+      },
+
+      queryDefault: function() {
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+        var that = this
+        client.search({
+        // undocumented params are appended to the query string
+        index: this.index,
+        type: this.subindex,
+        body: {
+          size: 10000,
+          query: {
+            match_all: {}
+          }
+        }
+        }).then(function (resp) {
+          var hits = resp.hits.hits;
+          var results = [{"name": "Entities","children":[]}];
+          var aparitions = [];
+          var aux = [];
+          hits.forEach(function(entry) {
+            if(aparitions[entry._source.name] == undefined){
+              aparitions[entry._source.name] = 1
+            } else {
+              aparitions[entry._source.name] ++
+            }
+          });
+          var tuples = [];
+
+          for (var key in aparitions) tuples.push([key, aparitions[key]]);
+
+          tuples.sort(function(a, b) {
+              a = a[1];
+              b = b[1];
+
+              return a > b ? -1 : (a < b ? 1 : 0);
+          });
+          aparitions = []
+          for (var i = 0; i < tuples.length; i++) {
+              var key = tuples[i][0];
+              var value = tuples[i][1];
+              aparitions[i] = key
+              // do something with key and value
+          }
+          aparitions = aparitions.splice(0,5)
+          aparitions.forEach(function(name) {
+            var positive = []
+            var negative = []
+            var neutral = []
+            hits.forEach(function(entry) {
+              if(name == entry._source.name){
+                if(entry._source.sentiment == "Positive") {
+                  positive.push({"text": entry._source.text})
+                } else if(entry._source.sentiment == "Negative") {
+                  negative.push({"text": entry._source.text})
+                } else {
+                  neutral.push({"text": entry._source.text})
+                }
+              }
+            })
+            results[0]["children"].push({"name":name, "children":[{"name":"Positive","children": positive},{"name":"Negative","children": negative},{"name":"Neutral","children": neutral}]})
+          })
+          that.data = results[0]
+          that._draw()
+        });
+      },
+
+      queryChange: function(value) {
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+          var that = this
+        client.search({
+          // undocumented params are appended to the query string
+          index: this.index,
+          type: this.subindex,
+          body: {
+            size: 10000,
+            query: {
+              multi_match:{
+                query: this.query,
+                fields: this.fields
+              }
+            }
+          }
+        }).then(function (resp) {
+          var hits = resp.hits.hits;
+          var results = [{"name": "Entities","children":[]}];
+          var aparitions = [];
+          var aux = [];
+          hits.forEach(function(entry) {
+            if(aparitions[entry._source.name] == undefined){
+              aparitions[entry._source.name] = 1
+            } else {
+              aparitions[entry._source.name] ++
+            }
+          });
+          var tuples = [];
+
+          for (var key in aparitions) tuples.push([key, aparitions[key]]);
+
+          tuples.sort(function(a, b) {
+              a = a[1];
+              b = b[1];
+
+              return a > b ? -1 : (a < b ? 1 : 0);
+          });
+          aparitions = []
+          for (var i = 0; i < tuples.length; i++) {
+              var key = tuples[i][0];
+              var value = tuples[i][1];
+              aparitions[i] = key
+              // do something with key and value
+          }
+          aparitions = aparitions.splice(0,5)
+          aparitions.forEach(function(name) {
+            var positive = []
+            var negative = []
+            var neutral = []
+            hits.forEach(function(entry) {
+              if(name == entry._source.name){
+                if(entry._source.sentiment == "Positive") {
+                  positive.push({"text": entry._source.text})
+                } else if(entry._source.sentiment == "Negative") {
+                  negative.push({"text": entry._source.text})
+                } else {
+                  neutral.push({"text": entry._source.text})
+                }
+              }
+            })
+            results[0]["children"].push({"name":name, "children":[{"name":"Positive","children": positive},{"name":"Negative","children": negative},{"name":"Neutral","children": neutral}]})
+          })
+          that.data = results[0]
+          that._draw()
+        });
+      },
+
+      /** Fired when a search is made.
+       *
+       * @event query-change
+       * @param {Object} detail
+       * @param {Object} detail.query The search string.
+       */
+       _queryChanged: function() {
+        this.query ? this.queryChange(this.query) : this.queryDefault();
+      },
+
+      _filtersChange: function() {
+        if(filtered){
+          var client = new $.es.Client({
+            hosts: this.host
+          });
+
+          var that = this
+          client.search({
+          // undocumented params are appended to the query string
+          index: this.index,
+          type: this.subindex,
+          body: {
+            size: 10000,
+            query: {
+              filtered: {
+                filter: {
+                  bool: {
+                    must: this.filters,
+                  }
+                }
+              }
+            }
+          }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = [{"name": "Entities","children":[]}];
+            var aparitions = [];
+            var aux = [];
+            hits.forEach(function(entry) {
+              if(aparitions[entry._source.name] == undefined){
+                aparitions[entry._source.name] = 1
+              } else {
+                aparitions[entry._source.name] ++
+              }
+            });
+            var tuples = [];
+
+            for (var key in aparitions) tuples.push([key, aparitions[key]]);
+
+            tuples.sort(function(a, b) {
+                a = a[1];
+                b = b[1];
+
+                return a > b ? -1 : (a < b ? 1 : 0);
+            });
+            aparitions = []
+            for (var i = 0; i < tuples.length; i++) {
+                var key = tuples[i][0];
+                var value = tuples[i][1];
+                aparitions[i] = key
+                // do something with key and value
+            }
+            aparitions = aparitions.splice(0,5)
+            aparitions.forEach(function(name) {
+              var positive = []
+              var negative = []
+              var neutral = []
+              hits.forEach(function(entry) {
+                if(name == entry._source.name){
+                  if(entry._source.sentiment == "Positive") {
+                    positive.push({"text": entry._source.text})
+                  } else if(entry._source.sentiment == "Negative") {
+                    negative.push({"text": entry._source.text})
+                  } else {
+                    neutral.push({"text": entry._source.text})
+                  }
+                }
+              })
+              results[0]["children"].push({"name":name, "children":[{"name":"Positive","children": positive},{"name":"Negative","children": negative},{"name":"Neutral","children": neutral}]})
+            })
+            that.data = results[0]
+            that._draw()
+          });
+        }
+      },
+
+      _draw: function() {
+          this.$.chart.innerHTML = "";
           var width = this.width,
               height = this.height,
               radius = Math.min(width, height) / 2;
@@ -117,35 +364,63 @@
           var y = d3.scale.sqrt()
               .range([0, radius]);
 
-          var color = d3.scale.category20c();
+          var color = d3.scale.ordinal()
+                        .domain(["Positive", "Negative", "Neutral"])
+                        .range(["#4CAF50", "#FF5252" , "#9E9E9E", "#FFFFFF" ,"#7B6888", "#6B486B", "#A05D56", "#D0743C", "#FF8C00"]);
 
           var svg = d3.select(this.$.chart).append("svg")
-              .attr("width", width)
+              .attr("width", width+35)
               .attr("height", height)
-            .append("g")
-              .attr("transform", "translate(" + width / 2 + "," + (height / 2 + 10) + ")");
+              .append("g")
+              .attr("transform", "translate(" + (width / 2 + 35) + "," + (height / 2 + 10) + ")");
 
           var partition = d3.layout.partition()
               .sort(null)
               .value(function(d) { return 1; });
 
-          var arc = d3.svg.arc()
+          var arc = d3.svg.arc()  
               .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
               .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
               .innerRadius(function(d) { return Math.max(0, y(d.y)); })
               .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
 
+          var tooltip = d3.select(this.$.chart)
+            .append("div")
+            .attr("class", "tooltip")
+            .style("position", "absolute")
+            .style("opacity", 0);
+
+
+          function format_name(d) {
+            if(d.name != undefined){
+              var name = d.name;
+                return  '<b>' + name + '</b>';
+            }
+          }
+
           // Keep track of the node that is currently being displayed as the root.
           var node;
+          var that = this;
 
           d3.json(this.json, function(error, root) {
-            node = root;
-            var path = svg.datum(root).selectAll("path")
+            //node = root
+            node = that.data;
+
+            that.$.spin.style.display = "none"
+
+            var path = svg.datum(node).selectAll("path")
                 .data(partition.nodes)
-              .enter().append("path")
+                .enter().append("path")
                 .attr("d", arc)
                 .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
-                .on("click", click)
+                .on("click", click)   
+                .on("mouseover", mouseover)
+                .on("mousemove", function(d) {
+                  return tooltip
+                    .style("top", (d3.event.pageY/3-10)+"px")
+                    .style("left", (d3.event.pageX-300)+"px");
+                })
+                .on("mouseout", function(){return tooltip.style("opacity", 0);})
                 .each(stash);
 
             d3.selectAll("input").on("change", function change() {
@@ -155,9 +430,9 @@
 
               path
                   .data(partition.value(value).nodes)
-                .transition()
+                  .transition()
                   .duration(1000)
-                  .attrTween("d", arcTweenData);
+                  .attrTween("d", arcTweenData)         
             });
 
             function click(d) {
@@ -166,7 +441,22 @@
                 .duration(1000)
                 .attrTween("d", arcTweenZoom(d));
             }
+
+            function mouseover(d) {
+              that.text = d.text
+              tooltip.html(function() {
+                      var name = format_name(d);
+                      return name;
+                 });
+                  return tooltip.transition()
+                    .duration(50)
+                    .style("opacity", 0.9);
+              }
           });
+
+          function computeTextRotation(d) {
+            return (x(d.x + d.dx / 2) - Math.PI / 2) / Math.PI * 180;
+          }
 
           d3.select(self.frameElement).style("height", height + "px");
 
@@ -209,45 +499,7 @@
                   : function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); return arc(d); };
             };
           }
-      },
-
-      queryDefault: function() {
-        var client = new $.es.Client({
-          hosts: this.host
-        });
-        var id = this.extraId;
-        client.search({
-        // undocumented params are appended to the query string
-        index: this.index,
-        type: this.subindex,
-        body: {
-          size: 10,
-          query: {
-            match_all: {}
-          },
-          aggs: {
-            rest: {
-              terms: {
-                field: this.field,
-                size: 5,
-                order: {
-                  _count: "desc"
-                }
-              }
-            }
-          }
-        }
-      }).then(function (resp) {
-        var hits = resp.aggregations.rest.buckets;
-        var data = [];
-        hits.forEach(function(entry) {
-          data.push([entry.key, entry.doc_count]);
-        });
-        var chart = document.getElementById(id);
-        chart.rows = data;
-        filtered = true;
-      });
-    },
+      }
 
     });
   </script>

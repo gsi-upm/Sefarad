@@ -132,6 +132,7 @@
   </template>
 
   <script>
+    var filtered = false;
 
     Polymer({
 
@@ -191,6 +192,10 @@
         }
       },
 
+      observers: [
+      '_filtersChange(filters.*)'
+      ],
+
       ready: function() {
         this.field ? this.queryDefault() : undefined
       },      
@@ -226,15 +231,113 @@
           }
         }
         }).then(function (resp) {
-          console.log(resp)
           var hits = resp.aggregations.rest.buckets;
           var results = []
           hits.forEach(function(entry) {
             results.push([entry.key, entry.doc_count]);
           });
-          that.data = results
+          that.data = results 
+          filtered = true;
+        });
+      },
+
+      queryChange: function(value) {
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+          var that = this
+        client.search({
+          // undocumented params are appended to the query string
+          index: this.index,
+          type: this.subindex,
+          body: {
+            size: 10,
+            query: {
+              multi_match:{
+                query: this.query,
+                fields: this.fields
+              }
+            },
+            aggs: {
+              rest: {
+                terms: {
+                  field: this.field,
+                  size: 10,
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              }
+            }
+          }
+        }).then(function (resp) {
+          var hits = resp.aggregations.rest.buckets;
+          var results = []
+          hits.forEach(function(entry) {
+            results.push([entry.key, entry.doc_count]);
+          });
+          that.data = results 
+        });
+      },
+
+      /** Fired when a search is made.
+       *
+       * @event query-change
+       * @param {Object} detail
+       * @param {Object} detail.query The search string.
+       */
+       _queryChanged: function() {
+        this.query ? this.queryChange(this.query) : this.queryDefault();
+      },
+
+      _filtersChange: function() {
+        if(filtered){
+          var client = new $.es.Client({
+            hosts: this.host
+          });
+
+          var that = this
+          client.search({
+          // undocumented params are appended to the query string
+          index: this.index,
+          type: this.subindex,
+          body: {
+            size: 10,
+            query: {
+              filtered: {
+                filter: {
+                  bool: {
+                    must: this.filters,
+                  }
+                }
+              }
+            },
+            aggs: {
+              rest: {
+                terms: {
+                  field: this.field,
+                  size: 10,
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              }
+            }
+          }
+        }).then(function (resp) {
+          var hits = resp.aggregations.rest.buckets;
+          var results = []
+          hits.forEach(function(entry) {
+            results.push([entry.key, entry.doc_count]);
+          });
+          that.data = results 
         });
       }
+    },
+
+    filter: function(e) {
+      this.push('filters', { term: { name: e.model.__data__.entity[0]}})
+    }
 
     });
   </script>

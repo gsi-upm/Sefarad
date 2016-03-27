@@ -31415,7 +31415,7 @@ function Client(config) {
     }
 
     if (!config.hosts && !config.host) {
-      config.host = 'http://localhost:9200';
+      config.host = 'http://localhost/ddbb';
     }
 
     this.close = function () {
@@ -32581,9 +32581,9 @@ function Host(config, globalConfig) {
 
   // defaults
   this.protocol = 'http';
-  this.host = 'localhost';
+  this.host = 'localhost/ddbb';
   this.path = '';
-  this.port = 9200;
+  this.port = 80;
   this.query = null;
   this.headers = null;
   this.suggestCompression = !!globalConfig.suggestCompression;

@@ -1,4 +1,4 @@
-{
+ {
  "name": "flare",
  "children": [
   {
@@ -7,7 +7,7 @@
     {
      "name": "Positive",
      "children": [
-      {"name": "AgglomerativeCluster", "size": "hola como va"},
+      {"text": "AgglomerativeCluster", "size": "hola como va"},
       {"name": "CommunityStructure", "size": 3812},
       {"name": "HierarchicalCluster", "size": 6714},
       {"name": "MergeEdge", "size": 743}
