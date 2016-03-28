@@ -225,7 +225,15 @@
           return "http://sointecdecostarica.com/images/Logo_LG.png"
         else if (source.indexOf("Iberdrola") > -1) 
           return "https://upload.wikimedia.org/wikipedia/en/thumb/3/35/Iberdrola_logo.svg/1280px-Iberdrola_logo.svg.png"
-        else
+        else if (source.indexOf("iPhone") > -1 || source.indexOf("aapl") > -1 || source.indexOf("AAPL") > -1 || source.indexOf("Apple") > -1)
+          return "http://vignette2.wikia.nocookie.net/antfarm/images/c/cc/Apple_logo_black.svg.png/revision/latest?cb=20121119220642"
+        else if (source.indexOf("GOOG") > -1 || source.indexOf("goog") > -1 || source.indexOf("Google") > -1)
+          return "http://demos.gsi.dit.upm.es/ftt/img/entities/Google.png"
+        else if (source.indexOf("AMZN") > -1 || source.indexOf("amzn") > -1 || source.indexOf("Amazon") > -1 || source.indexOf("Kindle") > -1)
+          return "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Amazon.com-Logo.svg/2000px-Amazon.com-Logo.svg.png"
+        else if (source.indexOf("Microsoft") > -1)
+          return "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_(2012).svg/2000px-Microsoft_logo_(2012).svg.png"
+        else 
           return "http://vignette2.wikia.nocookie.net/logopedia/images/5/59/Empty.png/revision/latest?cb=20100412122939"
       }
 

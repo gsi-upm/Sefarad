@@ -402,57 +402,54 @@
           var node;
           var that = this;
 
-          d3.json(this.json, function(error, root) {
-            //node = root
-            node = that.data;
+          node = that.data;
 
-            that.$.spin.style.display = "none"
+          that.$.spin.style.display = "none"
 
-            var path = svg.datum(node).selectAll("path")
-                .data(partition.nodes)
-                .enter().append("path")
-                .attr("d", arc)
-                .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
-                .on("click", click)   
-                .on("mouseover", mouseover)
-                .on("mousemove", function(d) {
-                  return tooltip
-                    .style("top", (d3.event.pageY/3-10)+"px")
-                    .style("left", (d3.event.pageX-300)+"px");
-                })
-                .on("mouseout", function(){return tooltip.style("opacity", 0);})
-                .each(stash);
+          var path = svg.datum(node).selectAll("path")
+            .data(partition.nodes)
+            .enter().append("path")
+            .attr("d", arc)
+            .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
+            .on("click", click)   
+            .on("mouseover", mouseover)
+            .on("mousemove", function(d) {
+              return tooltip
+                .style("top", (d3.event.pageY/3-10)+"px")
+                .style("left", (d3.event.pageX-300)+"px");
+              })
+            .on("mouseout", function(){return tooltip.style("opacity", 0);})
+            .each(stash);
 
-            d3.selectAll("input").on("change", function change() {
-              var value = this.value === "count"
-                  ? function() { return 1; }
-                  : function(d) { return d.size; };
+          d3.selectAll("input").on("change", function change() {
+            var value = this.value === "count"
+              ? function() { return 1; }
+              : function(d) { return d.size; };
 
-              path
-                  .data(partition.value(value).nodes)
-                  .transition()
-                  .duration(1000)
-                  .attrTween("d", arcTweenData)         
-            });
-
-            function click(d) {
-              node = d;
-              path.transition()
-                .duration(1000)
-                .attrTween("d", arcTweenZoom(d));
-            }
-
-            function mouseover(d) {
-              that.text = d.text
-              tooltip.html(function() {
-                      var name = format_name(d);
-                      return name;
-                 });
-                  return tooltip.transition()
-                    .duration(50)
-                    .style("opacity", 0.9);
-              }
+            path
+              .data(partition.value(value).nodes)
+              .transition()
+              .duration(1000)
+              .attrTween("d", arcTweenData)         
           });
+
+          function click(d) {
+            node = d;
+            path.transition()
+              .duration(1000)
+              .attrTween("d", arcTweenZoom(d));
+          }
+
+          function mouseover(d) {
+            that.text = d.text
+            tooltip.html(function() {
+              var name = format_name(d);
+              return name;
+            });
+            return tooltip.transition()
+              .duration(50)
+              .style("opacity", 0.9);
+          }
 
           function computeTextRotation(d) {
             return (x(d.x + d.dx / 2) - Math.PI / 2) / Math.PI * 180;
