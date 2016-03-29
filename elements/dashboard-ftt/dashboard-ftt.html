@@ -42,7 +42,15 @@
       <sentiment-d3
             title="Sentiment"
             icon="trending-up"
-            width="1200"></sentiment-d3>
+            width="900"
+            query="{{query}}"
+            index="ftten"
+            subindex="entities"
+            field="name"
+            fields='["user", "sentiment", "name", "text"]'
+            host='{{endpoint}}'
+            param="{{param}}"
+            filters="{{filters}}"></sentiment-d3>
     </div>
     <div style="width: 100%;">
       <div class="chart_container" style="left: 0; float: left">
