@@ -1,13 +1,11 @@
-FROM python:2.7
+FROM rgoyard/apache-proxy
 
-RUN apt-get update && apt-get install -y git
-RUN git clone https://github.com/gsi-upm/sefarad-3.0.git
+EXPOSE 80
 
-WORKDIR sefarad-3.0
-EXPOSE 3000
-#ENTRYPOINT ["python", "-m", "SimpleHTTPServer"]
-WORKDIR /usr/src/app
-ENV ENDPOINT elastic.demos.gsi.dit.upm.es
-ADD . /usr/src/app
-RUN chmod +x runserver.sh
-CMD ["./runserver.sh"]
+
+COPY . /app
+COPY ./httpd.conf /conf
+#WORKDIR /app
+#ENV ENDPOINT sefarad.demos.gsi.dit.upm.es
+#RUN chmod +x runserver.sh
+#RUN ./runserver.sh
