@@ -31,8 +31,8 @@ Data can be provided in one of three ways:
       data='http://example.com/chart-data.json'
 @demo
 -->
-<dom-module id="google-chart">
-<style is="custom-style">
+<dom-module id="google-charter">
+  <style is="custom-style">
   @import url("../../styles/app-theme.html");
 </style>
 <link rel="import" type="css" href="google-chart.css">
@@ -40,7 +40,7 @@ Data can be provided in one of three ways:
   <paper-material elevation="1">
     <div class="top-bar">
       <iron-icon icon="{{icon}}"></iron-icon>
-      <span>{{options.title}}</span>
+      <span>{{title}}</span>
     </div>
     <iron-ajax id="ajax" handle-as="json" url="{{data}}"
     on-response="_externalDataLoaded"></iron-ajax>
@@ -57,11 +57,10 @@ Data can be provided in one of three ways:
 </dom-module>
 
 <script>
-  var filtered = false;
-  (function() {
-    "use strict";
-    Polymer({
-      is: 'google-chart',
+(function() {
+  "use strict";
+  Polymer({
+    is: 'google-charter',
     /**
      * Fired when the graph is displayed.
      *
@@ -74,7 +73,7 @@ Data can be provided in one of three ways:
      * @param {object} detail
      *   @param {array} detail.selection The user-defined selection.
      */
-     properties: {
+    properties: {
       /**
        * Sets the type of the chart.
        *
@@ -85,7 +84,7 @@ Data can be provided in one of three ways:
        * See <a href="https://google-developers.appspot.com/chart/interactive/docs/gallery">Google Visualization API reference (Chart Gallery)</a> for details.
        *
        */
-       type: {
+      type: {
         type: String,
         value: 'column',
         observer: '_typeChanged'
@@ -104,11 +103,7 @@ Data can be provided in one of three ways:
        * for the options available to each chart type.
        *
        */
-       options: {
-        type: Object,
-        value: function() { return {}; }
-      },
-      optionsbi: {
+      options: {
         type: Object,
         value: function() { return {}; }
       },
@@ -127,7 +122,7 @@ Data can be provided in one of three ways:
        * @attribute cols
        * @type array
        */
-       cols: {
+      cols: {
         type: Array,
         value: function() { return []; }
       },
@@ -146,7 +141,7 @@ Data can be provided in one of three ways:
        * @attribute rows
        * @type array
        */
-       rows: {
+      rows: {
         type: Array,
         value: function() { return []; }
       },
@@ -170,7 +165,7 @@ Data can be provided in one of three ways:
        * @attribute data
        * @type array, object, or string
        */
-       data: {
+      data: {
         type: Object, // or array, or object
         value: function() { return []; }
       },
@@ -192,7 +187,7 @@ Data can be provided in one of three ways:
        * @attribute selection
        * @type array
        */
-       selection: {
+      selection: {
         type: Array,
         value: function() { return []; },
         observer: '_selectionChanged'
@@ -245,14 +240,21 @@ Data can be provided in one of three ways:
       isSelected: {
         type: Boolean,
         value: false
+      },
+
+      title: {
+        type: String,
+        value: "Line Chart with 2 Lines"
+      },
+
+      show: {
+        type: String
       }
     },
-
     observers: [
-    '_loadData(rows, cols, data)',
-    '_filtersChange(filters.*)'
+      '_loadData(rows, cols, data)',  
+      '_filtersChange(filters.*)'
     ],
-
     _packages: null,
     _chartObject: null,
     _isReady: false,
@@ -270,42 +272,12 @@ Data can be provided in one of three ways:
         }.bind(this)
       });
     },
-
     _typeChanged: function() {
       // Invalidate current chart object.
       this._chartObject = null;
       this._loadData();
     },
-
     _selectionChanged: function() {
-      if(this.selection.length != 0){
-        var arr = this.rows;
-        var sel = this.selection[0].row
-        this.param = arr[sel][0]
-        var param = this.param
-        var field = this.field
-        var term1 = {};
-        term1[field] = param;
-        var object = {term: term1}
-        var isInside = -1
-        for(var i = 0; i < this.filters.length; i++){
-          if(JSON.stringify(this.filters[i].term) === JSON.stringify(term1))
-              isInside = i
-        }
-        if(isInside == -1){
-          this.push('filters', { term: term1})
-          this.isSelected = true
-        }
-      } else {
-        if(this.isSelected)
-          for(var i = 0; i < this.filters.length; i++){
-            if(Object.keys(this.filters[i].term)[0] === this.field){
-              this.filters.splice(i,1)
-              this.isSelected = false
-            }
-          }
-        filtered ? this.queryDefault() : undefined
-      }
       if (this._chartObject && this.setSelection) {
         this._chartObject.setSelection(this.selection);
       }
@@ -313,7 +285,6 @@ Data can be provided in one of three ways:
 
     ready: function() {
       this.field ? this.queryDefault() : undefined
-      this.type == 'table' ? this.$.chartdiv.style.margin = '2% 0 2% 33%' : undefined
     },
 
     removeFilters: function(){
@@ -329,7 +300,7 @@ Data can be provided in one of three ways:
      * @method drawChart
      * @return {Object} Returns null.
      */
-     drawChart: function() {
+    drawChart: function() {
       if (this._canDraw) {
         if (!this.options) {
           this.options = {};
@@ -342,16 +313,16 @@ Data can be provided in one of three ways:
         }
         if (this._chartObject) {
           google.visualization.events.addOneTimeListener(this._chartObject,
-            'ready', function() {
-              this.fire('google-chart-render');
-            }.bind(this));
+              'ready', function() {
+                  this.fire('google-chart-render');
+              }.bind(this));
           google.visualization.events.addListener(this._chartObject,
-            'select', function() {
-              this.selection = this._chartObject.getSelection();
-              this.fire('google-chart-select',
-                { selection: this._chartObject.getSelection() });
-            }.bind(this));
-          this._chartObject.draw(this._dataTable, this.optionsbi);
+              'select', function() {
+                  this.selection = this._chartObject.getSelection();
+                  this.fire('google-chart-select',
+                      { selection: this._chartObject.getSelection() });
+              }.bind(this));
+          this._chartObject.draw(this._dataTable, this.options);
           if (this._chartObject.setSelection){
             this._chartObject.setSelection(this.selection);
           }
@@ -361,7 +332,6 @@ Data can be provided in one of three ways:
       }
       return null;
     },
-
     _loadChartTypes: function() {
       this._chartTypes = {
         'area': google.visualization.AreaChart,
@@ -381,7 +351,6 @@ Data can be provided in one of three ways:
         'treemap': google.visualization.TreeMap
       };
     },
-
     _loadPackageByChartType: function() {
       this._packages = {
         'area': 'corechart',
@@ -401,7 +370,6 @@ Data can be provided in one of three ways:
         'treemap': 'treemap'
       };
     },
-
     _loadData: function() {
       this._canDraw = false;
       if (this._isReady) {
@@ -418,14 +386,12 @@ Data can be provided in one of three ways:
         }
       }
     },
-
     _externalDataLoaded: function(e) {
       var dataTable = this._createDataTable(e.detail.response);
       this._canDraw = true;
       this._dataTable = dataTable;
       this.drawChart();
     },
-
     _createDataTable: function(data) {
       var dataTable = null;
       // If a data object was not passed to this function, default to the
@@ -438,15 +404,15 @@ Data can be provided in one of three ways:
       if (!data)
         data = [];
       if (this.rows && this.rows.length > 0 && this.cols &&
-        this.cols.length > 0) {
+          this.cols.length > 0) {
         // Create the data table from cols and rows.
-      dataTable = new google.visualization.DataTable();
-      dataTable.cols = this.cols;
-      for (var i = 0; i < this.cols.length; i++) {
-        dataTable.addColumn(this.cols[i]);
-      }
-      dataTable.addRows(this.rows);
-    } else {
+        dataTable = new google.visualization.DataTable();
+        dataTable.cols = this.cols;
+        for (var i = 0; i < this.cols.length; i++) {
+          dataTable.addColumn(this.cols[i]);
+        }
+        dataTable.addRows(this.rows);
+      } else {
         // Create dataTable from the passed data or the data attribute.
         // Data can be in the form of raw DataTable data or a two
         // dimensional array.
@@ -464,38 +430,114 @@ Data can be provided in one of three ways:
         hosts: this.host
       });
 
-      var that = this
+      var that = this;
       client.search({
           // undocumented params are appended to the query string
           index: this.index,
           type: this.subindex,
           body: {
-            size: 10,
+            size: 10000,
             query: {
               multi_match:{
                 query: this.query,
                 fields: this.fields
               }
-            },
-            aggs: {
-              rest: {
-                terms: {
-                  field: this.field,
-                  size: 5,
-                  order: {
-                    _count: "desc"
-                  }
-                }
-              }
             }
           }
         }).then(function (resp) {
-          var hits = resp.aggregations.rest.buckets;
-          var data = [];
+          var hits = resp.hits.hits;
+          var results = [];
+          var aparitions = [];
           hits.forEach(function(entry) {
-            data.push([entry.key, entry.doc_count]);
+            if(results[0] == undefined)
+              results.push({"name":entry._source.name,"sentiment":entry._source.sentiment,"time":entry._source.time});
+            else if (results[0]["name"] == entry._source.name)
+              results.push({"name":entry._source.name,"sentiment":entry._source.sentiment,"time":entry._source.time});
+            else
+              return
+
+            if(aparitions[entry._source.name] == undefined){
+              aparitions[entry._source.name] = 1
+            } else {
+              aparitions[entry._source.name] ++
+            }
           });
-          that.rows = data;
+          var tuples = [];
+
+          for (var key in aparitions) tuples.push([key, aparitions[key]]);
+
+          tuples.sort(function(a, b) {
+              a = a[1];
+              b = b[1];
+
+              return a > b ? -1 : (a < b ? 1 : 0);
+          });
+          aparitions = []
+          for (var i = 0; i < tuples.length; i++) {
+              var key = tuples[i][0];
+              var value = tuples[i][1];
+              aparitions[i] = key
+              // do something with key and value
+          }
+          function compare(a,b) {
+            if (a.time < b.time)
+              return -1;
+            else if (a.time > b.time)
+              return 1;
+            else 
+              return 0;
+          }
+
+          results.sort(compare);
+          var json_url = ""
+          var sentiment = 0
+          var dataset = [ ["Date",that.show] ]
+          var currprice = 37;
+            if(aparitions[0] != undefined) {
+              if(aparitions[0] == "Vodafone")
+                json_url = "vod_en.json"
+              else if(aparitions[0] == "$AAPL" || aparitions[0] == "iPhone")
+                json_url = "aapl.json"
+              else if(aparitions[0] == "$GOOG")
+                json_url = "goog.json"
+              else if(aparitions[0] == "$AMZN")
+                json_url = "amzn.json"
+              else if(aparitions[0] == "Iberdrola")
+                json_url = "ibe_en.json"
+              else if(aparitions[0] == "Santander")
+                json_url = "san_en.json"
+              else if(aparitions[0] == "Telefónica")
+                json_url = "tef_en.json"
+              else
+                json_url = "vod_en.json"
+            }
+          $.getJSON(json_url, function(json) {
+            json.forEach(function(entry) {
+                var date = new Date(entry.date.$date); // this will show the info it in firebug console
+                entry.date.$date = date.getFullYear().toString()+("0" + (date.getMonth()+1)).slice(-2).toString()+("0" + (date.getDate())).slice(-2).toString()
+              });
+            results.forEach(function(datum, index) {
+              json.forEach(function(entry) {
+                if(entry.date.$date == datum.time) {  
+                  if(entry.paradigma == undefined)
+                    sentiment = entry.viralheat.pos - entry.viralheat.neg
+                  else  
+                    sentiment = entry.paradigma.pos - entry.paradigma.neg
+                  datum["value"] = entry.price
+                  currprice = entry.price
+                } else {
+                  datum["value"] = currprice
+                }
+              });
+
+                datum.sentiment = sentiment
+                if(that.show == "Sentiment")
+                  dataset.push([datum.time, datum.sentiment])
+                else
+                  dataset.push([datum.time, datum.value])
+            });
+          that.data = dataset
+          });
         });
       },
 
@@ -503,37 +545,111 @@ Data can be provided in one of three ways:
         var client = new $.es.Client({
           hosts: this.host
         });
-
-        var that = this
+        var that = this;
         client.search({
         // undocumented params are appended to the query string
         index: this.index,
         type: this.subindex,
         body: {
-          size: 10,
+          size: 10000,
           query: {
             match_all: {}
-          },
-          aggs: {
-            rest: {
-              terms: {
-                field: this.field,
-                size: 5,
-                order: {
-                  _count: "desc"
-                }
-              }
-            }
           }
         }
-      }).then(function (resp) {
-        var hits = resp.aggregations.rest.buckets;
-        var data = [];
-        hits.forEach(function(entry) {
-          data.push([entry.key, entry.doc_count]);
-        });
-        that.rows = data;
-        filtered = true;
+        }).then(function (resp) {
+          var hits = resp.hits.hits;
+          var results = [];
+          var aparitions = [];
+          hits.forEach(function(entry) {
+            if(results[0] == undefined)
+              results.push({"name":entry._source.name,"sentiment":entry._source.sentiment,"time":entry._source.time});
+            else if (results[0]["name"] == entry._source.name)
+              results.push({"name":entry._source.name,"sentiment":entry._source.sentiment,"time":entry._source.time});
+            else
+              return
+
+            if(aparitions[entry._source.name] == undefined){
+              aparitions[entry._source.name] = 1
+            } else {
+              aparitions[entry._source.name] ++
+            }
+          });
+          var tuples = [];
+
+          for (var key in aparitions) tuples.push([key, aparitions[key]]);
+
+          tuples.sort(function(a, b) {
+              a = a[1];
+              b = b[1];
+
+              return a > b ? -1 : (a < b ? 1 : 0);
+          });
+          aparitions = []
+          for (var i = 0; i < tuples.length; i++) {
+              var key = tuples[i][0];
+              var value = tuples[i][1];
+              aparitions[i] = key
+              // do something with key and value
+          }
+          function compare(a,b) {
+            if (a.time < b.time)
+              return -1;
+            else if (a.time > b.time)
+              return 1;
+            else 
+              return 0;
+          }
+
+          results.sort(compare);
+          var json_url = ""
+          var sentiment = 0
+          var dataset = [ ["Date",that.show] ]
+          var currprice = 37;
+            if(aparitions[0] != undefined) {
+              if(aparitions[0] == "Vodafone")
+                json_url = "vod_en.json"
+              else if(aparitions[0] == "$AAPL" || aparitions[0] == "iPhone")
+                json_url = "aapl.json"
+              else if(aparitions[0] == "$GOOG")
+                json_url = "goog.json"
+              else if(aparitions[0] == "$AMZN")
+                json_url = "amzn.json"
+              else if(aparitions[0] == "Iberdrola")
+                json_url = "ibe_en.json"
+              else if(aparitions[0] == "Santander")
+                json_url = "san_en.json"
+              else if(aparitions[0] == "Telefónica")
+                json_url = "tef_en.json"
+              else
+                json_url = "vod_en.json"
+            }
+          $.getJSON(json_url, function(json) {
+            json.forEach(function(entry) {
+                var date = new Date(entry.date.$date); // this will show the info it in firebug console
+                entry.date.$date = date.getFullYear().toString()+("0" + (date.getMonth()+1)).slice(-2).toString()+("0" + (date.getDate())).slice(-2).toString()
+              });
+            results.forEach(function(datum, index) {
+              json.forEach(function(entry) {
+                if(entry.date.$date == datum.time) {    
+                   if(entry.paradigma == undefined)
+                    sentiment = entry.viralheat.pos - entry.viralheat.neg
+                  else  
+                    sentiment = entry.paradigma.pos - entry.paradigma.neg
+                  datum["value"] = entry.price
+                  currprice = entry.price
+                } else {
+                  datum["value"] = currprice
+                }
+              });
+
+                datum.sentiment = sentiment
+                if(that.show == "Sentiment")
+                  dataset.push([datum.time, datum.sentiment])
+                else
+                  dataset.push([datum.time, datum.value])
+            });
+          that.data = dataset
+          });
       });
     },
 
@@ -559,7 +675,7 @@ Data can be provided in one of three ways:
           index: this.index,
           type: this.subindex,
           body: {
-            size: 10,
+            size: 10000,
             query: {
               filtered: {
                 filter: {
@@ -568,29 +684,105 @@ Data can be provided in one of three ways:
                   }
                 }
               }
-            },
-            aggs: {
-              rest: {
-                terms: {
-                  field: this.field,
-                  size: 5,
-                  order: {
-                    _count: "desc"
-                  }
-                }
-              }
             }
           }
-        }).then(function (resp) {
-          var hits = resp.aggregations.rest.buckets;
-          var data = [];
-          hits.forEach(function(entry) {
-            data.push([entry.key, entry.doc_count]);
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = [];
+            var aparitions = [];
+            hits.forEach(function(entry) {
+              if(results[0] == undefined)
+                results.push({"name":entry._source.name,"sentiment":entry._source.sentiment,"time":entry._source.time});
+              else if (results[0]["name"] == entry._source.name)
+                results.push({"name":entry._source.name,"sentiment":entry._source.sentiment,"time":entry._source.time});
+              else
+                return
+
+              if(aparitions[entry._source.name] == undefined){
+                aparitions[entry._source.name] = 1
+              } else {
+                aparitions[entry._source.name] ++
+              }
+            });
+            var tuples = [];
+
+            for (var key in aparitions) tuples.push([key, aparitions[key]]);
+
+            tuples.sort(function(a, b) {
+                a = a[1];
+                b = b[1];
+
+                return a > b ? -1 : (a < b ? 1 : 0);
+            });
+            aparitions = []
+            for (var i = 0; i < tuples.length; i++) {
+                var key = tuples[i][0];
+                var value = tuples[i][1];
+                aparitions[i] = key
+                // do something with key and value
+            }
+            function compare(a,b) {
+              if (a.time < b.time)
+                return -1;
+              else if (a.time > b.time)
+                return 1;
+              else 
+                return 0;
+            }
+
+            results.sort(compare);
+            var json_url = ""
+            var sentiment = 0
+            var dataset = [ ["Date",that.show] ]
+            var currprice = 37;
+            if(aparitions[0] != undefined) {
+              if(aparitions[0] == "Vodafone")
+                json_url = "vod_en.json"
+              else if(aparitions[0] == "$AAPL" || aparitions[0] == "iPhone")
+                json_url = "aapl.json"
+              else if(aparitions[0] == "$GOOG")
+                json_url = "goog.json"
+              else if(aparitions[0] == "$AMZN")
+                json_url = "amzn.json"
+              else if(aparitions[0] == "Iberdrola")
+                json_url = "ibe_en.json"
+              else if(aparitions[0] == "Santander")
+                json_url = "san_en.json"
+              else if(aparitions[0] == "Telefónica")
+                json_url = "tef_en.json"
+              else
+                json_url = "vod_en.json"
+            }
+            $.getJSON(json_url, function(json) {
+              json.forEach(function(entry) {
+                  var date = new Date(entry.date.$date); // this will show the info it in firebug console
+                  entry.date.$date = date.getFullYear().toString()+("0" + (date.getMonth()+1)).slice(-2).toString()+("0" + (date.getDate())).slice(-2).toString()
+                });
+              results.forEach(function(datum, index) {
+              json.forEach(function(entry) {
+                if(entry.date.$date == datum.time) {    
+                   if(entry.paradigma == undefined)
+                    sentiment = entry.viralheat.pos - entry.viralheat.neg
+                  else  
+                    sentiment = entry.paradigma.pos - entry.paradigma.neg
+                  datum["value"] = entry.price
+                  currprice = entry.price
+                } else {
+                  datum["value"] = currprice
+                }
+              });
+
+                datum.sentiment = sentiment
+                if(that.show == "Sentiment")
+                  dataset.push([datum.time, datum.sentiment])
+                else
+                  dataset.push([datum.time, datum.value])
+            });
+            that.data = dataset
+            });
           });
-          that.rows = data;
-        });
-      }
-    }
+        }
+      },
   });
 })();
 </script>

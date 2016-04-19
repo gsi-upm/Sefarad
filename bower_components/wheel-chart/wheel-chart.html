@@ -277,7 +277,6 @@
       },
 
       _filtersChange: function() {
-        if(filtered){
           var client = new $.es.Client({
             hosts: this.host
           });
@@ -349,7 +348,6 @@
             that.data = results[0]
             that._draw()
           });
-        }
       },
 
       _draw: function() {
