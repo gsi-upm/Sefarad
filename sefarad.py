@@ -32,7 +32,7 @@ class FetchDataTask(luigi.Task):
 
     #: the date parameter.
     date = luigi.DateParameter(default=datetime.date.today())
-    file = str(random.randint(0,10000)) + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    field = str(random.randint(0,10000)) + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 
     def run(self):
         """
@@ -43,8 +43,9 @@ class FetchDataTask(luigi.Task):
         * `date`: the day when the data was created.
         """
         today = datetime.date.today()
-
-	with open('tweets-visual.json') as f:
+	file = luigi.Parameter()
+	
+	with open(file) as f:
                 j = json.load(f)
 		for i in j:
 			i["_id"] = i["id"]
@@ -60,7 +61,7 @@ class FetchDataTask(luigi.Task):
         :return: the target output for this task.
         :rtype: object (:py:class:`luigi.target.Target`)
         """
-        return luigi.LocalTarget(path='/tmp/_docs-%s.json' % self.file)
+        return luigi.LocalTarget(path='/tmp/_docs-%s.json' % self.field)
 
 class SenpyTask(luigi.Task):
     """
@@ -77,7 +78,7 @@ class SenpyTask(luigi.Task):
         * :py:class:`~.FetchDataTask`
         :return: object (:py:class:`luigi.task.Task`)
         """
-        return FetchDataTask()
+        return FetchDataTaske()
 
     def output(self):
 	"""
@@ -96,11 +97,14 @@ class SenpyTask(luigi.Task):
 		with self.input().open('r') as infile:
 			j = json.load(infile)
 			for i in j:
-				r = requests.get('http://senpy.cluster.gsi.dit.upm.es/api/?algo=SentiText&i=%s' % i["text"])
+				r = requests.get('http://senpy.cluster.gsi.dit.upm.es/api/?algo=sentiText&i=%s' % i["text"])
 				response = r.content.decode('utf-8')
 				response_json = json.loads(response)
-				response_json["_id"] = i["id"]	
-				output.write(json.dumps(response_json))
+				i["_id"] = i["id"]
+				i["analysis"] = response_json
+				i["sentiment"] = response_json["entries"][0]["sentiments"][0]["marl:hasPolarity"]	
+				i["polarity"] = response_json["entries"][0]["sentiments"][0]["marl:polarityValue"]   
+				output.write(json.dumps(i))
 				output.write('\n')
 		
 
@@ -179,5 +183,5 @@ class SemanticTask(luigi.Task):
                 output.write(g.serialize(format='n3', indent=4))
     
 	
-#if __name__ == "__main__":
-#    luigi.run(['--task', 'Elasticsearch'])
+if __name__ == "__main__":
+    luigi.run(['--task', 'Elasticsearch'])
