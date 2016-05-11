@@ -17,10 +17,10 @@
 
 import datetime
 import json
+import random
 
 import luigi
 from luigi.contrib.esindex import CopyToIndex
-
 
 class FetchDataTask(luigi.Task):
     """
@@ -29,6 +29,7 @@ class FetchDataTask(luigi.Task):
 
     #: the date parameter.
     date = luigi.DateParameter(default=datetime.date.today())
+    file = str(random.randint(0,10000)) + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 
     def run(self):
         """
@@ -38,13 +39,15 @@ class FetchDataTask(luigi.Task):
         * `text`: the text,
         * `date`: the day when the data was created.
         """
-        today = datetime.date.today()                                                                  
-        with self.output().open('w') as output:                                                            
-            for i in range(7):     
-                output.write(json.dumps({'_id': i, 'text': 'Hi %s' % i,
-                    'date': str(today)}))
-                output.write('\n')        
+        today = datetime.date.today()
 
+	with open('TuscanyPlaces.json') as f:
+                j = json.load(f)
+        with self.output().open('w') as output:
+                for i in j:
+			i["_id"] = i["id"]
+			output.write(json.dumps(i))
+			output.write('\n')       
     def output(self):
         """
         Returns the target output for this task.
@@ -52,7 +55,7 @@ class FetchDataTask(luigi.Task):
         :return: the target output for this task.
         :rtype: object (:py:class:`luigi.target.Target`)
         """
-        return luigi.LocalTarget(path='/tmp/_docs-%s.ldj' % self.date)
+        return luigi.LocalTarget(path='/tmp/_docs-%s.ldj' % self.file)
 
 # class SenpyTask(luigi.Task):
 #     """
@@ -98,14 +101,14 @@ class Elasticsearch(CopyToIndex):
     date = luigi.DateParameter(default=datetime.date.today())
 
     #: the name of the index in ElasticSearch to be updated.
-    index = 'example_index'
+    index = luigi.Parameter()
     #: the name of the document type.
-    doc_type = 'greetings'
+    doc_type = luigi.Parameter()
     #: the host running the ElasticSearch service.
     host = 'localhost'
     #: the port used by the ElasticSearch service.
     port = 9200
-
+    
     def requires(self):
         """
         This task's dependencies:
