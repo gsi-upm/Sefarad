@@ -18,6 +18,9 @@
 import datetime
 import json
 import random
+import requests
+from rdflib import Graph, plugin
+from rdflib.serializer import Serializer
 
 import luigi
 from luigi.contrib.esindex import CopyToIndex
@@ -41,13 +44,15 @@ class FetchDataTask(luigi.Task):
         """
         today = datetime.date.today()
 
-	with open('TuscanyPlaces.json') as f:
+	with open('tweets-visual.json') as f:
                 j = json.load(f)
-        with self.output().open('w') as output:
-                for i in j:
+		for i in j:
 			i["_id"] = i["id"]
-			output.write(json.dumps(i))
-			output.write('\n')       
+      
+	with self.output().open('w') as output:
+		json.dump(j, output)
+		output.write('\n')
+
     def output(self):
         """
         Returns the target output for this task.
@@ -55,30 +60,49 @@ class FetchDataTask(luigi.Task):
         :return: the target output for this task.
         :rtype: object (:py:class:`luigi.target.Target`)
         """
-        return luigi.LocalTarget(path='/tmp/_docs-%s.ldj' % self.file)
+        return luigi.LocalTarget(path='/tmp/_docs-%s.json' % self.file)
 
-# class SenpyTask(luigi.Task):
-#     """
-#     This task loads data fetched with previous task and send it to Senpy tool in order to analyze 
-#     data retrieved and check sentiments expressed.
-#     """
-#     #: date task parameter (default = today)
-#     date = luigi.DateParameter(default=datetime.date.today())
+class SenpyTask(luigi.Task):
+    """
+    This task loads data fetched with previous task and send it to Senpy tool in order to analyze 
+    data retrieved and check sentiments expressed.
+    """
+    #: date task parameter (default = today)
+    date = luigi.DateParameter(default=datetime.date.today())
+    file = str(random.randint(0,10000)) + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 
-#     def requires(self):
-#         """
-#         This task's dependencies:
-#         * :py:class:`~.FetchDataTask`
-#         :return: object (:py:class:`luigi.task.Task`)
-#         """
-#         return FetchDataTask()
+    def requires(self):
+        """
+        This task's dependencies:
+        * :py:class:`~.FetchDataTask`
+        :return: object (:py:class:`luigi.task.Task`)
+        """
+        return FetchDataTask()
 
-#     def run(self):
-#         """
-#         Send data to Senpy tool and retrieve it analyzed. Store data in a json file.
-#         """
+    def output(self):
+	"""
+	Returns the target output for this task.
+        In this case, a successful execution of this task will create a file on the local filesystem.
+        :return: the target output for this task.
+        :rtype: object (:py:class:`luigi.target.Target`)
+	"""
+	return luigi.LocalTarget(path='/tmp/analyzed-%s.jsonld' % self.file)	
 
-
+    def run(self):
+        """
+        Send data to Senpy tool and retrieve it analyzed. Store data in a json file.
+        """
+	with self.output().open('w') as output:
+		with self.input().open('r') as infile:
+			j = json.load(infile)
+			for i in j:
+				r = requests.get('http://senpy.cluster.gsi.dit.upm.es/api/?algo=SentiText&i=%s' % i["text"])
+				response = r.content.decode('utf-8')
+				response_json = json.loads(response)
+				response_json["_id"] = i["id"]	
+				output.write(json.dumps(response_json))
+				output.write('\n')
+		
 
 class Elasticsearch(CopyToIndex):
     """
@@ -115,23 +139,45 @@ class Elasticsearch(CopyToIndex):
         * :py:class:`~.SenpyTask`
         :return: object (:py:class:`luigi.task.Task`)
         """
-        return FetchDataTask()
+        return SenpyTask()
 
-# class SemanticTask(luigi.Task):
-#     """
-#     This task loads JSON data contained in a :py:class:`luigi.target.Target` and transform into RDF file
-#     to insert into Fuseki platform as a semantic 
-#     """
-#     #: date task parameter (default = today)
-#     date = luigi.DateParameter(default=datetime.date.today())
+class SemanticTask(luigi.Task):
+     """
+     This task loads JSON data contained in a :py:class:`luigi.target.Target` and transform into RDF file
+     to insert into Fuseki platform as a semantic 
+     """
+     #: date task parameter (default = today)
+     date = luigi.DateParameter(default=datetime.date.today())
+     file = str(random.randint(0,10000)) + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 
-#     def requires(self):
-#         """
-#         This task's dependencies:
-#         * :py:class:`~.SenpyTask` 
-#         :return: object (:py:class:`luigi.task.Task`)
-#         """
-#         return SenpyTask()
+     def output(self):
+	"""
+        Returns the target output for this task.
+        In this case, a successful execution of this task will create a file on the local filesystem.
+        :return: the target output for this task.
+        :rtype: object (:py:class:`luigi.target.Target`)
+        """
+        return luigi.LocalTarget(path='/tmp/transformed-%s.n3' % self.file)
 
-if __name__ == "__main__":
-    luigi.run(['--task', 'Elasticsearch'])
+
+     def requires(self):
+        """
+        This task's dependencies:
+        * :py:class:`~.SenpyTask` 
+        :return: object (:py:class:`luigi.task.Task`)
+        """
+        return SenpyTask()
+
+     def run(self):
+	"""
+	Receive data from Senpy and transform them to RDF format in order to be indexed in Fuseki
+	"""
+	with self.input().open('r') as infile:
+		j = json.load(infile)
+		g = Graph().parse(data=j, format='json-ld')
+	with self.output().open('w') as output:
+                output.write(g.serialize(format='n3', indent=4))
+    
+	
+#if __name__ == "__main__":
+#    luigi.run(['--task', 'Elasticsearch'])
