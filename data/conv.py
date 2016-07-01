@@ -1,5 +1,7 @@
 import json
-with open('TuscanyPlaces.json') as f:
+import sys
+
+with open(sys.argv[1]) as f:
     j = json.load(f)
 
 for i in j:
