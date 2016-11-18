@@ -26,3 +26,33 @@ To deploy in dokku, there are two parts:
       2 - Sefarad 3.0
 For the first one, the only thing we have to do is deploy the service directly in dokku.
 For the second one, as sefarad is build on JavaScript, it can't access to elasticsearch without making a proxy, for that reason it needs to lauch a Apache service and you have to make a proxy inside it listening the URL of JavaScript and redirecting to Elasticsearch. 
+
+## ElasticSearch Pipeline
+###Requirements
+Install luigi
+```
+ pip install luigi
+```
+Install Elastic Search (https://www.elastic.co/guide/en/elasticsearch/reference/current/setup.html)
+```
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.0.1.deb
+sha1sum elasticsearch-5.0.1.deb 
+sudo dpkg -i elasticsearch-5.0.1.deb
+```
+
+Execute ElasticSearch inside instalation folder (default path /usr/share/elasticsearch
+```
+./bin/elasticsearch
+```
+
+###Run pipeline
+First of all, place your scraped file inside the `analysis` folder located in Sefarad 3.0 project.
+After this, execute from command line the luigi pipeline (`pipeline.py`):
+```
+python pipeline.py Elasticsearch --filename <your_file_name> --analysis <your_analysis_type> --index <your_elasticsearch_index> --doc-type <your_elasticsearch_doc_type> --local-scheduler
+```
+
+Now you can find your analized file inside `analysis/analyzed-<your_filename>.json-ld`. In order to visualize your analyzed file inside ElasticSearch environment type the following url in your browser:
+```
+http://localhost:9200/<your_elasticsearch_index>/<your_elasticsearch_doc_type>/_search?pretty
+```
