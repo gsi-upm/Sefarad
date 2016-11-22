@@ -35,6 +35,8 @@ Install luigi
 ```
 Install Elastic Search (https://www.elastic.co/guide/en/elasticsearch/reference/current/setup.html)
 ```
+pip install elasticsearch
+
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.0.1.deb
 sha1sum elasticsearch-5.0.1.deb 
 sudo dpkg -i elasticsearch-5.0.1.deb
