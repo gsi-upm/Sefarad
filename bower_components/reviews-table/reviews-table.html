@@ -222,13 +222,11 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
             body: {
               size: 10,
               query: {
-                filtered: {
-                  filter: {
+                
                     bool: {
                       must: this.filters,
                     }
-                  }
-                }
+                  
               }
             }
           }).then(function (resp) {

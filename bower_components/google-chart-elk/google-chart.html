@@ -561,13 +561,11 @@ Data can be provided in one of three ways:
           body: {
             size: 10,
             query: {
-              filtered: {
-                filter: {
+              
                   bool: {
                     must: this.filters,
                   }
-                }
-              }
+              
             },
             aggs: {
               rest: {

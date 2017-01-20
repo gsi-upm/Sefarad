@@ -45,7 +45,7 @@
             <number-chart 
               index="tourpedia"
               subindex="places"
-              fields='["category"]'
+              fields='["category", "location"]'
               query="{{query}}"
               icon="info"
               filters="{{filters}}"
@@ -56,7 +56,7 @@
             <number-chart 
               index="tourpedia"
               subindex="places"
-              fields='["category"]'
+              fields='["category", "location"]'
               query="{{query}}"
               is-aggregated
               field="category"
@@ -71,7 +71,7 @@
             <number-chart 
               index="tourpedia"
               subindex="places"
-              fields='["category"]'
+              fields='["category", "location"]'
               query="{{query}}"
               is-aggregated
               field="category"
@@ -86,7 +86,7 @@
             <number-chart 
               index="tourpedia"
               subindex="places"
-              fields='["category"]'
+              fields='["category", "location"]'
               query="{{query}}"
               icon="maps:hotel"
               is-aggregated
@@ -345,13 +345,11 @@
             body: {
               size: 10,
               query: {
-                filtered: {
-                  filter: {
+                
                     bool: {
                       must: this.filters,
                     }
-                  }
-                }
+                 
               }
             }
           }).then(function (resp) {
