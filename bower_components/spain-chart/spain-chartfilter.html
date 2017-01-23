@@ -1,0 +1,1211 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+<dom-module id="spain-chart-filter">
+
+<style is="custom-style">
+  @import url("../../styles/app-theme.html");
+</style>
+<link rel="import" type="css" href="spain-chart.css">
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-composite-projections/0.3.5/conicConformalSpain-proj.min.js"></script>
+
+ <template>
+
+ 	<style>
+		#marco {
+		  overflow: hidden;
+		  margin: 0;
+		  font-size: 14px;
+		  font-family: "Helvetica Neue", Helvetica;
+		}
+
+		#spain {
+		  /*position: absolute;*/
+		  top: 0px;
+		  left: 0px;
+		}
+		.subunit.ESC { fill: #ddc; }
+		.subunit.ESI { fill: #cdd; }
+		.subunit.ESX { fill: transparent; }
+		.subunit.SEC { fill: #dcd; }
+		.subunit.SEM { display: none; }
+
+		.subunit {
+		  stroke: #000;
+		  stroke-linejoin: round;
+		}
+
+		.subunit-boundary {
+		  fill: none;
+		  stroke: #777;
+		  stroke-linejoin: round;
+		}
+
+		.province {
+		  stroke: #000;
+		  stroke-dasharray: 2,2;
+		  stroke-linejoin: round;
+		}
+		.tweet-details{display: none;}
+		.cara:hover + .tweet-details{
+
+			display: block;
+		}
+
+		.place-label {
+		  font-size: 0.5em;
+		}
+		#help1{
+			background: rgba(255, 255, 255, 0.6);
+			color: #000;
+		}
+		#help2{
+			background: rgba(255, 255, 255, 0.6);
+			color: #000;
+		}
+		#help3{
+			background: rgba(255, 255, 255, 0.6);
+			color: #000;
+		}
+		#help1 p{
+			color: #000;
+		}
+		#help2 p{
+			color: #000;
+		}
+		#help3 p{
+			color: #000;
+		}
+	</style>
+
+  	<paper-material elevation="1">
+  	<div class="top-bar">
+        <iron-icon icon="{{icon}}"></iron-icon>
+        <span>{{title}}</span>
+        <paper-icon-button icon="icons:help-outline" on-tap="_showhelp" style="padding: 0px;"></paper-icon-button>
+        <div id="{{idhelp}}" style="display: none; position: absolute; padding: 10px;">
+        	<p>This widget allow us to locate tweets in the Spain map, provinces are coloured with the dominant sentiment.</p>
+        </div>
+    </div>
+  	<div id="marco">
+ 	 <div id="spain"></div>
+ 	</div>
+ 	</paper-material>
+
+ </template>
+
+ <script>
+
+    Polymer({
+
+      is: 'spain-chart-filter',
+
+      properties: {
+
+	      icon: {
+	          type: String,
+	          value: "language"
+	        },
+	      tipo: {
+	      	type: String
+	       },
+	      teams:{
+	          type: String,
+	          value: "FCB Barcelona Barça FCBarcelona ATM Atlético Atletico Atleti"
+            },
+          players:{
+          type: String,
+          value: "Moyá Godín Filipe Tiago Koke Griezmann Kranevitter Torres Óliver Augusto Oblak Gabi Savic Correa Saúl Gámez Lucas Juanfran Carrasco Thomas Vietto Giménez Monsalve Ter Stegen Bravo Piqué Alves Bartra Jordi Alba Adriano Aleix Vidal Vermaelen Mathieu Rakitic Busquets Arda Iniesta Mascherano Roberto Suarez Messi Neymar Munir"
+        	},
+	      index: {
+	          type: String
+	        },
+
+	      subindex: {
+	          type: String
+	        },
+	        idhelp: {
+	        	type: String
+	        },
+
+	      extraId: {
+	          type: String
+	        },
+
+	      fields: {
+	          type: Array,
+	          value: function() { return []; }
+	        },
+
+	      query: {
+	          type: String,
+	          observer: '_queryChanged'
+	        },
+
+	      title: {
+	          type: String,
+	          value: "Geo Chart"
+	        }
+	  },
+
+      ready: function(){
+
+      	this.queryDefault();
+      	//console.log(this.tipo);
+      	
+      	
+      	
+	  },
+	  _showhelp: function(){
+	  	 //console.log("disparo");
+
+       if(document.getElementById("help1").style.display == "none"){
+       	var elemento1 = document.getElementById("help1");
+       	var elemento2 = document.getElementById("help2");
+       	var elemento3 = document.getElementById("help3");
+        elemento1.style.display = 'initial';
+        elemento2.style.display = 'initial';
+        elemento3.style.display = 'initial';
+       }
+       else{
+       	var elemento1 = document.getElementById("help1");
+       	var elemento2 = document.getElementById("help2");
+       	var elemento3 = document.getElementById("help3");
+        elemento1.style.display = 'none';
+        elemento2.style.display = 'none';
+        elemento3.style.display = 'none';
+       }
+
+
+	  },
+	   d3geoconicConformalSpain: function(){
+	    	function n(n){var o=n[0],i=n[1];return t=null,e(o,i),t||r(o,i),t}var t,e,r,o=d3.geo.conicConformal().center([2,37.5]),i=d3.geo.conicConformal().center([-9.6,26.4]),a={point:function(n,e){t=[n,e]}};return n.invert=function(n){var t=o.scale(),e=o.translate(),r=(n[0]-e[0])/t,a=(n[1]-e[1])/t;return(a>=-.10779&&.067673>a&&r>=-.1866&&.0255>r?i:o).invert(n)},n.stream=function(n){var t=o.stream(n),e=i.stream(n);return{point:function(n,r){t.point(n,r),e.point(n,r)},sphere:function(){t.sphere(),e.sphere()},lineStart:function(){t.lineStart(),e.lineStart()},lineEnd:function(){t.lineEnd(),e.lineEnd()},polygonStart:function(){t.polygonStart(),e.polygonStart()},polygonEnd:function(){t.polygonEnd(),e.polygonEnd()}}},n.precision=function(t){return arguments.length?(o.precision(t),i.precision(t),n):o.precision()},n.scale=function(t){return arguments.length?(o.scale(t),i.scale(t),n.translate(o.translate())):o.scale()},n.translate=function(t){if(!arguments.length)return o.translate();var c=o.scale(),l=+t[0],s=+t[1];return e=o.translate(t).clipExtent([[l-.1291*c,s-.1683*c],[l+.0309*c,s+.0517*c]]).stream(a).point,r=i.translate([l-.067*c,s+.081*c]).clipExtent([[l-.1866*c,s+.02557*c],[l-.10779*c,s+.06767*c]]).stream(a).point,n},n.getCompositionBorders=function(){var n=o([-13,35.3]),t=o([-6.4,34]);return"M"+n[0]+" "+n[1]+"L"+t[0]+" "+n[1]+"L"+t[0]+" "+t[1]},n.scale(2500)
+	    },
+
+
+	  
+	  _draw: function(data){
+	  	//console.log("entro pintar");
+
+	  	
+	  	/*var width = 600,
+		    height = 430;
+		var svg = d3.select(this.$.spain).append("svg")
+		.attr("width", width)
+		.attr("height", height);
+		d3.json("es.json", function(error, es) {
+		    if (error) return console.error(error);
+		    //console.log(es);
+		    var subunits = topojson.feature(es, es.objects.subunits);
+		    var provinces = topojson.feature(es, es.objects.provinces);
+		    var projection = d3.geo.mercator()
+		    .scale(1900)
+		    .center([0, 40])
+		    //.translate([360, height / 2]);
+		    .translate([360, 200]);
+		    //console.log(es.objects.places.features);
+		    var path = d3.geo.path()
+		    .projection(projection);
+		    svg.selectAll(".province")
+		      .data(provinces.features)
+		      .enter()
+		      .append("path")
+		      .attr("class", function(d) {
+		       //console.log(d.geometry.coordinates);
+		       return "province " + d.properties.name; })
+		      .attr("d", path)
+		      .style('fill', function(d) { return d3.hsl(Math.random() * 100, 0.5, 0.5); });
+		    svg.selectAll(".subunit")
+		      .data(subunits.features)
+		      .enter()
+		      .append("path")
+		      .attr("class", function(d) { return "subunit " + d.id; })
+		      .attr("d", path);
+		    svg.append("path")
+		      .datum(topojson.mesh(es, es.objects.subunits, function(a, b) { return a !== b && a.id !== "ESP"; }))
+		      .attr("d", path)
+		      .attr("class", "subunit-boundary");*/
+		    /*svg.append("path")
+		      .datum(topojson.feature(es, es.objects.places))
+		      .attr("d", path)
+		      .attr("class", "place");*/
+		    //console.log(topojson.feature(es, es.objects.places));
+		    //console.log(data);
+		   
+		    var width = 540,
+			    height = 430;
+			var sentcolor = {"Neutral": "#ddd", "Positive": "green", "Negative": "red"};
+			var projection = this.d3geoconicConformalSpain()
+
+			var path = d3.geo.path()
+				.projection(projection);
+
+
+			var svg = d3.select(this.$.spain).append("svg")
+			    .attr("width", width)
+			    .attr("height", height);
+
+			var div = d3.select("body").append("div")
+			        .attr("class", "tooltip")
+			        .style("opacity", 0);
+			var that = this;
+			var citysentiment = {"Almería":{"sentimiento":"Neutral"},
+									"Cádiz":{"sentimiento":"Neutral"},
+									"Córdoba":{"sentimiento":"Neutral"},
+									"Granada":{"sentimiento":"Neutral"},
+									"Huelva":{"sentimiento":"Neutral"},
+									"Jaén":{"sentimiento":"Neutral"},
+									"Málaga":{"sentimiento":"Neutral"},
+									"Sevilla":{"sentimiento":"Neutral"},
+									"Huesca":{"sentimiento":"Neutral"},
+									"Teruel":{"sentimiento":"Neutral"},
+									"Zaragoza":{"sentimiento":"Neutral"},
+									"Asturias": {"sentimiento":"Neutral"},
+									"Balears, Illes": {"sentimiento":"Neutral"},
+									"Palmas, Las": {"sentimiento":"Neutral"},
+									"Santa Cruz de Tenerife": {"sentimiento":"Neutral"},
+									"Cantabria": {"sentimiento":"Neutral"},
+									"Albacete": {"sentimiento":"Neutral"},
+									"Ciudad Real": {"sentimiento":"Neutral"},
+									"Cuenca": {"sentimiento":"Neutral"},
+									"Guadalajara":{"sentimiento":"Neutral"},
+									"Toledo":{"sentimiento":"Neutral"},
+									"Ávila":{"sentimiento":"Neutral"},
+									"Burgos":{"sentimiento":"Neutral"},
+									"León":{"sentimiento":"Neutral"},
+									"Palencia":{"sentimiento":"Neutral"},
+									"Salamanca":{"sentimiento":"Neutral"},
+									"Segovia":{"sentimiento":"Neutral"},
+									"Soria":{"sentimiento":"Neutral"},
+									"Valladolid":{"sentimiento":"Neutral"},
+									"Zamora":{"sentimiento":"Neutral"},
+									"Barcelona":{"sentimiento":"Neutral"},
+									"Girona":{"sentimiento":"Neutral"},
+									"Lleida":{"sentimiento":"Neutral"},
+									"Tarragona":{"sentimiento":"Neutral"},
+									"Ceuta":{"sentimiento":"Neutral"},
+									"Alicante":{"sentimiento":"Neutral"},
+									"Castellón":{"sentimiento":"Neutral"},
+									"Valencia":{"sentimiento":"Neutral"},
+									"Badajoz":{"sentimiento":"Neutral"},
+									"Cáceres":{"sentimiento":"Neutral"},
+									"Coruña, A":{"sentimiento":"Neutral"},
+									"Lugo":{"sentimiento":"Neutral"},
+									"Ourense":{"sentimiento":"Neutral"},
+									"Pontevedra":{"sentimiento":"Neutral"},
+									"Rioja, La":{"sentimiento":"Neutral"},
+									"Madrid":{"sentimiento":"Neutral"},
+									"Melilla":{"sentimiento":"Neutral"},
+									"Murcia":{"sentimiento":"Neutral"},
+									"Navarra":{"sentimiento":"Neutral"},
+									"Álava":{"sentimiento":"Neutral"},
+									"Guipúzcoa":{"sentimiento":"Neutral"},
+									"Vizcaya":{"sentimiento":"Neutral"}}
+
+
+			for (var i=0; i<data.length;i++){
+				if (data[i].city == "Valencia"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Valencia = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Valencia = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Valencia = {sentimento: "Negative"}
+				}
+				if (data[i].city == "Barcelona"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Barcelona = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Barcelona = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Barcelona = {sentimento: "Negative"}
+				}
+				if (data[i].city == "Madrid"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Madrid = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Madrid = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Madrid = {sentimento: "Negative"}
+				}
+				if (data[i].city == "Sevilla"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Sevilla = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Sevilla = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Sevilla = {sentimento: "Negative"}
+				}
+				if (data[i].city == "Galicia"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Lugo = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Lugo = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Lugo = {sentimento: "Negative"}
+				}
+				if (data[i].city == "Cantabria"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Cantabria = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Cantabria = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Cantabria = {sentimento: "Negative"}
+				}
+				if (data[i].city == "Asturias"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Asturias = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Asturias = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Asturias = {sentimento: "Negative"}
+				}
+				if (data[i].city == "León"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.León = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.León = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.León = {sentimento: "Negative"}
+				}
+			if (data[i].city == "Zamora"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Zamora = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Zamora = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Zamora = {sentimento: "Negative"}
+				}
+			if (data[i].city == "Zaragoza"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Zaragoza = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Zaragoza = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Zaragoza = {sentimento: "Negative"}
+				}
+			if (data[i].city == "Canarias"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment["Palmas, Las"] = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment["Palmas, Las"] = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment["Palmas, Las"]= {sentimento: "Negative"}
+				}
+			}
+			//console.log(citysentiment);
+			  d3.json("provincias.json", function(error, provincias) {
+			  var land = topojson.feature(provincias, provincias.objects.provincias);
+			  svg.selectAll("path")
+			      .data(land.features)
+			      .enter()
+			      .append("path")
+			      .attr("d", path)
+			      .attr('transform', function(d){
+			      	if (d.properties.nombre == "Santa Cruz de Tenerife" || d.properties.nombre == "Palmas, Las"){
+			      		return 'translate(0,0)'
+			      	}
+			      	else return 'translate(-100,0)'
+			      })
+			      //.attr("class",function(d){ return citysentiment[d.properties.nombre][0]})
+			      .attr("fill", function(d){
+
+			       // var ganador = Object.keys(resultados[d.properties.nombre])[0];
+			  	   //console.log(d);	       
+			       // return colores[ganador];
+			       //console.log(citysentiment[d.properties.nombre].sentimiento)
+			       //console.log(citysentiment[d.properties.nombre].sentimento);
+			       //var sentiment = Object.keys(citysentiment[d.properties.nombre])[1];
+			       /*var sentimentcolor = citysentiment[d.properties.nombre].sentimiento;
+			       console.log(sentimentcolor)
+			       console.log(sentcolor[sentimentcolor])
+			       //console.log(sentiment)
+			       return sentcolor[sentimentcolor];*/
+			       //return "grey";
+			       if(citysentiment[d.properties.nombre].sentimento == undefined){
+			       	return "grey"
+			       }else return sentcolor[citysentiment[d.properties.nombre].sentimento]
+			       });
+			      /*.on("mouseover", function(d) {
+			            d3.select(this)
+			                .transition()
+			                .style("stroke-width", 4);
+
+			            div.transition()
+			                .duration(200)
+			                .style("opacity", 0.9);
+			            var resultados_provincia  = "";
+			            var partido;
+			            for (partido in resultados[d.properties.nombre]) {
+			              resultados_provincia += partido + ": " + resultados[d.properties.nombre][partido] + "</br>";
+			            }
+			            div.html("Resultados: <br/>" + resultados_provincia)
+			                .style("left", (d3.event.pageX) + "px")
+			                .style("top", (d3.event.pageY - 28) + "px");
+			            })
+			        .on("mouseout", function(d) {
+			            d3.select(this)
+			                .transition()
+			                .style("stroke-width", 0);
+			            div.transition()
+			                .duration(500)
+			                .style("opacity", 0);
+			        });*/
+
+			        svg
+			          .append("path")
+			            .style("fill","none")
+			            .style("stroke","#000")
+			            .attr("d", projection.getCompositionBorders());
+			    
+			        that._drawfaces(data);
+			  });
+				
+			},
+
+			_drawfaces: function(data){
+				var svg = d3.select(this.$.spain).select("svg");
+				var projection = this.d3geoconicConformalSpain();
+
+				for (var i=0; i<data.length;i++){
+			    	if (data[i].city == "Barcelona"){
+			    		data[i].coordinates = [1.3009586232530336+(Math.random()*0.4),(41.38505768239248)+(Math.random()*0.4)]
+			    	}
+			    	if (data[i].city == "Madrid"){
+			    		data[i].coordinates = [-5.1842519049503775+(Math.random()*0.4),40.401350962116155+(Math.random()*0.4)]
+			    	}
+			    	if (data[i].city == "Valencia"){
+			    		data[i].coordinates = [-1.9027949018342696+(Math.random()*0.4),39.487101366588405+(Math.random()*0.4)]
+			    	}
+			    	if (data[i].city == "Sevilla"){
+			    		data[i].coordinates = [-6.8550582+(Math.random()*0.4),37.3753708+(Math.random()*0.4)]
+			    	}
+			    	if (data[i].city == "Cantabria"){
+			    		data[i].coordinates = [-5.4111371+(Math.random()*0.4),43.4613444+(Math.random()*0.4)]
+			    	}
+			    	if (data[i].city == "Asturias"){
+			    		data[i].coordinates = [-7.44865+(Math.random()*0.4),43.3694868+(Math.random()*0.4)]
+			    	}
+			    	if (data[i].city == "Galicia"){
+			    		data[i].coordinates = [-9.1565001+(Math.random()*0.4),43.0122837+(Math.random()*0.4)]
+			    	}
+			    	if (data[i].city == "Zamora"){
+			    		data[i].coordinates = [-7.344536+(Math.random()*0.4),41.5038098+(Math.random()*0.4)]
+			    	}
+			    	if (data[i].city == "León"){
+			    		data[i].coordinates = [-7.182428+(Math.random()*0.4),42.596048+(Math.random()*0.4)]
+			    	}
+			    	if (data[i].city == "Zaragoza"){
+			    		data[i].coordinates = [-2.5270593+(Math.random()*0.4),41.6915748+(Math.random()*0.4)]
+			    	}
+			    	if (data[i].city == "Canarias"){
+			    		data[i].coordinates = [-5.4563748+(Math.random()*0.4),35.0578025+(Math.random()*0.4)]
+			    	}
+			    	if (data[i].sentiment == "Neutral"){
+			    		data[i].image = "neutral-face.png"
+			    	}
+			    	if (data[i].sentiment == "Positive"){
+			    		data[i].image = "grinning-face.png"
+			    	}
+			    	if (data[i].sentiment == "Negative"){
+			    		data[i].image = "crying-face.png"
+			    	}	
+			    }
+			    var faceIcon = svg.selectAll('image').data([0]);
+			    for (var i=0; i<data.length;i++){
+			    faceIcon.enter()
+					.append('svg:image')
+					.attr('xlink:href', 'images/'+data[i].image)
+					.attr('width', '26').attr('height', '26')
+					.attr("class","cara")
+	           		//.attr('transform', function(d) {return 'translate(' + position + ')';});
+	           		.attr('transform', function(d) {
+	           			var coordinates = projection(data[i].coordinates)
+	           			var coordinates_updated = [coordinates[0] - 85, coordinates[1]]
+	           			//console.log(coordinates)
+	           			//console.log(coordinates_updated)
+	           			return 'translate(' + coordinates_updated + ')';});
+	           		
+	           	svg.selectAll(".place-label").data([0]).enter()
+	           		.append("text")
+	           		.attr("class", "tweet-details")
+	           		.attr('transform','translate(15,410)')
+	           		.text(data[i].text);
+	           	}
+
+			},
+			_updateprovincecolor: function(data){
+				var sentcolor = {"Neutral": "#ddd", "Positive": "green", "Negative": "red"};
+				var citysentiment = {"Almería":{"sentimiento":"Neutral"},
+									"Cádiz":{"sentimiento":"Neutral"},
+									"Córdoba":{"sentimiento":"Neutral"},
+									"Granada":{"sentimiento":"Neutral"},
+									"Huelva":{"sentimiento":"Neutral"},
+									"Jaén":{"sentimiento":"Neutral"},
+									"Málaga":{"sentimiento":"Neutral"},
+									"Sevilla":{"sentimiento":"Neutral"},
+									"Huesca":{"sentimiento":"Neutral"},
+									"Teruel":{"sentimiento":"Neutral"},
+									"Zaragoza":{"sentimiento":"Neutral"},
+									"Asturias": {"sentimiento":"Neutral"},
+									"Balears, Illes": {"sentimiento":"Neutral"},
+									"Palmas, Las": {"sentimiento":"Neutral"},
+									"Santa Cruz de Tenerife": {"sentimiento":"Neutral"},
+									"Cantabria": {"sentimiento":"Neutral"},
+									"Albacete": {"sentimiento":"Neutral"},
+									"Ciudad Real": {"sentimiento":"Neutral"},
+									"Cuenca": {"sentimiento":"Neutral"},
+									"Guadalajara":{"sentimiento":"Neutral"},
+									"Toledo":{"sentimiento":"Neutral"},
+									"Ávila":{"sentimiento":"Neutral"},
+									"Burgos":{"sentimiento":"Neutral"},
+									"León":{"sentimiento":"Neutral"},
+									"Palencia":{"sentimiento":"Neutral"},
+									"Salamanca":{"sentimiento":"Neutral"},
+									"Segovia":{"sentimiento":"Neutral"},
+									"Soria":{"sentimiento":"Neutral"},
+									"Valladolid":{"sentimiento":"Neutral"},
+									"Zamora":{"sentimiento":"Neutral"},
+									"Barcelona":{"sentimiento":"Neutral"},
+									"Girona":{"sentimiento":"Neutral"},
+									"Lleida":{"sentimiento":"Neutral"},
+									"Tarragona":{"sentimiento":"Neutral"},
+									"Ceuta":{"sentimiento":"Neutral"},
+									"Alicante":{"sentimiento":"Neutral"},
+									"Castellón":{"sentimiento":"Neutral"},
+									"Valencia":{"sentimiento":"Neutral"},
+									"Badajoz":{"sentimiento":"Neutral"},
+									"Cáceres":{"sentimiento":"Neutral"},
+									"Coruña, A":{"sentimiento":"Neutral"},
+									"Lugo":{"sentimiento":"Neutral"},
+									"Ourense":{"sentimiento":"Neutral"},
+									"Pontevedra":{"sentimiento":"Neutral"},
+									"Rioja, La":{"sentimiento":"Neutral"},
+									"Madrid":{"sentimiento":"Neutral"},
+									"Melilla":{"sentimiento":"Neutral"},
+									"Murcia":{"sentimiento":"Neutral"},
+									"Navarra":{"sentimiento":"Neutral"},
+									"Álava":{"sentimiento":"Neutral"},
+									"Guipúzcoa":{"sentimiento":"Neutral"},
+									"Vizcaya":{"sentimiento":"Neutral"}}
+
+
+			for (var i=0; i<data.length;i++){
+				if (data[i].city == "Valencia"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Valencia = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Valencia = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Valencia = {sentimento: "Negative"}
+				}
+				if (data[i].city == "Barcelona"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Barcelona = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Barcelona = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Barcelona = {sentimento: "Negative"}
+				}
+				if (data[i].city == "Madrid"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Madrid = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Madrid = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Madrid = {sentimento: "Negative"}
+				}
+				if (data[i].city == "Sevilla"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Sevilla = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Sevilla = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Sevilla = {sentimento: "Negative"}
+				}
+				if (data[i].city == "Galicia"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Lugo = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Lugo = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Lugo = {sentimento: "Negative"}
+				}
+				if (data[i].city == "Cantabria"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Cantabria = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Cantabria = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Cantabria = {sentimento: "Negative"}
+				}
+				if (data[i].city == "Asturias"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Asturias = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Asturias = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Asturias = {sentimento: "Negative"}
+				}
+				if (data[i].city == "León"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.León = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.León = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.León = {sentimento: "Negative"}
+				}
+			if (data[i].city == "Zamora"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Zamora = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Zamora = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Zamora = {sentimento: "Negative"}
+				}
+			if (data[i].city == "Zaragoza"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment.Zaragoza = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment.Zaragoza = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment.Zaragoza = {sentimento: "Negative"}
+				}
+			if (data[i].city == "Canarias"){
+					//console.log(data[i].sentiment);
+					var Positive = 0;
+					var Negative = 0;
+					var Neutral = 0;
+					if(data[i].sentiment == "Positive") Positive++
+					if(data[i].sentiment == "Negative") Negative++
+					if(data[i].sentiment == "Neutral") Neutral++
+						//console.log("Negative:"+Negative+"Positive:"+Positive+"Neutral:"+Neutral)
+
+					if(Positive > Negative) citysentiment["Palmas, Las"] = {sentimento: "Positive"};
+					if(Neutral > Positive) citysentiment["Palmas, Las"] = {sentimento: "Neutral"};
+					if(Negative > Positive) citysentiment["Palmas, Las"]= {sentimento: "Negative"}
+				}
+			}
+			var svg = d3.select(this.$.spain).select("svg");
+			svg.selectAll('image').remove();
+			svg.selectAll("path")
+			.attr("fill", function(d){
+
+			       // var ganador = Object.keys(resultados[d.properties.nombre])[0];
+			  	   //console.log(d);	       
+			       // return colores[ganador];
+			       //console.log(citysentiment[d.properties.nombre].sentimiento)
+			       //console.log(citysentiment[d.properties.nombre].sentimento);
+			       //var sentiment = Object.keys(citysentiment[d.properties.nombre])[1];
+			       /*var sentimentcolor = citysentiment[d.properties.nombre].sentimiento;
+			       console.log(sentimentcolor)
+			       console.log(sentcolor[sentimentcolor])
+			       //console.log(sentiment)
+			       return sentcolor[sentimentcolor];*/
+			       //return "grey";
+			       if(d != undefined){
+			       if(citysentiment[d.properties.nombre].sentimento == undefined){
+			       	return "grey"
+			       }else return sentcolor[citysentiment[d.properties.nombre].sentimento]
+			       }
+			   	   });
+			//onsole.log("llego")
+			this._drawfaces(data);
+
+			},
+
+		    	    		
+		    
+		    //console.log(data);
+		    
+		    /*svg.selectAll(".place-label")
+		      .data(topojson.feature(es, es.objects.places).features)
+		      .enter().append("text")
+		      .attr("class", "place-label")
+		      .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+		      .attr("dy", ".35em")
+		      .text(function(d) { return d.properties.name; });*/
+		    /*svg.selectAll(".place-label")
+		      .attr("x", function(d) { return d.geometry.coordinates[0] > -1 ? 6 : -6; })
+		      .style("text-anchor", function(d) { return d.geometry.coordinates[0] > -1 ? "start" : "end"; });*/
+		//});
+
+	   _queryChanged: function() {
+          this.query ? this.queryChange(this.query) : this.queryDefault();
+        },
+
+	  queryDefault: function() {
+	  	d3.select(this.$.spain).select("svg").remove();
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+        var that = this
+        if (this.tipo == "players"){
+        client.search({
+        	
+        // undocumented params are appended to the query string
+        index: this.index,
+        type: this.subindex,
+        body: {
+          size: 500,
+          query: {
+        	"bool" : {
+	            "must" : [ 
+	                { "match": { "user_location" : "Madrid Barcelona Valencia Galicia Sevilla Cantabria Asturias León Zamora Zaragoza Canarias" } },
+	                { "match": { "text" : this.players}}
+	               
+	            		]
+         			}
+    			},
+             	
+       	  stored_fields: [ "user_location" , "text" , "sentiment"],
+       	  _source: {} 
+         	
+          
+        }
+        }).then(function (resp) {
+          var hits = resp.hits.hits;
+          var results = []
+          hits.forEach(function(entry) {
+            results.push(entry._source);
+          });
+        	//console.log(results);
+        	function filterbylocation(obj){
+        		if ('user.location' in obj != undefined ){
+        			return true
+        		}else{
+        			return false
+        		}
+        	}
+        	resultsclean = results.filter(filterbylocation);
+        	//console.log(resultsclean);
+        	var sitios = []
+        	for(var i = 0; i<resultsclean.length; i++){
+        	//console.log((resultsclean[i]["sentiment"][0]).split(":")[1]);
+        	if((resultsclean[i]["user_location"]).indexOf("Barcelona")>-1){
+        		sitios.push({city:"Barcelona", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Madrid")>-1){
+        		sitios.push({city:"Madrid", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Valencia")>-1){
+        		sitios.push({city:"Valencia", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Galicia")>-1){
+        		sitios.push({city:"Galicia", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Sevilla")>-1){
+        		sitios.push({city:"Sevilla", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("León")>-1){
+        		sitios.push({city:"León", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Zamora")>-1){
+        		sitios.push({city:"Zamora", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Cantabria")>-1){
+        		sitios.push({city:"Cantabria", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Asturias")>-1){
+        		sitios.push({city:"Asturias", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Zaragoza")>-1){
+        		sitios.push({city:"Zaragoza", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Canarias")>-1){
+        		sitios.push({city:"Canarias", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	}
+
+        	//console.log(sitios);
+          that._draw(sitios);
+        });
+	    }
+	    if (this.tipo == "teams"){
+	    client.search({
+        	
+        // undocumented params are appended to the query string
+        index: this.index,
+        type: this.subindex,
+        body: {
+          size: 500,
+          query: {
+        	"bool" : {
+	            "must" : [ 
+	                { "match": { "user_location" : "Madrid Barcelona Valencia Galicia Sevilla Cantabria Asturias León Zamora Zaragoza Canarias" } },
+	                { "match": { "text" : this.teams}}
+	               
+	            		]
+         			}
+    			},
+             	
+       	  stored_fields: [ "user_location" , "text" , "sentiment"],
+       	  _source: {}
+         	
+          
+        }
+        }).then(function (resp) {
+          var hits = resp.hits.hits;
+          var results = []
+          hits.forEach(function(entry) {
+            results.push(entry._source);
+          });
+        	//console.log(results);
+        	function filterbylocation(obj){
+        		if ('user.location' in obj != undefined ){
+        			return true
+        		}else{
+        			return false
+        		}
+        	}
+        	resultsclean = results.filter(filterbylocation);
+        	//console.log(resultsclean);
+        	var sitios = []
+        	for(var i = 0; i<resultsclean.length; i++){
+        	//console.log((resultsclean[i]["sentiment"]).split(":")[1]);
+        	if((resultsclean[i]["user_location"]).indexOf("Barcelona")>-1){
+        		sitios.push({city:"Barcelona", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Madrid")>-1){
+        		sitios.push({city:"Madrid", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Valencia")>-1){
+        		sitios.push({city:"Valencia", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Galicia")>-1){
+        		sitios.push({city:"Galicia", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Sevilla")>-1){
+        		sitios.push({city:"Sevilla", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("León")>-1){
+        		sitios.push({city:"León", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Zamora")>-1){
+        		sitios.push({city:"Zamora", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Cantabria")>-1){
+        		sitios.push({city:"Cantabria", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Asturias")>-1){
+        		sitios.push({city:"Asturias", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Zaragoza")>-1){
+        		sitios.push({city:"Zaragoza", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Canarias")>-1){
+        		sitios.push({city:"Canarias", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	}
+
+        	//console.log(sitios);
+          //console.log("llegada antes pintar");
+          that._draw(sitios);
+        });
+	    } 
+	    },
+	    queryChange: function() {
+	    //console.log("fired");
+	    //d3.select(this.$.spain).select("svg").remove();
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+        var that = this
+        if (this.tipo == "players"){
+        client.search({
+        	
+        // undocumented params are appended to the query string
+        index: this.index,
+        type: this.subindex,
+        body: {
+          size: 500,
+          query: {
+        	"bool" : {
+	            "must" : [ 
+	                { "match": { "user_location" : "Madrid Barcelona Valencia Galicia Sevilla Cantabria Asturias León Zamora Zaragoza Canarias" } },
+	                { "match": { "text" : this.players}},
+	            		   { "match": { "text": this.query   }}
+	               
+	            		]
+         			}
+    			},
+             	
+       	  stored_fields: [ "user_location" , "text" , "sentiment"],
+       	  _source: {} 
+         	
+          
+        }
+        }).then(function (resp) {
+          var hits = resp.hits.hits;
+          var results = []
+          hits.forEach(function(entry) {
+            results.push(entry._source);
+          });
+        	//console.log(results);
+        	function filterbylocation(obj){
+        		if ('user.location' in obj != undefined ){
+        			return true
+        		}else{
+        			return false
+        		}
+        	}
+        	resultsclean = results.filter(filterbylocation);
+        	//console.log(resultsclean);
+        	var sitios = []
+        	for(var i = 0; i<resultsclean.length; i++){
+        	//console.log((resultsclean[i]["sentiment"]).split(":")[1]);
+        	if((resultsclean[i]["user_location"]).indexOf("Barcelona")>-1){
+        		sitios.push({city:"Barcelona", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Madrid")>-1){
+        		sitios.push({city:"Madrid", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Valencia")>-1){
+        		sitios.push({city:"Valencia", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Galicia")>-1){
+        		sitios.push({city:"Galicia", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Sevilla")>-1){
+        		sitios.push({city:"Sevilla", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("León")>-1){
+        		sitios.push({city:"León", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Zamora")>-1){
+        		sitios.push({city:"Zamora", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Cantabria")>-1){
+        		sitios.push({city:"Cantabria", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Asturias")>-1){
+        		sitios.push({city:"Asturias", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Zaragoza")>-1){
+        		sitios.push({city:"Zaragoza", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Canarias")>-1){
+        		sitios.push({city:"Canarias", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	}
+
+        	//console.log(sitios);
+          that._updateprovincecolor(sitios);
+        });
+		}
+	    if (this.tipo == "teams"){
+	    client.search({
+        	
+        // undocumented params are appended to the query string
+        index: this.index,
+        type: this.subindex,
+        body: {
+          size: 500,
+          query: {
+        	"bool" : {
+	            "must" : [ 
+	                { "match": { "user_location" : "Madrid Barcelona Valencia Galicia Sevilla Cantabria Asturias León Zamora Zaragoza Canarias" } },
+	                { "match": { "text" : this.teams}},
+	            		   { "match": { "text": this.query   }}
+	               
+	            		]
+         			}
+    			},
+             	
+       	  stored_fields: [ "user_location" , "text" , "sentiment"],
+       	  _source: {} 
+         	
+          
+        }
+        }).then(function (resp) {
+          var hits = resp.hits.hits;
+          var results = []
+          hits.forEach(function(entry) {
+            results.push(entry._source);
+          });
+        	//console.log(results);
+        	function filterbylocation(obj){
+        		if ('user.location' in obj != undefined ){
+        			return true
+        		}else{
+        			return false
+        		}
+        	}
+        	resultsclean = results.filter(filterbylocation);
+        	//console.log(resultsclean);
+        	var sitios = []
+        	for(var i = 0; i<resultsclean.length; i++){
+        	//console.log((resultsclean[i]["sentiment"]).split(":")[1]);
+        	if((resultsclean[i]["user_location"]).indexOf("Barcelona")>-1){
+        		sitios.push({city:"Barcelona", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Madrid")>-1){
+        		sitios.push({city:"Madrid", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Valencia")>-1){
+        		sitios.push({city:"Valencia", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Galicia")>-1){
+        		sitios.push({city:"Galicia", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Sevilla")>-1){
+        		sitios.push({city:"Sevilla", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("León")>-1){
+        		sitios.push({city:"León", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Zamora")>-1){
+        		sitios.push({city:"Zamora", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Cantabria")>-1){
+        		sitios.push({city:"Cantabria", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Asturias")>-1){
+        		sitios.push({city:"Asturias", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Zaragoza")>-1){
+        		sitios.push({city:"Zaragoza", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	if((resultsclean[i]["user_location"]).indexOf("Canarias")>-1){
+        		sitios.push({city:"Canarias", sentiment: (resultsclean[i]["sentiment"]).split(":")[1], coordinates:[], text: resultsclean[i]["text"]});
+        	}
+        	}
+
+        	//console.log(sitios);
+          that._updateprovincecolor(sitios);
+        });
+	    } 
+	    }
+
+
+	});
+</script>
+</dom-module>

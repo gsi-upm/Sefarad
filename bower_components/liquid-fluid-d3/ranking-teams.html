@@ -1,0 +1,342 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="liquid-fluid-d3.html">
+
+<dom-module id="ranking-teams">
+
+<style is="custom-style">
+  @import url("../../styles/app-theme.html");
+  #help15{
+      background: rgba(255, 255, 255, 0.8);
+      color: #000;
+    }
+
+</style>
+<link rel="import" type="css" href="trending-chart.css">
+
+ <template>
+
+  <paper-material elevation="1">
+    <div class="top-bar">
+        <iron-icon icon="{{icon}}"></iron-icon>
+        <span>{{title}}</span>
+        <paper-icon-button icon="icons:help-outline" on-tap="_showhelp" style="padding: 0px;"></paper-icon-button>
+        <div id="{{idhelp}}" style="display: none; position: absolute; padding: 10px; left: 0; top: 35px;">
+          <p>This widget allow us to create rankings to show the most popular, or most impopular teams.</p>
+        </div>
+    </div>
+
+  <template is="dom-repeat" items="{{datos}}" as="entity"> 
+    <div style="width:100%; float:left; margin-top: 6px;">
+      <img src={{checkSource(entity.entity)}} style="height: 30px; display: inline-block; margin:10px">
+      <h4 style="display: inline-block;">{{entity.entity}}</h4>
+      <liquid-fluid-d3
+        value="{{entity.value}}"
+        title = "{{entity.entity}}"
+        id="{{entity.id}}"
+        color="{{color}}"
+        maintextcolor="{{maintextcolor}}"
+        textcolorfill="{{textcolorfill}}">
+      </liquid-fluid-d3></div>
+      
+      
+   
+  </template>
+  <div style="width:100%; clear: both"></div>
+  </paper-material>
+
+ </template>
+ <script>
+
+    Polymer({
+
+      is: 'ranking-teams',
+
+       properties: {
+
+        teams:{
+          type: String,
+          value: "FCB Barcelona Barça FCBarcelona ATM Atlético Atletico Atleti"
+        },
+
+        teamsarr:{
+          type: Array,
+          value:["Barça", "Atleti"]
+        },
+
+        datos: {
+            type: Array,
+            value: [] //default value for data array.
+        },
+        color:{
+          type: String
+        },
+        idhelp: {
+            type: String
+        },
+        maintextcolor:{
+                type: String
+        },
+        textcolorfill:{
+                type: String
+        },
+
+        icon: {
+            type: String,
+            value: "trending-up"
+          },
+
+        title: {
+            type: String
+          },
+        index: {
+            type: String
+          },
+
+
+        subindex: {
+            type: String
+          },
+
+        extraId: {
+            type: String
+          },
+        query: {
+          type: String,
+          observer: '_queryChanged'
+        },
+
+        fields: {
+            type: Array,
+            value: function() { return []; }
+          }
+      },
+      ready: function(){
+          this.queryDefault();
+      },
+       _showhelp: function(){
+       //console.log("disparo");
+
+       if(document.getElementById("help15").style.display == "none"){
+        var elemento1 = document.getElementById("help15");
+        //var elemento2 = document.getElementById("help5");
+        //var elemento3 = document.getElementById("help6");
+        //var elemento4 = document.getElementById("help7");
+        elemento1.style.display = 'initial';
+        //elemento2.style.display = 'initial';
+        //elemento3.style.display = 'initial';
+        //elemento4.style.display = 'initial';
+       }
+       else{
+        var elemento1 = document.getElementById("help15");
+        //var elemento2 = document.getElementById("help5");
+        //var elemento3 = document.getElementById("help6");
+        //var elemento4 = document.getElementById("help7");
+        elemento1.style.display = 'none';
+        //elemento2.style.display = 'none';
+        //elemento3.style.display = 'none';
+        //elemento4.style.display = 'none';
+       }
+
+
+    },
+        queryDefault: function() {
+         // console.log(this.title);
+          var client = new $.es.Client({
+            hosts: this.host
+          });
+          var that = this
+          client.search({
+          // undocumented params are appended to the query string
+          index: this.index,
+          type: this.subindex,
+          body: {
+            size: 10000,
+            query: {
+                  "bool" : {
+                      "must" : [ 
+                          { "match": { "text" : this.teams } },
+                          { "match": { "polarity" : "1 -1" } }
+                         
+                      ]
+                 }
+            },
+            stored_fields: ["text" , "polarity"],
+            _source:{}
+          }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = [];
+            
+            var aparitions = [];
+            var aux = [];
+            hits.forEach(function(entry) {
+              results.push(entry._source);
+            });
+            
+            //console.log(results);
+            var arrteams = [];
+            //console.log(that.playersarr);
+
+            for(var j = 0; j<results.length; j++){
+                if( (results[j]["text"]).indexOf("Barça")>-1 || (results[j]["text"]).indexOf("FCB")>-1){
+                  //console.log(that.playersarr[i], results[j]["text"][0]);
+                  arrteams.push({team: "Barça", polarity: results[j]["polarity"]});
+                }
+                if((results[j]["text"]).indexOf("Atleti")>-1 || (results[j]["text"]).indexOf("ATM")>-1 || (results[j]["text"]).indexOf("Atlético")>-1 || (results[j]["text"]).indexOf("Atletico")>-1 ){
+                  //console.log(that.playersarr[i], results[j]["text"][0]);
+                  arrteams.push({team: "Atleti", polarity: results[j]["polarity"]});
+                }
+            }
+            
+            //console.log(arrjugadores[0].player);
+            var puntosequipo = []
+            var totneg = 0;
+            var totpos = 0;
+          
+            for(var i = 0; i<that.teamsarr.length; i++){
+                  var positive = 0;
+                  var negative = 0;  
+              for (var j = 0; j<arrteams.length; j++){
+                if (arrteams[j].team == that.teamsarr[i]){
+                  if(arrteams[j].polarity == 1) {
+                    positive++ 
+                    totpos++
+                  }
+                  if(arrteams[j].polarity == -1){
+                     negative++
+                     totneg++
+                  }
+                    //console.log(that.playersarr[i], positive, negative)
+                }
+                    
+                    
+                }
+                  
+                puntosequipo.push({"negative" : negative, "positive" : positive, "team": that.teamsarr[i]});
+                
+            }
+            puntosequipo.total = {"negative": totneg, "positive": totpos}
+            //console.log(puntosequipo);
+            if (that.title == "Team Ranking"){
+              var resultados = []
+              puntosequipo.sort(function(a,b){return b.positive - a.positive});
+              resultados.push({"entity": puntosequipo[0].team, "value": Math.round((puntosequipo[0].positive / totpos)*100), "id":1});
+                resultados.push({"entity": puntosequipo[1].team, "value": Math.round((puntosequipo[1].positive / totpos)*100), "id":2});
+
+              that.datos = resultados;
+            }
+
+          });
+          
+        },
+        
+         queryChange: function(value) {
+          //console.log(this.title);
+          var client = new $.es.Client({
+            hosts: this.host
+          });
+          var that = this
+          client.search({
+          // undocumented params are appended to the query string
+          index: this.index,
+          type: this.subindex,
+          body: {
+            size: 10000,
+            query: {
+                  "bool" : {
+                      "must" : [ 
+                          { "match": { "text" : this.teams } },
+                          { "match": { "text" : this.query  } },
+                          { "match": { "polarity" : "1 -1" } }
+                         
+                      ]
+                 }
+            },
+            stored_fields: ["text" , "polarity"],
+            _source: {}
+          }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = [];
+            
+            var aparitions = [];
+            var aux = [];
+            hits.forEach(function(entry) {
+              results.push(entry._source);
+            });
+            
+            //console.log(results);
+            var arrteams = [];
+            //console.log(that.playersarr);
+
+            for(var i = 0; i<that.teamsarr.length; i++){
+              for(var j = 0; j<results.length; j++){
+                if((results[j]["text"]).indexOf(that.teamsarr[i])>-1 && results[j]["polarity"] != 0){
+                  //console.log(that.playersarr[i], results[j]["text"][0]);
+                  arrteams.push({team:that.teamsarr[i], polarity: results[j]["polarity"]});
+                }
+              }
+            }
+            //console.log(arrjugadores[0].player);
+            var puntosequipo = []
+            var totneg = 0;
+            var totpos = 0;
+          
+            for(var i = 0; i<that.teamsarr.length; i++){
+                  var positive = 0;
+                  var negative = 0;  
+              for (var j = 0; j<arrteams.length; j++){
+                if (arrteams[j].team == that.teamsarr[i]){
+                  if(arrteams[j].polarity == 1) {
+                    positive++ 
+                    totpos++
+                  }
+                  if(arrteams[j].polarity == -1){
+                     negative++
+                     totneg++
+                  }
+                    //console.log(that.playersarr[i], positive, negative)
+                }
+                    
+                    
+                }
+                  
+                puntosequipo.push({"negative" : negative, "positive" : positive, "team": that.teamsarr[i]});
+                //console.log(puntosequipo);   
+            }
+            puntosequipo.total = {"negative": totneg, "positive": totpos}
+            if (that.title == "Team Ranking"){
+              var resultados = []
+              puntosequipo.sort(function(a,b){return b.positive - a.positive});
+                resultados.push({"entity": puntosequipo[0].team, "value": Math.round((puntosequipo[0].positive / totpos)*100), "id":1});
+                resultados.push({"entity": puntosequipo[1].team, "value": Math.round((puntosequipo[1].positive / totpos)*100), "id":2});
+
+                that.datos = resultados;
+            }
+
+          });
+          
+        },
+
+            /** Fired when a search is made.
+             *
+             * @event query-change
+             * @param {Object} detail
+             * @param {Object} detail.query The search string.
+             */
+             _queryChanged: function() {
+              this.query ? this.queryChange(this.query) : this.queryDefault();
+            },
+        checkSource: function(source) {
+          if(source.indexOf("Atleti") > -1 || source.indexOf("Atlético") > -1 )
+            return "/images/players/ATM/atm.jpg"
+          else if(source.indexOf("Barça") > -1 || source.indexOf("Barcelona") > -1)
+            return "/images/players/FCB/fcb.jpg"
+          else 
+            return "/images/players/ATM/avatar.svg"
+        }
+
+    });
+ </script>
+</dom-module>

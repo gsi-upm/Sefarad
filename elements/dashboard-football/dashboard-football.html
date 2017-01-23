@@ -1,0 +1,503 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/material-search/material-search.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/google-chart-elk/google-chart.html">
+<link rel="import" href="../../bower_components/google-chart-elk/google-charter.html">
+<link rel="import" href="../../bower_components/sentiment-d3/sentiment-d3.html">
+<link rel="import" href="../../bower_components/field-chart/field-chart.html">
+<link rel="import" href="../../bower_components/liquid-fluid-d3/liquid-fluid-d3.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../../bower_components/yasgui/yasgui.html">
+
+
+<dom-module id="dashboard-football">
+
+  <style>
+  :root {
+      --paper-tab-ink: var(--accent-color);
+
+      --paper-tabs-selection-bar-color: var(--accent-color);
+    } 
+    paper-material{
+      background: white;
+    }
+
+    google-chart {
+      margin: 0 auto;
+    }
+
+    .chart_container {
+      width: 49%;
+      margin-bottom: 20px; 
+    }
+
+    .footer {
+      clear: both;
+      height: 2em;
+      margin-top: -2em;
+      display: flex;
+      justify-content: center
+    }
+    /* Tablet+ */
+    @media (min-width: 601px) {
+      paper-tabs, paper-toolbar {
+        margin-top: -48px;
+        margin-bottom: 48px;
+        margin-left: -62px;
+        margin-right: -62px;
+      }
+    }
+
+    paper-tabs, paper-toolbar {
+      background-color: #04419B; 
+      color: #fff;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    paper-tabs[noink][no-bar] paper-tab.iron-selected {
+      color: #04419B;
+    }
+
+    .twitter {
+    background-color: #00aced !important;
+    color: #ffffff !important;
+    }
+    .wid-social {
+        display: inline-block;
+        width: 100%;
+        padding: 15px 15px 15px 15px;
+        margin: 0px 0 1em 0;
+    }
+    paper-toggle-button-football.green {
+    --paper-toggle-button-checked-bar-color:  var(--paper-green-500);
+    --paper-toggle-button-checked-button-color:  var(--paper-green-500);
+    --paper-toggle-button-checked-ink-color: var(--paper-green-500);
+    --paper-toggle-button-unchecked-bar-color:  var(--paper-teal-500);
+    --paper-toggle-button-unchecked-button-color:  var(--paper-teal-500);
+    --paper-toggle-button-unchecked-ink-color: var(--paper-teal-500);
+    }
+
+    .wid-social .social-info h3, .wid-social .social-info h4 {
+        margin: 0px 0 15px 0;
+        
+    }
+    .social-info h3 {
+        display: inline-block;
+    }
+    h3.count.text-light {
+      color: #fff;
+      font-weight: 300;
+      font-size: 40px;
+    }
+    span.percent {
+      font-size: 13px;
+      font-weight: 300;
+    }
+    .icon-xlg {
+      font-size: 70px;
+    }
+
+
+  </style>
+
+  <template>
+
+    <iron-ajax auto
+        url="queries_foot.json"
+        handle-as="json"
+        last-response="{{queries_foot}}"></iron-ajax>
+
+  <paper-tabs selected="{{selected}}">
+      <paper-tab>Events</paper-tab>
+      <paper-tab>Teams</paper-tab>
+      <paper-tab>Players</paper-tab>
+      <paper-tab>SPARQL Editor</paper-tab>
+  </paper-tabs>
+
+  <iron-pages selected="{{selected}}">
+  <!-- EVENTS -->
+  <div>
+    <div class="row">
+    <material-search search-value="{{query}}"></material-search>
+    <br>
+    <div class="col-md-6" style="display: inline-block; margin-bottom: 10px;">
+          <div style="left: 0; margin-bottom: 20px;">
+            <field-chart
+               idhelp="help11"
+               index="footballdata"
+               subindex="tweet"
+               title="Sentiment Evolution"
+               query="{{query}}"
+               fields='["sentiment", "@timestamp", "text"]'>
+            </field-chart>
+          </div>
+    </div>
+    <div class="col-md-3" style="display: inline-block; margin-bottom: 20px;">
+          <ranking-players
+              idhelp="help4"
+              index="footballdata"
+              subindex="tweet"
+              title="Positive Players"
+              color="#319b31"
+              maintextcolor="#319b31"
+              textcolorfill="#9fca9f"
+              query="{{query}}"
+              fields='["sentiment", "polarity", "text"]'>
+          </ranking-players>
+
+    </div>
+    <div class="col-md-3" style="display: inline-block; margin-bottom: 20px;">
+          <ranking-players
+              idhelp="help5"
+              index="footballdata"
+              subindex="tweet"
+              title="Negative Players"
+              color="#D90007"
+              maintextcolor="#D90007"
+              textcolorfill="#cc7777"
+              query="{{query}}"
+              fields='["sentiment", "polarity", "text"]'>
+          </ranking-players>
+
+    </div>
+    </div>
+    <div class="col-md-6" style="display: inline-block; margin-bottom: 0px; float:left; padding-bottom: 40px;">
+     <!-- <acidjs-xtabs width="100%" height="485" selectedtab="0" name="tabs">
+          <acidjs-xtabs-pane label="Emotion Map" hint="Emotion Map"> -->
+               <spain-chart
+                id="spain"
+                idhelp="help1"
+                index="footballdata"
+                subindex="tweet"
+                query="{{query}}"
+                fields='["user.location", "sentiment"]'>
+              </spain-chart>
+              <spain-emotion
+                id="radar"
+                idhelp="help12"
+                style="display:none"
+                index="footballemotion"
+                subindex="tweet"
+                query="{{query}}"
+                fields='["user.location", "emotion"]'>
+              </spain-emotion>
+       <!--   </acidjs-xtabs-pane>
+          <acidjs-xtabs-pane label="Emotion Radar" hint="Emotion Radar"> -->
+               
+      <!--    </acidjs-xtabs-pane>
+      </acidjs-xtabs> -->
+     
+      <paper-toggle-button-football on-tap="_changestate" text="{{texto}}"></paper-toggle-button-football>
+
+    </div>
+    <div class="col-md-6" style="display: inline-block; margin-top: 0px; margin-bottom: 20px; height: 461px;">
+      <spider-chart
+               
+                index="footballemotion"
+                idhelp="help10"
+                subindex="tweet"
+                query="{{query}}"
+                fields='["emotion", "text"]'>
+      </spider-chart>
+ 
+    </div>
+    <div class="col-md-12" style="display: inline-block; margin-top: 0px; margin-bottom: 20px; height: 461px;">
+            <tweet-chart-football
+                query="{{query}}"
+                index="footballdata"
+                subindex="tweet"
+                field="text"
+                fields='["user_location", "sentiment", "text"]'
+                host='{{endpoint}}'
+                id='pie-chart1'
+                extra-id='pie-chart1'
+                type='pie'
+                filters="{{filters}}"
+                icon='face'
+                param="{{param}}">
+            </tweet-chart-football>
+    </div>
+
+
+    </div>
+    <!-- TEAMS -->
+    <div>
+      <div class="row" style="margin-bottom:20px">
+        <material-search search-value="{{query}}"></material-search>
+        <br>
+        <div class="col-md-6" style="display: inline-block; margin-bottom: 10px;">
+            
+             <top-teams
+                index="footballdata"
+                query="{{query}}"
+                indexemo="footballemotion"
+                subindex="tweet"
+                title="Most positive team">
+              </top-teams>
+           
+           <top-teams
+                index="footballdata"
+                query="{{query}}"
+                indexemo="footballemotion"
+                subindex="tweet"
+                title="Most negative team">
+              </top-teams>
+           
+       </div>
+      <div class="col-md-6" style="display: inline-block; margin-bottom: 20px;">
+            <ranking-teams
+                idhelp="help15"
+                index="footballdata"
+                subindex="tweet"
+                title="Team Ranking"
+                color="#319b31"
+                maintextcolor="#319b31"
+                textcolorfill="#9fca9f"
+                query="{{query}}"
+                fields='["sentiment", "polarity", "text"]'>
+            </ranking-teams>
+
+      </div>
+    </div>
+    <div class="col-md-6" style="display: inline-block; margin-bottom: 20px; float:left">
+               <spain-chart-filter
+                id="spainteam"
+                tipo="teams"
+                idhelp="help2"
+                index="footballdata"
+                subindex="tweet"
+                query="{{query}}"
+                fields='["user.location"]'>
+              </spain-chart-filter>
+              <spain-emotion
+                id="radarteam"
+                tipo="teams"
+                idhelp="help14"
+                style="display:none"
+                index="footballemotion"
+                subindex="tweet"
+                query="{{query}}"
+                fields='["user.location", "emotion"]'>
+              </spain-emotion>
+
+
+
+      <paper-toggle-button-football on-tap="_changestateteams" text="{{texto}}"></paper-toggle-button-football>
+
+    </div>
+    <div class="col-md-6" style="display: inline-block; margin-bottom: 20px; height: 461px;">
+              <spider-chart
+                tipo="teams"
+                idhelp="help9"
+                index="footballemotion"
+                subindex="tweet"
+                query="{{query}}"
+                fields='["user", "sentiment", "name", "text"]'>
+              </spider-chart>
+
+    </div>
+    <div class="col-md-12" style="display: inline-block; margin-bottom: 20px; height: 461px;">
+
+      <tweet-chart-football
+                query="{{query}}"
+                index="footballdata"
+                subindex="tweet"
+                tipo="teams"
+                field="text"
+                fields='["user", "sentiment", "name", "text"]'
+                host='{{endpoint}}'
+                id='pie-chart1'
+                extra-id='pie-chart1'
+                type='pie'
+                filters="{{filters}}"
+                icon='face'
+                param="{{param}}">
+      </tweet-chart-football>
+    </div>
+
+    </div>
+    <!-- PLAYERS -->
+    <div>
+      <material-search search-value="{{query}}"></material-search>
+      <br>
+      <div class="col-md-6" style="display: inline-block; margin-bottom: 10px;">
+            <top-players
+              index="footballdata"
+              query="{{query}}"
+              indexemo="footballemotion"
+              subindex="tweet"
+              title="Most positive player">
+            </top-players>
+         
+         <top-players
+              index="footballdata"
+              query="{{query}}"
+              indexemo="footballemotion"
+              subindex="tweet"
+              title="Most negative player">
+            </top-players>
+     </div>
+    <div class="col-md-6" style="display: inline-block; margin-bottom: 20px;">
+          <ranking-players
+              idhelp="help7"
+              index="footballdata"
+              subindex="tweet"
+              title="Player Ranking"
+              color="#319b31"
+              maintextcolor="#319b31"
+              textcolorfill="#9fca9f"
+              query="{{query}}"
+              fields='["sentiment", "polarity", "text"]'>
+          </ranking-players>
+          <br>
+          <br>
+    </div>
+    <div class="col-md-6" style="display: inline-block; margin-bottom: 20px; float:left">
+               <spain-chart-filter
+                id="spainplayers"
+                tipo="players"
+                idhelp="help3"
+                index="footballdata"
+                subindex="tweet"
+                query="{{query}}"
+                fields='["user.location"]'>
+              </spain-chart-filter>
+              <spain-emotion
+                id="radarplayers"
+                tipo="players"
+                idhelp="help13"
+                style="display:none"
+                index="footballemotion"
+                subindex="tweet"
+                query="{{query}}"
+                fields='["user.location", "emotion"]'>
+              </spain-emotion>
+
+
+     <paper-toggle-button-football on-tap="_changestateplayers" text="{{texto}}"></paper-toggle-button-football>
+
+    </div>
+    <div class="col-md-6" style="display: inline-block; margin-bottom: 20px; height: 461px;">
+          <spider-chart
+                tipo="players"
+                index="footballemotion"
+                idhelp="help8"
+                subindex="tweet"
+                query="{{query}}"
+                fields='["user", "sentiment", "name", "text"]'>
+          </spider-chart>
+    </div>
+    <div class="col-md-12" style="display: inline-block; margin-bottom: 20px; height: 461px;">
+            <tweet-chart-football
+                query="{{query}}"
+                index="footballdata"
+                subindex="tweet"
+                tipo="players"
+                field="text"
+                fields='["user", "sentiment", "name", "text"]'
+                host='{{endpoint}}'
+                id='pie-chart1'
+                extra-id='pie-chart1'
+                type='pie'
+                filters="{{filters}}"
+                icon='face'
+                param="{{param}}">
+            </tweet-chart-football>
+    </div>
+    </div>
+    <!-- SPARQL Editor -->
+    <div>
+      <yasgui-ui
+            endpoint="http://dbpedia.org/sparql/"
+            queries="{{queries_foot}}">
+      </yasgui-ui>
+       
+    </div>
+      
+  </template>
+
+  <script>
+    Polymer({
+      is: 'dashboard-football',
+      properties: {
+        selected: {
+          type: Number,
+          value: 0
+        }, 
+        selected1: {
+          type: Number,
+          value: 0
+        }, 
+        query:{
+          type: String
+        },
+        texto:{
+          type: String
+        }
+
+      },
+
+      ready: function () {
+        //console.log(this.query);
+        this.texto = "Show Emotion Radar";
+      },
+      _changestate: function() {
+       //console.log("disparo");
+
+       if(document.getElementById("radar").style.display == "none"){
+        this.texto = "Show Emotion Map";
+        //console.log("oculto españa");
+        var elemento1 = document.getElementById("spain");
+        elemento1.style.display = 'none';
+        var elemento2 = document.getElementById("radar");
+        elemento2.style.display = 'initial';
+      }else{
+        this.texto = "Show Emotion Radar";
+        var elemento1 = document.getElementById("spain");
+        elemento1.style.display = 'initial';
+        var elemento2 = document.getElementById("radar");
+        elemento2.style.display = 'none';
+      }
+      },
+      _changestateteams: function() {
+       //console.log("disparo Teams");
+
+       if(document.getElementById("radarteam").style.display == "none"){
+        this.texto = "Show Emotion Map";
+        //console.log("oculto españa");
+        var elemento1 = document.getElementById("spainteam");
+        elemento1.style.display = 'none';
+        var elemento2 = document.getElementById("radarteam");
+        elemento2.style.display = 'initial';
+      }else{
+        this.texto = "Show Emotion Radar";
+        var elemento1 = document.getElementById("spainteam");
+        elemento1.style.display = 'initial';
+        var elemento2 = document.getElementById("radarteam");
+        elemento2.style.display = 'none';
+      }
+    },
+      _changestateplayers: function() {
+       //console.log("disparo Players");
+
+       if(document.getElementById("radarplayers").style.display == "none"){
+        this.texto = "Show Emotion Map";
+        //console.log("oculto españa");
+        var elemento1 = document.getElementById("spainplayers");
+        elemento1.style.display = 'none';
+        var elemento2 = document.getElementById("radarplayers");
+        elemento2.style.display = 'initial';
+      }else{
+        this.texto = "Show Emotion Radar";
+        var elemento1 = document.getElementById("spainplayers");
+        elemento1.style.display = 'initial';
+        var elemento2 = document.getElementById("radarplayers");
+        elemento2.style.display = 'none';
+      }
+    }
+
+    });
+  </script>
+
+</dom-module>

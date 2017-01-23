@@ -1,0 +1,343 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+
+<dom-module id="tweet-chart-football">
+
+<style is="custom-style">
+  @import url("../../styles/app-theme.html");
+</style>
+
+<link rel="import" type="css" href="tweet-chart.css">
+
+  <template>
+
+    <!-- Shadow DOM -->
+    <paper-material elevation="1">
+        <div class="top-bar">
+            <iron-icon icon="{{icon}}"></iron-icon>
+            <span>{{title}}</span>
+        </div>
+        <template is="dom-repeat" items="{{data}}" as="tweet"> 
+          <div class$="{{checkSentiment(tweet.sentiment)}}">
+            <!--<img src={{checkSource(tweet.name)}} style="width: 60px"></br>-->
+            <span class="text">{{tweet.text}}</span>
+            <!--<span style="font-weight: bold">{{tweet.name}}</span></br>-->
+            <span>{{tweet.user_location}}</span>
+          </div>
+        </template>
+        <div style="width:100%; clear: both"></div>
+    </paper-material>
+
+  </template>
+
+  <script>
+    var filtered = false;
+
+    Polymer({
+
+      is: 'tweet-chart-football',
+
+      properties: {
+
+        data: {
+            type: Array,
+            value: [] //default value for data array.
+        },
+
+        icon: {
+          type: String,
+          value: "face"
+        },
+
+        title: {
+          type: String,
+          value: "List of different tweets"
+        },
+        tipo: {
+          type: String
+         },
+        teams:{
+            type: String,
+            value: "FCB Barcelona Barça FCBarcelona ATM Atlético Atletico Atleti"
+            },
+          players:{
+            type: String,
+            value: "Moyá Godín Filipe Tiago Koke Griezmann Kranevitter Torres Óliver Augusto Oblak Gabi Savic Correa Saúl Gámez Lucas Juanfran Carrasco Thomas Vietto Giménez Monsalve Ter Stegen Bravo Piqué Alves Bartra Jordi Alba Adriano Aleix Vidal Vermaelen Mathieu Rakitic Busquets Arda Iniesta Mascherano Roberto Suarez Messi Neymar Munir"
+          },
+
+        brand: {
+          type: String,
+          value: "Undefined"
+        },
+
+        query: {
+          type: String,
+          observer: '_queryChanged'
+        },
+
+        index: {
+          type: String
+        },
+
+        subindex: {
+          type: String
+        },
+
+        fields: {
+          type: Array,
+          value: function() { return []; }
+        },
+
+        field: {
+          type: String
+        },
+
+        host: {
+          type: String
+        },
+
+        param: {
+          type: String,
+          notify: true
+        },
+
+        filters: {
+          type: Array,
+          notify: true,
+          value: function() { return []; }
+        }
+      },
+
+      observers: [
+      '_filtersChange(filters.*)'
+      ],
+
+      ready: function() {
+        //console.log(this.tipo);   
+        this.field ? this.queryDefault() : undefined
+      },
+
+      queryDefault: function() {
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+        var that = this
+        if(this.tipo == undefined){
+        client.search({
+        // undocumented params are appended to the query string
+        index: this.index,
+        type: this.subindex,
+        body: {
+          size: 5,
+          query: {
+            match_all: {}
+          }
+        }
+        }).then(function (resp) {
+          var hits = resp.hits.hits;
+          var results = []
+          hits.forEach(function(entry) {
+            results.push(entry._source);
+          });
+          that.data = results;
+          //console.log(that.data);
+        });
+        }
+        if(this.tipo == "players"){
+        client.search({
+        // undocumented params are appended to the query string
+        index: this.index,
+        type: this.subindex,
+        body: {
+          size: 5,
+          query: {
+              "bool" : {
+              "must" : [ 
+                  
+                  { "match": { "text" : this.players}}
+                 
+                  ]
+              }
+          }
+        }
+        }).then(function (resp) {
+          var hits = resp.hits.hits;
+          var results = []
+          hits.forEach(function(entry) {
+            results.push(entry._source);
+          });
+          that.data = results;
+          //console.log(that.data);
+        });
+        }
+        if(this.tipo == "teams"){
+        client.search({
+        // undocumented params are appended to the query string
+        index: this.index,
+        type: this.subindex,
+        body: {
+          size: 5,
+          query: {
+              "bool" : {
+              "must" : [ 
+                  
+                  { "match": { "text" : this.teams}}
+                 
+                  ]
+              }
+          }
+        }
+        }).then(function (resp) {
+          var hits = resp.hits.hits;
+          var results = []
+          hits.forEach(function(entry) {
+            results.push(entry._source);
+          });
+          that.data = results;
+          //console.log(that.data);
+        });
+        }
+      },
+
+      queryChange: function(value) {
+          var client = new $.es.Client({
+            hosts: this.host
+          });
+            var that = this
+          if(this.tipo == undefined){
+          client.search({
+            // undocumented params are appended to the query string
+            index: this.index,
+            type: this.subindex,
+            body: {
+              size: 5,
+              query: {
+                multi_match:{
+                  query: this.query,
+                  fields: this.fields
+                }
+              }
+            }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = []
+            hits.forEach(function(entry) {
+              results.push(entry._source);
+            });
+            that.data = results
+          });
+        }
+        if(this.tipo == "players"){
+          client.search({
+            // undocumented params are appended to the query string
+            index: this.index,
+            type: this.subindex,
+            body: {
+              size: 5,
+              query: {
+                    "bool" : {
+                    "must" : [ 
+                        
+                        { "match": { "text" : this.players}},
+                        { "match": { "text" : this.query}}
+                       
+                        ]
+                    }
+                }
+            }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = []
+            hits.forEach(function(entry) {
+              results.push(entry._source);
+            });
+            that.data = results
+          });
+        }
+          if(this.tipo == "teams"){
+          client.search({
+            // undocumented params are appended to the query string
+            index: this.index,
+            type: this.subindex,
+            body: {
+              size: 5,
+              query: {
+                    "bool" : {
+                    "must" : [ 
+                        
+                        { "match": { "text" : this.teams}},
+                        { "match": { "text" : this.query}}
+                       
+                        ]
+                    }
+                }
+            }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = []
+            hits.forEach(function(entry) {
+              results.push(entry._source);
+            });
+            that.data = results
+          });
+        }
+        },
+
+        /** Fired when a search is made.
+         *
+         * @event query-change
+         * @param {Object} detail
+         * @param {Object} detail.query The search string.
+         */
+         _queryChanged: function() {
+          this.query ? this.queryChange(this.query) : this.queryDefault();
+        },
+
+        _filtersChange: function() {
+          if(filtered){
+            var client = new $.es.Client({
+              hosts: this.host
+            });
+
+            var that = this
+            client.search({
+            // undocumented params are appended to the query string
+            index: this.index,
+            type: this.subindex,
+            body: {
+              size: 5,
+              query: {
+                filtered: {
+                  filter: {
+                    bool: {
+                      must: this.filters,
+                    }
+                  }
+                }
+              }
+            }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = []
+            hits.forEach(function(entry) {
+              results.push(entry._source);
+            });
+            that.data = results;
+          });
+        }
+      },
+
+      checkSentiment: function(sentiment) {
+        if (sentiment == "marl:Positive")
+          return "tweet positive"
+        else if (sentiment == "marl:Negative")
+          return "tweet negative"
+        else 
+          return "tweet neutral"
+      }
+
+    });
+  </script>
+
+</dom-module>

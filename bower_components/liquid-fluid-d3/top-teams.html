@@ -1,0 +1,575 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+<dom-module id="top-teams">
+
+<style is="custom-style">
+  @import url("../../styles/app-theme.html");
+</style>
+<link rel="import" type="css" href="trending-chart.css">
+
+ <template>
+
+  <div class="col-md-6" style="left: 0;">
+           <!--  <top-teams>
+            </top-teams> -->
+            <paper-material elevation="1">
+            <div class="top-bar">
+                <iron-icon icon="{{icon}}"></iron-icon>
+                <span>{{title}}</span>
+            </div>
+            <div class="player-details">
+            <img src="{{checkSource(teamname)}}" align="center" style="height: 96px; margin: 15px 1% 15px 11%;">
+            <h4 style="text-align: center; padding: 6px; width: 43%; margin: 0 auto; border-radius: 6px; display: inline-block">{{teamname}}</h4>
+            <div style="text-align: center;"><h5 style="color: #319b31; padding: 5px; display:inline-block;">Positive:</h5><h4 style="color: #319b31; padding: 5px;display:inline-block;">{{numpositive}}</h4><h5 style="color: #319b31; padding: 5px;display:inline-block;">tweets</h5></div>
+            <div style="text-align: center;">
+            <h5 style=" margin-top: 0px; margin-bottom: 0px;color: #D90007; padding: 5px; display:inline-block;">Negative:</h5><h4 style="color: #D90007; padding: 5px; display:inline-block; margin-top: 0px; margin-bottom: 0px;">{{numnegative}}</h4><h5 style="color: #D90007; padding: 5px; display:inline-block; margin-top: 0px; margin-bottom: 0px;">tweets</h5></div>
+            <div style="text-align: center;"><h5 style="color: #054990; padding: 5px; display:inline-block;">{{emotion1}}</h5><h4 style="color: #054990; padding: 5px;display:inline-block;">{{numemotion1}}</h4><h5 style="color: #054990; padding: 5px;display:inline-block;">tweets</h5></div>
+            <div style="text-align: center;">
+            <h5 style=" margin-top: 0px; margin-bottom: 0px;color: #DAA520; padding: 5px; display:inline-block;">{{emotion2}}</h5><h4 style="color: #DAA520; padding: 5px; display:inline-block; margin-top: 0px; margin-bottom: 0px;">{{numemotion2}}</h4><h5 style="color: #DAA520; padding: 5px; display:inline-block; margin-top: 0px; margin-bottom: 0px;">tweets</h5></div>
+            </div>
+  </div>
+      
+   
+  </template>
+  <div style="width:100%; clear: both"></div>
+  </paper-material>
+
+ </template>
+ <script>
+
+    Polymer({
+
+      is: 'top-teams',
+
+       properties: {
+
+        teams:{
+          type: String,
+          value: "FCB Barcelona Barça FCBarcelona ATM Atlético Atletico Atleti"
+        },
+
+        teamsarr:{
+          type: Array,
+          value:["Barça", "Atleti"]
+        },
+
+        datos: {
+            type: Array,
+            value: [] //default value for data array.
+        },
+        color:{
+          type: String
+        },
+        idhelp: {
+            type: String
+        },
+        maintextcolor:{
+                type: String
+        },
+        textcolorfill:{
+                type: String
+        },
+
+        icon: {
+            type: String,
+            value: "trending-up"
+          },
+
+        title: {
+            type: String
+          },
+        index: {
+            type: String
+          },
+
+
+        subindex: {
+            type: String
+          },
+
+        extraId: {
+            type: String
+          },
+        query: {
+          type: String,
+          observer: '_queryChanged'
+        },
+        image: {
+          type: String
+        },
+        teamname: {
+          type: String
+        },
+        indexemo: {
+          type: String
+        },
+
+        fields: {
+            type: Array,
+            value: function() { return []; }
+          }
+      },
+      ready: function(){
+          this.queryDefault();
+      },
+       _showhelp: function(){
+       //console.log("disparo");
+
+       if(document.getElementById("help4").style.display == "none"){
+        var elemento1 = document.getElementById("help4");
+        var elemento2 = document.getElementById("help5");
+        var elemento3 = document.getElementById("help6");
+        var elemento4 = document.getElementById("help7");
+        elemento1.style.display = 'initial';
+        elemento2.style.display = 'initial';
+        elemento3.style.display = 'initial';
+        elemento4.style.display = 'initial';
+       }
+       else{
+        var elemento1 = document.getElementById("help4");
+        var elemento2 = document.getElementById("help5");
+        var elemento3 = document.getElementById("help6");
+        var elemento4 = document.getElementById("help7");
+        elemento1.style.display = 'none';
+        elemento2.style.display = 'none';
+        elemento3.style.display = 'none';
+        elemento4.style.display = 'none';
+       }
+
+
+    },
+      queryDefault: function() {
+         // console.log(this.title);
+          var client = new $.es.Client({
+            hosts: this.host
+          });
+          var that = this
+          client.search({
+          // undocumented params are appended to the query string
+          index: this.index,
+          type: this.subindex,
+          body: {
+            size: 10000,
+            query: {
+                  "bool" : {
+                      "must" : [ 
+                          { "match": { "text" : this.teams } },
+                          { "match": { "polarity" : "1 -1" } }
+                         
+                      ]
+                 }
+            },
+            stored_fields: ["text" , "polarity"],
+            _source:{}
+          }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = [];
+            
+            var aparitions = [];
+            var aux = [];
+            hits.forEach(function(entry) {
+              results.push(entry._source);
+            });
+            
+            //console.log(results);
+            var arrteams = [];
+            //console.log(that.playersarr);
+
+            for(var j = 0; j<results.length; j++){
+                if( (results[j]["text"]).indexOf("Barça")>-1 || (results[j]["text"]).indexOf("FCB")>-1){
+                  //console.log(that.playersarr[i], results[j]["text"][0]);
+                  arrteams.push({team: "Barça", polarity: results[j]["polarity"]});
+                }
+                if((results[j]["text"]).indexOf("Atleti")>-1 || (results[j]["text"]).indexOf("ATM")>-1 || (results[j]["text"]).indexOf("Atlético")>-1 || (results[j]["text"][0]).indexOf("Atletico")>-1 ){
+                  //console.log(that.playersarr[i], results[j]["text"][0]);
+                  arrteams.push({team: "Atleti", polarity: results[j]["polarity"]});
+                }
+            }
+            
+            //console.log(arrjugadores[0].player);
+            var puntosequipo = []
+            var totneg = 0;
+            var totpos = 0;
+          
+            for(var i = 0; i<that.teamsarr.length; i++){
+                  var positive = 0;
+                  var negative = 0;  
+              for (var j = 0; j<arrteams.length; j++){
+                if (arrteams[j].team == that.teamsarr[i]){
+                  if(arrteams[j].polarity == 1) {
+                    positive++ 
+                    totpos++
+                  }
+                  if(arrteams[j].polarity == -1){
+                     negative++
+                     totneg++
+                  }
+                    //console.log(that.playersarr[i], positive, negative)
+                }
+                    
+                    
+                }
+                  
+                puntosequipo.push({"negative" : negative, "positive" : positive, "team": that.teamsarr[i]});
+                
+            }
+            puntosequipo.total = {"negative": totneg, "positive": totpos}
+            //console.log(puntosequipo);
+            if (that.title == "Most positive team"){
+              puntosequipo.sort(function(a,b){return b.positive - a.positive});
+                that.teamname = puntosequipo[0].team;
+                that.numpositive = puntosequipo[0].positive;
+                that.numnegative = puntosequipo[0].negative;
+            }
+            if (that.title == "Most negative team"){
+              puntosequipo.sort(function(a,b){return b.negative - a.negative});
+                that.teamname = puntosequipo[0].team;
+                that.numpositive = puntosequipo[0].positive;
+                that.numnegative = puntosequipo[0].negative;
+            }
+            that._calculaemocion();
+          });
+          
+        },
+        _calculaemocion: function(){
+          //console.log("hello");
+          var client = new $.es.Client({
+            hosts: this.host
+          });
+          var that = this
+          client.search({
+          // undocumented params are appended to the query string
+          index: this.indexemo,
+          type: this.subindex,
+          body: {
+            size: 10000,
+            query: {
+                  "bool" : {
+                      "must" : [ 
+                          { "match": { "text" : this.teams } }
+                      ]
+                 }
+            },
+            stored_fields: ["text" , "emotion"],
+            _source:{}
+          }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = [];
+            
+            var aparitions = [];
+            var aux = [];
+            hits.forEach(function(entry) {
+              results.push(entry._source);
+            });
+            
+            //console.log(results);
+            var arrteams = [];
+            //console.log(that.playersarr);
+
+            for(var i = 0; i<that.teamsarr.length; i++){
+              for(var j = 0; j<results.length; j++){
+                if((results[j]["text"]).indexOf(that.teamsarr[i])>-1){
+                  //console.log(that.teamsarr[i], results[j]["text"][0], results[j]["emotion"][0]);
+                  arrteams.push({team:that.teamsarr[i], emotion: results[j]["emotion"]});
+                }
+              }
+            }
+            //console.log(arrjugadores[0].player);
+            var puntosequipo = []
+
+          
+            for(var i = 0; i<that.teamsarr.length; i++){
+              var joy = 0;
+              var negative = 0;
+              var neutral = 0;
+              var sadness = 0;
+              var disgust = 0;
+              var anger = 0;
+              for (var j = 0; j<arrteams.length; j++){
+                if (arrteams[j].team == that.teamsarr[i]){
+                  if(arrteams[j].emotion == "anger") {
+                    anger++ 
+                   
+                  }
+                  if(arrteams[j].emotion == "negative-fear"){
+                     negative++
+                  }
+                  if(arrteams[j].emotion == "joy"){
+                     joy++
+                  }
+                  if(arrteams[j].emotion == "neutral-emotion"){
+                     neutral++
+                  }
+                  if(arrteams[j].emotion == "disgust"){
+                     disgust++
+                  }
+                  if(arrteams[j].emotion == "sadness"){
+                     sadness++
+                  }
+                    //console.log(that.playersarr[i], positive, negative)
+                }
+                    
+                    
+                }
+                  
+                puntosequipo.push({"anger" : anger, "negative" : negative, "neutral":neutral, "joy": joy, "sadness": sadness, "disgust": disgust, "team": that.teamsarr[i]});
+                //console.log(puntosjugador);
+            }
+            if (that.title == "Most positive team"){
+              
+               for(var i=0;i<puntosequipo.length;i++){
+                if(that.teamname == puntosequipo[i].team){
+
+                 that.numemotion1 = puntosequipo[i].negative;
+                 that.numemotion2 = puntosequipo[i].joy;
+                 that.emotion1 = "Fear:"
+                 that.emotion2 = "Joy:"
+               }
+              }  
+
+            }
+            if (that.title == "Most negative team"){
+             
+               for(var i=0;i<puntosequipo.length;i++){
+                if(that.teamname == puntosequipo[i].team){
+                 that.numemotion1 = puntosequipo[i].negative;
+                 that.numemotion2 = puntosequipo[i].joy;
+                 that.emotion1 = "Fear:"
+                 that.emotion2 = "Joy:"
+               }  
+
+            }
+          }
+            
+          });
+        },
+        _calculaemocionchanged: function(){
+          //console.log("hello");
+          var client = new $.es.Client({
+            hosts: this.host
+          });
+          var that = this
+          client.search({
+          // undocumented params are appended to the query string
+          index: this.indexemo,
+          type: this.subindex,
+          body: {
+            size: 10000,
+            query: {
+                  "bool" : {
+                      "must" : [ 
+                          { "match": { "text" : this.teams } },
+                          { "match": { "text" : this.query } }
+                        ]
+                 }
+            },
+            stored_fields: ["text" , "emotion"],
+            _source:{}
+          }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = [];
+            
+            var aparitions = [];
+            var aux = [];
+            hits.forEach(function(entry) {
+              results.push(entry._source);
+            });
+            
+            //console.log(results);
+            var arrteams = [];
+            //console.log(that.playersarr);
+
+            for(var i = 0; i<that.teamsarr.length; i++){
+              for(var j = 0; j<results.length; j++){
+                if((results[j]["text"]).indexOf(that.teamsarr[i])>-1){
+                  //console.log(that.playersarr[i], results[j]["text"][0]);
+                  arrteams.push({team:that.teamsarr[i], emotion: results[j]["emotion"]});
+                }
+              }
+            }
+            //console.log(arrjugadores[0].player);
+            var puntosequipo = []
+
+          
+            for(var i = 0; i<that.teamsarr.length; i++){
+              var joy = 0;
+              var negative = 0;
+              var neutral = 0;
+              var sadness = 0;
+              var disgust = 0;
+              var anger = 0;
+              for (var j = 0; j<arrteams.length; j++){
+                if (arrteams[j].team == that.teamsarr[i]){
+                  if(arrteams[j].emotion == "anger") {
+                    anger++ 
+                   
+                  }
+                  if(arrteams[j].emotion == "negative-fear"){
+                     negative++
+                  }
+                  if(arrteams[j].emotion == "joy"){
+                     joy++
+                  }
+                  if(arrteams[j].emotion == "neutral-emotion"){
+                     neutral++
+                  }
+                  if(arrteams[j].emotion == "disgust"){
+                     disgust++
+                  }
+                  if(arrteams[j].emotion == "sadness"){
+                     sadness++
+                  }
+                    //console.log(that.playersarr[i], positive, negative)
+                }
+                    
+                    
+                }
+                  
+                puntosequipo.push({"anger" : anger, "negative" : negative, "neutral":neutral, "joy": joy, "sadness": sadness, "disgust": disgust, "team": that.teamsarr[i]});
+                //console.log(puntosjugador);
+            }
+            if (that.title == "Most positive team"){
+              
+               for(var i=0;i<puntosequipo.length;i++){
+                if(that.teamname == puntosequipo[i].team){
+
+                 that.numemotion1 = puntosequipo[i].negative;
+                 that.numemotion2 = puntosequipo[i].joy;
+                 that.emotion1 = "Fear:"
+                 that.emotion2 = "Joy:"
+               }
+              }  
+
+            }
+            if (that.title == "Most negative team"){
+             
+               for(var i=0;i<puntosequipo.length;i++){
+                if(that.teamname == puntosequipo[i].team){
+                 that.numemotion1 = puntosequipo[i].negative;
+                 that.numemotion2 = puntosequipo[i].joy;
+                 that.emotion1 = "Fear:"
+                 that.emotion2 = "Joy:"
+               }  
+
+            }
+          }
+            
+          });
+        },
+         queryChange: function(value) {
+          //console.log(this.title);
+          var client = new $.es.Client({
+            hosts: this.host
+          });
+          var that = this
+          client.search({
+          // undocumented params are appended to the query string
+          index: this.index,
+          type: this.subindex,
+          body: {
+            size: 10000,
+            query: {
+                  "bool" : {
+                      "must" : [ 
+                          { "match": { "text" : this.teams } },
+                          { "match": { "text" : this.query  } },
+                          { "match": { "polarity" : "1 -1" } }
+                         
+                      ]
+                 }
+            },
+            stored_fields: ["text" , "polarity"],
+            _source:{}
+          }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = [];
+            
+            var aparitions = [];
+            var aux = [];
+            hits.forEach(function(entry) {
+              results.push(entry._source);
+            });
+            
+            //console.log(results);
+            var arrteams = [];
+            //console.log(that.playersarr);
+
+            for(var i = 0; i<that.teamsarr.length; i++){
+              for(var j = 0; j<results.length; j++){
+                if((results[j]["text"]).indexOf(that.teamsarr[i])>-1 && results[j]["polarity"] != 0){
+                  //console.log(that.playersarr[i], results[j]["text"][0]);
+                  arrteams.push({team:that.teamsarr[i], polarity: results[j]["polarity"]});
+                }
+              }
+            }
+            //console.log(arrjugadores[0].player);
+            var puntosequipo = []
+            var totneg = 0;
+            var totpos = 0;
+          
+            for(var i = 0; i<that.teamsarr.length; i++){
+                  var positive = 0;
+                  var negative = 0;  
+              for (var j = 0; j<arrteams.length; j++){
+                if (arrteams[j].team == that.teamsarr[i]){
+                  if(arrteams[j].polarity == 1) {
+                    positive++ 
+                    totpos++
+                  }
+                  if(arrteams[j].polarity == -1){
+                     negative++
+                     totneg++
+                  }
+                    //console.log(that.playersarr[i], positive, negative)
+                }
+                    
+                    
+                }
+                  
+                puntosequipo.push({"negative" : negative, "positive" : positive, "team": that.teamsarr[i]});
+                //console.log(puntosequipo);   
+            }
+            puntosequipo.total = {"negative": totneg, "positive": totpos}
+            if (that.title == "Most positive team"){
+              puntosequipo.sort(function(a,b){return b.positive - a.positive});
+                that.teamname = puntosequipo[0].team;
+                that.numpositive = puntosequipo[0].positive;
+                that.numnegative = puntosequipo[0].negative;
+            }
+            if (that.title == "Most negative team"){
+              puntosequipo.sort(function(a,b){return b.negative - a.negative});
+                that.teamname = puntosequipo[0].team;
+                that.numpositive = puntosequipo[0].positive;
+                that.numnegative = puntosequipo[0].negative;
+            }
+            that._calculaemocionchanged();
+          });
+          
+        },
+
+            /** Fired when a search is made.
+             *
+             * @event query-change
+             * @param {Object} detail
+             * @param {Object} detail.query The search string.
+             */
+             _queryChanged: function() {
+              this.query ? this.queryChange(this.query) : this.queryDefault();
+            },
+        checkSource: function(source) {
+          if(source.indexOf("Atleti") > -1 || source.indexOf("Atlético") > -1 )
+            return "/images/players/ATM/atm.jpg"
+          else if(source.indexOf("Barça") > -1 || source.indexOf("Barcelona") > -1)
+            return "/images/players/FCB/fcb.jpg"
+          else 
+            return "/images/players/ATM/avatar.svg"
+        }
+
+    });
+ </script>
+</dom-module>

@@ -1,0 +1,619 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+<dom-module id="top-players">
+
+<style is="custom-style">
+  @import url("../../styles/app-theme.html");
+</style>
+<link rel="import" type="css" href="trending-chart.css">
+
+ <template>
+
+  <div class="col-md-6" style="left: 0;">
+           <!--  <top-teams>
+            </top-teams> -->
+            <paper-material elevation="1">
+            <div class="top-bar">
+                <iron-icon icon="{{icon}}"></iron-icon>
+                <span>{{title}}</span>
+            </div>
+            <div class="player-details">
+            <img src="{{checkSource(playername)}}" align="center" style="height: 96px; margin: 15px 1% 15px 11%;">
+            <h4 style="text-align: center; padding: 6px; width: 43%; margin: 0 auto; border-radius: 6px; display: inline-block">{{playername}}</h4>
+            <div style="text-align: center;"><h5 style="color: #319b31; padding: 5px; display:inline-block;">Positive:</h5><h4 style="color: #319b31; padding: 5px;display:inline-block;">{{numpositive}}</h4><h5 style="color: #319b31; padding: 5px;display:inline-block;">tweets</h5></div>
+            <div style="text-align: center;">
+            <h5 style=" margin-top: 0px; margin-bottom: 0px;color: #D90007; padding: 5px; display:inline-block;">Negative:</h5><h4 style="color: #D90007; padding: 5px; display:inline-block; margin-top: 0px; margin-bottom: 0px;">{{numnegative}}</h4><h5 style="color: #D90007; padding: 5px; display:inline-block; margin-top: 0px; margin-bottom: 0px;">tweets</h5></div>
+            <div style="text-align: center;"><h5 style="color: #054990; padding: 5px; display:inline-block;">{{emotion1}}</h5><h4 style="color: #054990; padding: 5px;display:inline-block;">{{numemotion1}}</h4><h5 style="color: #054990; padding: 5px;display:inline-block;">tweets</h5></div>
+            <div style="text-align: center;">
+            <h5 style=" margin-top: 0px; margin-bottom: 0px;color: #DAA520; padding: 5px; display:inline-block;">{{emotion2}}</h5><h4 style="color: #DAA520; padding: 5px; display:inline-block; margin-top: 0px; margin-bottom: 0px;">{{numemotion2}}</h4><h5 style="color: #DAA520; padding: 5px; display:inline-block; margin-top: 0px; margin-bottom: 0px;">tweets</h5></div>
+            </div>
+  </div>
+      
+   
+  </template>
+  <div style="width:100%; clear: both"></div>
+  </paper-material>
+
+ </template>
+ <script>
+
+    Polymer({
+
+      is: 'top-players',
+
+       properties: {
+
+        players:{
+          type: String,
+          value: "Moyá Godín Filipe Tiago Koke Griezmann Kranevitter Torres Óliver Augusto Oblak Gabi Savic Correa Saúl Gámez Lucas Juanfran Carrasco Thomas Vietto Giménez Monsalve Ter Stegen Bravo Piqué Alves Bartra Jordi Alba Adriano Aleix Vidal Vermaelen Mathieu Rakitic Busquets Arda Iniesta Mascherano Roberto Suarez Messi Neymar Munir"
+        },
+
+        playersarr:{
+          type: Array,
+          value:["Moyá", "Godín", "Filipe", "Tiago", "Koke", "Griezmann", "Kranevitter", "Torres", "Óliver", "Augusto", "Oblak", "Gabi", "Savic", "Correa", "Saúl", "Gámez", "Lucas", "Juanfran", "Carrasco", "Thomas", "Vietto", "Giménez", "Monsalve", "Ter Stegen", "Bravo", "Piqué", "Alves", "Bartra", "Jordi Alba", "Adriano", "Aleix Vidal", "Vermaelen", "Mathieu", "Rakitic", "Busquets", "Arda", "Iniesta", "Mascherano", "Roberto", "Suarez", "Messi", "Neymar", "Munir"]
+        },
+
+        datos: {
+            type: Array,
+            value: [] //default value for data array.
+        },
+        color:{
+          type: String
+        },
+        idhelp: {
+            type: String
+        },
+        maintextcolor:{
+                type: String
+        },
+        textcolorfill:{
+                type: String
+        },
+
+        icon: {
+            type: String,
+            value: "trending-up"
+          },
+
+        title: {
+            type: String
+          },
+        index: {
+            type: String
+          },
+
+
+        subindex: {
+            type: String
+          },
+
+        extraId: {
+            type: String
+          },
+        query: {
+          type: String,
+          observer: '_queryChanged'
+        },
+        image: {
+          type: String
+        },
+        playername: {
+          type: String
+        },
+        indexemo: {
+          type: String
+        },
+
+        fields: {
+            type: Array,
+            value: function() { return []; }
+          }
+      },
+      ready: function(){
+          this.queryDefault();
+      },
+       _showhelp: function(){
+       console.log("disparo");
+
+       if(document.getElementById("help4").style.display == "none"){
+        var elemento1 = document.getElementById("help4");
+        var elemento2 = document.getElementById("help5");
+        var elemento3 = document.getElementById("help6");
+        var elemento4 = document.getElementById("help7");
+        elemento1.style.display = 'initial';
+        elemento2.style.display = 'initial';
+        elemento3.style.display = 'initial';
+        elemento4.style.display = 'initial';
+       }
+       else{
+        var elemento1 = document.getElementById("help4");
+        var elemento2 = document.getElementById("help5");
+        var elemento3 = document.getElementById("help6");
+        var elemento4 = document.getElementById("help7");
+        elemento1.style.display = 'none';
+        elemento2.style.display = 'none';
+        elemento3.style.display = 'none';
+        elemento4.style.display = 'none';
+       }
+
+
+    },
+      queryDefault: function() {
+         // console.log(this.title);
+          var client = new $.es.Client({
+            hosts: this.host
+          });
+          var that = this
+          client.search({
+          // undocumented params are appended to the query string
+          index: this.index,
+          type: this.subindex,
+          body: {
+            size: 10000,
+            query: {
+                  "bool" : {
+                      "must" : [ 
+                          { "match": { "text" : this.players } },
+                          { "match": { "polarity" : "1 -1" } }
+                         
+                      ]
+                 }
+            },
+            stored_fields: ["text" , "polarity"],
+            _source : {}
+          }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = [];
+            
+            var aparitions = [];
+            var aux = [];
+            hits.forEach(function(entry) {
+              results.push(entry._source);
+            });
+            
+            //console.log(results);
+            var arrjugadores = [];
+            //console.log(that.playersarr);
+
+            for(var i = 0; i<that.playersarr.length; i++){
+              for(var j = 0; j<results.length; j++){
+                if((results[j]["text"]).indexOf(that.playersarr[i])>-1 && results[j]["polarity"] != 0){
+                  //console.log(that.playersarr[i], results[j]["text"][0]);
+                  arrjugadores.push({player:that.playersarr[i], polarity: results[j]["polarity"]});
+                }
+              }
+            }
+            //console.log(arrjugadores[0].player);
+            var puntosjugador = []
+            var totneg = 0;
+            var totpos = 0;
+          
+            for(var i = 0; i<that.playersarr.length; i++){
+                  var positive = 0;
+                  var negative = 0;  
+              for (var j = 0; j<arrjugadores.length; j++){
+                if (arrjugadores[j].player == that.playersarr[i]){
+                  if(arrjugadores[j].polarity == 1) {
+                    positive++ 
+                    totpos++
+                  }
+                  if(arrjugadores[j].polarity == -1){
+                     negative++
+                     totneg++
+                  }
+                    //console.log(that.playersarr[i], positive, negative)
+                }
+                    
+                    
+                }
+                  
+                puntosjugador.push({"negative" : negative, "positive" : positive, "player": that.playersarr[i]});
+                
+            }
+            puntosjugador.total = {"negative": totneg, "positive": totpos}
+            if (that.title == "Most positive player"){
+              puntosjugador.sort(function(a,b){return b.positive - a.positive});
+                that.playername = puntosjugador[0].player;
+                that.numpositive = puntosjugador[0].positive;
+                that.numnegative = puntosjugador[0].negative;
+            }
+            if (that.title == "Most negative player"){
+              puntosjugador.sort(function(a,b){return b.negative - a.negative});
+                that.playername = puntosjugador[0].player;
+                that.numpositive = puntosjugador[0].positive;
+                that.numnegative = puntosjugador[0].negative;
+            }
+            that._calculaemocion();
+          });
+          
+        },
+        _calculaemocion: function(){
+          //console.log("hello");
+          var client = new $.es.Client({
+            hosts: this.host
+          });
+          var that = this
+          client.search({
+          // undocumented params are appended to the query string
+          index: this.indexemo,
+          type: this.subindex,
+          body: {
+            size: 10000,
+            query: {
+                  "bool" : {
+                      "must" : [ 
+                          { "match": { "text" : this.players } }
+                      ]
+                 }
+            },
+            stored_fields: ["text" , "emotion"],
+            _source:{}
+          }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = [];
+            
+            var aparitions = [];
+            var aux = [];
+            hits.forEach(function(entry) {
+              results.push(entry._source);
+            });
+            
+            //console.log(results);
+            var arrjugadores = [];
+            //console.log(that.playersarr);
+
+            for(var i = 0; i<that.playersarr.length; i++){
+              for(var j = 0; j<results.length; j++){
+                if((results[j]["text"]).indexOf(that.playersarr[i])>-1){
+                  //console.log(that.playersarr[i], results[j]["text"][0]);
+                  arrjugadores.push({player:that.playersarr[i], emotion: results[j]["emotion"]});
+                }
+              }
+            }
+            //console.log(arrjugadores[0].player);
+            var puntosjugador = []
+
+          
+            for(var i = 0; i<that.playersarr.length; i++){
+              var joy = 0;
+              var negative = 0;
+              var neutral = 0;
+              var sadness = 0;
+              var disgust = 0;
+              var anger = 0;
+              for (var j = 0; j<arrjugadores.length; j++){
+                if (arrjugadores[j].player == that.playersarr[i]){
+                  if(arrjugadores[j].emotion == "anger") {
+                    anger++ 
+                   
+                  }
+                  if(arrjugadores[j].emotion == "negative-fear"){
+                     negative++
+                  }
+                  if(arrjugadores[j].emotion == "joy"){
+                     joy++
+                  }
+                  if(arrjugadores[j].emotion == "neutral-emotion"){
+                     neutral++
+                  }
+                  if(arrjugadores[j].emotion == "disgust"){
+                     disgust++
+                  }
+                  if(arrjugadores[j].emotion == "sadness"){
+                     sadness++
+                  }
+                    //console.log(that.playersarr[i], positive, negative)
+                }
+                    
+                    
+                }
+                  
+                puntosjugador.push({"anger" : anger, "negative" : negative, "neutral":neutral, "joy": joy, "sadness": sadness, "disgust": disgust, "player": that.playersarr[i]});
+                //console.log(puntosjugador);
+            }
+            if (that.title == "Most positive player"){
+              
+               for(var i=0;i<puntosjugador.length;i++){
+                if(that.playername == puntosjugador[i].player){
+
+                 that.numemotion1 = puntosjugador[i].negative;
+                 that.numemotion2 = puntosjugador[i].joy;
+                 that.emotion1 = "Fear:"
+                 that.emotion2 = "Joy:"
+               }
+              }  
+
+            }
+            if (that.title == "Most negative player"){
+             
+               for(var i=0;i<puntosjugador.length;i++){
+                if(that.playername == puntosjugador[i].player){
+                 that.numemotion1 = puntosjugador[i].negative;
+                 that.numemotion2 = puntosjugador[i].joy;
+                 that.emotion1 = "Fear:"
+                 that.emotion2 = "Joy:"
+               }  
+
+            }
+          }
+            
+          });
+        },
+        _calculaemocionchanged: function(){
+          //console.log("hello");
+          var client = new $.es.Client({
+            hosts: this.host
+          });
+          var that = this
+          client.search({
+          // undocumented params are appended to the query string
+          index: this.indexemo,
+          type: this.subindex,
+          body: {
+            size: 10000,
+            query: {
+                  "bool" : {
+                      "must" : [ 
+                          { "match": { "text" : this.players } },
+                          { "match": { "text" : this.query } }
+                        ]
+                 }
+            },
+            stored_fields: ["text" , "emotion"],
+            _source:{}
+          }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = [];
+            
+            var aparitions = [];
+            var aux = [];
+            hits.forEach(function(entry) {
+              results.push(entry._source);
+            });
+            
+            //console.log(results);
+            var arrjugadores = [];
+            //console.log(that.playersarr);
+
+            for(var i = 0; i<that.playersarr.length; i++){
+              for(var j = 0; j<results.length; j++){
+                if((results[j]["text"]).indexOf(that.playersarr[i])>-1){
+                  //console.log(that.playersarr[i], results[j]["text"][0]);
+                  arrjugadores.push({player:that.playersarr[i], emotion: results[j]["emotion"]});
+                }
+              }
+            }
+            //console.log(arrjugadores[0].player);
+            var puntosjugador = []
+
+          
+            for(var i = 0; i<that.playersarr.length; i++){
+              var joy = 0;
+              var negative = 0;
+              var neutral = 0;
+              var sadness = 0;
+              var disgust = 0;
+              var anger = 0;
+              for (var j = 0; j<arrjugadores.length; j++){
+                if (arrjugadores[j].player == that.playersarr[i]){
+                  if(arrjugadores[j].emotion == "anger") {
+                    anger++ 
+                   
+                  }
+                  if(arrjugadores[j].emotion == "negative-fear"){
+                     negative++
+                  }
+                  if(arrjugadores[j].emotion == "joy"){
+                     joy++
+                  }
+                  if(arrjugadores[j].emotion == "neutral-emotion"){
+                     neutral++
+                  }
+                  if(arrjugadores[j].emotion == "disgust"){
+                     disgust++
+                  }
+                  if(arrjugadores[j].emotion == "sadness"){
+                     sadness++
+                  }
+                    //console.log(that.playersarr[i], positive, negative)
+                }
+                    
+                    
+                }
+                  
+                puntosjugador.push({"anger" : anger, "negative" : negative, "neutral":neutral, "joy": joy, "sadness": sadness, "disgust": disgust, "player": that.playersarr[i]});
+                //console.log(puntosjugador);
+            }
+            if (that.title == "Most positive player"){
+              
+               for(var i=0;i<puntosjugador.length;i++){
+                if(that.playername == puntosjugador[i].player){
+
+                 that.numemotion1 = puntosjugador[i].negative;
+                 that.numemotion2 = puntosjugador[i].joy;
+                 that.emotion1 = "Fear:"
+                 that.emotion2 = "Joy:"
+               }
+              }  
+
+            }
+            if (that.title == "Most negative player"){
+             
+               for(var i=0;i<puntosjugador.length;i++){
+                if(that.playername == puntosjugador[i].player){
+                 that.numemotion1 = puntosjugador[i].negative;
+                 that.numemotion2 = puntosjugador[i].joy;
+                 that.emotion1 = "Fear:"
+                 that.emotion2 = "Joy:"
+               }  
+
+            }
+          }
+            
+          });
+        },
+         queryChange: function(value) {
+          //console.log(this.title);
+          var client = new $.es.Client({
+            hosts: this.host
+          });
+          var that = this
+          client.search({
+          // undocumented params are appended to the query string
+          index: this.index,
+          type: this.subindex,
+          body: {
+            size: 10000,
+            query: {
+                  "bool" : {
+                      "must" : [ 
+                          { "match": { "text" : this.players } },
+                          { "match": { "text" : this.query  } },
+                          { "match": { "polarity" : "1 -1" } }
+                         
+                      ]
+                 }
+            },
+            stored_fields: ["text" , "polarity"],
+            _source:{}
+          }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = [];
+            
+            var aparitions = [];
+            var aux = [];
+            hits.forEach(function(entry) {
+              results.push(entry._source);
+            });
+            
+            //console.log(results);
+            var arrjugadores = [];
+            //console.log(that.playersarr);
+
+            for(var i = 0; i<that.playersarr.length; i++){
+              for(var j = 0; j<results.length; j++){
+                if((results[j]["text"]).indexOf(that.playersarr[i])>-1 && results[j]["polarity"] != 0){
+                  //console.log(that.playersarr[i], results[j]["text"][0]);
+                  arrjugadores.push({player:that.playersarr[i], polarity: results[j]["polarity"]});
+                }
+              }
+            }
+            //console.log(arrjugadores[0].player);
+            var puntosjugador = []
+            var totneg = 0;
+            var totpos = 0;
+          
+            for(var i = 0; i<that.playersarr.length; i++){
+                  var positive = 0;
+                  var negative = 0;  
+              for (var j = 0; j<arrjugadores.length; j++){
+                if (arrjugadores[j].player == that.playersarr[i]){
+                  if(arrjugadores[j].polarity == 1) {
+                    positive++ 
+                    totpos++
+                  }
+                  if(arrjugadores[j].polarity == -1){
+                     negative++
+                     totneg++
+                  }
+                    //console.log(that.playersarr[i], positive, negative)
+                }
+                    
+                    
+                }
+                  
+                puntosjugador.push({"negative" : negative, "positive" : positive, "player": that.playersarr[i]});
+                
+            }
+            puntosjugador.total = {"negative": totneg, "positive": totpos}
+            if (that.title == "Most positive player"){
+              puntosjugador.sort(function(a,b){return b.positive - a.positive});
+                that.playername = puntosjugador[0].player;
+                that.numpositive = puntosjugador[0].positive;
+                that.numnegative = puntosjugador[0].negative;
+            }
+            if (that.title == "Most negative player"){
+              puntosjugador.sort(function(a,b){return b.negative - a.negative});
+                that.playername = puntosjugador[0].player;
+                that.numpositive = puntosjugador[0].positive;
+                that.numnegative = puntosjugador[0].negative;
+            }
+            that._calculaemocionchanged();
+          });
+          
+        },
+
+            /** Fired when a search is made.
+             *
+             * @event query-change
+             * @param {Object} detail
+             * @param {Object} detail.query The search string.
+             */
+             _queryChanged: function() {
+              this.query ? this.queryChange(this.query) : this.queryDefault();
+            },
+        checkSource: function(source) {
+          if(source.indexOf("Griezmann") > -1 || source.indexOf("griezmann") > -1 )
+            return "/images/players/ATM/griezmann.jpg"
+          else if(source.indexOf("Messi") > -1 || source.indexOf("messi") > -1)
+            return "/images/players/FCB/messi.jpg"
+          else if(source.indexOf("Ter Stegen") > -1 || source.indexOf("ter stegen") > -1)
+            return "/images/players/FCB/stegen.jpg"
+          else if (source.indexOf("Neymar") > -1 || source.indexOf("ono") > -1 || source.indexOf("neymar") > -1)
+            return "/images/players/FCB/neymar.jpg"
+          else if (source.indexOf("Alves") > -1)
+            return "/images/players/FCB/alves.jpg"
+          else if (source.indexOf("Torres") > -1) 
+            return "/images/players/ATM/torres.jpg"
+          else if (source.indexOf("Juanfran") > -1 || source.indexOf("Juanfran") > -1 || source.indexOf("juanfran") > -1 )
+            return "/images/players/ATM/juanfran.jpg"
+          else if (source.indexOf("Filipe") > -1 || source.indexOf("Filipe Luis") > -1)
+            return "/images/players/ATM/filipe.jpg"
+          else if (source.indexOf("Suarez") > -1 || source.indexOf("suarez") > -1)
+            return "/images/players/FCB/suarez.jpg"
+          else if (source.indexOf("Busquets") > -1)
+            return "/images/players/FCB/busquets.jpg"
+          else if (source.indexOf("Mascherano") > -1)
+            return "/images/players/FCB/marcherano.jpg"
+          else if (source.indexOf("Arda") > -1)
+            return "/images/players/FCB/arda.jpg"
+          else if (source.indexOf("Iniesta") > -1)
+            return "/images/players/FCB/iniesta.jpg"
+          else if (source.indexOf("Rakitic") > -1)
+            return "/images/players/FCB/rakitic.jpg"
+          else if (source.indexOf("Vermaelen") > -1)
+            return "/images/players/FCB/vermaelen.jpg"
+          else if (source.indexOf("Piqué") > -1)
+            return "/images/players/FCB/pique.jpg"
+          else if (source.indexOf("Koke") > -1)
+            return "/images/players/ATM/koke.jpg"
+          else if (source.indexOf("Carrasco") > -1)
+            return "/images/players/ATM/carrasco.jpg"
+          else if (source.indexOf("Godín") > -1)
+            return "/images/players/ATM/godin.jpg"
+          else if (source.indexOf("Saúl") > -1)
+            return "/images/players/ATM/saul.jpg"
+          else if (source.indexOf("Gabi") > -1)
+            return "/images/players/ATM/gabi.jpg"
+          else if (source.indexOf("Oblak") > -1)
+            return "/images/players/ATM/oblak.jpg"
+          else if (source.indexOf("Giménez") > -1)
+            return "/images/players/ATM/gimenez.jpg"
+          else if (source.indexOf("Moyá") > -1)
+            return "/images/players/ATM/moya.jpg"
+          else if (source.indexOf("Bravo") > -1)
+            return "/images/players/FCB/bravo.jpg"
+          else if (source.indexOf("Jordi Alba") > -1)
+            return "/images/players/FCB/alba.jpg"
+          else 
+            return "/images/players/ATM/avatar.svg"
+        }
+
+    });
+ </script>
+</dom-module>

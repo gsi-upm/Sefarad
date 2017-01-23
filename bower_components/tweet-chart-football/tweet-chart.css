@@ -1,0 +1,52 @@
+:host {
+  margin: 0;
+  padding: 0;
+  width: 400px;
+  height: 300px;
+}
+
+.top-bar{
+  width: 100%; 
+  background-color: var(--dark-primary-color); 
+  border-radius: 5px 5px 0 0; 
+  color: white; 
+  text-align: center; 
+  height: 35px; 
+  line-height: 35px;
+}
+
+.top-bar span {
+  vertical-align: middle;
+}
+
+paper-icon-button.green {
+  color: var(--paper-green-500);
+}
+
+paper-icon-button.green:hover {
+  background: var(--paper-green-50);
+  border-radius: 50%;
+}
+
+.tweet {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.positive {
+  background: rgba(76, 175, 80, .5);
+}
+
+.negative {
+  background: rgba(255, 82, 82, .5);
+}
+
+.neutral {
+  background: rgba(96, 125, 139, .5);;
+}
+
+.text {
+  font-size: 17px;
+  font-weight: bold;
+}

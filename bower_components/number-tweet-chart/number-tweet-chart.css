@@ -1,0 +1,35 @@
+.twitter {
+    background-color: transparent !important;
+    color: #ffffff !important;
+    }
+    .wid-social {
+            /* display: inline-block; */
+            width: 100%;
+            padding: 15px 15px 15px 15px;
+            /* margin: 0px 0 1em 0; */
+            margin: 0 auto;
+    }
+
+    .wid-social .social-info h3, .wid-social .social-info h4 {
+        margin: 0px 0 15px 0;
+        
+    }
+    .social-info h3 {
+        display: inline-block;
+    }
+    h3.count.text-light {
+      color: #fff;
+      font-weight: 300;
+      font-size: 40px;
+    }
+    span.percent {
+      font-size: 13px;
+      font-weight: 300;
+    }
+    .icon-xlg {
+      font-size: 40px;
+      display: inline-block;
+    }
+    .social-icon, .social-info, .number-tweet-chart{
+      display: inline-block;
+    }

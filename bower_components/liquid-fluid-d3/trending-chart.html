@@ -1,0 +1,321 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="liquid-fluid-d3.html">
+
+<dom-module id="trending-chart">
+
+<style is="custom-style">
+  @import url("../../styles/app-theme.html");
+</style>
+<link rel="import" type="css" href="trending-chart.css">
+
+ <template>
+
+  <paper-material elevation="1">
+    <div class="top-bar">
+        <iron-icon icon="{{icon}}"></iron-icon>
+        <span>{{title}}</span>
+    </div>
+
+  <template is="dom-repeat" items="{{datos}}" as="entity"> 
+    <div style="width:20%; float:left">
+      <liquid-fluid-d3
+        value="{{entity.value}}"
+        title = "{{entity.entity}}"
+        id="{{entity.id}}">
+      </liquid-fluid-d3>
+   <img src={{checkSource(entity.entity)}} style="height: 30px; display: block; margin:10px auto"></div>
+  </template>
+  <div style="width:100%; clear: both"></div>
+  </paper-material>
+
+ </template>
+ <script>
+
+    Polymer({
+
+      is: 'trending-chart',
+
+       properties: {
+
+        datos: {
+            type: Array,
+            value: [] //default value for data array.
+        },
+
+        icon: {
+            type: String,
+            value: "trending-up"
+          },
+
+        title: {
+            type: String,
+            value: "Trending Chart"
+          },
+        index: {
+            type: String
+          },
+
+        subindex: {
+            type: String
+          },
+
+        extraId: {
+            type: String
+          },
+        query: {
+          type: String,
+          observer: '_queryChanged'
+        },
+
+        fields: {
+            type: Array,
+            value: function() { return []; }
+          }
+      },
+      ready: function(){
+          this.queryDefault();
+      },
+      queryDefault: function() {
+          var client = new $.es.Client({
+            hosts: this.host
+          });
+          var that = this
+          client.search({
+          // undocumented params are appended to the query string
+          index: this.index,
+          type: this.subindex,
+          body: {
+            size: 10000,
+            query: {
+              match_all: {}
+            }
+          }
+          }).then(function (resp) {
+            var hits = resp.hits.hits;
+            var results = [{"name": "Entities","children":[]}];
+            /*console.log(results);*/
+            var aparitions = [];
+            var aux = [];
+            hits.forEach(function(entry) {
+              if(aparitions[entry._source.name] == undefined){
+                aparitions[entry._source.name] = 1
+              } else {
+                aparitions[entry._source.name] ++
+              }
+            });
+            var tuples = [];
+
+            for (var key in aparitions) tuples.push([key, aparitions[key]]);
+
+            tuples.sort(function(a, b) {
+                a = a[1];
+                b = b[1];
+
+                return a > b ? -1 : (a < b ? 1 : 0);
+            });
+            aparitions = []
+            for (var i = 0; i < tuples.length; i++) {
+                var key = tuples[i][0];
+                var value = tuples[i][1];
+                aparitions[i] = key
+                // do something with key and value
+            }
+            aparitions = aparitions.splice(0,5)
+            aparitions.forEach(function(name) {
+              var total = []
+              /*var positive = []
+              var negative = []
+              var neutral = []
+              hits.forEach(function(entry) {
+                if(name == entry._source.name){
+                  if(entry._source.sentiment == "Positive") {
+                    positive.push({"text": entry._source.text})
+                  } else if(entry._source.sentiment == "Negative") {
+                    negative.push({"text": entry._source.text})
+                  } else {
+                    neutral.push({"text": entry._source.text})
+                  }
+                }
+              })*/
+              hits.forEach(function(entry) {
+                 if(name == entry._source.name){
+                  total.push({"text": entry._source.text});
+                 }
+              })
+              results[0]["children"].push({"name":name, "children":[{"name":"Total","children": total}]})
+            })
+            that.data = results[0]
+            
+            var total = 0;
+       
+          //  console.log(that.data.children[0].children[0].name);
+            //console.log(that.data.children.length);
+            //console.log(that.data.children[0].children[0].children.length);
+            for(var i = 0; i < that.data.children.length; i++){
+           // console.log(that.data.children[i].children[0].children.length);
+            total += that.data.children[i].children[0].children.length;
+            }
+            //console.log(total);
+            var vod = Math.round((that.data.children[0].children[0].children.length / total)*100);
+            var apl = Math.round((that.data.children[1].children[0].children.length / total)*100);
+            var gog = Math.round((that.data.children[2].children[0].children.length / total)*100);
+            var tel = Math.round((that.data.children[3].children[0].children.length / total)*100);
+            var amz = Math.round((that.data.children[4].children[0].children.length / total)*100);
+           // console.log(vod);
+
+            var resultados = []
+
+            resultados.push({"entity": that.data.children[0].name, "value": vod});
+            resultados.push({"entity": that.data.children[1].name, "value": apl});
+            resultados.push({"entity": that.data.children[2].name, "value": gog});
+            resultados.push({"entity": that.data.children[3].name, "value": tel});
+            resultados.push({"entity": that.data.children[4].name, "value": amz});
+
+            console.log(resultados);
+
+            that.datos = resultados;
+          });
+        },
+         queryChange: function(value) {
+              var client = new $.es.Client({
+                hosts: this.host
+              });
+                var that = this
+              client.search({
+                // undocumented params are appended to the query string
+                index: this.index,
+                type: this.subindex,
+                body: {
+                  size: 10000,
+                  query: {
+                    multi_match:{
+                      query: this.query,
+                      fields: this.fields
+                    }
+                  }
+                }
+              }).then(function (resp) {
+                var hits = resp.hits.hits;
+                var results = [{"name": "Entities","children":[]}];
+                /*console.log(results);*/
+                var aparitions = [];
+                var aux = [];
+                hits.forEach(function(entry) {
+                  if(aparitions[entry._source.name] == undefined){
+                    aparitions[entry._source.name] = 1
+                  } else {
+                    aparitions[entry._source.name] ++
+                  }
+                });
+                var tuples = [];
+
+                for (var key in aparitions) tuples.push([key, aparitions[key]]);
+
+                tuples.sort(function(a, b) {
+                    a = a[1];
+                    b = b[1];
+
+                    return a > b ? -1 : (a < b ? 1 : 0);
+                });
+                aparitions = []
+                for (var i = 0; i < tuples.length; i++) {
+                    var key = tuples[i][0];
+                    var value = tuples[i][1];
+                    aparitions[i] = key
+                    // do something with key and value
+                }
+                aparitions = aparitions.splice(0,5)
+                aparitions.forEach(function(name) {
+                  var total = []
+                  /*var positive = []
+                  var negative = []
+                  var neutral = []
+                  hits.forEach(function(entry) {
+                    if(name == entry._source.name){
+                      if(entry._source.sentiment == "Positive") {
+                        positive.push({"text": entry._source.text})
+                      } else if(entry._source.sentiment == "Negative") {
+                        negative.push({"text": entry._source.text})
+                      } else {
+                        neutral.push({"text": entry._source.text})
+                      }
+                    }
+                  })*/
+                  hits.forEach(function(entry) {
+                     if(name == entry._source.name){
+                      total.push({"text": entry._source.text});
+                     }
+                  })
+                  results[0]["children"].push({"name":name, "children":[{"name":"Total","children": total}]})
+                })
+                that.data = results[0]
+                
+                var total = 0;
+           
+              //  console.log(that.data.children[0].children[0].name);
+                //console.log(that.data.children.length);
+                //console.log(that.data.children[0].children[0].children.length);
+                for(var i = 0; i < that.data.children.length; i++){
+               // console.log(that.data.children[i].children[0].children.length);
+                total += that.data.children[i].children[0].children.length;
+                }
+               // console.log(total);
+                var vod = Math.round((that.data.children[0].children[0].children.length / total)*100);
+                var apl = Math.round((that.data.children[1].children[0].children.length / total)*100);
+                var gog = Math.round((that.data.children[2].children[0].children.length / total)*100);
+                var tel = Math.round((that.data.children[3].children[0].children.length / total)*100);
+                var amz = Math.round((that.data.children[4].children[0].children.length / total)*100);
+               // console.log(vod);
+
+                var resultados = []
+
+                resultados.push({"entity": that.data.children[0].name, "value": vod, "id":1});
+                resultados.push({"entity": that.data.children[1].name, "value": apl, "id":2});
+                resultados.push({"entity": that.data.children[2].name, "value": gog, "id":3});
+                resultados.push({"entity": that.data.children[3].name, "value": tel, "id":4});
+                resultados.push({"entity": that.data.children[4].name, "value": amz, "id":5});
+
+              //  console.log(resultados);
+
+                that.datos = resultados;
+              });
+            },
+
+            /** Fired when a search is made.
+             *
+             * @event query-change
+             * @param {Object} detail
+             * @param {Object} detail.query The search string.
+             */
+             _queryChanged: function() {
+              this.query ? this.queryChange(this.query) : this.queryDefault();
+            },
+        checkSource: function(source) {
+          if(source.indexOf("Vodafone") > -1 || source.indexOf("vodafone") > -1 )
+            return "http://www.vodafone.com/etc/vodafone-simplicity/img/vodafone-logo.png"
+          else if(source.indexOf("Santander") > -1)
+            return "http://www.bolsamania.com/mejorescreditos/wp-content/uploads/2014/07/logosantander1.jpg"
+          else if(source.indexOf("Telefónica") > -1 || source.indexOf("Movistar") > -1)
+            return "https://www.telefonica.com/telefonica-theme/images/dFront/modules/mod_footer/logo_telefonica_azul.png"
+          else if (source.indexOf("Ono") > -1 || source.indexOf("ono") > -1 || source.indexOf("ONO") > -1)
+            return "http://www.tadproducciones.com/images/portfolio/ono-logo.png"
+          else if (source.indexOf("LG") > -1)
+            return "http://sointecdecostarica.com/images/Logo_LG.png"
+          else if (source.indexOf("Iberdrola") > -1) 
+            return "https://upload.wikimedia.org/wikipedia/en/thumb/3/35/Iberdrola_logo.svg/1280px-Iberdrola_logo.svg.png"
+          else if (source.indexOf("iPhone") > -1 || source.indexOf("aapl") > -1 || source.indexOf("AAPL") > -1 || source.indexOf("Apple") > -1)
+            return "http://vignette2.wikia.nocookie.net/antfarm/images/c/cc/Apple_logo_black.svg.png/revision/latest?cb=20121119220642"
+          else if (source.indexOf("GOOG") > -1 || source.indexOf("goog") > -1 || source.indexOf("Google") > -1)
+            return "http://demos.gsi.dit.upm.es/ftt/img/entities/Google.png"
+          else if (source.indexOf("AMZN") > -1 || source.indexOf("amzn") > -1 || source.indexOf("Amazon") > -1 || source.indexOf("Kindle") > -1)
+            return "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Amazon.com-Logo.svg/2000px-Amazon.com-Logo.svg.png"
+          else if (source.indexOf("Microsoft") > -1)
+            return "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_(2012).svg/2000px-Microsoft_logo_(2012).svg.png"
+          else 
+            return "http://vignette2.wikia.nocookie.net/logopedia/images/5/59/Empty.png/revision/latest?cb=20100412122939"
+        }
+
+    });
+ </script>
+</dom-module>

@@ -1,0 +1,348 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+<dom-module id="spain-chart">
+
+<style is="custom-style">
+  @import url("../../styles/app-theme.html");
+</style>
+<link rel="import" type="css" href="spain-chart.css">
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+
+ <template>
+
+ 	<style>
+		#marco {
+		  overflow: hidden;
+		  margin: 0;
+		  font-size: 14px;
+		  font-family: "Helvetica Neue", Helvetica;
+		}
+
+		#spain {
+		  /*position: absolute;*/
+		  top: 0px;
+		  left: 0px;
+		}
+		.subunit.ESC { fill: #ddc; }
+		.subunit.ESI { fill: #cdd; }
+		.subunit.ESX { fill: transparent; }
+		.subunit.SEC { fill: #dcd; }
+		.subunit.SEM { display: none; }
+
+		.subunit {
+		  stroke: #000;
+		  stroke-linejoin: round;
+		}
+
+		.subunit-boundary {
+		  fill: none;
+		  stroke: #777;
+		  stroke-linejoin: round;
+		}
+
+		.province {
+		  stroke: #000;
+		  stroke-dasharray: 2,2;
+		  stroke-linejoin: round;
+		}
+		.tweet-details{display: none;}
+		.cara:hover + .tweet-details{
+
+			display: block;
+		}
+
+		.place-label {
+		  font-size: 0.5em;
+		}	
+	</style>
+
+  	<paper-material elevation="1">
+  	<div class="top-bar">
+        <iron-icon icon="{{icon}}"></iron-icon>
+        <span>{{title}}</span>
+        <iron-icon icon="icons:help-outline"></iron-icon>
+    </div>
+  	<div id="marco">
+ 	 <div id="spain"></div>
+ 	</div>
+ 	</paper-material>
+
+ </template>
+
+ <script>
+
+    Polymer({
+
+      is: 'spain-chart',
+
+      properties: {
+
+	      icon: {
+	          type: String,
+	          value: "language"
+	        },
+
+	      index: {
+	          type: String
+	        },
+
+	      subindex: {
+	          type: String
+	        },
+
+	      extraId: {
+	          type: String
+	        },
+
+	      fields: {
+	          type: Array,
+	          value: function() { return []; }
+	        },
+
+	      query: {
+	          type: String,
+	          observer: '_queryChanged'
+	        },
+
+	      title: {
+	          type: String,
+	          value: "Geo Chart"
+	        }
+	  },
+
+      ready: function(){
+
+      	this.queryDefault();
+      	
+      	
+      	
+	  },
+
+	  
+	  _draw: function(data){
+	  	
+	  	var width = 600,
+		    height = 430;
+		var svg = d3.select(this.$.spain).append("svg")
+		.attr("width", width)
+		.attr("height", height);
+		d3.json("es.json", function(error, es) {
+		    if (error) return console.error(error);
+		    //console.log(es);
+		    var subunits = topojson.feature(es, es.objects.subunits);
+		    var provinces = topojson.feature(es, es.objects.provinces);
+		    var projection = d3.geo.mercator()
+		    .scale(1900)
+		    .center([0, 0])
+		    /*.translate([360, height / 2]);*/
+		    .translate([360, 200]);
+		    //console.log(es.objects.places.features);
+		    var path = d3.geo.path()
+		    .projection(projection);
+		    svg.selectAll(".province")
+		      .data(provinces.features)
+		      .enter()
+		      .append("path")
+		      .attr("class", function(d) {
+		       //console.log(d.geometry.coordinates);
+		       return "province " + d.properties.name; })
+		      .attr("d", path)
+		      .style('fill', function(d) { return d3.hsl(Math.random() * 100, 0.5, 0.5); });
+		    svg.selectAll(".subunit")
+		      .data(subunits.features)
+		      .enter()
+		      .append("path")
+		      .attr("class", function(d) { return "subunit " + d.id; })
+		      .attr("d", path);
+		    svg.append("path")
+		      .datum(topojson.mesh(es, es.objects.subunits, function(a, b) { return a !== b && a.id !== "ESP"; }))
+		      .attr("d", path)
+		      .attr("class", "subunit-boundary");
+		    /*svg.append("path")
+		      .datum(topojson.feature(es, es.objects.places))
+		      .attr("d", path)
+		      .attr("class", "place");*/
+		    //console.log(topojson.feature(es, es.objects.places));
+		    //console.log(data);
+		    for (var i=0; i<data.length;i++){
+		    	if (data[i].city == "Barcelona"){
+		    		data[i].coordinates = [1.6809586232530336+(Math.random()*0.4),(41.38505768239248)+(Math.random()*0.4)]
+		    	}
+		    	if (data[i].city == "Madrid"){
+		    		data[i].coordinates = [-4.1842519049503775+(Math.random()*0.4),40.401350962116155+(Math.random()*0.4)]
+		    	}
+		    	if (data[i].city == "Valencia"){
+		    		data[i].coordinates = [-0.9027949018342696+(Math.random()*0.4),39.487101366588405+(Math.random()*0.4)]
+		    	}
+		    	if (data[i].sentiment == "Angry"){
+		    		data[i].sentiment = "angry-face.png"
+		    	}
+		    	if (data[i].sentiment == "Happy"){
+		    		data[i].sentiment = "grinning-face.png"
+		    	}
+		    	if (data[i].sentiment == "Sad"){
+		    		data[i].sentiment = "crying-face.png"
+		    	}		    		
+		    }
+		    //console.log(data);
+		    var faceIcon = svg.selectAll('image').data([0]);
+		    for (var i=0; i<data.length;i++){
+		    faceIcon.enter()
+				.append('svg:image')
+				.attr('xlink:href', 'images/'+data[i].sentiment)
+				.attr('width', '26').attr('height', '26')
+				.attr("class","cara")
+           		//.attr('transform', function(d) {return 'translate(' + position + ')';});
+           		.attr('transform', function(d) {return 'translate(' + projection(data[i].coordinates) + ')';});
+
+           	svg.selectAll(".place-label").data([0]).enter()
+           		.append("text")
+           		.attr("class", "tweet-details")
+           		.attr('transform','translate(15,397)')
+           		.text(data[i].text);
+           	}
+		    /*svg.selectAll(".place-label")
+		      .data(topojson.feature(es, es.objects.places).features)
+		      .enter().append("text")
+		      .attr("class", "place-label")
+		      .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+		      .attr("dy", ".35em")
+		      .text(function(d) { return d.properties.name; });*/
+		    /*svg.selectAll(".place-label")
+		      .attr("x", function(d) { return d.geometry.coordinates[0] > -1 ? 6 : -6; })
+		      .style("text-anchor", function(d) { return d.geometry.coordinates[0] > -1 ? "start" : "end"; });*/
+		});
+
+
+	  	
+	  },
+	   _queryChanged: function() {
+          this.query ? this.queryChange(this.query) : this.queryDefault();
+        },
+
+	  queryDefault: function() {
+	  	d3.select(this.$.spain).select("svg").remove();
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+        var that = this
+        client.search({
+        // undocumented params are appended to the query string
+        index: this.index,
+        type: this.subindex,
+        body: {
+          size: 1000,
+          query: {
+        	"bool" : {
+	            "must" : [ 
+	                { "match": { "user.location" : "Madrid Barcelona Valencia" } }
+	               
+	            ]
+         }
+    },
+             	
+       	  fields: [ "user.location" , "text" ] 
+         	
+          
+        }
+        }).then(function (resp) {
+          var hits = resp.hits.hits;
+          var results = []
+          hits.forEach(function(entry) {
+            results.push(entry.fields);
+          });
+        	//console.log(results);
+        	function filterbylocation(obj){
+        		if ('user.location' in obj != undefined ){
+        			return true
+        		}else{
+        			return false
+        		}
+        	}
+        	resultsclean = results.filter(filterbylocation);
+        	//console.log(resultsclean);
+        	var sitios = []
+        	for(var i = 0; i<resultsclean.length; i++){
+        	//console.log(resultsclean[i]);
+        	if((resultsclean[i]["user.location"][0]).indexOf("Barcelona")>-1){
+        		sitios.push({city:"Barcelona", sentiment: "Sad", coordinates:[], text: resultsclean[i]["text"][0]});
+        	}
+        	if((resultsclean[i]["user.location"][0]).indexOf("Madrid")>-1){
+        		sitios.push({city:"Madrid", sentiment: "Happy", coordinates:[], text: resultsclean[i]["text"][0]});
+        	}
+        	if((resultsclean[i]["user.location"][0]).indexOf("Valencia")>-1){
+        		sitios.push({city:"Valencia", sentiment: "Angry", coordinates:[], text: resultsclean[i]["text"][0]});
+        	}
+        	}
+        	//console.log(sitios);
+          that._draw(sitios);
+        });
+	      
+	    },
+	    queryChange: function() {
+	    d3.select(this.$.spain).select("svg").remove();
+        var client = new $.es.Client({
+          hosts: this.host
+        });
+        var that = this
+        client.search({
+        // undocumented params are appended to the query string
+        index: this.index,
+        type: this.subindex,
+        body: {
+          size: 1000,
+          query: {
+        	"bool" : {
+	            "must" : [ { "match": { "user.location" : "Madrid Barcelona Valencia" } },
+	            		   { "match": { "text": this.query   }}
+	               
+	           			 ]
+        			 }
+    			},
+             	
+       	  fields: [ "user.location" , "text" ] 
+         	
+          
+        }
+        }).then(function (resp) {
+          var hits = resp.hits.hits;
+          var results = []
+          hits.forEach(function(entry) {
+            results.push(entry.fields);
+          });
+        	//console.log("engendro"+results.length);
+        	function filterbylocation(obj){
+        		if ('user.location' in obj != undefined ){
+        			return true
+        		}else{
+        			return false
+        		}
+        	}
+        	resultsclean = results.filter(filterbylocation);
+        	//console.log(resultsclean);
+        	var sitios = []
+        	for(var i = 0; i<resultsclean.length; i++){
+        	//console.log(resultsclean[i]);
+        	if((resultsclean[i]["user.location"][0]).indexOf("Barcelona")>-1){
+        		sitios.push({city:"Barcelona", sentiment: "Sad", coordinates:[], text: resultsclean[i]["text"][0]});
+        	}
+        	if((resultsclean[i]["user.location"][0]).indexOf("Madrid")>-1){
+        		sitios.push({city:"Madrid", sentiment: "Happy", coordinates:[], text: resultsclean[i]["text"][0]});
+        	}
+        	if((resultsclean[i]["user.location"][0]).indexOf("Valencia")>-1){
+        		sitios.push({city:"Valencia", sentiment: "Angry", coordinates:[], text: resultsclean[i]["text"][0]});
+        	}
+        	}
+        	//console.log(sitios);
+
+
+          that._draw(sitios);
+        });
+	      
+	    }
+
+
+	});
+</script>
+</dom-module>
