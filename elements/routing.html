@@ -12,6 +12,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <script>
   window.addEventListener('WebComponentsReady', function() {
 
+    //Aux functions
+    function scrollToTop(ctx, next) {
+      app.scrollPageToTop();
+      next();
+    }
+
+    function hideFloatingButton(ctx, next) {
+      document.getElementById('analysis-menu').style.visibility = "hidden";
+      next();
+    }
+    function showFloatingButton(ctx, next){
+      document.getElementById('analysis-menu').style.visibility = "visible";
+      next();
+    }
+
     // We use Page.js for routing. This is a Micro
     // client-side router inspired by the Express router
     // More info: https://visionmedia.github.io/page.js/
@@ -42,6 +57,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     page('/footballmood', function () {
       app.route = 'footballmood';
     });
+
+    page('/gsicrawler',showFloatingButton,function(){
+	app.route = 'gsicrawler';
+    });	
 
     page('/dashslovakia', function () {
       app.route = 'dashslovakia';

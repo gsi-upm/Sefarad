@@ -1,0 +1,85 @@
+<link rel="import" href="../../../bower_components/paper-fab-transitions/paper-fab-speed-dial.html">
+
+<dom-module id="floating-menu">
+	<style>
+	paper-fab.paper-fab-0 {
+	    background: #00A9E0;
+	    color: #ffffff;
+	}
+	body{
+		position:fixed;
+	}
+	</style>
+	<template>
+		<paper-fab-speed-dial direction="top" class="bottom-right">
+		<paper-fab icon="visibility" class="dropdown-trigger"></paper-fab>
+		<div class="dropdown-content">
+		  <paper-fab mini icon="fa:foursquare" on-tap="newFoursquareAnalysis"></paper-fab>
+		  <paper-fab mini icon="fa:yelp" on-tap="newYelpAnalysis"></paper-fab>
+		  <paper-fab mini icon="fa:amazon" on-tap="newAmazonAnalysis"></paper-fab>
+		  <paper-fab mini icon="fa:twitter" on-tap="newTwitterAnalysis"></paper-fab>
+		  <paper-fab mini icon="fa:facebook" on-tap="newFacebookAnalysis"></paper-fab>
+		  <paper-fab mini icon="fa:youtube" on-tap="newYoutubeAnalysis"></paper-fab>
+		  <paper-fab mini icon="fa:tripadvisor" on-tap="newTripAdvisorAnalysis"></paper-fab>
+		</div>
+		</paper-fab-speed-dial>
+	</template>
+</dom-module>
+
+<script>
+	Polymer({
+		is: 'floating-menu',
+		properties:{
+		},
+		ready: function(){
+		},
+		newFoursquareAnalysis: function(){
+			this.showNewAnalysisDialog('foursquare');
+		},
+		newYelpAnalysis: function(){
+			this.showNewAnalysisDialog('yelp');
+		},
+		newTripAdvisorAnalysis: function(){
+			this.showNewAnalysisDialog('tripadvisor');
+		},
+		newYoutubeAnalysis: function(){
+			this.showNewAnalysisDialog('youtube');
+		},
+		newFacebookAnalysis: function(){
+			this.showNewAnalysisDialog('facebook');
+		},
+		newTwitterAnalysis: function(){
+			this.showNewAnalysisDialog('twitter');
+		},
+		newAmazonAnalysis: function(){
+			this.showNewAnalysisDialog('amazon');
+		},
+		showNewAnalysisDialog: function(webpage){
+			var container = document.getElementById('dialogs-container');
+			container.innerHTML = "";
+			var new_analysis = null;
+			if(webpage == 'facebook'){
+				new_analysis = new NewAnalysisDialogNoUrl(webpage, "Fan Page Id", "universidadpolitecnicademadrid");
+			}else if(webpage == 'twitter'){
+				new_analysis = new NewAnalysisDialogNoUrl(webpage, "Hashtag", "#upm");
+			}else if(webpage == 'youtube'){
+				new_analysis = new NewAnalysisDialogNoUrl(webpage, "Video Id", "eW3gMGqcZQc");
+			}else if(webpage == 'yelp'){
+				new_analysis = new NewAnalysisDialog(webpage, "http://www.yelp.com/biz/taqueria-cazadores-san-francisco-2");
+			}else if(webpage == 'amazon'){
+				new_analysis = new NewAnalysisDialog(webpage, "http://www.amazon.com/HP-H3C52AA-ABA-K1500-Keyboard/dp/B00E4TOWR0/");
+			}else if(webpage == 'tripadvisor'){
+				new_analysis = new NewAnalysisDialog(webpage, 'http://www.tripadvisor.com/Restaurant_Review-g60713-d8744300-Reviews-Casa_Flores-San_Francisco_California.html');
+			}else if(webpage == 'foursquare'){
+				new_analysis = new NewAnalysisDialog(webpage, 'https://es.foursquare.com/v/cafeter%C3%ADa-hd/4b5b0ca9f964a520d0e028e3');
+			}
+
+			new_analysis.style.width = '80%';
+			new_analysis.modal = true;
+			new_analysis.role = "alertdialog";
+			container.appendChild(new_analysis);
+			new_analysis.open();
+
+		}
+	});
+</script>
