@@ -1,0 +1,253 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+  <meta name="generator" content="Polymer Starter Kit" />
+  <title>Sefarad 3.0</title>
+  <!-- Place favicon.ico in the `app/` directory -->
+
+  <!-- Chrome for Android theme color -->
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Tile color for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="PSK">
+
+  <link rel="icon" href="images/touch/chrome-touch-icon-192x192.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Polymer Starter Kit">
+  <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
+
+  <!-- D3.js for drawing charts -->
+  <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+  
+  <!-- Tile icon for Win8 (144x144) -->
+  <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild-->
+
+  <!-- ------------------------------- STYLE LINKS ZONE -------------------------------------- -->
+
+  <link href='styles/yasr.min.css' rel='stylesheet' type='text/css'/>
+  <link href='//cdn.jsdelivr.net/yasqe/2.6.2/yasqe.min.css' rel='stylesheet' type='text/css'/>
+
+  <!-- ------------------------------- end/ STYLE LINKS ZONE --------------------------------- -->
+
+  <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <!-- endbuild -->
+
+  <!-- will be replaced with elements/elements.vulcanized.html -->
+  <link rel="import" href="elements/elements.html">
+  <!-- endreplace-->
+
+</head>
+
+<body unresolved class="fullbleed layout vertical">
+
+  <span id="browser-sync-binding"></span>
+  <template is="dom-bind" id="app">
+
+    <paper-drawer-panel id="paperDrawerPanel">
+      <!-- Drawer Scroll Header Panel -->
+      <paper-scroll-header-panel drawer fixed>
+
+        <!-- Drawer Toolbar -->
+        <paper-toolbar id="drawerToolbar">
+          <img src="http://vps161.cesvima.upm.es/images/stories/logos/gsi.png" style="height: 50px">
+        </paper-toolbar>
+
+        <!-- Drawer Content -->
+        <paper-menu class="list" attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
+          <a data-route="home" href="/">
+            <iron-icon icon="home"></iron-icon>
+            <span>Home</span>
+          </a>
+
+          <!--<a data-route="video" href="/video">
+            <iron-icon icon="visibility"></iron-icon>
+            <span>Demo Video</span>
+          </a>-->
+
+          <a data-route="dashdbpedia" href="/dashdbpedia">
+            <iron-icon icon="language"></iron-icon>
+            <span>Sparql DBPedia</span>
+          </a>
+
+          <!--<a data-route="dashtwitter" href="/dashtwitter">
+            <iron-icon icon="svg-sample-icons:twitter"></iron-icon>
+            <span>Dashboard Twitter</span>
+          </a>-->
+
+          <a data-route="dashtourpedia" href="/dashtourpedia">
+            <iron-icon icon="dashboard"></iron-icon>
+            <span>Dashboard Tourpedia</span>
+          </a>
+
+          <a data-route="dashftt" href="/dashftt">
+            <iron-icon icon="face"></iron-icon>
+            <span>Dashboard FTT</span>
+          </a>
+          <a data-route="footballmood" href="/footballmood">
+            <iron-icon icon="maps:directions-run"></iron-icon>
+            <span>Dashboard Footballmood</span>
+          </a>
+	  <a data-route="gsicrawler" href="/gsicrawler">
+            <iron-icon icon="visibility"></iron-icon>
+            <span>GSI Crawler</span>
+          </a>
+          <a data-route="admin" href="/admin">
+            <iron-icon icon="extension"></iron-icon>
+            <span>Admin Console</span>
+          </a>
+
+          <!--<a data-route="dashslovakia" href="/dashslovakia">
+            <iron-icon icon="social:public"></iron-icon>
+            <span>Dashboard Slovakia</span>
+          </a>-->
+
+          <a data-route="help" href="/help">
+            <iron-icon icon="info"></iron-icon>
+            <span>Help</span>
+          </a>
+        </paper-menu>
+      </paper-scroll-header-panel>
+
+      <!-- Main Area -->
+      <paper-scroll-header-panel main condenses keep-condensed-header>
+
+        <!-- Main Toolbar -->
+        <paper-toolbar id="mainToolbar" class="tall">
+          <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
+          <span class="flex"></span>
+
+          <!-- Toolbar icons -->
+          <paper-icon-button icon="refresh"  onclick="window.location.reload()"></paper-icon-button>
+
+          <!-- Application name -->
+          <div class="middle middle-container center horizontal layout" style="margin-left: 0">
+            <div class="app-name"><img src="images/Sefarad__Banner_Bonus.jpg" style="width: 400px;"></div></div>
+          </div>
+
+          <!-- Application sub title -->
+          <div class="bottom bottom-container center horizontal layout">
+          </div>
+
+        </paper-toolbar>
+
+        <!-- Main Content -->
+        <div class="content">
+          <iron-pages attr-for-selected="data-route" selected="{{route}}">
+
+            <section data-route="home">
+              <my-greeting></my-greeting>
+            </section>
+
+            <section data-route="video">
+              <paper-material elevation="1">
+                <h2 class="paper-font-display2">Demo Video</h2>
+		            <sentiment-chart width="620px" height="350px"></sentiment-chart>
+              </paper-material>
+            </section>
+
+            <section data-route="dashdbpedia">
+              <dashboard-dbpedia></dashboard-dbpedia>
+            </section>
+
+            <section data-route="dashtwitter">
+              <dashboard-twitter></dashboard-twitter>
+            </section>
+
+            <section data-route="dashtourpedia">
+              <dashboard-tourpedia></dashboard-tourpedia>
+            </section>
+
+            <section data-route="dashftt">
+              <dashboard-ftt></dashboard-ftt>
+              <canvas id="chernoff"></canvas>
+	          </section>
+
+            <section data-route="dashslovakia">
+              <dashboard-slovakia></dashboard-slovakia>
+            </section>
+
+            <section data-route="footballmood">
+              <dashboard-football></dashboard-football>
+            </section>
+
+	    <section data-route="gsicrawler">
+              <dashboard-gsicrawler></dashboard-gsicrawler>
+            </section>
+
+            <section data-route="admin">
+              <admin-console></admin-console>
+            </section>
+
+            <section data-route="help">
+              <help-panel></help-panel>
+            </section>
+
+          </iron-pages>
+        </div>
+      </paper-scroll-header-panel>
+    </paper-drawer-panel>
+
+    <!-- Uncomment next block to enable Service Worker support (1/2) -->
+    <!--
+    <paper-toast id="caching-complete"
+                 duration="6000"
+                 text="Caching complete! This app will work offline.">
+    </paper-toast>
+
+    <platinum-sw-register auto-register
+                          clients-claim
+                          skip-waiting
+                          on-service-worker-installed="displayInstalledToast">
+      <platinum-sw-cache default-cache-strategy="networkFirst"
+                         precache-file="precache.json">
+      </platinum-sw-cache>
+    </platinum-sw-register>
+    -->
+
+  </template>
+
+  <!-- build:js scripts/app.js -->
+  <script src="scripts/app.js"></script>
+  <script src="scripts/jquery-2.1.4.min.js"></script>
+  <!-- endbuild-->
+  <!-- build:js scripts/elasticsearch.js -->
+  <script src="scripts/elasticsearch.jquery.js"></script>
+  <!-- endbuild-->
+  <script src="scripts/es.js"></script>
+  <script src="scripts/chernoff.js"></script>
+  <script src='//cdn.jsdelivr.net/yasqe/2.6.2/yasqe.bundled.min.js'></script>
+  <script src='//cdn.jsdelivr.net/yasr/2.6.1/yasr.bundled.min.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<script src="../bower_components/page/page.js"></script>
+<script>
+  window.addEventListener('WebComponentsReady', function() {
+
+    //Aux functions
+    function scrollToTop(ctx, next) {
+      app.scrollPageToTop();
+      next();
+    }
+
+    function hideFloatingButton(ctx, next) {
+      document.getElementById('analysis-menu').style.visibility = "hidden";
+      next();
+    }
+    function showFloatingButton(ctx, next){
+      document.getElementById('analysis-menu').style.visibility = "visible";
+      next();
+    }
+
+    // We use Page.js for routing. This is a Micro
+    // client-side router inspired by the Express router
+    // More info: https://visionmedia.github.io/page.js/
+    page('/', function () {
+      app.route = 'home';
+    });
+
+    page('/video', function () {
+      app.route = 'video';
+    });
+
+    page('/dashdbpedia', function () {
+      app.route = 'dashdbpedia';
+    });
+
+    page('/dashtwitter', function () {
+      app.route = 'dashtwitter';
+    });
+
+    page('/dashtourpedia', function () {
+      app.route = 'dashtourpedia';
+    });
+
+    page('/dashftt', function () {
+      app.route = 'dashftt';
+    });
+
+    page('/footballmood', function () {
+      app.route = 'footballmood';
+    });
+
+    page('/gsicrawler',function(){
+	app.route = 'gsicrawler';
+    });	
+
+    page('/dashslovakia', function () {
+      app.route = 'dashslovakia';
+    });
+
+    page('/help', function () {
+      app.route = 'help';
+    });
+
+    page('/admin', function () {
+      app.route = 'admin';
+    });
+
+    // add #! before urls
+    page({
+      hashbang: true
+    });
+
+  });
+</script>

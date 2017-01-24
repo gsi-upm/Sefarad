@@ -1,0 +1,165 @@
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+
+<dom-module id="emotion-review-view">
+  <style is="custom-style">
+  #sub-left {
+     float: left;
+     width: 80%;
+  }
+  #sub-right {
+     float: right;
+     width: 20%;
+  }
+  .clear-both {
+     clear: both;
+  }
+  </style>
+  <template>
+    <div>
+      <div id="sub-left">
+        <h2><span>{{review.author.name}}</span></h2>
+        <span>{{review.datePublished}}</span></br>
+        <span><iron-icon id="star1"></iron-icon><iron-icon id="star2"></iron-icon><iron-icon id="star3"></iron-icon><iron-icon id="star4"></iron-icon><iron-icon id="star5"></iron-icon></span></br>
+        <span>{{review.reviewBody}}</span>
+      </div>
+      <div id="sub-right" style="text-align:center;">
+        <i id="emotion" class=""></i>
+        <br>
+        <br>
+        <span id="emotionstr" style="font-size:150%;">Disgusted</span>
+        <br>
+        <span id="emotionpolarity" style="display:none;font-size:150%;">{{review.polarity}}</span>
+      </div>
+      <div class="clear-both"></div>
+    </div>
+  </template>
+
+</dom-module>
+
+<script>
+
+  EmotionReviewView = Polymer({
+
+    is: 'emotion-review-view',
+    properties:{
+      review: {
+        type: Object
+      }
+    },
+    factoryImpl: function(review){
+      this.review = review;
+      this.emotion = review.emotionAnalysis.entries[0]['nif:emotionSets'].emotions[0]['onyx:hasEmotionCategory'];
+      if(this.emotion.indexOf("anger") >= 0){
+        this.$.emotion.className+=" twa twa-5x twa-angry";
+        this.$.emotionstr.style.color = '#C81F1D';
+        this.$.emotionpolarity.style.color = '#C81F1D';
+        this.$.emotionstr.innerHTML='Angry';
+      }else if(this.emotion.indexOf("disgust") >= 0){
+        this.$.emotion.className+=" twa twa-5x twa-confounded";
+        this.$.emotionstr.style.color = '#E0901B';
+        this.$.emotionpolarity.style.color = '#E0901B';
+        this.$.emotionstr.innerHTML='Disgust';
+      }else if(this.emotion.indexOf("neutral-emotion") >= 0){
+        this.$.emotion.className+=" twa twa-5x twa-open-mouth";
+        this.$.emotionstr.style.color = '#F7EA2A';
+        this.$.emotionpolarity.style.color = '#F7EA2A';
+        this.$.emotionstr.innerHTML='Surprised';
+      }else if(this.emotion.indexOf("joy") >= 0){
+        this.$.emotion.className+=" twa twa-5x twa-smiley";
+        this.$.emotionstr.style.color = '#75B84C';
+        this.$.emotionpolarity.style.color = '#75B84C';
+        this.$.emotionstr.innerHTML='Joy';
+      }else if(this.emotion.indexOf("sadness") >= 0){
+        this.$.emotion.className+=" twa twa-5x twa-cry";
+        this.$.emotionstr.style.color = '#395EAD';
+        this.$.emotionpolarity.style.color = '#395EAD';
+        this.$.emotionstr.innerHTML='Sad';
+      }else{
+        this.$.emotion.className+=" twa twa-5x twa-unamused";
+        this.$.emotionstr.style.color = '#562C8F';
+        this.$.emotionpolarity.style.color = '#562C8F';
+        this.$.emotionstr.innerHTML='Disgusted';
+      }
+
+      if(review.rating <= 0){
+        this.$.star1.icon="fa:star-o";
+        this.$.star2.icon="fa:star-o";
+        this.$.star3.icon="fa:star-o";
+        this.$.star4.icon="fa:star-o";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.rating < 1){
+        this.$.star1.icon="fa:star-half-o";
+        this.$.star2.icon="fa:star-o";
+        this.$.star3.icon="fa:star-o";
+        this.$.star4.icon="fa:star-o";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.rating == 1){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star-o";
+        this.$.star3.icon="fa:star-o";
+        this.$.star4.icon="fa:star-o";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.rating < 2){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star-half-o";
+        this.$.star3.icon="fa:star-o";
+        this.$.star4.icon="fa:star-o";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.rating == 2){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star";
+        this.$.star3.icon="fa:star-o";
+        this.$.star4.icon="fa:star-o";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.rating < 3){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star";
+        this.$.star3.icon="fa:star-half-o";
+        this.$.star4.icon="fa:star-o";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.rating == 3){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star";
+        this.$.star3.icon="fa:star";
+        this.$.star4.icon="fa:star-o";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.rating < 4){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star";
+        this.$.star3.icon="fa:star";
+        this.$.star4.icon="fa:star-half-o";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.rating == 4){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star";
+        this.$.star3.icon="fa:star";
+        this.$.star4.icon="fa:star";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.rating < 5){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star";
+        this.$.star3.icon="fa:star";
+        this.$.star4.icon="fa:star";
+        this.$.star5.icon="fa:star-half-o";
+      }else if(review.rating >= 5){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star";
+        this.$.star3.icon="fa:star";
+        this.$.star4.icon="fa:star";
+        this.$.star5.icon="fa:star";
+      }
+
+    },
+    ready: function() {
+    },
+    showStars: function(number, icon){
+      console.log('appendStars ' + number + ' ' + icon);
+      for(i=0; i < number; i++){
+        var star = document.createElement('iron-icon');
+        star.icon= icon;
+        this.$.stars.appendChild(star);
+      }
+    }
+  });
+
+</script>

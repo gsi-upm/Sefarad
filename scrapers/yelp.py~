@@ -1,0 +1,9 @@
+import os
+
+def startScraping(url, resultPath):
+	scriptPath = './scrapers/spiders/YelpScraper.py'
+	params = '-a url="%s" -a filePath="%s" --nolog' % (url, resultPath)
+	command = 'scrapy runspider %s %s' %(scriptPath, params)
+	print "command: ", command
+	os.system(command)
+	print 'Finished scraping YELP'	
