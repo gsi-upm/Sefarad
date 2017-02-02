@@ -1,11 +1,11 @@
-FROM rgoyard/apache-proxy
+FROM python:2.7
 
-EXPOSE 80
+RUN mkdir -p /usr/src/sefarad
+WORKDIR /usr/src/sefarad
+ADD requirements.txt /usr/src/sefarad/
+RUN pip install -r requirements.txt
 
-
-COPY . /app
+ADD . /usr/src/sefarad
 COPY ./httpd.conf /conf
-#WORKDIR /app
-#ENV ENDPOINT sefarad.demos.gsi.dit.upm.es
-#RUN chmod +x runserver.sh
-#RUN ./runserver.sh
+
+ENTRYPOINT ["python", "launch.py"]
