@@ -1,0 +1,215 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+
+<dom-module id="aspect-chart">
+
+<style is="custom-style">
+  @import url("../../styles/app-theme.html");
+</style>
+
+<link rel="import" type="css" href="tweet-chart.css">
+
+  <template>
+
+    <!-- Shadow DOM -->
+    <paper-material elevation="1">
+        <div class="top-bar">
+            <iron-icon icon="{{icon}}"></iron-icon>
+            <span>{{title}}</span>
+            <paper-icon-button icon="icons:help-outline" on-tap="_showhelp" style="padding: 0px;"></paper-icon-button>
+            <div id="{{idhelp}}" style="display: none; position: absolute; padding: 10px; left: 0; top: 35px;color:#000;background:rgba(255, 255, 255, 0.8)">
+              <p style="text-align: right;"><span>Food Aspect&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="background-color:#FF7900;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+              <p style="text-align: right;"><span>Drinks Aspect&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="background-color:#00C0BF;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+              <p style="text-align: right;"><span>Ambiance Aspect&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="background-color:#D40000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+              <p style="text-align: right;"><span>Service Aspect&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="background-color:#FFC01B;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+              <p style="text-align: right;"><span>Restaurant Aspect&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="background-color:#77C000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+              <p style="text-align: right;"><span>Location Aspect&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="background-color:#4A67B3;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+              <br>
+              <p style="text-align: right;"><span>Aspect Feature&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="background-color:#000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+
+            </div>
+        </div>
+        <template is="dom-repeat" items="{{data}}" as="review"> 
+          <div class="review neutral">
+            <template is="dom-repeat" items="{{review.entries}}" as="entries" index-as="entries_no"> 
+               <template is="dom-repeat" items="{{entries.sentiments}}" as="sentiments" index-as="sentiments_no"> 
+                <span class$="{{checkTopic(sentiments)}}">
+                  <template is="dom-repeat" items="{{getreviewtext(sentiments)}}" as="words" index-as="words_no"> 
+                    <span class$="{{checkFeature(sentiments,words)}}">{{words}}</span>
+                  </template>
+                </span>  
+               </template>
+            </template>
+          </div>
+        </template>
+        <div style="width:100%; clear: both"></div>
+    </paper-material>
+
+  </template>
+
+  <script>
+    var filtered = false;
+
+    Polymer({
+
+      is: 'aspect-chart',
+
+      properties: {
+
+        data: {
+            type: Array,
+            value: [] //default value for data array.
+        },
+
+        icon: {
+          type: String,
+          value: "face"
+        },
+
+        title: {
+          type: String,
+          value: "List of analyzed reviews"
+        },
+        tipo: {
+          type: String
+         },
+
+        brand: {
+          type: String,
+          value: "Undefined"
+        },
+
+         idhelp: {
+            type: String
+          },
+
+        query: {
+          type: String,
+          observer: '_queryChanged'
+        },
+
+        index: {
+          type: String
+        },
+
+        subindex: {
+          type: String
+        },
+
+        fields: {
+          type: Array,
+          value: function() { return []; }
+        },
+
+        field: {
+          type: String
+        },
+
+        host: {
+          type: String
+        },
+
+        param: {
+          type: String,
+          notify: true
+        },
+
+        filters: {
+          type: Array,
+          notify: true,
+          value: function() { return []; }
+        }
+      },
+
+      observers: [
+      '_filtersChange(filters.*)'
+      ],
+
+      ready: function() {
+        //console.log(this.tipo);   
+         this.queryDefault()
+      },
+
+       _showhelp: function(){
+      // console.log("disparo");
+
+       if(document.getElementById("help12").style.display == "none"){
+        var elemento1 = document.getElementById("help12");
+        
+        elemento1.style.display = 'initial';
+  
+       }
+       else{
+        var elemento1 = document.getElementById("help12");
+
+        elemento1.style.display = 'none';
+       
+       }
+
+
+    },
+      queryDefault: function() {
+        var that = this;
+        d3.json('reviews.jsonld', function (error, datos) {
+        if (error) {
+          console.error(error);
+          return;
+        }
+       //console.log(datos[0].entries[0]["nif:isString"]);
+       that.data = datos
+      });
+      },
+
+
+      getreviewtext: function(text){
+       
+        return text["nif:anchorOf"].split(" ");
+      },
+      checkFeature: function(sentiment,words) {
+        features = sentiment["marl:describesObject"].split(" ")
+        for(var i = 0;i<features.length;i++){
+            if(words == features[i]){
+              return "feature"
+            }  
+        }
+        
+      },
+      checkTopic: function(sentiment) {
+
+        return sentiment["marl:describesObjectFeature"]
+        
+        
+      },
+
+      queryChange: function(value) {
+          
+        },
+
+        /** Fired when a search is made.
+         *
+         * @event query-change
+         * @param {Object} detail
+         * @param {Object} detail.query The search string.
+         */
+         _queryChanged: function() {
+          this.query ? this.queryChange(this.query) : this.queryDefault();
+        },
+
+        _filtersChange: function() {
+          
+      },
+
+      checkSentiment: function(sentiment) {
+        if (sentiment == "marl:Positive")
+          return "tweet positive"
+        else if (sentiment == "marl:Negative")
+          return "tweet negative"
+        else 
+          return "tweet neutral"
+      }
+
+    });
+  </script>
+
+</dom-module>

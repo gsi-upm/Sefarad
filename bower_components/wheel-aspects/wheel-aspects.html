@@ -1,0 +1,437 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-spinner/paper-spinner.html">
+
+<dom-module id="wheel-aspects">
+
+<style is="custom-style">
+  @import url("../../styles/app-theme.html");
+</style>
+<link rel="import" type="css" href="wheel-chart.css">
+
+  <template>
+    
+    <!-- Shadow DOM -->
+    <paper-material elevation="1">
+      <div class="top-bar">
+        <iron-icon icon="{{icon}}"></iron-icon>
+        <span>{{title}}</span>
+        <paper-icon-button icon="icons:help-outline" on-tap="_showhelp" style="padding: 0px;"></paper-icon-button>
+         <div id="{{idhelp}}" style="display: none; position: absolute; padding: 10px; left: 0; top: 35px;color:#000;background:rgba(255, 255, 255, 0.8)">
+              <p style="text-align: right;"><span>Food Aspect&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="background-color:#FF7900;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+              <p style="text-align: right;"><span>Drinks Aspect&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="background-color:#00C0BF;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+              <p style="text-align: right;"><span>Ambiance Aspect&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="background-color:#D40000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+              <p style="text-align: right;"><span>Service Aspect&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="background-color:#FFC01B;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+              <p style="text-align: right;"><span>Restaurant Aspect&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="background-color:#77C000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+              <p style="text-align: right;"><span>Location Aspect&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="background-color:#4A67B3;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>     
+
+          </div>
+      </div>
+      <div id="spin">
+        <paper-spinner class="multi" active></paper-spinner>
+      </div>
+      <div id="chart"></div>
+      <div id="text">{{text}}</div>
+    </paper-material>
+
+  </template>
+
+  <script>
+    var filtered = false;
+
+    Polymer({
+
+      is: 'wheel-aspects',
+
+      properties: {
+
+        json: {
+            type: String,
+            value: "wheel.json" //default value for data array.
+        },   
+
+        data: {
+            type: Array,
+            value: [] //default value for data array.
+        },
+
+        query: {
+          type: String,
+          observer: '_queryChanged'
+        },
+
+        index: {
+          type: String
+        },
+
+        subindex: {
+          type: String
+        },
+
+        extraId: {
+          type: String
+        },
+        idhelp: {
+            type: String
+          },
+
+        fields: {
+          type: Array,
+          value: function() { return []; }
+        },
+
+        field: {
+          type: String
+        },
+
+        host: {
+          type: String
+        },
+
+        icon: {
+          type: String
+        },
+
+        param: {
+          type: String,
+          notify: true
+        },
+
+        filters: {
+          type: Array,
+          notify: true,
+          value: function() { return []; }
+        }, 
+
+        isSelected: {
+          type: Boolean,
+          value: false
+        },
+
+        icon: {
+          type: String,
+          value: "toll"
+        },
+
+        title: {
+          type: String,
+          value: "Wheel Chart"
+        },
+
+        width: {
+          type: Number,
+          value:300
+        },
+
+        height: {
+          type: Number,
+          value:320
+        },
+
+        text: {
+          type: String,
+          value: "No text"
+        }
+      },
+
+      observers: [
+      '_filtersChange(filters.*)'
+      ],
+
+      ready: function() {  
+        this.queryDefault()
+      },
+
+
+      _showhelp: function(){
+      // console.log("disparo");
+
+       if(document.getElementById("help11").style.display == "none"){
+        var elemento1 = document.getElementById("help11");
+       
+        
+        elemento1.style.display = 'initial';
+        
+       }
+       else{
+        var elemento1 = document.getElementById("help11");
+       
+        
+        elemento1.style.display = 'none';
+        
+       }
+
+
+    },
+
+      queryDefault: function() {
+          var that = this;
+            d3.json('reviews.jsonld', function (error, results) {
+            if (error) {
+              console.error(error);
+              return;
+            }
+            //console.log(results)
+             var positive = []
+              var positive1 = []
+               var positive2 = []
+                var positive3 = []
+                 var positive4 = []
+                  var positive5 = []
+                   var negative = []
+                   var negative1 = []
+              var negative2 = []
+              var negative3 = []
+              var negative4 = []
+              var negative5 = []
+
+           //console.log(results[0].entries[0]["nif:isString"]);
+           var datos = {"name": "Aspects","children":[
+           {name: "Restaurant", children: [{"name":"Positive","children": positive},{"name":"Negative","children": negative}]},
+           {name: "Location", children: [{"name":"Positive","children": positive1},{"name":"Negative","children": negative1}]}, 
+           {name: "Drinks", children: [{"name":"Positive","children": positive2},{"name":"Negative","children": negative2}]}, 
+           {name: "Food", children: [{"name":"Positive","children": positive3},{"name":"Negative","children": negative3}]}, 
+           {name: "Ambience", children: [{"name":"Positive","children": positive4},{"name":"Negative","children": negative4}]}, 
+           {name: "Service", children: [{"name":"Positive","children": positive5},{"name":"Negative","children": negative5}]}
+            ]}
+           for (var i=0; i< results.length; i++){
+            for(var j=0; j<results[i].entries[0].sentiments.length; j++){
+                if(results[i].entries[0].sentiments[j]["marl:describesObjectFeature"].indexOf("restaurant")>-1){
+                  if (results[i].entries[0].sentiments[j]["marl:polarityValue"] == 1){
+                   
+                    positive.push({text: results[i].entries[0].sentiments[j]["nif:anchorOf"]})
+                    
+                  }
+                  if (results[i].entries[0].sentiments[j]["marl:polarityValue"] == -1){
+                    
+                    negative.push({text: results[i].entries[0].sentiments[j]["nif:anchorOf"]})
+                  }
+                  
+                }
+                if(results[i].entries[0].sentiments[j]["marl:describesObjectFeature"].indexOf("location")>-1){
+                  if (results[i].entries[0].sentiments[j]["marl:polarityValue"] == 1){
+                   
+                    positive1.push({text: results[i].entries[0].sentiments[j]["nif:anchorOf"]})
+                  }
+                  if (results[i].entries[0].sentiments[j]["marl:polarityValue"] == -1){
+                    
+                    negative1.push({text: results[i].entries[0].sentiments[j]["nif:anchorOf"]})
+                  }
+                }if(results[i].entries[0].sentiments[j]["marl:describesObjectFeature"].indexOf("drinks")>-1){
+                  if (results[i].entries[0].sentiments[j]["marl:polarityValue"] == 1){
+                    
+                    positive2.push({text: results[i].entries[0].sentiments[j]["nif:anchorOf"]})
+                  }
+                  if (results[i].entries[0].sentiments[j]["marl:polarityValue"] == -1){
+                   
+                    negative2.push({text: results[i].entries[0].sentiments[j]["nif:anchorOf"]})
+                  }
+                }if(results[i].entries[0].sentiments[j]["marl:describesObjectFeature"].indexOf("food")>-1){
+                  if (results[i].entries[0].sentiments[j]["marl:polarityValue"] == 1){
+                    
+                    positive3.push({text: results[i].entries[0].sentiments[j]["nif:anchorOf"]})
+                  }
+                  if (results[i].entries[0].sentiments[j]["marl:polarityValue"] == -1){
+                    
+                    negative3.push({text: results[i].entries[0].sentiments[j]["nif:anchorOf"]})
+                  }
+                }if(results[i].entries[0].sentiments[j]["marl:describesObjectFeature"].indexOf("ambience")>-1){
+                  if (results[i].entries[0].sentiments[j]["marl:polarityValue"] == 1){
+                    
+                    positive4.push({text: results[i].entries[0].sentiments[j]["nif:anchorOf"]})
+                  }
+                  if (results[i].entries[0].sentiments[j]["marl:polarityValue"] == -1){
+                    
+                    negative4.push({text: results[i].entries[0].sentiments[j]["nif:anchorOf"]})
+                  }
+                }if(results[i].entries[0].sentiments[j]["marl:describesObjectFeature"].indexOf("service")>-1){
+                  if (results[i].entries[0].sentiments[j]["marl:polarityValue"] == 1){
+                    
+                    positive5.push({text: results[i].entries[0].sentiments[j]["nif:anchorOf"]})
+                  }
+                  if (results[i].entries[0].sentiments[j]["marl:polarityValue"] == -1){
+                    
+                    negative5.push({text: results[i].entries[0].sentiments[j]["nif:anchorOf"]})
+                  }
+                }
+              }
+            }
+            //console.log(datos)
+           //console.log(results[0].entries[0].sentiments[0]["marl:describesObjectFeature"])
+           that.data = datos
+           that._draw()
+          });
+      },
+
+      queryChange: function(value) {
+        
+
+      },
+
+      /** Fired when a search is made.
+       *
+       * @event query-change
+       * @param {Object} detail
+       * @param {Object} detail.query The search string.
+       */
+       _queryChanged: function() {
+        this.query ? this.queryChange(this.query) : this.queryDefault();
+      },
+
+      _filtersChange: function() {
+         
+      },
+
+      _draw: function() {
+          this.$.chart.innerHTML = "";
+          var width = this.width,
+              height = this.height,
+              radius = Math.min(width, height) / 2;
+
+          var x = d3.scale.linear()
+              .range([0, 2 * Math.PI]);
+
+          var y = d3.scale.sqrt()
+              .range([0, radius]);
+
+          var color = d3.scale.ordinal()
+                        .domain(["Positive", "Negative", "Neutral"])
+                        .range(["#4CAF50", "#FF5252" , "#9E9E9E", "#FFFFFF" ,"#A9A9A9", "#4A67B3", "#00C0BF", "#FF7900", "#b882ee","#FFC01B"]);
+
+          var svg = d3.select(this.$.chart).append("svg")
+              .attr("width", width+85)
+              .attr("height", height)
+              .append("g")
+              .attr("transform", "translate(" +190+ "," + (height / 2 + 10) + ")");
+
+          var partition = d3.layout.partition()
+              .sort(null)
+              .value(function(d) { return 1; });
+
+          var arc = d3.svg.arc()  
+              .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+              .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
+              .innerRadius(function(d) { return Math.max(0, y(d.y)); })
+              .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
+
+          var tooltip = d3.select(this.$.chart)
+            .append("div")
+            .attr("class", "tooltip")
+            .style("position", "absolute")
+            .style("opacity", 0);
+          
+            
+          function format_name(d) {
+            if(d.name != undefined){
+              var name = d.name;
+                return  '<b>' + name + '</b>';
+            }
+          }
+
+          // Keep track of the node that is currently being displayed as the root.
+          var node;
+          var that = this;
+
+          node = that.data;
+          //console.log(node);
+
+          that.$.spin.style.display = "none"
+
+          var path = svg.datum(node).selectAll("path")
+            .data(partition.nodes)
+            .enter().append("path")
+            .attr("d", arc)
+            .style("fill", function(d) { 
+              //console.log(d);
+              return color((d.children ? d : d.parent).name); })
+            .on("click", click)   
+            .on("mouseover", mouseover)
+            .on("mousemove", function(d) {
+              return tooltip
+                .style("top", "210px")
+                .style("left","270px");
+              })
+            .on("mouseout", function(){return tooltip.style("opacity", 0);})
+            .each(stash);
+
+          d3.selectAll("input").on("change", function change() {
+            var value = this.value === "count"
+              ? function() { return 1; }
+              : function(d) { return d.size; };
+
+            path
+              .data(partition.value(value).nodes)
+              .transition()
+              .duration(1000)
+              .attrTween("d", arcTweenData)         
+          });
+
+          function click(d) {
+            node = d;
+            path.transition()
+              .duration(1000)
+              .attrTween("d", arcTweenZoom(d));
+          }
+
+          function mouseover(d) {
+            that.text = d.text
+            tooltip.html(function() {
+              var name = format_name(d);
+              return name;
+            });
+            return tooltip.transition()
+              .duration(50)
+              .style("opacity", 0.9);
+          }
+
+          function computeTextRotation(d) {
+            return (x(d.x + d.dx / 2) - Math.PI / 2) / Math.PI * 180;
+          }
+
+          d3.select(self.frameElement).style("height", height + "px");
+
+          // Setup for switching data: stash the old values for transition.
+          function stash(d) {
+            d.x0 = d.x;
+            d.dx0 = d.dx;
+          }
+
+          // When switching data: interpolate the arcs in data space.
+          function arcTweenData(a, i) {
+            var oi = d3.interpolate({x: a.x0, dx: a.dx0}, a);
+            function tween(t) {
+              var b = oi(t);
+              a.x0 = b.x;
+              a.dx0 = b.dx;
+              return arc(b);
+            }
+            if (i == 0) {
+             // If we are on the first arc, adjust the x domain to match the root node
+             // at the current zoom level. (We only need to do this once.)
+              var xd = d3.interpolate(x.domain(), [node.x, node.x + node.dx]);
+              return function(t) {
+                x.domain(xd(t));
+                return tween(t);
+              };
+            } else {
+              return tween;
+            }
+          }
+
+          // When zooming: interpolate the scales.
+          function arcTweenZoom(d) {
+            var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
+                yd = d3.interpolate(y.domain(), [d.y, 1]),
+                yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
+            return function(d, i) {
+              return i
+                  ? function(t) { return arc(d); }
+                  : function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); return arc(d); };
+            };
+          }
+      }
+
+    });
+  </script>
+
+</dom-module>

@@ -1,0 +1,85 @@
+:host {
+  margin: 0;
+  padding: 0;
+  width: 400px;
+  height: 300px;
+}
+span{
+  white-space: inherit !important;
+}
+
+.top-bar{
+  width: 100%; 
+  background-color: var(--dark-primary-color); 
+  border-radius: 5px 5px 0 0; 
+  color: white; 
+  text-align: center; 
+  height: 35px; 
+  line-height: 35px;
+}
+
+.top-bar span {
+  vertical-align: middle;
+}
+
+paper-icon-button.green {
+  color: var(--paper-green-500);
+}
+
+paper-icon-button.green:hover {
+  background: var(--paper-green-50);
+  border-radius: 50%;
+}
+
+.review {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  width: 98%;
+}
+
+.positive {
+  background: rgba(76, 175, 80, .5);
+}
+
+.negative {
+  background: rgba(255, 82, 82, .5);
+}
+
+.neutral {
+  background: rgba(96, 125, 139, .5);
+}
+
+.text {
+  font-size: 17px;
+  font-weight: 100;
+}
+
+.feature {
+  font-weight: bold;
+  font-size:1.2em;
+}
+
+
+.food {
+  background: rgba(255, 121, 0, .5);
+}
+
+.drinks {
+  background: rgba(0, 192, 191, .6);
+}
+.restaurant {
+  background: rgba(119, 192, 0, .5);
+}
+.ambience {
+  background: rgba(212, 0, 0, .4);
+}
+.service {
+  background: rgba(255, 192, 27, .6);
+}
+.location {
+  background: rgba(74, 103, 179, .5);
+}
+
+
+

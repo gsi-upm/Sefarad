@@ -1,0 +1,163 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/material-search/material-search.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/google-chart-elk/google-chart.html">
+<link rel="import" href="../../bower_components/google-chart-elk/google-charter.html">
+<link rel="import" href="../../bower_components/sentiment-d3/sentiment-d3.html">
+<link rel="import" href="../../bower_components/field-chart/field-chart.html">
+<link rel="import" href="../../bower_components/liquid-fluid-d3/liquid-fluid-d3.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../../bower_components/yasgui/yasgui.html">
+
+
+<dom-module id="dashboard-aspects">
+
+  <style>
+  :root {
+      --paper-tab-ink: var(--accent-color);
+
+      --paper-tabs-selection-bar-color: var(--accent-color);
+    } 
+    paper-material{
+      background: white;
+    }
+
+    google-chart {
+      margin: 0 auto;
+    }
+
+    .chart_container {
+      width: 49%;
+      margin-bottom: 20px; 
+    }
+
+    .footer {
+      clear: both;
+      height: 2em;
+      margin-top: -2em;
+      display: flex;
+      justify-content: center
+    }
+    /* Tablet+ */
+    @media (min-width: 601px) {
+      paper-tabs, paper-toolbar {
+        margin-top: -48px;
+        margin-bottom: 48px;
+        margin-left: -62px;
+        margin-right: -62px;
+      }
+    }
+
+    paper-tabs, paper-toolbar {
+      background-color: #ff8c00; 
+      color: #fff;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    paper-tabs[noink][no-bar] paper-tab.iron-selected {
+      color: #04419B;
+    }
+
+    .twitter {
+    background-color: #00aced !important;
+    color: #ffffff !important;
+    }
+    .wid-social {
+        display: inline-block;
+        width: 100%;
+        padding: 15px 15px 15px 15px;
+        margin: 0px 0 1em 0;
+    }
+    paper-toggle-button.green {
+    --paper-toggle-button-checked-bar-color:  var(--paper-green-500);
+    --paper-toggle-button-checked-button-color:  var(--paper-green-500);
+    --paper-toggle-button-checked-ink-color: var(--paper-green-500);
+    --paper-toggle-button-unchecked-bar-color:  var(--paper-teal-500);
+    --paper-toggle-button-unchecked-button-color:  var(--paper-teal-500);
+    --paper-toggle-button-unchecked-ink-color: var(--paper-teal-500);
+    }
+
+    .wid-social .social-info h3, .wid-social .social-info h4 {
+        margin: 0px 0 15px 0;
+        
+    }
+    .social-info h3 {
+        display: inline-block;
+    }
+    h3.count.text-light {
+      color: #fff;
+      font-weight: 300;
+      font-size: 40px;
+    }
+    span.percent {
+      font-size: 13px;
+      font-weight: 300;
+    }
+    .icon-xlg {
+      font-size: 70px;
+    }
+
+
+  </style>
+
+  <template>
+
+    <iron-ajax auto
+        url="queries_foot.json"
+        handle-as="json"
+        last-response="{{queries_foot}}"></iron-ajax>
+
+
+  <!-- EVENTS -->
+  <div>
+    <div class="col-md-6" style="display: inline-block; margin-top: 0px; margin-bottom: 20px; height: 461px;">
+      <spider-aspects></spider-aspects>
+ 
+    </div>
+    <div class="col-md-6" style="display: inline-block; margin-top: 0px; margin-bottom: 20px; height: 461px;">
+      <wheel-aspects></wheel-aspects>
+ 
+    </div>
+
+    <div class="col-md-12" style="display: inline-block; margin-top: 0px; margin-bottom: 20px; height: 461px;">
+            <aspect-chart></aspect-chart>
+    </div>
+
+
+    </div>
+    
+    
+      
+  </template>
+
+  <script>
+    Polymer({
+      is: 'dashboard-aspects',
+      properties: {
+        selected: {
+          type: Number,
+          value: 0
+        }, 
+        selected1: {
+          type: Number,
+          value: 0
+        }, 
+        query:{
+          type: String
+        },
+        texto:{
+          type: String
+        }
+
+      },
+
+      ready: function () {
+        //console.log(this.query);
+        this.texto = "Show Emotion Radar";
+      }
+
+    });
+  </script>
+
+</dom-module>

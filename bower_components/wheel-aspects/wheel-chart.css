@@ -1,0 +1,74 @@
+:host {
+  margin: 0;
+  padding: 0;
+  width: 400px;
+  height: 300px;
+}
+
+.top-bar{
+  width: 100%; 
+  background-color: var(--dark-primary-color); 
+  border-radius: 5px 5px 0 0; 
+  color: white; 
+  text-align: center; 
+  height: 35px; 
+  line-height: 35px;
+}
+
+.top-bar span {
+  vertical-align: middle;
+}
+
+#chart {
+  padding: 0 11%;
+}
+
+#text {
+  width: 100%;
+  height: 50px;
+  margin-top: 15px;
+  text-align: center;
+  background-color: #EEEEEE
+}
+
+path {
+  stroke: #fff;
+  fill-rule: evenodd;
+}
+
+.tooltip {
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  color: #000000;
+}
+
+paper-spinner.multi {
+  --paper-spinner-layer-1-color: var(--paper-purple-500);
+  --paper-spinner-layer-2-color: var(--paper-cyan-500);
+  --paper-spinner-layer-3-color: var(--paper-blue-grey-500);
+  --paper-spinner-layer-4-color: var(--paper-amber-500);
+}
+
+paper-spinner-lite.orange {
+  --paper-spinner-color: var(--google-yellow-500);
+}
+
+paper-spinner-lite.green {
+  --paper-spinner-color: var(--google-green-500);
+}
+
+paper-spinner-lite.thin {
+  --paper-spinner-stroke-width: 1px;
+}
+
+paper-spinner-lite.thick {
+  --paper-spinner-stroke-width: 6px;
+}
+
+#spin {
+  width: 100%;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
