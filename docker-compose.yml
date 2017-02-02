@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  sefarad:
+    image: gsiupm/sefarad:4.0
+    ports:
+     - "8000:8000"
+    networks:
+      - sefarad-network
+    depends_on:
+      - elasticsearch
+
+  elasticsearch:
+    image: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - ./elasticsearch/nodes:/usr/share/elasticsearch/data/nodes
+      - ./elasticsearch/config:/usr/share/elasticsearch/config
+    networks:
+      - sefarad-network
+
+networks:
+  sefarad-network:
+    driver: bridge
