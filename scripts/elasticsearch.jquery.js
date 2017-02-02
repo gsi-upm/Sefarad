@@ -31415,7 +31415,7 @@ function Client(config) {
     }
 
     if (!config.hosts && !config.host) {
-      config.host = 'http://localhost:9200';
+      config.host = 'http://sefarad-elasticsearch:9200';
     }
 
     this.close = function () {
