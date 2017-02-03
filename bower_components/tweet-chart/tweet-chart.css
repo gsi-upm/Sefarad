@@ -49,4 +49,5 @@ paper-icon-button.green:hover {
 .text {
   font-size: 17px;
   font-weight: bold;
+  white-space: inherit;
 }

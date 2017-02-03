@@ -16,3 +16,6 @@ body {
 ::-webkit-scrollbar { 
     display: none; 
 }
+iron-icon.iron-icon-0 > span{
+	text-align: left;
+}
