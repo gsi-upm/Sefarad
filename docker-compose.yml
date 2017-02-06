@@ -2,7 +2,7 @@ version: '2'
 
 services:
   sefarad:
-    image: gsiupm/sefarad:4.0
+    build: .
     ports:
      - "8000:8000"
     networks:
