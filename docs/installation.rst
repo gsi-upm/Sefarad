@@ -9,7 +9,7 @@ Docker-compose can be easily installed through pip.
    $ pip install docker-compose
 
 Building Sefarad
-***************
+****************
    
 First of all, you need to clone the Github repository:
  
@@ -30,8 +30,14 @@ Then, it is necessary to add your **ElasticSearch** nodes folder into elasticsea
 
     $ cp $PWD/nodes ./elasticsearch/nodes
 
-Running Scaner
-**************
+Finally, it is necessary to change your **ElasticSearch** configuration folder permissions.
+
+.. code:: bash
+
+    $ sudo chown -R 105 ./elasticsearch/config/
+
+Running Sefarad
+***************
 
 Now the image is ready to run:
 
