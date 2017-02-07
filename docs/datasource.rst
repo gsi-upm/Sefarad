@@ -66,3 +66,15 @@ The analyzed JSON structure for a sentiment analysis would be:
 	]
 
 You can check the ElasticSearch entry (example with id 1234567890) through this url: ``http://localhost:9200/<your_elasticsearch_index>/<your_elasticsearch_doctype>/1234567890/_search?pretty``
+
+Import your ElasticSearch indices
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Firstly, you have to locate your elasticsearch installation folder. Inside this folder you find ``data/nodes``, copy this folder into ``<sefarad-folder>/elasticsearch/nodes``
+
+Restart your sefarad instance:
+
+.. code:: bash
+
+	$ docker-compose build
+	$ docker-compose up
