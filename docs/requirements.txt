@@ -1,2 +1,2 @@
-sphinxcontriib-httpdomain2
+sphinxcontrib-httpdomain2
 sphinxcontrib-httpdomain>=1.4
