@@ -34,7 +34,7 @@ These datasets must have the following JSON structure. The text, id and @timesta
 	   }
 	]
 
-Once we have our dataset well structured, the next step is to analyze every single tweet and store the result obtained in ElasticSearch. For that, you have to execute a Luigi pipeline that simplifies this workflow. Remind that ElasticSearch server must me up
+Once we have our dataset well structured, the next step is to analyze every single tweet and store the result obtained in ElasticSearch. For that, you have to execute a Luigi pipeline that simplifies this workflow. Remind that ElasticSearch server must be up
 
 1. Create a workspace directory and save your .json inside. Copy the pipeline.py from Sefarad directory to your own workspace directory.
 
