@@ -43,13 +43,13 @@ In addition, you have to define the structure as follows.
 	</dom-module>
 
 
-Inside ``<dom-module>`` tag you have to define your new Polymer element. Adding some JavaScript:
+Inside ``<dom-module>`` tag you have to define your new Polymer element adding some JavaScript:
 
 .. sourcecode:: javascript
 	
 
 	Polymer({
-		is: 'myweb-compoent',
+		is: 'myweb-component',
 		properties: {
 			icon: {
 				type: String,
