@@ -4,16 +4,19 @@
    contain the root `toctree` directive.
 
 Welcome to Sefarad's documentation!
-=================================
+===================================
 
 Contents:
 
 .. toctree::
    sefarad
    installation
+   widgets
+   dashboards
+   datasource
+   demo
+   :maxdepth: 2
 ..   api
 ..   apiUsage
 ..   metrics
 ..   usage
-..   demo
-   :maxdepth: 2
