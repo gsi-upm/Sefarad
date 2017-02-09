@@ -11,6 +11,7 @@ Contents:
 .. toctree::
    sefarad
    installation
+   quickguide
    widgets
    dashboards
    datasource
