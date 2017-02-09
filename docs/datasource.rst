@@ -6,10 +6,11 @@ In this section we will explain how to save your custom datasets in elasticsearc
 Previous knowledge about Elasticsearch
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Elasticsearch is a distributed, RESTful search and analytics engine capable of solving a growing number of use cases. As the heart of the Elastic Stack, it centrally stores your data so you can discover the expected and uncover the unexpected. Before import your own data, there are certain elements inside elasticsearch architecture that you should know:
+Elasticsearch [#f1]_ is a distributed, RESTful search and analytics engine capable of solving a growing number of use cases. As the heart of the Elastic Stack, it centrally stores your data so you can discover the expected and uncover the unexpected. Before import your own data, there are certain elements inside elasticsearch architecture that you should know:
 
 * What is an index in Elasticsearch? Well, an index is some type of data organization mechanism, allowing the user to partition data a certain way.
 * What is a type in Elasticsearch? A type in Elasticsearch represents a class of similar documents.
+
 So if we exemplify all these concepts, imagine that your have a football tweet analysis scenario, **MyFootballTweet** will be your index. Within this index, you have three diferent types, **sentiments**, **emotions** and **fake** analysis.
 
 Analyse and import your dataset to ElasticSearch
@@ -78,3 +79,7 @@ Restart your sefarad instance:
 
 	$ docker-compose build
 	$ docker-compose up
+
+.. rubric:: References
+
+.. [#f1] http://elastic.co

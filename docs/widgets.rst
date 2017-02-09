@@ -10,6 +10,8 @@ Web Components library
 
 In Sefarad we have prebuilt Web Components in ``./bower_components`` folder. Here we can find a collection of elements made by the Polymer team, and others made by GSI-UPM team.
 
+There is also an Online Web Components library `here <https://www.webcomponents.org/>`_.
+
 Developing your own Web Components
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
