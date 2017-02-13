@@ -4,7 +4,7 @@ services:
   sefarad:
     build: .
     ports:
-     - "8000:8000"
+     - "80:80"
     networks:
       - sefarad-network
     depends_on:

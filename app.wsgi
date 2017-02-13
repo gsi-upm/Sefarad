@@ -14,6 +14,7 @@ from rdflib import Graph
 
 pending_analysis = {}
 es = Elasticsearch()
+os.chdir(os.path.dirname(__file__))
 
 def return_json(result):
 	response.content_type = 'application/json'
@@ -172,4 +173,5 @@ def tourpedia():
 	return static_file('/dashboard/tourpedia.html', root='')
 
 #run(reloader=True)
-run(host='0.0.0.0', port=8000, debug=True)
+#run(host='0.0.0.0', port=8000, debug=True)
+application = default_app()
