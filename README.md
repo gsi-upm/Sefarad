@@ -71,10 +71,10 @@ Polymer is a technology based on web components, so we could make a new componen
 
 Those components will be reusable only importing the tag `<component-tag></component-tag>` and they could share information using data binding among them.
 
-###Demo
+##Demo
 You can check out our Sefarad demo <a href="http://sefarad.cluster.gsi.dit.upm.es/">here</a> 
 
-###Documentation
+##References
 <a href="http://www.gsi.dit.upm.es/administrator/components/com_jresearch/files/publications/tfgenriqueconde.pdf">[1]</a> Development of a Social Media Monitoring System based on
 Elasticsearch and Web Components Technologies.
 
