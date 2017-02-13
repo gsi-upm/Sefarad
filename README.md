@@ -76,7 +76,8 @@ You can check out our Sefarad demo <a href="http://sefarad.cluster.gsi.dit.upm.e
 
 ###Documentation
 <a href="http://www.gsi.dit.upm.es/administrator/components/com_jresearch/files/publications/tfgenriqueconde.pdf">[1]</a> Development of a Social Media Monitoring System based on
-Elasticsearch and Web Components Technologies
+Elasticsearch and Web Components Technologies.
+
 <a href="http://sefarad.readthedocs.io/en/latest/index.html">[2]</a>Read the Docs. Detailed documentation about Sefarad project.
 <!--##Deploying in Dokku
 
