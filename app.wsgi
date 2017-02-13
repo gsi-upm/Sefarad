@@ -170,7 +170,7 @@ def gsicrawler():
 
 @route('/tourpedia')
 def tourpedia():
-	return static_file('/dashboard/tourpedia.html', root='')
+	return static_file('/dashboards/tourpedia.html', root='')
 
 #run(reloader=True)
 #run(host='0.0.0.0', port=8000, debug=True)

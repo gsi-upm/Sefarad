@@ -81,21 +81,6 @@ Developing your own dashboard
 
 In this section we will explain how to create new dashboards in Sefarad, or import existing ones. First of all you must create a new directory inside **elements** (e.g ``elements/my-dashboard``), and move inside all your dashboard files (e.g my-dashboard.html).
 
-Afterwards, you have to create a new tab in left menu inside **index.html** file, and create a new section where your dashboard will be shown.
-
-.. sourcecode:: html
-
-	...
-	<a data-route="my_dashboard_route" href="/my_dashboard_route">
-    	<iron-icon icon="your_widget_icon"></iron-icon>
-    	<span>My Dashboard</span>
-	</a>
-	...
-	<section data-route="my_dashboard_route">
-    	<my-dashboard></my-dashboard>
-	</section>
-	...
-
 In addition, you have to define your dashboard structure as follows in **my-dashboard.html** file.
 
 .. sourcecode:: html
@@ -123,18 +108,29 @@ Inside ``<dom-module>`` tag you have to define your new Polymer dashboard adding
 			do_some_function();    	
 		}
 	});     
- 
 
-Finally, complete the ``routing.html`` and ``elements.html`` files located inside elements directory.
+Afterwards, you have to create a new file in ``dashboards`` folder. In this example, is called **newdashboard.html**. This file must have the same structure as other files in this folder, but you need to change the following lines to display your new dashboard.
 
-**routing.html**
-
-.. sourcecode:: javascript
+.. sourcecode:: html
 
 	...
-	page('/my_dashboard_route',function(){
-	    app.route = 'my_dashboard_route';
-	    });
+	<iron-pages attr-for-selected="data-route" selected="my_dashboard_route">
+		<section data-route="my_dashboard_route">
+			<my-dashboard></my-dashboard>
+		</section>
+	</iron-pages>
+	...
+
+Finally, complete the ``app.wsgi`` and ``elements.html`` files located inside elements directory.
+
+**app.wsgi**
+
+.. sourcecode:: python
+
+	...
+	@route('/mydashboard')
+	def mydashboard():
+		return static_file('/dashboards/newdashboard.html', root='')
 	...
 
 **elements.html**
