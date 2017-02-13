@@ -43,7 +43,7 @@ docker-compose up
 ```
 You can visualize Sefarad main page in your browser
  ```
- http://localhost:8080
+ http://localhost
  ```
 <!--NEW
 ##Getting Started
