@@ -25,7 +25,7 @@ svg {
   vertical-align: middle;
 }
 #grafica_campo{
-  background: url("esquina-campo-azul.jpg");
+  background: url("/images/esquina-campo-azul.jpg");
   background-size: cover;
   background-position-y: -44px;
 }

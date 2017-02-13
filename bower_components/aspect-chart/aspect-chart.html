@@ -151,7 +151,7 @@
     },
       queryDefault: function() {
         var that = this;
-        d3.json('reviews.jsonld', function (error, datos) {
+        d3.json('/reviews.jsonld', function (error, datos) {
         if (error) {
           console.error(error);
           return;

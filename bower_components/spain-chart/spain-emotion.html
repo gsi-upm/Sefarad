@@ -550,7 +550,7 @@
 				}
 			}
 			//console.log(cityemotion);
-			  d3.json("provincias.json", function(error, provincias) {
+			  d3.json("/provincias.json", function(error, provincias) {
 			  var land = topojson.feature(provincias, provincias.objects.provincias);
 			  svg.selectAll("path")
 			      .data(land.features)
@@ -681,7 +681,7 @@
 			    for (var i=0; i<data.length;i++){
 			    faceIcon.enter()
 					.append('svg:image')
-					.attr('xlink:href', 'images/'+data[i].image)
+					.attr('xlink:href', '/images/'+data[i].image)
 					.attr('width', '26').attr('height', '26')
 					.attr("class","cara")
 	           		//.attr('transform', function(d) {return 'translate(' + position + ')';});
