@@ -11,7 +11,7 @@ Sefarad requires docker and docker-compose to work. You can download Docker <a h
 
 Docker-compose can be easily installed through pip.
 ```
-pip install docker-compose
+sudo pip2 install docker-compose
 
 ```
 ###Building Sefarad
@@ -25,6 +25,8 @@ Once cloned, we need to build the docker image:
 ```
 sudo docker-compose build
 ```
+Install and unzip last version of Elasticsearch from website https://www.elastic.co/downloads/elasticsearch.
+
 
 Then, it is necessary to add your ElasticSearch nodes folder into elasticsearch directory.
 ```
@@ -39,11 +41,11 @@ sudo chown -R 105 ./elasticsearch/config/
 Now the image is ready to run:
 
 ```
-docker-compose up
+sudo docker-compose up
 ```
 You can visualize Sefarad main page in your browser
  ```
- http://localhost
+ http://localhost:8000
  ```
 <!--NEW
 ##Getting Started
