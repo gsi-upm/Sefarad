@@ -20,11 +20,6 @@ First of all, you need to clone the Github repository:
 git clone git@github.com:gsi-upm/sefarad
 cd sefarad
 ```
-Once cloned, we need to build the docker image:
-
-```
-sudo docker-compose build
-```
 Install and unzip last version of Elasticsearch from website https://www.elastic.co/downloads/elasticsearch.
 
 
@@ -38,7 +33,7 @@ Finally, it is necessary to change your ElasticSearch configuration folder permi
 sudo chown -R 105 ./elasticsearch/config/
 ```
 ###Running Sefarad
-Now the image is ready to run:
+Now the image is ready to run. Build and run your docker images:
 
 ```
 sudo docker-compose up
