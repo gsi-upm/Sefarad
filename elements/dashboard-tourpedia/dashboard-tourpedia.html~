@@ -45,7 +45,7 @@
             <number-chart 
               index="tourpedia"
               subindex="places"
-              fields='["category", "location"]'
+              fields='["category"]'
               query="{{query}}"
               icon="info"
               filters="{{filters}}"
@@ -56,7 +56,7 @@
             <number-chart 
               index="tourpedia"
               subindex="places"
-              fields='["category", "location"]'
+              fields='["category"]'
               query="{{query}}"
               is-aggregated
               field="category"
@@ -71,7 +71,7 @@
             <number-chart 
               index="tourpedia"
               subindex="places"
-              fields='["category", "location"]'
+              fields='["category"]'
               query="{{query}}"
               is-aggregated
               field="category"
@@ -226,7 +226,7 @@
 
         ids:{
           type: Array,
-          value: ["481","482","32512","32420","91963","96677","160677","131425","322429","322612"]
+          value: []
         },
 
         query: {
@@ -345,10 +345,14 @@
             body: {
               size: 10,
               query: {
+                filtered: {
+                  filter: {
                     bool: {
                       must: this.filters,
                     }
                   }
+                }
+              }
             }
           }).then(function (resp) {
             var hits = resp.hits.hits;

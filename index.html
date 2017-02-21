@@ -16,7 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
   <meta name="generator" content="Polymer Starter Kit" />
-  <title>Sefarad 3.0</title>
+  <title>Sefarad 4.0</title>
   <!-- Place favicon.ico in the `app/` directory -->
 
   <!-- Chrome for Android theme color -->
@@ -43,7 +43,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- D3.js for drawing charts -->
   <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-  
+  <script src="bower_components/web-animations-js/web-animations.min.js"></script>
+
   <!-- Tile icon for Win8 (144x144) -->
   <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
 
@@ -73,75 +74,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
 
-    <paper-drawer-panel id="paperDrawerPanel">
-      <!-- Drawer Scroll Header Panel -->
-      <paper-scroll-header-panel drawer fixed>
-
-        <!-- Drawer Toolbar -->
-        <paper-toolbar id="drawerToolbar">
-          <img src="http://vps161.cesvima.upm.es/images/stories/logos/gsi.png" style="height: 50px">
-        </paper-toolbar>
-
-        <!-- Drawer Content -->
-        <paper-menu class="list" attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
-          <a data-route="home" href="/">
-            <iron-icon icon="home"></iron-icon>
-            <span>Home</span>
-          </a>
-
-          <!--<a data-route="video" href="/video">
-            <iron-icon icon="visibility"></iron-icon>
-            <span>Demo Video</span>
-          </a>-->
-
-          <a data-route="dashdbpedia" href="/dashdbpedia">
-            <iron-icon icon="language"></iron-icon>
-            <span>Sparql DBPedia</span>
-          </a>
-
-          <!--<a data-route="dashtwitter" href="/dashtwitter">
-            <iron-icon icon="svg-sample-icons:twitter"></iron-icon>
-            <span>Dashboard Twitter</span>
-          </a>-->
-
-          <a data-route="dashtourpedia" href="/dashtourpedia">
-            <iron-icon icon="dashboard"></iron-icon>
-            <span>Dashboard Tourpedia</span>
-          </a>
-
-          <a data-route="dashftt" href="/dashftt">
-            <iron-icon icon="face"></iron-icon>
-            <span>Dashboard FTT</span>
-          </a>
-          <a data-route="footballmood" href="/footballmood">
-            <iron-icon icon="maps:directions-run"></iron-icon>
-            <span>Dashboard Footballmood</span>
-          </a>
-          <a data-route="absa" href="/absa">
-            <iron-icon icon="dashboard"></iron-icon>
-            <span>Aspects Dashboard</span>
-          </a>
-	        <a data-route="gsicrawler" href="/gsicrawler">
-            <iron-icon icon="visibility"></iron-icon>
-            <span>GSI Crawler</span>
-          </a>
-          <!--<a data-route="admin" href="/admin">
-            <iron-icon icon="extension"></iron-icon>
-            <span>Admin Console</span>
-          </a>-->
-
-          <!--<a data-route="dashslovakia" href="/dashslovakia">
-            <iron-icon icon="social:public"></iron-icon>
-            <span>Dashboard Slovakia</span>
-          </a>-->
-
-          <a data-route="help" href="/help">
-            <iron-icon icon="info"></iron-icon>
-            <span>Help</span>
-          </a>
-        </paper-menu>
-      </paper-scroll-header-panel>
-
       <!-- Main Area -->
       <paper-scroll-header-panel main condenses keep-condensed-header>
 
@@ -166,64 +98,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <!-- Main Content -->
         <div class="content">
-          <iron-pages attr-for-selected="data-route" selected="{{route}}">
+          <iron-pages attr-for-selected="data-route" selected="home">
 
             <section data-route="home">
               <my-greeting></my-greeting>
             </section>
 
-            <section data-route="video">
-              <paper-material elevation="1">
-                <h2 class="paper-font-display2">Demo Video</h2>
-		            <sentiment-chart width="620px" height="350px"></sentiment-chart>
-              </paper-material>
-            </section>
-
-            <section data-route="dashdbpedia">
-              <dashboard-dbpedia></dashboard-dbpedia>
-            </section>
-
-            <section data-route="dashtwitter">
-              <dashboard-twitter></dashboard-twitter>
-            </section>
-
-            <section data-route="dashtourpedia">
-              <dashboard-tourpedia></dashboard-tourpedia>
-            </section>
-
-            <section data-route="dashftt">
-              <dashboard-ftt></dashboard-ftt>
-              <canvas id="chernoff"></canvas>
-	          </section>
-
-            <section data-route="dashslovakia">
-              <dashboard-slovakia></dashboard-slovakia>
-            </section>
-
-            <section data-route="footballmood">
-              <dashboard-football></dashboard-football>
-            </section>
-
-            <section data-route="absa">
-              <dashboard-aspects></dashboard-aspects>
-            </section>
-
-	          <section data-route="gsicrawler">
-              <gsicrawler-greeting></gsicrawler-greeting>
-            </section>
-
-            <!--<section data-route="admin">
-              <admin-console></admin-console>
-            </section>-->
-
-            <section data-route="help">
-              <help-panel></help-panel>
-            </section>
-
           </iron-pages>
         </div>
       </paper-scroll-header-panel>
-    </paper-drawer-panel>
+
 
     <!-- Uncomment next block to enable Service Worker support (1/2) -->
     <!--

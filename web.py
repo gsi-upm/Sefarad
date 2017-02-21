@@ -6,7 +6,7 @@ import imp
 import rdflib
 
 import uuid
-from bottle import route, run, template, static_file, response, request, install, default_app
+from bottle import route, run, template, static_file, response, request, install
 from elasticsearch import Elasticsearch
 from datetime import datetime
 import requests
@@ -169,7 +169,7 @@ def gsicrawler():
 
 @route('/tourpedia')
 def tourpedia():
-	return static_file('/dashboard/tourpedia.html', root='')
+	return static_file('/dashboards/tourpedia.html', root='')
 
 #run(reloader=True)
-run(host='0.0.0.0', port=8000, debug=True)
+run(host='0.0.0.0', port=8080, debug=True)

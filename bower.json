@@ -1,0 +1,24 @@
+{
+  "name": "sefarad-4.0",
+  "homepage": "https://github.com/gsi-upm/sefarad-3.0",
+  "authors": [
+    "afllamas <a.fllamas@alumnos.upm.es>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "iron-checked-element-behavior": "PolymerElements/iron-checked-element-behavior#^1.0.0",
+    "paper-fab-transitions": "^0.1.0",
+    "paper-fab": "PolymerElements/paper-fab#^1.0.0",
+    "web-animations-js": "web-animations/web-animations-js#2.2.2",
+    "paper-card": "PolymerElements/paper-card#^1.1.4"
+  }
+}

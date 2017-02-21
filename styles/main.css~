@@ -24,32 +24,3 @@ text.tweet-details{display: none;}
 	display: block;
 }
 
-.cards-container{
-	background-color:#c7c7c7;
-	padding: 20px;
-	}
-	paper-card{
-	width:100%;
-	}
-	paper-card .card-content a{
-	color: #00A9E0 !important;
-	}
-	paper-card{
-	margin: 5px;
-	padding:10px;
-	background-color:white;
-	}
-	paper-card img{
-	width:20%;
-	height:20%;
-	}
-	paper-card .card-body{
-	width:70%;
-	    @apply(--layout-flex);
-	float:right;
-	}
-	paper-button{
-	float:right;
-	color:white;
-	background-color: #00A9E0 !important; 
-	}
