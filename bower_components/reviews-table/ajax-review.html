@@ -12,17 +12,20 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
 <dom-module id="ajax-review">
   <template>
     <div>
-      <iron-ajax auto
-        url="{{getIdURL(id)}}"
-        handle-as="json"
-        last-response="{{reviews}}"></iron-ajax>
       <iron-ajax auto 
         url="{{getName(id)}}"
         handle-as="json"
-        last-response="{{places}}"></iron-ajax>
+        last-response="{{places}}"
+        on-response="completed"></iron-ajax>
+      <iron-ajax
+        id="ajax" 
+        url="{{getIdURL(id)}}"
+        handle-as="json"
+        last-response="{{reviews}}"
+        on-response="finished"></iron-ajax>
       <template is="dom-repeat" items="{{reviews}}" as="review">
         <template is="dom-if" if="{{isOpen()}}">
-          <div style="width: 100%; text-align: center;">Place Name: <span>{{getNameIndex(index)}}</span></div>
+          <div style="width: 100%; text-align: center;">Place Name: <span>{{checkplace(id)}}</span></div>
           </br>
         </template>
         <template is="dom-if" if="{{checkIndex(index)}}">
@@ -89,12 +92,13 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
           return "0"
       },
       checkIndex: function(index) {
+        //console.log(index)
         if(index < 10)
           return true
         else
           return false
       },
-      getNameIndex: function(index) {
+      getNameIndex: function(index) {      
         if(this.places != undefined) 
           return this.places.name
         else 
@@ -105,6 +109,19 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
       },
       getIdURL: function(id) {
         return "http://tour-pedia.org/api/getReviewsByPlaceId?placeId=" + id
+      },
+      completed: function(){
+        console.log("iron-ajax completed")
+        this.$.ajax.generateRequest();
+      },
+      finished: function(){
+        console.log("iron-ajax review completed")
+      },
+      checkplace: function(id){
+        if (id == this.places.id){
+          return(this.places.name)
+        }
+        
       }
     }); 
 </script>

@@ -166,11 +166,13 @@
             body: {
               size: 10,
               query: {
-                
+                filtered: {
+                  filter: {
                     bool: {
                       must: this.filters,
                     }
-                 
+                  }
+                }
               }
             }
           }).then(function (resp) {

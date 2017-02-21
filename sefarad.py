@@ -78,7 +78,7 @@ class SenpyTask(luigi.Task):
         * :py:class:`~.FetchDataTask`
         :return: object (:py:class:`luigi.task.Task`)
         """
-        return FetchDataTaske()
+        return FetchDataTask()
 
     def output(self):
 	"""
@@ -184,4 +184,5 @@ class SemanticTask(luigi.Task):
     
 	
 if __name__ == "__main__":
-    luigi.run(['--task', 'Elasticsearch'])
+    #luigi.run(['--task', 'Elasticsearch'])
+    luigi.run(	)

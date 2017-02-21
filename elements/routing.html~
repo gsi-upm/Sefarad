@@ -12,7 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <script>
   window.addEventListener('WebComponentsReady', function() {
 
-    //Aux functions
+    // Middleware
     function scrollToTop(ctx, next) {
       app.scrollPageToTop();
       next();
@@ -22,6 +22,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       document.getElementById('analysis-menu').style.visibility = "hidden";
       next();
     }
+
     function showFloatingButton(ctx, next){
       document.getElementById('analysis-menu').style.visibility = "visible";
       next();
@@ -54,14 +55,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.route = 'dashftt';
     });
 
-    page('/footballmood', function () {
-      app.route = 'footballmood';
-    });
-
-    page('/gsicrawler',function(){
-	app.route = 'gsicrawler';
-    });	
-
     page('/dashslovakia', function () {
       app.route = 'dashslovakia';
     });
@@ -74,9 +67,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.route = 'admin';
     });
 
+    page('/gsicrawler',showFloatingButton,function(){
+	app.route = 'gsicrawler';
+    });
+
     // add #! before urls
     page({
-      hashbang: true
+      hashbang: false
     });
 
   });

@@ -86,7 +86,7 @@
             <number-chart 
               index="tourpedia"
               subindex="places"
-              fields='["category", "location"]'
+              fields='["category"]'
               query="{{query}}"
               icon="maps:hotel"
               is-aggregated
@@ -207,7 +207,7 @@
       </div>
       <div>
         <yasgui-ui
-            endpoint="http://fuseki-tourpedia.cluster.gsi.dit.upm.es/tourpedia/query"
+            endpoint="http://lab.gsi.dit.upm.es:5050/tourpedia/sparql"
             queries="{{queries}}">
         </yasgui-ui>
       </div>
@@ -345,12 +345,10 @@
             body: {
               size: 10,
               query: {
-                
                     bool: {
                       must: this.filters,
                     }
-                 
-              }
+                  }
             }
           }).then(function (resp) {
             var hits = resp.hits.hits;

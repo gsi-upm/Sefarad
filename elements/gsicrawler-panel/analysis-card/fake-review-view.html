@@ -1,0 +1,129 @@
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+
+<dom-module id="fake-review-view">
+  <style is="custom-style">
+    #sub-left {
+       float: left;
+       width: 80%;
+    }
+    #sub-right {
+       float: right;
+       width: 20%;
+    }
+    .clear-both {
+       clear: both;
+    }  
+  </style>
+  <template>
+    <div>    
+      <div id="sub-left">
+        <h2><span>{{review.author.name}}</span></h2>
+        <span>{{review.datePublished}}</span></br>
+        <span><iron-icon id="star1"></iron-icon><iron-icon id="star2"></iron-icon><iron-icon id="star3"></iron-icon><iron-icon id="star4"></iron-icon><iron-icon id="star5"></iron-icon></span></br>
+        <span>{{review.reviewBody}}</span>
+      </div>
+      <div id="sub-right" style="text-align: center;">
+        <img src="/images/fake_stamp.jpg" id="fakestamp" style="max-width:200px;max-height:100px;display:none;">
+      </div>
+      <div class="clear-both"></div>
+    </div>
+  </template>
+
+</dom-module>
+
+<script>
+
+  FakeReviewView = Polymer({
+
+    is: 'fake-review-view',
+    properties:{
+      review: {
+        type: Object
+      }
+    },
+    factoryImpl: function(review){
+      this.review = review;
+      if(this.review.fakeAnalysis.fake){
+        this.$.fakestamp.style.display = 'inline-block';
+      }
+      if(review.ratingValue <= 0){
+        this.$.star1.icon="fa:star-o";
+        this.$.star2.icon="fa:star-o";
+        this.$.star3.icon="fa:star-o";
+        this.$.star4.icon="fa:star-o";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.ratingValue < 1){
+        this.$.star1.icon="fa:star-half-o";
+        this.$.star2.icon="fa:star-o";
+        this.$.star3.icon="fa:star-o";
+        this.$.star4.icon="fa:star-o";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.ratingValue == 1){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star-o";
+        this.$.star3.icon="fa:star-o";
+        this.$.star4.icon="fa:star-o";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.ratingValue < 2){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star-half-o";
+        this.$.star3.icon="fa:star-o";
+        this.$.star4.icon="fa:star-o";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.ratingValue == 2){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star";
+        this.$.star3.icon="fa:star-o";
+        this.$.star4.icon="fa:star-o";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.ratingValue < 3){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star";
+        this.$.star3.icon="fa:star-half-o";
+        this.$.star4.icon="fa:star-o";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.ratingValue == 3){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star";
+        this.$.star3.icon="fa:star";
+        this.$.star4.icon="fa:star-o";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.ratingValue < 4){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star";
+        this.$.star3.icon="fa:star";
+        this.$.star4.icon="fa:star-half-o";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.ratingValue == 4){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star";
+        this.$.star3.icon="fa:star";
+        this.$.star4.icon="fa:star";
+        this.$.star5.icon="fa:star-o";
+      }else if(review.ratingValue < 5){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star";
+        this.$.star3.icon="fa:star";
+        this.$.star4.icon="fa:star";
+        this.$.star5.icon="fa:star-half-o";
+      }else if(review.ratingValue >= 5){
+        this.$.star1.icon="fa:star";
+        this.$.star2.icon="fa:star";
+        this.$.star3.icon="fa:star";
+        this.$.star4.icon="fa:star";
+        this.$.star5.icon="fa:star";
+      }
+
+    },
+    ready: function() {
+    },
+    showStars: function(number, icon){
+      for(i=0; i < number; i++){
+        var star = document.createElement('iron-icon');
+        star.icon= icon;
+        this.$.stars.appendChild(star);
+      }
+    }
+  });
+
+</script>

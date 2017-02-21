@@ -109,10 +109,20 @@
           padding: 0 0.57em;
       }
 
+      .tag {
+        padding: 0em 0em !important;
+        color:#000;
+        margin-bottom: 10px;
+      }
+      .tag span{
+        position: relative;
+        top:-10px;
+      }
+
     </style>
 
     <!-- Shadow DOM -->
-    <paper-material elevation="1">
+    <paper-material class="entities" elevation="1">
       <div class="top-bar">
         <iron-icon icon="{{icon}}"></iron-icon>
         <span>{{title}}</span>
@@ -304,11 +314,10 @@
           body: {
             size: 10,
             query: {
-              
+
                   bool: {
                     must: this.filters,
                   }
-               
             },
             aggs: {
               rest: {

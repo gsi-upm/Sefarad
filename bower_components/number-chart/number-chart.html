@@ -264,11 +264,9 @@
                 body: {
                   size: 10,
                   query: {
-                   
                         bool: {
                           must: this.filters,
                         }
-                     
                   },
                   aggs: {
                     rest: {
@@ -309,11 +307,9 @@
                 body: {
                   size: 10,
                   query: {
-                    
                         bool: {
                           must: this.filters,
                         }
-                     
                   }
                 }
               }).then(function (resp) {

@@ -289,11 +289,9 @@
           body: {
             size: 10000,
             query: {
-              
                   bool: {
                     must: this.filters,
                   }
-              
             }
           }
           }).then(function (resp) {

@@ -1,0 +1,215 @@
+<link rel="import" href="../../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="custom-validator.html">
+
+<dom-module id="new-analysis-dialog">
+
+  <style is="custom-style">
+	body{
+		background:#FFFFFF
+	}
+		
+	  paper-button {
+	    --paper-button-ink-color: #ffffff;
+	  }
+	  paper-input {
+	  	--paper-input-container-color: #00a9e0;
+	  	--paper-input-container-focus-color: #00a9e0;
+	  }
+	  paper-button[raised].blue{
+	    background: #4285f4;
+	    color: #fff;
+	  }
+	  paper-button[raised].red{
+	  	background: #ff4e50;
+	    color: #fff;
+	  }
+	  paper-button[raised].orange{
+	  	background: #FF9800;
+	  	color: #fff;
+	  }
+
+	  paper-button[raised].green{
+	  	background: #00E676;
+	  	color: #fff;
+	  }
+
+    paper-button[raised].yellow{
+      background: #79DCDD;
+      color: #fff;
+    }
+	  paper-button.close{
+	  	position: absolute;
+	  	top: -10px;
+	  	right: -20px;
+	  	color:#aaaaaa;
+	  }
+    .logo{
+      position: absolute;
+      top: 1px;
+      right: 20px;
+    }
+    .left{
+      position: left;
+    }
+  </style>
+  <template>
+   	  <h2>New Analysis</h2><img class="logo" src="{{image_logo}}" style="max-width:100px;">
+   	  <custom-validator id="valid" validator-name="validator" hidden></custom-validator>
+   	  <paper-input id="urlinputbox" label="Insert a URL to analyze" bind-value="{{url}}"  auto-validate validator="validator" error-message="URL invalid!"></paper-input>
+      <div class="buttons" style="float: left;">
+        <paper-button raised class="yellow left" on-tap="fillexample"><iron-icon icon="fa:bars"></iron-icon> Analysis Example</paper-button>
+      </div>
+      <div class="buttons">
+        <paper-button raised class="red" on-tap="all"><iron-icon icon="fa:bars"></iron-icon> All</paper-button>
+        <paper-button raised class="orange" on-tap="sentiments"><iron-icon icon="fa:heartbeat"></iron-icon> Sentiments</paper-button>
+        <paper-button raised class="green" on-tap="emotions"><iron-icon icon="fa:smile-o"></iron-icon> Emotions</paper-button>
+        <paper-button raised class="blue" autofocus on-tap="fake"><iron-icon icon="fa:trash-o"></iron-icon> Fake</paper-button>
+      </div>
+      <paper-button class="close" dialog-dismiss><iron-icon icon="close"></iron-icon></paper-button>
+  </template>
+
+</dom-module>
+
+<script>
+
+  NewAnalysisDialog = Polymer({
+
+    is: 'new-analysis-dialog',
+    properties:{
+      url: {
+      	type: String
+      },
+      field_value: {
+        type: String
+      },
+      forcing: {
+      	type: Boolean,
+      	value: false
+      },
+      image_logo: {
+        type: String
+      },
+      webpage: {
+        type: String,
+        observer: '_webpageChanged'
+      }
+    },
+    factoryImpl: function(webpage, field_value){
+      this.webpage = webpage;
+      this.field_value = field_value;
+      this._webpageChanged(webpage);
+    },
+    behaviors: [
+      Polymer.PaperDialogBehavior
+    ],
+    ready: function() {
+        this.url = this.$.urlinputbox.value;
+        this.$.valid.validate = this.validate.bind(this);
+    },
+    sentiments: function(e){
+    	if(this.okurl()){
+    		this.close();
+        this.showOkToast("Sentiment analysis started!");
+        this.addSentimentAnalysis();
+    	}
+    },
+    emotions: function(e){
+    	if(this.okurl()){
+    		this.close();
+        this.showOkToast("Emotion analysis started!");
+        this.addEmotionAnalysis();
+    	}
+    },
+    fake: function(e){
+    	if(this.okurl()){
+			 this.close();
+       this.showOkToast("Fake analysis started!");
+       this.addFakeAnalysis();
+    	}
+    },
+    all: function(e){
+      if(this.okurl()){
+        this.close();
+        this.showOkToast("Sentiment, Emotion and Fake analysis started!");
+        this.addAllAnalysis();
+      }
+    },
+    fillexample: function(e){
+      this.url = this.field_value;
+      this.$.urlinputbox.value = this.field_value;
+    },
+    validate: function(value){
+    	var regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|(www\\.)?){1}([0-9A-Za-z-\\.@:%_\‌​+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
+    	return regex.test(value);
+    	
+    },
+    okurl: function(){
+      if(this.url == undefined || this.url == ""){
+        this.showErrorToast("URL field is empty!");
+        return false;
+      }
+      if(!this.validate(this.url)){
+        this.showErrorToast("URL is invalid!");
+        return false;
+      }
+    	return true;
+    },
+    _webpageChanged: function() {
+      if(this.webpage == "yelp")
+        this.image_logo = "../../images/yelp_logo.png";
+      else if(this.webpage == "amazon")
+        this.image_logo = "../../images/amazon_logo.png";
+      else if(this.webpage == "facebook")
+        this.image_logo = "../../images/facebook_logo.png";
+      else if(this.webpage == "youtube")
+        this.image_logo = "../../images/youtube_logo.png";
+      else if(this.webpage == "tripadvisor")
+        this.image_logo = "../../images/tripadvisor_logo.png";
+      else if(this.webpage == "foursquare")
+        this.image_logo = "../../images/foursquare_logo.png";
+    },
+    showErrorToast: function(message) {
+      this.showToast(message, '#F44336');
+    },
+    showOkToast: function(message){
+      this.showToast(message, '#00E676');
+    },
+    showToast: function(message, color) {
+      toast = document.getElementById('toast');
+      toast.style.zIndex = 10000;
+      toast.style.background = color;
+      toast.text = message;
+      toast.show();
+    },
+    addFakeAnalysis: function() {
+      var analysis = new AnalysisCard(this.url, this.webpage, 'fake');
+      this.appendAnalysisOnTop(analysis);
+    },
+    addSentimentAnalysis: function() {
+      var analysis = new AnalysisCard(this.url, this.webpage, 'sentiments');
+      this.appendAnalysisOnTop(analysis);
+    },
+    addEmotionAnalysis: function() {
+      var analysis = new AnalysisCard(this.url, this.webpage, 'emotions');
+      this.appendAnalysisOnTop(analysis);
+    },
+    addAllAnalysis: function(){
+      var analysis = new AnalysisCard(this.url, this.webpage, 'fake,emotions,sentiments');
+      this.appendAnalysisOnTop(analysis);
+    },
+    appendAnalysisOnTop: function(analysis) {
+      var analysis_list = document.getElementById('analysis-list');
+      if(analysis_list.firstChild){
+        analysis_list.insertBefore(analysis, analysis_list.firstChild);
+        analysis.show();
+        document.getElementById('no-analysis-message').style.display='none';
+      }else{
+        analysis_list.appendChild(analysis);
+        analysis.show();
+      }
+    }
+  });
+
+</script>

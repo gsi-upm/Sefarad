@@ -45,7 +45,7 @@
     }
 
     .content {
-      height:600px;
+      height: 500px;
       width: 100%;
       text-align: center
     }
@@ -286,3 +286,5 @@
       float: left; 
       padding-left: 56px;
     }
+
+

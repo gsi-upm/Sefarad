@@ -63,8 +63,8 @@ Custom property | Description | Default
         @apply(--layout-center-center);
 
         background: var(--paper-fab-background, --accent-color);
-        border-radius: 50% ;
-        box-sizing: border-box ;
+        border-radius: 50%;
+        box-sizing: border-box;
         color: var(--text-primary-color);
         cursor: pointer;
         height: 56px;
@@ -114,6 +114,7 @@ Custom property | Description | Default
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        text-align: center;
 
         @apply(--paper-fab-label);
       }
@@ -123,12 +124,7 @@ Custom property | Description | Default
       }
     </style>
 
-    <iron-icon id="icon" hidden$="{{!_computeIsIconFab(icon, src)}}" src="[[src]]" icon="[[icon]]" style="border-radius: 50%;
-    background-color: #00629B;
-    height: 40px;
-    width: 40px;
-    padding: 8px;
-    color: #fff;"></iron-icon>
+    <iron-icon id="icon" hidden$="{{!_computeIsIconFab(icon, src)}}" src="[[src]]" icon="[[icon]]"></iron-icon>
     <span hidden$="{{_computeIsIconFab(icon, src)}}">{{label}}</span>
   </template>
 

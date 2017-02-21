@@ -183,11 +183,9 @@
             body: {
               size: 10,
               query: {
-                
                     bool: {
                       must: this.filters,
                     }
-                
               }
             }
           }).then(function (resp) {

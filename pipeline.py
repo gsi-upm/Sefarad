@@ -114,7 +114,7 @@ class SenpyTask(luigi.Task):
 			
 			if(self.analysis == 'emotions'):
 				for i in reviews:
-					r = requests.get('http://senpy.cluster.gsi.dit.upm.es/api/?algo=EmoText&i=%s' % i["reviewBody"])
+					r = requests.get('http://senpy.cluster.gsi.dit.upm.es/api/?algo=EmoTextANEW&i=%s' % i["reviewBody"])
 					response = r.content.decode('utf-8')
 					response_json = json.loads(response)
 
