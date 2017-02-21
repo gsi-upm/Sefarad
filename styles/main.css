@@ -48,7 +48,7 @@ text.tweet-details{display: none;}
 	    @apply(--layout-flex);
 	float:right;
 	}
-	paper-button{
+	.button-index{
 	float:right;
 	color:white;
 	background-color: #00A9E0 !important; 
