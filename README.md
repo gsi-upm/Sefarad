@@ -20,14 +20,14 @@ First of all, you need to clone the Github repository:
 git clone git@github.com:gsi-upm/sefarad
 cd sefarad
 ```
-Install and unzip last version of Elasticsearch from website https://www.elastic.co/downloads/elasticsearch.
+<!-- Install and unzip last version of Elasticsearch from website https://www.elastic.co/downloads/elasticsearch.
 
 
 Then, it is necessary to add your ElasticSearch nodes folder into elasticsearch directory.
 ```
 cp $PWD/nodes ./elasticsearch/nodes
 
-```
+```-->
 Finally, it is necessary to change your ElasticSearch configuration folder permissions.
 ```
 sudo chown -R 105 ./elasticsearch/config/
@@ -40,7 +40,7 @@ sudo docker-compose up
 ```
 You can visualize Sefarad main page in your browser
  ```
- http://localhost:8000
+ http://localhost
  ```
 <!--NEW
 ##Getting Started
