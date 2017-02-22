@@ -172,6 +172,10 @@ def gsicrawler():
 def tourpedia():
 	return static_file('/dashboards/tourpedia.html', root='')
 
+@route('/footballnews')
+def tourpedia():
+	return static_file('/dashboards/footballnews.html', root='')
+
 #run(reloader=True)
 #run(host='0.0.0.0', port=8000, debug=True)
 application = default_app()

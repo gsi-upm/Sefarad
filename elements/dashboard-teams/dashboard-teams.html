@@ -1,0 +1,344 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/material-search/material-search.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/google-chart-elk/google-chart.html">
+<link rel="import" href="../../bower_components/google-chart-elk/google-charter.html">
+<link rel="import" href="../../bower_components/sentiment-d3/sentiment-d3.html">
+<link rel="import" href="../../bower_components/field-chart/field-chart.html">
+<link rel="import" href="../../bower_components/trend-chart/trend-chart.html">
+<link rel="import" href="../../bower_components/liquid-fluid-d3/liquid-fluid-d3.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../../bower_components/yasgui/yasgui.html">
+
+<dom-module id="dashboard-teams">
+
+  <style>
+  :root {
+      --paper-tab-ink: var(--accent-color);
+
+      --paper-tabs-selection-bar-color: var(--accent-color);
+    } 
+    paper-material{
+      background: white;
+    }
+
+    google-chart {
+      margin: 0 auto;
+    }
+
+    .chart_container {
+      width: 49%;
+      margin-bottom: 20px; 
+    }
+
+    .footer {
+      clear: both;
+      height: 2em;
+      margin-top: -2em;
+      display: flex;
+      justify-content: center
+    }
+    /* Tablet+ */
+    @media (min-width: 601px) {
+      paper-tabs, paper-toolbar {
+        margin-top: -48px;
+        margin-bottom: 48px;
+        margin-left: -62px;
+        margin-right: -62px;
+      }
+    }
+
+    paper-tabs, paper-toolbar {
+      background-color: #04419B; 
+      color: #fff;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    paper-tabs[noink][no-bar] paper-tab.iron-selected {
+      color: #04419B;
+    }
+
+    .twitter {
+    background-color: #00aced !important;
+    color: #ffffff !important;
+    }
+    .wid-social {
+        display: inline-block;
+        width: 100%;
+        padding: 15px 15px 15px 15px;
+        margin: 0px 0 1em 0;
+    }
+    paper-toggle-button.green {
+    --paper-toggle-button-checked-bar-color:  var(--paper-green-500);
+    --paper-toggle-button-checked-button-color:  var(--paper-green-500);
+    --paper-toggle-button-checked-ink-color: var(--paper-green-500);
+    --paper-toggle-button-unchecked-bar-color:  var(--paper-teal-500);
+    --paper-toggle-button-unchecked-button-color:  var(--paper-teal-500);
+    --paper-toggle-button-unchecked-ink-color: var(--paper-teal-500);
+    }
+
+    .wid-social .social-info h3, .wid-social .social-info h4 {
+        margin: 0px 0 15px 0;
+        
+    }
+    .social-info h3 {
+        display: inline-block;
+    }
+    h3.count.text-light {
+      color: #fff;
+      font-weight: 300;
+      font-size: 40px;
+    }
+    span.percent {
+      font-size: 13px;
+      font-weight: 300;
+    }
+    .icon-xlg {
+      font-size: 70px;
+    }
+
+
+  </style>
+
+  <template>
+
+    <iron-ajax auto
+        url="queries_foot.json"
+        handle-as="json"
+        last-response="{{queries_foot}}"></iron-ajax>
+
+  <paper-tabs selected="{{selected}}">
+      <paper-tab><img src="/images/atleticotitle.png" style="height: 30px; margin-right: 10px">Atlético de Madrid</paper-tab>
+      <paper-tab><img src="/images/barcatitle.png" style="height: 30px; margin-right: 10px">F.C. Barcelona</paper-tab>
+      <paper-tab><img src="/images/madridtitle.png" style="height: 30px; margin-right: 10px">Real Madrid C.F.</paper-tab>
+  </paper-tabs>
+
+  <iron-pages selected="{{selected}}">
+<!-- ATLETICO -->
+  <div>
+    <div class="row">
+    <div class="col-md-6" style="display: inline-block; margin-bottom: 10px;">
+        <div style="left: 0; margin-bottom: 20px;">
+          <trend-chart-multiple-atletico
+             idhelp="help11"
+             index="footballnews"
+             subindex="news"
+             title="Sentiment Evolution ATLÉTICO"
+             query="{{query}}"
+             team="atletico"
+             fields='["newspaper", "sentiment", "datePublished", "articleBody"]'>
+          </trend-chart-multiple-atletico>
+        </div>
+      </div>
+      <div class="col-md-6" style="display: inline-block; margin-top: 0px; margin-bottom: 20px; height: 461px;">
+        <spider-chart-multiple-team-atletico
+          index="footballnews"
+          idhelp="help10"
+          subindex="news"
+          title="Emotion Evolution ATLÉTICO"
+          query="{{query}}"
+          team="atletico"
+          fields='["team", "emotion", "articleBody"]'>
+        </spider-chart-multiple-team-atletico>
+      </div>  
+    </div>
+    <div class="col-md-12" style="display: inline-block; margin-top: 0px; margin-bottom: 20px; height: 461px;">
+      <news-chart
+          query="{{query}}"
+          index="footballnews"
+          subindex="news"
+          field="articleBody"
+          host='{{endpoint}}'
+          id='pie-chart1'
+          extra-id='pie-chart1'
+          type='pie'
+          filters="{{filters}}"
+          icon='content-paste'
+          team="atletico"
+          newspaper="marca"
+          tipo="team"
+          param="{{param}}">
+      </news-chart>
+    </div>
+  </div> 
+<!-- BARÇA -->
+  <div>
+    <div class="row">
+    <div class="col-md-6" style="display: inline-block; margin-bottom: 10px;">
+        <div style="left: 0; margin-bottom: 20px;">
+          <trend-chart-multiple-barca
+             idhelp="help11"
+             index="footballnews"
+             subindex="news"
+             title="Sentiment Evolution BARÇA"
+             query="{{query}}"
+             team="barca"
+             fields='["newspaper", "sentiment", "datePublished", "articleBody"]'>
+          </trend-chart-multiple-barca>
+        </div>
+      </div>
+      <div class="col-md-6" style="display: inline-block; margin-top: 0px; margin-bottom: 20px; height: 461px;">
+        <spider-chart-multiple-team
+          index="footballnews"
+          idhelp="help10"
+          subindex="news"
+          title="Emotion Evolution BARÇA"
+          query="{{query}}"
+          team="barca"
+          fields='["team", "emotion", "articleBody"]'>
+        </spider-chart-multiple-team>
+      </div>  
+    </div>
+    <div class="col-md-12" style="display: inline-block; margin-top: 0px; margin-bottom: 20px; height: 461px;">
+      <news-chart
+          query="{{query}}"
+          index="footballnews"
+          subindex="news"
+          field="articleBody"
+          host='{{endpoint}}'
+          id='pie-chart1'
+          extra-id='pie-chart1'
+          type='pie'
+          filters="{{filters}}"
+          icon='content-paste'
+          team="barca"
+          newspaper="marca"
+          tipo="team"
+          param="{{param}}">
+      </news-chart>
+    </div>
+  </div>    
+<!-- MADRID -->
+  <div>
+    <div class="row">
+    <div class="col-md-6" style="display: inline-block; margin-bottom: 10px;">
+        <div style="left: 0; margin-bottom: 20px;">
+          <trend-chart-multiple-madrid
+             idhelp="help11"
+             index="footballnews"
+             subindex="news"
+             title="Sentiment Evolution MADRID"
+             query="{{query}}"
+             team="madrid"
+             fields='["newspaper", "sentiment", "datePublished", "articleBody"]'>
+          </trend-chart-multiple-madrid>
+        </div>
+      </div>
+      <div class="col-md-6" style="display: inline-block; margin-top: 0px; margin-bottom: 20px; height: 461px;">
+        <spider-chart-multiple-team
+          index="footballnews"
+          idhelp="help10"
+          subindex="news"
+          title="Emotion Evolution MADRID"
+          query="{{query}}"
+          team="madrid"
+          fields='["team", "emotion", "articleBody"]'>
+        </spider-chart-multiple-team>
+      </div>  
+    </div>
+    <div class="col-md-12" style="display: inline-block; margin-top: 0px; margin-bottom: 20px; height: 461px;">
+      <news-chart
+          query="{{query}}"
+          index="footballnews"
+          subindex="news"
+          field="articleBody"
+          host='{{endpoint}}'
+          id='pie-chart1'
+          extra-id='pie-chart1'
+          type='pie'
+          filters="{{filters}}"
+          icon='content-paste'
+          team="madrid"
+          newspaper="marca"
+          tipo="team"
+          param="{{param}}">
+      </news-chart>
+    </div>
+  </div>     
+  </template>
+
+  <script>
+    Polymer({
+      is: 'dashboard-teams',
+      properties: {
+        selected: {
+          type: Number,
+          value: 0
+        }, 
+        selected1: {
+          type: Number,
+          value: 0
+        }, 
+        query:{
+          type: String
+        },
+        texto:{
+          type: String
+        }
+
+      },
+
+      ready: function () {
+        //console.log(this.query);
+        this.texto = "Show Emotion Radar";
+      },
+      _changestate: function() {
+       //console.log("disparo");
+
+       if(document.getElementById("radar").style.display == "none"){
+        this.texto = "Show Emotion Map";
+        //console.log("oculto españa");
+        var elemento1 = document.getElementById("spain");
+        elemento1.style.display = 'none';
+        var elemento2 = document.getElementById("radar");
+        elemento2.style.display = 'initial';
+      }else{
+        this.texto = "Show Emotion Radar";
+        var elemento1 = document.getElementById("spain");
+        elemento1.style.display = 'initial';
+        var elemento2 = document.getElementById("radar");
+        elemento2.style.display = 'none';
+      }
+      },
+      _changestateteams: function() {
+       //console.log("disparo Teams");
+
+       if(document.getElementById("radarteam").style.display == "none"){
+        this.texto = "Show Emotion Map";
+        //console.log("oculto españa");
+        var elemento1 = document.getElementById("spainteam");
+        elemento1.style.display = 'none';
+        var elemento2 = document.getElementById("radarteam");
+        elemento2.style.display = 'initial';
+      }else{
+        this.texto = "Show Emotion Radar";
+        var elemento1 = document.getElementById("spainteam");
+        elemento1.style.display = 'initial';
+        var elemento2 = document.getElementById("radarteam");
+        elemento2.style.display = 'none';
+      }
+    },
+      _changestateplayers: function() {
+       //console.log("disparo Players");
+
+       if(document.getElementById("radarplayers").style.display == "none"){
+        this.texto = "Show Emotion Map";
+        //console.log("oculto españa");
+        var elemento1 = document.getElementById("spainplayers");
+        elemento1.style.display = 'none';
+        var elemento2 = document.getElementById("radarplayers");
+        elemento2.style.display = 'initial';
+      }else{
+        this.texto = "Show Emotion Radar";
+        var elemento1 = document.getElementById("spainplayers");
+        elemento1.style.display = 'initial';
+        var elemento2 = document.getElementById("radarplayers");
+        elemento2.style.display = 'none';
+      }
+    }
+
+    });
+  </script>
+
+</dom-module>

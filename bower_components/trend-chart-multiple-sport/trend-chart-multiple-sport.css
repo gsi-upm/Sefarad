@@ -1,0 +1,122 @@
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+svg {
+  font: 8px 'Open Sans';
+  ;
+}
+:host {
+  margin: 0;
+  padding: 0;
+  width: 400px;
+  height: 300px;
+}
+
+.top-bar{
+  width: 100%; 
+  background-color: #00629B; 
+  border-radius: 5px 5px 0 0; 
+  color: white; 
+  text-align: center; 
+  height: 35px; 
+  line-height: 35px;
+}
+
+.top-bar span {
+  vertical-align: middle;
+}
+#grafica_campo_multiple_sport{
+  background: url("white.jpg");
+  background-size: cover;
+  background-position-y: -44px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #5d77a8;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  fill: #5d77a8;
+}
+
+.axis .tick line {
+  stroke: rgba(0, 0, 0, 0.1);
+}
+
+.area {
+  stroke-width: 1;
+}
+
+.area.outer,
+.legend .outer {
+  fill: rgba(230, 230, 255, 0.8);
+  stroke: rgba(216, 216, 255, 0.8);
+}
+
+.area.inner,
+.legend .inner {
+  fill: rgba(127, 127, 255, 0.8);
+  stroke: rgba(96, 96, 255, 0.8);
+}
+
+.median-line-atletico,
+.legend .median-line-atletico {
+  fill: none;
+  stroke: #e02225;
+  stroke-width: 3;
+}
+
+.median-line-barca,
+.legend .median-line-barca {
+  fill: none;
+  stroke: #9c1737;
+  stroke-width: 3;
+}
+
+.median-line-madrid,
+.legend .median-line-madrid {
+  fill: none;
+  stroke: #014ba3;
+  stroke-width: 3;
+}
+
+.legend .legend-bg {
+  fill: rgba(0, 0, 0, 0.5);
+  stroke: rgba(0, 0, 0, 0.5);
+}
+
+.marker.goal .marker-bg,
+.marker.goal path {
+  fill: rgba(255, 127, 0, 0.8);
+  stroke: rgba(255, 127, 0, 0.8);
+  stroke-width: 3;
+}
+
+.marker.server .marker-bg,
+.marker.server path {
+  fill: rgba(0, 153, 51, 0.8);
+  stroke: rgba(0, 153, 51, 0.8);
+  stroke-width: 3;
+}
+.marker.half .marker-bg,
+.marker.half path {
+  fill: rgba(0, 153, 51, 0.8);
+  stroke: rgba(0, 153, 51, 0.8);
+  stroke-width: 3;
+}
+
+.marker path {
+  fill: none;
+}
+
+.legend text,
+.marker text {
+  fill: #5d77a8;
+  font-weight: bold;
+}
+
+.marker text {
+  text-anchor: middle;
+}
