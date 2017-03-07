@@ -6,7 +6,7 @@ import imp
 import rdflib
 
 import uuid
-from bottle import route, run, template, static_file, response, request, install
+from bottle import route, run, template, static_file, response, request, install, default_app
 from elasticsearch import Elasticsearch
 from datetime import datetime
 import requests
@@ -175,5 +175,8 @@ def tourpedia():
 def tourpedia():
 	return static_file('/dashboards/footballnews.html', root='')
 
+application = default_app()
+
 #run(reloader=True)
-run(host='0.0.0.0', port=8080, debug=True)
+if __name__ == '__main__':
+    run(host='0.0.0.0', port=8080, debug=True)
