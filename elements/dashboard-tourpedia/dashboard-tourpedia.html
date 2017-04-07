@@ -1,12 +1,12 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/material-search/material-search.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../../bower_components/google-chart-elk/google-chart.html">
+<link rel="import" href="../../bower_components/google-chart-elasticsearch/google-chart.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
-<link rel="import" href="../../bower_components/yasgui/yasgui.html">
+<link rel="import" href="../../bower_components/yasgui-polymer/yasgui.html">
 <link rel="import" href="../../bower_components/reviews-table/reviews-table.html">
 <link rel="import" href="../../bower_components/number-chart/number-chart.html">
-<link rel="import" href="../../bower_components/leaflet-map/leaflet-map.html">
+<link rel="import" href="../../bower_components/leaflet-maps/leaflet-map.html">
 
 <dom-module id="dashboard-tourpedia">
 
@@ -20,10 +20,6 @@
         url="queries.json"
         handle-as="json"
         last-response="{{queries}}"></iron-ajax>
-    <iron-ajax auto
-        url="/endpoint.json"
-        handle-as="json"
-        last-response="{{endpoint}}"></iron-ajax>
     <template is="dom-repeat" items="{{ids}}" as="id"> 
       <iron-ajax auto 
         url="{{getName(id)}}"
@@ -38,6 +34,13 @@
 
     <iron-pages selected="{{selected}}">
       <div>
+      <paper-material elevation="3">
+      <div style="text-align:center;">Here are some demo webcomponents, explore 
+        more in <a href="https://elements.polymer-project.org/" target="_blank">https://elements.polymer-project.org/</a>
+        or GSI-UPM components in <a href="https://lab.cluster.gsi.dit.upm.es/sefarad" target="_blank">https://lab.cluster.gsi.dit.upm.es/sefarad</a></div>
+      </paper-material>
+      <br>
+      <br>
         <material-search search-value="{{query}}"></material-search>
         <br>
         <div style="width: 100%; display: inline-block">

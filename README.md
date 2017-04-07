@@ -2,76 +2,59 @@
 ![Sefarad Logo](./images/Sefarad_Logo.png)
 ==================================
 
-##Introduction
+Introduction
+------------
+
 Sefarad is an application developed to explore data by making SPARQL queries to the endpoint you choose without writing more code. You can also create your own cores if you have a big collection of data ([LMF](https://code.google.com/p/lmf/) required). To view your data you can customize your own widgets and visualize it through them.
 
-##Getting Started
-###Requirements
-Sefarad requires docker and docker-compose to work. You can download Docker <a href="https://docs.docker.com/engine/installation/">here</a>
+Getting Started
+---------------
 
-Docker-compose can be easily installed through pip.
-```
-sudo pip2 install docker-compose
-
-```
-###Building Sefarad
 First of all, you need to clone the Github repository:
-```
-git clone git@github.com:gsi-upm/sefarad
-cd sefarad
-```
-<!-- Install and unzip last version of Elasticsearch from website https://www.elastic.co/downloads/elasticsearch.
-
-
-Then, it is necessary to add your ElasticSearch nodes folder into elasticsearch directory.
-```
-cp $PWD/nodes ./elasticsearch/nodes
-
-```-->
-Finally, it is necessary to change your ElasticSearch configuration folder permissions.
-```
-sudo chown -R 105 ./elasticsearch/config/
-```
-###Running Sefarad
-Now the image is ready to run. Build and run your docker images:
 
 ```
-sudo docker-compose up
+$ git clone https://lab.cluster.gsi.dit.upm.es/sefarad/sefarad.git
+$ cd sefarad
 ```
-You can visualize Sefarad main page in your browser
- ```
- http://localhost
- ```
-<!--NEW
-##Getting Started
-If you want to easy try Sefarad, clone this repository and open the main folder
-```
-git clone https://github.com/gsi-upm/Sefarad.git
-cd Sefarad
-```
-To run it
-```
-python launch.py
-docker-compose up
-```
-Configure Elastic search
-```
-command
-```
--->
 
+Install all the requierements:
 
-##Polymer - Web Components Technology
+```
+$ sudo pip2 install -r requirements.txt
+```
+
+Install all Web components necessary for this demo:
+
+```
+$ bower install
+```
+
+Finally, Sefarad is ready to start:
+
+```
+$ python2 web.py
+```
+Sefarad server starts in port 8080
+
+For more info visit our documentation on: <a href="http://sefarad.readthedocs.io" target="_blank">http://sefarad.readthedocs.io</a>
+
+Polymer - Web Components Technology
+-----------------------------------
+
 ![Polymer logo](http://carlosortiz.co.uk/wp-content/uploads/2015/09/polymer-logo.jpg)
  
 Polymer is a technology based on web components, so we could make a new component with diferent estructures of html, styles with css, and give some dinamic functions using Javascript.
 
 Those components will be reusable only importing the tag `<component-tag></component-tag>` and they could share information using data binding among them.
 
-##Demo
+Demo
+----
+
 You can check out our Sefarad demo <a href="http://sefarad.cluster.gsi.dit.upm.es/">here</a> 
 
-##References
+References
+----------
+
 <a href="http://www.gsi.dit.upm.es/administrator/components/com_jresearch/files/publications/tfgenriqueconde.pdf">[1]</a> Development of a Social Media Monitoring System based on
 Elasticsearch and Web Components Technologies.
 
