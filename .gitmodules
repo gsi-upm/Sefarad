@@ -1,3 +1,6 @@
 [submodule "elasticsearch/elasticsearch-docker"]
 	path = elasticsearch/elasticsearch-docker
 	url = git@github.com:enriquecs/elasticsearch-docker.git
+[submodule "sefarad"]
+	path = sefarad
+	url = ssh://git@lab.cluster.gsi.dit.upm.es:2200/sefarad/sefarad.git
