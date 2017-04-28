@@ -15,6 +15,7 @@ Contents:
    widgets
    dashboards
    datasource
+   pipelines
    demo
    :maxdepth: 2
 ..   api

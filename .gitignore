@@ -1,4 +1,3 @@
-elasticsearch/nodes
 analysis
 *.pyc
 docs/_build
