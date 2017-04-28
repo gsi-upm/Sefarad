@@ -33,6 +33,9 @@ Then start the service:
    $ bin/elasticsearch
 
 
+You can found our demo data inside ``elasticsearch/nodes`` folder. Copy this data inside your elasticsearch data folder to use it.
+
+
 Installing Sefarad
 ~~~~~~~~~~~~~~~~~~
 
@@ -66,7 +69,7 @@ Finally, Sefarad is ready to start:
 
 Sefarad is now running at port 8080.
 
-This sefarad instance elasticsearch's endpoint has been modified to GSI elasticsearch.
+This sefarad instance elasticsearch's endpoint can be modified to GSI elasticsearch.
 In order to try with your own data you need to change ``elasticsearch.jquery.js`` file inside scrpits directory.
 
 Change the following lines:
@@ -78,7 +81,7 @@ Change the following lines:
     config.host = 'http://localhost:9200'
 
 
-There is also possible to install with Docker.
+Is also possible to install Sefarad with Docker.
 
 Install with docker
 ~~~~~~~~~~~~~~~~~~~
