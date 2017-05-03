@@ -107,7 +107,32 @@ Inside ``<dom-module>`` tag you have to define your new Polymer dashboard adding
 		ready: function(){
 			do_some_function();    	
 		}
-	});     
+	});
+
+Is also necessary to specify dependencies for this dashboard using a bower.json file. The structure of this file is like this example:
+
+.. sourcecode:: json
+
+	{
+	  "name": "my-dashboard",
+	  "homepage": "https://lab.cluster.gsi.dit.upm.es/sefarad/your-dashboard-url",
+	  "authors": [
+	    "GSI-UPM"
+	  ],
+	  "description": "",
+	  "main": "",
+	  "license": "MIT",
+	  "dependencies": {
+	    "paper-card": "PolymerElements/paper-card#^1.1.4",
+	    "polymer": "polymer#*",
+	    "google-chart-elasticsearch": "google-chart-elasticsearch#*"
+	}
+
+If you want to make your dashboard installable via bower you can register this package. This requires to have a git repository with all your dashboard code.
+
+.. sourcecode:: bash
+
+	$ bower register <my-package-name> <git-endpoint>
 
 Afterwards, you have to create a new file in ``dashboards`` folder. In this example, is called **newdashboard.html**. This file must have the same structure as other files in this folder, but you need to change the following lines to display your new dashboard.
 

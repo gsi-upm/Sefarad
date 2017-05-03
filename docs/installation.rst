@@ -93,6 +93,12 @@ First of all, you need to clone the Github repository:
    $ git clone git@github.com:gsi-upm/sefarad
    $ cd sefarad
 
+Install all Web components necessary for this demo:
+
+.. code::bash 
+   
+   $ bower install
+
 Finally, it is necessary to change your **ElasticSearch** configuration folder permissions.
 
 .. code:: bash
@@ -108,4 +114,4 @@ Now the image is ready to run:
 
     $ sudo docker-compose up  
 
-
+Sefarad is now running at port 80
