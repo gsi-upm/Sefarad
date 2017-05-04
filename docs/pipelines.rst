@@ -16,14 +16,25 @@ In our example tasks are: FetchDataTask, SenpyTask and ElasticsearchTask.
 Running Luigi pipelines
 ~~~~~~~~~~~~~~~~~~~~~~~
 
+You need to install luigi and rdflib with pip:
+
+.. sourcecode:: bash
+	
+	$ pip3 install rdflib luigi
+
 This command is for running your pipelines. You have to introduce your script name in modules and the end task of your script.
 
 .. sourcecode:: bash
 
-	$ luigi --module <your-script-name> <your-final-task> --index <your-elasticsearch-index> --doc-type <your-elasticsearch-doctype>
+	$ luigi --module <your-script-name> <your-final-task> --index <your-elasticsearch-index> --doc-type <your-elasticsearch-doctype> -- filename <your .json path> --local-scheduler
 
-In our example
+In our example:
 
 .. sourcecode:: bash
 
-	$ luigi --module sefarad Elasticsearch --index elasticdemo --doc-type tweet
+	$ luigi --module sefarad Elasticsearch --index elasticdemo --doc-type tweet --filename sefarad_demo.json --local-scheduler
+
+In case of error Luigi module not found just type this command:
+
+	$ python3 -m luigi --module sefarad Elasticsearch --filename sefarad_demo.json --index elasticdemo --doc-type tweet --local-scheduler
+	

@@ -15,12 +15,12 @@ There is also an Online Web Components library `here <https://www.webcomponents.
 Developing your own Web Components
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In this section we will explain how to create new Web Components in Sefarad, or import existing ones. 
+In this section we will explain how to create new widgets in Sefarad, or import existing ones. 
 First of all you must create a new directory inside ``./bower_components``, and move inside all your widget files.
 
 ``./bower_components/myweb-component``
 
-Afterwards, you have to create a new file called ``myweb-component.html``. If you want to use other Web Components you have to import them:
+Afterwards, you have to create a new file called ``myweb-component.html``. If you want to use other widgets you have to import them:
 
 .. sourcecode:: html
 
@@ -66,8 +66,33 @@ Inside ``<dom-module>`` tag you have to define your new Polymer element adding s
 		}
 	});     
  
+Is also necessary to specify dependencies for this widget using a bower.json file. The structure of this file is like this example:
 
-Finally, complete the ``./elements/elements.html`` file to use your new Web Component globally.
+.. sourcecode:: json
+
+	{
+	  "name": "myweb-component",
+	  "homepage": "https://lab.cluster.gsi.dit.upm.es/sefarad/your-dashboard-url",
+	  "authors": [
+	    "GSI-UPM"
+	  ],
+	  "description": "",
+	  "main": "",
+	  "license": "MIT",
+	  "dependencies": {
+	    "paper-card": "PolymerElements/paper-card#^1.1.4",
+	    "polymer": "polymer#*",
+	    "google-chart-elasticsearch": "google-chart-elasticsearch#*"
+	}
+
+If you want to make your widget installable via bower you can register this package. This requires to have a git repository with all your widget code.
+
+.. sourcecode:: bash
+
+	$ bower register <my-package-name> <git-endpoint>
+
+
+Finally, complete the ``./elements/elements.html`` file to use your new widget globally.
 
 
 > elements.html
