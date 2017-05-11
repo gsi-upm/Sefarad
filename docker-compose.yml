@@ -4,7 +4,7 @@ services:
   sefarad:
     build: .
     ports:
-     - "80:80"
+     - "8080:8080"
     networks:
       - sefarad-network
     depends_on:
@@ -20,6 +20,12 @@ services:
       - ./elasticsearch/config:/usr/share/elasticsearch/config
     networks:
       - sefarad-network
+  luigi:
+    build:
+      context: .
+      dockerfile: Dockerfile-luigi
+    volumes:
+      - .:/usr/src/app
 
 networks:
   sefarad-network:

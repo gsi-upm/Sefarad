@@ -20,6 +20,10 @@
         url="queries.json"
         handle-as="json"
         last-response="{{queries}}"></iron-ajax>
+    <iron-ajax auto
+        url="/endpoint.json"
+        handle-as="json"
+        last-response="{{endpoint}}"></iron-ajax>
     <template is="dom-repeat" items="{{ids}}" as="id"> 
       <iron-ajax auto 
         url="{{getName(id)}}"
@@ -34,67 +38,45 @@
 
     <iron-pages selected="{{selected}}">
       <div>
-      <paper-material elevation="3">
-      <div style="text-align:center;">Here are some demo webcomponents, explore 
-        more in <a href="https://elements.polymer-project.org/" target="_blank">https://elements.polymer-project.org/</a>
-        or GSI-UPM components in <a href="https://lab.cluster.gsi.dit.upm.es/sefarad" target="_blank">https://lab.cluster.gsi.dit.upm.es/sefarad</a></div>
-      </paper-material>
-      <br>
-      <br>
+         <paper-material elevation="3">
+          <div style="text-align:center;">Here are some demo webcomponents, explore 
+          more in <a href="https://elements.polymer-project.org/" target="_blank">https://elements.polymer-project.org/</a>
+          or GSI-UPM components in <a href="https://lab.cluster.gsi.dit.upm.es/sefarad" target="_blank">https://lab.cluster.gsi.dit.upm.es/sefarad</a></div>
+        </paper-material>
+        <br>
+        <br>
         <material-search search-value="{{query}}"></material-search>
         <br>
         <div style="width: 100%; display: inline-block">
           <div style="width: 23%; margin-right: 2.6%; float: left">
             <number-chart 
-              index="tourpedia"
-              subindex="places"
-              fields='["category", "location"]'
-              query="{{query}}"
               icon="info"
-              filters="{{filters}}"
-              stylebg="bg-red">
+              stylebg="bg-red"
+              data="{{data}}">
             </number-chart>
           </div>
           <div style="width: 23%; margin-right: 2.6%; float: left">
             <number-chart 
-              index="tourpedia"
-              subindex="places"
-              fields='["category", "location"]'
-              query="{{query}}"
-              is-aggregated
-              field="category"
+              data="{{data}}"
               object="restaurant"
               title="Restaurants"
-              filters="{{filters}}"
               icon="maps:local-dining"
               stylebg="bg-yellow">
             </number-chart>
           </div>
           <div style="width: 23%; margin-right: 2.6%; float: left">
             <number-chart 
-              index="tourpedia"
-              subindex="places"
-              fields='["category", "location"]'
-              query="{{query}}"
-              is-aggregated
-              field="category"
+              data="{{data}}"
               object="poi"
               title="POIs"
-              filters="{{filters}}"
               icon="social:whatshot"
               stylebg="bg-green">
             </number-chart>
           </div>
           <div style="width: 23%; float: left">
             <number-chart 
-              index="tourpedia"
-              subindex="places"
-              fields='["category"]'
-              query="{{query}}"
               icon="maps:hotel"
-              is-aggregated
-              field="category"
-              filters="{{filters}}"
+              data="{{data}}"
               title="Accommodations"
               object="accommodation"
               stylebg="bg-aqua">
@@ -104,12 +86,8 @@
         <div style="width: 100%; display: inline-block">
           <div class="chart_container" style="left: 0; float: left">
             <google-chart
-              query="{{query}}"
-              index="tourpedia"
-              subindex="places"
               field="category"
-              fields='["category", "location"]'
-              host='{{endpoint}}'
+              datos="{{data}}"             
               id='pie-chart3'
               extra-id='pie-chart3'
               type='pie'
@@ -123,12 +101,8 @@
           </div>
           <div class="chart_container" style="right: 0; float: right">
             <google-chart
-              query="{{query}}"
-              index="tourpedia"
-              subindex="places"
+              datos="{{data}}"
               field="location"
-              fields='["category", "location"]'
-              host='{{endpoint}}'
               id='pie-chart4'
               extra-id='pie-chart4'
               type='pie'
@@ -144,12 +118,8 @@
         <div style="width: 100%">
           <div class="chart_container" style="left: 0; float: left">
            <google-chart
-              query="{{query}}"
-              index="tourpedia"
-              subindex="places"
+              datos="{{data}}"
               field="numReviews"
-              fields='["category", "location"]'
-              host='{{endpoint}}'
               id='column-chart1'
               extra-id='column-chart1'
               type='column'
@@ -164,12 +134,9 @@
           </div>
           <div class="chart_container" style="right: 0; float: right">
             <google-chart
-              query="{{query}}"
-              index="tourpedia"
-              subindex="places"
+              datos="{{data}}"
               field="polarity"
               fields='["category", "location"]'
-              host='{{endpoint}}'
               id='bar-chart3'
               extra-id='bar-chart3'
               type='bar'
@@ -187,11 +154,7 @@
         <div style="width: 100%">
           <div class="chart_container" style="left: 0; float: left">
             <reviews-table 
-                index="tourpedia"
-                subindex="places"
-                query="{{query}}"
-                filters="{{filters}}"
-                fields='["category", "location"]'
+                data="{{ids}}"
                 icon='social:people'>
             </reviews-table>
           </div>
@@ -228,8 +191,13 @@
         }, 
 
         ids:{
-          type: Array,
-          value: ["481","482","32512","32420","91963","96677","160677","131425","322429","322612"]
+          type: Array
+          /*value: ["481","482","32512","32420","91963","96677","160677","131425","322429","322612"]*/
+           
+        },
+
+        data:{
+          type: Object
         },
 
         query: {
@@ -258,9 +226,14 @@
       observers: [
       '_filtersChange(filters.*)'
       ],
+
+      ready: function(){
+        this.queryDefault();
+      },
       
       addPlace: function(event) {
         this.set('places', this.places.concat(event.detail.response))
+        console.log(this.places)
       },
       
       getName: function(id) {
@@ -272,46 +245,79 @@
       },
 
       _queryChanged: function() {
+        console.log("_queryChanged")
         this.query ? this.queryChange(this.query) : this.queryDefault();
       },
 
       queryChange: function(value) {
+        console.log("_filtersChange")
+        var that = this;
         var client = new $.es.Client({
-          hosts: this.host
-        });
-
-        var id = this.extraId;
-        var doc = this;
-        client.search({
+            hosts: this.host
+          });
+          client.search({
           // undocumented params are appended to the query string
           index: "tourpedia",
           type: "places",
           body: {
             size: 10,
             query: {
-              multi_match:{
-                query: this.query,
-                fields: ["category", "location"]
-              }
-            }
-          }
-        }).then(function (resp) {
-          var hits = resp.hits.hits;
-          doc.ids = [];
-          doc.places = [];
-          hits.forEach(function(entry) {
-            doc.push('ids',entry._id)
-          });
-        });
-      },
+              multi_match: {
+                fields: ["category","location"],
+                query: this.query
 
+              }
+            },
+            aggs: {
+              category: {
+                terms: {
+                  field: "category",
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              },
+              location: {
+                terms: {
+                  field: "location",
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              },
+              numReviews: {
+                terms: {
+                  field: "numReviews",
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              },
+              polarity: {
+                terms: {
+                  field: "polarity",
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              }
+            }      
+          }
+          }).then(function (resp) {
+            var myids = []
+            resp.hits.hits.forEach(function(entry){myids.push(entry._id)})
+            that.ids = myids;
+            that.data = resp;
+            
+        });
+        
+      },
+     
       queryDefault: function() {
+        var that = this;
         var client = new $.es.Client({
           hosts: this.host
         });
-
-        var id = this.extraId;
-        var doc = this;
         client.search({
           // undocumented params are appended to the query string
           index: "tourpedia",
@@ -320,47 +326,115 @@
             size: 10,
             query: {
               match_all: {}
-            }
+            },
+            sort: {numReviews: "desc"},
+            aggs: {
+              category: {
+                terms: {
+                  field: "category",
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              },
+              location: {
+                terms: {
+                  field: "location",
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              },
+              numReviews: {
+                terms: {
+                  field: "numReviews",
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              },
+              polarity: {
+                terms: {
+                  field: "polarity",
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              }
+            }      
           }
         }).then(function (resp) {
-          var hits = resp.hits.hits;
-          doc.ids = [];
-          doc.places = [];
-          hits.forEach(function(entry) {
-            doc.push('ids',entry._id)
-          });
-          filtered = true;
+          var myids = []
+          resp.hits.hits.forEach(function(entry){myids.push(entry._id)})
+          that.ids = myids;
+          //console.log(that.ids)
+          that.data = resp;
+          //console.log(that.data)
         });
       },
 
       _filtersChange: function() {
+        console.log("_filtersChangedash")
+        var that = this;
         if(filtered){
           var client = new $.es.Client({
             hosts: this.host
           });
-
-          var id = this.extraId;
-          var doc = this;
           client.search({
-            // undocumented params are appended to the query string
-            index: this.index,
-            type: this.subindex,
-            body: {
-              size: 10,
-              query: {
-                    bool: {
-                      must: this.filters,
-                    }
+          // undocumented params are appended to the query string
+          index: "tourpedia",
+          type: "places",
+          body: {
+            size: 10,
+            query: {
+              bool: {
+                must: this.filters,
+              }
+            },
+            aggs: {
+              category: {
+                terms: {
+                  field: "category",
+                  order: {
+                    _count: "desc"
                   }
-            }
+                }
+              },
+              location: {
+                terms: {
+                  field: "location",
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              },
+              numReviews: {
+                terms: {
+                  field: "numReviews",
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              },
+              polarity: {
+                terms: {
+                  field: "polarity",
+                  order: {
+                    _count: "desc"
+                  }
+                }
+              }
+            }      
+          }
           }).then(function (resp) {
-            var hits = resp.hits.hits;
-            doc.ids = [];
-            doc.places = [];
-            hits.forEach(function(entry) {
-              doc.push('ids',entry._id)
+            var myids = []
+            resp.hits.hits.forEach(function(entry){myids.push(entry._id)})
+            that.ids = myids;
+            //console.log(that.ids)
+            that.data = resp;
+            //console.log(that.data)
+            
             });
-          });
         }
       }
     });
