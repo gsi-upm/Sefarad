@@ -1,103 +1,21 @@
-Installation
+Quick Start
 ------------
 
-Sefarad uses a Python web server, so for it installation is necessary to have Python installed.
-In addition, Sefarad uses a RESTful search and analytics engine called Elasticsearch.
+Sefarad installation is based in docker containers, only requirement is to have docker and docker-compose installed.
 
-Installing Elasticsearch
-~~~~~~~~~~~~~~~~~~~~~~~~
+For docker installation in Ubuntu, visit this `link <https://store.docker.com/editions/community/docker-ce-server-ubuntu?tab=description>`_ 
 
-First of all you need to download Elasticsearch from `here <https://www.elastic.co/downloads/elasticsearch>`_
+Docker-compose installation detailed instructions are available `here <https://docs.docker.com/compose/install/>`_
 
-Unzip Elasticsearch and navigate to the folder:
-
-.. code:: bash
-   
-   $ cd elasticsearch-5.x.x
-
-If you are working in localhost you may need to change the configuration file called ``elasticsearch.yml`` located inside config directory.
-
-Just add the following lines at the end:
-
-.. code:: yaml
-
-    http.cors.enabled : true
-    http.cors.allow-origin : "*"
-    http.cors.allow-methods: OPTIONS, HEAD, GET, POST, PUT, DELETE
-    http.cors.allow-headers: X-Requested-With, X-Auth-Token, Content-Type, Content-Length
-
-Then start the service:
-
-.. code:: bash
-   
-   $ bin/elasticsearch
-
-
-You can found our demo data inside ``elasticsearch/nodes`` folder. Copy this data inside your elasticsearch data folder to use it.
-
-
-Installing Sefarad
-~~~~~~~~~~~~~~~~~~
-
-Once started, you need to clone the Github repository:
- 
-.. code:: bash
-
-   $ git clone https://lab.cluster.gsi.dit.upm.es/sefarad/sefarad.git
-   $ cd sefarad
-
-Install all the requierements:
-
-.. code:: bash
-   
-   $ sudo pip2 install -r requirements.txt
-
-Install all Web components necessary for this demo:
-
-.. code::bash 
-   
-   $ bower install
-
-Running Sefarad
-~~~~~~~~~~~~~~~
-
-Finally, Sefarad is ready to start:
-
-.. code:: bash 
-
-   $ python2 web.py
-
-Sefarad is now running at port 8080.
-
-This sefarad instance elasticsearch's endpoint can be modified to GSI elasticsearch.
-In order to try with your own data you need to change ``elasticsearch.jquery.js`` file inside scrpits directory.
-
-Change the following lines:
-
-.. code:: javascript
-
-    this.host = 'localhost'
-    this.port = 9200
-    config.host = 'http://localhost:9200'
-
-
-Is also possible to install Sefarad with Docker.
-
-Install with docker
-~~~~~~~~~~~~~~~~~~~
+Install with docker-compose
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 First of all, you need to clone the Github repository:
  
 .. code:: bash
 
-   $ git clone git@github.com:gsi-upm/sefarad
+   $ git clone https://lab.cluster.gsi.dit.upm.es/sefarad/sefarad.git
    $ cd sefarad
-
-Install all Web components necessary for this demo:
-
-.. code::bash 
-   
-   $ bower install
 
 Finally, it is necessary to change your **ElasticSearch** configuration folder permissions.
 
@@ -105,13 +23,60 @@ Finally, it is necessary to change your **ElasticSearch** configuration folder p
 
     $ sudo chown -R 105 ./elasticsearch/config/
 
-Running Sefarad
-***************
-
 Now the image is ready to run:
 
 .. code:: bash
 
     $ sudo docker-compose up  
 
-Sefarad is now running at port 80
+Sefarad visualisation server is now running at port 8080, you can check with your web browser that the dashboard has no data. The url is http://localhost:8080
+
+Loading demo data to visualisation server
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Loading data has been developed as a Luigi pipeline. We can found all necessary files inside ``luigi`` folder.
+
+First of all, check your luigi container is working properly:
+
+..code:: bash
+
+  $ sudo docker-compose run luigi
+
+This must answer ``No task specified``, if not check your docker installation.
+
+Secondly, we execute the Luigi pipeline called add_tweet.
+
+There are some required parameters in this pipeline:
+* index: Elasticsearch index were data is going to be stored
+* doc-type: Elasticsearch doc-type inside the index.
+* filename: This is our demo data collected in a JSON file.
+
+It is also necessary to add --local-scheduler at the end.
+
+After all this considerations, run the pipeline:
+
+..code:: bash
+
+  $ sudo docker-compose run luigi --module add_tweets Elasticsearch --index tourpedia --doc-type places --filename add_demo.json --local-scheduler
+
+Our Luigi Execution Summary should say:
+
+..code:: bash
+  
+  Scheduled 2 tasks of which:
+  * 2 ran successfully:
+      - 1 Elasticsearch(date=XXXX-XX-XX, filename=add_demo.json, index=tourpedia, doc_type=places)
+      - 1 FetchDataTask(filename=add_demo.json)
+
+  This progress looks :) because there were no failed tasks or missing external dependencies
+
+Now is time to check our index in elasticsearch `here <http://localhost:9200/_cat/indices>`_ there should be a line with an index called tourpedia.
+
+After we have checked, we must update the index mapping to be able to ask queries:
+
+..code:: bash
+  
+  $ sh elasticsearch/update-mapping.sh
+
+Finally, check your Sefarad visualisation environment has data reloading the http://localhost:8080 page.
+

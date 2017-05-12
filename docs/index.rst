@@ -11,14 +11,15 @@ Contents:
 .. toctree::
    sefarad
    installation
-   quickguide
-   widgets
-   dashboards
-   datasource
-   pipelines
-   demo
+
    :maxdepth: 2
 ..   api
 ..   apiUsage
 ..   metrics
 ..   usage
+..   quickguide
+..   widgets
+..   dashboards
+..   datasource
+..   pipelines
+..   demo
