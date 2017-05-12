@@ -5,6 +5,8 @@ services:
     build: .
     ports:
      - "8080:8080"
+    volumes:
+     - .:/usr/src/app
     networks:
       - sefarad-network
     depends_on:
@@ -25,7 +27,9 @@ services:
       context: .
       dockerfile: Dockerfile-luigi
     volumes:
-      - .:/usr/src/app
+      - ./luigi:/usr/src/app
+    networks:
+      - sefarad-network
 
 networks:
   sefarad-network:

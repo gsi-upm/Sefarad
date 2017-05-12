@@ -1,12 +1,19 @@
-FROM node:7.10
+from node:7.10.0
 
-RUN npm install -g bower http-server
+ENV NODE_PATH=/tmp/node_modules APP_NAME=sefarad
 
-WORKDIR /usr/src/app
+# Install dependencies first to use cache
+RUN npm install -g http-server bower
 
-RUN echo '{ "allow_root": true }' > /root/.bowerrc
+ADD bower.json /usr/src/bower.json
+
+RUN cd /usr/src && \
+    bower install --allow-root 
+
+RUN cp -r /usr/src/bower_components/ /usr/src/app/ 
+
 ADD . /usr/src/app
 
-RUN bower install --allow-root
+WORKDIR /usr/src/app/
 
 CMD ["http-server"]

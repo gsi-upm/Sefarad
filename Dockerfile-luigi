@@ -1,7 +1,9 @@
 FROM python:3
 
-RUN pip install luigi elasticsearch rdflib
+RUN pip install luigi elasticsearch rdflib requests
 
-ADD . /usr/src/app
+WORKDIR /usr/src/app
 
-ENTRYPOINT ["python", "-m", "luigi"]
+ADD ./luigi /usr/src/app
+
+ENTRYPOINT ["python","-m","luigi"]
