@@ -38,7 +38,7 @@ Loading data has been developed as a Luigi pipeline. We can found all necessary 
 
 First of all, check your luigi container is working properly:
 
-..code:: bash
+.. code:: bash
 
   $ sudo docker-compose run luigi
 
@@ -55,13 +55,13 @@ It is also necessary to add --local-scheduler at the end.
 
 After all this considerations, run the pipeline:
 
-..code:: bash
+.. code:: bash
 
   $ sudo docker-compose run luigi --module add_tweets Elasticsearch --index tourpedia --doc-type places --filename add_demo.json --local-scheduler
 
 Our Luigi Execution Summary should say:
 
-..code:: bash
+.. code:: bash
   
   Scheduled 2 tasks of which:
   * 2 ran successfully:
@@ -74,7 +74,7 @@ Now is time to check our index in elasticsearch `here <http://localhost:9200/_ca
 
 After we have checked, we must update the index mapping to be able to ask queries:
 
-..code:: bash
+.. code:: bash
   
   $ sh elasticsearch/update-mapping.sh
 
