@@ -17,7 +17,7 @@ $ git clone https://lab.cluster.gsi.dit.upm.es/sefarad/sefarad.git
 $ cd sefarad
 ```
 
-Install all the requierements:
+Install all the requirements:
 
 ```
 $ sudo pip2 install -r requirements.txt

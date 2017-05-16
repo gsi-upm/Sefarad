@@ -24,8 +24,7 @@ services:
       - sefarad-network
   luigi:
     build:
-      context: .
-      dockerfile: Dockerfile-luigi
+      context: luigi/
     volumes:
       - ./luigi:/usr/src/app
     networks:
