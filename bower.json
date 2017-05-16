@@ -1,31 +1,29 @@
 {
   "name": "sefarad",
   "homepage": "https://lab.cluster.gsi.dit.upm.es/sefarad/sefarad",
-  "authors": [
-    "GSI-UPM"
-  ],
+  "authors": [ "GSI-UPM" ],
   "description": "",
   "main": "",
   "license": "MIT",
   "dependencies": {
-    "paper-card": "PolymerElements/paper-card#*",
-    "polymer": "polymer#*",
+    "paper-card": "PolymerElements/paper-card#1.1.4",
+    "polymer": "polymer#1.7.0",
     "google-chart-elasticsearch": "google-chart-elasticsearch#*",
     "number-chart": "number-chart#*",
     "yasgui-polymer": "yasgui-polymer#*",
     "material-search": "material-search#*",
     "leaflet-maps": "leaflet-maps#*",
-    "paper-drawer-panel": "paper-drawer-panel#*",
-    "paper-tabs": "paper-tabs#*",
-    "iron-pages": "iron-pages#*",
-    "paper-toast": "paper-toast#*",
-    "paper-dialog-scrollable":"paper-dialog-scrollable#*",
+    "paper-drawer-panel": "paper-drawer-panel#1.0.3",
+    "paper-tabs": "paper-tabs#1.0.1",
+    "iron-pages": "iron-pages#1.0.2",
+    "paper-toast": "paper-toast#1.0.0",
+    "paper-dialog-scrollable":"paper-dialog-scrollable#1.0.1",
     "reviews-table": "reviews-table#*",
-    "paper-item": "paper-item#*",
-    "paper-menu": "paper-menu#*",
-    "paper-dialog": "paper-dialog#*",
-    "paper-scroll-header-panel": "paper-scroll-header-panel#*",
-    "page": "page#*"
+    "paper-item": "paper-item#1.0.2",
+    "paper-menu": "paper-menu#1.0.1",
+    "paper-dialog": "paper-dialog#1.0.1",
+    "paper-scroll-header-panel": "paper-scroll-header-panel#1.0.6",
+    "page": "page#1.6.3"
   },
   "resolutions": {
     "webcomponentsjs": "1.0.0"
