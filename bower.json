@@ -8,7 +8,7 @@
   "main": "",
   "license": "MIT",
   "dependencies": {
-    "paper-card": "PolymerElements/paper-card#^1.1.4",
+    "paper-card": "PolymerElements/paper-card#*",
     "polymer": "polymer#*",
     "google-chart-elasticsearch": "google-chart-elasticsearch#*",
     "number-chart": "number-chart#*",
@@ -26,5 +26,8 @@
     "paper-dialog": "paper-dialog#*",
     "paper-scroll-header-panel": "paper-scroll-header-panel#*",
     "page": "page#*"
+  },
+  "resolutions": {
+    "webcomponentsjs": "1.0.0"
   }
 }

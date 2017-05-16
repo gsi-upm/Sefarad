@@ -2,3 +2,5 @@ analysis
 *.pyc
 docs/_build
 bower_components
+.*
+*~
