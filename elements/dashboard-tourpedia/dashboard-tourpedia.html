@@ -3,7 +3,6 @@
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/google-chart-elasticsearch/google-chart.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
-<link rel="import" href="../../bower_components/yasgui-polymer/yasgui.html">
 <link rel="import" href="../../bower_components/reviews-table/reviews-table.html">
 <link rel="import" href="../../bower_components/number-chart/number-chart.html">
 <link rel="import" href="../../bower_components/leaflet-maps/leaflet-map.html">
@@ -158,24 +157,8 @@
                 icon='social:people'>
             </reviews-table>
           </div>
-          <div class="chart_container" style="right: 0; float: right"> 
-            <leaflet-map fit-to-markers>      
-              <template is="dom-repeat" items="[[getPoints(places.*)]]" as="place">      
-                <leaflet-marker latitude="{{place.lat}}" longitude="{{place.lng}}" title="{{place.name}}"> 
-                    <b>Name:</b>
-                    <span>{{place.name}}</span>
-                </leaflet-marker>
-              </template>
-            </leaflet-map>
-          </div>
           <div style="clear: both"></div>
         </div>
-      </div>
-      <div>
-        <yasgui-ui
-            endpoint="http://fuseki-tourpedia.cluster.gsi.dit.upm.es/tourpedia/query"
-            queries="{{queries}}">
-        </yasgui-ui>
       </div>
     </iron-pages>
   </template>

@@ -10,10 +10,8 @@ ADD bower.json /usr/src/bower.json
 RUN cd /usr/src && \
     bower install --allow-root 
 
-RUN cp -r /usr/src/bower_components/ /usr/src/app/ 
-
 ADD . /usr/src/app
 
 WORKDIR /usr/src/app/
 
-CMD ["http-server"]
+CMD ["/usr/src/app/init.sh"]
