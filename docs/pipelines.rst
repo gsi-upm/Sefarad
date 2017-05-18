@@ -5,7 +5,7 @@ We use Luigi as orchestrator to build pipelines through our search and indexing 
 
 These scripts describe tasks. This tasks has a execution sequence, i.e. the final task depend on the others. This means that for running the script you only need to call the final task.
 
-For following steps, the example used is sefarad.py (this script is located in https://lab.cluster.gsi.dit.upm.es/sefarad/sefarad-full/blob/master/sefarad.py) 
+For following steps, the example used is sefarad.py (this script is located inside Luigi folder) 
 
 In our example tasks are: FetchDataTask, SenpyTask and ElasticsearchTask.
 
@@ -16,25 +16,16 @@ In our example tasks are: FetchDataTask, SenpyTask and ElasticsearchTask.
 Running Luigi pipelines
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-You need to install luigi and rdflib with pip:
-
-.. sourcecode:: bash
-	
-	$ pip3 install rdflib luigi
-
 This command is for running your pipelines. You have to introduce your script name in modules and the end task of your script.
 
 .. sourcecode:: bash
 
-	$ luigi --module <your-script-name> <your-final-task> --index <your-elasticsearch-index> --doc-type <your-elasticsearch-doctype> -- filename <your .json path> --local-scheduler
+	$ sudo docker-compose run luigi --module <your-script-name> <your-final-task> --index <your-elasticsearch-index> --doc-type <your-elasticsearch-doctype> -- filename <your .json path> --local-scheduler
 
 In our example:
 
 .. sourcecode:: bash
 
-	$ luigi --module sefarad Elasticsearch --index elasticdemo --doc-type tweet --filename sefarad_demo.json --local-scheduler
+	$ sudo docker-compose run luigi --module sefarad Elasticsearch --index elasticdemo --doc-type tweet --filename sefarad_demo.json --local-scheduler
 
-In case of error Luigi module not found just type this command:
-
-	$ python3 -m luigi --module sefarad Elasticsearch --filename sefarad_demo.json --index elasticdemo --doc-type tweet --local-scheduler
-	
+Create your own pipelines like in the example and add them to Luigi folder is also necessary to add your JSON file to this folder, run them with the same command explained above. 

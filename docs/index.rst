@@ -11,6 +11,8 @@ Contents:
 .. toctree::
    sefarad
    installation
+   dashboards-dev
+   pipelines
 
    :maxdepth: 2
 ..   api
