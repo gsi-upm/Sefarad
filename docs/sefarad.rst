@@ -1,21 +1,21 @@
 What is Sefarad?
 ----------------
 
-Sefarad is an application developed to explore data by making SPARQL queries to the endpoint you choose without writing more code. You can also create your own cores if you have a big collection of data (LMF required). To view your data you can customize your own widgets and visualize it through them.
+Sefarad is an environment developed to explore, analyse and visualize data. This environmet has a modular structure.
 
 Architecture
 ============
 
-The modular architecture of Sefarad allows retrieving, storing and processing large amounts of information.
+Sefarad environment is divided in three docker containers, each one is focused in one task:
 
-* Model-view, the main function of this module is to represent data which were processed and draw different charts to visualize interesting data. Model-view is structured in different dashboards.
-* ElasticSearch [#f1]_, stores all the amount of data that needed for the model-view.
-* SPARQL editor, the user could explore data stored in Fuseki service, either executing default queries that Sefarad will provide or queries that the user has created.  
-* GSI Crawler, will download the comments belonging to this element and, later, the pertinent analysis will be run using the Senpy tool.
+* Visualisation, the main function of this module is to represent data which were processed and draw different charts to visualize interesting data. This visualisation is structured in different dashboards. In addition, these dashboards are divided in different Widgets based on Polymer Web Components.
+* ElasticSearch [#f1]_, stores all the amount of data needed for the visualisation.
+* Luigi, is used as an orchestrator to build pipelines through analytic services and elasticSearch, in order to facilitate analysis. Luigi is also used to populate elasticSearch with data. 
 
-.. image:: architecture.png
-  :height: 500px
-  :width: 500px
+In this figure is a detailed view of the architecture described above.
+
+.. image:: images/sefarad.png
+  :height: 400px
   :scale: 100 %
   :align: center
 

@@ -47,6 +47,7 @@ This must answer ``No task specified``, if not check your docker installation.
 Secondly, we execute the Luigi pipeline called add_tweet.
 
 There are some required parameters in this pipeline:
+
 * index: Elasticsearch index were data is going to be stored
 * doc-type: Elasticsearch doc-type inside the index.
 * filename: This is our demo data collected in a JSON file.
