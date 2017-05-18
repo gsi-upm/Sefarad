@@ -8,11 +8,6 @@
   "dependencies": {
     "paper-card": "PolymerElements/paper-card#1.1.4",
     "polymer": "polymer#1.7.0",
-    "google-chart-elasticsearch": "google-chart-elasticsearch#*",
-    "number-chart": "number-chart#*",
-    "yasgui-polymer": "yasgui-polymer#*",
-    "material-search": "material-search#*",
-    "leaflet-maps": "leaflet-maps#*",
     "paper-drawer-panel": "paper-drawer-panel#1.0.3",
     "paper-tabs": "paper-tabs#1.0.1",
     "iron-pages": "iron-pages#1.0.2",
@@ -23,7 +18,8 @@
     "paper-menu": "paper-menu#1.0.1",
     "paper-dialog": "paper-dialog#1.0.1",
     "paper-scroll-header-panel": "paper-scroll-header-panel#1.0.6",
-    "page": "page#1.6.3"
+    "page": "page#1.6.3",
+    "dashboard-tourpedia": "./elements/dashboard-tourpedia"
   },
   "resolutions": {
     "webcomponentsjs": "1.0.0"

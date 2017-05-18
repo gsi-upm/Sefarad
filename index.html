@@ -73,6 +73,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
+    <elastic-client 
+      config='{"host": "http://localhost:9200"}' 
+      client="{{client}}"
+      cluster-status="{{myStatus}}">
+    </elastic-client>
 
       <!-- Main Area -->
       <paper-scroll-header-panel main condenses keep-condensed-header>
@@ -101,7 +106,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <iron-pages attr-for-selected="data-route" selected="home">
 
             <section data-route="home">
-              <dashboard-tourpedia></dashboard-tourpedia>
+              <dashboard-tourpedia client="{{client}}"></dashboard-tourpedia>
             </section>
 
           </iron-pages>

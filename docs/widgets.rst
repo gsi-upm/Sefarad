@@ -12,6 +12,8 @@ In Sefarad we have prebuilt Web Components in ``./bower_components`` folder. Her
 
 There is also an Online Web Components library `here <https://www.webcomponents.org/>`_.
 
+If you want to use some of this components just add them to your bower.json file as a dependency.
+
 Developing your own Web Components
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -92,16 +94,14 @@ If you want to make your widget installable via bower you can register this pack
 	$ bower register <my-package-name> <git-endpoint>
 
 
-Finally, complete the ``./elements/elements.html`` file to use your new widget globally.
+Finally, add a ``<link>`` tag in your dashboard to use your new widget inside it.
 
 
 > elements.html
 
 .. sourcecode:: html
 
-	<link rel="import" href="../bower_components/myweb_component/myweb_component.html">
+	<link rel="import" href="../myweb_component/myweb_component.html">
 
 
-Remember to add your Polymer Web Components to ``bower_components`` directory if not included yet. Edit css if necessary.
-
-After following these steps, build up Sefarad environment and you should be able to use your new Web Component successfully.
+Edit css if necessary.
