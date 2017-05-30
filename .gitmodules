@@ -4,3 +4,6 @@
 [submodule "elements/dashboard-tourpedia"]
 	path = elements/dashboard-tourpedia
 	url = https://lab.cluster.gsi.dit.upm.es/sefarad/dashboard-tourpedia.git
+[submodule "elements/dashboard-ftt"]
+	path = elements/dashboard-ftt
+	url = https://rebla@lab.cluster.gsi.dit.upm.es/sefarad/dashboard-financial-twitter-tracker.git
