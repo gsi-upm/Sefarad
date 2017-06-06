@@ -19,8 +19,9 @@
     "paper-dialog": "paper-dialog#1.0.1",
     "paper-scroll-header-panel": "paper-scroll-header-panel#1.0.6",
     "page": "page#1.6.3",
-    "dashboard-ftt": "dashboard-ftt#1.0.1",
-    "dashboard-tourpedia": "dashboard-tourpedia#*"
+    "dashboard-tourpedia": "dashboard-tourpedia#*",
+    "dashboard-ftt":"dashboard-ftt#*",
+    "dashboard-aspects": "dashboard-aspects#*"
   },
   "resolutions": {
     "webcomponentsjs": "0.7.24"
