@@ -63,7 +63,7 @@
     .circletag2 {
       height: 100px;
       width: 100px;
-      background-image: url(/images/chart.png);
+      background-image: url(/images/absa.png);
       background-size: cover;
       border-radius: 70px;
       margin: 2px auto;
@@ -73,7 +73,7 @@
     .circletag3 {
       height: 100px;
       width: 100px;
-      background-image: url(/images/map.png);
+      background-image: url(/images/ftt.png);
       background-size: cover;
       border-radius: 70px;
       margin: 2px auto;
@@ -258,7 +258,7 @@
     }
 
     .footer {
-      padding: 32px 0;
+      padding: 50px 0;
       background-color: white;
     }
 

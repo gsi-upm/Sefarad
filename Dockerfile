@@ -7,10 +7,10 @@ RUN npm install -g http-server bower
 
 ADD bower.json /usr/src/bower.json
 
+ADD . /usr/src/app
+
 RUN cd /usr/src && \
     bower install --allow-root 
-
-ADD . /usr/src/app
 
 WORKDIR /usr/src/app/
 
