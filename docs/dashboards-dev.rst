@@ -86,4 +86,4 @@ If your dashboard requires elasticsearch, just upload your data using Luigi pipe
 
 .. sourcecode:: bash
 
-	$ sudo docker-compose run luigi --module add_tweets Elasticsearch --index tourpedia --doc-type places --filename add_demo.json --local-scheduler
+	$ sudo docker-compose exec luigi python -m luigi --module add_tweets Elasticsearch --index tourpedia --doc-type places --filename add_demo.json --local-scheduler

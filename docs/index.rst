@@ -12,6 +12,7 @@ Contents:
    sefarad
    installation
    dashboards-dev
+   widgets
    pipelines
 
    :maxdepth: 2

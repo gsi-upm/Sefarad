@@ -30,6 +30,7 @@ services:
     volumes:
       - ./luigi:/usr/src/app
     environment:
+      - LUIGI_AUTO_ENABLED=False
       - CONSUMER_KEY={your twitter CONSUMER_KEY goes here}
       - CONSUMER_SECRET={your twitter CONSUMER_SECRET goes here}
       - ACCESS_TOKEN={your twitter ACCESS_TOKEN goes here}

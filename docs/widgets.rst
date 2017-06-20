@@ -96,9 +96,6 @@ If you want to make your widget installable via bower you can register this pack
 
 Finally, add a ``<link>`` tag in your dashboard to use your new widget inside it.
 
-
-> elements.html
-
 .. sourcecode:: html
 
 	<link rel="import" href="../myweb_component/myweb_component.html">
