@@ -4,3 +4,7 @@ docs/_build
 bower_components
 .*
 *~
+demos
+luigi/luigi-task-hist.db
+elasticsearch/nodes/0/indices
+luigi/luigi.cfg

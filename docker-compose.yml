@@ -25,8 +25,21 @@ services:
   luigi:
     build:
       context: luigi/
+    ports:
+      - "8082:8082"
     volumes:
       - ./luigi:/usr/src/app
+    environment:
+      - CONSUMER_KEY={your twitter CONSUMER_KEY goes here}
+      - CONSUMER_SECRET={your twitter CONSUMER_SECRET goes here}
+      - ACCESS_TOKEN={your twitter ACCESS_TOKEN goes here}
+      - ACCESS_TOKEN_SECRET={your twitter ACCESS_TOKEN_SECRET goes here}
+      - EMAIL={email addres for Luigi notifications}
+      - SMTP_HOST={your SMTP server}
+      - SMTP_PORT={your SMTP server port}
+      - SEARCH_QUERY={twitter hashtag or user you want to track}
+      - INDEX={elasticsearch index to store your data}
+      - DOC_TYPE={elasticsearch data doctype}
     networks:
       - sefarad-network
 
