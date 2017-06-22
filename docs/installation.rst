@@ -29,14 +29,21 @@ Now the image is ready to run:
 
     $ sudo docker-compose up  
 
+.. note::
+
+  In case of failure bringing up the project try to build the image again using sudo docker-compose build and then run it again.
+
 Sefarad visualisation server is now running at port 8080, you can check with your web browser that the dashboard has no data. The url is http://localhost:8080/demos/tourpedia
 
 Loading demo data to visualisation server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Loading data has been developed as a Luigi pipeline. We can found all necessary files inside ``luigi`` folder.
+Loading data has been developed as a Luigi pipeline. We can found all necessary files inside ``luigi`` folder. You can check your Luigi central scheduler in http://localhost:8082. This central scheduler is helpful to check if your tasks are working properly.
 
-First of all, we execute the Luigi pipeline called add_tweet.
+Is also possible to configure email alerts in case of failure. This settings can be modified in docker-compose.yml file, inside environment variables for Luigi container.
+
+
+For this demo first of all, we execute the Luigi pipeline called add_tweet.
 
 There are some required parameters in this pipeline:
 
