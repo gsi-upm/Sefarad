@@ -118,3 +118,19 @@ After your configuration is completed, run Sefarad image again:
 	If your get a connection error: build the image again and then run it.
 
 Finally, check your elasticsearch index entered above. If you want to use this new data in your dashboard just update your index and doc-type references in your HTML dashboard file.
+
+Luigi Service
+~~~~~~~~~~~~~~~~~~~
+In order to queue new crawling requests, a Python Flask server has been developed to stack these tasks using Luigi. The service enables to send basic input parameters, such as the url of the website desired to be scrapped, the analysis type and the elasticSearch basic information. The remote service processes all these data and creates performs the pipeline in background, fetching, analyzing and finally saving the data. The service returns the id and index where has been stored in elasticSearch.
+
+To explain more in deepth this work-flow process, we are going to briefly introduce an illustrative example.
+
+The case study explained is: "**Perform a sentiment analysis for HP Wired USB Keyboard from Amazon website**". The pipeline architecture is represented below:
+
+.. image:: images/picLuigi.png
+  :height: 320px
+  :scale: 100%
+  :align: center
+
+
+The service receives the new task input parameter, which are the url of the product from where the reviews will be extracted, the analysis that is going to be performed and the platform where is hosted the product. The service creates a new elasticSearch task and the execution begins. Once the result is saved in elasticSearch, the API call returns the destination where its stored so the user can retrieve it. This service is only available for Amazon and Foursquare platforms, and is currently used by the GSICrawler dashboard.

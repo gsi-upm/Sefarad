@@ -14,7 +14,8 @@ Contents:
    dashboards-dev
    widgets
    pipelines
-
+   gsicrawler
+   
    :maxdepth: 2
 ..   api
 ..   apiUsage
