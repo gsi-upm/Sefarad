@@ -19,6 +19,49 @@ In this figure is a detailed view of the architecture described above.
   :scale: 100 %
   :align: center
 
+
+Dashboards
+~~~~~~~~~~~~~~~~~~~~~~~
+Sefarad framework has multiple predefined dashboards which are ready to be used. Due to its high flexibility, it enables to display any kind of information, either user custom data sets or others included by default in the project. 
+
+In this section we are going to explain each dashboard, detailing most user-attractive functionalities using a predefined dataset and presenting the real value of the tool, so anyone can use Sefarad framework by applying their customized data.
+
+Due to the modular architecture offered by Sefarad framework, each dashboard has its own structure regardless, being able to interact with the components without influecing the rest. Moreover we are going to focus on explain what can be done in every dashboard through a case study without deepening inside its internal behaviour.
+
+
+Tourpedia
+**********************
+
+Overview
+^^^^^^^^^^^^^^^^^^^^^
+In progress
+
+Case study
+^^^^^^^^^^^^^^^^^^^^^
+In progress
+
+Conclusions
+^^^^^^^^^^^^^^^^^^^^^
+In progress
+
+
+Financial Twitter Tracker
+**********************
+
+Overview
+^^^^^^^^^^^^^^^^^^^^^
+In progress
+
+Case study
+^^^^^^^^^^^^^^^^^^^^^
+In progress
+
+Conclusions
+^^^^^^^^^^^^^^^^^^^^^
+In progress
+
+...
+
 .. rubric:: References
 
 .. [#f1] http://elastic.co
