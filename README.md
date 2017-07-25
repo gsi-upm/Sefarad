@@ -34,7 +34,7 @@ Finally, Sefarad is ready to start:
 ```
 $ python2 web.py
 ```
-Sefarad server starts in port 8080
+Sefarad server starts on port 8080
 
 For more info visit our documentation on: <a href="http://sefarad.readthedocs.io" target="_blank">http://sefarad.readthedocs.io</a>
 
@@ -43,7 +43,7 @@ Polymer - Web Components Technology
 
 ![Polymer logo](http://carlosortiz.co.uk/wp-content/uploads/2015/09/polymer-logo.jpg)
  
-Polymer is a technology based on web components, so we could make a new component with diferent estructures of html, styles with css, and give some dinamic functions using Javascript.
+Polymer is a technology based on web components, so we could make a new component with different structures of HTML, styles with CSS, and give some dynamic functions using Javascript.
 
 Those components will be reusable only importing the tag `<component-tag></component-tag>` and they could share information using data binding among them.
 
