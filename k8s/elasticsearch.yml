@@ -1,0 +1,75 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: sefarad-es
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        role: sefarad-es
+        app: test
+    spec:
+      containers:
+      - name: sefarad-es 
+        image: docker.elastic.co/elasticsearch/elasticsearch:5.4.0
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "2048Mi"
+            cpu: "1000m"
+        env:
+        - name: ES_JAVA_OPTS
+          value: -Xms1g -Xmx1g
+        command: ["bin/elasticsearch"]
+        args: [
+        '-Ecluster.name=sefarad',
+        '-Expack.security.enabled=false'
+        ]
+        ports:
+          - name: elasticsearch
+            containerPort: 9200
+          - name: elasticsearch-2
+            containerPort: 9300
+        volumeMounts:
+          - mountPath: /usr/share/elasticsearch/data
+            name: es-data
+            subPath: es-data
+      volumes:
+        - name: es-data
+          persistentVolumeClaim:
+            claimName: sefarad-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sefarad-es
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9200
+      protocol: TCP
+  selector:
+    role: sefarad-es
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: sefarad-es
+  annotations:
+    # Only proxy GET requests (used in clients)
+    ingress.kubernetes.io/configuration-snippet: |
+      if ($request_method !~ "GET") {
+        return 403;
+        break;
+      }
+spec:
+  rules:
+  - host: sefarad-elasticsearch.cluster.gsi.dit.upm.es
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: sefarad-es
+          servicePort: 9200
