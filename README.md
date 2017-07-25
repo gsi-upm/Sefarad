@@ -5,7 +5,7 @@
 Introduction
 ------------
 
-Sefarad is an application developed to explore data by making SPARQL queries to the endpoint you choose without writing more code. You can also create your own cores if you have a big collection of data ([LMF](https://code.google.com/p/lmf/) required). To view your data you can customize your own widgets and visualize it through them.
+Sefarad is an application developed to explore data by making SPARQL queries to the endpoint you choose without writing more code. You can also create your own cores if you have a big collection of data ([LMF](https://bitbucket.org/srfgkmt/lmf/) required). To view your data you can customize your own widgets and visualize it through them.
 
 Getting Started
 ---------------
