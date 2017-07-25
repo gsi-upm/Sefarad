@@ -29,6 +29,11 @@ Install all Web components necessary for this demo:
 $ bower install
 ```
 
+*Note*: In the case of failure installing the Web components, execute the next command and run the installation again.
+```
+$ sudo chown -R $USER:$GROUP ~/.npm && chown -R $USER:$GROUP ~/.config
+```
+
 Finally, Sefarad is ready to start:
 
 ```
