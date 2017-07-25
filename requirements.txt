@@ -1,0 +1,5 @@
+scrapy
+bottle
+elasticsearch
+rdflib-jsonld
+requests
