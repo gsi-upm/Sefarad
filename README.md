@@ -39,7 +39,7 @@ Finally, Sefarad is ready to start:
 ```
 $ python2 web.py
 ```
-Sefarad server starts on port 8080
+Sefarad server starts on [port 8080](http://localhost:8080).
 
 For more info visit our documentation on: <a href="http://sefarad.readthedocs.io" target="_blank">http://sefarad.readthedocs.io</a>
 
