@@ -59,6 +59,7 @@ metadata:
   name: sefarad-es
   annotations:
     # Only proxy GET requests (used in clients)
+    ingress.kubernetes.io/enable-cors: "true"
     ingress.kubernetes.io/configuration-snippet: |
       if ($request_method !~ "GET") {
         return 403;
