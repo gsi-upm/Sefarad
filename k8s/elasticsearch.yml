@@ -61,7 +61,7 @@ metadata:
     # Only proxy GET requests (used in clients)
     ingress.kubernetes.io/enable-cors: "true"
     ingress.kubernetes.io/configuration-snippet: |
-      if ($request_method !~ "GET") {
+      if ($request_filename !~ _search) {
         return 403;
         break;
       }
