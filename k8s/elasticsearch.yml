@@ -62,7 +62,14 @@ metadata:
   annotations:
     # Only proxy GET requests (used in clients)
     ingress.kubernetes.io/configuration-snippet: |
-      if (($request_filename !~ _search) && ($request_method !~ "HEAD")) {
+      set $reject 0;
+      if ($request_filename !~ _search) {
+        set $reject 1;
+      }
+      if ($request_method = "HEAD") {
+        set $reject 0;
+      }
+      if ($reject = 1) {
         return 403;
         break;
       }
