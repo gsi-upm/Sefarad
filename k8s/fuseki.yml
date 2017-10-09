@@ -53,7 +53,6 @@ kind: Ingress
 metadata:
   name: fuseki-ingress
   annotations:
-    ingress.kubernetes.io/enable-cors: "true"
     ingress.kubernetes.io/configuration-snippet: |
       if ($request_filename !~ query) {
         return 403;
