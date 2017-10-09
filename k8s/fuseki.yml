@@ -1,0 +1,63 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: sefarad-fuseki
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        role: sefarad-fuseki
+    spec:
+      containers:
+      - name: fuseki
+        image: stain/jena-fuseki
+        resources:
+          requests:
+            memory: "1024Mi"
+            cpu: "500m"
+          limits:
+            memory: "2048Mi"
+            cpu: "750m"
+        ports:
+          - name: sparql
+            containerPort: 3030
+        volumeMounts:
+          # name must match the volume name below
+          - name: fuseki-sefarad
+            mountPath: "/fuseki"
+            subPath: fuseki-data
+        env:
+          - name: ADMIN_PASSWORD
+            value: gsifuseki2017
+      volumes:
+      - name: fuseki-sefarad
+        persistentVolumeClaim:
+          claimName: sefarad-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sefarad-fuseki
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3030
+      protocol: TCP
+  selector:
+    role: sefarad-fuseki
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: fuseki-ingress
+spec:
+  rules:
+  - host: sefarad-fuseki.cluster.gsi.dit.upm.es
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: sefarad-fuseki
+          servicePort: 3030
