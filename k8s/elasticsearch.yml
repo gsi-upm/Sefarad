@@ -25,7 +25,9 @@ spec:
         command: ["bin/elasticsearch"]
         args: [
         '-Ecluster.name=sefarad',
-        '-Expack.security.enabled=false'
+        '-Expack.security.enabled=false',
+        '-Ehttp.cors.enabled=true',
+        '-Ehttp.cors.allow-origin=*'
         ]
         ports:
           - name: elasticsearch
@@ -59,9 +61,8 @@ metadata:
   name: sefarad-es
   annotations:
     # Only proxy GET requests (used in clients)
-    ingress.kubernetes.io/enable-cors: "true"
     ingress.kubernetes.io/configuration-snippet: |
-      if ($request_filename !~ _search) {
+      if (($request_filename !~ _search) && ($request_method !~ "HEAD")) {
         return 403;
         break;
       }
