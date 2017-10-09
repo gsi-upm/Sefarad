@@ -52,6 +52,13 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: fuseki-ingress
+  annotations:
+    ingress.kubernetes.io/enable-cors: "true"
+    ingress.kubernetes.io/configuration-snippet: |
+      if ($request_filename !~ query) {
+        return 403;
+        break;
+      }
 spec:
   rules:
   - host: sefarad-fuseki.cluster.gsi.dit.upm.es
