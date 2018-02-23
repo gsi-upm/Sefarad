@@ -13,37 +13,29 @@ services:
       - elasticsearch
 
   elasticsearch:
-    image: elasticsearch
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    volumes:
-      - ./elasticsearch/nodes:/usr/share/elasticsearch/data/nodes
-      - ./elasticsearch/config:/usr/share/elasticsearch/config
-    networks:
-      - sefarad-network
-  luigi:
-    build:
-      context: luigi/
-    ports:
-      - "8082:8082"
-    volumes:
-      - ./luigi:/usr/src/app
+    image: "docker.elastic.co/elasticsearch/elasticsearch:5.5.2"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
     environment:
-      - LUIGI_AUTO_ENABLED=False
-      - CONSUMER_KEY={your twitter CONSUMER_KEY goes here}
-      - CONSUMER_SECRET={your twitter CONSUMER_SECRET goes here}
-      - ACCESS_TOKEN={your twitter ACCESS_TOKEN goes here}
-      - ACCESS_TOKEN_SECRET={your twitter ACCESS_TOKEN_SECRET goes here}
-      - EMAIL={email addres for Luigi notifications}
-      - SMTP_HOST={your SMTP server}
-      - SMTP_PORT={your SMTP server port}
-      - SEARCH_QUERY={twitter hashtag or user you want to track}
-      - INDEX={elasticsearch index to store your data}
-      - DOC_TYPE={elasticsearch data doctype}
+      - cluster.name=sefarad-cluster
+      - bootstrap.memory_lock=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "xpack.security.enabled=false"
+      - "http.cors.enabled=true"
+      - 'http.cors.allow-origin=*'
+    volumes:
+      - es-data:/usr/share/elasticsearch/data/
+    ports:
+      - 9200:9200
+      - 9300:9300
     networks:
       - sefarad-network
 
 networks:
   sefarad-network:
     driver: bridge
+
+volumes:
+  es-data:

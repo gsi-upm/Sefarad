@@ -11,18 +11,5 @@ Contents:
 .. toctree::
    sefarad
    installation
-   dashboards-dev
    widgets
-   pipelines
-   
-   :maxdepth: 2
-..   api
-..   apiUsage
-..   metrics
-..   usage
-..   quickguide
-..   widgets
-..   dashboards
-..   datasource
-..   pipelines
-..   demo
+   dashboards-dev

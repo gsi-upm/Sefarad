@@ -1,6 +1,16 @@
 Developing your own dashboard
 -----------------------------
 
+Data structure and filter creation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Here is going to be described data structure needed for Web Components and filter creation in dashboards.
+
+[IMAGE DESCRIBING WEB COMPONENTS INSIDE DASHBOARD AND DATA BINDING]
+
+Dashboard development
+~~~~~~~~~~~~~~~~~~~~~
+
 In this section we will explain how to create new dashboards in Sefarad. First of all you can clone our dashboard development example from GitLab. Your dashboard should have the same files as this example.
 
 .. sourcecode:: bash
@@ -187,7 +197,7 @@ Once you hace all your web components ready is time to retrieve data for your we
 	    if(ready){
 	      this.client.search({
 	      // undocumented params are appended to the query string
-	      index: "somedi",
+	      index: "elasticsearchindex",
 	      body: {
 	        size: 500,
 	        query: {

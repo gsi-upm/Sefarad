@@ -56,7 +56,7 @@
       background-image: url(/images/dashboard.png);
       background-size: cover;
       border-radius: 70px;
-      margin: 2px auto;
+      margin: 8px auto;
       z-index: 0
     }
 
@@ -66,7 +66,7 @@
       background-image: url(/images/absa.png);
       background-size: cover;
       border-radius: 70px;
-      margin: 2px auto;
+      margin: 8px auto;
       z-index: 0
     }
 
@@ -76,7 +76,7 @@
       background-image: url(/images/ftt.png);
       background-size: cover;
       border-radius: 70px;
-      margin: 2px auto;
+      margin: 8px auto;
       z-index: 0
     }
 
@@ -237,7 +237,7 @@
     .bucket {
       color: white;
       margin: 0;
-      max-width: 1440px;
+      width: 100%;
       position: relative;
       z-index: 1;
       overflow: hidden;
@@ -251,20 +251,15 @@
       padding-top: 31px;
     }
 
-    .bucket.-no-bottom {
-      margin-bottom: -48px;
-      margin-left: -62px;
-      margin-right: -62px;
-    }
+ 
 
     .footer {
       padding: 50px 0;
-      background-color: white;
     }
 
     .copyright {
       float: right;
-      margin: 0 30px 0 20px;
+      margin: -55px 30px 0 20px;
       font-size: 13px;
       color: #595959;
     }
@@ -276,10 +271,8 @@
       color: #90A4AE; 
     }
 
-    .git {
-      float: right;  
+    .git {  
       font-size: 14px; 
-      padding-right: 46px
     }
 
     .gsi-title {
