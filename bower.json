@@ -34,7 +34,10 @@
     "entities-chart-ld": "entities-chart-ld#*",
     "social-media-chart": "social-media-chart#0.0.2",
     "paper-dialog":"paper-dialog#1.1.0",
-    "dashboard-tourpedia": "dashboard-tourpedia#*"
+    "dashboard-tourpedia": "dashboard-tourpedia#*",
+    "dashboard-aspects": "dashboard-aspects#*",
+    "dashboard-ftt": "dashboard-ftt#*"
+
   },
   "resolutions": {
     "webcomponentsjs": "0.7.24",
