@@ -27,14 +27,17 @@ Now the image is ready to run:
 
   In case of failure bringing up the project try to build the image again using sudo docker-compose build and then run it again.
 
-Sefarad visualisation server is now running at port 8080, you can check with your web browser that the dashboard has no data. The url is http://localhost:8080/demos/tourpedia
+Sefarad visualisation server is now running at port 8080, you can check with your web browser that the demos available have no data.
 
 Loading demo data to visualisation server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-[CALL SCRIPT TO LOAD DATA]
+Demo data is loaded to ElasticSearch via python script. In a new terminal type:
 
-Now is time to check our index in elasticsearch `here <http://localhost:9200/_cat/indices>`_ there should be a line with an index called tourpedia.
+.. code:: bash
 
-Finally, check your Sefarad visualisation environment has data reloading the http://localhost:8080/demos/tourpedia page.
+    $ docker-compose run loader load_demo.py  
 
+Now is time to check elasticsearch `here <http://localhost:9200/_cat/indices>`_ there should be list with all index available.
+
+Finally, check your Sefarad visualisation environment visiting different demos available.

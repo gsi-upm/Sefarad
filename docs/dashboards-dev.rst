@@ -4,9 +4,7 @@ Developing your own dashboard
 Data structure and filter creation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Here is going to be described data structure needed for Web Components and filter creation in dashboards.
-
-[IMAGE DESCRIBING WEB COMPONENTS INSIDE DASHBOARD AND DATA BINDING]
+Here is going to be described data structure needed for Web Components and filter creation in dashboards. Elasticsearch results are stored in a javacript Object, 
 
 Dashboard development
 ~~~~~~~~~~~~~~~~~~~~~
@@ -177,7 +175,7 @@ Now run in order to install this web components:
 
 Open in your Web Browser http://localhost:8080/ to check your new Web Components in Tab 1.
 
-Once you hace all your web components ready is time to retrieve data for your web components configuring your queries to ElasticSearch. This queries are set in Polymer Javascript inside *demo-dashboard.en.html*.
+Once you hace all your web components ready is time to retrieve data for your web components configuring your queries to ElasticSearch. This queries are set in Polymer Javascript inside *demo-dashboard.env.html*.
 
 .. sourcecode:: javascript
 

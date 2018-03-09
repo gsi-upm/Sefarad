@@ -11,8 +11,11 @@ Sefarad environment is divided in modules, each one is focused in one concrete t
 * Visualisation, the main function of this module is to represent data which were processed and draw different charts to visualize interesting data. This visualisation is structured in several dashboards, which are web pages oriented to display all the collected information . In addition, these dashboards are divided in other components (Polymer Web Components) that globally compound the dashboard itself.
 * ElasticSearch [#f0]_, represents the persistence layer of the project and stores all the amount of data needed for the visualisation.
 
-[IMAGE DESCRIBING SEFARAD ARCHITECTURE (WEB COMPONENTS AND DASHBOARDS)]
+.. image:: images/sefarad.png
+  :scale: 100 %
+  :align: center
 
+As shown in the architecture, Serafad is also capable to retrieve semantic data from external sources, such as Fuseki or DBPedia.
 
 Dashboards
 ==========
@@ -83,29 +86,9 @@ The data used for the dashboard is the Semeval 2015 ABSA dataset (Task 12) for r
   :scale: 100 %
   :align: center
 
-GSI Crawler [#f4]_
-~~~~~~~~~~~~~~~~~~
-
-This dashboard is useful to the analysis of comments from external aplications like Amazon and Foursquare. The user will choose the type of analysis he wants to carry out (Emotions, Sentiments or Fake Analysis) and he will also supply, for instance, a direct URL to a Amazon’s Product. 
-
-GSI Crawler functionalities relies on enqueue system. The website generates a query with relevant information, such as the url, the website, the analysis type that is going to be performed etc. This parameters trigger a Luigi pipeline, which is a sequence of tasks that follow a depedency tree each other. These tasks fetch the information from the provided link, preprocess it, run the sentiment or emotion analysis using Senpy tool [#f5]_ and finally store it in elasticSearch so it can be accessed from the client.
-
-The website receives the path where the result has been saved, retrieving the information and making a query to elasticSearch to add a new card within the user interface containing the output data.
-
-.. image:: images/gsicrawler.png
-  :height: 400px
-  :scale: 100 %
-  :align: center
-
-GSICrawler tool is directly connected with a Luigi task service, adding a new task to a remote queue everytime an analysis is requested, and retrieving the result from the elasticSearch index obtained. The queue service is detailed in `Pipelines > Luigi Service <http://sefarad.readthedocs.io/en/latest/pipelines.html#luigi-service>`_ section.
-
-
 .. rubric:: References
 
 .. [#f0] http://elastic.co
 .. [#f1] Enrique Conde Sánchez. (2016). Development of a Social Media Monitoring System based on Elasticsearch and Web Components Technologies.
 .. [#f2] Alberto Pascual Saavedra. (2016). Development of a Dashboard for Sentiment Analysis of Football in Twitter based on Web Components and D3.js.
 .. [#f3] Manuel García-Amado. (2016). Development of an Aspect-based Sentiment Analyzer for the Social Web and Application to Product Reviews.
-.. [#f4] José Emilio Carmona. (2016). Development of a Social Media Crawler for Sentiment Analysis.
-.. [#f5] J. Fernando Sánchez-Rada, Carlos A. Iglesias, Ignacio Corcuera-Platas & Oscar Araque (2016). Senpy: A Pragmatic Linked Sentiment Analysis Framework. In Proceedings DSAA 2016 Special Track on Emotion and Sentiment in Intelligent Systems and Big Social Data Analysis (SentISData).
-

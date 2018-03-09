@@ -12,4 +12,3 @@ Contents:
    sefarad
    installation
    widgets
-   dashboards-dev
