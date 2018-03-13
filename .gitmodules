@@ -3,10 +3,10 @@
 	url = git@github.com:enriquecs/elasticsearch-docker.git
 [submodule "elements/dashboard-tourpedia"]
 	path = elements/dashboard-tourpedia
-	url = https://lab.cluster.gsi.dit.upm.es/sefarad/dashboard-tourpedia.git
+	url = http://lab.cluster.gsi.dit.upm.es/sefarad/dashboard-tourpedia.git
 [submodule "elements/dashboard-ftt"]
 	path = elements/dashboard-ftt
-	url = https://lab.cluster.gsi.dit.upm.es/sefarad/dashboard-financial-twitter-tracker.git
+	url = http://lab.cluster.gsi.dit.upm.es/sefarad/dashboard-financial-twitter-tracker.git
 [submodule "elements/dashboard-aspects"]
 	path = elements/dashboard-aspects
-	url = https://lab.cluster.gsi.dit.upm.es/sefarad/dashboard-aspects.git
+	url = http://lab.cluster.gsi.dit.upm.es/sefarad/dashboard-aspects.git
