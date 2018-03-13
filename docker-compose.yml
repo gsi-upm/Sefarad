@@ -33,6 +33,13 @@ services:
     networks:
       - sefarad-network
 
+  loader:
+    build: ./examples
+    volumes:
+      - ./examples:/usr/src/app
+    networks:
+      - sefarad-network
+
 networks:
   sefarad-network:
     driver: bridge

@@ -1,7 +1,7 @@
 from elasticsearch import Elasticsearch
 import json
 
-host = "localhost"
+host = "elasticsearch"
 es = Elasticsearch(hosts=[{'host': host, 'port': 9200}])
 with open('tourpedia_data.json') as infile:
     count = 0
